@@ -25,6 +25,10 @@ RUMPSRCS= getifaddrs.c
 CPPFLAGS+= -DRUMP_ACTION
 .endif
 
+.ifdef SMALLPROG
+CPPFLAGS+=-DSMALL
+.endif
+
 CPPFLAGS+=-I${NETBSDSRCDIR}/sys/dist/pf/
 SRCS+= pfsync.c
 

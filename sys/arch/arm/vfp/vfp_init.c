@@ -265,6 +265,8 @@ vfp_attach(struct cpu_info *ci)
 		cpacr |= __SHIFTIN(CPACR_ALL, cpacr_vfp2);
 		armreg_cpacr_write(cpacr);
 
+		arm_isb();
+
 		/*
 		 * If we could enable them, then they exist.
 		 */

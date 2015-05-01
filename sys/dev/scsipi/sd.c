@@ -181,7 +181,10 @@ const struct cdevsw sd_cdevsw = {
 	.d_flag = D_DISK
 };
 
-static struct dkdriver sddkdriver = { sdstrategy, sdminphys };
+static struct dkdriver sddkdriver = {
+	.d_strategy = sdstrategy,
+	.d_minphys = sdminphys
+};
 
 static const struct scsipi_periphsw sd_switch = {
 	sd_interpret_sense,	/* check our error handler first */

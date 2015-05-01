@@ -515,7 +515,7 @@ fujitsu_hk_eval_nary_integer(ACPI_HANDLE handle, const char *path, const
 	return AE_OK;
 }
 
-MODULE(MODULE_CLASS_DRIVER, fujhk, NULL);
+MODULE(MODULE_CLASS_DRIVER, fujhk, "sysmon_power");
 
 #ifdef _MODULE
 #include "ioconf.c"

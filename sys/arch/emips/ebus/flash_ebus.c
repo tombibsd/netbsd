@@ -1431,7 +1431,10 @@ int   eflashactivate(device_t, enum devact);
 void  eflashdone(struct eflash_softc *);
 static void eflash_set_geometry(struct eflash_softc *sc);
 
-struct dkdriver eflashdkdriver = { eflashstrategy, minphys };
+struct dkdriver eflashdkdriver = {
+	.d_strategy = eflashstrategy,
+	.d_minphys = minphys
+};
 
 #ifdef HAS_BAD144_HANDLING
 static void bad144intern(struct eflash_softc *);

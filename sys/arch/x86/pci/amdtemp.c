@@ -519,7 +519,7 @@ amdtemp_family10_refresh(struct sysmon_envsys *sme, envsys_data_t *edata)
 	edata->value_cur = (value * 125000) + 273150000; /* From C to uK. */
 }
 
-MODULE(MODULE_CLASS_DRIVER, amdtemp, NULL);
+MODULE(MODULE_CLASS_DRIVER, amdtemp, "sysmon_envsys");
 
 #ifdef _MODULE
 #include "ioconf.c"

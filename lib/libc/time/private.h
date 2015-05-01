@@ -54,6 +54,10 @@
 #define HAVE_SETTIMEOFDAY	3
 #endif /* !defined HAVE_SETTIMEOFDAY */
 
+#ifndef HAVE_STRDUP
+#define HAVE_STRDUP 1
+#endif
+
 #ifndef HAVE_SYMLINK
 #define HAVE_SYMLINK		1
 #endif /* !defined HAVE_SYMLINK */
@@ -465,14 +469,6 @@ time_t time2posix_z(timezone_t __restrict, time_t) ATTRIBUTE_PURE;
 # endif
 #endif
 #endif
-
-/*
-** Private function declarations.
-*/
-
-char *		icatalloc(char * old, const char * new);
-char *		icpyalloc(const char * string);
-const char *	scheck(const char * string, const char * format);
 
 /*
 ** Finally, some convenience items.

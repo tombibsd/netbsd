@@ -108,7 +108,10 @@ const struct cdevsw ofdisk_cdevsw = {
 
 static void ofminphys(struct buf *);
 
-struct dkdriver ofdisk_dkdriver = { ofdisk_strategy, ofminphys };
+struct dkdriver ofdisk_dkdriver = {
+	.d_strategy = ofdisk_strategy,
+	.d_minphys = ofminphys
+};
 
 void ofdisk_getdefaultlabel (struct ofdisk_softc *, struct disklabel *);
 void ofdisk_getdisklabel (dev_t);

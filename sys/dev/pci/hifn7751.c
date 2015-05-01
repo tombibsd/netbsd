@@ -3123,6 +3123,7 @@ hifn_mkmbuf_chain(int totlen, struct mbuf *mtemplate)
 		}
 		MCLGET(m, M_DONTWAIT);
 		if (!(m->m_flags & M_EXT)) {
+			m_freem(m);
 			m_freem(m0);
 			return (NULL);
 		}

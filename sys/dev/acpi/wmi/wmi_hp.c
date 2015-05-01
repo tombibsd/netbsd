@@ -677,7 +677,7 @@ wmi_hp_sensor_refresh(struct sysmon_envsys *sme, envsys_data_t *edata)
 	    WMI_HP_METHOD_CMD_DOCK);
 }
 
-MODULE(MODULE_CLASS_DRIVER, wmihp, "acpiwmi");
+MODULE(MODULE_CLASS_DRIVER, wmihp, "acpiwmi,sysmon_envsys");
 
 #ifdef _MODULE
 #include "ioconf.c"

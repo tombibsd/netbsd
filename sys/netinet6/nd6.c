@@ -33,6 +33,8 @@
 #include <sys/cdefs.h>
 __KERNEL_RCSID(0, "$NetBSD$");
 
+#include "opt_net_mpsafe.h"
+
 #include "bridge.h"
 #include "carp.h"
 
@@ -2329,12 +2331,16 @@ nd6_output(struct ifnet *ifp, struct ifnet *origifp, struct mbuf *m0,
 		goto bad;
 	}
 
+#ifndef NET_MPSAFE
 	KERNEL_LOCK(1, NULL);
+#endif
 	if ((ifp->if_flags & IFF_LOOPBACK) != 0)
 		error = (*ifp->if_output)(origifp, m, sin6tocsa(dst), rt);
 	else
 		error = (*ifp->if_output)(ifp, m, sin6tocsa(dst), rt);
+#ifndef NET_MPSAFE
 	KERNEL_UNLOCK_ONE(NULL);
+#endif
 	return error;
 
   bad:

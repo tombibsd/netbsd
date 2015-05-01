@@ -217,7 +217,9 @@ const struct cdevsw mmem_cdevsw = {
 CFATTACH_DECL_NEW(mmem, sizeof(struct mmem_softc),
     mmemmatch, mmemattach, mmemdetach, NULL);
 
-struct dkdriver mmemdkdriver = { mmemstrategy };
+struct dkdriver mmemdkdriver = {
+	.d_strategy = mmemstrategy
+};
 
 static int
 mmemmatch(device_t parent, cfdata_t cf, void *aux)

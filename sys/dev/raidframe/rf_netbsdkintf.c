@@ -230,7 +230,10 @@ const struct cdevsw raid_cdevsw = {
 	.d_flag = D_DISK
 };
 
-static struct dkdriver rf_dkdriver = { raidstrategy, minphys };
+static struct dkdriver rf_dkdriver = {
+	.d_strategy = raidstrategy,
+	.d_minphys = minphys
+};
 
 struct raid_softc {
 	device_t sc_dev;

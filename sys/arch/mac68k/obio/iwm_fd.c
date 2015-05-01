@@ -260,7 +260,7 @@ const struct cdevsw fd_cdevsw = {
 
 /* disk(9) framework device switch */
 struct dkdriver fd_dkDriver = {
-	fdstrategy
+	.d_strategy = fdstrategy
 };
 
 /***  Configure the IWM controller  ***/

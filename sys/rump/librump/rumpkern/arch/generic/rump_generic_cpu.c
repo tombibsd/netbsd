@@ -51,3 +51,10 @@ rump_cpu_attach(struct cpu_info *ci)
 	kcpuset_set(kcpuset_attached, cpu_index(ci));
 	kcpuset_set(kcpuset_running, cpu_index(ci));
 }
+
+struct clockframe *
+rump_cpu_makeclockframe(void)
+{
+
+	return NULL;
+}

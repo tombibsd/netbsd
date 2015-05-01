@@ -51,5 +51,5 @@ int		|syspuffs_glueinit	|int, int *	|WEAK
 
 ; Other compat glue (for sniffing purposes)
 ; XXX: (lack of) types
-void		|vattr50_to_vattr	|const struct vattr *, struct vattr *
-void		|vattr_to_vattr50	|const struct vattr *, struct vattr *
+void		|vattr50_to_vattr|const struct vattr *, struct vattr *|COMPAT_50
+void		|vattr_to_vattr50|const struct vattr *, struct vattr *|COMPAT_50

@@ -38,7 +38,8 @@
 
 typedef void *(cfunc_init)(size_t, const void *, size_t *);
 typedef void  (cfunc_destroy)(void *);
-typedef void  (cfunc_cipher)(void *, struct uio *, struct uio *, void *, int);
+typedef void  (cfunc_cipher)(void *, struct uio *, struct uio *, const void *,
+				int);
 
 struct cryptfuncs {
 	const char	 *cf_name;	/* cipher name */

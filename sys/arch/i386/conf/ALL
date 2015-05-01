@@ -223,6 +223,7 @@ options 	MPLS		# MultiProtocol Label Switching (needs ifmpls)
 options 	MROUTING	# IP multicast routing
 options 	PIM		# Protocol Independent Multicast
 options 	NETATALK	# AppleTalk networking protocols
+options 	DCCP		# Datagram Congestion Control Protocol
 options 	PPP_BSDCOMP	# BSD-Compress compression support for PPP
 options 	PPP_DEFLATE	# Deflate compression support for PPP
 options 	PPP_FILTER	# Active filter support for PPP (requires bpf)
@@ -603,6 +604,7 @@ wsdisplay*	at wsemuldisplaydev?
 #vboxdrm*	at drm?		# VirtualBox DRM driver
 #viadrm* 	at drm?		# VIA UniChrome DRM driver
 
+# DRMKMS drivers
 i915drmkms* 	at pci? dev ? function ?
 intelfb* 	at intelfbbus?
 
@@ -611,6 +613,9 @@ radeondrmkmsfb* at radeonfbbus?
 
 #nouveau*	at pci? dev ? function ?
 #nouveaufb*	at nouveaufbbus
+
+# DRMUMS drivers
+viadrmums* 	at drm?
 
 attimer0	at isa?
 pcppi0		at isa?

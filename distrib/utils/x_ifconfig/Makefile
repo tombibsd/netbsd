@@ -14,6 +14,10 @@ CPPFLAGS+=	-DINET6
 SRCS+= af_inet6.c
 .endif
 
+.ifdef SMALLPROG
+CPPFLAGS+=-DSMALL
+.endif
+
 PROG=	ifconfig
 .include "${.CURDIR}/../../../sbin/ifconfig/Makefile.inc"
 

@@ -40,4 +40,7 @@ FILESNAME_${XZSRCDIR}/po/${lang}.gmo=	xz.mo
 .endfor
 .endif
 
+LDADD+=	-lpthread
+DPADD+=	${LIBPTHREAD}
+
 .include <bsd.prog.mk>

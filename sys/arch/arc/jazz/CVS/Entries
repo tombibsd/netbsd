@@ -2,7 +2,7 @@
 /bus_dma_jazz.c/1.17/Fri Jul  1 19:25:41 2011/-kk/
 /com_jazzio.c/1.12/Fri Jul  1 19:25:41 2011/-kk/
 /dma.h/1.5/Sun May  4 10:07:51 2003/-kk/
-/fd.c/1.46/Mon Jan 12 06:47:53 2015/-kk/
+/fd.c/1.47/Fri May  1 11:28:44 2015/-kk/
 /fdc_jazzio.c/1.15/Fri Jul  1 19:25:41 2011/-kk/
 /fdcvar.h/1.6/Sat Jul  5 08:46:25 2008/-kk/
 /fdreg.h/1.4/Sun Dec 11 12:16:39 2005/-kk/

@@ -54,6 +54,7 @@ struct tegraio_attach_args {
 extern struct bus_space armv7_generic_bs_tag;
 extern struct bus_space armv7_generic_a4x_bs_tag;
 extern bus_space_handle_t tegra_host1x_bsh;
+extern bus_space_handle_t tegra_ppsb_bsh;
 extern bus_space_handle_t tegra_apb_bsh;
 extern bus_space_handle_t tegra_ahb_a2_bsh;
 extern struct arm32_bus_dma_tag tegra_dma_tag;
@@ -68,7 +69,11 @@ u_int	tegra_chip_id(void);
 const char *tegra_chip_name(void);
 void	tegra_bootstrap(void);
 
+u_int	tegra_car_osc_rate(void);
+u_int	tegra_car_pllx_rate(void);
+
 void	tegra_pmc_reset(void);
+void	tegra_pmc_power(u_int, bool);
 
 psize_t	tegra_mc_memsize(void);
 

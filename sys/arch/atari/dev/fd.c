@@ -379,7 +379,9 @@ fdcprint(void *aux, const char *pnp)
 static int	fdmatch(device_t, cfdata_t, void *);
 static void	fdattach(device_t, device_t, void *);
 
-struct dkdriver fddkdriver = { fdstrategy };
+struct dkdriver fddkdriver = {
+	.d_strategy = fdstrategy
+};
 
 CFATTACH_DECL_NEW(fd, sizeof(struct fd_softc),
     fdmatch, fdattach, NULL, NULL);

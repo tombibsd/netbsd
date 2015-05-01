@@ -675,7 +675,7 @@ nsclpcsio_gpio_pin_ctl(void *aux, int pin, int flags)
 }
 #endif /* NGPIO */
 
-MODULE(MODULE_CLASS_DRIVER, nsclpcsio, NULL);
+MODULE(MODULE_CLASS_DRIVER, nsclpcsio, "sysmon_envsys");
 
 #ifdef _MODULE
 #include "ioconf.c"

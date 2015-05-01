@@ -83,7 +83,10 @@ const struct cdevsw altmem_cdevsw = {
 	.d_discard = nodiscard,
 	.d_flag = D_DISK
 };
-static struct dkdriver altmemdkdriver = { altmemstrategy, minphys };
+static struct dkdriver altmemdkdriver = {
+	.d_strategy = altmemstrategy,
+	.d_minphys = minphys
+};
 extern struct cfdriver altmem_cd;
 
 CFATTACH_DECL_NEW(altmem, sizeof(struct altmem_softc), altmem_match,

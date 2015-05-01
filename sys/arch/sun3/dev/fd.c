@@ -309,7 +309,9 @@ static void fdgetdisklabel(dev_t);
 static void fdstart(struct fd_softc *);
 static int fdprint(void *, const char *);
 
-struct dkdriver fddkdriver = { fdstrategy };
+struct dkdriver fddkdriver = {
+	.d_strategy = fdstrategy
+};
 
 static void	fd_set_motor(struct fdc_softc *);
 static void	fd_motor_off(void *);

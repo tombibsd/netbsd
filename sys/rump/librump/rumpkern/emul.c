@@ -85,7 +85,6 @@ struct vnode *rootvp;
 dev_t rootdev = NODEV;
 
 const int schedppq = 1;
-int hardclock_ticks;
 bool mp_online = false;
 struct timeval boottime;
 int cold = 1;

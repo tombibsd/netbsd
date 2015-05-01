@@ -135,7 +135,7 @@ arm_netbsd_elf32_coredump_setup(struct lwp *l, void *arg)
 #ifdef __ARMEB__
         if (CPU_IS_ARMV7_P()
 	    || (CPU_IS_ARMV6_P()
-		&& (armreg_sctrl_read() & CPU_CONTROL_BEND_ENABLE) == 0)) {
+		&& (armreg_sctlr_read() & CPU_CONTROL_BEND_ENABLE) == 0)) {
 		eh->e_flags |= EF_ARM_BE8;
 	}
 #endif

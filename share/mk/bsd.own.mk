@@ -945,9 +945,9 @@ MKBINUTILS?=	${MKBFD}
 .endif
 
 #
-# We want to build zfs only for i386 and amd64 by default for now.
+# We want to build zfs only for amd64 by default for now.
 #
-.if ${MACHINE} == "amd64" || ${MACHINE} == "i386"
+.if ${MACHINE} == "amd64"
 MKZFS?=		yes
 .endif
 
@@ -1312,6 +1312,12 @@ X11SRCDIR.xf86-video-${_v}?=	${X11SRCDIRMIT}/xf86-video-${_v}/dist
 MKX11RADEONKMS?=		yes
 .endif
 MKX11RADEONKMS?=		no
+
+# Only install the radeon firmware on DRM-happy systems.
+.if ${MACHINE_ARCH} == "x86_64" || ${MACHINE_ARCH} == "i386"
+MKRADEONFIRMWARE?=		yes
+.endif
+MKRADEONFIRMWARE?=		no
 
 .if ${X11FLAVOUR} == "Xorg"
 X11DRI?=			yes

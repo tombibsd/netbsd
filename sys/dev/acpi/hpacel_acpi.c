@@ -574,7 +574,7 @@ hpacel_sensor_refresh(struct sysmon_envsys *sme, envsys_data_t *edata)
 	}
 }
 
-MODULE(MODULE_CLASS_DRIVER, hpacel, NULL);
+MODULE(MODULE_CLASS_DRIVER, hpacel, "sysmon_envsys");
 
 #ifdef _MODULE
 #include "ioconf.c"

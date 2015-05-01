@@ -851,7 +851,7 @@ acpibat_get_limits(struct sysmon_envsys *sme, envsys_data_t *edata,
 	*props |= PROP_BATTCAP | PROP_BATTWARN | PROP_DRIVER_LIMITS;
 }
 
-MODULE(MODULE_CLASS_DRIVER, acpibat, NULL);
+MODULE(MODULE_CLASS_DRIVER, acpibat, "sysmon_envsys");
 
 #ifdef _MODULE
 #include "ioconf.c"

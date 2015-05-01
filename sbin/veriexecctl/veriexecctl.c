@@ -248,10 +248,11 @@ main(int argc, char **argv)
 			err(1, "Cannot open `%s'", file);
 
 		yyin = fdopen(lfd, "r");
-
 		yyparse();
+		fclose(yyin);
 
-		(void)fclose(yyin);
+		if (error != EXIT_SUCCESS)
+			errx(1, "Cannot load '%s'", file);
 	} else if (argc == 2 && strcasecmp(argv[0], "delete") == 0) {
 		prop_dictionary_t dp;
 		struct stat sb;

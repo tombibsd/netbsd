@@ -173,7 +173,7 @@ acpilid_notify_handler(ACPI_HANDLE handle, uint32_t notify, void *context)
 	}
 }
 
-MODULE(MODULE_CLASS_DRIVER, acpilid, NULL);
+MODULE(MODULE_CLASS_DRIVER, acpilid, "sysmon_power");
 
 #ifdef _MODULE
 #include "ioconf.c"

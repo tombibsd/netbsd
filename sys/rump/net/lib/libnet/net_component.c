@@ -49,11 +49,16 @@ RUMP_COMPONENT(RUMP_COMPONENT_NET)
 
 RUMP_COMPONENT(RUMP_COMPONENT_NET_ROUTE)
 {
-	extern struct domain routedomain, compat_50_routedomain, linkdomain;
+	extern struct domain routedomain, linkdomain;
+#ifdef COMPAT_50
+	extern struct domain compat_50_routedomain;
+#endif
 
 	domain_attach(&linkdomain);
 	domain_attach(&routedomain);
+#ifdef COMPAT_50
 	domain_attach(&compat_50_routedomain);
+#endif
 }
 
 RUMP_COMPONENT(RUMP_COMPONENT_NET_IF)

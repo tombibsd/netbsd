@@ -1132,12 +1132,12 @@ bcsp_tx_reliable_pkt(struct bcsp_softc *sc, struct mbuf *m, u_int protocol_id)
 		pldlen += _m->m_len;
 	}
 	if (pldlen > 0xfff)
-		return false;
+		goto out;
 	if (protocol_id == BCSP_IDENT_ACKPKT || protocol_id > 15)
-		return false;
+		goto out;
 
 	if (sc->sc_seq_winspace == 0)
-		return false;
+		goto out;
 
 	M_PREPEND(m, sizeof(bcsp_hdr_t), M_DONTWAIT);
 	if (m == NULL) {
@@ -1168,12 +1168,15 @@ bcsp_tx_reliable_pkt(struct bcsp_softc *sc, struct mbuf *m, u_int protocol_id)
 	_m = m_copym(m, 0, M_COPYALL, M_DONTWAIT);
 	if (_m == NULL) {
 		aprint_error_dev(sc->sc_dev, "out of memory\n");
-		return false;
+		goto out;
 	}
 	MBUFQ_ENQUEUE(&sc->sc_seq_retryq, _m);
 	bcsp_mux_transmit(sc);
 
 	return true;
+out:
+	m_freem(m);
+	return false;
 }
 
 #if 0
@@ -1369,9 +1372,9 @@ bcsp_tx_unreliable_pkt(struct bcsp_softc *sc, struct mbuf *m, u_int protocol_id)
 	}
 	DPRINTFN(1, (" pldlen=%d\n", pldlen));
 	if (pldlen > 0xfff)
-		return false;
+		goto out;
 	if (protocol_id == BCSP_IDENT_ACKPKT || protocol_id > 15)
-		return false;
+		goto out;
 
 	M_PREPEND(m, sizeof(bcsp_hdr_t), M_DONTWAIT);
 	if (m == NULL) {
@@ -1397,6 +1400,9 @@ bcsp_tx_unreliable_pkt(struct bcsp_softc *sc, struct mbuf *m, u_int protocol_id)
 	bcsp_mux_transmit(sc);
 
 	return true;
+out:
+	m_freem(m);
+	return false;
 }
 
 #if 0

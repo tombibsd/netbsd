@@ -47,6 +47,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <arm/nvidia/tegra_var.h>
 
+#define TEGRA_EHCI_REG_OFFSET	0x100
+
 static int	tegra_ehci_match(device_t, cfdata_t, void *);
 static void	tegra_ehci_attach(device_t, device_t, void *);
 
@@ -83,7 +85,8 @@ tegra_ehci_attach(device_t parent, device_t self, void *aux)
 	sc->sc.sc_size = loc->loc_size;
 	sc->sc.iot = tio->tio_bst;
 	bus_space_subregion(tio->tio_bst, tio->tio_bsh,
-	    loc->loc_offset, loc->loc_size, &sc->sc.ioh);
+	    loc->loc_offset + TEGRA_EHCI_REG_OFFSET,
+	    loc->loc_size - TEGRA_EHCI_REG_OFFSET, &sc->sc.ioh);
 
 	aprint_naive("\n");
 	aprint_normal(": USB%d\n", loc->loc_port + 1);

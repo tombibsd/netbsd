@@ -134,9 +134,10 @@ ingenic_dwc2_attach(device_t parent, device_t self, void *aux)
 		return;
 	}
 
-	aprint_naive(": USB controller\n");
-	aprint_normal(": USB controller\n");
+	aprint_naive(": USB OTG controller\n");
+	aprint_normal(": USB OTG controller\n");
 
+	/* reset PHY, flash LED */
 	gpio_set(5, 15, 0);
 	delay(250000);
 	gpio_set(5, 15, 1);

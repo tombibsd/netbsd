@@ -740,6 +740,7 @@ static const struct bge_revision {
 	{ BGE_CHIPID_BCM5761_A1, "BCM5761 A1" },
 	{ BGE_CHIPID_BCM5784_A0, "BCM5784 A0" },
 	{ BGE_CHIPID_BCM5784_A1, "BCM5784 A1" },
+	{ BGE_CHIPID_BCM5784_B0, "BCM5784 B0" },
 	/* 5754 and 5787 share the same ASIC ID */
 	{ BGE_CHIPID_BCM5787_A0, "BCM5754/5787 A0" },
 	{ BGE_CHIPID_BCM5787_A1, "BCM5754/5787 A1" },
@@ -1744,8 +1745,10 @@ bge_newbuf_std(struct bge_softc *sc, int i, struct mbuf *m,
 	if (!(sc->bge_flags & BGEF_RX_ALIGNBUG))
 	    m_adj(m_new, ETHER_ALIGN);
 	if (bus_dmamap_load_mbuf(sc->bge_dmatag, dmamap, m_new,
-	    BUS_DMA_READ|BUS_DMA_NOWAIT))
+	    BUS_DMA_READ|BUS_DMA_NOWAIT)) {
+		m_freem(m_new);
 		return ENOBUFS;
+	}
 	bus_dmamap_sync(sc->bge_dmatag, dmamap, 0, dmamap->dm_mapsize,
 	    BUS_DMASYNC_PREREAD);
 
@@ -4723,7 +4726,7 @@ bge_asf_driver_up(struct bge_softc *sc)
 			bge_wait_for_event_ack(sc);
 
 			bge_writemem_ind(sc, BGE_SRAM_FW_CMD_MB,
-			    BGE_FW_CMD_DRV_ALIVE);
+			    BGE_FW_CMD_DRV_ALIVE3);
 			bge_writemem_ind(sc, BGE_SRAM_FW_CMD_LEN_MB, 4);
 			bge_writemem_ind(sc, BGE_SRAM_FW_CMD_DATA_MB,
 			    BGE_FW_HB_TIMEOUT_SEC);

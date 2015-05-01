@@ -60,7 +60,7 @@ static int32_t sw_sensor_mode;
 static int32_t sw_sensor_defprops;
 sysmon_envsys_lim_t sw_sensor_deflims;
 
-MODULE(MODULE_CLASS_DRIVER, swsensor, NULL);
+MODULE(MODULE_CLASS_DRIVER, swsensor, "sysmon_envsys");
 
 /*
  * Set-up the sysctl interface for setting the sensor's cur_value

@@ -61,6 +61,11 @@ static bool tegraio_found = false;
 #define NOPORT	TEGRAIOCF_PORT_DEFAULT
 #define NOINTR	TEGRAIO_INTR_DEFAULT
 
+static const struct tegra_locators tegra_ppsb_locators[] = {
+  { "tegracar",
+    TEGRA_CAR_OFFSET, TEGRA_CAR_SIZE, NOPORT, NOINTR },
+};
+
 static const struct tegra_locators tegra_apb_locators[] = {
   { "tegramc",
     TEGRA_MC_OFFSET, TEGRA_MC_SIZE, NOPORT, NOINTR },
@@ -113,6 +118,8 @@ tegraio_attach(device_t parent, device_t self, void *aux)
 	aprint_naive("\n");
 	aprint_normal(": %s\n", tegra_chip_name());
 
+	tegraio_scan(self, tegra_ppsb_bsh,
+	    tegra_ppsb_locators, __arraycount(tegra_ppsb_locators));
 	tegraio_scan(self, tegra_apb_bsh,
 	    tegra_apb_locators, __arraycount(tegra_apb_locators));
 	tegraio_scan(self, tegra_ahb_a2_bsh,

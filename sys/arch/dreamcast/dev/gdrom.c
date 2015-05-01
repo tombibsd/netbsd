@@ -110,7 +110,9 @@ struct gdrom_softc {
 CFATTACH_DECL_NEW(gdrom, sizeof(struct gdrom_softc),
     gdrommatch, gdromattach, NULL, NULL);
 
-struct dkdriver gdromdkdriver = { gdromstrategy };
+struct dkdriver gdromdkdriver = {
+	.d_strategy = gdromstrategy
+};
 
 
 struct gd_toc {

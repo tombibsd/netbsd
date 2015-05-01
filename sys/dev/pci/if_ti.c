@@ -733,6 +733,7 @@ ti_newbuf_std(struct ti_softc *sc, int i, struct mbuf *m, bus_dmamap_t dmamap)
 				BUS_DMA_READ|BUS_DMA_NOWAIT)) != 0) {
 			aprint_error_dev(sc->sc_dev, "can't load recv map, error = %d\n",
 			       error);
+			m_freem(m_new);
 			return (ENOMEM);
 		}
 	} else {

@@ -5,15 +5,15 @@
 /domacro.c/1.22/Sun Apr 12 10:18:52 2009/-kk/
 /extern.h/1.80/Wed Jul  4 06:09:37 2012/-kk/
 /fetch.c/1.206/Tue Dec  9 04:16:27 2014/-kk/
-/ftp.1/1.134/Sat Dec 22 16:57:10 2012/-kk/
+/ftp.1/1.135/Fri May  1 11:32:56 2015/-kk/
 /ftp.c/1.164/Wed Jul  4 06:09:37 2012/-kk/
 /ftp_var.h/1.83/Mon Jan 26 07:10:36 2015/-kk/
-/main.c/1.122/Sat Dec 22 16:57:10 2012/-kk/
+/main.c/1.123/Fri May  1 11:32:56 2015/-kk/
 /progressbar.c/1.22/Wed Jun 27 22:07:36 2012/-kk/
 /progressbar.h/1.8/Sun Apr 12 10:18:52 2009/-kk/
 /ruserpass.c/1.33/Tue Apr 17 05:52:04 2007/-kk/
 /ssl.c/1.2/Mon Dec 24 22:12:28 2012/-kk/
 /ssl.h/1.2/Tue Jan 14 16:05:16 2014/-kk/
 /util.c/1.158/Thu Oct 24 10:28:59 2013/-kk/
-/version.h/1.85/Tue Dec  9 04:16:27 2014/-kk/
+/version.h/1.86/Fri May  1 11:32:56 2015/-kk/
 D

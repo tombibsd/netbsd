@@ -6,7 +6,13 @@ get_sensor_info() {
 }
 
 get_sensor_key() {
-	get_sensor_info | grep -A1 $1 | grep integer | sed -e 's;<[/a-z]*>;;g'
+	local v
+	v=$(get_sensor_info | grep -A1 $1 | grep integer | \
+	    sed -e 's;<[/a-z]*>;;g')
+	if [ -z "$v" ] ; then
+		v="key_$1_not_found"
+	fi
+	echo $v
 }
 
 get_powerd_event_count() {

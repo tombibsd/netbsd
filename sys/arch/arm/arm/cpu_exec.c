@@ -77,7 +77,7 @@ arm_netbsd_elf32_probe(struct lwp *l, struct exec_package *epp, void *eh0,
 	 * If the BE-8 model is supported, CPSR[7] will be clear.
 	 * If the BE-32 model is supported, CPSR[7] will be set.
 	 */
-	register_t ctl = armreg_sctrl_read();
+	register_t ctl = armreg_sctlr_read();
 	if (((ctl & CPU_CONTROL_BEND_ENABLE) != 0) == be8_p)
 		return ENOEXEC;
 #endif /* __ARMEB__ */

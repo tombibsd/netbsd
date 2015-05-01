@@ -214,7 +214,9 @@ const struct cdevsw fd_cdevsw = {
 
 static void fdstart(struct fd_softc *);
 
-struct dkdriver fddkdriver = { fdstrategy };
+struct dkdriver fddkdriver = {
+	.d_strategy = fdstrategy
+};
 
 static bool fd_shutdown(device_t, int);
 #if 0

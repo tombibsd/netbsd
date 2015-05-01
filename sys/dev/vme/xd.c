@@ -327,7 +327,9 @@ struct xdc_attach_args {	/* this is the "aux" args to xdattach */
  * dkdriver
  */
 
-struct dkdriver xddkdriver = {xdstrategy};
+struct dkdriver xddkdriver = {
+	.d_strategy = xdstrategy
+};
 
 /*
  * start: disk label fix code (XXX)

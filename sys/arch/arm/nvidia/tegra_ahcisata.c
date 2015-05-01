@@ -70,8 +70,9 @@ tegra_ahcisata_attach(device_t parent, device_t self, void *aux)
 	sc->sc.sc_atac.atac_dev = self;
 	sc->sc.sc_dmat = tio->tio_dmat;
 	sc->sc.sc_ahcit = tio->tio_bst;
+	sc->sc.sc_ahcis = loc->loc_size;
 	bus_space_subregion(tio->tio_bst, tio->tio_bsh,
-	    loc->loc_offset, loc->loc_size, &sc->sc.sc_ahcis);
+	    loc->loc_offset, loc->loc_size, &sc->sc.sc_ahcih);
 	sc->sc.sc_ahci_ports = 1;
 
 	aprint_naive("\n");

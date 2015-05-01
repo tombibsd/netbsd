@@ -553,7 +553,7 @@ sdtemp_pmf_resume(device_t dev, const pmf_qual_t *qual)
 	return (error == 0);
 }
 
-MODULE(MODULE_CLASS_DRIVER, sdtemp, "i2cexec");
+MODULE(MODULE_CLASS_DRIVER, sdtemp, "i2cexec,sysmon_envsys");
 
 #ifdef _MODULE
 #include "ioconf.c"

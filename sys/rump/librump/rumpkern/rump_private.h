@@ -173,6 +173,8 @@ void	rump_user_unschedule(int, int *, void *);
 
 void	rump_cpu_attach(struct cpu_info *);
 
+struct clockframe *rump_cpu_makeclockframe(void);
+
 void	rump_kernel_bigwrap(int *);
 void	rump_kernel_bigunwrap(int);
 

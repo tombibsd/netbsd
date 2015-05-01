@@ -303,7 +303,7 @@ hpqlb_resume(device_t self, const pmf_qual_t *qual)
 	return true;
 }
 
-MODULE(MODULE_CLASS_DRIVER, hpqlb, NULL);
+MODULE(MODULE_CLASS_DRIVER, hpqlb, "sysmon_power");
 
 #ifdef _MODULE
 #include "ioconf.c"

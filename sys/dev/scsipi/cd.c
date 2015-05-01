@@ -229,7 +229,10 @@ const struct cdevsw cd_cdevsw = {
 	.d_flag = D_DISK
 };
 
-static struct dkdriver cddkdriver = { cdstrategy, NULL };
+static struct dkdriver cddkdriver = {
+	.d_strategy = cdstrategy,
+	.d_minphys = cdminphys
+};
 
 static const struct scsipi_periphsw cd_switch = {
 	cd_interpret_sense,	/* use our error handler first */

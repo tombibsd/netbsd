@@ -505,7 +505,7 @@ acpipmtr_notify(ACPI_HANDLE hdl, uint32_t evt, void *aux)
 	}
 }
 
-MODULE(MODULE_CLASS_DRIVER, acpipmtr, NULL);
+MODULE(MODULE_CLASS_DRIVER, acpipmtr, "sysmon_envsys");
 
 #ifdef _MODULE
 #include "ioconf.c"

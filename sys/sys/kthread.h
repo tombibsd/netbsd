@@ -54,7 +54,6 @@ void	kthread_sysinit(void);
 int	kthread_create(pri_t, int, struct cpu_info *,
     void (*)(void *), void *, lwp_t **, const char *, ...) __printflike(7, 8);
 void	kthread_exit(int) __dead;
-void	kthread_destroy(lwp_t *);
 int	kthread_join(lwp_t *);
 
 #endif /* _SYS_KTHREAD_H_ */

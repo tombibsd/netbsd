@@ -231,8 +231,7 @@ physio(void (*strategy)(struct buf *), struct buf *obp, dev_t dev, int flags,
 
 	flags &= B_READ | B_WRITE;
 
-	if ((ps = kmem_zalloc(sizeof(*ps), KM_SLEEP)) == NULL)
-		return ENOMEM;
+	ps = kmem_zalloc(sizeof(*ps), KM_SLEEP);
 	/* ps->ps_running = 0; */
 	/* ps->ps_error = 0; */
 	/* ps->ps_failed = 0; */

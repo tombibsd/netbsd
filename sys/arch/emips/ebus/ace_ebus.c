@@ -1585,7 +1585,10 @@ void  acestart(void *);
 void  __acestart(struct ace_softc*, struct buf *);
 void  acerestart(void *);
 
-struct dkdriver acedkdriver = { acestrategy, minphys };
+struct dkdriver acedkdriver = {
+	.d_strategy = acestrategy,
+	.d_minphys = minphys
+};
 
 #ifdef HAS_BAD144_HANDLING
 static void bad144intern(struct ace_softc *);

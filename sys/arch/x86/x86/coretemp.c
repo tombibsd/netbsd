@@ -349,7 +349,7 @@ coretemp_refresh_xcall(void *arg0, void *arg1)
 		edata->state = ENVSYS_SCRITICAL;
 }
 
-MODULE(MODULE_CLASS_DRIVER, coretemp, NULL);
+MODULE(MODULE_CLASS_DRIVER, coretemp, "sysmon_envsys");
 
 #ifdef _MODULE
 #include "ioconf.c"

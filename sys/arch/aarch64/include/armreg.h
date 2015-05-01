@@ -268,8 +268,8 @@ AARCH64REG_WRITE_INLINE(rmr_el1)
 AARCH64REG_READ_INLINE(rvbar_el1)	// Reset Vector Base Address Register
 AARCH64REG_WRITE_INLINE(rvbar_el1)
 
-AARCH64REG_READ_INLINE(sctrl_el1)	// System Control Register
-AARCH64REG_WRITE_INLINE(sctrl_el1)
+AARCH64REG_READ_INLINE(sctlr_el1)	// System Control Register
+AARCH64REG_WRITE_INLINE(sctlr_el1)
 
 AARCH64REG_READ_INLINE(sp_el0)		// Stack Pointer
 AARCH64REG_WRITE_INLINE(sp_el0)

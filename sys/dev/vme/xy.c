@@ -243,7 +243,9 @@ struct xyc_attach_args {	/* this is the "aux" args to xyattach */
  * dkdriver
  */
 
-struct dkdriver xydkdriver = { xystrategy };
+struct dkdriver xydkdriver = {
+	.d_strategy = xystrategy
+};
 
 /*
  * start: disk label fix code (XXX)

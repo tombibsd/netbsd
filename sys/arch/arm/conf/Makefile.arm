@@ -74,6 +74,10 @@ ${SYSTEM_FIRST_OBJ}: ${SYSTEM_FIRST_SFILE} assym.h
 locore.o: ${ARM}/arm32/locore.S assym.h
 	${NORMAL_S}
 
+.if defined(SPLASHSCREEN_IMAGE)
+.include "$S/dev/splash/splash.mk"
+.endif
+
 ##
 ## (5) link settings
 ##

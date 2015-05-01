@@ -73,6 +73,10 @@ copy.o: ${AMD64}/amd64/copy.S assym.h
 spl.o: ${AMD64}/amd64/spl.S assym.h
 	${NORMAL_S}
 
+.if defined(SPLASHSCREEN_IMAGE)
+.include "$S/dev/splash/splash.mk"
+.endif
+
 ##
 ## (5) link settings
 ##

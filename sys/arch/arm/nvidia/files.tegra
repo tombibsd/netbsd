@@ -31,6 +31,11 @@ device	tegrapmc
 attach	tegrapmc at tegraio with tegra_pmc
 file	arch/arm/nvidia/tegra_pmc.c		tegra_pmc
 
+# Clock and Reset controller
+device	tegracar
+attach	tegracar at tegraio with tegra_car
+file	arch/arm/nvidia/tegra_car.c		tegra_car
+
 # UART
 attach	com at tegraio with tegra_com
 file	arch/arm/nvidia/tegra_com.c		tegra_com needs-flag

@@ -426,7 +426,6 @@ in6_pcbbind(void *v, struct sockaddr_in6 *sin6, struct lwp *l)
 int
 in6_pcbconnect(void *v, struct mbuf *nam, struct lwp *l)
 {
-	struct rtentry *rt;
 	struct in6pcb *in6p = v;
 	struct in6_addr *in6a = NULL;
 	struct sockaddr_in6 *sin6 = mtod(nam, struct sockaddr_in6 *);
@@ -445,6 +444,8 @@ in6_pcbconnect(void *v, struct mbuf *nam, struct lwp *l)
 		return (EINVAL);
 
 	if (nam->m_len != sizeof(*sin6))
+		return (EINVAL);
+	if (sin6->sin6_len != sizeof(*sin6))
 		return (EINVAL);
 	if (sin6->sin6_family != AF_INET6)
 		return (EAFNOSUPPORT);
@@ -524,10 +525,11 @@ in6_pcbconnect(void *v, struct mbuf *nam, struct lwp *l)
 			return (error);
 		}
 	}
-	if (ifp == NULL && (rt = rtcache_validate(&in6p->in6p_route)) != NULL)
-		ifp = rt->rt_ifp;
 
-	in6p->in6p_ip6.ip6_hlim = (u_int8_t)in6_selecthlim(in6p, ifp);
+	if (ifp != NULL)
+		in6p->in6p_ip6.ip6_hlim = (u_int8_t)in6_selecthlim(in6p, ifp);
+	else
+		in6p->in6p_ip6.ip6_hlim = (u_int8_t)in6_selecthlim_rt(in6p);
 
 	if (in6_pcblookup_connect(in6p->in6p_table, &sin6->sin6_addr,
 	    sin6->sin6_port,
@@ -626,29 +628,23 @@ in6_pcbdetach(struct in6pcb *in6p)
 }
 
 void
-in6_setsockaddr(struct in6pcb *in6p, struct mbuf *nam)
+in6_setsockaddr(struct in6pcb *in6p, struct sockaddr_in6 *sin6)
 {
-	struct sockaddr_in6 *sin6;
 
 	if (in6p->in6p_af != AF_INET6)
 		return;
 
-	nam->m_len = sizeof(*sin6);
-	sin6 = mtod(nam, struct sockaddr_in6 *);
 	sockaddr_in6_init(sin6, &in6p->in6p_laddr, in6p->in6p_lport, 0, 0);
 	(void)sa6_recoverscope(sin6); /* XXX: should catch errors */
 }
 
 void
-in6_setpeeraddr(struct in6pcb *in6p, struct mbuf *nam)
+in6_setpeeraddr(struct in6pcb *in6p, struct sockaddr_in6 *sin6)
 {
-	struct sockaddr_in6 *sin6;
 
 	if (in6p->in6p_af != AF_INET6)
 		return;
 
-	nam->m_len = sizeof(*sin6);
-	sin6 = mtod(nam, struct sockaddr_in6 *);
 	sockaddr_in6_init(sin6, &in6p->in6p_faddr, in6p->in6p_fport, 0, 0);
 	(void)sa6_recoverscope(sin6); /* XXX: should catch errors */
 }
@@ -1104,7 +1100,8 @@ in6_pcbrtentry(struct in6pcb *in6p)
 		addr.s_addr = in6p->in6p_faddr.s6_addr32[3];
 
 		sockaddr_in_init(&u.dst4, &addr, 0);
-		rtcache_setdst(ro, &u.dst);
+		if (rtcache_setdst(ro, &u.dst) != 0)
+			return NULL;
 
 		rt = rtcache_init(ro);
 	} else
@@ -1116,7 +1113,8 @@ in6_pcbrtentry(struct in6pcb *in6p)
 		} u;
 
 		sockaddr_in6_init(&u.dst6, &in6p->in6p_faddr, 0, 0, 0);
-		rtcache_setdst(ro, &u.dst);
+		if (rtcache_setdst(ro, &u.dst) != 0)
+			return NULL;
 
 		rt = rtcache_init(ro);
 	}

@@ -793,7 +793,7 @@ soabort(struct socket *so)
 }
 
 int
-soaccept(struct socket *so, struct mbuf *nam)
+soaccept(struct socket *so, struct sockaddr *nam)
 {
 	int error;
 

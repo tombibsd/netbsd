@@ -674,14 +674,13 @@ haltsys:
 	doshutdownhooks();
 
         if ((howto & RB_POWERDOWN) == RB_POWERDOWN) {
-#ifndef XEN
 #if NACPICA > 0
 		if (s != IPL_NONE)
 			splx(s);
 
 		acpi_enter_sleep_state(ACPI_STATE_S5);
 #endif
-#else /* XEN */
+#ifdef XEN
 		HYPERVISOR_shutdown();
 #endif /* XEN */
 	}

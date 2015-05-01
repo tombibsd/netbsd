@@ -183,7 +183,8 @@ const struct cdevsw ra_cdevsw = {
 };
 
 static struct dkdriver radkdriver = {
-	rastrategy, minphys
+	.d_strategy = rastrategy,
+	.d_minphys = minphys
 };
 
 /*

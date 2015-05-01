@@ -4,7 +4,7 @@
 .include <bsd.own.mk>
 
 PROG=	zdump
-SRCS=	zdump.c ialloc.c
+SRCS=	zdump.c
 MAN=	zdump.8
 
 TZVERSION!= ${TOOL_SED} -ne 's/VERSION=[ 	]*//p' ${NETBSDSRCDIR}/lib/libc/time/Makefile

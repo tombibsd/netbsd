@@ -788,6 +788,21 @@ in6_selecthlim(struct in6pcb *in6p, struct ifnet *ifp)
 		return (ip6_defhlim);
 }
 
+int
+in6_selecthlim_rt(struct in6pcb *in6p)
+{
+	struct rtentry *rt;
+
+	if (in6p == NULL)
+		return in6_selecthlim(in6p, NULL);
+
+	rt = rtcache_validate(&in6p->in6p_route);
+	if (rt != NULL)
+		return in6_selecthlim(in6p, rt->rt_ifp);
+	else
+		return in6_selecthlim(in6p, NULL);
+}
+
 /*
  * Find an empty port and set it to the specified PCB.
  */

@@ -315,7 +315,9 @@ const struct cdevsw xd_cdevsw = {
  * dkdriver
  */
 
-struct dkdriver xddkdriver = { xdstrategy };
+struct dkdriver xddkdriver = {
+	.d_strategy = xdstrategy
+};
 
 /*
  * start: disk label fix code (XXX)

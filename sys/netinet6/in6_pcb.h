@@ -169,11 +169,12 @@ void	in6_pcbpurgeif0(struct inpcbtable *, struct ifnet *);
 void	in6_pcbpurgeif(struct inpcbtable *, struct ifnet *);
 void	in6_pcbstate(struct in6pcb *, int);
 void	in6_rtchange(struct in6pcb *, int);
-void	in6_setpeeraddr(struct in6pcb *, struct mbuf *);
-void	in6_setsockaddr(struct in6pcb *, struct mbuf *);
+void	in6_setpeeraddr(struct in6pcb *, struct sockaddr_in6 *);
+void	in6_setsockaddr(struct in6pcb *, struct sockaddr_in6 *);
 
 /* in in6_src.c */
 int	in6_selecthlim(struct in6pcb *, struct ifnet *);
+int	in6_selecthlim_rt(struct in6pcb *);
 int	in6_pcbsetport(struct sockaddr_in6 *, struct in6pcb *, struct lwp *);
 
 extern struct rtentry *

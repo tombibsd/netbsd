@@ -140,7 +140,8 @@ static const char * const rlstates[] = {
 };
 
 static const struct dkdriver rldkdriver = {
-	rlstrategy, minphys
+	.d_strategy = rlstrategy,
+	.d_minphys = minphys
 };
 
 static const char *

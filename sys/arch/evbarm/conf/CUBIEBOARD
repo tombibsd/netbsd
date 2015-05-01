@@ -17,6 +17,10 @@ options 	AWIN_CONSOLE_EARLY
 
 include		"arch/evbarm/conf/GENERIC.common"
 
+# u-boot images contain kernels w/o any symbols, so we need to copy
+# them over to kernel text
+makeoptions	COPY_SYMTAB=1
+
 ## USB Debugging options
 options 	USB_DEBUG
 options 	EHCI_DEBUG

@@ -66,10 +66,16 @@ struct	domain {
 			(rtbl_t **, int);
 	int	dom_rtoffset;		/* an arg to rtattach, in bits */
 	int	dom_maxrtkey;		/* for routing layer */
+	void	(*dom_if_up)		/* ifnet brought up */
+			(struct ifnet *);
+	void	(*dom_if_down)		/* ifnet brought down */
+			(struct ifnet *);
 	void	*(*dom_ifattach)	/* attach af-dependent data on ifnet */
 			(struct ifnet *);
 	void	(*dom_ifdetach)		/* detach af-dependent data on ifnet */
 			(struct ifnet *, void *);
+	void	(*dom_if_link_state_change)
+			(struct ifnet *, int);
 	const void *(*dom_sockaddr_const_addr)(const struct sockaddr *,
 					       socklen_t *);
 	void	*(*dom_sockaddr_addr)(struct sockaddr *, socklen_t *);

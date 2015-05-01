@@ -228,7 +228,7 @@ acpifan_sensor_refresh(struct sysmon_envsys *sme, envsys_data_t *edata)
 	(void)AcpiOsExecute(OSL_NOTIFY_HANDLER, acpifan_sensor_state, self);
 }
 
-MODULE(MODULE_CLASS_DRIVER, acpifan, NULL);
+MODULE(MODULE_CLASS_DRIVER, acpifan, "sysmon_envsys");
 
 #ifdef _MODULE
 #include "ioconf.c"

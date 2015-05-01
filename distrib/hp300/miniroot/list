@@ -19,6 +19,7 @@ PROG	usr/sbin/installboot
 # crunchgen source directory specials
 SPECIAL	vi	srcdir external/bsd/nvi/usr.bin/nvi
 SPECIAL	less	srcdir external/bsd/less/bin/less
+SPECIAL	awk	srcdir external/historical/nawk/bin
 
 # Minimize use of MFS
 SYMLINK	/tmp	var/tmp

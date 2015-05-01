@@ -61,7 +61,7 @@
 /dkbad.h/1.15/Mon Dec 26 18:41:36 2005/-kk/
 /dkio.h/1.21/Fri Jan  2 11:21:55 2015/-kk/
 /dkstat.h/1.17/Mon Dec 26 18:41:36 2005/-kk/
-/domain.h/1.31/Sun Jun 26 16:43:12 2011/-kk/
+/domain.h/1.32/Fri May  1 11:32:38 2015/-kk/
 /drvctlio.h/1.7/Sat May 31 13:24:57 2008/-kk/
 /dtrace_bsd.h/1.8/Wed Oct 29 08:13:32 2014/-kk/
 /dvdio.h/1.8/Mon Dec 26 18:41:36 2005/-kk/
@@ -98,7 +98,7 @@
 /hash.h/1.8/Fri Oct  3 09:51:03 2014/-kk/
 /idle.h/1.4/Tue May 27 14:48:52 2008/-kk/
 /ieee754.h/1.15/Thu Feb 13 15:36:03 2014/-kk/
-/intr.h/1.17/Tue Jun  3 03:10:02 2014/-kk/
+/intr.h/1.18/Fri May  1 11:32:38 2015/-kk/
 /inttypes.h/1.6/Thu Oct 24 10:28:58 2013/-kk/
 /ioccom.h/1.12/Thu Dec 11 09:09:55 2014/-kk/
 /ioctl.h/1.36/Fri Feb 13 22:41:04 2009/-kk/
@@ -120,7 +120,7 @@
 /kprintf.h/1.12/Fri Oct  3 09:26:22 2014/-kk/
 /ksem.h/1.14/Sun Nov 25 01:05:04 2012/-kk/
 /ksyms.h/1.30/Sat Dec 27 03:35:54 2014/-kk/
-/kthread.h/1.12/Mon Nov 21 04:36:05 2011/-kk/
+/kthread.h/1.13/Fri May  1 11:32:38 2015/-kk/
 /ktrace.h/1.61/Tue Dec 17 04:13:40 2013/-kk/
 /localedef.h/1.10/Thu Oct 24 10:28:58 2013/-kk/
 /lock.h/1.86/Thu Jul  1 13:00:57 2010/-kk/
@@ -143,12 +143,12 @@
 /msgbuf.h/1.15/Wed Nov  7 00:19:08 2007/-kk/
 /mtio.h/1.23/Mon Dec 26 18:41:36 2005/-kk/
 /mutex.h/1.20/Mon Feb  8 09:54:27 2010/-kk/
-/namei.h/1.92/Mon Jan 26 07:10:31 2015/-kk/
-/namei.src/1.35/Mon Jan 26 07:10:31 2015/-kk/
+/namei.h/1.93/Fri May  1 11:32:38 2015/-kk/
+/namei.src/1.37/Fri May  1 11:32:38 2015/-kk/
 /null.h/1.9/Tue Jul  6 11:56:20 2010/-kk/
 /once.h/1.5/Thu Oct  9 10:48:21 2008/-kk/
 /optstr.h/1.3/Mon Apr 28 20:24:11 2008/-kk/
-/param.h/1.472/Wed Apr 22 07:37:49 2015/-kk/
+/param.h/1.475/Fri May  1 11:32:38 2015/-kk/
 /pax.h/1.11/Thu Dec 27 15:21:53 2007/-kk/
 /pcq.h/1.2/Sat Jun 14 03:56:49 2014/-kk/
 /pcu.h/1.12/Tue Jun  3 02:54:47 2014/-kk/
@@ -163,7 +163,7 @@
 /power.h/1.20/Mon Jan 12 06:49:24 2015/-kk/
 /proc.h/1.321/Sat Mar 21 02:38:00 2015/-kk/
 /prot.h/1.2/Tue Apr 29 06:53:03 2008/-kk/
-/protosw.h/1.61/Sun Apr 12 03:35:21 2015/-kk/
+/protosw.h/1.63/Fri May  1 11:32:39 2015/-kk/
 /pserialize.h/1.1/Sat Jul 30 17:01:04 2011/-kk/
 /pset.h/1.4/Thu Oct 24 10:28:58 2013/-kk/
 /ptrace.h/1.45/Tue Jan 14 16:05:14 2014/-kk/
@@ -184,7 +184,7 @@
 /rndio.h/1.1/Mon Apr 13 15:39:19 2015/-kk/
 /rndpool.h/1.3/Tue Apr 14 13:14:20 2015/-kk/
 /rndsink.h/1.1/Thu Oct 24 10:28:58 2013/-kk/
-/rndsource.h/1.2/Mon Apr 13 16:02:48 2015/-kk/
+/rndsource.h/1.3/Fri May  1 11:32:39 2015/-kk/
 /rngtest.h/1.1/Sat Nov 19 22:51:31 2011/-kk/
 /rpst.h/1.3/Thu Apr 14 15:31:20 2011/-kk/
 /rwlock.h/1.10/Mon Feb  8 09:54:27 2010/-kk/
@@ -204,7 +204,7 @@
 /sigtypes.h/1.10/Sun Feb 19 21:07:00 2012/-kk/
 /sleepq.h/1.24/Mon Feb 16 03:14:31 2015/-kk/
 /socket.h/1.117/Sun Apr 12 03:35:21 2015/-kk/
-/socketvar.h/1.136/Sun Apr 12 03:35:21 2015/-kk/
+/socketvar.h/1.137/Fri May  1 11:32:39 2015/-kk/
 /sockio.h/1.32/Thu Oct 24 10:28:58 2013/-kk/
 /spawn.h/1.5/Fri Oct  3 09:51:03 2014/-kk/
 /specificdata.h/1.4/Mon Apr 28 20:24:11 2008/-kk/
@@ -226,7 +226,7 @@
 /systm.h/1.267/Sat Mar 21 02:38:00 2015/-kk/
 /tape.h/1.3/Mon Dec 26 18:41:36 2005/-kk/
 /termios.h/1.32/Thu Oct 24 10:28:58 2013/-kk/
-/time.h/1.67/Fri Oct  3 09:26:22 2014/-kk/
+/time.h/1.68/Fri May  1 11:32:39 2015/-kk/
 /timeb.h/1.14/Sun Dec 11 12:25:21 2005/-kk/
 /timepps.h/1.21/Thu Oct 24 10:28:58 2013/-kk/
 /times.h/1.13/Sun Dec 11 12:25:21 2005/-kk/

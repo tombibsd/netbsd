@@ -113,14 +113,16 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include "opt_wapbl.h"
 #include "opt_ptrace.h"
 #include "opt_rnd_printf.h"
+#include "opt_splash.h"
+
+#if defined(SPLASHSCREEN) && defined(SPLASHSCREEN_IMAGE)
+extern void *_binary_splash_image_start;
+extern void *_binary_splash_image_end;
+#endif
 
 #include "drvctl.h"
 #include "ksyms.h"
 
-#include "sysmon_envsys.h"
-#include "sysmon_power.h"
-#include "sysmon_taskq.h"
-#include "sysmon_wdog.h"
 #include "veriexec.h"
 
 #include <sys/param.h>
@@ -221,15 +223,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <uvm/uvm.h>	/* extern struct uvm uvm */
 
-#if NSYSMON_TASKQ > 0
-#include <dev/sysmon/sysmon_taskq.h>
-#endif
-
 #include <dev/cons.h>
-
-#if NSYSMON_ENVSYS > 0 || NSYSMON_POWER > 0 || NSYSMON_WDOG > 0
-#include <dev/sysmon/sysmonvar.h>
-#endif
+#include <dev/splash/splash.h>
 
 #include <net/bpf.h>
 #include <net/if.h>
@@ -368,6 +363,13 @@ main(void)
 	/* Initialize the buffer cache */
 	bufinit();
 
+
+#if defined(SPLASHSCREEN) && defined(SPLASHSCREEN_IMAGE)
+	size_t splash_size = (&_binary_splash_image_end -
+	    &_binary_splash_image_start) * sizeof(void *);
+	splash_setimage(&_binary_splash_image_start, splash_size);
+#endif
+
 	/* Initialize sockets. */
 	soinit();
 
@@ -466,23 +468,6 @@ main(void)
 
 	/* Initialize kqueue. */
 	kqueue_init();
-
-	/* Initialize the system monitor subsystems. */
-#if NSYSMON_TASKQ > 0
-	sysmon_task_queue_preinit();
-#endif
-
-#if NSYSMON_ENVSYS > 0
-	sysmon_envsys_init();
-#endif
-
-#if NSYSMON_POWER > 0
-	sysmon_power_init();
-#endif
-
-#if NSYSMON_WDOG > 0
-	sysmon_wdog_init();
-#endif
 
 	inittimecounter();
 	ntp_init();

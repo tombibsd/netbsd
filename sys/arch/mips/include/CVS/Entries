@@ -10,6 +10,7 @@
 /cache.h/1.11/Tue Mar 15 07:39:22 2011/-kk/
 /cache_ls2.h/1.2/Tue Aug 11 00:34:29 2009/-kk/
 /cache_mipsNN.h/1.4/Mon Feb 17 11:35:02 2003/-kk/
+/cache_octeon.h/1.1/Wed Apr 29 08:32:00 2015/-kk/
 /cache_r10k.h/1.3/Sun Dec 11 12:18:09 2005/-kk/
 /cache_r3k.h/1.3/Mon Feb 17 11:35:02 2003/-kk/
 /cache_r4k.h/1.11/Sat Dec 24 20:07:19 2005/-kk/
@@ -20,7 +21,7 @@
 /cdefs.h/1.15/Tue Mar 25 02:35:27 2014/-kk/
 /cpu.h/1.109/Mon Nov 18 05:31:34 2013/-kk/
 /cpu_counter.h/1.4/Sun Feb 20 07:45:47 2011/-kk/
-/cpuregs.h/1.89/Tue Dec  9 04:43:40 2014/-kk/
+/cpuregs.h/1.90/Fri May  1 11:31:31 2015/-kk/
 /cpuset.h/1.3/Thu Apr  2 02:27:53 2015/-kk/
 /db_machdep.h/1.28/Sat Jul  9 16:58:05 2011/-kk/
 /ecoff_machdep.h/1.21/Tue Mar 20 11:28:04 2012/-kk/
@@ -42,7 +43,7 @@
 /kdbparam.h/1.8/Sun Dec 11 12:18:09 2005/-kk/
 /limits.h/1.26/Tue May  6 05:50:00 2014/-kk/
 /lock.h/1.18/Sun Feb 20 07:45:47 2011/-kk/
-/locore.h/1.94/Tue Dec  9 04:43:40 2014/-kk/
+/locore.h/1.95/Fri May  1 11:31:32 2015/-kk/
 /math.h/1.7/Thu Feb 13 15:35:51 2014/-kk/
 /mcontext.h/1.20/Wed Sep 12 15:09:49 2012/-kk/
 /mips1_pte.h/1.19/Sun Feb 20 07:45:47 2011/-kk/

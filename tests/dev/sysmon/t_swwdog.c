@@ -121,6 +121,7 @@ testbody(int max)
 		_exit(2);
 	}
 	/* fail */
+	printf("no watchdog registered!\n");
 	_exit(1);
 }
 

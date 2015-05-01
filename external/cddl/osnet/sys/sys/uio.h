@@ -105,7 +105,7 @@ zfs_uiomove(void *cp, size_t n, enum uio_rw dir, uio_t *uio)
 {
 
 	assert(uio->uio_rw == dir);
-	return (uiomove(cp, (int)n, uio));
+	return (uiomove(cp, n, uio));
 }
 
 static __inline int
@@ -116,7 +116,7 @@ zfs_uiocopy(void *cp, size_t n, enum uio_rw dir, uio_t *uio, size_t *cbytes)
 	
 	memcpy(&uio2, uio, sizeof(*uio));
 	assert(uio->uio_rw == dir);
-	if ((err = uiomove(cp, (int)n, &uio2)) != 0)
+	if ((err = uiomove(cp, n, &uio2)) != 0)
 		return err;
 
 	*cbytes = uio->uio_resid - uio2.uio_resid;

@@ -131,7 +131,9 @@ const struct cdevsw bmd_cdevsw = {
 	.d_flag = D_DISK
 };
 
-struct dkdriver bmddkdriver = { bmdstrategy };
+struct dkdriver bmddkdriver = {
+	.d_strategy = bmdstrategy
+};
 
 static int
 bmd_match(device_t parent, cfdata_t cf, void *aux)

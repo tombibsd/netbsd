@@ -80,7 +80,7 @@ tegra_hdaudio_attach(device_t parent, device_t self, void *aux)
 	sc->sc.sc_dmat = tio->tio_dmat;
 
 	aprint_naive("\n");
-	aprint_normal(": SATA\n");
+	aprint_normal(": HDA\n");
 
 	sc->sc_ih = intr_establish(loc->loc_intr, IPL_AUDIO, IST_LEVEL,
 	    tegra_hdaudio_intr, sc);

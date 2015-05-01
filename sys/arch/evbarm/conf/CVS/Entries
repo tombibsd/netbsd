@@ -16,11 +16,11 @@
 /BEAGLEBOARD_INSTALL/1.2/Mon May 19 16:25:47 2014/-kk/
 /BEAGLEBONE/1.31/Wed Apr 22 07:35:55 2015/-kk/
 /BEAGLEBONE_INSTALL/1.2/Mon May 19 16:25:47 2014/-kk/
-/BPI/1.13/Tue Dec  9 04:43:37 2014/-kk/
+/BPI/1.14/Fri May  1 11:29:01 2015/-kk/
 /BPI_INSTALL/1.1/Sun Sep  7 20:17:57 2014/-kk/
 /CP3100/1.42/Fri Oct  3 09:43:15 2014/-kk/
 /CP3100_INSTALL/1.2/Mon May 19 16:25:47 2014/-kk/
-/CUBIEBOARD/1.40/Wed Apr 22 07:35:55 2015/-kk/
+/CUBIEBOARD/1.41/Fri May  1 11:29:01 2015/-kk/
 /CUBIEBOARD_INSTALL/1.3/Wed Apr 22 07:35:55 2015/-kk/
 /CUBIETRUCK/1.7/Wed Apr 22 07:35:55 2015/-kk/
 /CUBIETRUCK_INSTALL/1.1/Fri Apr 11 04:19:47 2014/-kk/
@@ -58,7 +58,7 @@
 /IQ80321_INSTALL/1.2/Thu Feb  9 19:07:37 2012/-kk/
 /IXDP425/1.49/Fri Oct  3 09:43:15 2014/-kk/
 /IXM1200/1.60/Fri Oct  3 09:43:15 2014/-kk/
-/JETSONTK1/1.4/Wed Apr 22 07:35:56 2015/-kk/
+/JETSONTK1/1.6/Fri May  1 11:29:02 2015/-kk/
 /KOBO/1.7/Sun Apr 12 03:34:36 2015/-kk/
 /KOBO_INSTALL/1.1/Fri Jul 25 11:22:50 2014/-kk/
 /KUROBOX_PRO/1.7/Fri Oct  3 09:36:03 2014/-kk/
@@ -83,7 +83,7 @@
 /NITROGEN6X/1.4/Wed Oct 29 08:13:00 2014/-kk/
 /NITROGEN6X_INSTALL/1.1/Sat Sep 27 04:03:24 2014/-kk/
 /NSLU2/1.38/Fri Oct  3 09:43:16 2014/-kk/
-/ODROID-C1/1.17/Wed Apr 22 07:35:56 2015/-kk/
+/ODROID-C1/1.18/Fri May  1 11:29:02 2015/-kk/
 /ODROID-C1_INSTALL/1.1/Mon Mar 16 22:16:42 2015/-kk/
 /ODROID-U/1.17/Wed Oct 29 08:13:00 2014/-kk/
 /ODROID-XU/1.4/Wed Oct 29 08:13:00 2014/-kk/
@@ -218,7 +218,7 @@
 /mk.rockchip/1.2/Sun Dec 28 16:29:21 2014/-kk/
 /mk.rpi/1.4/Sat Mar 21 02:29:40 2015/-kk/
 /mk.smdk2xx0/1.3/Sun Dec 11 12:17:07 2005/-kk/
-/mk.tegra/1.1/Sun Mar 29 10:41:59 2015/-kk/
+/mk.tegra/1.2/Fri May  1 11:29:02 2015/-kk/
 /mk.tisdp24xx/1.5/Tue Dec 17 04:13:26 2013/-kk/
 /mk.tsarm/1.2/Sun Dec 11 12:17:07 2005/-kk/
 /mk.vexpress/1.1/Mon Feb  9 07:47:15 2015/-kk/
@@ -228,7 +228,7 @@
 /std.amlogic/1.2/Sat Mar 21 02:29:40 2015/-kk/
 /std.armadaxp/1.3/Fri Apr 11 02:03:29 2014/-kk/
 /std.armadillo9/1.7/Sun Dec 16 23:47:56 2012/-kk/
-/std.awin/1.6/Wed Apr 22 07:35:56 2015/-kk/
+/std.awin/1.7/Fri May  1 11:29:02 2015/-kk/
 /std.bcm53xx/1.14/Sat Mar  1 06:04:25 2014/-kk/
 /std.beagle/1.13/Fri Oct  3 09:43:16 2014/-kk/
 /std.cp3100/1.5/Sun Dec 16 23:47:56 2012/-kk/
@@ -268,7 +268,7 @@
 /std.rpi/1.19/Sat Mar 21 02:29:40 2015/-kk/
 /std.smdk2410/1.7/Sun Dec 16 23:47:56 2012/-kk/
 /std.smdk2800/1.15/Sun Dec 16 23:47:56 2012/-kk/
-/std.tegra/1.1/Sun Mar 29 10:41:59 2015/-kk/
+/std.tegra/1.3/Fri May  1 11:29:02 2015/-kk/
 /std.tisdp24xx/1.9/Mon Nov 11 15:21:26 2013/-kk/
 /std.tsarm/1.8/Sun Dec 16 23:47:57 2012/-kk/
 /std.vexpress/1.2/Sat Mar 21 02:20:56 2015/-kk/

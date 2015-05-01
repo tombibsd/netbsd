@@ -482,9 +482,9 @@ struct namei_state {
 static void
 namei_init(struct namei_state *state, struct nameidata *ndp)
 {
+
 	state->ndp = ndp;
 	state->cnp = &ndp->ni_cnd;
-	KASSERT((state->cnp->cn_flags & INRELOOKUP) == 0);
 
 	state->docache = 0;
 	state->rdonly = 0;
@@ -1736,9 +1736,7 @@ relookup(struct vnode *dvp, struct vnode **vpp, struct componentname *cnp, int d
 	 * We now have a segment name to search for, and a directory to search.
 	 */
 	*vpp = NULL;
-	cnp->cn_flags |= INRELOOKUP;
 	error = VOP_LOOKUP(dvp, vpp, cnp);
-	cnp->cn_flags &= ~INRELOOKUP;
 	if ((error) != 0) {
 #ifdef DIAGNOSTIC
 		if (*vpp != NULL)

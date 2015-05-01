@@ -1,0 +1,10 @@
+#	$NetBSD$
+
+ioconf viadrmums
+
+include "conf/files"
+include "dev/pci/files.pci"
+
+pseudo-root 	drm*
+
+viadrmums* 	at drm?

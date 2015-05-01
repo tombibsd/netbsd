@@ -95,7 +95,7 @@ mpls_detach(struct socket *so)
 }
 
 static int
-mpls_accept(struct socket *so, struct mbuf *nam)
+mpls_accept(struct socket *so, struct sockaddr *nam)
 {
 	KASSERT(solocked(so));
 
@@ -173,7 +173,7 @@ mpls_stat(struct socket *so, struct stat *ub)
 }
 
 static int
-mpls_peeraddr(struct socket *so, struct mbuf *nam)
+mpls_peeraddr(struct socket *so, struct sockaddr *nam)
 {
 	KASSERT(solocked(so));
 
@@ -181,7 +181,7 @@ mpls_peeraddr(struct socket *so, struct mbuf *nam)
 }
 
 static int
-mpls_sockaddr(struct socket *so, struct mbuf *nam)
+mpls_sockaddr(struct socket *so, struct sockaddr *nam)
 {
 	KASSERT(solocked(so));
 
@@ -224,33 +224,6 @@ mpls_sendoob(struct socket *so, struct mbuf *m, struct mbuf *control)
 static int
 mpls_purgeif(struct socket *so, struct ifnet *ifp)
 {
-
-	return EOPNOTSUPP;
-}
-
-static int
-mpls_usrreq(struct socket *so, int req, struct mbuf *m,
-    struct mbuf *nam, struct mbuf *control, struct lwp *l)
-{
-	KASSERT(req != PRU_ATTACH);
-	KASSERT(req != PRU_DETACH);
-	KASSERT(req != PRU_ACCEPT);
-	KASSERT(req != PRU_BIND);
-	KASSERT(req != PRU_LISTEN);
-	KASSERT(req != PRU_CONNECT);
-	KASSERT(req != PRU_CONNECT2);
-	KASSERT(req != PRU_DISCONNECT);
-	KASSERT(req != PRU_SHUTDOWN);
-	KASSERT(req != PRU_ABORT);
-	KASSERT(req != PRU_CONTROL);
-	KASSERT(req != PRU_SENSE);
-	KASSERT(req != PRU_PEERADDR);
-	KASSERT(req != PRU_SOCKADDR);
-	KASSERT(req != PRU_RCVD);
-	KASSERT(req != PRU_RCVOOB);
-	KASSERT(req != PRU_SEND);
-	KASSERT(req != PRU_SENDOOB);
-	KASSERT(req != PRU_PURGEIF);
 
 	return EOPNOTSUPP;
 }
@@ -356,7 +329,6 @@ PR_WRAP_USRREQS(mpls)
 #define	mpls_send	mpls_send_wrapper
 #define	mpls_sendoob	mpls_sendoob_wrapper
 #define	mpls_purgeif	mpls_purgeif_wrapper
-#define	mpls_usrreq	mpls_usrreq_wrapper
 
 static const struct pr_usrreqs mpls_usrreqs = {
 	.pr_attach	= mpls_attach,
@@ -378,7 +350,6 @@ static const struct pr_usrreqs mpls_usrreqs = {
 	.pr_send	= mpls_send,
 	.pr_sendoob	= mpls_sendoob,
 	.pr_purgeif	= mpls_purgeif,
-	.pr_generic	= mpls_usrreq,
 };
 
 const struct protosw mplssw[] = {

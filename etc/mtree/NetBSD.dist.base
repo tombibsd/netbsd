@@ -73,6 +73,7 @@
 ./libdata/firmware/if_otus
 ./libdata/firmware/if_urtwn
 ./libdata/firmware/if_wpi
+./libdata/firmware/radeon
 ./libdata/firmware/ral
 ./libdata/firmware/rum
 ./libdata/firmware/run

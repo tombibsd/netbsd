@@ -35,6 +35,10 @@ amlogicio0	at mainbus?
 amlogiccom0	at amlogicio0 port 0
 options 	CONSADDR=0xc81004c0, CONSPEED=115200
 
+# GPIO
+amlogicgpio0	at amlogicio0
+gpio*		at gpiobus?
+
 # Framebuffer
 genfb0		at amlogicio0
 wsdisplay*	at genfb?

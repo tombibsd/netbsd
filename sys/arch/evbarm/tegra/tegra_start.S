@@ -175,6 +175,16 @@ mmu_init_table:
 		(TEGRA_APB_SIZE + L1_S_SIZE - 1) / L1_S_SIZE,
 		L1_S_PROTO_armv7 | L1_S_APv7_KRW | L1_S_V6_XN)
 
+	/* Map PPSB */
+	MMU_INIT(TEGRA_PPSB_VBASE, TEGRA_PPSB_BASE,
+		(TEGRA_PPSB_SIZE + L1_S_SIZE - 1) / L1_S_SIZE,
+		L1_S_PROTO_armv7 | L1_S_APv7_KRW | L1_S_V6_XN)
+
+	/* Map PPSB */
+	MMU_INIT(TEGRA_PPSB_BASE, TEGRA_PPSB_BASE,
+		(TEGRA_PPSB_SIZE + L1_S_SIZE - 1) / L1_S_SIZE,
+		L1_S_PROTO_armv7 | L1_S_APv7_KRW | L1_S_V6_XN)
+
 	/* end of table */
 	MMU_INIT(0, 0, 0, 0)
 

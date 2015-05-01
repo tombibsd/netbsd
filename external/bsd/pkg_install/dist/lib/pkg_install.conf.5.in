@@ -57,7 +57,7 @@ License names are case-sensitive.
 .It Dv ACTIVE_FTP
 Force the use of active FTP.
 .It Dv CACHE_INDEX
-Cache directory listenings in memory.
+Cache directory listings in memory.
 This avoids retransfers of the large directory index for HTTP and is
 enabled by default.
 .It Dv CERTIFICATE_ANCHOR_PKGS

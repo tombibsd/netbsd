@@ -8,6 +8,7 @@
 /DB120/1.15/Fri Oct  3 09:43:16 2014/-kk/
 /DBAU1500/1.8/Tue Apr  4 04:30:28 2006/-kk/
 /DBAU1550/1.9/Mon Oct  2 08:13:53 2006/-kk/
+/ERLITE/1.1/Wed Apr 29 08:32:00 2015/-kk/
 /GDIUM/1.26/Fri Oct  3 09:43:16 2014/-kk/
 /GDIUM64/1.2/Fri Oct  3 09:36:04 2014/-kk/
 /INSTALL_CI20/1.1/Mon Apr  6 14:18:09 2015/-kk/
@@ -51,9 +52,10 @@
 /files.ingenic/1.5/Fri Jan  2 11:20:56 2015/-kk/
 /files.loongson/1.5/Sun Jul 20 13:58:35 2014/-kk/
 /files.malta/1.19/Sun Jul 20 13:58:35 2014/-kk/
+/files.octeon/1.1/Wed Apr 29 08:32:00 2015/-kk/
 /files.rasoc/1.4/Sun Jul 20 13:58:35 2014/-kk/
 /files.rmixl/1.5/Sun Jul 20 13:58:35 2014/-kk/
-/majors.evbmips/1.28/Thu Oct 24 10:28:57 2013/-kk/
+/majors.evbmips/1.29/Fri May  1 11:29:06 2015/-kk/
 /std.adm5120/1.2/Thu Dec 11 05:42:18 2008/-kk/
 /std.alchemy/1.4/Thu Dec 11 05:42:18 2008/-kk/
 /std.algor/1.1/Sat Jul  9 16:03:01 2011/-kk/

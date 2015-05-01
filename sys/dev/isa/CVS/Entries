@@ -6,7 +6,7 @@
 /adv_isa.c/1.20/Sat Oct 27 17:18:23 2012/-kk/
 /aha_isa.c/1.30/Wed Oct 29 08:13:20 2014/-kk/
 /aic_isa.c/1.26/Mon Nov 23 02:13:46 2009/-kk/
-/aps.c/1.16/Tue Dec  9 04:34:58 2014/-kk/
+/aps.c/1.17/Fri May  1 11:32:06 2015/-kk/
 /aria.c/1.37/Sat Oct 27 17:18:23 2012/-kk/
 /ariareg.h/1.6/Tue Oct 27 23:04:41 2009/-kk/
 /ast.c/1.65/Sat Oct 27 17:18:23 2012/-kk/
@@ -41,13 +41,13 @@
 /ess_isa.c/1.24/Sat May 22 16:35:00 2010/-kk/
 /essreg.h/1.17/Fri Oct  3 09:36:18 2014/-kk/
 /essvar.h/1.27/Fri Oct  3 09:36:18 2014/-kk/
-/fd.c/1.108/Wed Apr 22 07:36:53 2015/-kk/
+/fd.c/1.109/Fri May  1 11:32:06 2015/-kk/
 /fdc_isa.c/1.20/Wed Apr 22 07:36:53 2015/-kk/
 /fdcvar.h/1.10/Mon Apr 28 20:23:52 2008/-kk/
 /fdreg.h/1.7/Thu Jun 30 20:09:39 2011/-kk/
 /fdvar.h/1.9/Wed Apr 22 07:36:53 2015/-kk/
 /files.isa/1.163/Thu Oct 24 10:28:58 2013/-kk/
-/finsio_isa.c/1.7/Sun Jul 31 18:23:46 2011/-kk/
+/finsio_isa.c/1.8/Fri May  1 11:32:06 2015/-kk/
 /gus.c/1.109/Sat Oct 27 17:18:24 2012/-kk/
 /gusreg.h/1.9/Mon Apr 28 20:23:52 2008/-kk/
 /i82365_isa.c/1.34/Sat Oct 27 17:18:24 2012/-kk/
@@ -101,7 +101,7 @@
 /isic_isa_usr_sti.c/1.8/Fri Oct 19 12:00:20 2007/-kk/
 /isv.c/1.7/Fri Oct  3 09:09:15 2014/-kk/
 /isvio.h/1.1/Wed Apr  2 01:34:36 2008/-kk/
-/itesio_isa.c/1.24/Thu Nov 15 04:45:01 2012/-kk/
+/itesio_isa.c/1.25/Fri May  1 11:32:06 2015/-kk/
 /itesio_isavar.h/1.9/Thu Nov 15 04:45:01 2012/-kk/
 /joy_ess.c/1.6/Wed Nov 23 23:07:32 2011/-kk/
 /joy_isa.c/1.14/Mon Dec  5 19:20:54 2011/-kk/
@@ -111,7 +111,7 @@
 /lm_wbsio.c/1.2/Wed Jan 18 00:14:32 2012/-kk/
 /lpt_isa.c/1.68/Mon Nov 23 02:13:47 2009/-kk/
 /madreg.h/1.5/Tue Dec  8 14:26:57 1998/-kk/
-/mcd.c/1.114/Fri Jan  2 11:21:35 2015/-kk/
+/mcd.c/1.115/Fri May  1 11:32:07 2015/-kk/
 /mcdreg.h/1.9/Thu Jun  8 18:22:16 2000/-kk/
 /midi_pcppi.c/1.26/Mon Apr  9 10:18:17 2012/-kk/
 /moxa_isa.c/1.20/Sat Oct 27 17:18:25 2012/-kk/
@@ -119,7 +119,7 @@
 /mpu_sb.c/1.16/Wed Nov 23 23:07:32 2011/-kk/
 /mpu_ym.c/1.16/Wed Nov 23 23:07:32 2011/-kk/
 /nca_isa.c/1.22/Sat Oct 27 17:18:25 2012/-kk/
-/nsclpcsio_isa.c/1.30/Fri Jul 15 20:56:26 2011/-kk/
+/nsclpcsio_isa.c/1.31/Fri May  1 11:32:07 2015/-kk/
 /opl_ess.c/1.18/Mon Apr  9 10:18:17 2012/-kk/
 /opl_isa.c/1.21/Mon Apr  9 10:18:17 2012/-kk/
 /opl_sb.c/1.20/Mon Apr  9 10:18:17 2012/-kk/
@@ -149,7 +149,7 @@
 /seagate.c/1.72/Sat Apr 19 05:36:57 2014/-kk/
 /sf16fmr2.c/1.16/Sat Oct 27 17:18:25 2012/-kk/
 /slhci_isa.c/1.12/Tue Mar  8 04:58:21 2011/-kk/
-/smsc.c/1.11/Sun Jul 31 16:18:54 2011/-kk/
+/smsc.c/1.12/Fri May  1 11:32:07 2015/-kk/
 /smscvar.h/1.5/Sat Oct 27 17:18:25 2012/-kk/
 /soekrisgpio.c/1.2/Thu Oct 24 10:28:58 2013/-kk/
 /spkr.c/1.35/Fri Oct  3 09:09:15 2014/-kk/

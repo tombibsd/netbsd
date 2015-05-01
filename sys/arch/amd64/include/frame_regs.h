@@ -11,8 +11,8 @@
  * has been changed to improve syscall efficiency.
  *
  * Notes:
- * 1) gdb (src/gnu/dist/gdb6/gdb/amd64nbsd-tdep.c) has a lookup table that
- *    assumes the __greg_t ordering.
+ * 1) gdb (amd64nbsd-tdep.c) has a lookup table that assumes the __greg_t 
+ *    ordering.
  * 2) src/lib/libc/arch/x86_64/gen/makecontext.c assumes that the first
  *    6 entries in the __greg_t array match the registers used to pass
  *    function arguments.

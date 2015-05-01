@@ -769,7 +769,7 @@ thinkpad_resume(device_t dv, const pmf_qual_t *qual)
 	return true;
 }
 
-MODULE(MODULE_CLASS_DRIVER, thinkpad, NULL);
+MODULE(MODULE_CLASS_DRIVER, thinkpad, "sysmon_envsys,sysmon_power");
 
 #ifdef _MODULE
 #include "ioconf.c"

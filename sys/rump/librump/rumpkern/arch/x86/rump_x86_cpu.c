@@ -32,6 +32,7 @@
 __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <sys/param.h>
+#include <sys/kmem.h>
 
 #include <machine/cpu.h>
 
@@ -79,4 +80,11 @@ wbinvd(void)
 	 * But, we Best not execute this since we're not Ring0 *.
 	 * Honestly, I don't know why it's required even in the kernel.
 	 */
+}
+
+struct clockframe *
+rump_cpu_makeclockframe(void)
+{
+
+	return kmem_zalloc(sizeof(struct clockframe), KM_SLEEP);
 }

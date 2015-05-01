@@ -32,8 +32,8 @@
 /lock_stubs.S/1.26/Fri Jan 31 08:48:36 2014/-kk/
 /locore.S/1.113/Fri Oct  3 09:36:08 2014/-kk/
 /longrun.c/1.4/Sun Oct 23 13:02:32 2011/-kk/
-/machdep.c/1.753/Thu Feb  5 08:41:00 2015/-kk/
-/mainbus.c/1.98/Tue Nov 12 02:18:40 2013/-kk/
+/machdep.c/1.754/Fri May  1 11:30:53 2015/-kk/
+/mainbus.c/1.100/Fri May  1 11:30:53 2015/-kk/
 /mptramp.S/1.27/Thu Feb 13 15:35:50 2014/-kk/
 /mtrr_k6.c/1.13/Fri Apr  4 22:07:22 2008/-kk/
 /multiboot.c/1.22/Fri Dec  7 04:49:08 2012/-kk/

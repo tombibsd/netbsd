@@ -408,7 +408,7 @@ acpi_wdrt_write_count(struct acpi_wdrt_softc *sc, uint32_t val)
 	return rv;
 }
 
-MODULE(MODULE_CLASS_DRIVER, acpiwdrt, NULL);
+MODULE(MODULE_CLASS_DRIVER, acpiwdrt, "sysmon_wdog");
 
 #ifdef _MODULE
 #include "ioconf.c"

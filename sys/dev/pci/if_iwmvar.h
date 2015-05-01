@@ -363,6 +363,11 @@ struct iwm_bf_data {
 	int last_cqm_event;
 };
 
+enum iwm_intr_type {
+	IWM_INTR_INTX,
+	IWM_INTR_MSI
+};
+
 struct iwm_softc {
 	device_t sc_dev;
 	struct ethercom sc_ec;
@@ -376,6 +381,10 @@ struct iwm_softc {
 
 	bus_space_tag_t sc_st;
 	bus_space_handle_t sc_sh;
+	enum iwm_intr_type sc_intr_type;
+#ifdef __HAVE_PCI_MSI_MSIX
+	pci_intr_handle_t *sc_pihp;
+#endif
 
 	bus_size_t sc_sz;
 	bus_dma_tag_t sc_dmat;

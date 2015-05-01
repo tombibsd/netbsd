@@ -443,7 +443,7 @@ apple_smc_bound_temp_sensors(struct apple_smc_tag *smc, uint32_t *tstart,
 	return 0;
 }
 
-MODULE(MODULE_CLASS_DRIVER, apple_smc_temp, "apple_smc");
+MODULE(MODULE_CLASS_DRIVER, apple_smc_temp, "apple_smc,sysmon_envsys");
 
 #ifdef _MODULE
 #include "ioconf.c"

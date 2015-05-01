@@ -2099,6 +2099,20 @@ in6_if_down(struct ifnet *ifp)
 	in6_if_link_down(ifp);
 }
 
+void
+in6_if_link_state_change(struct ifnet *ifp, int link_state)
+{
+
+	switch (link_state) {
+	case LINK_STATE_DOWN:
+		in6_if_link_down(ifp);
+		break;
+	case LINK_STATE_UP:
+		in6_if_link_up(ifp);
+		break;
+	}
+}
+
 /*
  * Calculate max IPv6 MTU through all the interfaces and store it
  * to in6_maxmtu.

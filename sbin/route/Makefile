@@ -7,6 +7,12 @@ RUMPPRG=route
 MAN=	route.8
 SRCS=	route.c show.c keywords.c rtutil.c
 
+.PATH:		${.CURDIR}/../../lib/libc/net
+RUMPSRCS= if_indextoname.c getifaddrs.c
+.if (${MKRUMP} != "no")
+CPPFLAGS+= -DRUMP_ACTION
+.endif
+
 .if (${USE_INET6} != "no")
 CPPFLAGS+=-DINET6
 .endif

@@ -285,7 +285,7 @@ fail:
 	sc->sc_sme = NULL;
 }
 
-MODULE(MODULE_CLASS_DRIVER, acpiacad, NULL);
+MODULE(MODULE_CLASS_DRIVER, acpiacad, "sysmon_envsys,sysmon_power");
 
 #ifdef _MODULE
 #include "ioconf.c"

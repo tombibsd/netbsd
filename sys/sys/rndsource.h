@@ -63,6 +63,7 @@ typedef struct krndsource {
 	void		*getarg;	/* argument to get-function */
 	void		(*enable)(struct krndsource *, bool); /* turn on/off */
 	rngtest_t	*test;		/* test data for RNG type sources */
+	unsigned	refcnt;
 } krndsource_t;
 
 static inline void

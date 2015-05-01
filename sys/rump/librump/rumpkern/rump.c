@@ -686,17 +686,6 @@ rump_getversion(void)
 /* compat */
 __strong_alias(rump_pub_getversion,rump_getversion);
 
-int
-rump_nativeabi_p(void)
-{
-
-#ifdef _RUMP_NATIVE_ABI
-	return 1;
-#else
-	return 0;
-#endif
-}
-
 /*
  * Note: may be called unscheduled.  Not fully safe since no locking
  * of allevents (currently that's not even available).

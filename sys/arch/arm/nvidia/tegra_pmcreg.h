@@ -53,4 +53,36 @@
 #define PMC_CNTRL_0_RTC_CLK_DIS		__BIT(1)
 #define PMC_CNTRL_0_KBC_CLK_DIS		__BIT(0)
 
+#define PMC_PWRGATE_TOGGLE_0_REG	0x30
+
+#define PMC_PWRGATE_TOGGLE_0_START	__BIT(8)
+#define PMC_PWRGATE_TOGGLE_0_PARTID	__BITS(4,0)
+
+#define PMC_PWRGATE_STATUS_0_REG	0x38
+
+#define PMC_PARTID_IRAM			24
+#define PMC_PARTID_VIC			23
+#define PMC_PARTID_XUSBC		22
+#define PMC_PARTID_XUSBB		21
+#define PMC_PARTID_XUSBA		20
+#define PMC_PARTID_DISB			19
+#define PMC_PARTID_DIS			18
+#define PMC_PARTID_SOR			17
+#define PMC_PARTID_C1NC			16
+#define PMC_PARTID_C0NC			15
+#define PMC_PARTID_CE0			14
+#define PMC_PARTID_A9LP			12
+#define PMC_PARTID_CPU3			11
+#define PMC_PARTID_CPU2			10
+#define PMC_PARTID_CPU1			9
+#define PMC_PARTID_SAX			8
+#define PMC_PARTID_HEG			7
+#define PMC_PARTID_MPE			6
+#define PMC_PARTID_L2C			5
+#define PMC_PARTID_VDE			4
+#define PMC_PARTID_PCX			3
+#define PMC_PARTID_VE			2
+#define PMC_PARTID_TD			1
+#define PMC_PARTID_CPU0			0
+
 #endif /* _ARM_TEGRA_PMCREG_H */

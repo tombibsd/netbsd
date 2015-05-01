@@ -409,7 +409,7 @@ asus_get_fan_speed(struct asus_softc *sc, uint32_t *speed)
 	return true;
 }
 
-MODULE(MODULE_CLASS_DRIVER, asus, NULL);
+MODULE(MODULE_CLASS_DRIVER, asus, "sysmon_envsys,sysmon_power");
 
 #ifdef _MODULE
 #include "ioconf.c"

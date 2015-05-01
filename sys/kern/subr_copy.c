@@ -106,10 +106,7 @@ uiomove(void *buf, size_t n, struct uio *uio)
 
 	ASSERT_SLEEPABLE();
 
-#ifdef DIAGNOSTIC
-	if (uio->uio_rw != UIO_READ && uio->uio_rw != UIO_WRITE)
-		panic("uiomove: mode");
-#endif
+	KASSERT(uio->uio_rw == UIO_READ || uio->uio_rw == UIO_WRITE);
 	while (n > 0 && uio->uio_resid) {
 		iov = uio->uio_iov;
 		cnt = iov->iov_len;

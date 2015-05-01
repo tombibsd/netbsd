@@ -2262,7 +2262,7 @@ as_refresh_temp(struct lm_softc *sc, int n)
 	    __func__, n, data, sc->sensors[n].value_cur));
 }
 
-MODULE(MODULE_CLASS_DRIVER, lm, NULL);
+MODULE(MODULE_CLASS_DRIVER, lm, "sysmon_envsys");
 
 static int
 lm_modcmd(modcmd_t cmd, void *opaque)

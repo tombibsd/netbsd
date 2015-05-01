@@ -612,7 +612,7 @@ itesio_wdt_tickle(struct sysmon_wdog *smw)
 	return 0;
 }
 
-MODULE(MODULE_CLASS_DRIVER, itesio, NULL);
+MODULE(MODULE_CLASS_DRIVER, itesio, "sysmon_envsys,sysmon_wdog");
 
 #ifdef _MODULE
 #include "ioconf.c"

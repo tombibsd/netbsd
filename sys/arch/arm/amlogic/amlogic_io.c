@@ -63,6 +63,8 @@ static const struct amlogic_locators amlogic_locators[] = {
     AMLOGIC_UART0AO_OFFSET, AMLOGIC_UART_SIZE, 0, AMLOGIC_INTR_UART0AO },
   { "amlogiccom",
     AMLOGIC_UART2AO_OFFSET, AMLOGIC_UART_SIZE, 2, AMLOGIC_INTR_UART2AO },
+  { "amlogicgpio",
+    0, 0, NOPORT, NOINTR },
   { "genfb",
     AMLOGIC_DMC_OFFSET, AMLOGIC_DMC_SIZE, NOPORT, NOINTR },
   { "amlogicrng",

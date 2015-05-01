@@ -184,6 +184,7 @@ in6_gif_output(struct ifnet *ifp, int family, struct mbuf *m)
 
 	/* If the route constitutes infinite encapsulation, punt. */
 	if (rt->rt_ifp == ifp) {
+		rtcache_free(&sc->gif_ro);
 		m_freem(m);
 		return ENETUNREACH;	/* XXX */
 	}

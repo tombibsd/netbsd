@@ -283,7 +283,7 @@ hytp14_refresh(struct sysmon_envsys *sme, envsys_data_t *edata)
 }
 
 
-MODULE(MODULE_CLASS_DRIVER, hythygtemp, "i2cexec");
+MODULE(MODULE_CLASS_DRIVER, hythygtemp, "i2cexec,sysmon_envsys");
 
 #ifdef _MODULE
 #include "ioconf.c"

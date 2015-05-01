@@ -169,7 +169,7 @@ an ordinary file, or
 Multiple file names may be given as a single argument separated by commas.
 Each file will be used for one dump volume in the order listed;
 if the dump requires more volumes than the number of names given,
-the last file name will used for all remaining volumes after prompting
+the last file name will be used for all remaining volumes after prompting
 for media changes.
 If the name of the file is of the form
 .Qq host:file ,
@@ -205,7 +205,7 @@ This makes it possible to perform a
 .Dq true incremental
 dump.
 .It Fl k Ar read-blocksize
-The size in kilobyte of the read buffers, rounded up to a multiple of the
+The size in kilobytes of the read buffers, rounded up to a multiple of the
 file system block size.
 Default is 32k.
 .It Fl L Ar label

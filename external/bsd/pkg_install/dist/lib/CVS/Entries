@@ -15,7 +15,7 @@
 /opattern.c/1.1.1.3/Sun Feb 19 17:46:47 2012/-kk/
 /parse-config.c/1.1.1.11/Sat Jun 26 00:14:31 2010/-kk/
 /pkcs7.c/1.1.1.4/Thu Aug  6 16:55:27 2009/-kk/
-/pkg_install.conf.5.in/1.1.1.13/Thu Oct 24 10:28:47 2013/-kk/
+/pkg_install.conf.5.in/1.2/Fri May  1 11:19:26 2015/-kk/
 /pkg_io.c/1.1.1.9/Fri Apr 23 20:54:11 2010/-kk/
 /pkg_signature.c/1.2/Tue Oct 29 12:08:23 2013/-kk/
 /pkg_summary.5/1.4/Sun Feb 19 17:49:09 2012/-kk/

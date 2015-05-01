@@ -239,7 +239,9 @@ int	mcd_get_parms(struct mcd_softc *);
 void	mcdstart(struct mcd_softc *);
 void	mcd_pseudointr(void *);
 
-struct dkdriver mcddkdriver = { mcdstrategy, NULL, };
+struct dkdriver mcddkdriver = {
+	.d_strategy = mcdstrategy
+};
 
 #define MCD_RETRIES	3
 #define MCD_RDRETRIES	3

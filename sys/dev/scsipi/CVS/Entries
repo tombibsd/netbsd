@@ -4,7 +4,7 @@
 /atapi_wdc.c/1.119/Tue Jul 31 15:59:57 2012/-kk/
 /atapiconf.c/1.87/Fri Mar 14 04:28:21 2014/-kk/
 /atapiconf.h/1.23/Mon Oct 19 18:41:16 2009/-kk/
-/cd.c/1.329/Wed Apr 22 07:37:00 2015/-kk/
+/cd.c/1.330/Fri May  1 11:32:11 2015/-kk/
 /cdvar.h/1.32/Wed Apr 22 07:37:00 2015/-kk/
 /ch.c/1.90/Fri Oct  3 09:09:20 2014/-kk/
 /files.scsipi/1.41/Sun Dec 11 12:23:50 2005/-kk/
@@ -31,7 +31,7 @@
 /scsipi_verbose.c/1.32/Sun Jul 25 13:49:58 2010/-kk/
 /scsipiconf.c/1.40/Sat Aug 21 13:18:36 2010/-kk/
 /scsipiconf.h/1.122/Sun Jul 20 13:58:49 2014/-kk/
-/sd.c/1.315/Wed Apr 22 07:37:00 2015/-kk/
+/sd.c/1.316/Fri May  1 11:32:11 2015/-kk/
 /sdvar.h/1.36/Wed Apr 22 07:37:00 2015/-kk/
 /ses.c/1.47/Fri Oct  3 09:09:20 2014/-kk/
 /ses.h/1.3/Sun Dec 11 12:23:51 2005/-kk/

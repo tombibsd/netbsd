@@ -261,7 +261,7 @@ acpi_dalb_resume(device_t dev, const pmf_qual_t *qual)
 	return true;
 }
 
-MODULE(MODULE_CLASS_DRIVER, acpidalb, NULL);
+MODULE(MODULE_CLASS_DRIVER, acpidalb, "sysmon_power");
 
 #ifdef _MODULE
 #include "ioconf.c"

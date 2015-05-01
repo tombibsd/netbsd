@@ -29,7 +29,7 @@
 .\"
 .\"     @(#)intro.2	8.5 (Berkeley) 2/27/95
 .\"
-.Dd July 23, 2009
+.Dd April 21, 2015
 .Dt INTRO 2
 .Os
 .Sh NAME
@@ -270,6 +270,11 @@ in the available space.
 .It Er 35 EAGAIN Em "Resource temporarily unavailable" .
 This is a temporary condition and later calls to the
 same routine may complete normally.
+In this implementation this is the same as
+.Er EWOULDBLOCK ,
+but
+.Er EAGAIN
+is the preferred name.
 .It Er 36 EINPROGRESS Em "Operation now in progress" .
 An operation that takes a long time to complete (such as
 a

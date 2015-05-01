@@ -760,10 +760,6 @@ haltsys:
 	doshutdownhooks();
 
 	if ((howto & RB_POWERDOWN) == RB_POWERDOWN) {
-#ifdef XEN
-		HYPERVISOR_shutdown();
-		for (;;);
-#endif
 #if NACPICA > 0
 		if (s != IPL_NONE)
 			splx(s);
@@ -771,6 +767,10 @@ haltsys:
 		acpi_enter_sleep_state(ACPI_STATE_S5);
 #else
 		__USE(s);
+#endif
+#ifdef XEN
+		HYPERVISOR_shutdown();
+		for (;;);
 #endif
 	}
 

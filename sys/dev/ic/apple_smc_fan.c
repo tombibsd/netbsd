@@ -448,7 +448,7 @@ apple_smc_fan_sysctl_setup_1(struct apple_smc_fan_softc *sc, uint8_t fan)
 }
 #endif
 
-MODULE(MODULE_CLASS_DRIVER, apple_smc_fan, "apple_smc");
+MODULE(MODULE_CLASS_DRIVER, apple_smc_fan, "apple_smc,sysmon_envsys");
 
 #ifdef _MODULE
 #include "ioconf.c"

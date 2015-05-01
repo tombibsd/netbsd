@@ -68,8 +68,8 @@ void	raw_init(void);
 void	raw_input(struct mbuf *, ...);
 int	raw_usrreq(struct socket *,
 	    int, struct mbuf *, struct mbuf *, struct mbuf *, struct lwp *);
-void	raw_setsockaddr(struct rawcb *, struct mbuf *);
-void	raw_setpeeraddr(struct rawcb *, struct mbuf *);
+void	raw_setsockaddr(struct rawcb *, struct sockaddr *);
+void	raw_setpeeraddr(struct rawcb *, struct sockaddr *);
 int	raw_send(struct socket *,
 	    struct mbuf *, struct mbuf *, struct mbuf *, struct lwp *);
 

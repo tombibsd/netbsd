@@ -333,7 +333,7 @@ out:
 		    "event 0x%02X: %s\n", evt, AcpiFormatException(rv));
 }
 
-MODULE(MODULE_CLASS_DRIVER, wmieeepc, "acpiwmi");
+MODULE(MODULE_CLASS_DRIVER, wmieeepc, "acpiwmi,sysmon_power");
 
 #ifdef _MODULE
 #include "ioconf.c"

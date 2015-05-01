@@ -168,14 +168,13 @@ main(int argc, char *argv[])
 static u_int
 argtou(const char *arg, u_int lo, u_int hi, const char *msg)
 {
-    char *s;
-    u_long x;
+    off_t x;
 
     errno = 0;
-    x = strtoul(arg, &s, 0);
-    if (errno || !*arg || *s || x < lo || x > hi)
+    x = argtooff(arg, msg);
+    if (x < lo || x > hi)
 	errx(1, "%s: bad %s", arg, msg);
-    return x;
+    return (u_int)x;
 }
 
 /*

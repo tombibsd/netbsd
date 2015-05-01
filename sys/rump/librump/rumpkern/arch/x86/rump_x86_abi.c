@@ -1,7 +1,7 @@
 /*	$NetBSD$	*/
 
-/*
- * Copyright (c) 2013 Antti Kantee.  All Rights Reserved.
+/*-
+ * Copyright (c) 2015 Antti Kantee.  All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -28,39 +28,11 @@
 #include <sys/cdefs.h>
 __KERNEL_RCSID(0, "$NetBSD$");
 
-#include <sys/errno.h>
+#include "rump_private.h"
 
-/* provide weak aliases for optional rump kernel hypervisor features */
+int
+rump_nativeabi_p(void)
+{
 
-int rump_hypernotsupp(void);
-int rump_hypernotsupp(void) { return ENOTSUP; }
-
-/* dynlinking */
-
-__weak_alias(rumpuser_dl_bootstrap,rump_hypernotsupp);
-__weak_alias(rumpuser_dl_globalsym,rump_hypernotsupp);
-
-/* race-free daemon creation */
-
-__weak_alias(rumpuser_daemonize_begin,rump_hypernotsupp);
-__weak_alias(rumpuser_daemonize_done,rump_hypernotsupp);
-
-/* process env */
-
-__weak_alias(rumpuser_kill,rump_hypernotsupp);
-
-/* anonmmap (for proplib and modules) */
-
-__weak_alias(rumpuser_anonmmap,rump_hypernotsupp);
-__weak_alias(rumpuser_unmap,rump_hypernotsupp);
-
-/* syscall proxy */
-
-__weak_alias(rumpuser_sp_init,rump_hypernotsupp);
-__weak_alias(rumpuser_sp_copyin,rump_hypernotsupp);
-__weak_alias(rumpuser_sp_copyinstr,rump_hypernotsupp);
-__weak_alias(rumpuser_sp_copyout,rump_hypernotsupp);
-__weak_alias(rumpuser_sp_copyoutstr,rump_hypernotsupp);
-__weak_alias(rumpuser_sp_anonmmap,rump_hypernotsupp);
-__weak_alias(rumpuser_sp_raise,rump_hypernotsupp);
-__weak_alias(rumpuser_sp_fini,rump_hypernotsupp);
+	return 1;
+}

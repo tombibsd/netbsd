@@ -166,7 +166,9 @@ const struct cdevsw spiflash_cdevsw = {
 	.d_flag = D_DISK,
 };
 
-static struct dkdriver spiflash_dkdriver = { spiflash_strategy, NULL };
+static struct dkdriver spiflash_dkdriver = {
+	.d_strategy = spiflash_strategy
+};
 
 spiflash_handle_t
 spiflash_attach_mi(const struct spiflash_hw_if *hw, void *cookie,

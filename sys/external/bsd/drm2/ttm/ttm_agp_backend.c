@@ -156,7 +156,7 @@ ttm_agp_destroy(struct ttm_tt *ttm)
 	if (ttm_agp->bound)
 		ttm_agp_unbind(ttm);
 	ttm_tt_fini(ttm);
-	kmem_free(ttm, sizeof(*ttm));
+	kmem_free(ttm_agp, sizeof(*ttm_agp));
 }
 
 static const struct ttm_backend_func ttm_agp_backend_func = {

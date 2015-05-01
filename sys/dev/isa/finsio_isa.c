@@ -689,7 +689,7 @@ finsio_refresh_fanrpm(struct finsio_softc *sc, envsys_data_t *edata)
 	}
 }
 
-MODULE(MODULE_CLASS_DRIVER, finsio, NULL);
+MODULE(MODULE_CLASS_DRIVER, finsio, "sysmon_envsys");
 
 #ifdef _MODULE
 #include "ioconf.c"

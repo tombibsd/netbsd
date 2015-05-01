@@ -80,7 +80,6 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/domain.h>
 
 #include <net/if.h>
-#include <net/route.h>
 #include <net/if_types.h>
 
 #include <netinet/in.h>
@@ -115,7 +114,6 @@ udp6_output(struct in6pcb * const in6p, struct mbuf *m,
     struct mbuf * const addr6, struct mbuf * const control,
     struct lwp * const l)
 {
-	struct rtentry *rt;
 	u_int32_t ulen = m->m_pkthdr.len;
 	u_int32_t plen = sizeof(struct udphdr) + ulen;
 	struct ip6_hdr *ip6;
@@ -358,9 +356,7 @@ udp6_output(struct in6pcb * const in6p, struct mbuf *m,
 		ip6->ip6_plen	= htons((u_int16_t)plen);
 #endif
 		ip6->ip6_nxt	= IPPROTO_UDP;
-		ip6->ip6_hlim	= in6_selecthlim(in6p,
-		    (rt = rtcache_validate(&in6p->in6p_route)) != NULL
-		        ? rt->rt_ifp : NULL);
+		ip6->ip6_hlim	= in6_selecthlim_rt(in6p);
 		ip6->ip6_src	= *laddr;
 		ip6->ip6_dst	= *faddr;
 

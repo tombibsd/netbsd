@@ -343,7 +343,7 @@ smsc_refresh(struct sysmon_envsys *sme, envsys_data_t *edata)
 	}
 }
 
-MODULE(MODULE_CLASS_DRIVER, smsc, NULL);
+MODULE(MODULE_CLASS_DRIVER, smsc, "sysmon_envsys");
 
 #ifdef _MODULE
 #include "ioconf.c"

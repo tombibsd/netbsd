@@ -89,10 +89,6 @@ kthread_create(pri_t pri, int flag, struct cpu_info *ci,
 	}
 	if (fmt != NULL) {
 		l->l_name = kmem_alloc(MAXCOMLEN, KM_SLEEP);
-		if (l->l_name == NULL) {
-			kthread_destroy(l);
-			return ENOMEM;
-		}
 		va_start(ap, fmt);
 		vsnprintf(l->l_name, MAXCOMLEN, fmt, ap);
 		va_end(ap);
@@ -188,19 +184,6 @@ kthread_exit(int ecode)
 	/* And exit.. */
 	lwp_exit(l);
 	panic("kthread_exit");
-}
-
-/*
- * Destroy an inactive kthread.  The kthread must be in the LSIDL state.
- */
-void
-kthread_destroy(lwp_t *l)
-{
-
-	KASSERT((l->l_flag & LW_SYSTEM) != 0);
-	KASSERT(l->l_stat == LSIDL);
-
-	lwp_exit(l);
 }
 
 /*

@@ -467,13 +467,6 @@ elf_load_interp(struct lwp *l, struct exec_package *epp, char *path,
 	if (vp->v_mount->mnt_flag & MNT_NOSUID)
 		epp->ep_vap->va_mode &= ~(S_ISUID | S_ISGID);
 
-#ifdef notyet /* XXX cgd 960926 */
-	XXX cgd 960926: (maybe) VOP_OPEN it (and VOP_CLOSE in copyargs?)
-
-	XXXps: this problem will make it impossible to use an interpreter
-	from a file system which actually does something in VOP_OPEN
-#endif
-
 	error = vn_marktext(vp);
 	if (error)
 		goto badunlock;
@@ -622,9 +615,6 @@ badunlock:
 bad:
 	if (ph != NULL)
 		kmem_free(ph, phsize);
-#ifdef notyet /* XXX cgd 960926 */
-	(maybe) VOP_CLOSE it
-#endif
 	vrele(vp);
 	return error;
 }

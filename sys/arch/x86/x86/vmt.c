@@ -1300,7 +1300,7 @@ vm_rpc_send_rpci_tx(struct vmt_softc *sc, const char *fmt, ...)
  * match the register values to the various constants in this file.
  */
 
-MODULE(MODULE_CLASS_DRIVER, vmt, NULL);
+MODULE(MODULE_CLASS_DRIVER, vmt, "sysmon_power,sysmon_taskq");
 
 #ifdef _MODULE
 #include "ioconf.c"

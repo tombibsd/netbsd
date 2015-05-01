@@ -743,7 +743,7 @@ aibs_sensor_limits(struct sysmon_envsys *sme, envsys_data_t *edata,
 	}
 }
 
-MODULE(MODULE_CLASS_DRIVER, aibs, NULL);
+MODULE(MODULE_CLASS_DRIVER, aibs, "sysmon_envsys");
 
 #ifdef _MODULE
 #include "ioconf.c"

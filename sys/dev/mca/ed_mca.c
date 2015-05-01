@@ -121,7 +121,10 @@ const struct cdevsw ed_cdevsw = {
 	.d_flag = D_DISK
 };
 
-static struct dkdriver eddkdriver = { edmcastrategy, minphys };
+static struct dkdriver eddkdriver = {
+	.d_strategy = edmcastrategy,
+	.d_minphys = minphys
+};
 
 /*
  * Just check if it's possible to identify the disk.

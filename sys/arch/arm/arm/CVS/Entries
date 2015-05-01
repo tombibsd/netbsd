@@ -11,8 +11,8 @@
 /compat_13_machdep.c/1.18/Thu Oct 24 10:28:57 2013/-kk/
 /compat_16_machdep.c/1.17/Thu Oct 24 10:28:57 2013/-kk/
 /copystr.S/1.11/Thu Oct 24 10:28:57 2013/-kk/
-/core_machdep.c/1.7/Sat Mar  1 06:04:22 2014/-kk/
-/cpu_exec.c/1.9/Sat Mar  1 06:04:22 2014/-kk/
+/core_machdep.c/1.8/Fri May  1 11:28:46 2015/-kk/
+/cpu_exec.c/1.10/Fri May  1 11:28:46 2015/-kk/
 /cpu_in_cksum.S/1.11/Sat Mar 21 02:20:52 2015/-kk/
 /cpu_in_cksum_buffer.S/1.8/Sun Dec 23 13:24:22 2012/-kk/
 /cpu_in_cksum_fold.S/1.4/Sun Dec 23 13:26:21 2012/-kk/

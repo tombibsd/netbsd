@@ -191,7 +191,7 @@ pwdog_tickle(struct sysmon_wdog *smw)
 	return 0;
 }
 
-MODULE(MODULE_CLASS_DRIVER, pwdog, "pci");
+MODULE(MODULE_CLASS_DRIVER, pwdog, "pci,sysmon_wdog");
 
 #ifdef _MODULE
 #include "ioconf.c"

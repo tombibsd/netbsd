@@ -547,7 +547,7 @@ aps_resume(device_t dv, const pmf_qual_t *qual)
 	return true;
 }
 
-MODULE(MODULE_CLASS_DRIVER, aps, NULL);
+MODULE(MODULE_CLASS_DRIVER, aps, "sysmon_envsys");
 
 #ifdef _MODULE
 #include "ioconf.c"

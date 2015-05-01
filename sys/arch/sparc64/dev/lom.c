@@ -265,7 +265,7 @@ lom_attach(device_t parent, device_t self, void *aux)
 	struct ebus_attach_args *ea = aux;
 	uint8_t reg, fw_rev, config, config2, config3;
 	uint8_t cal, low;
-	int i;
+	int i, err;
 	const struct sysctlnode *node = NULL, *newnode;
 
 	if (strcmp(ea->ea_name, "SUNW,lomh") == 0) {
@@ -415,9 +415,10 @@ lom_attach(device_t parent, device_t self, void *aux)
 	sc->sc_sme->sme_name = device_xname(self);
 	sc->sc_sme->sme_cookie = sc;
 	sc->sc_sme->sme_refresh = lom_refresh;
-	if (sysmon_envsys_register(sc->sc_sme)) {
+	err = sysmon_envsys_register(sc->sc_sme);
+	if (err) {
 		aprint_error_dev(self,
-		    "unable to register envsys with sysmon\n");
+		    "unable to register envsys with sysmon, error %d\n", err);
 		sysmon_envsys_destroy(sc->sc_sme);
 		return;
 	}

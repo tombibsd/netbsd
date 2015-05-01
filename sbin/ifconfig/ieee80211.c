@@ -482,6 +482,7 @@ scan_exec(prop_dictionary_t env, prop_dictionary_t oenv)
 static void
 ieee80211_statistics(prop_dictionary_t env)
 {
+#ifndef SMALL
 	struct ieee80211_stats stats;
 	struct ifreq ifr;
 
@@ -584,6 +585,7 @@ ieee80211_statistics(prop_dictionary_t env)
 	STAT_PRINT(is_ff_decap, "fast frames decap'd");
 	STAT_PRINT(is_ff_encap, "fast frames encap'd for tx");
 	STAT_PRINT(is_rx_badbintval, "rx frame w/ bogus bintval");
+#endif
 }
 
 static void
