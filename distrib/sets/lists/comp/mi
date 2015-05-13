@@ -2529,7 +2529,7 @@
 ./usr/include/miscfs/portal/portal.h		comp-obsolete		obsolete
 ./usr/include/miscfs/procfs/procfs.h		comp-c-include
 ./usr/include/miscfs/specfs/specdev.h		comp-c-include
-./usr/include/miscfs/syncfs/syncfs.h		comp-c-include
+./usr/include/miscfs/syncfs/syncfs.h		comp-obsolete		obsolete
 ./usr/include/miscfs/umapfs/umap.h		comp-c-include
 ./usr/include/miscfs/union/union.h		comp-c-include
 ./usr/include/mj.h				comp-c-include		crypto

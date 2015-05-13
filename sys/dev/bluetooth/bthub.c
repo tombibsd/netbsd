@@ -121,7 +121,14 @@ bthub_attach(device_t parent, device_t self, void *aux)
 
 	aprint_normal("\n");
 
-	pmf_device_register(self, NULL, NULL);
+	if (!pmf_device_register(self, NULL, NULL)) {
+		/*
+		 * XXX this should not be allowed to happen, but
+		 * avoiding it needs a pretty big rearrangement of
+		 * device attachments.
+		 */
+		aprint_error_dev(self, "couldn't establish power handler\n");
+	}
 }
 
 static int

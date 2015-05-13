@@ -99,6 +99,7 @@
 #define	_PATH_URANDOM	"/dev/urandom"
 #define	_PATH_VIDEO	"/dev/video"
 #define	_PATH_VIDEO0	"/dev/video0"
+#define	_PATH_WATCHDOG	"/dev/watchdog"
 
 /*
  * Provide trailing slash, since mostly used for building pathnames.

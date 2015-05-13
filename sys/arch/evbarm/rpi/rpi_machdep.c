@@ -534,6 +534,11 @@ rpi_bootstrap(void)
 			    __func__, i);
 		}
 	}
+
+	/*
+	 * XXXNH: Disable non-boot CPUs for now
+	 */
+	arm_cpu_hatched = 0;
 #endif
 }
 

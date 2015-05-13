@@ -77,6 +77,7 @@ typedef struct dwc2_softc {
  	bus_space_handle_t	sc_ioh;
  	bus_dma_tag_t		sc_dmat;
 	struct dwc2_core_params *sc_params;
+	int			(*sc_set_dma_addr)(device_t, bus_addr_t, int);
 
 	/*
 	 * Private

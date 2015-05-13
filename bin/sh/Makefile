@@ -42,6 +42,9 @@ CPPFLAGS+=-DSHELL -I. -I${.CURDIR}
 
 .ifdef SMALLPROG
 CPPFLAGS+=-DSMALL
+.endif
+.ifdef TINYPROG
+CPPFLAGS+=-DTINY
 .else
 SRCS+=printf.c
 .endif

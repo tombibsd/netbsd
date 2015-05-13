@@ -287,6 +287,8 @@ in_pcbbind_addr(struct inpcb *inp, struct sockaddr_in *sin, kauth_cred_t cred)
 			ia = ifatoia(ifa_ifwithaddr(sintosa(sin)));
 		if (ia == NULL)
 			return (EADDRNOTAVAIL);
+		if (ia->ia4_flags & (IN_IFF_NOTREADY | IN_IFF_DETACHED))
+			return (EADDRNOTAVAIL);
 	}
 
 	inp->inp_laddr = sin->sin_addr;
@@ -441,26 +443,38 @@ in_pcbbind(void *v, struct sockaddr_in *sin, struct lwp *l)
 }
 
 /*
+ * adapter function that accepts nam as mbuf for in_pcbconnect()
+ */
+int
+in_pcbconnect_m(void *v, struct mbuf *nam, struct lwp *l)
+{
+	struct sockaddr_in *sin = mtod(nam, struct sockaddr_in *);
+
+	if (sizeof (*sin) != nam->m_len) {
+		return EINVAL;
+	}
+
+	return in_pcbconnect(v, sin, l);
+}
+
+/*
  * Connect from a socket to a specified address.
  * Both address and port must be specified in argument sin.
  * If don't have a local address for this socket yet,
  * then pick one.
  */
 int
-in_pcbconnect(void *v, struct mbuf *nam, struct lwp *l)
+in_pcbconnect(void *v, struct sockaddr_in *sin, struct lwp *l)
 {
 	struct inpcb *inp = v;
 	struct in_ifaddr *ia = NULL;
 	struct sockaddr_in *ifaddr = NULL;
-	struct sockaddr_in *sin = mtod(nam, struct sockaddr_in *);
 	vestigial_inpcb_t vestige;
 	int error;
 
 	if (inp->inp_af != AF_INET)
 		return (EINVAL);
 
-	if (nam->m_len != sizeof (*sin))
-		return (EINVAL);
 	if (sin->sin_len != sizeof (*sin))
 		return (EINVAL);
 	if (sin->sin_family != AF_INET)

@@ -23,6 +23,7 @@ UNIT_TESTS:= ${.PARSEDIR}
 TESTNAMES= \
 	comment \
 	cond1 \
+	cond2 \
 	error \
 	export \
 	export-all \

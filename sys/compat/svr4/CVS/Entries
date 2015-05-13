@@ -40,7 +40,7 @@
 /svr4_stat.c/1.70/Fri Oct  3 09:36:14 2014/-kk/
 /svr4_stat.h/1.10/Mon Apr 28 20:23:45 2008/-kk/
 /svr4_statvfs.h/1.4/Mon Apr 28 20:23:45 2008/-kk/
-/svr4_stream.c/1.84/Fri May  1 11:32:02 2015/-kk/
+/svr4_stream.c/1.85/Wed May 13 03:33:04 2015/-kk/
 /svr4_stropts.h/1.14/Mon Apr 28 20:23:45 2008/-kk/
 /svr4_syscall.h/1.86/Sat Mar 21 02:37:48 2015/-kk/
 /svr4_syscallargs.h/1.85/Sat Mar 21 02:37:48 2015/-kk/

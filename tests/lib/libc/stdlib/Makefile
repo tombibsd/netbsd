@@ -16,6 +16,7 @@ TESTS_C+=	t_posix_memalign
 TESTS_C+=	t_random
 TESTS_C+=	t_strtod
 TESTS_C+=	t_strtol
+TESTS_C+=	t_strtoi
 TESTS_C+=	t_system
 
 TESTS_SH+=	t_atexit

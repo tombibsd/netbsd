@@ -365,7 +365,7 @@ ddp_listen(struct socket *so, struct lwp *l)
 }
 
 static int
-ddp_connect(struct socket *so, struct mbuf *nam, struct lwp *l)
+ddp_connect(struct socket *so, struct sockaddr *nam, struct lwp *l)
 {
 	struct ddpcb *ddp = sotoddpcb(so);
 	int error = 0;
@@ -376,9 +376,7 @@ ddp_connect(struct socket *so, struct mbuf *nam, struct lwp *l)
 
 	if (ddp->ddp_fsat.sat_port != ATADDR_ANYPORT)
 		return EISCONN;
-	if (nam->m_len != sizeof(struct sockaddr_at))
-		return EINVAL;
-	error = at_pcbconnect(ddp, mtod(nam, struct sockaddr_at *));
+	error = at_pcbconnect(ddp, (struct sockaddr_at *)nam);
 	if (error == 0)
 		soisconnected(so);
 
@@ -479,7 +477,7 @@ ddp_recvoob(struct socket *so, struct mbuf *m, int flags)
 }
 
 static int
-ddp_send(struct socket *so, struct mbuf *m, struct mbuf *nam,
+ddp_send(struct socket *so, struct mbuf *m, struct sockaddr *nam,
     struct mbuf *control, struct lwp *l)
 {
 	struct ddpcb *ddp = sotoddpcb(so);
@@ -493,9 +491,7 @@ ddp_send(struct socket *so, struct mbuf *m, struct mbuf *nam,
 		if (ddp->ddp_fsat.sat_port != ATADDR_ANYPORT)
 			return EISCONN;
 		s = splnet();
-		if (nam->m_len != sizeof(struct sockaddr_at))
-			return EINVAL;
-		error = at_pcbconnect(ddp, mtod(nam, struct sockaddr_at *));
+		error = at_pcbconnect(ddp, (struct sockaddr_at *)nam);
 		if (error) {
 			splx(s);
 			return error;

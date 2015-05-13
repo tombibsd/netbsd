@@ -59,6 +59,22 @@ struct arm32_bus_dma_tag tegra_dma_tag = {
 	_BUS_DMATAG_FUNCS,
 };
 
+static struct arm32_dma_range tegra_coherent_dma_ranges[] = {
+	[0] = {
+		.dr_sysbase = TEGRA_EXTMEM_BASE,
+		.dr_busbase = TEGRA_EXTMEM_BASE,
+		.dr_flags = _BUS_DMAMAP_COHERENT,
+	},
+};
+
+struct arm32_bus_dma_tag tegra_coherent_dma_tag = {
+	._ranges = tegra_coherent_dma_ranges,
+	._nranges = __arraycount(tegra_coherent_dma_ranges),
+	_BUS_DMAMAP_FUNCS,
+	_BUS_DMAMEM_FUNCS,
+	_BUS_DMATAG_FUNCS,
+};
+
 static void	tegra_mpinit(void);
 
 void
@@ -84,6 +100,12 @@ tegra_bootstrap(void)
 	curcpu()->ci_data.cpu_cc_freq = tegra_car_pllx_rate();
 
 	tegra_mpinit();
+}
+
+void
+tegra_dma_bootstrap(psize_t psize)
+{
+	tegra_coherent_dma_ranges[0].dr_len = psize;
 }
 
 static void

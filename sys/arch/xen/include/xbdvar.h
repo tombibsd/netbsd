@@ -36,7 +36,6 @@ struct xbd_softc {
 	device_t		sc_dev;		/* base device glue */
 	struct dk_softc		sc_dksc;	/* generic disk interface */
 	unsigned long		sc_xd_device;	/* cookie identifying device */
-	struct dk_intf		*sc_di;		/* pseudo-disk interface */
 	int			sc_shutdown;	/* about to be removed */
 	krndsource_t	sc_rnd_source;
 };
@@ -44,7 +43,6 @@ struct xbd_softc {
 struct xbd_attach_args {
 	const char 		*xa_device;
 	vdisk_t			*xa_xd;
-	struct dk_intf		*xa_dkintf;
 	struct sysctlnode	*xa_diskcookies;
 };
 

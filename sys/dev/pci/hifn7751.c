@@ -433,12 +433,12 @@ hifn_attach(device_t parent, device_t self, void *aux)
 	    sc->sc_dmamap->dm_mapsize,
 	    BUS_DMASYNC_PREREAD | BUS_DMASYNC_PREWRITE);
 
+	mutex_init(&sc->sc_mtx, MUTEX_DEFAULT, IPL_VM);
+
 	if (sc->sc_flags & (HIFN_HAS_PUBLIC | HIFN_HAS_RNG)) {
 		hifn_init_pubrng(sc);
 		sc->sc_rng_need = RND_POOLBITS / NBBY;
 	}
-
-	mutex_init(&sc->sc_mtx, MUTEX_DEFAULT, IPL_VM);
 
 #ifdef	__OpenBSD__
 	timeout_set(&sc->sc_tickto, hifn_tick, sc);
@@ -538,8 +538,7 @@ hifn_rng_get(size_t bytes, void *priv)
 
 	mutex_enter(&sc->sc_mtx);
 	sc->sc_rng_need = bytes;
-
-	hifn_rng_locked(sc);
+	callout_reset(&sc->sc_rngto, 0, hifn_rng, sc);
 	mutex_exit(&sc->sc_mtx);
 }
 

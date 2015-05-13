@@ -672,8 +672,7 @@ edit_and_check_label(partinfo *lp, int nparts, int rawpart, int bsdpart)
 
 		/*XXX ???*/
 		msg_display_add(MSG_edit_partitions_again);
-		process_menu(MENU_yesno, NULL);
-		if (!yesno)
+		if (!ask_yesno(NULL))
 			return(0);
 	}
 

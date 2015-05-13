@@ -49,7 +49,6 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/wapbl.h>
 
 #include <miscfs/specfs/specdev.h>
-#include <miscfs/syncfs/syncfs.h>
 
 #include <rump/rump.h>
 #include <rump/rumpuser.h>

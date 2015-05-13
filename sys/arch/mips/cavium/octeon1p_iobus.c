@@ -127,7 +127,7 @@ static const struct iobus_unit	iobus_units_octeon_usbn[] = {
 };
 
 static const struct iobus_dev iobus_dev_octeon_usbn = {
-	.name = "octeon_usbn",
+	.name = "dwctwo",
 	.nunits = USBN_NUNITS,
 	.units = iobus_units_octeon_usbn
 };

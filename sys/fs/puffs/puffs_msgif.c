@@ -51,8 +51,6 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <fs/puffs/puffs_msgif.h>
 #include <fs/puffs/puffs_sys.h>
 
-#include <miscfs/syncfs/syncfs.h> /* XXX: for syncer_mutex reference */
-
 /*
  * waitq data structures
  */

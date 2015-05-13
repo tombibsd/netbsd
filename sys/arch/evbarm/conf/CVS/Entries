@@ -58,7 +58,7 @@
 /IQ80321_INSTALL/1.2/Thu Feb  9 19:07:37 2012/-kk/
 /IXDP425/1.49/Fri Oct  3 09:43:15 2014/-kk/
 /IXM1200/1.60/Fri Oct  3 09:43:15 2014/-kk/
-/JETSONTK1/1.6/Fri May  1 11:29:02 2015/-kk/
+/JETSONTK1/1.14/Wed May 13 03:32:42 2015/-kk/
 /KOBO/1.7/Sun Apr 12 03:34:36 2015/-kk/
 /KOBO_INSTALL/1.1/Fri Jul 25 11:22:50 2014/-kk/
 /KUROBOX_PRO/1.7/Fri Oct  3 09:36:03 2014/-kk/
@@ -77,7 +77,7 @@
 /N900/1.21/Fri Oct  3 09:43:16 2014/-kk/
 /NAPPI/1.56/Fri Oct  3 09:43:16 2014/-kk/
 /NAPPI_MD/1.3/Tue Nov 23 11:13:56 2010/-kk/
-/NETWALKER/1.33/Sun Apr 12 03:34:36 2015/-kk/
+/NETWALKER/1.34/Wed May 13 03:32:42 2015/-kk/
 /NETWALKER_INSTALL/1.3/Mon May 19 16:25:47 2014/-kk/
 /NETWALKER_MD/1.3/Sun Apr 15 08:17:42 2012/-kk/
 /NITROGEN6X/1.4/Wed Oct 29 08:13:00 2014/-kk/
@@ -155,14 +155,14 @@
 /files.iq80321/1.9/Thu Oct 24 10:28:57 2013/-kk/
 /files.ixdp425/1.9/Thu Oct 24 10:28:57 2013/-kk/
 /files.ixm1200/1.5/Mon Dec  3 15:33:31 2007/-kk/
-/files.kobo/1.1/Fri Jul 25 11:22:50 2014/-kk/
+/files.kobo/1.2/Wed May 13 03:32:42 2015/-kk/
 /files.lubbock/1.7/Mon Mar 17 09:30:02 2008/-kk/
 /files.marvell/1.5/Tue Mar 25 02:35:19 2014/-kk/
 /files.mini2440/1.1/Mon Jan 30 03:28:33 2012/-kk/
 /files.mmnet/1.1/Fri Nov  4 17:40:48 2011/-kk/
 /files.mpcsa/1.2/Thu Jul  3 01:15:38 2008/-kk/
 /files.n900/1.5/Thu Oct 24 10:28:57 2013/-kk/
-/files.netwalker/1.8/Mon May 19 16:25:48 2014/-kk/
+/files.netwalker/1.9/Wed May 13 03:32:42 2015/-kk/
 /files.nitrogen6/1.1/Thu Sep 25 05:05:28 2014/-kk/
 /files.npwr_fc/1.3/Thu Oct 24 10:28:57 2013/-kk/
 /files.nslu2/1.3/Mon Dec  3 15:33:32 2007/-kk/
@@ -232,7 +232,7 @@
 /std.bcm53xx/1.14/Sat Mar  1 06:04:25 2014/-kk/
 /std.beagle/1.13/Fri Oct  3 09:43:16 2014/-kk/
 /std.cp3100/1.5/Sun Dec 16 23:47:56 2012/-kk/
-/std.evbarm/1.3/Sun Dec 16 20:43:54 2012/-kk/
+/std.evbarm/1.4/Wed May 13 03:32:42 2015/-kk/
 /std.g42xxeb/1.8/Sun Dec 16 23:47:56 2012/-kk/
 /std.gemini/1.8/Mon Nov 11 15:21:26 2013/-kk/
 /std.goldengate/1.2/Mon Nov 11 15:21:26 2013/-kk/
@@ -268,7 +268,7 @@
 /std.rpi/1.19/Sat Mar 21 02:29:40 2015/-kk/
 /std.smdk2410/1.7/Sun Dec 16 23:47:56 2012/-kk/
 /std.smdk2800/1.15/Sun Dec 16 23:47:56 2012/-kk/
-/std.tegra/1.3/Fri May  1 11:29:02 2015/-kk/
+/std.tegra/1.5/Wed May 13 03:32:42 2015/-kk/
 /std.tisdp24xx/1.9/Mon Nov 11 15:21:26 2013/-kk/
 /std.tsarm/1.8/Sun Dec 16 23:47:57 2012/-kk/
 /std.vexpress/1.2/Sat Mar 21 02:20:56 2015/-kk/

@@ -72,8 +72,6 @@ extern int coda_nc_initialized;    /* Set if cache has been initialized */
 #include <sys/atomic.h>
 #include <sys/module.h>
 
-#include <miscfs/syncfs/syncfs.h>
-
 #include <coda/coda.h>
 #include <coda/cnode.h>
 #include <coda/coda_namecache.h>

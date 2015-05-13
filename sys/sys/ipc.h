@@ -50,6 +50,7 @@
 
 #include <sys/featuretest.h>
 #include <sys/types.h>
+#include <sys/sysctl.h>
 
 struct ipc_perm {
 	uid_t		uid;	/* user id */
@@ -128,6 +129,12 @@ void	sysvipcinit(void);
 	(dst).mode = (src).mode; \
 	(dst)._seq = (src)._seq; \
 } while (/*CONSTCOND*/ 0);
+
+/*
+ * Set-up the sysctl routine for COMPAT_50
+ */
+
+void sysvipc50_set_compat_sysctl(int (*)(SYSCTLFN_PROTO));
 
 #endif /* _KERNEL */
 

@@ -59,6 +59,20 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <compat/sys/ipc.h>
 #endif
 
+static int (*kern_sysvipc50_sysctl_p)(SYSCTLFN_ARGS)
+#ifdef COMPAT_50
+		= sysctl_kern_sysvipc50;
+#else
+		= NULL;
+#endif
+
+void
+sysvipc50_set_compat_sysctl(int (*compat_sysctl)(SYSCTLFN_PROTO))
+{
+
+	kern_sysvipc50_sysctl_p = compat_sysctl;
+}
+
 static kauth_listener_t sysvipc_listener = NULL;
 
 static int
@@ -168,16 +182,17 @@ sysctl_kern_sysvipc(SYSCTLFN_ARGS)
 	int32_t nds;
 	int i, error, ret;
 
-#ifdef COMPAT_50
-	switch ((error = sysctl_kern_sysvipc50(SYSCTLFN_CALL(rnode)))) {
-	case 0:
-		return 0;
-	case EPASSTHROUGH:
-		break;
-	default:
-		return error;
+/*
+ * If compat_sysv module has loaded the compat sysctl, call it.  If
+ * it handles the request completely (either success or error), just
+ * return.  Otherwise fallthrough to the non-compat_sysv sysctl code.
+ */
+	if (kern_sysvipc50_sysctl_p != NULL) {
+		error = (*kern_sysvipc50_sysctl_p)(SYSCTLFN_CALL(rnode));
+		if (error != EPASSTHROUGH)
+			return error;
 	}
-#endif
+
 	if (namelen != 1)
 		return EINVAL;
 

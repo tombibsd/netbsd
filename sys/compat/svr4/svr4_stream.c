@@ -1495,7 +1495,8 @@ svr4_sys_putmsg(struct lwp *l, const struct svr4_sys_putmsg_args *uap, register_
  	switch (st->s_cmd = sc.cmd) {
 	case SVR4_TI_CONNECT_REQUEST:	/* connect 	*/
 	 	KERNEL_UNLOCK_ONE(NULL);
-		return do_sys_connect(l, SCARG(uap, fd), nam);
+		return do_sys_connect(l, SCARG(uap, fd),
+		    mtod(nam, struct sockaddr *));
 
 	case SVR4_TI_SENDTO_REQUEST:	/* sendto 	*/
 	 	KERNEL_UNLOCK_ONE(NULL);

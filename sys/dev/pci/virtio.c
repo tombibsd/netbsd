@@ -489,7 +489,6 @@ virtio_vq_intr(struct virtio_softc *sc)
 				r |= (vq->vq_done)(vq);
 		}
 	}
-		
 
 	return r;
 }

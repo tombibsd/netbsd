@@ -132,7 +132,8 @@ struct inpcb {
 void	in_losing(struct inpcb *);
 int	in_pcballoc(struct socket *, void *);
 int	in_pcbbind(void *, struct sockaddr_in *, struct lwp *);
-int	in_pcbconnect(void *, struct mbuf *, struct lwp *);
+int	in_pcbconnect(void *, struct sockaddr_in *, struct lwp *);
+int	in_pcbconnect_m(void *, struct mbuf *, struct lwp *);
 void	in_pcbdetach(void *);
 void	in_pcbdisconnect(void *);
 void	in_pcbinit(struct inpcbtable *, int, int);

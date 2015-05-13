@@ -1,4 +1,4 @@
-/Makefile/1.9/Sat Dec  5 20:11:17 2009/-kk/
+/Makefile/1.10/Wed May 13 03:33:16 2015/-kk/
 D/deadfs////
 D/fdesc////
 D/fifofs////
@@ -8,5 +8,4 @@ D/nullfs////
 D/overlay////
 D/procfs////
 D/specfs////
-D/syncfs////
 D/umapfs////

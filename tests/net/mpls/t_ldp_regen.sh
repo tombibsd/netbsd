@@ -158,7 +158,7 @@ docleanup() {
 
 ldp_regen_body() {
 
-        if sysctl machdep.cpu_brand | grep QEMU >/dev/null 2>&1
+        if sysctl machdep.cpu_brand 2>/dev/null | grep QEMU >/dev/null 2>&1
 	then
 	    atf_skip "unreliable under qemu, skip until PR kern/43997 fixed"
 	fi

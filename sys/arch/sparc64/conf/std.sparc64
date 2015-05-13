@@ -16,5 +16,8 @@ options 	EXEC_ELF64	# 64-bit NetBSD and SunOS 5 bins
 
 options		CPU_IN_CKSUM	# use optimized checksum method
 
+options 	CHILD_MAX=1024	# 160 is too few
+options 	OPEN_MAX=1024	# 128 is too few
+
 # Atheros HAL options
 include "external/isc/atheros_hal/conf/std.ath_hal"

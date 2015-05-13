@@ -2,7 +2,7 @@
 /makerumpdefs.sh/1.25/Wed Dec 25 07:37:47 2013/-kk/
 /rump.h/1.63/Wed Jun 18 08:43:12 2014/-kk/
 /rump_namei.h/1.27/Fri May  1 11:32:37 2015/-kk/
-/rump_syscalls.h/1.83/Sun Apr 12 03:35:19 2015/-kk/
+/rump_syscalls.h/1.86/Wed May 13 03:33:20 2015/-kk/
 /rump_syscalls_compat.h/1.13/Thu Oct 24 10:28:58 2013/-kk/
 /rumpdefs.h/1.30/Wed Dec 25 07:37:47 2013/-kk/
 /rumperr.h/1.1/Wed Dec 18 20:12:08 2013/-kk/

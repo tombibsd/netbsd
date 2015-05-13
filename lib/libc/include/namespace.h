@@ -65,12 +65,16 @@
 #define strtod_l	_strtod_l
 #define strtof		_strtof
 #define strtof_l	_strtof_l
+#define strtoi		_strtoi
+#define strtoi_l	_strtoi_l
 #define strtoimax	_strtoimax
 #define strtoimax_l	_strtoimax_l
 #define strtold		_strtold
 #define strtold_l	_strtold_l
 #define strtoll		_strtoll
 #define strtoll_l	_strtoll_l
+#define strtou		_strtou
+#define strtou_l	_strtou_l
 #define strtoull	_strtoull
 #define strtoull_l	_strtoull_l
 #define strtoumax	_strtoumax

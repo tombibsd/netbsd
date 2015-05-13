@@ -69,8 +69,7 @@ int
 md_make_bsd_partitions(void)
 {
 	msg_display(MSG_infoahdilabel, pm->diskdev);
-	process_menu(MENU_noyes, NULL);
-	if (yesno) {
+	if (ask_noyes(NULL)) {
 		run_program(RUN_DISPLAY, "ahdilabel /dev/r%sc", pm->diskdev);
 	}
 	if (!make_bsd_partitions())

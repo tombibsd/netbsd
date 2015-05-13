@@ -255,7 +255,7 @@ COMPATNAME(route_listen)(struct socket *so, struct lwp *l)
 }
 
 static int
-COMPATNAME(route_connect)(struct socket *so, struct mbuf *nam, struct lwp *l)
+COMPATNAME(route_connect)(struct socket *so, struct sockaddr *nam, struct lwp *l)
 {
 	KASSERT(solocked(so));
 
@@ -378,7 +378,7 @@ COMPATNAME(route_recvoob)(struct socket *so, struct mbuf *m, int flags)
 
 static int
 COMPATNAME(route_send)(struct socket *so, struct mbuf *m,
-    struct mbuf *nam, struct mbuf *control, struct lwp *l)
+    struct sockaddr *nam, struct mbuf *control, struct lwp *l)
 {
 	int error = 0;
 	int s;

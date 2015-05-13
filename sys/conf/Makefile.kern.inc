@@ -317,6 +317,12 @@ vers.o: ${SYSTEM_DEP} ${SYSTEM_SWAP_DEP} $S/conf/newvers.sh \
 	${COMPILE_CTFCONVERT}
 .endif
 
+# Option for embedding a splashscreen image.
+.if defined(SPLASHSCREEN_IMAGE) 
+.include "${S}/dev/splash/splash.mk"
+init_main.o: splash_image.o
+.endif
+
 .if defined(MEMORY_DISK_IMAGE)
 md_root_image.h: ${MEMORY_DISK_IMAGE}
 	${_MKTARGET_CREATE}

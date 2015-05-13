@@ -16,7 +16,7 @@ options 	IMX51
 options 	CONSDEVNAME="\"imxuart\"",CONADDR=0x73fbc000
 options 	CONSPEED=115200	# Console speed
 
-options         DIAGNOSTIC      # internal consistency checks
+# Development and Debugging options
 #options        DEBUG
 #options 	KGDB
 makeoptions	DEBUG="-g"	# compile full symbol table

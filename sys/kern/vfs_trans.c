@@ -51,7 +51,6 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/proc.h>
 
 #include <miscfs/specfs/specdev.h>
-#include <miscfs/syncfs/syncfs.h>
 
 struct fscow_handler {
 	LIST_ENTRY(fscow_handler) ch_list;

@@ -107,13 +107,11 @@ extern const struct vnodeop_desc * const vfs_op_descs[];
 extern const struct vnodeopv_desc dead_vnodeop_opv_desc;
 extern const struct vnodeopv_desc fifo_vnodeop_opv_desc;
 extern const struct vnodeopv_desc spec_vnodeop_opv_desc;
-extern const struct vnodeopv_desc sync_vnodeop_opv_desc;
 
 const struct vnodeopv_desc * const vfs_special_vnodeopv_descs[] = {
 	&dead_vnodeop_opv_desc,
 	&fifo_vnodeop_opv_desc,
 	&spec_vnodeop_opv_desc,
-	&sync_vnodeop_opv_desc,
 	NULL,
 };
 

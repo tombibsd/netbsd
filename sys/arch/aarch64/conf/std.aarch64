@@ -8,3 +8,6 @@ options 	MULTIPROCESSOR
 
 options 	EXEC_ELF64
 options 	EXEC_SCRIPT
+
+options 	CHILD_MAX=1024	# 160 is too few
+options 	OPEN_MAX=1024	# 128 is too few

@@ -115,7 +115,7 @@ scan_num(token *tokp)
 	case TOK_IDENT:
 		break;
 	default:
-		error("constant or identifier expected");
+		error("Expected constant or identifier");
 	}
 }
 /*
@@ -283,17 +283,11 @@ get_token(token *tokp)
 
 	default:
 		if (!(isalpha((unsigned char)*where) || *where == '_')) {
-			char    buf[100];
-			char   *p;
-
-			s_print(buf, "illegal character in file: ");
-			p = buf + strlen(buf);
 			if (isprint((unsigned char)*where)) {
-				s_print(p, "%c", *where);
+				error("Illegal character '%c' in file", *where);
 			} else {
-				s_print(p, "%d", *where);
+				error("Illegal character %d in file", *where);
 			}
-			error(buf);
 		}
 		findkind(&where, tokp);
 		break;
@@ -319,7 +313,7 @@ findstrconst(char **str, const char **val)
 		p++;
 	} while (*p && *p != '"');
 	if (*p == 0) {
-		error("unterminated string constant");
+		error("Unterminated string constant");
 	}
 	p++;
 	size = p - *str;
@@ -342,12 +336,12 @@ findchrconst(char **str, const char **val)
 		p++;
 	} while (*p && *p != '\'');
 	if (*p == 0) {
-		error("unterminated string constant");
+		error("Unterminated string constant");
 	}
 	p++;
 	size = p - *str;
 	if (size != 3) {
-		error("empty char string");
+		error("Empty character");
 	}
 	tmp = alloc(size + 1);
 	(void) strncpy(tmp, *str, size);
@@ -477,7 +471,7 @@ docppline(char *line, int *lineno, const char **fname)
 		line++;
 	}
 	if (*line != '"') {
-		error("preprocessor error");
+		error("Preprocessor error");
 	}
 	line++;
 	p = file = alloc(strlen(line) + 1);
@@ -485,7 +479,7 @@ docppline(char *line, int *lineno, const char **fname)
 		*p++ = *line++;
 	}
 	if (*line == 0) {
-		error("preprocessor error");
+		error("Preprocessor error");
 	}
 	*p = 0;
 	if (*file == 0) {

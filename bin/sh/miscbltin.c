@@ -427,7 +427,8 @@ ulimitcmd(int argc, char **argv)
 		return 0;
 	}
 
-	getrlimit(l->cmd, &limit);
+	if (getrlimit(l->cmd, &limit) == -1)
+		error("error getting limit (%s)", strerror(errno));
 	if (set) {
 		if (how & HARD)
 			limit.rlim_max = val;

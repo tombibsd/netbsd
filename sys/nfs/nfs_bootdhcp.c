@@ -636,7 +636,7 @@ bootpc_call(struct nfs_diskless *nd, struct lwp *lwp, int *flags)
 #endif
 
 	error = nfs_boot_sendrecv(so, nam, bootpset, m,
-				  bootpcheck, 0, 0, &bpc, lwp);
+				  bootpcheck, NULL, NULL, &bpc, lwp);
 	if (error)
 		goto out;
 
@@ -663,7 +663,7 @@ bootpc_call(struct nfs_diskless *nd, struct lwp *lwp, int *flags)
 		bpc.expected_dhcpmsgtype = DHCPACK;
 
 		error = nfs_boot_sendrecv(so, nam, bootpset, m,
-					  bootpcheck, 0, 0, &bpc, lwp);
+					  bootpcheck, NULL, NULL, &bpc, lwp);
 		if (error)
 			goto out;
 	}

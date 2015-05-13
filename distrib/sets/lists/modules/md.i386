@@ -147,6 +147,8 @@
 ./@MODULEDIR@/sljit/sljit.kmod			base-kernel-modules	kmod,sljit
 ./@MODULEDIR@/syscallemu			base-kernel-modules	kmod
 ./@MODULEDIR@/syscallemu/syscallemu.kmod	base-kernel-modules	kmod
+./@MODULEDIR@/tco				base-kernel-modules	kmod
+./@MODULEDIR@/tco/tco.kmod			base-kernel-modules	kmod
 ./@MODULEDIR@/tdfxdrm				base-kernel-modules	kmod
 ./@MODULEDIR@/tdfxdrm/tdfxdrm.kmod		base-kernel-modules	kmod
 ./@MODULEDIR@/thinkpad				base-kernel-modules	kmod
@@ -260,6 +262,8 @@
 ./stand/i386-xen/@OSRELEASE@/modules/coda5/coda5.kmod			base-kernel-modules	kmod,compatmodules
 ./stand/i386-xen/@OSRELEASE@/modules/compat				base-kernel-modules	kmod,compatmodules
 ./stand/i386-xen/@OSRELEASE@/modules/compat/compat.kmod			base-kernel-modules	kmod,compatmodules
+./stand/i386-xen/@OSRELEASE@/modules/compat_sysv			base-kernel-modules	kmod,compatmodules
+./stand/i386-xen/@OSRELEASE@/modules/compat_sysv/compat_sysv.kmod	base-kernel-modules	kmod,compatmodules
 ./stand/i386-xen/@OSRELEASE@/modules/compat_freebsd			base-kernel-modules	kmod,compatmodules
 ./stand/i386-xen/@OSRELEASE@/modules/compat_freebsd/compat_freebsd.kmod	base-kernel-modules	kmod,compatmodules
 ./stand/i386-xen/@OSRELEASE@/modules/compat_ibcs2			base-kernel-modules	kmod,compatmodules
@@ -545,6 +549,8 @@
 ./stand/i386-xen/@OSRELEASE@/modules/sysmon_wdog/sysmon_wdog.kmod	base-kernel-modules	kmod,compatmodules
 ./stand/i386-xen/@OSRELEASE@/modules/sysvbfs				base-kernel-modules	kmod,compatmodules
 ./stand/i386-xen/@OSRELEASE@/modules/sysvbfs/sysvbfs.kmod		base-kernel-modules	kmod,compatmodules
+./stand/i386-xen/@OSRELEASE@/modules/tco				base-kernel-modules	kmod,compatmodules
+./stand/i386-xen/@OSRELEASE@/modules/tco/tco.kmod			base-kernel-modules	kmod,compatmodules
 ./stand/i386-xen/@OSRELEASE@/modules/tdfxdrm				base-kernel-modules	kmod,compatmodules
 ./stand/i386-xen/@OSRELEASE@/modules/tdfxdrm/tdfxdrm.kmod		base-kernel-modules	kmod,compatmodules
 ./stand/i386-xen/@OSRELEASE@/modules/thinkpad				base-kernel-modules	kmod,compatmodules
@@ -682,6 +688,8 @@
 ./stand/i386pae-xen/@OSRELEASE@/modules/coda5/coda5.kmod		base-kernel-modules	kmod,compatmodules
 ./stand/i386pae-xen/@OSRELEASE@/modules/compat				base-kernel-modules	kmod,compatmodules
 ./stand/i386pae-xen/@OSRELEASE@/modules/compat/compat.kmod		base-kernel-modules	kmod,compatmodules
+./stand/i386pae-xen/@OSRELEASE@/modules/compat_sysv			base-kernel-modules	kmod,compatmodules
+./stand/i386pae-xen/@OSRELEASE@/modules/compat_sysv/compat_sysv.kmod	base-kernel-modules	kmod,compatmodules
 ./stand/i386pae-xen/@OSRELEASE@/modules/compat_freebsd			base-kernel-modules	kmod,compatmodules
 ./stand/i386pae-xen/@OSRELEASE@/modules/compat_freebsd/compat_freebsd.kmod	base-kernel-modules	kmod,compatmodules
 ./stand/i386pae-xen/@OSRELEASE@/modules/compat_ibcs2			base-kernel-modules	kmod,compatmodules
@@ -966,6 +974,8 @@
 ./stand/i386pae-xen/@OSRELEASE@/modules/sysmon_wdog/sysmon_wdog.kmod	base-kernel-modules	kmod,compatmodules
 ./stand/i386pae-xen/@OSRELEASE@/modules/sysvbfs				base-kernel-modules	kmod,compatmodules
 ./stand/i386pae-xen/@OSRELEASE@/modules/sysvbfs/sysvbfs.kmod		base-kernel-modules	kmod,compatmodules
+./stand/i386pae-xen/@OSRELEASE@/modules/tco				base-kernel-modules	kmod,compatmodules
+./stand/i386pae-xen/@OSRELEASE@/modules/tco/tco.kmod			base-kernel-modules	kmod,compatmodules
 ./stand/i386pae-xen/@OSRELEASE@/modules/tdfxdrm				base-kernel-modules	kmod,compatmodules
 ./stand/i386pae-xen/@OSRELEASE@/modules/tdfxdrm/tdfxdrm.kmod		base-kernel-modules	kmod,compatmodules
 ./stand/i386pae-xen/@OSRELEASE@/modules/thinkpad			base-kernel-modules	kmod,compatmodules

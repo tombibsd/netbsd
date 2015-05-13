@@ -111,7 +111,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 int
 udp6_output(struct in6pcb * const in6p, struct mbuf *m,
-    struct mbuf * const addr6, struct mbuf * const control,
+    struct sockaddr_in6 * const addr6, struct mbuf * const control,
     struct lwp * const l)
 {
 	u_int32_t ulen = m->m_pkthdr.len;
@@ -136,11 +136,7 @@ udp6_output(struct in6pcb * const in6p, struct mbuf *m,
 	struct sockaddr_in6 tmp;
 
 	if (addr6) {
-		if (addr6->m_len != sizeof(*sin6)) {
-			error = EINVAL;
-			goto release;
-		}
-		sin6 = mtod(addr6, struct sockaddr_in6 *);
+		sin6 = addr6;
 		if (sin6->sin6_family != AF_INET6) {
 			error = EAFNOSUPPORT;
 			goto release;

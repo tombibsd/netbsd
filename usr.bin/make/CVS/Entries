@@ -4,7 +4,7 @@
 /buf.c/1.25/Tue Apr 24 20:26:58 2012/-kk/
 /buf.h/1.17/Tue Apr 24 20:26:58 2012/-kk/
 /compat.c/1.96/Fri Oct  3 09:51:11 2014/-kk/
-/cond.c/1.67/Sat Nov  3 13:59:27 2012/-kk/
+/cond.c/1.68/Wed May 13 03:33:27 2015/-kk/
 /config.h/1.21/Sat Mar 31 00:12:24 2012/-kk/
 /dir.c/1.67/Thu Oct 24 10:28:59 2013/-kk/
 /dir.h/1.15/Sat Apr  7 18:29:08 2012/-kk/
@@ -22,7 +22,7 @@
 /make_malloc.h/1.4/Sat Jan 24 14:43:29 2009/-kk/
 /meta.c/1.38/Wed Apr 22 07:38:11 2015/-kk/
 /meta.h/1.3/Thu Oct 24 10:28:59 2013/-kk/
-/nonints.h/1.67/Fri Oct  3 09:51:11 2014/-kk/
+/nonints.h/1.68/Wed May 13 03:33:27 2015/-kk/
 /parse.c/1.204/Fri Oct  3 09:58:02 2014/-kk/
 /pathnames.h/1.17/Sat Apr 11 09:41:18 2009/-kk/
 /sprite.h/1.11/Fri Jan 23 21:26:30 2009/-kk/
@@ -34,7 +34,7 @@
 /trace.c/1.11/Sun Dec 28 18:31:51 2008/-kk/
 /trace.h/1.3/Mon Apr 28 20:24:14 2008/-kk/
 /util.c/1.54/Tue Dec 17 04:05:19 2013/-kk/
-/var.c/1.191/Fri Oct  3 09:58:02 2014/-kk/
+/var.c/1.192/Wed May 13 03:33:27 2015/-kk/
 D/PSD.doc////
 D/lst.lib////
 D/unit-tests////

@@ -774,7 +774,7 @@ dm_table_load_ioctl(prop_dictionary_t dm_dict)
 		prop_dictionary_get_cstring(target_dict,
 		    DM_TABLE_PARAMS, (char **) &str);
 
-		if (SLIST_EMPTY(tbl))
+		if (SLIST_EMPTY(tbl) || last_table == NULL)
 			/* insert this table to head */
 			SLIST_INSERT_HEAD(tbl, table_en, next);
 		else

@@ -3,9 +3,9 @@
 /files.sdmmc/1.4/Sun Oct 19 16:06:51 2014/-kk/
 /ld_sdmmc.c/1.15/Wed Apr 22 07:37:00 2015/-kk/
 /sbt.c/1.4/Tue Jun  3 02:54:38 2014/-kk/
-/sdhc.c/1.55/Wed Apr 22 07:37:00 2015/-kk/
-/sdhcreg.h/1.12/Thu Feb  5 08:41:13 2015/-kk/
-/sdhcvar.h/1.16/Wed Apr 22 07:37:00 2015/-kk/
+/sdhc.c/1.58/Wed May 13 03:33:10 2015/-kk/
+/sdhcreg.h/1.13/Wed May 13 03:33:10 2015/-kk/
+/sdhcvar.h/1.18/Wed May 13 03:33:10 2015/-kk/
 /sdmmc.c/1.24/Sat Mar 21 02:29:56 2015/-kk/
 /sdmmc_cis.c/1.4/Wed Feb  1 22:34:43 2012/-kk/
 /sdmmc_io.c/1.7/Wed Feb  1 22:34:43 2012/-kk/

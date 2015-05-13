@@ -53,8 +53,7 @@ __RCSID("$NetBSD$");
 #include <syslog.h>
 #include <unistd.h>
 #include <string.h>
-
-#define	_PATH_WATCHDOG		"/dev/watchdog"
+#include <paths.h>
 
 static void	enable_kernel(const char *, u_int);
 static void	enable_user(const char *, u_int, int);

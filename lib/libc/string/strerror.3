@@ -32,7 +32,7 @@
 .\" SUCH DAMAGE.
 .\"
 .\"     @(#)strerror.3	8.1 (Berkeley) 6/9/93
-.Dd October 24, 2010
+.Dd May 9, 2015
 .Dt STRERROR 3
 .Os
 .Sh NAME
@@ -171,11 +171,13 @@ function conforms to
 .St -p1003.1-2001 .
 .Sh HISTORY
 The
-.Fn strerror
-and
 .Fn perror
-functions first appeared in
-.Bx 4.4 .
+function first appeared in
+.At v4 .
+The
+.Fn strerror
+function first appeared in
+.Bx 4.3 Reno .
 The
 .Fn strerror_r
 function first appeared in

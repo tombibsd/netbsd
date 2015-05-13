@@ -9,7 +9,7 @@ include		"arch/arc/conf/GENERIC"
 options 	MEMORY_DISK_HOOKS
 options 	MEMORY_DISK_IS_ROOT		# force root on memory disk
 options 	MEMORY_DISK_SERVER=0		# no userspace md(4) support
-options 	MEMORY_DISK_ROOT_SIZE=5420	# size of memory disk, in blocks
+options 	MEMORY_DISK_ROOT_SIZE=8420	# size of memory disk, in blocks
 options 	MEMORY_DISK_RBFLAGS=RB_SINGLE	# boot in single-user mode
 
 makeoptions	COPTS="-Os -mmemcpy"	# generates smaller code than -O2, -O1

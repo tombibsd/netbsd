@@ -1524,7 +1524,7 @@ iscsi_cleanup_thread(void *par)
 			while (conn->usecount > 0)
 				tsleep(conn, PWAIT, "finalwait", hz);
 
-			callout_stop(&conn->timeout);
+			callout_halt(&conn->timeout, NULL);
 			closef(conn->sock);
 			free(conn, M_DEVBUF);
 

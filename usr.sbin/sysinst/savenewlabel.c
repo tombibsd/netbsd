@@ -59,6 +59,7 @@ savenewlabel(partinfo *lp, int nparts)
 {
 	FILE *f;
 	char *f_name = malloc(STRSIZE * sizeof(char));
+	char *sane_packname, *p;
 	int i;
 	pm_devs_t *pm_i;
 
@@ -73,7 +74,12 @@ savenewlabel(partinfo *lp, int nparts)
 					snprintf(pm_i->bsddiskname, DISKNAME_SIZE, "disk %c", i);
 			}
 
-	snprintf(f_name, STRSIZE, "/tmp/disktab.%s", pm->bsddiskname);
+	sane_packname = strdup(pm->bsddiskname);
+	for (p = sane_packname; *p; p++)
+		if (*p == '/')
+			*p = ' ';
+	snprintf(f_name, STRSIZE, "/tmp/disktab.%s", sane_packname);
+	free(sane_packname);
 
 	/*
 	  N.B. disklabels only support up to 2TB (32-bit field for sectors).

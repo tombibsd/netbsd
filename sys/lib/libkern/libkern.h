@@ -329,12 +329,19 @@ tolower(int ch)
  *
  * The 0*sizeof((PTR) - ...) causes the compiler to warn if the type of
  * *fp does not match the type of struct bar::b_foo.
+ * We skip the validation for coverity runs to avoid warnings.
  */
+#ifdef __COVERITY__
+#define __validate_container_of(PTR, TYPE, FIELD) 0
+#else
+#define __validate_container_of(PTR, TYPE, FIELD)			\
+    (0 * sizeof((PTR) - &((TYPE *)(((char *)(PTR)) -			\
+    offsetof(TYPE, FIELD)))->FIELD))
+#endif
+
 #define	container_of(PTR, TYPE, FIELD)					\
-	((TYPE *)(((char *)(PTR)) - offsetof(TYPE, FIELD) +		\
-	    0*sizeof((PTR) -						\
-		&((TYPE *)(((char *)(PTR)) -				\
-			offsetof(TYPE, FIELD)))->FIELD)))
+    ((TYPE *)(((char *)(PTR)) - offsetof(TYPE, FIELD))			\
+	+ __validate_container_of(PTR, TYPE, FIELD))
 
 #define	MTPRNG_RLEN		624
 struct mtprng_state {

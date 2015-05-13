@@ -71,11 +71,6 @@ new binaries.
 Since files already installed on the system are overwritten in place,
 you only need additional free space for files which weren't previously
 installed or to account for growth of the sets between releases.
-If you have a few megabytes free on each of your root
-.Pq Pa /
-and
-.Pa /usr
-partitions, you should have enough space.
 .Pp
 Since upgrading involves replacing the kernel, boot blocks,
 and most of the system binaries, it has the

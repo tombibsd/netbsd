@@ -1402,14 +1402,14 @@ linux_sys_connect(struct lwp *l, const struct linux_sys_connect_args *uap, regis
 		syscallarg(int) namelen;
 	} */
 	int		error;
-	struct mbuf *nam;
+	struct sockaddr_big sb;
 
-	error = linux_get_sa(l, SCARG(uap, s), &nam, SCARG(uap, name),
+	error = linux_get_sa_sb(l, SCARG(uap, s), &sb, SCARG(uap, name),
 	    SCARG(uap, namelen));
 	if (error)
 		return (error);
 
-	error = do_sys_connect(l, SCARG(uap, s), nam);
+	error = do_sys_connect(l, SCARG(uap, s), (struct sockaddr *)&sb);
 
 	if (error == EISCONN) {
 		struct socket *so;

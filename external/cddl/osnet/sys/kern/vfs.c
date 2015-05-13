@@ -332,12 +332,9 @@ domount(kthread_t *td, vnode_t *vp, const char *fstype, char *fspath,
 		vput(mvp);
 		VOP_UNLOCK(vp);
 		if ((mp->mnt_flag & MNT_RDONLY) == 0)
-			error = vfs_allocate_syncvnode(mp);
+			vfs_syncer_add_to_worklist(mp);
 		vfs_unbusy(mp, td);
-		if (error)
-			vrele(vp);
-		else
-			vfs_mountedfrom(mp, fspec);
+		vfs_mountedfrom(mp, fspec);
 	} else {
 		simple_lock(&vp->v_interlock);
 		vp->v_iflag &= ~VI_MOUNT;

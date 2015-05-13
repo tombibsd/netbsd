@@ -3260,7 +3260,7 @@ ApplyModifiers(char *nstr, const char *tstr,
 
 		termc = *--cp;
 		delim = '\0';
-		if (Cond_EvalExpression(NULL, v->name, &value, 0)
+		if (Cond_EvalExpression(NULL, v->name, &value, 0, FALSE)
 		    == COND_INVALID) {
 		    Error("Bad conditional expression `%s' in %s?%s:%s",
 			  v->name, v->name, pattern.lhs, pattern.rhs);

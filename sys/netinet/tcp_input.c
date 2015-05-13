@@ -4076,7 +4076,7 @@ syn_cache_get(struct sockaddr *src, struct sockaddr *dst,
 	am->m_len = src->sa_len;
 	bcopy(src, mtod(am, void *), src->sa_len);
 	if (inp) {
-		if (in_pcbconnect(inp, am, &lwp0)) {
+		if (in_pcbconnect_m(inp, am, &lwp0)) {
 			(void) m_free(am);
 			goto resetandabort;
 		}
@@ -4097,7 +4097,7 @@ syn_cache_get(struct sockaddr *src, struct sockaddr *dst,
 				&sin6->sin6_addr.s6_addr32[3],
 				sizeof(sin6->sin6_addr.s6_addr32[3]));
 		}
-		if (in6_pcbconnect(in6p, am, NULL)) {
+		if (in6_pcbconnect_m(in6p, am, NULL)) {
 			(void) m_free(am);
 			goto resetandabort;
 		}

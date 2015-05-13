@@ -281,7 +281,7 @@ define_printed(proc_list *stop, version_list *start)
 				}
 		}
 	}
-	errx(1, "Internal error %s, %d: procedure not found",
+	errx(1, "Internal error at %s:%d: procedure not found",
 	    __FILE__, __LINE__);
 	/* NOTREACHED */
 }

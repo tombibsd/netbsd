@@ -1128,7 +1128,7 @@ bcsp_tx_reliable_pkt(struct bcsp_softc *sc, struct mbuf *m, u_int protocol_id)
 
 	for (pldlen = 0, _m = m; _m != NULL; _m = _m->m_next) {
 		if (_m->m_len < 0)
-			return false;
+			goto out;
 		pldlen += _m->m_len;
 	}
 	if (pldlen > 0xfff)
@@ -1367,7 +1367,7 @@ bcsp_tx_unreliable_pkt(struct bcsp_softc *sc, struct mbuf *m, u_int protocol_id)
 
 	for (pldlen = 0, _m = m; _m != NULL; _m = m->m_next) {
 		if (_m->m_len < 0)
-			return false;
+			goto out;
 		pldlen += _m->m_len;
 	}
 	DPRINTFN(1, (" pldlen=%d\n", pldlen));

@@ -31,9 +31,9 @@
 
 #include <dev/pci/pcivar.h>
 
-struct pic	*msipic_construct_msi_pic(struct pci_attach_args *);
+struct pic	*msipic_construct_msi_pic(const struct pci_attach_args *);
 void		msipic_destruct_msi_pic(struct pic *);
-struct pic	*msipic_construct_msix_pic(struct pci_attach_args *);
+struct pic	*msipic_construct_msix_pic(const struct pci_attach_args *);
 void		msipic_destruct_msix_pic(struct pic *);
 struct pic	*msipic_find_msi_pic(int);
 int		msipic_set_msi_vectors(struct pic *, pci_intr_handle_t *, int);

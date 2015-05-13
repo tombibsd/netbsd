@@ -468,7 +468,8 @@ send_again:
 		error = ENOBUFS;
 		goto out;
 	}
-	error = (*so->so_send)(so, nam, NULL, m, NULL, 0, lwp);
+	error = (*so->so_send)(so, mtod(nam, struct sockaddr *), NULL,
+	    m, NULL, 0, lwp);
 	if (error) {
 		printf("nfs_boot: sosend: %d\n", error);
 		goto out;

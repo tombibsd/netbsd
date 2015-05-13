@@ -932,7 +932,7 @@ udp_listen(struct socket *so, struct lwp *l)
 }
 
 static int
-udp_connect(struct socket *so, struct mbuf *nam, struct lwp *l)
+udp_connect(struct socket *so, struct sockaddr *nam, struct lwp *l)
 {
 	struct inpcb *inp = sotoinpcb(so);
 	int error = 0;
@@ -943,7 +943,7 @@ udp_connect(struct socket *so, struct mbuf *nam, struct lwp *l)
 	KASSERT(nam != NULL);
 
 	s = splsoftnet();
-	error = in_pcbconnect(inp, nam, l);
+	error = in_pcbconnect(inp, (struct sockaddr_in *)nam, l);
 	if (! error)
 		soisconnected(so);
 	splx(s);
@@ -1066,7 +1066,7 @@ udp_recvoob(struct socket *so, struct mbuf *m, int flags)
 }
 
 static int
-udp_send(struct socket *so, struct mbuf *m, struct mbuf *nam,
+udp_send(struct socket *so, struct mbuf *m, struct sockaddr *nam,
     struct mbuf *control, struct lwp *l)
 {
 	struct inpcb *inp = sotoinpcb(so);
@@ -1093,7 +1093,7 @@ udp_send(struct socket *so, struct mbuf *m, struct mbuf *nam,
 			error = EISCONN;
 			goto die;
 		}
-		error = in_pcbconnect(inp, nam, l);
+		error = in_pcbconnect(inp, (struct sockaddr_in *)nam, l);
 		if (error)
 			goto die;
 	} else {

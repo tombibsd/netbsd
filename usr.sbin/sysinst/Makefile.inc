@@ -6,10 +6,6 @@
 .include "${.CURDIR}/../../../Makefile.inc"
 .endif
 
-.if empty(DBG:M-g)
-COPTS += -Os
-.endif
-
 PROG=		sysinst
 NOMAN=		# defined
 
@@ -55,7 +51,17 @@ CPPFLAGS+=	-I. -I${.CURDIR}/../.. -I${.CURDIR} \
 		-DCATALOG_DIR=\"${CATALOGDIR}\"
 
 .if (defined(DEBUG))
-CPPFLAGS+=-DDEBUG -g -O0
+.if ${ACTIVE_CC} == "gcc"
+# make gcc run additional passes for better debug info (only needed
+# when compiling with -O0)
+O0TRACKING=	-fvar-tracking-assignments -fvar-tracking
+.endif
+CPPFLAGS+=-DDEBUG
+DBG +=-g -O0 ${O0TRACKING}
+.endif
+
+.if empty(DBG:M-g)
+COPTS += -Os
 .endif
 
 .if (!defined(SMALLPROG) || defined(SMALLPROG_INET6)) && (${USE_INET6} != "no")

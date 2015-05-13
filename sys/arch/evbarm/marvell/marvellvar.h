@@ -26,6 +26,9 @@
  */
 #ifndef _EVBARM_MARVELLVAR_H_
 #define _EVBARM_MARVELLVAR_H_
+#ifndef _LOCORE
+#include <machine/bus_defs.h>
+#endif
 
 /*
  * Logical mapping for onboard/integrated peripherals

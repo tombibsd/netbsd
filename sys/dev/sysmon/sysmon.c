@@ -152,9 +152,13 @@ sysmonopen(dev_t dev, int flag, int mode, struct lwp *l)
 			mutex_exit(&sysmon_minor_mtx);
 			error = module_autoload(sysmon_mod[minor(dev)],
 						MODULE_CLASS_MISC);
+			if (error)
+				return error;
 			mutex_enter(&sysmon_minor_mtx);
-			if (sysmon_opvec_table[minor(dev)] == NULL)
+			if (sysmon_opvec_table[minor(dev)] == NULL) {
 				error = ENODEV;
+				break;
+			}
 		}
 		error = (sysmon_opvec_table[minor(dev)]->so_open)(dev, flag,
 		    mode, l);
@@ -166,7 +170,7 @@ sysmonopen(dev_t dev, int flag, int mode, struct lwp *l)
 	}
 
 	mutex_exit(&sysmon_minor_mtx);
-	return (error);
+	return error;
 }
 
 /*

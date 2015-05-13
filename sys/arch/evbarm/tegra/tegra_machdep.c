@@ -288,6 +288,9 @@ initarm(void *arg)
 	KASSERTMSG(ram_size > 0, "RAM size unknown and MEMSIZE undefined");
 #endif
 
+	/* DMA tag setup */
+	tegra_dma_bootstrap(ram_size);
+
 	/* Fake bootconfig structure for the benefit of pmap.c. */
 	bootconfig.dramblocks = 1;
 	bootconfig.dram[0].address = TEGRA_EXTMEM_BASE; /* DDR PHY addr */
@@ -351,8 +354,9 @@ consinit(void)
 
 #if NCOM > 0
 	const bus_space_tag_t bst = &armv7_generic_a4x_bs_tag;
-	if (comcnattach(bst, CONSADDR, CONSPEED, TEGRA_UART_FREQ,
-			COM_TYPE_NORMAL, CONMODE)) {
+	const u_int freq = tegra_car_uart_rate(3);
+	if (comcnattach(bst, CONSADDR, CONSPEED, freq,
+			COM_TYPE_TEGRA, CONMODE)) {
 		panic("Serial console cannot be initialized.");
 	}
 #else
@@ -376,4 +380,30 @@ tegra_device_register(device_t self, void *aux)
                 prop_dictionary_set_uint32(dict, "frequency", TEGRA_REF_FREQ);
 		return;
 	}
+
+#ifdef BOARD_JETSONTK1
+	if (device_is_a(self, "sdhc")
+	    && device_is_a(device_parent(self), "tegraio")) {
+		struct tegraio_attach_args * const tio = aux;
+		const struct tegra_locators * const loc = &tio->tio_loc;
+
+		if (loc->loc_port == 2) {
+			prop_dictionary_set_cstring(dict, "cd-gpio", "V2");
+			prop_dictionary_set_cstring(dict, "power-gpio", "R0");
+			prop_dictionary_set_cstring(dict, "wp-gpio", "Q4");
+		}
+	}
+
+	if (device_is_a(self, "ehci")
+	    && device_is_a(device_parent(self), "tegraio")) {
+		struct tegraio_attach_args * const tio = aux;
+		const struct tegra_locators * const loc = &tio->tio_loc;
+
+		if (loc->loc_port == 0) {
+			prop_dictionary_set_cstring(dict, "vbus-gpio", "N4");
+		} else if (loc->loc_port == 2) {
+			prop_dictionary_set_cstring(dict, "vbus-gpio", "N5");
+		}
+	}
+#endif
 }

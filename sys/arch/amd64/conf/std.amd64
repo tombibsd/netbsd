@@ -11,6 +11,9 @@ options 	EXEC_SCRIPT	# exec #! scripts
 options 	MTRR
 options		MULTIPROCESSOR
 
+options 	CHILD_MAX=1024	# 160 is too few
+options 	OPEN_MAX=1024	# 128 is too few
+
 mainbus0 at root
 cpu* at mainbus?
 ioapic* at mainbus? apid ?

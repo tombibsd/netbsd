@@ -564,6 +564,16 @@ disk_set_info(device_t dev, struct disk *dk, const char *type)
 {
 	struct disk_geom *dg = &dk->dk_geom;
 
+	if (dg->dg_secsize == 0) {
+#ifdef DIAGNOSTIC
+		printf("%s: fixing 0 sector size\n", dk->dk_name);
+#endif
+		dg->dg_secsize = DEV_BSIZE;
+	}
+
+	dk->dk_blkshift = DK_BSIZE2BLKSHIFT(dg->dg_secsize);
+	dk->dk_byteshift = DK_BSIZE2BYTESHIFT(dg->dg_secsize);
+
 	if (dg->dg_secperunit == 0 && dg->dg_ncylinders == 0) {
 #ifdef DIAGNOSTIC
 		printf("%s: secperunit and ncylinders are zero\n", dk->dk_name);
@@ -588,16 +598,6 @@ disk_set_info(device_t dev, struct disk *dk, const char *type)
 			dg->dg_ncylinders = dg->dg_secperunit /
 			    (dg->dg_ntracks * dg->dg_nsectors);
 	}
-
-	if (dg->dg_secsize == 0) {
-#ifdef DIAGNOSTIC
-		printf("%s: fixing 0 sector size\n", dk->dk_name);
-#endif
-		dg->dg_secsize = DEV_BSIZE;
-	}
-
-	dk->dk_blkshift = DK_BSIZE2BLKSHIFT(dg->dg_secsize);
-	dk->dk_byteshift = DK_BSIZE2BYTESHIFT(dg->dg_secsize);
 
 	prop_dictionary_t disk_info, odisk_info, geom;
 

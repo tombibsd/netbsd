@@ -152,7 +152,7 @@ raw_setpeeraddr(struct rawcb *rp, struct sockaddr *nam)
 }
 
 int
-raw_send(struct socket *so, struct mbuf *m, struct mbuf *nam,
+raw_send(struct socket *so, struct mbuf *m, struct sockaddr *nam,
     struct mbuf *control, struct lwp *l)
 {
 	struct rawcb *rp = sotorawcb(so);

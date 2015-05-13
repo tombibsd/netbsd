@@ -646,7 +646,7 @@ write_timeout_func(void)
 	f_print(fout, "static void closedown(void);\n");
 	f_print(fout, "\n");
 	f_print(fout, "static void\n");
-	f_print(fout, "closedown()\n");
+	f_print(fout, "closedown(void)\n");
 	f_print(fout, "{\n");
 	f_print(fout, "\tif (_rpcsvcdirty == 0) {\n");
 	f_print(fout, "\t\textern fd_set svc_fdset;\n");
@@ -663,7 +663,8 @@ write_timeout_func(void)
 	if (tirpcflag) {
 		f_print(fout, "\t\t\tstruct rlimit rl;\n\n");
 		f_print(fout, "\t\t\trl.rlim_max = 0;\n");
-		f_print(fout, "\t\t\tgetrlimit(RLIMIT_NOFILE, &rl);\n");
+		f_print(fout, "\t\t\tif (getrlimit(RLIMIT_NOFILE, &rl) == -1)\n");
+		f_print(fout, "\t\t\t\treturn;\n");
 		f_print(fout, "\t\t\tif ((size = rl.rlim_max) == 0)\n");
 		f_print(fout, "\t\t\t\treturn;\n");
 	} else {
@@ -811,15 +812,15 @@ write_rpc_svc_fg(char *infile, const char *sp)
 		f_print(fout, "%sint pid, i;\n\n", sp);
 	f_print(fout, "%spid = fork();\n", sp);
 	f_print(fout, "%sif (pid < 0) {\n", sp);
-	f_print(fout, "%s\tperror(\"cannot fork\");\n", sp);
-	f_print(fout, "%s\texit(1);\n", sp);
+	f_print(fout, "%s\terr(EXIT_FAILURE, \"cannot fork\");\n", sp);
 	f_print(fout, "%s}\n", sp);
 	f_print(fout, "%sif (pid)\n", sp);
 	f_print(fout, "%s\texit(0);\n", sp);
 	/* get number of file descriptors */
 	if (tirpcflag) {
 		f_print(fout, "%srl.rlim_max = 0;\n", sp);
-		f_print(fout, "%sgetrlimit(RLIMIT_NOFILE, &rl);\n", sp);
+		f_print(fout, "%sif (getrlimit(RLIMIT_NOFILE, &rl) == -1)\n", sp);
+		f_print(fout, "%s\terr(EXIT_FAILURE, \"getrlimit(RLIMIT_NOFILE)\");\n", sp);
 		f_print(fout, "%sif ((size = rl.rlim_max) == 0)\n", sp);
 		f_print(fout, "%s\texit(1);\n", sp);
 	} else {

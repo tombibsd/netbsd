@@ -275,8 +275,7 @@ md_check_mbr(mbr_info_t *mbri)
 		if (!hasboot) {
 			msg_display(MSG_nomsdospart);
 			msg_display_add(MSG_reeditpart, 0);
-			process_menu(MENU_yesno, NULL);
-			if (!yesno)
+			if (!ask_yesno(NULL))
 				return 0;
 			return 1;
 		}

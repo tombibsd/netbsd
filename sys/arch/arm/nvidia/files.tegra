@@ -36,9 +36,29 @@ device	tegracar
 attach	tegracar at tegraio with tegra_car
 file	arch/arm/nvidia/tegra_car.c		tegra_car
 
+# GPIO controller
+device	tegragpio: gpiobus
+attach	tegragpio at tegraio with tegra_gpio
+file	arch/arm/nvidia/tegra_gpio.c		tegra_gpio
+
+# MPIO / Pinmux
+device	tegrampio
+attach	tegrampio at tegraio with tegra_mpio
+file	arch/arm/nvidia/tegra_mpio.c		tegra_mpio
+
 # UART
 attach	com at tegraio with tegra_com
 file	arch/arm/nvidia/tegra_com.c		tegra_com needs-flag
+
+# I2C
+device	tegrai2c: i2cbus, i2cexec
+attach	tegrai2c at tegraio with tegra_i2c
+file	arch/arm/nvidia/tegra_i2c.c		tegra_i2c
+
+# RTC
+device	tegrartc
+attach	tegrartc at tegraio with tegra_rtc
+file	arch/arm/nvidia/tegra_rtc.c		tegra_rtc
 
 # USB 2.0
 attach	ehci at tegraio with tegra_ehci
@@ -47,6 +67,11 @@ file	arch/arm/nvidia/tegra_ehci.c		tegra_ehci
 # SDMMC
 attach	sdhc at tegraio with tegra_sdhc
 file	arch/arm/nvidia/tegra_sdhc.c		tegra_sdhc
+
+# PCIE
+device	tegrapcie: pcibus
+attach	tegrapcie at tegraio with tegra_pcie
+file	arch/arm/nvidia/tegra_pcie.c		tegra_pcie
 
 # SATA
 attach	ahcisata at tegraio with tegra_ahcisata
@@ -67,3 +92,6 @@ defparam opt_tegra.h			MEMSIZE
 # SOC parameters
 defflag	opt_tegra.h			SOC_TEGRAK1
 defflag	opt_tegra.h			SOC_TEGRA124: SOC_TEGRAK1
+
+# Board parameters
+defflag	opt_tegra.h			BOARD_JETSONTK1

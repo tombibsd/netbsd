@@ -272,8 +272,15 @@ nd6_ra_input(struct mbuf *m, int off, int icmp6len)
 	}
 	if (nd_ra->nd_ra_retransmit)
 		ndi->retrans = ntohl(nd_ra->nd_ra_retransmit);
-	if (nd_ra->nd_ra_curhoplimit)
-		ndi->chlim = nd_ra->nd_ra_curhoplimit;
+	if (nd_ra->nd_ra_curhoplimit) {
+		if (ndi->chlim < nd_ra->nd_ra_curhoplimit)
+			ndi->chlim = nd_ra->nd_ra_curhoplimit;
+		else if (ndi->chlim != nd_ra->nd_ra_curhoplimit)
+			log(LOG_ERR, "nd_ra_input: lower CurHopLimit sent from "
+			   "%s on %s (current=%d, received=%d), ignored\n",
+			   ip6_sprintf(&ip6->ip6_src),
+			   if_name(ifp), ndi->chlim, nd_ra->nd_ra_curhoplimit);
+	}
 	dr = defrtrlist_update(&drtr);
     }
 

@@ -31,7 +31,7 @@
 /ntp_control.c/1.11/Sun Apr 12 03:30:01 2015/-kk/
 /ntp_crypto.c/1.8/Sun Apr 12 03:30:01 2015/-kk/
 /ntp_filegen.c/1.6/Sun Apr 12 03:30:01 2015/-kk/
-/ntp_io.c/1.17/Sun Apr 12 03:30:01 2015/-kk/
+/ntp_io.c/1.18/Wed May 13 03:29:08 2015/-kk/
 /ntp_keyword.h/1.7/Sun Apr 12 03:30:01 2015/-kk/
 /ntp_leapsec.c/1.3/Sun Apr 12 03:30:01 2015/-kk/
 /ntp_leapsec.h/1.2/Sat Dec 27 03:33:44 2014/-kk/

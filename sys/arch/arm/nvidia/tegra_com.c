@@ -88,8 +88,8 @@ tegra_com_attach(device_t parent, device_t self, void *aux)
 	bus_space_handle_t bsh;
 
 	sc->sc_dev = self;
-	sc->sc_frequency = TEGRA_UART_FREQ;
-	sc->sc_type = COM_TYPE_NORMAL;
+	sc->sc_frequency = tegra_car_uart_rate(loc->loc_port);
+	sc->sc_type = COM_TYPE_TEGRA;
 
 	if (com_is_console(bst, iobase, &bsh) == 0
 	    && bus_space_subregion(bst, tio->tio_bsh,

@@ -178,6 +178,10 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <x86/pci/msipic.h>
 
+#if NPCI == 0
+#define msipic_is_msi_pic(PIC)	(false)
+#endif
+
 #ifdef DDB
 #include <ddb/db_output.h>
 #endif
@@ -468,6 +472,7 @@ create_intrid(int legacy_irq, struct pic *pic, int pin, char *buf, size_t len)
 {
 	int ih;
 
+#if NPCI > 0
 	if ((pic->pic_type == PIC_MSI) || (pic->pic_type == PIC_MSIX)) {
 		uint64_t pih;
 		int dev, vec;
@@ -484,6 +489,7 @@ create_intrid(int legacy_irq, struct pic *pic, int pin, char *buf, size_t len)
 
 		return pci_msi_string(NULL, pih, buf, len);
 	}
+#endif
 
 	/*
 	 * If the device is pci, "legacy_irq" is alway -1. Least 8 bit of "ih"
@@ -554,7 +560,7 @@ intr_allocate_io_intrsource(const char *intrid)
 		pep->cpuid = ci->ci_cpuid;
 		pep++;
 	}
-	strncpy(isp->is_intrid, intrid, sizeof(isp->is_intrid));
+	strlcpy(isp->is_intrid, intrid, sizeof(isp->is_intrid));
 
 	SIMPLEQ_INSERT_TAIL(&io_interrupt_sources, isp, is_list);
 
@@ -572,7 +578,7 @@ intr_free_io_intrsource_direct(struct intrsource *isp)
 	SIMPLEQ_REMOVE(&io_interrupt_sources, isp, intrsource, is_list);
 
 	/* Is this interrupt established? */
-	if (isp->is_evname != '\0')
+	if (isp->is_evname[0] != '\0')
 		evcnt_detach(&isp->is_evcnt);
 
 	kmem_free(isp->is_saved_evcnt,

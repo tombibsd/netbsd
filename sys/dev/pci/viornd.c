@@ -137,7 +137,7 @@ viornd_attach( device_t parent, device_t self, void *aux)
 
 	vsc->sc_vqs = &sc->sc_vq;
 	vsc->sc_nvqs = 1;
-	vsc->sc_config_change = 0;
+	vsc->sc_config_change = NULL;
 	if (vsc->sc_child != NULL)
 		panic("already attached to something else");
 	vsc->sc_child = self;

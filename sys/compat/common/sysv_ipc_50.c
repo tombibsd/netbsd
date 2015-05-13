@@ -74,6 +74,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
  * Check for ipc permission
  */
 
+int sysctl_kern_sysvipc50(SYSCTLFN_PROTO);
+
 int
 sysctl_kern_sysvipc50(SYSCTLFN_ARGS)
 {

@@ -157,7 +157,8 @@ void	in6_losing(struct in6pcb *);
 void	in6_pcbinit(struct inpcbtable *, int, int);
 int	in6_pcballoc(struct socket *, void *);
 int	in6_pcbbind(void *, struct sockaddr_in6 *, struct lwp *);
-int	in6_pcbconnect(void *, struct mbuf *, struct lwp *);
+int	in6_pcbconnect(void *, struct sockaddr_in6 *, struct lwp *);
+int	in6_pcbconnect_m(void *, struct mbuf *, struct lwp *);
 void	in6_pcbdetach(struct in6pcb *);
 void	in6_pcbdisconnect(struct in6pcb *);
 struct	in6pcb *in6_pcblookup_port(struct inpcbtable *, struct in6_addr *,

@@ -585,6 +585,7 @@ int	vn_fifo_bypass(void *);
 void	vntblinit(void);
 
 /* misc stuff */
+void	sched_sync(void *);
 void	vn_syncer_add_to_worklist(struct vnode *, int);
 void	vn_syncer_remove_from_worklist(struct vnode *);
 int	dorevoke(struct vnode *, kauth_cred_t);

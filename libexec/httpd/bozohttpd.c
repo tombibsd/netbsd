@@ -109,7 +109,7 @@
 #define INDEX_HTML		"index.html"
 #endif
 #ifndef SERVER_SOFTWARE
-#define SERVER_SOFTWARE		"bozohttpd/20150320"
+#define SERVER_SOFTWARE		"bozohttpd/20150501"
 #endif
 #ifndef DIRECT_ACCESS_FILE
 #define DIRECT_ACCESS_FILE	".bzdirect"
@@ -1861,6 +1861,7 @@ static struct errors_map {
 	{ 404, 	"404 Not Found",	"This item has not been found", },
 	{ 408, 	"408 Request Timeout",	"This request took too long", },
 	{ 417,	"417 Expectation Failed","Expectations not available", },
+	{ 420,	"420 Enhance Your Calm","Chill, Winston", },
 	{ 500,	"500 Internal Error",	"An error occured on the server", },
 	{ 501,	"501 Not Implemented",	"This request is not available", },
 	{ 0,	NULL,			NULL, },

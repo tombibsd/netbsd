@@ -2610,6 +2610,7 @@
 ./usr/tests/lib/libc/stdlib/t_posix_memalign	tests-lib-tests		atf
 ./usr/tests/lib/libc/stdlib/t_random		tests-lib-tests		atf
 ./usr/tests/lib/libc/stdlib/t_strtod		tests-lib-tests		atf
+./usr/tests/lib/libc/stdlib/t_strtoi		tests-lib-tests		atf
 ./usr/tests/lib/libc/stdlib/t_strtol		tests-lib-tests		atf
 ./usr/tests/lib/libc/stdlib/t_strtox		tests-obsolete		obsolete
 ./usr/tests/lib/libc/stdlib/t_system		tests-lib-tests		atf
@@ -3560,6 +3561,8 @@
 ./usr/tests/usr.bin/make/unit-tests/comment.mk	tests-usr.bin-tests	atf
 ./usr/tests/usr.bin/make/unit-tests/cond1.exp	tests-usr.bin-tests	atf
 ./usr/tests/usr.bin/make/unit-tests/cond1.mk	tests-usr.bin-tests	atf
+./usr/tests/usr.bin/make/unit-tests/cond2.exp	tests-usr.bin-tests	atf
+./usr/tests/usr.bin/make/unit-tests/cond2.mk	tests-usr.bin-tests	atf
 ./usr/tests/usr.bin/make/unit-tests/doterror.exp	tests-usr.bin-tests	atf
 ./usr/tests/usr.bin/make/unit-tests/doterror.mk	tests-usr.bin-tests	atf
 ./usr/tests/usr.bin/make/unit-tests/dotwait.exp	tests-usr.bin-tests	atf

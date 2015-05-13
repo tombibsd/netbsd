@@ -509,7 +509,7 @@ key_listen(struct socket *so, struct lwp *l)
 }
 
 static int
-key_connect(struct socket *so, struct mbuf *nam, struct lwp *l)
+key_connect(struct socket *so, struct sockaddr *nam, struct lwp *l)
 {
 	KASSERT(solocked(so));
 
@@ -631,7 +631,7 @@ key_recvoob(struct socket *so, struct mbuf *m, int flags)
 }
 
 static int
-key_send(struct socket *so, struct mbuf *m, struct mbuf *nam,
+key_send(struct socket *so, struct mbuf *m, struct sockaddr *nam,
     struct mbuf *control, struct lwp *l)
 {
 	int error = 0;

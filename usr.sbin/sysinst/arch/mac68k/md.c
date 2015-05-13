@@ -1141,8 +1141,7 @@ edit_diskmap(void)
 	if (usefull) {
 	    if (map.usable_cnt > (map.root_cnt+map.swap_cnt+map.usr_cnt)) {
 		msg_display (MSG_ovrwrite);
-		process_menu (MENU_noyes, NULL);
-		if (!yesno) {
+		if (!ask_noyes(NULL)) {
 			endwin();
 			return 0;
 		}

@@ -64,6 +64,8 @@ static bool tegraio_found = false;
 static const struct tegra_locators tegra_ppsb_locators[] = {
   { "tegracar",
     TEGRA_CAR_OFFSET, TEGRA_CAR_SIZE, NOPORT, NOINTR },
+  { "tegragpio",
+    TEGRA_GPIO_OFFSET, TEGRA_GPIO_SIZE, NOPORT, NOINTR },
 };
 
 static const struct tegra_locators tegra_apb_locators[] = {
@@ -71,6 +73,20 @@ static const struct tegra_locators tegra_apb_locators[] = {
     TEGRA_MC_OFFSET, TEGRA_MC_SIZE, NOPORT, NOINTR },
   { "tegrapmc",
     TEGRA_PMC_OFFSET, TEGRA_PMC_SIZE, NOPORT, NOINTR },
+  { "tegrampio",
+    TEGRA_MPIO_OFFSET, TEGRA_MPIO_SIZE, NOPORT, NOINTR },
+  { "tegrai2c",
+    TEGRA_I2C1_OFFSET, TEGRA_I2C1_SIZE, 0, TEGRA_INTR_I2C1 },
+  { "tegrai2c",
+    TEGRA_I2C2_OFFSET, TEGRA_I2C2_SIZE, 1, TEGRA_INTR_I2C2 },
+  { "tegrai2c",
+    TEGRA_I2C3_OFFSET, TEGRA_I2C3_SIZE, 2, TEGRA_INTR_I2C3 },
+  { "tegrai2c",
+    TEGRA_I2C4_OFFSET, TEGRA_I2C4_SIZE, 3, TEGRA_INTR_I2C4 },
+  { "tegrai2c",
+    TEGRA_I2C5_OFFSET, TEGRA_I2C5_SIZE, 4, TEGRA_INTR_I2C5 },
+  { "tegrai2c",
+    TEGRA_I2C6_OFFSET, TEGRA_I2C6_SIZE, 5, TEGRA_INTR_I2C6 },
   { "com",
     TEGRA_UARTA_OFFSET, TEGRA_UARTA_SIZE, 0, TEGRA_INTR_UARTA },
   { "com",
@@ -79,6 +95,8 @@ static const struct tegra_locators tegra_apb_locators[] = {
     TEGRA_UARTC_OFFSET, TEGRA_UARTC_SIZE, 2, TEGRA_INTR_UARTC },
   { "com",
     TEGRA_UARTD_OFFSET, TEGRA_UARTD_SIZE, 3, TEGRA_INTR_UARTD },
+  { "tegrartc",
+    TEGRA_RTC_OFFSET, TEGRA_RTC_SIZE, NOPORT, NOINTR },
   { "sdhc",
     TEGRA_SDMMC1_OFFSET, TEGRA_SDMMC1_SIZE, 0, TEGRA_INTR_SDMMC1 },
   { "sdhc",
@@ -100,6 +118,11 @@ static const struct tegra_locators tegra_ahb_a2_locators[] = {
     TEGRA_USB2_OFFSET, TEGRA_USB2_SIZE, 1, TEGRA_INTR_USB2 },
   { "ehci",
     TEGRA_USB3_OFFSET, TEGRA_USB3_SIZE, 2, TEGRA_INTR_USB3 },
+};
+
+static const struct tegra_locators tegra_pcie_locators[] = {
+  { "tegrapcie",
+    TEGRA_PCIE_OFFSET, TEGRA_PCIE_SIZE, NOPORT, TEGRA_INTR_PCIE_INT },
 };
 
 int
@@ -124,6 +147,8 @@ tegraio_attach(device_t parent, device_t self, void *aux)
 	    tegra_apb_locators, __arraycount(tegra_apb_locators));
 	tegraio_scan(self, tegra_ahb_a2_bsh,
 	    tegra_ahb_a2_locators, __arraycount(tegra_ahb_a2_locators));
+	tegraio_scan(self, (bus_space_handle_t)NULL,
+	    tegra_pcie_locators, __arraycount(tegra_pcie_locators));
 }
 
 static void
@@ -138,6 +163,7 @@ tegraio_scan(device_t self, bus_space_handle_t bsh,
 			.tio_a4x_bst = &armv7_generic_a4x_bs_tag,
 			.tio_bsh = bsh,
 			.tio_dmat = &tegra_dma_tag,
+			.tio_coherent_dmat = &tegra_coherent_dma_tag,
 		};
 		cfdata_t cf = config_search_ia(tegraio_find, self,
 		    "tegraio", &tio);

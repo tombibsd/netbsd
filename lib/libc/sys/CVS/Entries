@@ -102,7 +102,7 @@
 /mlockall.2/1.13/Wed Apr 30 13:10:51 2008/-kk/
 /mmap.2/1.48/Sat Mar 21 02:29:26 2015/-kk/
 /mmap.c/1.15/Tue Mar 20 16:26:12 2012/-kk/
-/modctl.2/1.10/Sun Jul 20 13:58:22 2014/-kk/
+/modctl.2/1.11/Wed May 13 03:32:18 2015/-kk/
 /mount.2/1.49/Fri Nov 18 21:04:21 2011/-kk/
 /mprotect.2/1.24/Sun Apr  3 06:54:30 2011/-kk/
 /mremap.2/1.4/Thu Apr 28 12:00:55 2011/-kk/

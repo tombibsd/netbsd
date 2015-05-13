@@ -698,10 +698,10 @@ rip6_listen(struct socket *so, struct lwp *l)
 }
 
 static int
-rip6_connect(struct socket *so, struct mbuf *nam, struct lwp *l)
+rip6_connect(struct socket *so, struct sockaddr *nam, struct lwp *l)
 {
 	struct in6pcb *in6p = sotoin6pcb(so);
-	struct sockaddr_in6 *addr;
+	struct sockaddr_in6 *addr = (struct sockaddr_in6 *)nam;
 	struct in6_addr *in6a = NULL;
 	struct ifnet *ifp = NULL;
 	int scope_ambiguous = 0;
@@ -711,10 +711,6 @@ rip6_connect(struct socket *so, struct mbuf *nam, struct lwp *l)
 	KASSERT(in6p != NULL);
 	KASSERT(nam != NULL);
 
-	addr = mtod(nam, struct sockaddr_in6 *);
-
-	if (nam->m_len != sizeof(*addr))
-		return EINVAL;
 	if (IFNET_EMPTY())
 		return EADDRNOTAVAIL;
 	if (addr->sin6_family != AF_INET6)
@@ -853,7 +849,7 @@ rip6_recvoob(struct socket *so, struct mbuf *m, int flags)
 }
 
 static int
-rip6_send(struct socket *so, struct mbuf *m, struct mbuf *nam,
+rip6_send(struct socket *so, struct mbuf *m, struct sockaddr *nam,
     struct mbuf *control, struct lwp *l)
 {
 	struct in6pcb *in6p = sotoin6pcb(so);
@@ -884,12 +880,7 @@ rip6_send(struct socket *so, struct mbuf *m, struct mbuf *nam,
 			error = ENOTCONN;
 			goto release;
 		}
-		if (nam->m_len != sizeof(tmp)) {
-			error = EINVAL;
-			goto release;
-		}
-
-		tmp = *mtod(nam, struct sockaddr_in6 *);
+		tmp = *(struct sockaddr_in6 *)nam;
 		dst = &tmp;
 
 		if (dst->sin6_family != AF_INET6) {

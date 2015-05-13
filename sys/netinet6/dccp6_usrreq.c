@@ -143,13 +143,12 @@ dccp6_bind(struct socket *so, struct sockaddr *nam, struct lwp *td)
 }
 
 int
-dccp6_connect(struct socket *so, struct mbuf *m, struct lwp *l)
+dccp6_connect(struct socket *so, struct sockaddr *nam, struct lwp *l)
 {
 	struct in6pcb *in6p;
 	struct dccpcb *dp;
 	int error;
 	struct sockaddr_in6 *sin6;
-	struct sockaddr *nam;
 	char test[2];
 
 	DCCP_DEBUG((LOG_INFO, "Entering dccp6_connect!\n"));
@@ -187,7 +186,6 @@ dccp6_connect(struct socket *so, struct mbuf *m, struct lwp *l)
 	dp->who = DCCP_CLIENT;
 	dp->seq_snd = (((u_int64_t)random() << 32) | random()) % 281474976710656LL;
 
-	nam = mtod(m, struct sockaddr *);
 	sin6 = (struct sockaddr_in6 *)nam;
 	if (sin6->sin6_family == AF_INET6
 	    && IN6_IS_ADDR_MULTICAST(&sin6->sin6_addr)) {
@@ -198,7 +196,7 @@ dccp6_connect(struct socket *so, struct mbuf *m, struct lwp *l)
 	dp->inp_vflag &= ~INP_IPV4;
 	dp->inp_vflag |= INP_IPV6;
 
-	error = dccp_doconnect(so, m, l, 1);
+	error = dccp_doconnect(so, nam, l, 1);
 
 	if (error != 0)
 		goto bad;
@@ -407,7 +405,7 @@ dccp6_rcvd(struct socket *so, int flags, struct lwp *l)
 }
 
 static int
-dccp6_send(struct socket *so, struct mbuf *m, struct mbuf *nam,
+dccp6_send(struct socket *so, struct mbuf *m, struct sockaddr *nam,
     struct mbuf *control, struct lwp *l)
 {
 	return dccp_send(so, m, nam, control, l);

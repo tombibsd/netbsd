@@ -37,6 +37,10 @@
 #include <sys/cdefs.h>
 __RCSID("$NetBSD$");
 
+#ifdef _LIBC
+#include "namespace.h"
+#endif
+
 #if defined(_KERNEL)
 #include <sys/param.h>
 #include <sys/types.h>
@@ -57,6 +61,9 @@ __RCSID("$NetBSD$");
 #define	__TYPE		uintmax_t
 #define	__WRAPPED	strtoumax
 
-#if !HAVE_STRTOU
 #include "_strtoi.h"
+
+#ifdef _LIBC
+__weak_alias(strtou, _strtou)
+__weak_alias(strtou_l, _strtou_l)
 #endif

@@ -451,9 +451,10 @@ amdtemp* at amdnb_misc?			# AMD CPU Temperature sensors
 #amdpcib* at pci? dev ? function ?	# AMD 8111 PCI-ISA w/ HPET
 #hpet*	at amdpcib?
 ichlpcib* at pci? dev ? function ?	# Intel ICH PCI-LPC w/ timecounter,
-					# watchdog, SpeedStep and HPET
+					# watchdog, gpio, SpeedStep and HPET
 fwhrng* at ichlpcib?		# Intel 82802 FWH Random Number Generator
 #hpet*	at ichlpcib?
+tco*	at ichlpcib?		# TCO watchdog timer
 tcpcib* at pci? dev ? function ?	# Intel Atom E6xx PCI-LPC
 hpet* at tcpcib?
 gcscpcib* at pci? dev ? function ?	# AMD CS5535/CS5536 PCI-ISA w/

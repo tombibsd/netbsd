@@ -91,7 +91,7 @@ int Compat_Make(void *, void *);
 
 /* cond.c */
 struct If;
-int Cond_EvalExpression(const struct If *, char *, Boolean *, int);
+int Cond_EvalExpression(const struct If *, char *, Boolean *, int, Boolean);
 int Cond_Eval(char *);
 void Cond_restore_depth(unsigned int);
 unsigned int Cond_save_depth(void);

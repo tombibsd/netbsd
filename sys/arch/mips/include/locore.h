@@ -317,7 +317,7 @@ mips3_sw_a64(uint64_t addr, uint32_t val)
 }
 #endif	/* (MIPS3 + MIPS4 + MIPS64 + MIPS64R2) > 0 */
 
-#if (MIPS64 + MIPS64R2) > 0
+#if (MIPS64 + MIPS64R2) > 0 && !defined(__mips_o32)
 /* 64-bits address space accessor for n32, n64 ABI */
 
 static __inline uint64_t	mips64_ld_a64(uint64_t addr) __unused;

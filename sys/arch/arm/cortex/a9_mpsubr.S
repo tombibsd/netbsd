@@ -538,6 +538,20 @@ cortex_mpstart:
 	setend	be				// switch to BE now
 #endif
 
+	// We haven't used anything from memory yet so we can invalidate the
+	// cache without fear of losing valuable data.  Note that the A5/A9
+	// L2 cache are not flushed via this call so this affects only this
+	// core's L1 cache.  The A7/A15/A17 L2 cache is write-through so
+	// invalidating it doesn't cause any data loss either.
+#if defined(KERNEL_BASES_EQUAL)
+	bl	_C_LABEL(armv7_dcache_inv_all)
+#else
+	movw	ip, #:lower16:_C_LABEL(armv7_dcache_inv_all)
+	movt	ip, #:upper16:_C_LABEL(armv7_dcache_inv_all)
+	sub	ip, ip, #KERNEL_BASE_VOFFSET
+	blx	ip				// toss d-cache
+#endif
+
 #if 0
 	mrc	p15, 0, r0, c1, c1, 2		// NSACR read
 	// Allow non-secure access to ACTLR[SMP]

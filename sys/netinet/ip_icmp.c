@@ -680,7 +680,7 @@ icmp_reflect(struct mbuf *m)
 	struct ip *ip = mtod(m, struct ip *);
 	struct in_ifaddr *ia;
 	struct ifaddr *ifa;
-	struct sockaddr_in *sin = NULL;
+	struct sockaddr_in *sin;
 	struct in_addr t;
 	struct mbuf *opts = NULL;
 	int optlen = (ip->ip_hl << 2) - sizeof(struct ip);
@@ -703,6 +703,8 @@ icmp_reflect(struct mbuf *m)
 
 	/* Look for packet addressed to us */
 	INADDR_TO_IA(t, ia);
+	if (ia && (ia->ia4_flags & IN_IFF_NOTREADY))
+		ia = NULL;
 
 	/* look for packet sent to broadcast address */
 	if (ia == NULL && m->m_pkthdr.rcvif &&
@@ -712,13 +714,14 @@ icmp_reflect(struct mbuf *m)
 				continue;
 			if (in_hosteq(t,ifatoia(ifa)->ia_broadaddr.sin_addr)) {
 				ia = ifatoia(ifa);
-				break;
+				if ((ia->ia4_flags & IN_IFF_NOTREADY) == 0)
+					break;
+				ia = NULL;
 			}
 		}
 	}
 
-	if (ia)
-		sin = &ia->ia_addr;
+	sin = ia ? &ia->ia_addr : NULL;
 
 	icmpdst.sin_addr = t;
 

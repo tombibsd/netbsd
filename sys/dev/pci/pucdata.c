@@ -2783,6 +2783,16 @@ const struct puc_device_description puc_devices[] = {
 	    },
 	},
 
+	/* SystemBase SB16C1050 UARTs */
+	{   "SystemBase SB16C1050",
+	    {	PCI_VENDOR_SYSTEMBASE, PCI_PRODUCT_SYSTEMBASE_SB16C1050, 0, 0 },
+	    {	0xffff, 0xffff,						 0, 0 },
+	    {
+		{ PUC_PORT_TYPE_COM, PCI_BAR0, 0x00, COM_FREQ * 8},
+		{ PUC_PORT_TYPE_COM, PCI_BAR0, 0x08, COM_FREQ * 8},
+	    },
+	},
+
 	/* SystemBase SB16C1054 UARTs */
 	{   "SystemBase SB16C1054",
 	    {	PCI_VENDOR_SYSTEMBASE, PCI_PRODUCT_SYSTEMBASE_SB16C1054, 0, 0 },

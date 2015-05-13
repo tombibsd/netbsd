@@ -76,7 +76,7 @@ axi_attach(device_t parent __unused, device_t self, void *aux __unused)
 	aprint_naive("\n");
 
 	sc = device_private(self);
-	sc->sc_iot = &imx_bs_tag;
+	sc->sc_iot = &armv7_generic_bs_tag;
 #if NBUS_DMA_GENERIC > 0
 	sc->sc_dmat = &imx_bus_dma_tag;
 #else

@@ -314,7 +314,7 @@ krpc_call(struct sockaddr_in *sa, u_int prog, u_int vers, u_int func, struct mbu
 	mhead->m_pkthdr.len = len;
 	mhead->m_pkthdr.rcvif = NULL;
 
-	error = nfs_boot_sendrecv(so, nam, 0, mhead, krpccheck, &m, &from,
+	error = nfs_boot_sendrecv(so, nam, NULL, mhead, krpccheck, &m, &from,
 	    &xid, l);
 	if (error)
 		goto out;

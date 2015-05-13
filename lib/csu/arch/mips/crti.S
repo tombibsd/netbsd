@@ -36,6 +36,7 @@ RCSID("$NetBSD$")
 #include "sysident.S"
 
 	.section ".init", "ax", @progbits
+	.p2align 2
 NESTED_NOPROFILE(_init, CALLFRAME_SIZ, ra)
         SETUP_GP
         PTR_SUBU sp, sp, CALLFRAME_SIZ	# allocate stack frame
@@ -48,6 +49,7 @@ NESTED_NOPROFILE(_init, CALLFRAME_SIZ, ra)
 END(_init)
 
 	.section ".fini", "ax", @progbits
+	.p2align 2
 NESTED_NOPROFILE(_fini, CALLFRAME_SIZ, ra)
         SETUP_GP
         PTR_SUBU sp, sp, CALLFRAME_SIZ	# allocate stack frame

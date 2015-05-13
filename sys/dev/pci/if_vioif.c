@@ -501,7 +501,7 @@ vioif_attach(device_t parent, device_t self, void *aux)
 	vsc->sc_child = self;
 	vsc->sc_ipl = IPL_NET;
 	vsc->sc_vqs = &sc->sc_vq[0];
-	vsc->sc_config_change = 0;
+	vsc->sc_config_change = NULL;
 	vsc->sc_intrhand = virtio_vq_intr;
 	vsc->sc_flags = 0;
 

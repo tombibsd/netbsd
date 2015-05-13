@@ -236,7 +236,8 @@ puc_attach(device_t parent, device_t self, void *aux)
 
 	/* SB16C10xx board specific initialization */
 	if (PCI_VENDOR(pa->pa_id) == PCI_VENDOR_SYSTEMBASE &&
-	    (PCI_PRODUCT(pa->pa_id) == PCI_PRODUCT_SYSTEMBASE_SB16C1054 ||
+	    (PCI_PRODUCT(pa->pa_id) == PCI_PRODUCT_SYSTEMBASE_SB16C1050 ||
+	    PCI_PRODUCT(pa->pa_id) == PCI_PRODUCT_SYSTEMBASE_SB16C1054 ||
 	    PCI_PRODUCT(pa->pa_id) == PCI_PRODUCT_SYSTEMBASE_SB16C1058)) {
 		if (!sc->sc_bar_mappings[1].mapped) {
 			aprint_error_dev(self,

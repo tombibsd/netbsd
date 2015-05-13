@@ -61,7 +61,7 @@ static void ka660_cache_enable(void);
 static void ka660_attach_cpu(device_t);
 static int ka660_mchk(void *);
 
-static const char * const ka660_devs[] = { "cpu", "sgec", "vsbus", NULL };
+static const char * const ka660_devs[] = { "cpu", "sgec", "shac", "uba", NULL };
 
 /* 
  * Declaration of 660-specific calls.
@@ -92,7 +92,7 @@ void
 ka660_attach_cpu(device_t self)
 {
 	aprint_normal(
-	    ": %s, Rigel (ucode rev. %d), 2KB L1 cache, 128KB L2 cache\n",
+	    ": %s, SOC (ucode rev. %d), 6KB L1 cache\n",
 	    "KA660",
 	    vax_cpudata & 0377);
 }

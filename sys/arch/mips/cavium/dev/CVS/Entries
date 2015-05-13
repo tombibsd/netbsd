@@ -9,6 +9,7 @@
 /octeon_cop2reg.h/1.1/Wed Apr 29 08:32:01 2015/-kk/
 /octeon_cop2var.h/1.1/Wed Apr 29 08:32:01 2015/-kk/
 /octeon_corereg.h/1.1/Wed Apr 29 08:32:01 2015/-kk/
+/octeon_dwctwo.c/1.1/Fri May  1 07:23:47 2015/-kk/
 /octeon_fau.c/1.1/Wed Apr 29 08:32:01 2015/-kk/
 /octeon_faureg.h/1.1/Wed Apr 29 08:32:01 2015/-kk/
 /octeon_fauvar.h/1.1/Wed Apr 29 08:32:01 2015/-kk/
@@ -50,10 +51,8 @@
 /octeon_twsireg.h/1.1/Wed Apr 29 08:32:01 2015/-kk/
 /octeon_uart.c/1.1/Wed Apr 29 08:32:01 2015/-kk/
 /octeon_uartreg.h/1.1/Wed Apr 29 08:32:01 2015/-kk/
-/octeon_usbc.c/1.1/Wed Apr 29 08:32:01 2015/-kk/
 /octeon_usbcreg.h/1.1/Wed Apr 29 08:32:01 2015/-kk/
 /octeon_usbcvar.h/1.1/Wed Apr 29 08:32:01 2015/-kk/
-/octeon_usbn.c/1.1/Wed Apr 29 08:32:01 2015/-kk/
 /octeon_usbnreg.h/1.1/Wed Apr 29 08:32:01 2015/-kk/
 /octeon_usbnvar.h/1.1/Wed Apr 29 08:32:01 2015/-kk/
 D

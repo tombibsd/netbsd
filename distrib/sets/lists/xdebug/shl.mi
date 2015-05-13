@@ -138,7 +138,7 @@
 ./usr/libdata/debug/usr/X11R7/lib/libxcb-xf86dri.so.0.1.debug	-unknown-		xorg,debug
 ./usr/libdata/debug/usr/X11R7/lib/libxcb-xfixes.so.0.1.debug	-unknown-		xorg,debug
 ./usr/libdata/debug/usr/X11R7/lib/libxcb-xinerama.so.0.1.debug	-unknown-		xorg,debug
-./usr/libdata/debug/usr/X11R7/lib/libxcb-xkb.so.0.1.debug	-unknown-		xorg,debug
+./usr/libdata/debug/usr/X11R7/lib/libxcb-xkb.so.1.0.debug	-unknown-		xorg,debug
 ./usr/libdata/debug/usr/X11R7/lib/libxcb-xtest.so.0.1.debug	-unknown-		xorg,debug
 ./usr/libdata/debug/usr/X11R7/lib/libxcb-xv.so.0.1.debug	-unknown-		xorg,debug
 ./usr/libdata/debug/usr/X11R7/lib/libxcb-xvmc.so.0.1.debug	-unknown-		xorg,debug

@@ -570,7 +570,7 @@ int
 wsfont_matches(struct wsdisplay_font *font, const char *name,
 	       int width, int height, int stride, int flags)
 {
-	int score = 10000;
+	int score = 20000;
 
 	/* first weed out fonts the caller doesn't claim support for */
 	if (FONT_IS_ALPHA(font)) {
@@ -590,8 +590,9 @@ wsfont_matches(struct wsdisplay_font *font, const char *name,
 				return (0);
 		} else {
 			if (font->fontwidth > width)
-				return (0);
-			score -= min(width - font->fontwidth, 9999);
+				score -= 10000 + min(font->fontwidth - width, 9999);
+			else
+				score -= min(width - font->fontwidth, 9999);
 		}
 	}
 

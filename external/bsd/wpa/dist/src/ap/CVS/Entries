@@ -62,7 +62,7 @@
 /vlan_init.h/1.1.1.2/Wed Oct 29 08:10:04 2014/-kk/
 /vlan_util.c/1.1.1.1/Fri Jan  3 02:05:16 2014/-kk/
 /vlan_util.h/1.1.1.1/Fri Jan  3 02:05:16 2014/-kk/
-/wmm.c/1.1.1.4/Wed Oct 29 08:10:04 2014/-kk/
+/wmm.c/1.2/Wed May 13 03:29:11 2015/-kk/
 /wmm.h/1.1.1.2/Wed Oct 29 08:10:04 2014/-kk/
 /wnm_ap.c/1.1.1.3/Sun Apr 12 03:30:11 2015/-kk/
 /wnm_ap.h/1.1.1.3/Sun Apr 12 03:30:11 2015/-kk/

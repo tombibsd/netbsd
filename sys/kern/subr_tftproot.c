@@ -320,7 +320,7 @@ tftproot_getfile(struct tftproot_handle *trh, struct lwp *l)
 	 * we do not want to free it ourselves.
 	 * Ignore errors, as we already have the whole file.
 	 */
-	if ((error = (*so->so_send)(so, m_serv, NULL, 
+	if ((error = (*so->so_send)(so, mtod(m_serv, struct sockaddr *), NULL,
 	    m_outbuf, NULL, 0, l)) != 0)
 		DPRINTF(("%s():%d tftproot: sosend returned %d\n", 
 		    __func__, __LINE__, error));

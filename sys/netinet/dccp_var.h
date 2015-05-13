@@ -306,14 +306,14 @@ struct dccpcb *
 	dccp_newdccpcb(int, void *);
 int	dccp_shutdown(struct socket *);
 int	dccp_output(struct dccpcb *, u_int8_t);
-int	dccp_doconnect(struct socket *, struct mbuf *, struct lwp *, int);
+int	dccp_doconnect(struct socket *, struct sockaddr *, struct lwp *, int);
 int	dccp_add_option(struct dccpcb *, u_int8_t, char *, u_int8_t);
 int	dccp_add_feature(struct dccpcb *, u_int8_t, u_int8_t,  char *, u_int8_t);
 int	dccp_detach(struct socket *);
 int	dccp_attach(struct socket *, int);
 int	dccp_abort(struct socket *);
 int	dccp_disconnect(struct socket *);
-int	dccp_send(struct socket *, struct mbuf *, struct mbuf *,
+int	dccp_send(struct socket *, struct mbuf *, struct sockaddr *,
 		  struct mbuf *, struct lwp *);
 void	dccp_retrans_t(void *);
 void	dccp_connect_t(void *);

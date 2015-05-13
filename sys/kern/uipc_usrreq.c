@@ -409,7 +409,7 @@ unp_recvoob(struct socket *so, struct mbuf *m, int flags)
 }
 
 static int
-unp_send(struct socket *so, struct mbuf *m, struct mbuf *nam,
+unp_send(struct socket *so, struct mbuf *m, struct sockaddr *nam,
     struct mbuf *control, struct lwp *l)
 {
 	struct unpcb *unp = sotounpcb(so);
@@ -861,28 +861,6 @@ unp_sockaddr(struct socket *so, struct sockaddr *nam)
 }
 
 /*
- * Allocate the new sockaddr.  We have to allocate one
- * extra byte so that we can ensure that the pathname
- * is nul-terminated. Note that unlike linux, we don't
- * include in the address length the NUL in the path
- * component, because doing so, would exceed sizeof(sockaddr_un)
- * for fully occupied pathnames. Linux is also inconsistent,
- * because it does not include the NUL in the length of
- * what it calls "abstract" unix sockets.
- */
-static struct sockaddr_un *
-makeun(struct mbuf *nam, size_t *addrlen)
-{
-	struct sockaddr_un *sun;
-
-	*addrlen = nam->m_len + 1;
-	sun = malloc(*addrlen, M_SONAME, M_WAITOK);
-	m_copydata(nam, 0, nam->m_len, (void *)sun);
-	*(((char *)sun) + nam->m_len) = '\0';
-	return sun;
-}
-
-/*
  * we only need to perform this allocation until syscalls other than
  * bind are adjusted to use sockaddr_big.
  */
@@ -1105,7 +1083,7 @@ unp_connect1(struct socket *so, struct socket *so2, struct lwp *l)
 }
 
 int
-unp_connect(struct socket *so, struct mbuf *nam, struct lwp *l)
+unp_connect(struct socket *so, struct sockaddr *nam, struct lwp *l)
 {
 	struct sockaddr_un *sun;
 	vnode_t *vp;
@@ -1127,7 +1105,7 @@ unp_connect(struct socket *so, struct mbuf *nam, struct lwp *l)
 	unp->unp_flags |= UNP_BUSY;
 	sounlock(so);
 
-	sun = makeun(nam, &addrlen);
+	sun = makeun_sb(nam, &addrlen);
 	pb = pathbuf_create(sun->sun_path);
 	if (pb == NULL) {
 		error = ENOMEM;

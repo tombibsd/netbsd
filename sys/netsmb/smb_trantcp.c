@@ -185,7 +185,7 @@ nb_connect_in(struct nbpcb *nbp, struct sockaddr_in *to, struct lwp *l)
 	*mtod(m, struct sockaddr *) = *(struct sockaddr *)to;
 	m->m_len = sizeof(struct sockaddr);
 	solock(so);
-	error = soconnect(so, m, l);
+	error = soconnect(so, mtod(m, struct sockaddr*), l);
 	m_free(m);
 	if (error) {
 		sounlock(so);

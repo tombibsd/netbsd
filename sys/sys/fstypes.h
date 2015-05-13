@@ -220,6 +220,7 @@ typedef struct fhandle	fhandle_t;
 #define	IMNT_HAS_TRANS	0x00000080	/* supports transactions */
 #define	IMNT_MPSAFE	0x00000100	/* file system code MP safe */
 #define	IMNT_CAN_RWTORO	0x00000200	/* can downgrade fs to from rw to r/o */
+#define	IMNT_ONWORKLIST	0x00000400	/* on syncer worklist */
 
 #define	__MNT_FLAGS \
 	__MNT_BASIC_FLAGS \
@@ -264,6 +265,7 @@ typedef struct fhandle	fhandle_t;
 
 #define	__IMNT_FLAG_BITS \
 	"\20" \
+	"\13IMNT_ONWORKLIST" \
 	"\12IMNT_CAN_RWTORO" \
         "\11IMNT_MPSAFE" \
 	"\10IMNT_HAS_TRANS" \

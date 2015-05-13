@@ -1045,7 +1045,7 @@ Usage: ${progname} [-EhnorUuxy] [-a arch] [-B buildid] [-C cdextras]
                         RELEASEDIR/RELEASEMACHINEDIR/installation/liveimage.
     install-image       Create bootable installation image in
                         RELEASEDIR/RELEASEMACHINEDIR/installation/installimage.
-    disk-image=target   Creae bootable disk image in
+    disk-image=target   Create bootable disk image in
                         RELEASEDIR/RELEASEMACHINEDIR/binary/gzimg/target.img.gz.
     params              Display various make(1) parameters.
     list-arch           Display a list of valid MACHINE/MACHINE_ARCH values,

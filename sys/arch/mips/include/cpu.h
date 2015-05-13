@@ -175,17 +175,21 @@ struct cpu_info {
 #ifdef _KERNEL
 #if defined(_MODULAR) || defined(_LKM) || defined(_STANDALONE)
 /* Assume all CPU architectures are valid for LKM's and standlone progs */
+#if !defined(__mips_n32) && !defined(__mips_n64)
 #define	MIPS1		1
+#endif
 #define	MIPS3		1
 #define	MIPS4		1
+#if !defined(__mips_n32) && !defined(__mips_n64)
 #define	MIPS32		1
 #define	MIPS32R2	1
+#endif
 #define	MIPS64		1
 #define	MIPS64R2	1
 #endif
 
 #if (MIPS1 + MIPS3 + MIPS4 + MIPS32 + MIPS32R2 + MIPS64 + MIPS64R2) == 0
-#error at least one of MIPS1, MIPS3, MIPS4, MIPS32, MIPS32R2, MIPS64, or MIPS64RR2 must be specified
+#error at least one of MIPS1, MIPS3, MIPS4, MIPS32, MIPS32R2, MIPS64, or MIPS64R2 must be specified
 #endif
 
 /* Shortcut for MIPS3 or above defined */

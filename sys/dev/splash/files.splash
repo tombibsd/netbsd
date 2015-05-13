@@ -1,6 +1,6 @@
 # $NetBSD$
 
 define splash: stbi
-file dev/splash/splash.c	splash
+file dev/splash/splash.c	splash & splashscreen
 
 defflag opt_splash.h	SPLASHSCREEN

@@ -435,16 +435,8 @@ static const struct bge_product {
 	  "Broadcom BCM5723 Gigabit Ethernet",
 	  },
 	{ PCI_VENDOR_BROADCOM,
-	  PCI_PRODUCT_BROADCOM_BCM5724,
-	  "Broadcom BCM5724 Gigabit Ethernet",
-	  },
-	{ PCI_VENDOR_BROADCOM,
 	  PCI_PRODUCT_BROADCOM_BCM5750,
 	  "Broadcom BCM5750 Gigabit Ethernet",
-	  },
-	{ PCI_VENDOR_BROADCOM,
-	  PCI_PRODUCT_BROADCOM_BCM5750M,
-	  "Broadcom BCM5750M Gigabit Ethernet",
 	  },
 	{ PCI_VENDOR_BROADCOM,
 	  PCI_PRODUCT_BROADCOM_BCM5751,
@@ -3259,7 +3251,6 @@ bge_chipid(const struct pci_attach_args *pa)
 		case PCI_PRODUCT_BROADCOM_BCM5718:
 		case PCI_PRODUCT_BROADCOM_BCM5719:
 		case PCI_PRODUCT_BROADCOM_BCM5720:
-		case PCI_PRODUCT_BROADCOM_BCM5724: /* ??? */
 			id = pci_conf_read(pa->pa_pc, pa->pa_tag,
 			    BGE_PCI_GEN2_PRODID_ASICREV);
 			break;
@@ -5387,6 +5378,29 @@ bge_init(struct ifnet *ifp)
 	bge_sig_pre_reset(sc, BGE_RESET_START);
 	bge_reset(sc);
 	bge_sig_legacy(sc, BGE_RESET_START);
+
+	if (BGE_CHIPREV(sc->bge_chipid) == BGE_CHIPREV_5784_AX) {
+		reg = CSR_READ_4(sc, BGE_CPMU_CTRL);
+		reg &= ~(BGE_CPMU_CTRL_LINK_AWARE_MODE |
+		    BGE_CPMU_CTRL_LINK_IDLE_MODE);
+		CSR_WRITE_4(sc, BGE_CPMU_CTRL, reg);
+
+		reg = CSR_READ_4(sc, BGE_CPMU_LSPD_10MB_CLK);
+		reg &= ~BGE_CPMU_LSPD_10MB_CLK;
+		reg |= BGE_CPMU_LSPD_10MB_MACCLK_6_25;
+		CSR_WRITE_4(sc, BGE_CPMU_LSPD_10MB_CLK, reg);
+
+		reg = CSR_READ_4(sc, BGE_CPMU_LNK_AWARE_PWRMD);
+		reg &= ~BGE_CPMU_LNK_AWARE_MACCLK_MASK;
+		reg |= BGE_CPMU_LNK_AWARE_MACCLK_6_25;
+		CSR_WRITE_4(sc, BGE_CPMU_LNK_AWARE_PWRMD, reg);
+
+		reg = CSR_READ_4(sc, BGE_CPMU_HST_ACC);
+		reg &= ~BGE_CPMU_HST_ACC_MACCLK_MASK;
+		reg |= BGE_CPMU_HST_ACC_MACCLK_6_25;
+		CSR_WRITE_4(sc, BGE_CPMU_HST_ACC, reg);
+	}
+
 	bge_sig_post_reset(sc, BGE_RESET_START);
 
 	bge_chipinit(sc);
@@ -5572,9 +5586,32 @@ bge_ifmedia_upd(struct ifnet *ifp)
 		return 0;
 	}
 
+	if ((BGE_ASICREV(sc->bge_chipid) == BGE_ASICREV_BCM5784) &&
+	    (BGE_CHIPREV(sc->bge_chipid) != BGE_CHIPREV_5784_AX)) {
+		uint32_t reg;
+
+		reg = CSR_READ_4(sc, BGE_CPMU_CTRL);
+		if ((reg & BGE_CPMU_CTRL_GPHY_10MB_RXONLY) != 0) {
+			reg &= ~BGE_CPMU_CTRL_GPHY_10MB_RXONLY;
+			CSR_WRITE_4(sc, BGE_CPMU_CTRL, reg);
+		}
+	}
+
 	BGE_STS_SETBIT(sc, BGE_STS_LINK_EVT);
 	if ((rc = mii_mediachg(mii)) == ENXIO)
 		return 0;
+
+	if (BGE_CHIPREV(sc->bge_chipid) == BGE_CHIPREV_5784_AX) {
+		uint32_t reg;
+
+		reg = CSR_READ_4(sc, BGE_CPMU_LSPD_1000MB_CLK);
+		if ((reg & BGE_CPMU_LSPD_1000MB_MACCLK_MASK)
+		    == (BGE_CPMU_LSPD_1000MB_MACCLK_12_5)) {
+			reg &= ~BGE_CPMU_LSPD_1000MB_MACCLK_MASK;
+			delay(40);
+			CSR_WRITE_4(sc, BGE_CPMU_LSPD_1000MB_CLK, reg);
+		}
+	}
 
 	/*
 	 * Force an interrupt so that we will call bge_link_upd
@@ -5946,6 +5983,23 @@ bge_link_upd(struct bge_softc *sc)
 		mii_pollstat(mii);
 	}
 
+	if (BGE_CHIPREV(sc->bge_chipid) == BGE_CHIPREV_5784_AX) {
+		uint32_t reg, scale;
+
+		reg = CSR_READ_4(sc, BGE_CPMU_CLCK_STAT) &
+		    BGE_CPMU_CLCK_STAT_MAC_CLCK_MASK;
+		if (reg == BGE_CPMU_CLCK_STAT_MAC_CLCK_62_5)
+			scale = 65;
+		else if (reg == BGE_CPMU_CLCK_STAT_MAC_CLCK_6_25)
+			scale = 6;
+		else
+			scale = 12;
+
+		reg = CSR_READ_4(sc, BGE_MISC_CFG) &
+		    ~BGE_MISCCFG_TIMER_PRESCALER;
+		reg |= scale << 1;
+		CSR_WRITE_4(sc, BGE_MISC_CFG, reg);
+	}
 	/* Clear the attention */
 	CSR_WRITE_4(sc, BGE_MAC_STS, BGE_MACSTAT_SYNC_CHANGED|
 	    BGE_MACSTAT_CFG_CHANGED|BGE_MACSTAT_MI_COMPLETE|

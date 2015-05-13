@@ -1,7 +1,6 @@
 #	$NetBSD$
 
-SUBDIR=	fdesc fifofs genfs kernfs nullfs overlay
-SUBDIR+= procfs specfs syncfs umapfs
+SUBDIR=	fdesc fifofs genfs kernfs nullfs overlay procfs specfs umapfs
 
 INCSDIR= /usr/include/miscfs
 

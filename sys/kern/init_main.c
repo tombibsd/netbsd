@@ -216,7 +216,6 @@ extern void *_binary_splash_image_end;
 #include <ufs/ufs/quota.h>
 
 #include <miscfs/genfs/genfs.h>
-#include <miscfs/syncfs/syncfs.h>
 #include <miscfs/specfs/specdev.h>
 
 #include <sys/cpu.h>

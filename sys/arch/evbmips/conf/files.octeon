@@ -11,3 +11,6 @@ file	arch/evbmips/evbmips/interrupt.c
 device	cpu
 attach	cpu at mainbus
 file	arch/evbmips/evbmips/cpu.c		cpu
+
+# Memory Disk
+file	dev/md_root.c				memory_disk_hooks

@@ -65,11 +65,18 @@ static sljit_si silent = 0;
 	}
 
 #define CHECK(compiler) \
-	if (sljit_get_compiler_error(compiler) != SLJIT_ERR_COMPILED) { \
-		printf("Compiler error: %d\n", sljit_get_compiler_error(compiler)); \
-		sljit_free_compiler(compiler); \
-		return; \
-	}
+	do { \
+		if (compiler == NULL) { \
+			printf("Can't create compiler\n"); \
+			return; \
+		} \
+		if (sljit_get_compiler_error(compiler) != SLJIT_ERR_COMPILED) { \
+			printf("Compiler error: %d\n", \
+			    sljit_get_compiler_error(compiler)); \
+			sljit_free_compiler(compiler); \
+			return; \
+		} \
+	} while (/*CONSTCOND*/0)
 
 static void cond_set(struct sljit_compiler *compiler, sljit_si dst, sljit_sw dstw, sljit_si type)
 {

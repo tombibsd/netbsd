@@ -40,6 +40,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <arm/nvidia/tegra_reg.h>
 #include <arm/nvidia/tegra_carreg.h>
+#include <arm/nvidia/tegra_pmcreg.h>
 #include <arm/nvidia/tegra_var.h>
 
 static int	tegra_car_match(device_t, cfdata_t, void *);
@@ -81,6 +82,10 @@ tegra_car_attach(device_t parent, device_t self, void *aux)
 	aprint_normal(": CAR\n");
 
 	aprint_verbose_dev(self, "PLLX = %u Hz\n", tegra_car_pllx_rate());
+	aprint_verbose_dev(self, "PLLC = %u Hz\n", tegra_car_pllc_rate());
+	aprint_verbose_dev(self, "PLLE = %u Hz\n", tegra_car_plle_rate());
+	aprint_verbose_dev(self, "PLLU = %u Hz\n", tegra_car_pllu_rate());
+	aprint_verbose_dev(self, "PLLP0 = %u Hz\n", tegra_car_pllp0_rate());
 }
 
 static void
@@ -102,8 +107,9 @@ tegra_car_osc_rate(void)
 	return TEGRA_REF_FREQ;
 }
 
-u_int
-tegra_car_pllx_rate(void)
+static u_int
+tegra_car_pll_rate(u_int base_reg, u_int divm_mask, u_int divn_mask,
+    u_int divp_mask)
 {
 	bus_space_tag_t bst;
 	bus_space_handle_t bsh;
@@ -112,12 +118,388 @@ tegra_car_pllx_rate(void)
 	tegra_car_get_bs(&bst, &bsh);
 
 	rate = tegra_car_osc_rate();	
-	const uint32_t base = bus_space_read_4(bst, bsh, CAR_PLLX_BASE_REG);
-	const u_int divm = __SHIFTOUT(base, CAR_PLLX_BASE_DIVM);
-	const u_int divn = __SHIFTOUT(base, CAR_PLLX_BASE_DIVN);
-	const u_int divp = __SHIFTOUT(base, CAR_PLLX_BASE_DIVP);
+	const uint32_t base = bus_space_read_4(bst, bsh, base_reg);
+	const u_int divm = __SHIFTOUT(base, divm_mask);
+	const u_int divn = __SHIFTOUT(base, divn_mask);
+	const u_int divp = __SHIFTOUT(base, divp_mask);
 
-	rate = tegra_car_osc_rate() * divn;
+	rate = (uint64_t)tegra_car_osc_rate() * divn;
 
 	return rate / (divm << divp);
+}
+
+u_int
+tegra_car_pllx_rate(void)
+{
+	return tegra_car_pll_rate(CAR_PLLX_BASE_REG, CAR_PLLX_BASE_DIVM,
+	    CAR_PLLX_BASE_DIVN, CAR_PLLX_BASE_DIVP);
+}
+
+u_int
+tegra_car_pllc_rate(void)
+{
+	return tegra_car_pll_rate(CAR_PLLC_BASE_REG, CAR_PLLC_BASE_DIVM,
+	    CAR_PLLC_BASE_DIVN, CAR_PLLC_BASE_DIVP);
+}
+
+u_int
+tegra_car_plle_rate(void)
+{
+	return tegra_car_pll_rate(CAR_PLLE_BASE_REG, CAR_PLLE_BASE_DIVM,
+	    CAR_PLLE_BASE_DIVN, CAR_PLLE_BASE_DIVP_CML);
+}
+
+u_int
+tegra_car_pllu_rate(void)
+{
+	bus_space_tag_t bst;
+	bus_space_handle_t bsh;
+	uint64_t rate;
+
+	tegra_car_get_bs(&bst, &bsh);
+
+	rate = tegra_car_osc_rate();	
+	const uint32_t base = bus_space_read_4(bst, bsh, CAR_PLLU_BASE_REG);
+	const u_int divm = __SHIFTOUT(base, CAR_PLLU_BASE_DIVM);
+	const u_int divn = __SHIFTOUT(base, CAR_PLLU_BASE_DIVN);
+	const u_int divp = __SHIFTOUT(base, CAR_PLLU_BASE_VCO_FREQ) ? 0 : 1;
+
+	rate = (uint64_t)tegra_car_osc_rate() * divn;
+
+	return rate / (divm << divp);
+}
+
+u_int
+tegra_car_pllp0_rate(void)
+{
+	return tegra_car_pll_rate(CAR_PLLP_BASE_REG, CAR_PLLP_BASE_DIVM,
+	    CAR_PLLP_BASE_DIVN, CAR_PLLP_BASE_DIVP);
+}
+
+u_int
+tegra_car_uart_rate(u_int port)
+{
+	bus_space_tag_t bst;
+	bus_space_handle_t bsh;
+	bus_size_t src_reg;
+	u_int src_rate;
+
+	tegra_car_get_bs(&bst, &bsh);
+
+	switch (port) {
+	case 0: src_reg = CAR_CLKSRC_UARTA_REG; break;
+	case 1: src_reg = CAR_CLKSRC_UARTB_REG; break;
+	case 2: src_reg = CAR_CLKSRC_UARTC_REG; break;
+	case 3: src_reg = CAR_CLKSRC_UARTD_REG; break;
+	default: return 0;
+	}
+
+	const uint32_t src = bus_space_read_4(bst, bsh, src_reg);
+	switch (__SHIFTOUT(src, CAR_CLKSRC_UART_SRC)) {
+	case 0:
+		src_rate = tegra_car_pllp0_rate();
+		break;
+	default:
+		panic("%s: unsupported src %#x", __func__, src);
+	}
+
+	if (__SHIFTOUT(src, CAR_CLKSRC_UART_DIV_ENB)) {
+		const u_int div = __SHIFTOUT(src, CAR_CLKSRC_UART_DIV) + 1;
+		return src_rate / div;
+	} else {
+		return src_rate;
+	}
+}
+
+u_int
+tegra_car_periph_sdmmc_rate(u_int port)
+{
+	bus_space_tag_t bst;
+	bus_space_handle_t bsh;
+	bus_size_t src_reg;
+
+	tegra_car_get_bs(&bst, &bsh);
+
+	switch (port) {
+	case 0:	src_reg = CAR_CLKSRC_SDMMC1_REG; break;
+	case 1: src_reg = CAR_CLKSRC_SDMMC2_REG; break;
+	case 2: src_reg = CAR_CLKSRC_SDMMC3_REG; break;
+	case 3: src_reg = CAR_CLKSRC_SDMMC4_REG; break;
+	default: return 0;
+	}
+
+	const uint32_t src = bus_space_read_4(bst, bsh, src_reg);
+
+	const u_int div = __SHIFTOUT(src, CAR_CLKSRC_SDMMC_DIV) + 1;
+
+	return tegra_car_pllp0_rate() / div;
+}
+
+int
+tegra_car_periph_sdmmc_set_div(u_int port, u_int div)
+{
+	bus_space_tag_t bst;
+	bus_space_handle_t bsh;
+	bus_size_t src_reg, rst_reg, enb_reg;
+	u_int dev_bit;
+	uint32_t src;
+
+	KASSERT(div > 0);
+
+	tegra_car_get_bs(&bst, &bsh);
+
+	switch (port) {
+	case 0:
+		src_reg = CAR_CLKSRC_SDMMC1_REG;
+		rst_reg = CAR_RST_DEV_L_SET_REG;
+		enb_reg = CAR_CLK_ENB_L_SET_REG;
+		dev_bit = CAR_DEV_L_SDMMC1;
+		break;
+	case 1:
+		src_reg = CAR_CLKSRC_SDMMC2_REG;
+		rst_reg = CAR_RST_DEV_L_SET_REG;
+		enb_reg = CAR_CLK_ENB_L_SET_REG;
+		dev_bit = CAR_DEV_L_SDMMC2;
+		break;
+	case 2:
+		src_reg = CAR_CLKSRC_SDMMC3_REG;
+		rst_reg = CAR_RST_DEV_U_SET_REG;
+		enb_reg = CAR_CLK_ENB_U_SET_REG;
+		dev_bit = CAR_DEV_U_SDMMC3;
+		break;
+	case 3:
+		src_reg = CAR_CLKSRC_SDMMC4_REG;
+		rst_reg = CAR_RST_DEV_L_SET_REG;
+		enb_reg = CAR_CLK_ENB_L_SET_REG;
+		dev_bit = CAR_DEV_L_SDMMC4;
+		break;
+	default: return EINVAL;
+	}
+
+	/* enter reset */
+	bus_space_write_4(bst, bsh, rst_reg, dev_bit);
+	/* enable clk */
+	bus_space_write_4(bst, bsh, enb_reg, dev_bit);
+
+	/* update clk div */
+	src = __SHIFTIN(CAR_CLKSRC_SDMMC_SRC_PLLP_OUT0,
+			CAR_CLKSRC_SDMMC_SRC);
+	src |= __SHIFTIN(div - 1, CAR_CLKSRC_SDMMC_DIV);
+	bus_space_write_4(bst, bsh, src_reg, src);
+
+	/* leave reset */
+	bus_space_write_4(bst, bsh, rst_reg+4, dev_bit);
+
+	return 0;
+}
+
+int
+tegra_car_periph_usb_enable(u_int port)
+{
+	bus_space_tag_t bst;
+	bus_space_handle_t bsh;
+	bus_size_t rst_reg, enb_reg;
+	uint32_t dev_bit;
+
+	tegra_car_get_bs(&bst, &bsh);
+	switch (port) {
+	case 0:
+		rst_reg = CAR_RST_DEV_L_SET_REG;
+		enb_reg = CAR_CLK_ENB_L_SET_REG;
+		dev_bit = CAR_DEV_L_USBD;
+		break;
+	case 1:
+		rst_reg = CAR_RST_DEV_H_SET_REG;
+		enb_reg = CAR_CLK_ENB_H_SET_REG;
+		dev_bit = CAR_DEV_H_USB2;
+		break;
+	case 2:
+		rst_reg = CAR_RST_DEV_H_SET_REG;
+		enb_reg = CAR_CLK_ENB_H_SET_REG;
+		dev_bit = CAR_DEV_H_USB3;
+		break;
+	default:
+		return EINVAL;
+	}
+
+	/* enter reset */
+	bus_space_write_4(bst, bsh, rst_reg, dev_bit);
+	/* enable clk */
+	bus_space_write_4(bst, bsh, enb_reg, dev_bit);
+
+	/* leave reset */
+	bus_space_write_4(bst, bsh, rst_reg+4, dev_bit);
+
+	return 0;
+}
+
+void
+tegra_car_utmip_init(void)
+{
+	const u_int enable_dly_count = 0x02;
+	const u_int stable_count = 0x33;
+	const u_int active_dly_count = 0x09;
+	const u_int xtal_freq_count = 0x7f;
+	bus_space_tag_t bst;
+	bus_space_handle_t bsh;
+
+	tegra_car_get_bs(&bst, &bsh);
+
+	tegra_reg_set_clear(bst, bsh, CAR_UTMIP_PLL_CFG2_REG,
+	    __SHIFTIN(stable_count, CAR_UTMIP_PLL_CFG2_STABLE_COUNT) |
+	    __SHIFTIN(active_dly_count, CAR_UTMIP_PLL_CFG2_ACTIVE_DLY_COUNT),
+	    CAR_UTMIP_PLL_CFG2_STABLE_COUNT |
+	    CAR_UTMIP_PLL_CFG2_ACTIVE_DLY_COUNT);
+
+	tegra_reg_set_clear(bst, bsh, CAR_UTMIP_PLL_CFG1_REG,
+	    __SHIFTIN(enable_dly_count, CAR_UTMIP_PLL_CFG1_ENABLE_DLY_COUNT) |
+	    __SHIFTIN(xtal_freq_count, CAR_UTMIP_PLL_CFG1_XTAL_FREQ_COUNT),
+	    CAR_UTMIP_PLL_CFG1_ENABLE_DLY_COUNT |
+	    CAR_UTMIP_PLL_CFG1_XTAL_FREQ_COUNT);
+
+	tegra_reg_set_clear(bst, bsh, CAR_UTMIP_PLL_CFG1_REG,
+	    0,
+	    CAR_UTMIP_PLL_CFG1_PLLU_POWERDOWN |
+	    CAR_UTMIP_PLL_CFG1_PLL_ENABLE_POWERDOWN);
+}
+
+void
+tegra_car_utmip_enable(u_int port)
+{
+	bus_space_tag_t bst;
+	bus_space_handle_t bsh;
+	uint32_t bit = 0;
+
+	tegra_car_get_bs(&bst, &bsh);
+
+	switch (port) {
+	case 0:	bit = CAR_UTMIP_PLL_CFG2_PD_SAMP_A_POWERDOWN; break;
+	case 1:	bit = CAR_UTMIP_PLL_CFG2_PD_SAMP_B_POWERDOWN; break;
+	case 2:	bit = CAR_UTMIP_PLL_CFG2_PD_SAMP_C_POWERDOWN; break;
+	}
+
+	tegra_reg_set_clear(bst, bsh, CAR_UTMIP_PLL_CFG2_REG, 0, bit);
+}
+
+void
+tegra_car_periph_hda_enable(void)
+{
+	bus_space_tag_t bst;
+	bus_space_handle_t bsh;
+
+	tegra_car_get_bs(&bst, &bsh);
+
+	/* HDA */
+	bus_space_write_4(bst, bsh, CAR_RST_DEV_V_SET_REG, CAR_DEV_V_HDA);
+	bus_space_write_4(bst, bsh, CAR_CLK_ENB_V_SET_REG, CAR_DEV_V_HDA);
+	bus_space_write_4(bst, bsh, CAR_RST_DEV_V_CLR_REG, CAR_DEV_V_HDA);
+
+	/* HDA2CODEC_2X */
+	bus_space_write_4(bst, bsh, CAR_RST_DEV_V_SET_REG,
+	    CAR_DEV_V_HDA2CODEC_2X);
+	bus_space_write_4(bst, bsh, CAR_CLK_ENB_V_SET_REG,
+	    CAR_DEV_V_HDA2CODEC_2X);
+	bus_space_write_4(bst, bsh, CAR_RST_DEV_V_CLR_REG,
+	    CAR_DEV_V_HDA2CODEC_2X);
+
+	/* HDA2HDMICODEC */
+	bus_space_write_4(bst, bsh, CAR_RST_DEV_W_SET_REG,
+	    CAR_DEV_W_HDA2HDMICODEC);
+	bus_space_write_4(bst, bsh, CAR_CLK_ENB_W_SET_REG,
+	    CAR_DEV_W_HDA2HDMICODEC);
+	bus_space_write_4(bst, bsh, CAR_RST_DEV_W_CLR_REG,
+	    CAR_DEV_W_HDA2HDMICODEC);
+}
+
+void
+tegra_car_periph_sata_enable(void)
+{
+	bus_space_tag_t bst;
+	bus_space_handle_t bsh;
+
+	tegra_car_get_bs(&bst, &bsh);
+
+	/* Enable CML clock for SATA */
+	tegra_reg_set_clear(bst, bsh, CAR_PLLE_AUX_REG,
+	    CAR_PLLE_AUX_CML1_OEN, 0);
+
+	/* De-assert reset to SATA PADPLL */
+	tegra_reg_set_clear(bst, bsh, CAR_SATA_PLL_CFG0_REG,
+	    0, CAR_SATA_PLL_CFG0_PADPLL_RESET_OVERRIDE_VALUE);
+	delay(15);
+
+	/* Ungate SAX partition in the PMC */
+	tegra_pmc_power(PMC_PARTID_SAX, true);
+
+	/* Turn on the clocks to SATA and de-assert resets */
+	bus_space_write_4(bst, bsh, CAR_CLK_ENB_V_SET_REG, CAR_DEV_V_SATA);
+	bus_space_write_4(bst, bsh, CAR_RST_DEV_W_CLR_REG, CAR_DEV_W_SATACOLD);
+	bus_space_write_4(bst, bsh, CAR_RST_DEV_V_CLR_REG, CAR_DEV_V_SATA);
+}
+
+int
+tegra_car_periph_i2c_enable(u_int port, u_int rate)
+{
+	bus_space_tag_t bst;
+	bus_space_handle_t bsh;
+	bus_size_t rst_reg, enb_reg, clksrc_reg;
+	uint32_t dev_bit;
+
+	tegra_car_get_bs(&bst, &bsh);
+
+	switch (port) {
+	case 0:
+		rst_reg = CAR_RST_DEV_L_SET_REG;
+		enb_reg = CAR_CLK_ENB_L_SET_REG;
+		dev_bit = CAR_DEV_L_I2C1;
+		clksrc_reg = CAR_CLKSRC_I2C1_REG;
+		break;
+	case 1:
+		rst_reg = CAR_RST_DEV_H_SET_REG;
+		enb_reg = CAR_CLK_ENB_H_SET_REG;
+		dev_bit = CAR_DEV_H_I2C2;
+		clksrc_reg = CAR_CLKSRC_I2C2_REG;
+		break;
+	case 2:
+		rst_reg = CAR_RST_DEV_U_SET_REG;
+		enb_reg = CAR_CLK_ENB_U_SET_REG;
+		dev_bit = CAR_DEV_U_I2C3;
+		clksrc_reg = CAR_CLKSRC_I2C3_REG;
+		break;
+	case 3:
+		rst_reg = CAR_RST_DEV_V_SET_REG;
+		enb_reg = CAR_CLK_ENB_V_SET_REG;
+		dev_bit = CAR_DEV_V_I2C4;
+		clksrc_reg = CAR_CLKSRC_I2C4_REG;
+		break;
+	case 4:
+		rst_reg = CAR_RST_DEV_H_SET_REG;
+		enb_reg = CAR_CLK_ENB_V_SET_REG;
+		dev_bit = CAR_DEV_H_I2C5;
+		clksrc_reg = CAR_CLKSRC_I2C5_REG;
+		break;
+	case 5:
+		rst_reg = CAR_RST_DEV_X_SET_REG;
+		enb_reg = CAR_CLK_ENB_X_SET_REG;
+		dev_bit = CAR_DEV_X_I2C6;
+		clksrc_reg = CAR_CLKSRC_I2C6_REG;
+		break;
+	default:
+		return EINVAL;
+	}
+
+	/* Enter reset, enable clock */
+	bus_space_write_4(bst, bsh, rst_reg, dev_bit);
+	bus_space_write_4(bst, bsh, enb_reg, dev_bit);
+
+	/* Set clock source to PLLP */
+	const u_int div = howmany(tegra_car_pllp0_rate() / 1000, rate / 1000);
+	bus_space_write_4(bst, bsh, clksrc_reg,
+	    __SHIFTIN(CAR_CLKSRC_I2C_SRC_PLLP_OUT0, CAR_CLKSRC_I2C_SRC) |
+	    __SHIFTIN(div - 1, CAR_CLKSRC_I2C_DIV));
+
+	/* Leave reset */
+	bus_space_write_4(bst, bsh, rst_reg+4, dev_bit);
+
+	return 0;
 }

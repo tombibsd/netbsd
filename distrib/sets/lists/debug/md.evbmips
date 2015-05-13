@@ -173,12 +173,7 @@
 ./usr/lib/o32/libcom_err_g.a	comp-c-debuglib compat,debuglib,arch64
 ./usr/lib/o32/libcompat_g.a	comp-c-debuglib compat,debuglib,arch64
 ./usr/lib/o32/libcrypt_g.a	comp-c-debuglib compat,debuglib,arch64
-./usr/lib/o32/libcrypto_g.a	comp-c-debuglib compat,debuglib,arch64
-./usr/lib/o32/libcrypto_rc5.so	comp-c-debuglib compat,debuglib,arch64
-./usr/lib/o32/libcrypto_rc5.so.7	comp-c-debuglib compat,debuglib,arch64
-./usr/lib/o32/libcrypto_rc5.so.7.0	comp-c-debuglib compat,debuglib,arch64
-./usr/lib/o32/libcrypto_rc5_g.a	comp-c-debuglib compat,debuglib,arch64
-./usr/lib/o32/libcrypto_rc5_pic.a	comp-c-debuglib compat,debuglib,arch64
+./usr/lib/o32/libcrypto_g.a	comp-c-debuglib compat,debuglib,crypto,arch64
 ./usr/lib/o32/libcurses_g.a	comp-c-debuglib compat,debuglib,arch64
 ./usr/lib/o32/libdes_g.a	comp-c-debuglib compat,debuglib,arch64
 ./usr/lib/o32/libdns_g.a	comp-c-debuglib compat,debuglib,arch64

@@ -112,7 +112,7 @@ emit(definition *def)
 		break;
 	case DEF_PROGRAM:
 	case DEF_CONST:
-		errx(1, "Internal error %s, %d: Case %d not handled",
+		errx(1, "Internal error at %s:%d: Case %d not handled",
 		    __FILE__, __LINE__, def->def_kind);
 		break;
 	}
@@ -476,11 +476,10 @@ emit_struct(definition *def)
 					else {
 						char *nsizestr;
 
-						nsizestr = (char *) realloc(sizestr, strlen(sizestr) + strlen(ptemp) + 1);
+						nsizestr = realloc(sizestr, strlen(sizestr) + strlen(ptemp) + 1);
 						if (nsizestr == NULL) {
 
-							f_print(stderr, "Fatal error : no memory\n");
-							crash();
+							errx(EXIT_FAILURE, "Out of memory");
 						}
 						sizestr = nsizestr;
 						sizestr = strcat(sizestr, ptemp);	/* build up length of
@@ -660,7 +659,7 @@ emit_inline(declaration *decl, int flag)
 		break;
 	case REL_ARRAY:
 	case REL_POINTER:
-		errx(1, "Internal error %s, %d: Case %d not handled",
+		errx(1, "Internal error at %s:%d: Case %d not handled",
 		    __FILE__, __LINE__, decl->rel);
 	}
 }
@@ -712,11 +711,10 @@ upcase(const char *str)
 	char   *ptr, *hptr;
 
 
-	ptr = (char *) malloc(strlen(str) + 1);
+	ptr = malloc(strlen(str) + 1);
 	if (ptr == NULL) {
-		f_print(stderr, "malloc failed\n");
-		exit(1);
-	};
+		errx(EXIT_FAILURE, "Out of memory");
+	}
 
 	hptr = ptr;
 	while (*str != '\0')

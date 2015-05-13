@@ -183,6 +183,7 @@
 #define SDHC_SPEC_VERS_100		0x00
 #define SDHC_SPEC_VERS_200		0x01
 #define SDHC_SPEC_VERS_300		0x02
+#define SDHC_SPEC_VERS_400		0x03
 
 /* SDHC_CAPABILITIES decoding */
 #define SDHC_BASE_V3_FREQ_KHZ(cap)					\

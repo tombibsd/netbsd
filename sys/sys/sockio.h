@@ -72,6 +72,7 @@
 
 #define	SIOCAIFADDR	 _IOW('i', 26, struct ifaliasreq)/* add/chg IF alias */
 #define	SIOCGIFALIAS	_IOWR('i', 27, struct ifaliasreq)/* get IF alias */
+#define	SIOCGIFAFLAG_IN _IOWR('i', 39, struct ifreq)	 /* get addr flags */
 
 #define	SIOCALIFADDR	 _IOW('i', 28, struct if_laddrreq) /* add IF addr */
 #define	SIOCGLIFADDR	_IOWR('i', 29, struct if_laddrreq) /* get IF addr */

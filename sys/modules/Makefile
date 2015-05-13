@@ -20,6 +20,7 @@ SUBDIR+=	crypto
 SUBDIR+=	coda
 SUBDIR+=	coda5
 SUBDIR+=	compat
+SUBDIR+=	compat_sysv
 SUBDIR+=	compat_ossaudio
 SUBDIR+=	coredump
 SUBDIR+=	dbcool
@@ -147,6 +148,7 @@ SUBDIR+=	hdaudioverbose
 SUBDIR+=	hpet
 SUBDIR+=	odcm
 SUBDIR+=	powernow
+SUBDIR+=	tco
 SUBDIR+=	tprof_pmi
 SUBDIR+=	tprof_amdpmi
 SUBDIR+=	vmt
@@ -201,6 +203,10 @@ SUBDIR+=	wmidell
 SUBDIR+=	wmieeepc
 SUBDIR+=	wmihp
 SUBDIR+=	wmimsi
+.endif
+
+.if ${MACHINE_CPU} == "arm" || !empty(MACHINE_ARCH:Mmips64*)
+SUBDIR+=	compat_netbsd32
 .endif
 
 .if ${MACHINE_ARCH} == "x86_64"

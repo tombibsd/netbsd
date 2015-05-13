@@ -58,8 +58,7 @@ do_upgrade(void)
 	partman_go = 0;
 
 	msg_display(MSG_upgradeusure);
-	process_menu(MENU_noyes, NULL);
-	if (!yesno)
+	if (!ask_noyes(NULL))
 		return;
 
 	get_ramsize();
@@ -182,8 +181,7 @@ do_reinstall_sets(void)
 
 	unwind_mounts();
 	msg_display(MSG_reinstallusure);
-	process_menu(MENU_noyes, NULL);
-	if (!yesno)
+	if (!ask_noyes(NULL))
 		return;
 
 	if (find_disks(msg_string(MSG_reinstall)) < 0)

@@ -108,7 +108,6 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/buf.h>
 
 #include <miscfs/genfs/genfs.h>
-#include <miscfs/syncfs/syncfs.h>
 #include <miscfs/specfs/specdev.h>
 
 #include <nfs/rpcv2.h>
@@ -328,11 +327,11 @@ mount_update(struct lwp *l, struct vnode *vp, const char *path, int flags,
 	mp->mnt_flag &= ~MNT_OP_FLAGS;
 	mp->mnt_iflag &= ~IMNT_WANTRDWR;
 	if ((mp->mnt_flag & (MNT_RDONLY | MNT_ASYNC)) == 0) {
-		if (mp->mnt_syncer == NULL)
-			error = vfs_allocate_syncvnode(mp);
+		if ((mp->mnt_iflag & IMNT_ONWORKLIST) == 0)
+			vfs_syncer_add_to_worklist(mp);
 	} else {
-		if (mp->mnt_syncer != NULL)
-			vfs_deallocate_syncvnode(mp);
+		if ((mp->mnt_iflag & IMNT_ONWORKLIST) != 0)
+			vfs_syncer_remove_from_worklist(mp);
 	}
 	mutex_exit(&mp->mnt_updating);
 	vfs_unbusy(mp, false, NULL);
