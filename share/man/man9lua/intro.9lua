@@ -36,6 +36,10 @@
 .Sh DESCRIPTION
 This section provides an overview of the Lua kernel bindings, their
 functions, error returns and other common definitions and concepts.
+.Sh EXAMPLES
+An example module is available in the
+.Pa src/sys/modules/examples/
+directory hierarchy.
 .Sh SEE ALSO
 .Xr lua 1 ,
 .Xr luac 1 ,

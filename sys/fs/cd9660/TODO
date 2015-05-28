@@ -32,7 +32,7 @@
  6) should run as a user process, and not take up kernel space (cdroms
     are slow)
 
-   Not yet.
+   Yes, via rump kernels, also transparently on top of puffs w/ rump_cd9660(8).
 
  7) ECMA support.
 

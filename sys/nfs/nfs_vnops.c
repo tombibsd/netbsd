@@ -1311,7 +1311,7 @@ retry:
 	byte_count = 0; /* count of bytes actually written */
 	while (tsiz > 0) {
 		uint32_t datalen; /* data bytes need to be allocated in mbuf */
-		uint32_t backup;
+		size_t backup;
 		bool stalewriteverf = false;
 
 		nfsstats.rpccnt[NFSPROC_WRITE]++;

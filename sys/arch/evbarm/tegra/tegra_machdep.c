@@ -93,7 +93,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #endif
 
 BootConfig bootconfig;
-static char bootargs[TEGRA_MAX_BOOT_STRING];
+char bootargs[TEGRA_MAX_BOOT_STRING] = "";
 char *boot_args = NULL;
 u_int uboot_args[4] = { 0 };	/* filled in by tegra_start.S (not in bss) */
 
@@ -303,14 +303,6 @@ initarm(void *arg)
 	arm32_kernel_vm_init(KERNEL_VM_BASE, ARM_VECTORS_HIGH, 0, devmap,
 	    mapallmem_p);
 
-	if (mapallmem_p) {
-		if (uboot_args[3] < ram_size) {
-			const char * const args = (const char *)
-			    (uboot_args[3] + KERNEL_BASE_VOFFSET);
-			strlcpy(bootargs, args, sizeof(bootargs));
-		}
-	}
-
 	DPRINTF("bootargs: %s\n", bootargs);
 
 	boot_args = bootargs;
@@ -364,6 +356,17 @@ consinit(void)
 #endif
 }
 
+static bool
+tegra_bootconf_match(const char *key, const char *val)
+{
+	char *s;
+
+	if (!get_bootconf_option(boot_args, key, BOOTOPT_TYPE_STRING, &s))
+		return false;
+
+	return strncmp(s, val, strlen(val)) == 0;
+}
+
 void
 tegra_device_register(device_t self, void *aux)
 {
@@ -381,6 +384,18 @@ tegra_device_register(device_t self, void *aux)
 		return;
 	}
 
+	if (device_is_a(self, "cpu") && device_unit(self) == 0) {
+		tegra_cpuinit();
+	}
+
+	if (device_is_a(self, "tegradc")
+	    && tegra_bootconf_match("console", "fb")) {
+		prop_dictionary_set_bool(dict, "is_console", true);
+#if NUKBD > 0
+		ukbd_cnattach();
+#endif
+	}
+
 #ifdef BOARD_JETSONTK1
 	if (device_is_a(self, "sdhc")
 	    && device_is_a(device_parent(self), "tegraio")) {
@@ -394,6 +409,11 @@ tegra_device_register(device_t self, void *aux)
 		}
 	}
 
+	if (device_is_a(self, "ahcisata")
+	    && device_is_a(device_parent(self), "tegraio")) {
+		prop_dictionary_set_cstring(dict, "power-gpio", "EE2");
+	}
+
 	if (device_is_a(self, "ehci")
 	    && device_is_a(device_parent(self), "tegraio")) {
 		struct tegraio_attach_args * const tio = aux;
@@ -404,6 +424,14 @@ tegra_device_register(device_t self, void *aux)
 		} else if (loc->loc_port == 2) {
 			prop_dictionary_set_cstring(dict, "vbus-gpio", "N5");
 		}
+	}
+
+	if (device_is_a(self, "tegrahdmi")) {
+		prop_dictionary_set_cstring(dict, "hpd-gpio", "N7");
+		prop_dictionary_set_cstring(dict, "pll-gpio", "H7");
+		prop_dictionary_set_cstring(dict, "power-gpio", "K6");
+		prop_dictionary_set_cstring(dict, "ddc-device", "ddc0");
+		prop_dictionary_set_cstring(dict, "display-device", "tegradc1");
 	}
 #endif
 }

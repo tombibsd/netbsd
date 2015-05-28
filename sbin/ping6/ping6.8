@@ -55,6 +55,8 @@ packets to network hosts
 .Op Fl P Ar policy
 .Op Fl S Ar sourceaddr
 .Op Fl s Ar packetsize
+.Op Fl x Ar maxwait
+.Op Fl X Ar deadline
 .Op Ar hops ...
 .Ar host
 .Sh DESCRIPTION
@@ -269,6 +271,11 @@ This option is present for backward compatibility.
 has no effect if
 .Fl w
 is specified.
+.It Fl x Ar maxwait
+Time in milliseconds to wait for a reply for each packet sent.
+.It Fl X Ar deadline
+Specify a timeout, in seconds, before ping exits regardless of
+how many packets have been received.
 .It Ar hops
 IPv6 addresses for intermediate nodes,
 which will be put into type 0 routing header.

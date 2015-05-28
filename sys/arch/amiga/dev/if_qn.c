@@ -107,11 +107,6 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <netinet/if_inarp.h>
 #endif
 
-#ifdef NS
-#include <netns/ns.h>
-#include <netns/ns_if.h>
-#endif
-
 #include <machine/cpu.h>
 #include <amiga/amiga/device.h>
 #include <amiga/amiga/isr.h>
@@ -827,22 +822,6 @@ qnioctl(register struct ifnet *ifp, u_long cmd, void *data)
 			qninit(sc);
 			arp_ifinit(ifp, ifa);
 			break;
-#endif
-#ifdef NS
-		case AF_NS:
-		    {
-			register struct ns_addr *ina = &(IA_SNS(ifa)->sns_addr);
-
-			if (ns_nullhost(*ina))
-				ina->x_host =
-				    *(union ns_host *)LLADDR(ifp->if_sadl);
-			else
-				bcopy(ina->x_host.c_host,
-				    LLADDR(ifp->if_sadl), ETHER_ADDR_LEN);
-			qnstop(sc);
-			qninit(sc);
-			break;
-		    }
 #endif
 		default:
 			log(LOG_INFO, "qn:sa_family:default (not tested)\n");

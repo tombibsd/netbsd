@@ -1136,7 +1136,7 @@ message vnd_err_menufmt {   ¦CIE¯KA NIE ZDEFINIOWANE!}
 message vnd_assgn_menufmt {   vnd%1d na %-51s ASSIGN}
 message vnd_menufmt {   vnd%1d na %-45s %11uM}
 message vnd_path_fmt {¦cie¿ka: %31s}
-message vnd_assgn_fmt {Przypisywanie istnieæ obraz: %11s}
+message vnd_assgn_fmt {Create new image: %11s}
 message vnd_size_fmt {Rozmiar: %30sM}
 message vnd_ro_fmt {Tylko do odczytu:   %20s}
 message vnd_geom_fmt {Ustaw geometriê rêcznie: %15s}

@@ -343,3 +343,14 @@ cpu_coredump32(struct lwp *l, struct coredump_iostate *iocookie,
 	    chdr->c_cpusize);
 }
 #endif
+
+int
+cpu_machinearch32(SYSCTLFN_ARGS)
+{
+	struct sysctlnode node = *rnode;
+	const char *march = l->l_proc->p_md.md_abi == _MIPS_BSD_API_O32
+	    ? machine_arch32 : machine_arch;
+	node.sysctl_data = __UNCONST(march);
+	node.sysctl_size = strlen(march) + 1;
+	return sysctl_lookup(SYSCTLFN_CALL(&node));
+}

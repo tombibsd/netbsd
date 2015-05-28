@@ -437,7 +437,7 @@ struct spdmem_ddr3 {				/* Dual Data Rate 3 SDRAM */
 	SPD_BITFIELD(				\
 		uint8_t ddr3_NOT15V:1,		\
 		uint8_t ddr3_135V:1,		\
-		uint8_t ddr3_12XV:1,		\
+		uint8_t ddr3_125V:1,		\
 		uint8_t	ddr3_unused2:5		\
 	);
 	/* chipwidth in bits offset by 2: 0 = X4, 1 = X8, 2 = X16 */

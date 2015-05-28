@@ -11,7 +11,7 @@
 /wscons_rfont.h/1.4/Sat Jan 13 18:42:45 2007/-kk/
 /wscons_rinit.c/1.7/Tue Oct 29 08:21:44 2013/-kk/
 /wscons_rops.c/1.11/Sun Dec 11 12:24:12 2005/-kk/
-/wsconsio.h/1.112/Sat Mar 21 02:47:20 2015/-kk/
+/wsconsio.h/1.113/Thu May 28 03:25:54 2015/-kk/
 /wsdisplay.c/1.138/Fri Oct  3 09:09:20 2014/-kk/
 /wsdisplay_compat_usl.c/1.48/Thu Oct 24 10:28:58 2013/-kk/
 /wsdisplay_glyphcache.c/1.6/Fri Jan 31 08:48:49 2014/-kk/

@@ -47,7 +47,7 @@
 /mutex.h/1.6/Fri Apr 24 17:49:51 2009/-kk/
 /nmi.h/1.1/Tue Feb 24 06:03:54 2009/-kk/
 /pci_machdep.h/1.18/Fri May  1 11:31:52 2015/-kk/
-/pci_machdep_common.h/1.16/Wed May 13 03:33:01 2015/-kk/
+/pci_machdep_common.h/1.18/Thu May 28 03:25:45 2015/-kk/
 /pic.h/1.8/Fri May  1 11:31:52 2015/-kk/
 /pio.h/1.9/Sun May 22 16:01:43 2011/-kk/
 /pmap.h/1.56/Sun Apr 12 03:34:57 2015/-kk/

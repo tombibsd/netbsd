@@ -37,9 +37,6 @@
 #if defined(_KERNEL) || defined(_STANDALONE)
 
 #define	ATOMIC_OP_ALIAS(a,s)	STRONG_ALIAS(a,s)
-#ifdef _RUMPKERNEL
-#define	CRT_ALIAS(a,s)		STRONG_ALIAS(a,s)
-#endif
 
 #else /* _KERNEL */
 

@@ -990,9 +990,9 @@ MKGCCCMDS?=	${MKGCC}
 #
 # Exceptions to the above:
 #
-#.if ${MACHINE} == "evbppc"
-#MKKMOD=		no
-#.endif
+.if ${MACHINE} == "acorn26"	# page size is prohibitive
+MKKMOD=		no
+.endif
 
 #
 # MK* options which default to "no".  Note that MKZFS has a different

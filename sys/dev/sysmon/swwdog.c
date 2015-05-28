@@ -309,8 +309,10 @@ swwdog_init(void *arg)
 	 * Merge the driver info into the kernel tables and attach the
 	 * pseudo-device
 	 */
-	int error;
+	int error = 0;
 
+
+#ifdef _MODULE
 	error = config_cfdriver_attach(&swwdog_cd);
 	if (error) {
 		aprint_error("%s: unable to attach cfdriver\n",
@@ -322,6 +324,7 @@ swwdog_init(void *arg)
 		aprint_error("%s: device attach failed\n", swwdog_cd.cd_name);
 		config_cfdriver_detach(&swwdog_cd);
 	}
+#endif
 
 	return error;
 }
@@ -334,6 +337,7 @@ swwdog_fini(void *arg)
 
 	error = config_detach(swwdog_dev, 0);
 
+#ifdef _MODULE
 	error = config_cfattach_detach(swwdog_cd.cd_name, &swwdog_ca);
 	if (error)
 		aprint_error("%s: error detaching cfattach: %d\n",
@@ -343,6 +347,7 @@ swwdog_fini(void *arg)
 	if (error)
 		aprint_error("%s: error detaching cfdriver: %d\n",
 		    swwdog_cd.cd_name, error);
+#endif
 
         return error;
 }

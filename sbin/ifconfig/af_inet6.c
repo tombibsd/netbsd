@@ -487,7 +487,7 @@ in6_addr_tentative(struct ifaddrs *ifa)
 	memset(&ifr, 0, sizeof(ifr));
 	strncpy(ifr.ifr_name, ifa->ifa_name, sizeof(ifr.ifr_name));
 	ifr.ifr_addr = *(struct sockaddr_in6 *)ifa->ifa_addr;
-	if (ioctl(s, SIOCGIFAFLAG_IN6, &ifr) == -1)
+	if (prog_ioctl(s, SIOCGIFAFLAG_IN6, &ifr) == -1)
 		err(EXIT_FAILURE, "SIOCGIFAFLAG_IN6");
 	return ifr.ifr_ifru.ifru_flags6 & IN6_IFF_TENTATIVE ? true : false;
 }

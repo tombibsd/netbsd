@@ -50,7 +50,6 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/vnode.h>
 #include <sys/mount.h>
 #include <sys/namei.h>
-#include <sys/msgbuf.h>
 #include <dev/cons.h>
 #include <sys/socketvar.h>
 #include <sys/file.h>
@@ -74,6 +73,16 @@ char security_setidcore_path[MAXPATHLEN] = "/var/crash/%n.core";
 uid_t security_setidcore_owner = 0;
 gid_t security_setidcore_group = 0;
 mode_t security_setidcore_mode = (S_IRUSR|S_IWUSR);
+
+/*
+ * Current status of SysV IPC capability.  Initially, these are
+ * 0 if the capability is not built-in to the kernel, but can
+ * be updated if the appropriate kernel module is (auto)loaded.
+ */
+
+int kern_has_sysvmsg = 0;
+int kern_has_sysvshm = 0;
+int kern_has_sysvsem = 0;
 
 static const u_int sysctl_lwpprflagmap[] = {
 	LPR_DETACHED, L_DETACHED,
@@ -105,7 +114,6 @@ static int sysctl_kern_maxvnodes(SYSCTLFN_PROTO);
 static int sysctl_kern_rtc_offset(SYSCTLFN_PROTO);
 static int sysctl_kern_maxproc(SYSCTLFN_PROTO);
 static int sysctl_kern_hostid(SYSCTLFN_PROTO);
-static int sysctl_msgbuf(SYSCTLFN_PROTO);
 static int sysctl_kern_defcorename(SYSCTLFN_PROTO);
 static int sysctl_kern_cptime(SYSCTLFN_PROTO);
 #if NPTY > 0
@@ -256,12 +264,6 @@ SYSCTL_SETUP(sysctl_kern_setup, "sysctl kern subtree setup")
 		       sysctl_root_device, 0, NULL, 0,
 		       CTL_KERN, KERN_ROOT_DEVICE, CTL_EOL);
 	sysctl_createv(clog, 0, NULL, NULL,
-		       CTLFLAG_PERMANENT,
-		       CTLTYPE_INT, "msgbufsize",
-		       SYSCTL_DESCR("Size of the kernel message buffer"),
-		       sysctl_msgbuf, 0, NULL, 0,
-		       CTL_KERN, KERN_MSGBUFSIZE, CTL_EOL);
-	sysctl_createv(clog, 0, NULL, NULL,
 		       CTLFLAG_PERMANENT|CTLFLAG_IMMEDIATE,
 		       CTLTYPE_INT, "fsync",
 		       SYSCTL_DESCR("Whether the POSIX 1003.1b File "
@@ -276,38 +278,25 @@ SYSCTL_SETUP(sysctl_kern_setup, "sysctl kern subtree setup")
 		       NULL, 0, NULL, 0,
 		       CTL_KERN, KERN_SYSVIPC, CTL_EOL);
 	sysctl_createv(clog, 0, NULL, NULL,
-		       CTLFLAG_PERMANENT|CTLFLAG_IMMEDIATE,
+		       CTLFLAG_PERMANENT|CTLFLAG_READONLY,
 		       CTLTYPE_INT, "sysvmsg",
 		       SYSCTL_DESCR("System V style message support available"),
-		       NULL,
-#ifdef SYSVMSG
-		       1,
-#else /* SYSVMSG */
-		       0,
-#endif /* SYSVMSG */
-		       NULL, 0, CTL_KERN, KERN_SYSVIPC, KERN_SYSVIPC_MSG, CTL_EOL);
+		       NULL, 0, &kern_has_sysvmsg, sizeof(int),
+		       CTL_KERN, KERN_SYSVIPC, KERN_SYSVIPC_MSG, CTL_EOL);
 	sysctl_createv(clog, 0, NULL, NULL,
-		       CTLFLAG_PERMANENT|CTLFLAG_IMMEDIATE,
+		       CTLFLAG_PERMANENT|CTLFLAG_READONLY,
 		       CTLTYPE_INT, "sysvsem",
 		       SYSCTL_DESCR("System V style semaphore support "
-				    "available"), NULL,
-#ifdef SYSVSEM
-		       1,
-#else /* SYSVSEM */
-		       0,
-#endif /* SYSVSEM */
-		       NULL, 0, CTL_KERN, KERN_SYSVIPC, KERN_SYSVIPC_SEM, CTL_EOL);
+				    "available"),
+		       NULL, 0, &kern_has_sysvsem, sizeof(int),
+		       CTL_KERN, KERN_SYSVIPC, KERN_SYSVIPC_SEM, CTL_EOL);
 	sysctl_createv(clog, 0, NULL, NULL,
-		       CTLFLAG_PERMANENT|CTLFLAG_IMMEDIATE,
+		       CTLFLAG_PERMANENT|CTLFLAG_READONLY,
 		       CTLTYPE_INT, "sysvshm",
 		       SYSCTL_DESCR("System V style shared memory support "
-				    "available"), NULL,
-#ifdef SYSVSHM
-		       1,
-#else /* SYSVSHM */
-		       0,
-#endif /* SYSVSHM */
-		       NULL, 0, CTL_KERN, KERN_SYSVIPC, KERN_SYSVIPC_SHM, CTL_EOL);
+				    "available"),
+		       NULL, 0, &kern_has_sysvshm, sizeof(int),
+		       CTL_KERN, KERN_SYSVIPC, KERN_SYSVIPC_SHM, CTL_EOL);
 	sysctl_createv(clog, 0, NULL, NULL,
 		       CTLFLAG_PERMANENT|CTLFLAG_IMMEDIATE,
 		       CTLTYPE_INT, "synchronized_io",
@@ -389,12 +378,6 @@ SYSCTL_SETUP(sysctl_kern_setup, "sysctl kern subtree setup")
 		       SYSCTL_DESCR("Clock ticks spent in different CPU states"),
 		       sysctl_kern_cptime, 0, NULL, 0,
 		       CTL_KERN, KERN_CP_TIME, CTL_EOL);
-	sysctl_createv(clog, 0, NULL, NULL,
-		       CTLFLAG_PERMANENT,
-		       CTLTYPE_INT, "msgbuf",
-		       SYSCTL_DESCR("Kernel message buffer"),
-		       sysctl_msgbuf, 0, NULL, 0,
-		       CTL_KERN, KERN_MSGBUF, CTL_EOL);
 	sysctl_createv(clog, 0, NULL, NULL,
 		       CTLFLAG_PERMANENT,
 		       CTLTYPE_STRUCT, "consdev",
@@ -939,83 +922,6 @@ sysctl_kern_hostid(SYSCTLFN_ARGS)
 	hostid = (unsigned)inthostid;
 
 	return (0);
-}
-
-/*
- * sysctl helper routine for kern.msgbufsize and kern.msgbuf. For the
- * former it merely checks the message buffer is set up. For the latter,
- * it also copies out the data if necessary.
- */
-static int
-sysctl_msgbuf(SYSCTLFN_ARGS)
-{
-	char *where = oldp;
-	size_t len, maxlen;
-	long beg, end;
-	extern kmutex_t log_lock;
-	int error;
-
-	if (!msgbufenabled || msgbufp->msg_magic != MSG_MAGIC) {
-		msgbufenabled = 0;
-		return (ENXIO);
-	}
-
-	switch (rnode->sysctl_num) {
-	case KERN_MSGBUFSIZE: {
-		struct sysctlnode node = *rnode;
-		int msg_bufs = (int)msgbufp->msg_bufs;
-		node.sysctl_data = &msg_bufs;
-		return (sysctl_lookup(SYSCTLFN_CALL(&node)));
-	}
-	case KERN_MSGBUF:
-		break;
-	default:
-		return (EOPNOTSUPP);
-	}
-
-	if (newp != NULL)
-		return (EPERM);
-
-	if (oldp == NULL) {
-		/* always return full buffer size */
-		*oldlenp = msgbufp->msg_bufs;
-		return (0);
-	}
-
-	sysctl_unlock();
-
-	/*
-	 * First, copy from the write pointer to the end of
-	 * message buffer.
-	 */
-	error = 0;
-	mutex_spin_enter(&log_lock);
-	maxlen = MIN(msgbufp->msg_bufs, *oldlenp);
-	beg = msgbufp->msg_bufx;
-	end = msgbufp->msg_bufs;
-	mutex_spin_exit(&log_lock);
-
-	while (maxlen > 0) {
-		len = MIN(end - beg, maxlen);
-		if (len == 0)
-			break;
-		/* XXX unlocked, but hardly matters. */
-		error = dcopyout(l, &msgbufp->msg_bufc[beg], where, len);
-		if (error)
-			break;
-		where += len;
-		maxlen -= len;
-
-		/*
-		 * ... then, copy from the beginning of message buffer to
-		 * the write pointer.
-		 */
-		beg = 0;
-		end = msgbufp->msg_bufx;
-	}
-
-	sysctl_relock();
-	return (error);
 }
 
 /*

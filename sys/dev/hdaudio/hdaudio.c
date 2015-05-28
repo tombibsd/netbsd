@@ -1028,6 +1028,7 @@ hdaudio_stream_establish(struct hdaudio_softc *sc,
 	int i, err;
 
 	dma.dma_size = sizeof(struct hdaudio_bdl_entry) * HDAUDIO_BDL_MAX;
+	dma.dma_sizereg = 0;
 	err = hdaudio_dma_alloc(sc, &dma, BUS_DMA_COHERENT | BUS_DMA_NOCACHE);
 	if (err)
 		return NULL;

@@ -51,6 +51,10 @@ static int __dberr(void);
 __weak_alias(dbopen,_dbopen)
 #endif
 
+#ifndef O_CLOEXEC
+#define O_CLOEXEC 0
+#endif
+
 DB *
 dbopen(const char *fname, int flags, mode_t mode, DBTYPE type,
     const void *openinfo)

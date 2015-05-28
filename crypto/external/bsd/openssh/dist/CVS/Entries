@@ -69,7 +69,7 @@
 /cleanup.c/1.4/Sun Apr 12 03:28:11 2015/-kk/
 /clientloop.c/1.13/Wed Apr 22 07:25:11 2015/-kk/
 /clientloop.h/1.10/Sun Apr 12 03:28:11 2015/-kk/
-/compat.c/1.9/Sun Apr 12 03:28:11 2015/-kk/
+/compat.c/1.10/Thu May 28 03:19:32 2015/-kk/
 /compat.h/1.6/Sun Apr 12 03:28:11 2015/-kk/
 /crc32.c/1.4/Sun Apr 12 03:28:11 2015/-kk/
 /crc32.h/1.4/Sun Apr 12 03:28:11 2015/-kk/

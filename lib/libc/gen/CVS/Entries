@@ -25,7 +25,7 @@
 /alarm.c/1.11/Mon Jun 25 22:32:43 2012/-kk/
 /alphasort.c/1.2/Sun Mar  1 19:59:55 2009/-kk/
 /arc4random.3/1.19/Tue Dec  9 04:34:27 2014/-kk/
-/arc4random.c/1.29/Sat Mar 21 02:46:26 2015/-kk/
+/arc4random.c/1.30/Thu May 28 03:25:04 2015/-kk/
 /assert.c/1.17/Mon Jun 25 22:32:43 2012/-kk/
 /asysctl.c/1.1/Fri Jun 13 15:45:05 2014/-kk/
 /basename.3/1.14/Sat May 10 22:39:40 2008/-kk/
@@ -191,7 +191,7 @@
 /nlist_aout.c/1.23/Wed Mar 21 15:32:26 2012/-kk/
 /nlist_coff.c/1.11/Thu Mar 22 14:18:34 2012/-kk/
 /nlist_ecoff.c/1.23/Tue Mar 20 00:31:24 2012/-kk/
-/nlist_elf32.c/1.35/Wed Mar 21 02:18:14 2012/-kk/
+/nlist_elf32.c/1.38/Thu May 28 03:25:04 2015/-kk/
 /nlist_elf64.c/1.6/Sat Jul 26 19:24:43 2003/-kk/
 /nlist_private.h/1.22/Tue Mar 20 16:36:05 2012/-kk/
 /opendir.c/1.39/Tue Dec  9 04:43:24 2014/-kk/

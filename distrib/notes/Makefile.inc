@@ -20,7 +20,7 @@ TOCS=	${TARG}.PostScript.toc ${TARG}.ASCII.toc ${TARG}.HTML.toc \
 	${TARG}.more.toc
 SRCS=	${MAIN} whatis ${COMMON}/contents hardware xfer prep \
 	${.CURDIR}/install ${COMMON}/postinstall upgrade \
-	${COMMON}/legal.common legal ${COMMON}/netboot \
+	${COMMON}/legal.common ${COMMON}/netboot \
 	${COMMON}/sysinst \
 	${.CURDIR}/../Makefile.inc ${MERGED_SRCS}
 

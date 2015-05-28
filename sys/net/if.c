@@ -177,7 +177,6 @@ int	ifqmaxlen = IFQ_MAXLEN;
 static int	if_rt_walktree(struct rtentry *, void *);
 
 static struct if_clone *if_clone_lookup(const char *, int *);
-static int	if_clone_list(struct if_clonereq *);
 
 static LIST_HEAD(, if_clone) if_cloners = LIST_HEAD_INITIALIZER(if_cloners);
 static int if_cloners_count;
@@ -1117,24 +1116,24 @@ if_clone_detach(struct if_clone *ifc)
 /*
  * Provide list of interface cloners to userspace.
  */
-static int
-if_clone_list(struct if_clonereq *ifcr)
+int
+if_clone_list(int buf_count, char *buffer, int *total)
 {
 	char outbuf[IFNAMSIZ], *dst;
 	struct if_clone *ifc;
 	int count, error = 0;
 
-	ifcr->ifcr_total = if_cloners_count;
-	if ((dst = ifcr->ifcr_buffer) == NULL) {
+	*total = if_cloners_count;
+	if ((dst = buffer) == NULL) {
 		/* Just asking how many there are. */
 		return 0;
 	}
 
-	if (ifcr->ifcr_count < 0)
+	if (buf_count < 0)
 		return EINVAL;
 
-	count = (if_cloners_count < ifcr->ifcr_count) ?
-	    if_cloners_count : ifcr->ifcr_count;
+	count = (if_cloners_count < buf_count) ?
+	    if_cloners_count : buf_count;
 
 	for (ifc = LIST_FIRST(&if_cloners); ifc != NULL && count != 0;
 	     ifc = LIST_NEXT(ifc, ifc_list), count--, dst += IFNAMSIZ) {
@@ -2005,7 +2004,11 @@ doifioctl(struct socket *so, u_long cmd, void *data, struct lwp *l)
 		return r;
 
 	case SIOCIFGCLONERS:
-		return if_clone_list((struct if_clonereq *)data);
+		{
+			struct if_clonereq *req = (struct if_clonereq *)data;
+			return if_clone_list(req->ifcr_count, req->ifcr_buffer,
+			    &req->ifcr_total);
+		}
 	}
 
 	if (ifp == NULL)

@@ -1285,6 +1285,7 @@ struct elf_args {
 struct ps_strings;
 struct coredump_iostate;
 struct note_state;
+struct exec_package;
 
 #ifdef EXEC_ELF32
 int	exec_elf32_makecmds(struct lwp *, struct exec_package *);

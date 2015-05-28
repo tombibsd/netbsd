@@ -79,6 +79,12 @@ el_gets(EditLine *el, int *nread)
 	if (!(el->el_flags & CHARSET_IS_UTF8))
 		el->el_flags |= IGNORE_EXTCHARS;
 	tmp = el_wgets(el, nread);
+	if (tmp != NULL) {
+	    size_t nwread = 0;
+	    for (int i = 0; i < *nread; i++)
+		nwread += ct_enc_width(tmp[i]);
+	    *nread = (int)nwread;
+	}
 	if (!(el->el_flags & CHARSET_IS_UTF8))
 		el->el_flags &= ~IGNORE_EXTCHARS;
 	return ct_encode_string(tmp, &el->el_lgcyconv);

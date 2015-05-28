@@ -148,6 +148,7 @@ int	mblowat = MBLOWAT;
 #endif
 int	mcllowat = MCLLOWAT;
 
+#if XXX_PRG
 /*
  * Values in support of System V compatible shared memory.	XXX
  */
@@ -208,6 +209,7 @@ struct	msginfo msginfo = {
 	MSGSEG		/* number of message segments */
 };
 #endif
+#endif /* XXX_PRG */
 
 /*
  * Actual network mbuf sizes (read-only), for netstat.

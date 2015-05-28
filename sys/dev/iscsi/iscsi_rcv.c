@@ -90,11 +90,7 @@ try_resynch_receive(connection_t *conn)
 	int rc;
 
 	uio.uio_rw = UIO_READ;
-#if (__NetBSD_Version__ >= 399000900)
 	UIO_SETUP_SYSSPACE(&uio);
-#else
-	uio.uio_segflg = UIO_SYSSPACE;
-#endif
 
 	do {
 		io_vec.iov_base = buffer;
@@ -199,11 +195,7 @@ read_pdu_data(pdu_t *pdu, uint8_t *data, uint32_t offset)
 	uio->uio_iovcnt = 1;
 	uio->uio_rw = UIO_READ;
 	uio->uio_resid = len;
-#if (__NetBSD_Version__ >= 399000900)
 	UIO_SETUP_SYSSPACE(uio);
-#else
-	uio->uio_segflg = UIO_SYSSPACE;
-#endif
 
 	if (pad) {
 		uio->uio_iovcnt++;

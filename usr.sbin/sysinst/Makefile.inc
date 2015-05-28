@@ -47,8 +47,11 @@ CATALOGDIR=	/usr/share/sysinst/catalog
 CPPFLAGS+=	-I. -I${.CURDIR}/../.. -I${.CURDIR} \
 		-DREL=\"${DISTRIBVER}\" -DMACH=\"${MACHINE}\" \
 		-DMACH_${MACHINE} -DARCH_${MACHINE_ARCH} \
-		${NODISKLABEL:D-DNO_DISKLABEL} \
-		-DCATALOG_DIR=\"${CATALOGDIR}\"
+		${NODISKLABEL:D-DNO_DISKLABEL}
+
+.if !defined(DEBUG)
+CPPFLAGS+=	-DCATALOG_DIR=\"${CATALOGDIR}\"
+.endif
 
 .if (defined(DEBUG))
 .if ${ACTIVE_CC} == "gcc"

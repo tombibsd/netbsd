@@ -129,6 +129,8 @@
 ./@MODULEDIR@/pwdog/pwdog.kmod			base-kernel-modules	kmod
 ./@MODULEDIR@/sljit				base-kernel-modules	kmod,sljit
 ./@MODULEDIR@/sljit/sljit.kmod			base-kernel-modules	kmod,sljit
+./@MODULEDIR@/spkr				base-kernel-modules	kmod
+./@MODULEDIR@/spkr/spkr.kmod			base-kernel-modules	kmod
 ./@MODULEDIR@/syscallemu			base-kernel-modules	kmod
 ./@MODULEDIR@/syscallemu/syscallemu.kmod	base-kernel-modules	kmod
 ./@MODULEDIR@/tco				base-kernel-modules	kmod
@@ -488,6 +490,8 @@
 ./stand/amd64-xen/@OSRELEASE@/modules/skipjack/skipjack.kmod		base-kernel-modules	kmod,compatmodules
 ./stand/amd64-xen/@OSRELEASE@/modules/sljit				base-kernel-modules	kmod,compatmodules
 ./stand/amd64-xen/@OSRELEASE@/modules/sljit/sljit.kmod			base-kernel-modules	kmod,compatmodules
+./stand/amd64-xen/@OSRELEASE@/modules/spkr				base-kernel-modules	kmod
+./stand/amd64-xen/@OSRELEASE@/modules/spkr/spkr.kmod			base-kernel-modules	kmod
 ./stand/amd64-xen/@OSRELEASE@/modules/smbfs				base-kernel-modules	kmod,compatmodules
 ./stand/amd64-xen/@OSRELEASE@/modules/smbfs/smbfs.kmod			base-kernel-modules	kmod,compatmodules
 ./stand/amd64-xen/@OSRELEASE@/modules/solaris				base-kernel-modules	kmod,compatmodules,solaris
@@ -514,6 +518,8 @@
 ./stand/amd64-xen/@OSRELEASE@/modules/sysmon_taskq/sysmon_taskq.kmod	base-kernel-modules	kmod,compatmodules
 ./stand/amd64-xen/@OSRELEASE@/modules/sysmon_wdog			base-kernel-modules	kmod,compatmodules
 ./stand/amd64-xen/@OSRELEASE@/modules/sysmon_wdog/sysmon_wdog.kmod	base-kernel-modules	kmod,compatmodules
+./stand/amd64-xen/@OSRELEASE@/modules/sysv_ipc				base-kernel-modules	kmod,compatmodules
+./stand/amd64-xen/@OSRELEASE@/modules/sysv_ipc/sysv_ipc.kmod		base-kernel-modules	kmod,compatmodules
 ./stand/amd64-xen/@OSRELEASE@/modules/sysvbfs				base-kernel-modules	kmod,compatmodules
 ./stand/amd64-xen/@OSRELEASE@/modules/sysvbfs/sysvbfs.kmod		base-kernel-modules	kmod,compatmodules
 ./stand/amd64-xen/@OSRELEASE@/modules/tco				base-kernel-modules	kmod,compatmodules

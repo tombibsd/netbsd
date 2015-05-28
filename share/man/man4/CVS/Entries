@@ -1,4 +1,4 @@
-/Makefile/1.619/Mon Feb 16 03:13:59 2015/-kk/
+/Makefile/1.620/Thu May 28 03:25:22 2015/-kk/
 /aac.4/1.14/Sat Feb 19 10:54:31 2011/-kk/
 /ac97.4/1.2/Wed Jun 22 04:19:09 2005/-kk/
 /acardide.4/1.4/Mon Oct 19 18:41:08 2009/-kk/
@@ -157,6 +157,7 @@
 /dpti.4/1.7/Wed Apr 30 13:10:53 2008/-kk/
 /drm.4/1.15/Thu Oct 24 10:28:54 2013/-kk/
 /drum.4/1.5/Thu Aug  7 10:31:01 2003/-kk/
+/drvctl.4/1.2/Wed May 13 09:15:21 2015/-kk/
 /dtide.4/1.9/Fri Apr 10 15:22:24 2009/-kk/
 /dtv.4/1.9/Tue Aug 30 07:24:01 2011/-kk/
 /dtviic.4/1.5/Wed Aug 31 07:04:49 2011/-kk/
@@ -376,7 +377,7 @@
 /oosiop.4/1.6/Sat Mar  1 06:04:19 2014/-kk/
 /opl.4/1.21/Sat Jan  3 18:27:19 2009/-kk/
 /optiide.4/1.3/Mon Oct 19 18:41:09 2009/-kk/
-/options.4/1.444/Fri Jan  2 11:20:37 2015/-kk/
+/options.4/1.445/Thu May 28 03:25:23 2015/-kk/
 /osiop.4/1.7/Sat Mar  1 06:04:19 2014/-kk/
 /otus.4/1.7/Tue Mar 25 02:35:15 2014/-kk/
 /owtemp.4/1.4/Tue Mar 25 02:35:15 2014/-kk/

@@ -240,6 +240,7 @@ int	tcp_syn_bucket_limit = 3*TCP_SYN_BUCKET_SIZE;
 struct	syn_cache_head tcp_syn_cache[TCP_SYN_HASH_SIZE];
 
 int	tcp_freeq(struct tcpcb *);
+static int	tcp_iss_secret_init(void);
 
 #ifdef INET
 static void	tcp_mtudisc_callback(struct in_addr);
@@ -2189,7 +2190,6 @@ tcp_rmx_rtt(struct tcpcb *tp)
 }
 
 tcp_seq	 tcp_iss_seq = 0;	/* tcp initial seq # */
-u_int8_t tcp_iss_secret[16];	/* 128 bits; should be plenty */
 
 /*
  * Get a new sequence value given a tcp control block
@@ -2218,6 +2218,20 @@ tcp_new_iss(struct tcpcb *tp, tcp_seq addin)
 	panic("tcp_new_iss");
 }
 
+static u_int8_t tcp_iss_secret[16];	/* 128 bits; should be plenty */
+
+/*
+ * Initialize RFC 1948 ISS Secret
+ */
+static int
+tcp_iss_secret_init(void)
+{
+	cprng_strong(kern_cprng,
+	    tcp_iss_secret, sizeof(tcp_iss_secret), 0);
+
+	return 0;
+}
+
 /*
  * This routine actually generates a new TCP initial sequence number.
  */
@@ -2227,21 +2241,16 @@ tcp_new_iss1(void *laddr, void *faddr, u_int16_t lport, u_int16_t fport,
 {
 	tcp_seq tcp_iss;
 
-	static bool tcp_iss_gotten_secret;
-
-	/*
-	 * If we haven't been here before, initialize our cryptographic
-	 * hash secret.
-	 */
-	if (tcp_iss_gotten_secret == false) {
-		cprng_strong(kern_cprng,
-			     tcp_iss_secret, sizeof(tcp_iss_secret), 0);
-		tcp_iss_gotten_secret = true;
-	}
-
 	if (tcp_do_rfc1948) {
 		MD5_CTX ctx;
 		u_int8_t hash[16];	/* XXX MD5 knowledge */
+		static ONCE_DECL(tcp_iss_secret_control);
+
+		/*
+		 * If we haven't been here before, initialize our cryptographic
+		 * hash secret.
+		 */
+		RUN_ONCE(&tcp_iss_secret_control, tcp_iss_secret_init);
 
 		/*
 		 * Compute the base value of the ISS.  It is a hash

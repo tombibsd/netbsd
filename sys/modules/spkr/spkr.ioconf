@@ -1,0 +1,10 @@
+# $NetBSD$
+
+ioconf spkr
+
+include "conf/files"
+include "dev/isa/files.isa"
+
+pseudo-root pcppi*
+
+spkr* at pcppi?

@@ -107,7 +107,7 @@ static inline void RESTORE(const char *file, size_t line)
 #endif
 %}
 
-%expect 78
+%expect 80
 
 %union {
 	int	y_int;
@@ -890,7 +890,7 @@ type_init_decls:
 	;
 
 notype_init_decl:
-	  notype_decl opt_asm_or_symbolrename {
+	notype_decl opt_asm_or_symbolrename {
 		idecl($1, 0, $2);
 		chksz($1);
 	  }
@@ -902,7 +902,7 @@ notype_init_decl:
 	;
 
 type_init_decl:
-	  type_decl opt_asm_or_symbolrename {
+	type_decl opt_asm_or_symbolrename {
 		idecl($1, 0, $2);
 		chksz($1);
 	  }
@@ -1210,7 +1210,7 @@ initializer:
 	;
 
 init_expr:
-	  expr				%prec T_COMMA {
+	| expr				%prec T_COMMA {
 		mkinit($1);
 	  }
 	| init_by_name init_expr	%prec T_COMMA

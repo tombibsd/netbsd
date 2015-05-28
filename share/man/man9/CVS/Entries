@@ -1,7 +1,7 @@
 /CTASSERT.9/1.2/Mon Apr  5 19:18:45 2010/-kk/
 /KASSERT.9/1.13/Tue Sep 27 00:36:51 2011/-kk/
 /LWP_CACHE_CREDS.9/1.2/Sun Dec  9 08:53:57 2007/-kk/
-/Makefile/1.386/Fri May  1 11:28:35 2015/-kk/
+/Makefile/1.387/Thu May 28 03:25:24 2015/-kk/
 /RUN_ONCE.9/1.8/Tue Jul  6 22:29:29 2010/-kk/
 /SET.9/1.3/Tue Mar 25 02:35:16 2014/-kk/
 /STACK.9/1.2/Fri Apr  8 07:55:04 2011/-kk/
@@ -56,6 +56,7 @@
 /ddc.9/1.7/Tue Jan 14 16:04:50 2014/-kk/
 /delay.9/1.7/Wed Jul 20 05:20:54 2011/-kk/
 /deviter.9/1.5/Tue Mar 25 02:35:16 2014/-kk/
+/devsw_attach.9/1.2/Thu May 14 13:59:15 2015/-kk/
 /disk.9/1.40/Fri Jan  2 11:20:38 2015/-kk/
 /disklabel.9/1.13/Wed Apr 30 13:10:58 2008/-kk/
 /dmover.9/1.14/Mon Jan 25 19:34:37 2010/-kk/
@@ -136,7 +137,7 @@
 /microseq.9/1.5/Sat Jul 14 10:52:49 2007/-kk/
 /microtime.9/1.21/Thu Oct 24 10:28:54 2013/-kk/
 /microuptime.9/1.12/Tue Mar 25 02:35:16 2014/-kk/
-/module.9/1.30/Tue Mar 25 02:35:16 2014/-kk/
+/module.9/1.36/Thu May 28 03:25:25 2015/-kk/
 /mstohz.9/1.11/Thu Oct 20 10:36:42 2011/-kk/
 /mutex.9/1.26/Thu Oct 24 10:28:54 2013/-kk/
 /namecache.9/1.19/Thu Feb 13 15:35:47 2014/-kk/
@@ -150,7 +151,7 @@
 /pci_configure_bus.9/1.16/Sat Jul 14 05:32:17 2012/-kk/
 /pci_intr.9/1.18/Sat Mar 21 02:29:37 2015/-kk/
 /pci_intr_distribute.9/1.2/Mon Apr 27 10:32:22 2015/-kk/
-/pci_msi.9/1.2/Mon Apr 27 10:37:20 2015/-kk/
+/pci_msi.9/1.3/Thu May 28 03:25:25 2015/-kk/
 /pckbport.9/1.5/Mon Mar  9 19:24:32 2009/-kk/
 /pcmcia.9/1.20/Mon May 30 01:48:40 2011/-kk/
 /pcq.9/1.7/Wed Apr 22 07:35:36 2015/-kk/

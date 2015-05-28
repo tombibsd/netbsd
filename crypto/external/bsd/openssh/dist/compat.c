@@ -242,7 +242,7 @@ filter_proposal(const char *proposal, const char *filter)
 	buffer_init(&b);
 	tmp = orig_prop = xstrdup(proposal);
 	while ((cp = strsep(&tmp, ",")) != NULL) {
-		if (match_pattern_list(cp, filter, strlen(cp), 0) != 1) {
+		if (match_pattern_list(cp, filter, strlen(filter), 0) != 1) {
 			if (buffer_len(&b) > 0)
 				buffer_append(&b, ",", 1);
 			buffer_append(&b, cp, strlen(cp));

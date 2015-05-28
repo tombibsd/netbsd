@@ -173,6 +173,7 @@ extern int shm_nused;
 struct vmspace;
 
 void	shminit(void);
+int	shmfini(void);
 void	shmfork(struct vmspace *, struct vmspace *);
 void	shmexit(struct vmspace *);
 int	shmctl1(struct lwp *, int, int, struct shmid_ds *);

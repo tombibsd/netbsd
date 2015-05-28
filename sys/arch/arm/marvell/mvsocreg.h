@@ -128,12 +128,37 @@
 #define MVSOC_MLMB_WINCR_WINCS(x)		(((x) & 0x1c) >> 2)
 #define MVSOC_MLMB_WINCR_SIZE_MASK		0xff000000
 
-/* Coherent Fabric Control and Status */
-#define MVSOC_MLMB_COHERENCY_FABRIC_CTRL  0x200
-#define MVSOC_MLMB_COHERENCY_FABRIC_CFG	  0x204
+/* Coherent Fabric(CFU) Control and Status */
+#define MVSOC_MLMB_CFU_FAB_CTRL			0x200
+#define MVSOC_MLMB_CFU_FAB_CTRL_PROP_ERR	(0x1 << 8)
+#define MVSOC_MLMB_CFU_FAB_CTRL_SNOOP_CPU0	(0x1 << 24)
+#define MVSOC_MLMB_CFU_FAB_CTRL_SNOOP_CPU1	(0x1 << 25)
+#define MVSOC_MLMB_CFU_FAB_CTRL_SNOOP_CPU2	(0x1 << 26)
+#define MVSOC_MLMB_CFU_FAB_CTRL_SNOOP_CPU3	(0x1 << 27)
+
+/* Coherent Fabiric Configuration */
+#define MVSOC_MLMB_CFU_FAB_CFG			0x204
+
+/* CFU IO Event Affinity */
+#define MVSOC_MLMB_CFU_EVA			0x208
+
+/* CFU IO Snoop Affinity */
+#define MVSOC_MLMB_CFU_IOA			0x20c
+
+/* CFU Configuration XXX: changed in ARMADA 370 */ 
+#define MVSOC_MLMB_CFU_CFG			0x228
+#define MVSOC_MLMB_CFU_CFG_L2_NOTIFY		(0x1 << 16)
 
 /* CIB registers offsets */
-#define MVSOC_MLMB_CIB_CTRL_CFG		  0x280
+#define MVSOC_MLMB_CIB_CTRL_CFG			0x280
+#define MVSOC_MLMB_CIB_CTRL_CFG_WB_EN		(0x1 << 0)
+#define MVSOC_MLMB_CIB_CTRL_CFG_STOP		(0x1 << 9)
+#define MVSOC_MLMB_CIB_CTRL_CFG_IGN_SHARE	(0x2 << 10)
+#define MVSOC_MLMB_CIB_CTRL_CFG_EMPTY		(0x1 << 13)
+
+/* CIB barrier register */
+#define MVSOC_MLMB_CIB_BARRIER(cpu)		(0x1810 + 0x100 * (cpu))
+#define MVSOC_MLMB_CIB_BARRIER_TRIGGER		(0x1 << 0)
 
 #define MVSOC_TMR_BASE		(MVSOC_MLMB_BASE + 0x0300)
 

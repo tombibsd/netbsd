@@ -202,6 +202,9 @@ This set includes the system dictionaries,
 the typesettable document set, and other files from
 .Pa /usr/share .
 .
+.It Sy modules
+This set includes kernel modules to add functionality to a running system.
+.
 .It Sy text
 This set includes
 .Nx Ns 's

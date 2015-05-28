@@ -4,7 +4,8 @@
 LIB=	rumpdev
 
 .PATH:	${RUMPTOP}/librump/rumpdev				\
-	${RUMPTOP}/../kern
+	${RUMPTOP}/../kern					\
+	${RUMPTOP}/../dev
 
 IOCONFDIR:=	${.PARSEDIR}
 IOCONF=		MAINBUS.ioconf
@@ -13,6 +14,9 @@ SRCS=	rump_dev.c autoconf.c
 
 # sys/kern
 SRCS+=	kern_pmf.c subr_autoconf.c
+
+# sys/dev
+SRCS+=	dev_verbose.c
 
 CPPFLAGS+=	-I${RUMPTOP}/librump/rumpkern -I${RUMPTOP}/librump/rumpdev/opt
 

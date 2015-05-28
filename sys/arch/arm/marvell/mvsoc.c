@@ -348,6 +348,7 @@ static struct {
 	{ ARMADAXP(MV78160),	1, "MV78160",	"A0",  "Armada XP" },
 	{ ARMADAXP(MV78230),	1, "MV78260",	"A0",  "Armada XP" },
 	{ ARMADAXP(MV78260),	1, "MV78260",	"A0",  "Armada XP" },
+	{ ARMADAXP(MV78260),	2, "MV78260",	"B0",  "Armada XP" },
 	{ ARMADAXP(MV78460),	1, "MV78460",	"A0",  "Armada XP" },
 	{ ARMADAXP(MV78460),	2, "MV78460",	"B0",  "Armada XP" },
 
@@ -433,6 +434,7 @@ static struct {
 	{ ARMADAXP(MV78160),	1, ddr3_tags },
 	{ ARMADAXP(MV78230),	1, ddr3_tags },
 	{ ARMADAXP(MV78260),	1, ddr3_tags },
+	{ ARMADAXP(MV78260),	2, ddr3_tags },
 	{ ARMADAXP(MV78460),	1, ddr3_tags },
 	{ ARMADAXP(MV78460),	2, ddr3_tags },
 

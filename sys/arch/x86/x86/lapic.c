@@ -182,11 +182,10 @@ lapic_set_lvt(void)
 		mpi = &mp_intrs[i];
 		if (mpi->ioapic == NULL && (mpi->cpu_id == MPS_ALL_APICS ||
 		    mpi->cpu_id == ci->ci_cpuid)) {
-#ifdef DIAGNOSTIC
 			if (mpi->ioapic_pin > 1)
-				panic("lapic_set_lvt: bad pin value %d",
-				    mpi->ioapic_pin);
-#endif
+				aprint_error_dev(ci->ci_dev,
+				    "%s: WARNING: bad pin value %d\n",
+				    __func__, mpi->ioapic_pin);
 			if (mpi->ioapic_pin == 0)
 				i82489_writereg(LAPIC_LVINT0, mpi->redir);
 			else

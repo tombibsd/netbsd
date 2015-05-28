@@ -108,6 +108,20 @@ tegra_dma_bootstrap(psize_t psize)
 	tegra_coherent_dma_ranges[0].dr_len = psize;
 }
 
+void
+tegra_cpuinit(void)
+{
+	switch (tegra_chip_id()) {
+#ifdef SOC_TEGRA124
+	case CHIP_ID_TEGRA124:
+		tegra124_cpuinit();
+		break;
+#endif
+	}
+
+	tegra_cpufreq_init();
+}
+
 static void
 tegra_mpinit(void)
 {

@@ -20,6 +20,7 @@ D/libpci_hdaudio////
 D/libpci_if_iwn////
 D/libpci_if_pcn////
 D/libpci_if_wm////
+D/libpci_usbhc////
 D/libpci_virtio////
 D/libpud////
 D/libputter////

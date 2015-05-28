@@ -8,7 +8,7 @@
 /copy.S/1.18/Wed Jul  7 01:13:29 2010/-kk/
 /cpu_in_cksum.S/1.2/Thu Oct 24 10:28:57 2013/-kk/
 /cpufunc.S/1.25/Thu Feb 27 08:55:37 2014/-kk/
-/db_disasm.c/1.20/Tue Dec  9 04:15:52 2014/-kk/
+/db_disasm.c/1.22/Thu May 28 03:25:28 2015/-kk/
 /db_interface.c/1.24/Thu Aug 11 19:52:52 2011/-kk/
 /db_machdep.c/1.4/Wed Oct  3 17:43:22 2012/-kk/
 /gdt.c/1.25/Thu Oct 24 10:28:57 2013/-kk/

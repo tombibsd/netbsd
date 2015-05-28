@@ -317,7 +317,6 @@ rump_init(void)
 
 	kprintf_init();
 	pserialize_init();
-	loginit();
 
 	kauth_init();
 
@@ -354,6 +353,8 @@ rump_init(void)
 
 	lwpinit_specificdata();
 	lwp_initspecific(&lwp0);
+
+	loginit();
 
 	rump_biglock_init();
 

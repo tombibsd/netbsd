@@ -9,7 +9,7 @@
 /cpu_in_cksum.S/1.4/Mon Apr 28 20:23:24 2008/-kk/
 /cpufunc.S/1.21/Fri Oct  3 09:57:39 2014/-kk/
 /db_dbgreg.S/1.7/Tue Dec 11 23:31:07 2007/-kk/
-/db_disasm.c/1.44/Tue Dec  9 04:16:00 2014/-kk/
+/db_disasm.c/1.47/Thu May 28 03:25:37 2015/-kk/
 /db_interface.c/1.71/Sat Mar  1 06:04:31 2014/-kk/
 /db_machdep.c/1.5/Fri Jan 31 08:48:36 2014/-kk/
 /dumpsys.c/1.16/Mon Dec 12 19:03:09 2011/-kk/

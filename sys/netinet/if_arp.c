@@ -164,6 +164,8 @@ static	void in_arpinput(struct mbuf *);
 static	void arp_drainstub(void);
 
 static void arp_dad_timer(struct ifaddr *);
+static void arp_dad_start(struct ifaddr *);
+static void arp_dad_stop(struct ifaddr *);
 static void arp_dad_duplicated(struct ifaddr *);
 
 LIST_HEAD(llinfo_arpq, llinfo_arp) llinfo_arp;
@@ -1417,6 +1419,13 @@ arp_ifinit(struct ifnet *ifp, struct ifaddr *ifa)
 
 	ifa->ifa_rtrequest = arp_rtrequest;
 	ifa->ifa_flags |= RTF_CLONING;
+
+	/* ARP will handle DAD for this address. */
+	if (ia->ia4_flags & IN_IFF_TRYTENTATIVE) {
+		ia->ia4_flags |= IN_IFF_TENTATIVE;
+		ia->ia_dad_start = arp_dad_start;
+		ia->ia_dad_stop = arp_dad_stop;
+	}
 }
 
 TAILQ_HEAD(dadq_head, dadq);
@@ -1487,7 +1496,7 @@ arp_dad_output(struct dadq *dp, struct ifaddr *ifa)
 /*
  * Start Duplicate Address Detection (DAD) for specified interface address.
  */
-void
+static void
 arp_dad_start(struct ifaddr *ifa)
 {
 	struct in_ifaddr *ia = (struct in_ifaddr *)ifa;
@@ -1559,7 +1568,7 @@ arp_dad_start(struct ifaddr *ifa)
 /*
  * terminate DAD unconditionally.  used for address removals.
  */
-void
+static void
 arp_dad_stop(struct ifaddr *ifa)
 {
 	struct dadq *dp;

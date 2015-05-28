@@ -59,11 +59,6 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <netinet/if_inarp.h>
 #endif
 
-#ifdef NS
-#include <netns/ns.h>
-#include <netns/ns_if.h>
-#endif
-
 #include <machine/bus.h>
 
 #include <dev/ic/dp8390reg.h>

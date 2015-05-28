@@ -840,6 +840,9 @@ identify_features(device_t dv)
 	cpu_processor_features[0] = armreg_pfr0_read();
 	cpu_processor_features[1] = armreg_pfr1_read();
 
+#ifdef MULTIPROCESSOR
+	aprint_verbose_dev(dv, "mpidr: %#x\n", armreg_mpidr_read());
+#endif
 	aprint_verbose_dev(dv,
 	    "isar: [0]=%#x [1]=%#x [2]=%#x [3]=%#x, [4]=%#x, [5]=%#x\n",
 	    cpu_instruction_set_attributes[0],

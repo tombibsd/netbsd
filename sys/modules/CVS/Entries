@@ -1,6 +1,6 @@
-/Makefile.assym/1.4/Fri Mar 14 04:28:28 2014/-kk/
+/Makefile.assym/1.5/Thu May 28 03:25:57 2015/-kk/
 /Makefile.inc/1.6/Sun Sep 11 18:38:02 2011/-kk/
-/Makefile/1.152/Wed May 13 03:33:16 2015/-kk/
+/Makefile/1.155/Thu May 28 03:25:57 2015/-kk/
 /README/1.1/Thu Nov 13 10:06:46 2008/-kk/
 D/accf_dataready////
 D/accf_httpready////
@@ -79,7 +79,7 @@ D/dtv_math////
 D/efs////
 D/emdtv////
 D/est////
-D/example////
+D/examples////
 D/exec_aout////
 D/exec_ecoff////
 D/exec_elf32////
@@ -199,6 +199,7 @@ D/smbfs////
 D/smsc////
 D/solaris////
 D/spdmem////
+D/spkr////
 D/suser////
 D/swcrypto////
 D/swsensor////
@@ -208,6 +209,7 @@ D/sysmon_envsys////
 D/sysmon_power////
 D/sysmon_taskq////
 D/sysmon_wdog////
+D/sysv_ipc////
 D/sysvbfs////
 D/tco////
 D/tdfxdrm////

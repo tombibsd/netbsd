@@ -210,6 +210,7 @@ __END_DECLS
 struct proc;
 
 void	msginit(void);
+int	msgfini(void);
 int	msgctl1(struct lwp *, int, int, struct msqid_ds *);
 int	msgsnd1(struct lwp *, int, const char *, size_t, int, size_t,
     copyin_t);

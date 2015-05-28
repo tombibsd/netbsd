@@ -62,7 +62,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #ifdef __mips_o32
 __asm(".set mips32");
-#else
+#elif !defined(__mips64)
 __asm(".set mips64");
 #endif
 

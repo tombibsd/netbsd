@@ -516,8 +516,8 @@ void	do_reinstall_sets(void);
 void	restore_etc(void);
 
 /* from util.c */
-int	ask_yesno(void*);
-int	ask_noyes(void*);
+int	ask_yesno(const char *);
+int	ask_noyes(const char *);
 int	dir_exists_p(const char *);
 int	file_exists_p(const char *);
 int	file_mode_match(const char *, unsigned int);

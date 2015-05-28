@@ -50,7 +50,9 @@
 __RCSID("$NetBSD$");
 #endif /* LIBC_SCCS and not lint */
 
+#ifndef RUMP_ACTION
 #include "namespace.h"
+#endif
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <sys/un.h>
@@ -72,8 +74,10 @@ __RCSID("$NetBSD$");
 #include "servent.h"
 #include "hostent.h"
 
+#ifndef RUMP_ACTION
 #ifdef __weak_alias
 __weak_alias(getnameinfo,_getnameinfo)
+#endif
 #endif
 
 static const struct afd {

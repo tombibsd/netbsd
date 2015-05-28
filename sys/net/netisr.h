@@ -102,7 +102,6 @@
  * on the lowest level routine of each protocol.
  */
 #define	NETISR_IP	2		/* same as AF_INET */
-#define	NETISR_NS	6		/* same as AF_NS */
 #define	NETISR_CCITT	10		/* same as AF_CCITT */
 #define	NETISR_ATALK	16		/* same as AF_APPLETALK */
 #define	NETISR_IPX	23		/* same as AF_IPX */

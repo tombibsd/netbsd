@@ -20,7 +20,7 @@ SRCS+= af_inet6.c
 .include "Makefile.inc"
 
 .PATH:		${.CURDIR}/../../lib/libc/net
-RUMPSRCS= getifaddrs.c
+RUMPSRCS= getifaddrs.c getnameinfo.c if_indextoname.c
 .if (${MKRUMP} != "no")
 CPPFLAGS+= -DRUMP_ACTION
 .endif

@@ -1,9 +1,0 @@
-.\"	$NetBSD$
-.
-.It
-In the following statement, "This software" refers to the parallel port driver:
-.(item -offset indent -compact
-.It
-This software is a component of "386BSD" developed by
-William F. Jolitz, TeleMuse.
-.item)

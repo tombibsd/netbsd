@@ -223,6 +223,7 @@ int	semconfig(int);
 __END_DECLS
 #else
 void	seminit(void);
+int	semfini(void);
 void	semexit(struct proc *, void *);
 
 int	semctl1(struct lwp *, int, int, int, void *, register_t *);

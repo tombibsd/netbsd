@@ -108,7 +108,9 @@ void
 netbsd32_sysctl_init(void)
 {
 	const struct sysctlnode *_root = &netbsd32_sysctl_root;
+#ifndef __mips__
 	extern const char machine_arch32[];
+#endif
 	extern const char machine32[];
 
 	sysctl_createv(&netbsd32_clog, 0, &_root, NULL,
@@ -150,11 +152,19 @@ netbsd32_sysctl_init(void)
 		       CTLTYPE_STRING, "machine", NULL,
 		       NULL, 0, __UNCONST(&machine32), 0,
 		       CTL_HW, HW_MACHINE, CTL_EOL);
+#ifdef __mips__
+	sysctl_createv(&netbsd32_clog, 0, &_root, NULL,
+		       CTLFLAG_PERMANENT,
+		       CTLTYPE_STRING, "machine_arch", NULL,
+		       cpu_machinearch32, 0, NULL, 0,
+		       CTL_HW, HW_MACHINE_ARCH, CTL_EOL);
+#else
 	sysctl_createv(&netbsd32_clog, 0, &_root, NULL,
 		       CTLFLAG_PERMANENT,
 		       CTLTYPE_STRING, "machine_arch", NULL,
 		       NULL, 0, __UNCONST(&machine_arch32), 0,
 		       CTL_HW, HW_MACHINE_ARCH, CTL_EOL);
+#endif
 }
 
 void

@@ -331,6 +331,11 @@ cpu_hatch(struct cpu_info *ci, cpuid_t cpuid, void (*md_cpu_init)(struct cpu_inf
 	 */
 	splhigh();
 
+#ifdef CPU_CORTEX
+	KASSERTMSG(armreg_auxctl_read() & CORTEXA9_AUXCTL_SMP, "auxctl %#x",
+	    armreg_auxctl_read());
+#endif
+
 #ifdef VERBOSE_INIT_ARM
 	printf("%s(%s): ", __func__, ci->ci_data.cpu_name);
 #endif

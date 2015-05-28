@@ -451,7 +451,7 @@ token_input(struct ifnet *ifp, struct mbuf *m)
 	l = (struct llc *)(mtod(m, uint8_t *) + lan_hdr_len);
 
 	switch (l->llc_dsap) {
-#if defined(INET) || defined(NS) || defined(DECNET)
+#if defined(INET) || defined(DECNET)
 	case LLC_SNAP_LSAP:
 	{
 		uint16_t etype;
@@ -501,7 +501,7 @@ token_input(struct ifnet *ifp, struct mbuf *m)
 	default:
 		/* printf("token_input: unknown dsap 0x%x\n", l->llc_dsap); */
 		ifp->if_noproto++;
-#if defined(INET) || defined(NS) || defined(DECNET)
+#if defined(INET) || defined(DECNET)
 	dropanyway:
 #endif
 		m_freem(m);

@@ -65,11 +65,6 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <netinet/if_inarp.h>
 #endif
 
-#ifdef NS
-#include <netns/ns.h>
-#include <netns/ns_if.h>
-#endif
-
 #include <net/bpf.h>
 #include <net/bpfdesc.h>
 

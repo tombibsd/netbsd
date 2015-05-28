@@ -7,11 +7,14 @@
 
 .PATH:	${OPENSSLSRC}/crypto/whrlpool
 
-WHRLPOOL_SRCS = wp_block.c wp_dgst.c # wp_test.c   
+.if empty(WHRLPOOL_SRCS)
+WHRLPOOL_SRCS += wp_block.c
+.endif
+WHRLPOOL_SRCS += wp_dgst.c # wp_test.c   
 
 SRCS += ${WHRLPOOL_SRCS}
 
 .for cryptosrc in ${WHRLPOOL_SRCS}
-CPPFLAGS.${cryptosrc} = -I${OPENSSLSRC}/crypto/whrlpool
+CPPFLAGS.${cryptosrc} = -I${OPENSSLSRC}/crypto/whrlpool ${WHRLPOOLCPPFLAGS}
 .endfor
 CPPFLAGS.m_wp.c += -I${OPENSSLSRC}/crypto/whrlpool

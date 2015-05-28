@@ -96,6 +96,7 @@ SUBDIR+=	sysmon_power
 SUBDIR+=	sysmon_taskq
 SUBDIR+=	sysmon_wdog
 SUBDIR+=	sysvbfs
+SUBDIR+=	sysv_ipc
 SUBDIR+=	suser
 SUBDIR+=	swcrypto
 SUBDIR+=	swsensor
@@ -324,10 +325,13 @@ SUBDIR+=	auvitek
 SUBDIR+=	coram
 SUBDIR+=	cxdtv
 SUBDIR+=	emdtv
+SUBDIR+=	spkr
 .endif
 
 .if (${MKISCSI} != "no")
 SUBDIR+=	iscsi
 .endif
+
+SUBDIR+=	examples	# build these regularly to avoid bit-rot
 
 .include <bsd.subdir.mk>

@@ -444,7 +444,7 @@ arc4random_prng_create(void)
 	struct arc4random_prng *prng;
 	const size_t size = roundup(sizeof(*prng), sysconf(_SC_PAGESIZE));
 
-	prng = mmap(NULL, size, PROT_READ|PROT_WRITE, MAP_ANON, -1, 0);
+	prng = mmap(NULL, size, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANON, -1, 0);
 	if (prng == MAP_FAILED)
 		goto fail0;
 	if (minherit(prng, size, MAP_INHERIT_ZERO) == -1)

@@ -12,6 +12,7 @@ FILESDIR=	${TESTSDIR}
 FILES+=		d_alignof.c
 FILES+=		d_c99_complex_num.c
 FILES+=		d_c99_complex_split.c
+FILES+=		d_c99_compound_literal_comma.c
 FILES+=		d_c99_decls_after_stmt.c
 FILES+=		d_c99_decls_after_stmt2.c
 FILES+=		d_c99_decls_after_stmt3.c

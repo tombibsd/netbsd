@@ -1300,8 +1300,8 @@ map_bind(EditLine *el, int argc, const Char **argv)
 				return 0;
 			default:
 				(void) fprintf(el->el_errfile,
-				    "" FSTR ": Invalid switch `%c'.\n",
-				    argv[0], p[1]);
+				    "" FSTR ": Invalid switch `" FCHAR "'.\n",
+				    argv[0], (Int)p[1]);
 			}
 		else
 			break;

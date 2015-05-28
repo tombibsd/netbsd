@@ -166,3 +166,26 @@ pci_intr_disestablish(pci_chipset_tag_t pc, void *not_your_above_ih)
 
 	panic("%s: unimplemented", __func__);
 }
+
+#ifdef __HAVE_PCIIDE_MACHDEP_COMPAT_INTR_ESTABLISH
+#include <dev/pci/pcireg.h>
+#include <dev/pci/pcivar.h>
+#include <dev/pci/pciidereg.h>
+#include <dev/pci/pciidevar.h>
+
+void *
+pciide_machdep_compat_intr_establish(device_t dev,
+	const struct pci_attach_args *pa, int chan,
+	int (*func)(void *), void *arg)
+{
+	pci_intr_handle_t ih;
+	struct pci_attach_args mypa = *pa;
+
+	mypa.pa_intrline = PCIIDE_COMPAT_IRQ(chan);
+	if (pci_intr_map(&mypa, &ih) != 0)
+		return NULL;
+	return rumpcomp_pci_irq_establish(ih, func, arg);
+}
+
+__strong_alias(pciide_machdep_compat_intr_disestablish,pci_intr_disestablish);
+#endif /* __HAVE_PCIIDE_MACHDEP_COMPAT_INTR_ESTABLISH */

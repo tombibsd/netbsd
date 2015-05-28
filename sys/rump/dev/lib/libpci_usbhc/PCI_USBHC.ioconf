@@ -1,0 +1,13 @@
+#	$NetBSD$
+#
+
+ioconf pci_usbhc
+
+include "conf/files"
+include "dev/pci/files.pci"
+
+pseudo-root pci*
+
+ohci* at pci?
+uhci* at pci?
+ehci* at pci?

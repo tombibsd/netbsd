@@ -1180,7 +1180,7 @@ message vnd_err_menufmt {   CAMINO NO DEFINIDO!}
 message vnd_assgn_menufmt {   vnd%1d en %-51s ASSIGN}
 message vnd_menufmt {   vnd%1d en %-45s %11uM}
 message vnd_path_fmt {Ruta del archivo: %22s}
-message vnd_assgn_fmt {Asignar existe la imagen: %14s}
+message vnd_assgn_fmt {Create new image: %14s}
 message vnd_size_fmt {Tamaño:          %22sM}
 message vnd_ro_fmt {Sólo lectura:     %22s}
 message vnd_geom_fmt {Establecer la geometría de la mano: %4s}

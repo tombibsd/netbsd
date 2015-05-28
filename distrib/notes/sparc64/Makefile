@@ -1,5 +1,5 @@
 #	$NetBSD$
 
-MERGED_SRCS+=	${.CURDIR}/../sparc/legal ${COMMON}/xfer
+MERGED_SRCS+=	${COMMON}/xfer
 
 .include <bsd.man.mk>

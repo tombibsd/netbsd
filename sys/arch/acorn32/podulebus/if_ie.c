@@ -94,11 +94,6 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <netinet/if_inarp.h>
 #endif
 
-#ifdef NS
-#include <netns/ns.h>
-#include <netns/ns_if.h>
-#endif
-
 /* Import our data structres */
 
 #include "if_iereg.h"

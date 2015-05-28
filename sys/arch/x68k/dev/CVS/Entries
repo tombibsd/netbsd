@@ -11,8 +11,8 @@
 /grf_machdep.c/1.32/Sat Oct 27 17:18:13 2012/-kk/
 /grf_tv.c/1.15/Tue Feb  8 20:20:25 2011/-kk/
 /grfvar.h/1.12/Tue Feb  8 20:20:25 2011/-kk/
-/if_ne_intio.c/1.17/Sun Oct 16 03:10:18 2011/-kk/
-/if_ne_neptune.c/1.20/Wed Mar  3 13:39:57 2010/-kk/
+/if_ne_intio.c/1.18/Thu May 28 03:25:45 2015/-kk/
+/if_ne_neptune.c/1.21/Thu May 28 03:25:45 2015/-kk/
 /intio.c/1.43/Fri Jan 27 18:53:06 2012/-kk/
 /intio_dmac.c/1.35/Fri Apr 11 02:03:39 2014/-kk/
 /intiovar.h/1.14/Thu Oct 24 10:28:57 2013/-kk/

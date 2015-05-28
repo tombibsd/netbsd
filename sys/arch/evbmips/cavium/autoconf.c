@@ -94,7 +94,7 @@ findroot(void)
 		for (dv = deviter_first(&di, DEVITER_F_ROOT_FIRST); dv != NULL;
 		     dv = deviter_next(&di)) {
 			if (device_class(dv) == DV_DISK &&
-			    device_is_a(dv, "wd"))
+			    device_is_a(dv, "sd"))
 				    booted_device = dv;
 		}
 		deviter_release(&di);

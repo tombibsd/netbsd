@@ -32,7 +32,7 @@ __RCSID("$NetBSD$");
 #include <math.h>
 #include <machine/ieee.h>
 
-#ifdef __HAVE_LONG_DOUBLE
+#if defined(__HAVE_LONG_DOUBLE) || defined(__HAVE_IBM_LONGDOUBLE)
 
 #ifdef __weak_alias
 __weak_alias(copysignl, _copysignl)
@@ -69,4 +69,4 @@ copysignl(long double x, long double y)
 	return ux.ldblu_ld;
 }
 #endif
-#endif /* __HAVE_LONG_DOUBLE */
+#endif /* __HAVE_LONG_DOUBLE || __HAVE_IBM_LONGDOUBLE */

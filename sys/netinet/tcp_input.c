@@ -1394,6 +1394,12 @@ tcp_input(struct mbuf *m, ...)
 	tiflags = th->th_flags;
 
 	/*
+	 * Checksum extended TCP header and data
+	 */
+	if (tcp_input_checksum(af, m, th, toff, off, tlen))
+		goto badcsum;
+
+	/*
 	 * Locate pcb for segment.
 	 */
 findpcb:
@@ -1563,12 +1569,6 @@ findpcb:
 
 	KASSERT(so->so_lock == softnet_lock);
 	KASSERT(solocked(so));
-
-	/*
-	 * Checksum extended TCP header and data.
-	 */
-	if (tcp_input_checksum(af, m, th, toff, off, tlen))
-		goto badcsum;
 
 	tcp_fields_to_host(th);
 

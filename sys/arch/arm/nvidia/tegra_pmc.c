@@ -131,3 +131,29 @@ tegra_pmc_power(u_int partid, bool enable)
 	    __SHIFTIN(partid, PMC_PWRGATE_TOGGLE_0_PARTID) |
 	    PMC_PWRGATE_TOGGLE_0_START);
 }
+
+void
+tegra_pmc_remove_clamping(u_int partid)
+{
+	bus_space_tag_t bst;
+	bus_space_handle_t bsh;
+
+	tegra_pmc_get_bs(&bst, &bsh);
+
+	bus_space_write_4(bst, bsh, PMC_REMOVE_CLAMPING_CMD_0_REG,
+	    __BIT(partid));
+}
+
+void
+tegra_pmc_hdmi_enable(void)
+{
+	bus_space_tag_t bst;
+	bus_space_handle_t bsh;
+
+	tegra_pmc_get_bs(&bst, &bsh);
+
+	tegra_reg_set_clear(bst, bsh, PMC_IO_DPD_STATUS_REG,
+	    0, PMC_IO_DPD_STATUS_HDMI);
+	tegra_reg_set_clear(bst, bsh, PMC_IO_DPD2_STATUS_REG,
+	    0, PMC_IO_DPD2_STATUS_HV);
+}

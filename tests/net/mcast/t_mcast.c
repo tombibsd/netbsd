@@ -88,12 +88,12 @@ struct message {
 static int
 addmc(int s, struct addrinfo *ai, bool bug)
 {
-	struct ip_mreq 	m4;
+	struct ip_mreq m4;
 	struct ipv6_mreq m6;
 	struct sockaddr_in *s4;
 	struct sockaddr_in6 *s6;
 	unsigned int ifc;
-	
+
 	switch (ai->ai_family) {
 	case AF_INET:
 		s4 = (void *)ai->ai_addr;
@@ -127,11 +127,11 @@ addmc(int s, struct addrinfo *ai, bool bug)
 		ifc = 1;
 		if (setsockopt(s, IPPROTO_IPV6, IPV6_MULTICAST_LOOP,
 		    &ifc, sizeof(ifc)) == -1)
-		    	return -1;
+			return -1;
 		ifc = 224;
 		if (setsockopt(s, IPPROTO_IPV6, IPV6_MULTICAST_HOPS,
 		    &ifc, sizeof(ifc)) == -1)
-		    	return -1;
+			return -1;
 		ifc = 1;
 		if (setsockopt(s, IPPROTO_IPV6, IPV6_MULTICAST_IF, &ifc,
 		    sizeof(ifc)) == -1)
@@ -140,7 +140,7 @@ addmc(int s, struct addrinfo *ai, bool bug)
 		ifc = 1;
 #endif
 		m6.ipv6mr_interface = ifc;
-	        m6.ipv6mr_multiaddr = s6->sin6_addr;
+		m6.ipv6mr_multiaddr = s6->sin6_addr;
 		return setsockopt(s, IPPROTO_IPV6, IPV6_JOIN_GROUP,
 		    &m6, sizeof(m6));
 	default:
@@ -186,7 +186,7 @@ getsocket(const char *host, const char *port,
     int (*f)(int, const struct sockaddr *, socklen_t), socklen_t *slen,
     bool bug)
 {
-	int e, s;
+	int e, s, lasterrno = 0;
 	struct addrinfo hints, *ai0, *ai;
 	const char *cause = "?";
 
@@ -202,6 +202,7 @@ getsocket(const char *host, const char *port,
 	for (ai = ai0; ai; ai = ai->ai_next) {
 		s = socket(ai->ai_family, ai->ai_socktype, ai->ai_protocol);
 		if (s == -1) {
+			lasterrno = errno;
 			cause = "socket";
 			continue;
 		}
@@ -220,13 +221,14 @@ getsocket(const char *host, const char *port,
 		*slen = ai->ai_addrlen;
 		break;
 out:
+		lasterrno = errno;
 		close(s);
 		s = -1;
 		continue;
 	}
 	freeaddrinfo(ai0);
 	if (s == -1)
-		ERRX(1, "%s (%s)", cause, strerror(errno));
+		ERRX(EXIT_FAILURE, "%s (%s)", cause, strerror(lasterrno));
 	return s;
 }
 
@@ -314,9 +316,25 @@ run(const char *host, const char *port, size_t n, bool conn, bool bug)
 				    strerror(errno));
 			goto again;
 		default:
-			if (status != 0)
-				ERRX(EXIT_FAILURE, "pid exited with %d",
+			if (WIFSIGNALED(status)) {
+				if (WTERMSIG(status) == SIGTERM)
+					ERRX(EXIT_FAILURE,
+					    "receiver got terminated due to " \
+					    "deadline (%d usec)", 100);
+				else
+					ERRX(EXIT_FAILURE,
+					    "receiver got signaled (%s)",
+					    strsignal(WTERMSIG(status)));
+			} else if (WIFEXITED(status)) {
+				if (WEXITSTATUS(status) != 0)
+					ERRX(EXIT_FAILURE,
+					    "receiver exited with status %d",
+					    WEXITSTATUS(status));
+			} else {
+				ERRX(EXIT_FAILURE,
+				    "receiver exited with unexpected status %d",
 				    status);
+			}
 			break;
 		}
 		return;
@@ -465,14 +483,14 @@ ATF_TC_BODY(unconninet6, tc)
 ATF_TP_ADD_TCS(tp)
 {
 	debug++;
-        ATF_TP_ADD_TC(tp, conninet4);
-        ATF_TP_ADD_TC(tp, connmappedinet4);
-        ATF_TP_ADD_TC(tp, connmappedbuginet4);
-        ATF_TP_ADD_TC(tp, conninet6);
-        ATF_TP_ADD_TC(tp, unconninet4);
-        ATF_TP_ADD_TC(tp, unconnmappedinet4);
-        ATF_TP_ADD_TC(tp, unconnmappedbuginet4);
-        ATF_TP_ADD_TC(tp, unconninet6);
+	ATF_TP_ADD_TC(tp, conninet4);
+	ATF_TP_ADD_TC(tp, connmappedinet4);
+	ATF_TP_ADD_TC(tp, connmappedbuginet4);
+	ATF_TP_ADD_TC(tp, conninet6);
+	ATF_TP_ADD_TC(tp, unconninet4);
+	ATF_TP_ADD_TC(tp, unconnmappedinet4);
+	ATF_TP_ADD_TC(tp, unconnmappedbuginet4);
+	ATF_TP_ADD_TC(tp, unconninet6);
 
 	return atf_no_error();
 }

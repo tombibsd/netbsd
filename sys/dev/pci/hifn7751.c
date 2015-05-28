@@ -3106,8 +3106,10 @@ hifn_mkmbuf_chain(int totlen, struct mbuf *mtemplate)
 	if (len == MHLEN)
 		M_DUP_PKTHDR(m0, mtemplate);
 	MCLGET(m0, M_DONTWAIT);
-	if (!(m0->m_flags & M_EXT))
-		m_freem(m0);
+	if (!(m0->m_flags & M_EXT)) {
+ 		m_freem(m0);
+		return (NULL);
+	}
 	len = MCLBYTES;
 
 	totlen -= len;

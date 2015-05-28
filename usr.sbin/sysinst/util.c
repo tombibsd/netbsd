@@ -1720,11 +1720,11 @@ safectime(time_t *t)
 }
 
 int
-ask_yesno(void* arg)
+ask_yesno(const char* msgtxt)
 {
 	arg_rv p;
 
-	p.arg = arg;
+	p.arg = deconst(msgtxt);
 	p.rv = -1;
 
 	process_menu(MENU_yesno, &p);
@@ -1732,11 +1732,11 @@ ask_yesno(void* arg)
 }
 
 int
-ask_noyes(void* arg)
+ask_noyes(const char *msgtxt)
 {
 	arg_rv p;
 
-	p.arg = arg;
+	p.arg = deconst(msgtxt);
 	p.rv = -1;
 
 	process_menu(MENU_noyes, &p);

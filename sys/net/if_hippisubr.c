@@ -112,7 +112,7 @@ hippi_output(struct ifnet *ifp, struct mbuf *m0, const struct sockaddr *dst,
 			} else
 				senderr(EHOSTUNREACH);
 		}
-		if ((rt->rt_flags & RTF_GATEWAY) && dst->sa_family != AF_NS) {
+		if ((rt->rt_flags & RTF_GATEWAY)) {
 			if (rt->rt_gwroute == 0)
 				goto lookup;
 			if (((rt = rt->rt_gwroute)->rt_flags & RTF_UP) == 0) {

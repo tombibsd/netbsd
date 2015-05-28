@@ -734,7 +734,7 @@ pm_vnd_edit_menufmt(menudesc *m, int opt, void *arg)
 			break;
 		case PMV_MENU_EXIST:
 			wprintw(m->mw, msg_string(MSG_vnd_assgn_fmt),
-				dev_ptr->is_exist? msg_string(MSG_Yes) : msg_string(MSG_No));
+				dev_ptr->is_exist? msg_string(MSG_No) : msg_string(MSG_Yes));
 			break;
 		case PMV_MENU_SIZE:
 			if (!dev_ptr->is_exist)

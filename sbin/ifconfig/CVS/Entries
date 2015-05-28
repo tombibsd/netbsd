@@ -1,8 +1,8 @@
 /Makefile.inc/1.9/Wed Oct 31 10:17:34 2012/-kk/
-/Makefile/1.55/Fri May  1 11:28:14 2015/-kk/
+/Makefile/1.56/Thu May 28 03:25:18 2015/-kk/
 /af_atalk.c/1.19/Thu Oct 24 10:28:53 2013/-kk/
-/af_inet.c/1.16/Wed May 13 03:32:25 2015/-kk/
-/af_inet6.c/1.32/Fri May  1 11:28:14 2015/-kk/
+/af_inet.c/1.17/Thu May 28 03:25:18 2015/-kk/
+/af_inet6.c/1.33/Thu May 28 03:25:18 2015/-kk/
 /af_inetany.c/1.17/Sun Dec 30 22:52:35 2012/-kk/
 /af_inetany.h/1.4/Wed Jul  2 07:44:14 2008/-kk/
 /af_link.c/1.7/Fri Jan 31 08:48:26 2014/-kk/

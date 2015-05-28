@@ -77,9 +77,9 @@
 /s_ceil.c/1.14/Mon Nov 18 05:31:23 2013/-kk/
 /s_ceilf.c/1.8/Fri Apr 25 22:21:53 2008/-kk/
 /s_ceill.c/1.1/Mon Nov 11 23:57:34 2013/-kk/
-/s_copysign.c/1.12/Tue Dec  9 04:34:30 2014/-kk/
+/s_copysign.c/1.13/Thu May 28 03:25:10 2015/-kk/
 /s_copysignf.c/1.7/Sun May 26 22:01:54 2002/-kk/
-/s_copysignl.c/1.4/Tue Dec  9 04:34:30 2014/-kk/
+/s_copysignl.c/1.5/Thu May 28 03:25:10 2015/-kk/
 /s_cos.c/1.11/Mon Aug 20 16:01:39 2007/-kk/
 /s_cosf.c/1.9/Mon Aug 20 16:01:39 2007/-kk/
 /s_erf.c/1.11/Sun May 26 22:01:55 2002/-kk/

@@ -85,9 +85,6 @@ void arp_drain(void);
 int arpioctl(u_long, void *);
 void arpwhohas(struct ifnet *, struct in_addr *);
 
-void arp_dad_start(struct ifaddr *);
-void arp_dad_stop(struct ifaddr *);
-
 void revarpinput(struct mbuf *);
 void in_revarpinput(struct mbuf *);
 void revarprequest(struct ifnet *);

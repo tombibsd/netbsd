@@ -5,8 +5,9 @@ file	arch/evbmips/cavium/machdep.c
 file	arch/evbmips/cavium/mach_intr.c
 file	arch/evbmips/cavium/octeon_bootbus_machdep.c	bootbus
 
-file	arch/evbmips/evbmips/disksubr.c
 file	arch/evbmips/evbmips/interrupt.c
+
+file	kern/subr_disk_mbr.c
 
 device	cpu
 attach	cpu at mainbus

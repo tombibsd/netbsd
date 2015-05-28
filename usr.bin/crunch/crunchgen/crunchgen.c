@@ -1003,7 +1003,7 @@ prog_makefile_rules(FILE *outmk, prog_t *p)
 	    fprintf(outmk, "%s\\n", lst->str);
 	fprintf(outmk, "'\\\n");
 #define MAKECMD \
-    "\t| ${MAKE} -f- CRUNCHEDPROG=1 DBG=\"${DBG}\" LDSTATIC=\"${LDSTATIC}\" "
+    "\t| ${MAKE} -f- CRUNCHEDPROG=1 DBG=${DBG:Q} LDSTATIC=${LDSTATIC:Q} "
 	fprintf(outmk, MAKECMD "depend");
 	fprintf(outmk, " )\n");
 	fprintf(outmk, "\t( cd %s; printf '.PATH: ${%s_SRCDIR}\\n"

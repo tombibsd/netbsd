@@ -44,7 +44,9 @@ RCSID("$NetBSD$")
  * This is the ffs algorithm devised by d.seal and posted to comp.sys.arm on
  * 16 Feb 1994.
  */
+#ifndef _RUMPKERNEL
 STRONG_ALIAS(__ffssi2,ffs)
+#endif
 #if (defined(_ARM_ARCH_5) && !defined(__thumb__)) || defined(_ARM_ARCH_T2)
 #if defined(_ARM_ARCH_T2)
 ENTRY(ffs)

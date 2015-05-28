@@ -271,7 +271,9 @@ sdmmc_task_thread(void *arg)
 		if (task != NULL) {
 			sdmmc_del_task1(sc, task);
 			mutex_exit(&sc->sc_tskq_mtx);
+			KERNEL_LOCK(1, curlwp);
 			(*task->func)(task->arg);
+			KERNEL_UNLOCK_ONE(curlwp);
 			mutex_enter(&sc->sc_tskq_mtx);
 		} else {
 			/* Check for the exit condition. */

@@ -1238,7 +1238,10 @@ send:
 		*bp++ = TCPOPT_NOP;
 		*bp++ = TCPOPT_EOL;
  		optlen += 2;
- 	}
+ 	} else if ((tp->t_flags & TF_SIGNATURE) != 0) {
+		error = ECONNABORTED;
+		goto out;
+	}
 #endif /* TCP_SIGNATURE */
 
 	hdrlen += optlen;

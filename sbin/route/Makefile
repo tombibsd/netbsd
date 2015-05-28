@@ -8,7 +8,7 @@ MAN=	route.8
 SRCS=	route.c show.c keywords.c rtutil.c
 
 .PATH:		${.CURDIR}/../../lib/libc/net
-RUMPSRCS= if_indextoname.c getifaddrs.c
+RUMPSRCS= if_indextoname.c getifaddrs.c getnameinfo.c
 .if (${MKRUMP} != "no")
 CPPFLAGS+= -DRUMP_ACTION
 .endif

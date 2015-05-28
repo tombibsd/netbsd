@@ -11,6 +11,7 @@ TESTS_C+=	t_udp
 TESTS_C+=	t_pktinfo
 .if (${MKRUMP} != "no")
 TESTS_C+=	t_raw
+TESTS_SH=	t_forwarding
 .endif
 
 LDADD.t_raw+=	-lrumpnet_local -lrumpnet_netinet -lrumpnet_net

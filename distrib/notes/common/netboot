@@ -788,7 +788,7 @@ Set up swap
 .(disp
 .No # Ic "mkdir /export/client/root/swap"
 .No # Ic "dd if=/dev/zero of=/export/client/swap bs=4k count=4k"
-.No # Ic "echo '/export/client/swap -maproot=root:wheel client.test.net' | cat \*[Gt]\*[Gt] /etc/exports"
+.No # Ic "echo '/export/client/swap -maproot=root:wheel client.test.net' \*[Gt]\*[Gt] /etc/exports"
 .No # Ic "/etc/rc.d/mountd restart"
 .disp)
 This creates a 16 MB swap file and exports it to the client.

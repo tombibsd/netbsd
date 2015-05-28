@@ -291,6 +291,7 @@ cpu_startup_common(void)
 	 * Good {morning,afternoon,evening,night}.
 	 */
 	printf("%s%s", copyright, version);
+	printf("%s\n", cpu_getmodel());
 	format_bytes(pbuf, sizeof(pbuf), ctob(physmem));
 	printf("total memory = %s\n", pbuf);
 

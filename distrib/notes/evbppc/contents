@@ -319,7 +319,7 @@ Fonts needed by the X server and by X clients.
 Configuration files for X which could be locally modified.
 .
 .It Sy xserver
-The X server. 
+The X server.
 .
 .tag) \" x sets
 .
@@ -348,7 +348,7 @@ Therefore, if you want to extract the binaries into your system, i.e.
 replace the system binaries with them, you have to run the
 .Ic "tar -xzpf"
 command from the root directory (
-.Pa / 
+.Pa /
 ) of your system.
 .
 .

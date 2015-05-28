@@ -43,7 +43,7 @@ or G4 microprocessor via a daughtercard replacement, in which case
 .Nx
 will run on this system.
 .Pp
-The minimal configuration requires 16 MB of RAM and 100 MB of disk space.
+The minimal configuration requires 16 MB of RAM and 160 MB of disk space.
 To install the entire system requires considerably more, plus space for the
 swap partition (usually the RAM size, unless you've got a lot of RAM).
 To use X, 32MB of RAM is required.

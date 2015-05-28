@@ -67,6 +67,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <arm/marvell/kirkwoodreg.h>
 #include <arm/marvell/mv78xx0reg.h>
 #include <arm/marvell/armadaxpreg.h>
+#include <arm/marvell/armadaxpvar.h>
 #include <arm/marvell/mvsocgppvar.h>
 
 #include <evbarm/marvell/marvellreg.h>
@@ -345,11 +346,7 @@ initarm(void *arg)
 
 #ifdef L2CACHE_ENABLE
 		/* Initialize L2 Cache */
-		{
-			extern int armadaxp_l2_init(bus_addr_t);
-
-			(void)armadaxp_l2_init(MARVELL_INTERREGS_PBASE);
-		}
+		armadaxp_l2_init(MARVELL_INTERREGS_PBASE);
 #endif
 
 #ifdef AURORA_IO_CACHE_COHERENCY

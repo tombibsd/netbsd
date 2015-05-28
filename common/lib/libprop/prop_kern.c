@@ -407,6 +407,9 @@ _prop_object_copyin(const struct plistref *pref, const prop_type_t type,
 	char *buf;
 	int error;
 
+	if (pref->pref_len >= prop_object_copyin_limit)
+		return EINVAL;
+
 	/*
 	 * Allocate an extra byte so we can guarantee NUL-termination.
 	 *

@@ -69,4 +69,6 @@ struct mips_cachectl_args32 {
 	int ctl;
 };
 
+int cpu_machinearch32(SYSCTLFN_PROTO);
+
 #endif /* _MACHINE_NETBSD32_H_ */

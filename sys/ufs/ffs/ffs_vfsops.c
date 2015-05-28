@@ -982,8 +982,22 @@ ffs_superblock_validate(struct fs *fs)
 
 	/* Check the size of cylinder groups */
 	fs_cgsize = ffs_fragroundup(fs, CGSIZE(fs));
-	if (fs->fs_cgsize != fs_cgsize)
-		return 0;
+	if (fs->fs_cgsize != fs_cgsize) {
+		if (fs->fs_cgsize+1 == CGSIZE(fs)) {
+			printf("CGSIZE(fs) miscalculated by one - this file "
+			    "system may have been created by\n"
+			    "  an old (buggy) userland, see\n"
+			    "  http://www.NetBSD.org/"
+			    "docs/ffsv1badsuperblock.html\n");
+		} else {
+			printf("ERROR: cylinder group size mismatch: "
+			    "fs_cgsize = 0x%zx, "
+			    "fs->fs_cgsize = 0x%zx, CGSIZE(fs) = 0x%zx\n",
+			    (size_t)fs_cgsize, (size_t)fs->fs_cgsize,
+			    (size_t)CGSIZE(fs));
+			return 0;
+		}
+	}
 
 	return 1;
 }

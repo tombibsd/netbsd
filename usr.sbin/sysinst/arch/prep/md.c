@@ -138,13 +138,14 @@ int
 md_post_extract(void)
 {
 	char rawdev[100], bootpart[100], bootloader[100];
+	int contype;
 
 	/* if we can't make it bootable, just punt */
 	if (prep_nobootfix)
 		return 0;
 
-	process_menu(MENU_prepconsole, NULL);
-	if (yesno == 1)
+	process_menu(MENU_prepconsole, &contype);
+	if (contype == 1)
 		snprintf(bootloader, 100, "/usr/mdec/boot_com0");
 	else
 		snprintf(bootloader, 100, "/usr/mdec/boot");

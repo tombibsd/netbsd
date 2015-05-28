@@ -8,9 +8,9 @@
 .PATH:	${OPENSSLSRC}/crypto/md5
 
 
-MD5_SRCS = md5_dgst.c md5_one.c $(MD5_ASM_OBJ)
+MD5_SRCS += md5_dgst.c md5_one.c $(MD5_ASM_OBJ)
 SRCS += ${MD5_SRCS}
 
 .for cryptosrc in ${MD5_SRCS}
-CPPFLAGS.${cryptosrc} = -I${OPENSSLSRC}/crypto/md5
+CPPFLAGS.${cryptosrc} = -I${OPENSSLSRC}/crypto/md5 ${MD5CPPFLAGS}
 .endfor

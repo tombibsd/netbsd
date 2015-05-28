@@ -35,7 +35,6 @@
 #include <sys/cpuvar_defs.h>
 #include <sys/dtrace.h>
 #include <machine/asm.h>
-#define END(a)
 #define MEXITCOUNT
 
 #include "assym.h"

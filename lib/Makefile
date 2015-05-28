@@ -143,13 +143,14 @@ SUBDIR+=	../external/bsd/libc++
 SUBDIR+=	../external/gpl3/${EXTERNAL_GCC_SUBDIR}/lib/libstdc++-v3
 SUBDIR+=	../external/gpl3/${EXTERNAL_GCC_SUBDIR}/lib/libsupc++
 .endif
+
+#==================== 2nd library dependency barrier ====================
+SUBDIR+=	.WAIT
+
 SANITIZER_DIR=../external/gpl3/${EXTERNAL_GCC_SUBDIR}/lib/libasan
 .if exists(${SANITIZER_DIR})
 SUBDIR+=	${SANITIZER_DIR}
 .endif
-
-#==================== 2nd library dependency barrier ====================
-SUBDIR+=	.WAIT
 
 SUBDIR+=	../external/bsd/libarchive/lib	# depends on libxz
 

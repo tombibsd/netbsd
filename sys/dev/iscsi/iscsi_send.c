@@ -59,11 +59,7 @@ my_soo_write(connection_t *conn, struct uio *u)
 
 	assert(resid != 0);
 
-#if (__NetBSD_Version__ >= 300000000)
 	ret = sosend(so, NULL, u, NULL, NULL, 0, conn->threadobj);
-#else
-	ret = sosend(so, NULL, u, NULL, NULL, 0);
-#endif
 
 	DEB(99, ("soo_write done: len = %zu\n", u->uio_resid));
 

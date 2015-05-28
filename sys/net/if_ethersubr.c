@@ -255,7 +255,7 @@ ether_output(struct ifnet * const ifp0, struct mbuf * const m0,
 			} else
 				senderr(EHOSTUNREACH);
 		}
-		if ((rt->rt_flags & RTF_GATEWAY) && dst->sa_family != AF_NS) {
+		if ((rt->rt_flags & RTF_GATEWAY)) {
 			if (rt->rt_gwroute == NULL)
 				goto lookup;
 			if (((rt = rt->rt_gwroute)->rt_flags & RTF_UP) == 0) {

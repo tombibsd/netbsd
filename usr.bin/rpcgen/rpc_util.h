@@ -114,7 +114,7 @@ int isvectordef(const char *, relation);
 char *locase(const char *);
 void pvname_svc(const char *, const char *);
 void pvname(const char *, const char *);
-__printflike(1, 2) void error(const char *, ...);
+__dead __printflike(1, 2) void error(const char *, ...);
 void crash(void);
 void record_open(const char *);
 void expected1(tok_kind) __dead;

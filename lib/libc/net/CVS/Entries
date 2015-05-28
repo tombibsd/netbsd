@@ -15,7 +15,7 @@
 /getifaddrs.3/1.14/Thu Oct 24 10:28:53 2013/-kk/
 /getifaddrs.c/1.15/Tue Mar 13 21:13:40 2012/-kk/
 /getnameinfo.3/1.41/Thu Oct 24 10:28:53 2013/-kk/
-/getnameinfo.c/1.54/Thu Oct 24 10:28:53 2013/-kk/
+/getnameinfo.c/1.56/Thu May 28 03:25:05 2015/-kk/
 /getnetent.3/1.13/Sat May  8 18:52:15 2004/-kk/
 /getnetent.c/1.21/Tue Mar 20 17:44:18 2012/-kk/
 /getnetnamadr.c/1.42/Tue Mar 13 21:13:41 2012/-kk/

@@ -25,7 +25,7 @@ COPTS.show.c += -Wno-format-nonliteral
 .PATH:  ${.CURDIR}/../../sbin/route
 CPPFLAGS+= -DRUMP_ACTION
 RUMPSRCS+= sysctlbyname.c sysctlgetmibinfo.c sysctlnametomib.c
-RUMPSRCS+= if_indextoname.c getifaddrs.c
+RUMPSRCS+= if_indextoname.c getifaddrs.c getnameinfo.c
 
 .if (${USE_INET6} != "no")
 CPPFLAGS+= -DINET6

@@ -35,6 +35,9 @@
 #ifndef _DEV_I2C_DDCVAR_H_
 #define _DEV_I2C_DDCVAR_H_
 
+int ddc_dev_read_edid(device_t, u_int8_t *, size_t);
+int ddc_dev_read_edid_block(device_t, u_int8_t *, size_t, uint8_t);
+
 /*
  * display drivers can use this to access DDC without using the
  * autoconfiguration framework.
