@@ -262,6 +262,7 @@ p_krtentry(struct rtentry *rt)
 		printf("%6s", "-");
 	putchar((rt->rt_rmx.rmx_locks & RTV_MTU) ? 'L' : ' ');
 	if (tagflag == 1) {
+#ifndef SMALL
 		if (rt->rt_tag != NULL) {
 			const struct sockaddr *tagsa = kgetsa(rt->rt_tag);
 			char *tagstr;
@@ -276,6 +277,7 @@ p_krtentry(struct rtentry *rt)
 			else
 				printf("%7s", "-");
 		} else
+#endif
 			printf("%7s", "-");
 	}
 	if (rt->rt_ifp) {
@@ -287,8 +289,10 @@ p_krtentry(struct rtentry *rt)
 			rt->rt_nodes[0].rn_dupedkey ? " =>" : "");
 	}
 	putchar('\n');
+#ifndef SMALL
 	if (vflag)
 		p_rtrmx(&rt->rt_rmx);
+#endif
 }
 
 /*

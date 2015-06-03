@@ -30,6 +30,8 @@
 /test_-b.output/1.1.1.2/Thu Feb 27 08:52:26 2014/-kk/
 /test_-b_-f.output/1.1.1.1/Sun Jan  5 16:17:25 2014/-kk/
 /test_-f.output/1.1.1.2/Thu Feb 27 08:52:26 2014/-kk/
+/test_exit_block_arcs.gcda/1.1.1.1/Fri May 29 17:18:47 2015/-kk/
+/test_exit_block_arcs.gcno/1.1.1.1/Fri May 29 17:18:47 2015/-kk/
 /test_file_checksum_fail.gcda/1.1.1.1/Sun Jan  5 16:17:25 2014/-kk/
 /test_func_checksum_fail.gcda/1.1.1.1/Sun Jan  5 16:17:25 2014/-kk/
 /test_long_file_names.output/1.1.1.1/Fri May 30 18:11:27 2014/-kk/

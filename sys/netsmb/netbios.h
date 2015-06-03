@@ -43,12 +43,6 @@
 #include <netinet/in.h>
 #endif
 
-#ifndef NetBSD
-#ifndef _NETIPX_IPX_H_
-#include <netipx/ipx.h>
-#endif
-#endif
-
 #define AF_NETBIOS	AF_NS		/* XXX: should go to socket.h */
 #define PF_NETBIOS	AF_NETBIOS
 

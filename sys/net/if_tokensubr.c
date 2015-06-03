@@ -135,10 +135,6 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <netinet/ip_carp.h>
 #endif
 
-#ifdef DECNET
-#include <netdnet/dn.h>
-#endif
-
 #define senderr(e) { error = (e); goto bad;}
 
 #if defined(__bsdi__) || defined(__NetBSD__)
@@ -451,7 +447,7 @@ token_input(struct ifnet *ifp, struct mbuf *m)
 	l = (struct llc *)(mtod(m, uint8_t *) + lan_hdr_len);
 
 	switch (l->llc_dsap) {
-#if defined(INET) || defined(DECNET)
+#if defined(INET)
 	case LLC_SNAP_LSAP:
 	{
 		uint16_t etype;
@@ -481,12 +477,6 @@ token_input(struct ifnet *ifp, struct mbuf *m)
 			inq = &arpintrq;
 			break;
 #endif
-#ifdef DECNET
-		case ETHERTYPE_DECNET:
-			isr = NETISR_DECNET;
-			inq = &decnetintrq;
-			break;
-#endif
 		default:
 			/*
 			printf("token_input: unknown protocol 0x%x\n", etype);
@@ -496,12 +486,12 @@ token_input(struct ifnet *ifp, struct mbuf *m)
 		}
 		break;
 	}
-#endif /* INET || NS || DECNET */
+#endif /* INET */
 
 	default:
 		/* printf("token_input: unknown dsap 0x%x\n", l->llc_dsap); */
 		ifp->if_noproto++;
-#if defined(INET) || defined(DECNET)
+#if defined(INET)
 	dropanyway:
 #endif
 		m_freem(m);

@@ -1,11 +1,11 @@
 /Makefile/1.4/Wed Dec 27 12:10:09 2006/-kk/
 /files.nfs/1.14/Wed Oct 29 08:13:31 2014/-kk/
 /krpc.h/1.9/Sat Mar 14 14:46:11 2009/-kk/
-/krpc_subr.c/1.40/Wed May 13 03:33:20 2015/-kk/
+/krpc_subr.c/1.41/Wed Jun  3 06:55:53 2015/-kk/
 /nfs.h/1.75/Wed Apr 22 07:37:44 2015/-kk/
 /nfs_bio.c/1.190/Fri Oct  3 09:51:02 2014/-kk/
-/nfs_boot.c/1.84/Wed May 13 03:33:20 2015/-kk/
-/nfs_bootdhcp.c/1.54/Wed May 13 03:33:20 2015/-kk/
+/nfs_boot.c/1.85/Wed Jun  3 06:55:53 2015/-kk/
+/nfs_bootdhcp.c/1.55/Wed Jun  3 06:55:53 2015/-kk/
 /nfs_bootparam.c/1.38/Thu Oct 24 10:28:58 2013/-kk/
 /nfs_bootstatic.c/1.8/Fri Oct 23 02:32:34 2009/-kk/
 /nfs_clntsocket.c/1.2/Fri Oct  3 09:51:02 2014/-kk/
@@ -24,7 +24,7 @@
 /nfs_var.h/1.92/Tue Jun  3 03:10:01 2014/-kk/
 /nfs_vfsops.c/1.229/Tue Jun  3 03:10:01 2014/-kk/
 /nfs_vnops.c/1.308/Thu May 28 03:25:59 2015/-kk/
-/nfsdiskless.h/1.31/Thu Apr  2 02:28:09 2015/-kk/
+/nfsdiskless.h/1.32/Wed Jun  3 06:55:53 2015/-kk/
 /nfsm_subs.h/1.53/Thu Oct 24 07:31:58 2013/-kk/
 /nfsmount.h/1.52/Tue Jun  3 03:10:01 2014/-kk/
 /nfsnode.h/1.73/Tue Jun  3 03:10:01 2014/-kk/

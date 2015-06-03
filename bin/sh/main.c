@@ -106,6 +106,11 @@ main(int argc, char **argv)
 	struct stackmark smark;
 	volatile int state;
 	char *shinit;
+	uid_t uid;
+	gid_t gid;
+
+	uid = getuid();
+	gid = getgid();
 
 	setlocale(LC_ALL, "");
 
@@ -178,6 +183,18 @@ main(int argc, char **argv)
 	initpwd();
 	setstackmark(&smark);
 	procargs(argc, argv);
+
+	/*
+	 * Limit bogus system(3) or popen(3) calls in setuid binaries,
+	 * by requiring the -p flag
+	 */
+	if (!pflag && (uid != geteuid() || gid != getegid())) {
+		setuid(uid);
+		setgid(gid);
+		/* PS1 might need to be changed accordingly. */
+		choose_ps1();
+	}
+
 	if (argv[0] && argv[0][0] == '-') {
 		state = 1;
 		read_profile("/etc/profile");

@@ -92,7 +92,6 @@ tegra_sdhc_attach(device_t parent, device_t self, void *aux)
 	sc->sc.sc_dmat = tio->tio_dmat;
 	sc->sc.sc_flags = SDHC_FLAG_32BIT_ACCESS |
 			  SDHC_FLAG_NO_PWR0 |
-			  SDHC_FLAG_NO_HS_BIT |
 			  SDHC_FLAG_NO_CLKBASE |
 			  SDHC_FLAG_SINGLE_POWER_WRITE |
 			  SDHC_FLAG_USE_DMA;

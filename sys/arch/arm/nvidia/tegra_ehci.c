@@ -318,11 +318,11 @@ tegra_ehci_utmip_init(struct tegra_ehci_softc *sc)
 
 static int
 tegra_ehci_port_status(struct ehci_softc *ehci_sc, uint32_t v, int i)
- {
+{
 	struct tegra_ehci_softc * const sc = device_private(ehci_sc->sc_dev);
 	bus_space_tag_t iot = sc->sc_bst;
 	bus_space_handle_t ioh = sc->sc_bsh;
- 
+
 	i &= ~(UPS_HIGH_SPEED|UPS_LOW_SPEED);
 
 	uint32_t val = bus_space_read_4(iot, ioh,

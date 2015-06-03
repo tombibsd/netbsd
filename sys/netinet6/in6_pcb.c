@@ -418,21 +418,6 @@ in6_pcbbind(void *v, struct sockaddr_in6 *sin6, struct lwp *l)
 }
 
 /*
- * adapter function that accepts nam as mbuf for in6_pcbconnect
- */
-int
-in6_pcbconnect_m(void *v, struct mbuf *nam, struct lwp *l)
-{
-	struct sockaddr_in6 *sin6 = mtod(nam, struct sockaddr_in6 *);
-
-	if (sizeof (*sin6) != nam->m_len) {
-		return EINVAL;
-	}
-
-	return in6_pcbconnect(v, sin6, l);
-}
-
-/*
  * Connect from a socket to a specified address.
  * Both address and port must be specified in argument sin6.
  * If don't have a local address for this socket yet,

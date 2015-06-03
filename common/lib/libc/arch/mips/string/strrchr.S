@@ -45,6 +45,7 @@
 
 LEAF(strrchr)
 XLEAF(rindex)
+	and	a1, 0xff		# limit to byte value
 	move	v0, zero		# default if not found
 1:
 	lbu	a3, 0(a0)		# get a byte

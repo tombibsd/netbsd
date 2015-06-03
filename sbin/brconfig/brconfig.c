@@ -411,7 +411,7 @@ show_config(int sock, const char *bridge, const char *prefix)
 static void
 show_interfaces(int sock, const char *bridge, const char *prefix)
 {
-	static const char *stpstates[] = {
+	static const char stpstates[][11] = {
 		"disabled",
 		"listening",
 		"learning",

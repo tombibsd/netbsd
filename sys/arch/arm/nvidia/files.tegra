@@ -42,6 +42,11 @@ device	tegragpio: gpiobus
 attach	tegragpio at tegraio with tegra_gpio
 file	arch/arm/nvidia/tegra_gpio.c		tegra_gpio
 
+# Timers
+device	tegratimer: sysmon_wdog
+attach	tegratimer at tegraio with tegra_timer
+file	arch/arm/nvidia/tegra_timer.c		tegra_timer
+
 # MPIO / Pinmux
 device	tegrampio
 attach	tegrampio at tegraio with tegra_mpio

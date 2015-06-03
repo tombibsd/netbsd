@@ -102,8 +102,6 @@ p3_get_bus_clock(struct cpu_info *ci)
 		break;
 	case 0xc: /* Core i7, Atom, model 1 */
 		/*
-		 * XXX (See also case 0xe)
-		 * Some core i7 CPUs can report model 0xc.
 		 * Newer CPUs will GP when attemping to access MSR_FSB_FREQ.
 		 * In the long-term, use ACPI instead of all this.
 		 */
@@ -278,7 +276,7 @@ p3_get_bus_clock(struct cpu_info *ci)
 			    "unable to determine bus speed");
 			goto print_msr;
 		}
-		bus = (msr >> 0) & 0xf;
+		bus = (msr >> 0) & 0x1f;
 		switch (bus) {
 		case 0:
 			bus_clock =  8333;
@@ -315,6 +313,9 @@ p3_get_bus_clock(struct cpu_info *ci)
 			break;
 		case 15:
 			bus_clock =  8888;
+			break;
+		case 20:
+			bus_clock =  8750;
 			break;
 		default:
 			aprint_debug("%s: unknown Airmont FSB_FREQ value %d",

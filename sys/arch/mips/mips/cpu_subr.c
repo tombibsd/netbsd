@@ -244,9 +244,6 @@ cpu_attach_common(device_t self, struct cpu_info *ci)
 		EVCNT_TYPE_TRAP, NULL, xname,
 		"tlb misses");
 
-	if (ci == &cpu_info_store)
-		pmap_tlb_info_evcnt_attach(ci->ci_tlb_info);
-
 #ifdef MULTIPROCESSOR
 	if (ci != &cpu_info_store) {
 		/*

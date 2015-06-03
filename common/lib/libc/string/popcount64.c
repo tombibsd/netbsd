@@ -43,9 +43,11 @@ __RCSID("$NetBSD$");
 #include <machine/limits.h>
 #endif
 
+#ifndef popcount64	// might be defined to use a __builtin
+
 /*
  * If uint64_t is larger than size_t, the follow assumes that
- * splitting into 32bit halfes is faster.
+ * splitting into 32bit halves is faster.
  *
  * The native pocount64 version is based on the same ideas as popcount32(3),
  * see popcount32.c for comments.
@@ -83,3 +85,4 @@ __strong_alias(popcountl, popcount64)
 __strong_alias(popcountll, popcount64)
 #endif
 
+#endif /* !popcount64 */

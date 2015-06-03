@@ -34,7 +34,7 @@
 /kvm.h/1.16/Mon Sep 12 21:14:29 2011/-kk/
 /langinfo.h/1.10/Thu Oct 24 10:28:53 2013/-kk/
 /libgen.h/1.5/Sat May 10 22:37:42 2008/-kk/
-/limits.h/1.33/Sun Nov 18 17:41:53 2012/-kk/
+/limits.h/1.34/Wed Jun  3 06:53:37 2015/-kk/
 /link.h/1.13/Mon Apr 28 20:22:54 2008/-kk/
 /link_aout.h/1.21/Mon Apr 28 20:22:54 2008/-kk/
 /link_elf.h/1.10/Sat Oct 16 10:27:06 2010/-kk/
@@ -97,7 +97,7 @@
 /utmp.h/1.12/Sun Jan 11 03:04:12 2009/-kk/
 /utmpx.h/1.17/Sun Jan 11 19:09:29 2009/-kk/
 /uuid.h/1.2/Wed Apr 23 07:52:32 2008/-kk/
-/vis.h/1.22/Fri Oct  3 10:04:40 2014/-kk/
+/vis.h/1.23/Wed Jun  3 06:53:37 2015/-kk/
 /wchar.h/1.41/Wed Oct 29 08:12:36 2014/-kk/
 /wctype.h/1.9/Thu Oct 24 10:28:53 2013/-kk/
 /wordexp.h/1.2/Tue Apr  1 19:23:28 2008/-kk/

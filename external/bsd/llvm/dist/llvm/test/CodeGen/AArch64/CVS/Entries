@@ -252,8 +252,8 @@
 /arm64-this-return.ll/1.1.1.1/Fri May 30 18:11:17 2014/-kk/
 /arm64-tls-darwin.ll/1.1.1.1/Fri May 30 18:11:18 2014/-kk/
 /arm64-tls-dynamic-together.ll/1.1.1.1/Fri May 30 18:11:18 2014/-kk/
-/arm64-tls-dynamics.ll/1.1.1.2/Thu Feb  5 08:38:01 2015/-kk/
-/arm64-tls-execs.ll/1.1.1.1/Fri May 30 18:11:18 2014/-kk/
+/arm64-tls-dynamics.ll/1.1.1.3/Wed Jun  3 06:47:46 2015/-kk/
+/arm64-tls-execs.ll/1.1.1.2/Wed Jun  3 06:47:46 2015/-kk/
 /arm64-trap.ll/1.1.1.1/Fri May 30 18:11:18 2014/-kk/
 /arm64-triv-disjoint-mem-access.ll/1.1.1.1/Thu Jan 29 19:54:44 2015/-kk/
 /arm64-trn.ll/1.1.1.1/Fri May 30 18:11:18 2014/-kk/
@@ -418,6 +418,7 @@
 /i128-align.ll/1.1.1.2/Tue Jun  3 03:05:19 2014/-kk/
 /i128-fast-isel-fallback.ll/1.1.1.1/Sun Aug 10 17:04:47 2014/-kk/
 /illegal-float-ops.ll/1.1.1.2/Tue Jun  3 03:05:19 2014/-kk/
+/implicit-sret.ll/1.1.1.1/Fri May 29 17:18:42 2015/-kk/
 /init-array.ll/1.1.1.4/Thu Feb  5 08:38:01 2015/-kk/
 /inline-asm-constraints-badI.ll/1.1.1.2/Tue Jun  3 03:05:19 2014/-kk/
 /inline-asm-constraints-badK.ll/1.1.1.2/Tue Jun  3 03:05:19 2014/-kk/
@@ -437,6 +438,7 @@
 /local_vars.ll/1.1.1.2/Tue Jun  3 03:05:19 2014/-kk/
 /logical-imm.ll/1.1.1.2/Tue Jun  3 03:05:19 2014/-kk/
 /logical_shifted_reg.ll/1.1.1.2/Tue Jun  3 03:05:19 2014/-kk/
+/machine-copy-prop.ll/1.1.1.1/Fri May 29 17:18:42 2015/-kk/
 /machine_cse.ll/1.1.1.1/Thu Jan 29 19:54:44 2015/-kk/
 /machine_cse_impdef_killflags.ll/1.1.1.1/Thu Jan 29 19:54:44 2015/-kk/
 /madd-combiner.ll/1.1.1.1/Thu Jan 29 19:54:44 2015/-kk/
@@ -487,7 +489,9 @@
 /stack-guard-remat-bitcast.ll/1.1.1.1/Sun Aug 10 17:04:47 2014/-kk/
 /stack_guard_remat.ll/1.1.1.1/Sun Aug 10 17:04:47 2014/-kk/
 /tail-call.ll/1.1.1.3/Thu Feb  5 08:38:01 2015/-kk/
+/tailcall-explicit-sret.ll/1.1.1.1/Fri May 29 17:18:42 2015/-kk/
 /tailcall-fastisel.ll/1.1.1.1/Thu Jan 29 19:54:44 2015/-kk/
+/tailcall-implicit-sret.ll/1.1.1.1/Fri May 29 17:18:42 2015/-kk/
 /tbz-tbnz.ll/1.1.1.1/Sun Aug 10 17:04:47 2014/-kk/
 /trunc-v1i64.ll/1.1.1.2/Thu Feb  5 08:38:01 2015/-kk/
 /tst-br.ll/1.1.1.2/Tue Jun  3 03:05:19 2014/-kk/

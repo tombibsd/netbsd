@@ -229,7 +229,7 @@ main(int argc, char **argv)
 	if (lfs_master->lfs_version == 1) {
 		lfs_master->lfs_sumsize = LFS_V1_SUMMARY_SIZE;
 		lfs_master->lfs_ibsize = lfs_master->lfs_bsize;
-		lfs_master->lfs_start = lfs_master->lfs_sboffs[0];
+		lfs_master->lfs_s0addr = lfs_master->lfs_sboffs[0];
 		lfs_master->lfs_tstamp = lfs_master->lfs_otstamp;
 		lfs_master->lfs_fsbtodb = 0;
 	}
@@ -661,12 +661,12 @@ dump_segment(int fd, int segnum, daddr_t addr, struct lfs *lfsp, int dump_sb)
 	sumblock = malloc(lfsp->lfs_sumsize);
 
 	if (lfsp->lfs_version > 1 && segnum == 0) {
-		if (lfs_fsbtob(lfsp, lfsp->lfs_start) < LFS_LABELPAD) {
+		if (lfs_fsbtob(lfsp, lfsp->lfs_s0addr) < LFS_LABELPAD) {
 			/* First segment eats the disklabel */
 			sum_offset += lfs_fragroundup(lfsp, LFS_LABELPAD) -
-				      lfs_fsbtob(lfsp, lfsp->lfs_start);
+				      lfs_fsbtob(lfsp, lfsp->lfs_s0addr);
 			addr += lfs_btofsb(lfsp, lfs_fragroundup(lfsp, LFS_LABELPAD)) -
-				lfsp->lfs_start;
+				lfsp->lfs_s0addr;
 			printf("Disklabel at 0x0\n");
 		}
 	}
@@ -770,7 +770,7 @@ dump_super(struct lfs *lfsp)
  		     "interleave ", lfsp->lfs_interleave,
  		     "sumsize  ", lfsp->lfs_sumsize);
  	(void)printf("    %s%-10d  %s0x%-8qx\n",
-		     "seg0addr ", lfsp->lfs_start,
+		     "seg0addr ", lfsp->lfs_s0addr,
  		     "maxfilesize  ", (long long)lfsp->lfs_maxfilesize);
  	
  	

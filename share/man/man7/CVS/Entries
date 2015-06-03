@@ -3,7 +3,7 @@
 /c.7/1.14/Tue Mar 25 02:35:16 2014/-kk/
 /environ.7/1.25/Fri Jan 21 10:03:27 2011/-kk/
 /glob.7/1.3/Wed Jan 19 00:33:10 2011/-kk/
-/hier.7/1.109/Fri Apr 11 02:03:25 2014/-kk/
+/hier.7/1.110/Wed Jun  3 06:54:08 2015/-kk/
 /hostname.7/1.13/Thu Mar 29 18:37:21 2012/-kk/
 /intro.7/1.23/Sun Jul  1 16:18:00 2012/-kk/
 /mailaddr.7/1.14/Mon Mar  1 16:52:41 2010/-kk/
@@ -18,10 +18,10 @@
 /security.7/1.12/Thu May 28 03:25:24 2015/-kk/
 /setuid.7/1.7/Tue Mar 25 02:35:16 2014/-kk/
 /signal.7/1.17/Sun Jul 20 13:58:32 2014/-kk/
-/src.7/1.9/Tue Dec  9 04:15:51 2014/-kk/
+/src.7/1.10/Wed Jun  3 06:54:08 2015/-kk/
 /sticky.7/1.6/Tue May 10 17:00:44 2011/-kk/
 /symlink.7/1.23/Tue Jan 14 16:04:50 2014/-kk/
-/sysctl.7/1.86/Tue Dec  9 04:34:37 2014/-kk/
+/sysctl.7/1.87/Wed Jun  3 06:54:09 2015/-kk/
 /tests.atf.7/1.6/Sun Jul 20 13:58:32 2014/-kk/
 /tests.kyua.7/1.6/Tue Dec  9 04:15:51 2014/-kk/
 D

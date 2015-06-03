@@ -425,7 +425,7 @@ nfs_boot_sobind_ipport(struct socket *so, uint16_t port, struct lwp *l)
 #define TOTAL_TIMEOUT   30	/* seconds */
 
 int
-nfs_boot_sendrecv(struct socket *so, struct mbuf *nam,
+nfs_boot_sendrecv(struct socket *so, struct sockaddr_in *nam,
 		int (*sndproc)(struct mbuf *, void *, int),
 		struct mbuf *snd,
 		int (*rcvproc)(struct mbuf **, void *),
@@ -468,7 +468,7 @@ send_again:
 		error = ENOBUFS;
 		goto out;
 	}
-	error = (*so->so_send)(so, mtod(nam, struct sockaddr *), NULL,
+	error = (*so->so_send)(so, (struct sockaddr *)nam, NULL,
 	    m, NULL, 0, lwp);
 	if (error) {
 		printf("nfs_boot: sosend: %d\n", error);

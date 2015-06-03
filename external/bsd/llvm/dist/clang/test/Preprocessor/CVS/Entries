@@ -71,7 +71,7 @@
 /include-macros.c/1.1.1.1/Thu Nov 28 14:14:58 2013/-kk/
 /include-pth.c/1.1.1.1/Thu Nov 28 14:14:58 2013/-kk/
 /indent_macro.c/1.1.1.1/Thu Nov 28 14:14:58 2013/-kk/
-/init.c/1.1.1.6/Thu Feb  5 08:37:47 2015/-kk/
+/init.c/1.1.1.7/Wed Jun  3 06:47:22 2015/-kk/
 /invalid-__has_warning1.c/1.1.1.1/Thu Nov 28 14:14:58 2013/-kk/
 /invalid-__has_warning2.c/1.1.1.1/Thu Nov 28 14:14:58 2013/-kk/
 /iwithprefix.c/1.1.1.2/Thu Feb  5 08:37:47 2015/-kk/

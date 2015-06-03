@@ -415,7 +415,7 @@ td_tsd_iter(td_proc_t *proc,
 	void *allocated;
 	void (*destructor)(void *);
 
-	for (i = 0; i < PTHREAD_KEYS_MAX; i++) {
+	for (i = 0; i < pthread_keys_max; i++) {
 		val = READ(proc, proc->tsdlistaddr + i * sizeof(allocated),
 		    &allocated, sizeof(allocated));
 		if (val != 0)

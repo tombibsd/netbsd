@@ -143,7 +143,7 @@ static const struct pmap_devmap devmap[] = {
 #undef	_S
 
 #ifdef PMAP_NEED_ALLOC_POOLPAGE
-static struct boot_physmem bp_highgig = {
+static struct boot_physmem bp_lowgig = {
 	.bp_start = TEGRA_EXTMEM_BASE / NBPG,
 	.bp_pages = (KERNEL_VM_BASE - KERNEL_BASE) / NBPG,
 	.bp_freelist = VM_FREELIST_ISADMA,
@@ -311,11 +311,10 @@ initarm(void *arg)
 	evbarm_device_register = tegra_device_register;
 
 #ifdef PMAP_NEED_ALLOC_POOLPAGE
-	if (atop(ram_size) > bp_highgig.bp_pages) {
-		bp_highgig.bp_start += atop(ram_size) - bp_highgig.bp_pages;
-		arm_poolpage_vmfreelist = bp_highgig.bp_freelist;
+	if (atop(ram_size) > bp_lowgig.bp_pages) {
+		arm_poolpage_vmfreelist = bp_lowgig.bp_freelist;
 		return initarm_common(KERNEL_VM_BASE, KERNEL_VM_SIZE,
-		    &bp_highgig, 1);
+		    &bp_lowgig, 1);
 	}
 #endif
 

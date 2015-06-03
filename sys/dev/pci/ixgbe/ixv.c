@@ -2829,7 +2829,6 @@ ixv_refresh_mbufs(struct rx_ring *rxr, int limit)
 			if (mh == NULL)
 				goto update;
 			mh->m_pkthdr.len = mh->m_len = MHLEN;
-			mh->m_len = MHLEN;
 			mh->m_flags |= M_PKTHDR;
 			m_adj(mh, ETHER_ALIGN);
 			/* Get the memory mapping */

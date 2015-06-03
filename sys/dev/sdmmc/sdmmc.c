@@ -217,7 +217,7 @@ sdmmc_doattach(device_t dev)
 {
 	struct sdmmc_softc *sc = device_private(dev);
 
-	if (kthread_create(PRI_NONE, KTHREAD_MPSAFE, NULL,
+	if (kthread_create(PRI_BIO, 0, NULL,
 	    sdmmc_task_thread, sc, &sc->sc_tskq_lwp, "%s", device_xname(dev))) {
 		aprint_error_dev(dev, "couldn't create task thread\n");
 	}
@@ -271,9 +271,7 @@ sdmmc_task_thread(void *arg)
 		if (task != NULL) {
 			sdmmc_del_task1(sc, task);
 			mutex_exit(&sc->sc_tskq_mtx);
-			KERNEL_LOCK(1, curlwp);
 			(*task->func)(task->arg);
-			KERNEL_UNLOCK_ONE(curlwp);
 			mutex_enter(&sc->sc_tskq_mtx);
 		} else {
 			/* Check for the exit condition. */

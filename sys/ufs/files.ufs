@@ -77,7 +77,6 @@ file	ufs/lfs/lfs_vnops.c		lfs
 file	ufs/lfs/ulfs_bmap.c		lfs
 file	ufs/lfs/ulfs_dirhash.c		lfs & lfs_dirhash
 file	ufs/lfs/ulfs_extattr.c		lfs & lfs_extattr
-file	ufs/lfs/ulfs_ihash.c		lfs
 file	ufs/lfs/ulfs_inode.c		lfs
 file	ufs/lfs/ulfs_lookup.c		lfs
 file	ufs/lfs/ulfs_quota.c		lfs & (lfs_quota | lfs_quota2)

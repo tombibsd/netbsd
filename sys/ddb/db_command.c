@@ -549,8 +549,13 @@ db_command_loop(void)
 	db_recover = &db_jmpbuf;
 	(void) setjmp(&db_jmpbuf);
 
-	/* Execute default ddb start commands */
-	db_execute_commandlist(db_cmd_on_enter);
+	/*
+	 * Execute default ddb start commands only if this is the
+	 * first entry into DDB, in case the start commands fault
+	 * and we recurse into here.
+	 */
+	if (!savejmp)
+		db_execute_commandlist(db_cmd_on_enter);
 
 	(void) setjmp(&db_jmpbuf);
 	while (!db_cmd_loop_done) {

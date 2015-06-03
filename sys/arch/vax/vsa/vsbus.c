@@ -138,6 +138,7 @@ vsbus_attach(device_t parent, device_t self, void *aux)
 		sc->sc_intclr = (char *)sc->sc_vsregs + 15;
 		sc->sc_intmsk = (char *)sc->sc_vsregs + 12;
 		vsbus_dma_init(sc, 32768);
+		break;
 #endif
 
 	default:

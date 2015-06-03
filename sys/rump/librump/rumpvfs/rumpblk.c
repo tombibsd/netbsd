@@ -439,6 +439,10 @@ rumpblk_ioctl(dev_t dev, u_long xfer, void *addr, int flag, struct lwp *l)
 	case DIOCCACHESYNC:
 		break;
 
+	case DIOCGMEDIASIZE:
+		*(off_t *)addr = (off_t)rblk->rblk_size;
+		break;
+
 	default:
 		error = ENOTTY;
 		break;

@@ -312,7 +312,7 @@ utmp_update(const struct utmpx *utx)
 	_DIAGASSERT(utx != NULL);
 
 	(void)strvisx(buf, (const char *)(const void *)utx, sizeof(*utx),
-	    VIS_WHITE);
+	    VIS_WHITE | VIS_NOLOCALE);
 	switch (pid = fork()) {
 	case 0:
 		(void)execl(_PATH_UTMP_UPDATE,

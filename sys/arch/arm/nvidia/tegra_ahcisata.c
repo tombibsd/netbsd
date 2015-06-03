@@ -89,7 +89,7 @@ tegra_ahcisata_attach(device_t parent, device_t self, void *aux)
 	bus_space_subregion(tio->tio_bst, tio->tio_bsh,
 	    loc->loc_offset + TEGRA_AHCISATA_OFFSET,
 	    loc->loc_size - TEGRA_AHCISATA_OFFSET, &sc->sc.sc_ahcih);
-	sc->sc.sc_ahci_quirks = AHCI_QUIRK_BADPMP;
+	sc->sc.sc_ahci_quirks = AHCI_QUIRK_SKIP_RESET;
 
 	aprint_naive("\n");
 	aprint_normal(": SATA\n");

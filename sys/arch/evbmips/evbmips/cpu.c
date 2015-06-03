@@ -71,4 +71,5 @@ cpu_attach(device_t parent, device_t self, void *aux)
 
 	aprint_normal("%s: ", device_xname(self));
 	cpu_identify(self);
+	cpu_attach_common(self, ci);
 }

@@ -57,7 +57,7 @@
 /micromips-shift-instructions.s/1.1.1.1/Thu Nov 28 14:18:08 2013/-kk/
 /micromips-tailr.s/1.1.1.1/Thu Nov 28 14:18:08 2013/-kk/
 /micromips-trap-instructions.s/1.1.1.1/Thu Nov 28 14:18:08 2013/-kk/
-/mips-abi-bad.s/1.1.1.1/Sun Aug 10 17:04:39 2014/-kk/
+/mips-abi-bad.s/1.1.1.2/Wed Jun  3 06:48:09 2015/-kk/
 /mips-alu-instructions.s/1.1.1.2/Tue Jun  3 03:03:59 2014/-kk/
 /mips-bad-branches.s/1.1.1.1/Sun Jan  5 16:17:12 2014/-kk/
 /mips-control-instructions.s/1.1.1.2/Tue Jun  3 03:03:59 2014/-kk/

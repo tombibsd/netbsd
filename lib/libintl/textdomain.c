@@ -115,8 +115,7 @@ bind_textdomain_codeset(const char *domainname, const char *codeset)
 		return NULL;
 
 	if (codeset) {
-		if (p->codeset)
-			free(p->codeset);
+		free(p->codeset);
 		p->codeset = strdup(codeset);
 	}
 

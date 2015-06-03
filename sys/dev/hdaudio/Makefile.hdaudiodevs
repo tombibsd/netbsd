@@ -9,6 +9,6 @@
 
 .include <bsd.own.mk>
 
-hdaudiodevs.h hdaudiodevs_data.h: ${.CURDIR}/../../devlist2h.awk hdaudiodevs
+hdaudiodevs.h hdaudiodevs_data.h: ${.CURDIR}/../devlist2h.awk hdaudiodevs
 	/bin/rm -f hdaudiodevs.h hdaudiodevs_data.h
 	${TOOL_AWK} -f ${.ALLSRC}

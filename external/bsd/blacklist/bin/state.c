@@ -115,6 +115,9 @@ dumpkey(const struct conf *k)
 			z = sizeof(buf);
 	}
 	(*lfun)(LOG_DEBUG, "%s", buf);
+	(*lfun)(LOG_DEBUG, "%s: %s", __func__,
+	    conf_print(buf, sizeof(buf), "", "", k));
+
 }
 
 int

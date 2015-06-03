@@ -432,7 +432,7 @@ mutex_oncpu(uintptr_t owner)
  *
  *	Support routine for mutex_enter() that must handle all cases.  In
  *	the LOCKDEBUG case, mutex_enter() is always aliased here, even if
- *	fast-path stubs are available.  If an mutex_spin_enter() stub is
+ *	fast-path stubs are available.  If a mutex_spin_enter() stub is
  *	not available, then it is also aliased directly here.
  */
 void

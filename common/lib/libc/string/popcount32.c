@@ -43,6 +43,8 @@ __RCSID("$NetBSD$");
 #include <machine/limits.h>
 #endif
 
+#ifndef popcount32	// might be a builtin
+
 /*
  * This a hybrid algorithm for bit counting between parallel counting and
  * using multiplication.  The idea is to sum up the bits in each Byte, so
@@ -76,3 +78,5 @@ __strong_alias(popcount, popcount32)
 #if ULONG_MAX == 0xffffffffU
 __strong_alias(popcountl, popcount32)
 #endif
+
+#endif	/* !popcount32 */

@@ -70,11 +70,6 @@ set_node_name(iscsid_set_node_name_req_t * par)
 
 	node_name = *par;
 
-#ifdef ISCSI_DEBUG				/* DEBUG ONLY: Allow op without driver present */
-	if (driver < 0)
-		return ISCSID_STATUS_SUCCESS;
-#endif
-
 	strlcpy((char *)snp.InitiatorName, (char *)par->InitiatorName,
 		sizeof(snp.InitiatorName));
 	strlcpy((char *)snp.InitiatorAlias, (char *)par->InitiatorAlias,
@@ -850,10 +845,6 @@ get_version(iscsid_response_t ** prsp, int *prsp_temp)
 	ver->minor = VERSION_MINOR;
 	strlcpy ((char *)ver->version_string, VERSION_STRING, sizeof(ver->version_string));
 
-#ifdef ISCSI_DEBUG				/* DEBUG ONLY: Allow op without driver present */
-	if (driver < 0)
-		return;
-#endif
 	ioctl(driver, ISCSI_GET_VERSION, &drv_ver);
 	ver->driver_interface_version = drv_ver.interface_version;
 	ver->driver_major = drv_ver.major;

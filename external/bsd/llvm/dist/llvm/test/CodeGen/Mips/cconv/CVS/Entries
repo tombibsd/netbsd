@@ -3,7 +3,11 @@
 /arguments-hard-float-varargs.ll/1.1.1.2/Fri Oct  3 09:23:01 2014/-kk/
 /arguments-hard-float.ll/1.1.1.1/Fri May 30 18:11:19 2014/-kk/
 /arguments-hard-fp128.ll/1.1.1.1/Fri May 30 18:11:19 2014/-kk/
+/arguments-small-structures-bigger-than-32bits.ll/1.1.1.1/Fri May 29 17:18:43 2015/-kk/
 /arguments-struct.ll/1.1.1.1/Thu Jan 29 19:54:40 2015/-kk/
+/arguments-varargs-small-structs-byte.ll/1.1.1.1/Fri May 29 17:18:43 2015/-kk/
+/arguments-varargs-small-structs-combinations.ll/1.1.1.1/Fri May 29 17:18:43 2015/-kk/
+/arguments-varargs-small-structs-multiple-args.ll/1.1.1.1/Fri May 29 17:18:43 2015/-kk/
 /arguments-varargs.ll/1.1.1.1/Sun Aug 10 17:04:42 2014/-kk/
 /arguments.ll/1.1.1.2/Thu Feb  5 08:38:05 2015/-kk/
 /callee-saved-float.ll/1.1.1.1/Fri May 30 18:11:19 2014/-kk/

@@ -81,7 +81,7 @@
 ./usr/libdata/debug/usr/lib/rv32/libheimbase.so.1.0.debug	comp-compat-shlib	 compat,pic,kerberos,debug,arch64
 ./usr/libdata/debug/usr/lib/rv32/libheimntlm.so.4.0.debug	comp-compat-shlib	 compat,pic,kerberos,debug,arch64
 ./usr/libdata/debug/usr/lib/rv32/libhx509.so.5.0.debug		comp-krb5-debug	kerberos,debug,compat,arch64
-./usr/libdata/debug/usr/lib/rv32/libintl.so.1.0.debug		comp-sys-debug	debug,compat,arch64
+./usr/libdata/debug/usr/lib/rv32/libintl.so.1.1.debug		comp-sys-debug	debug,compat,arch64
 ./usr/libdata/debug/usr/lib/rv32/libipsec.so.3.0.debug		comp-net-debug	debug,compat,arch64
 ./usr/libdata/debug/usr/lib/rv32/libirs.so.8.1.debug		comp-bind-debug	debug,compat,arch64
 ./usr/libdata/debug/usr/lib/rv32/libisc.so.8.1.debug		comp-bind-debug	debug,compat,arch64

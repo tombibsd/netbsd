@@ -106,6 +106,7 @@ void	tegra_car_utmip_enable(u_int);
 void	tegra_car_hdmi_enable(u_int);
 int	tegra_car_dc_enable(u_int);
 void	tegra_car_host1x_enable(void);
+void	tegra_car_wdt_enable(u_int, bool);
 
 struct tegra_gpio_pin;
 struct tegra_gpio_pin *tegra_gpio_acquire(const char *, u_int);
@@ -138,6 +139,8 @@ void	tegra_pmc_reset(void);
 void	tegra_pmc_power(u_int, bool);
 void	tegra_pmc_remove_clamping(u_int);
 void	tegra_pmc_hdmi_enable(void);
+
+void	tegra_i2c_dvc_write(uint8_t, uint32_t, size_t);
 
 psize_t	tegra_mc_memsize(void);
 

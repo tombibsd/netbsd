@@ -3,7 +3,11 @@
 .include <bsd.own.mk>
 
 DRIVER=		xf86-video-ati
+.if ${MACHINE_ARCH} == "i386" || ${MACHINE_ARCH} == "x86_64"
+DRIVER_NAME=	radeon_drv_old
+.else
 DRIVER_NAME=	radeon_drv
+.endif
 
 .PATH:  ${X11SRCDIR.${DRIVER}}/src/AtomBios
 SRCS.ATOMBIOS= \

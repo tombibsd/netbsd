@@ -3807,7 +3807,7 @@ wm_reset(struct wm_softc *sc)
 	/* reload sc_ctrl */
 	sc->sc_ctrl = CSR_READ(sc, WMREG_CTRL);
 
-	if (sc->sc_type == WM_T_I350)
+	if ((sc->sc_type >= WM_T_I350) && (sc->sc_type <= WM_T_I211))
 		wm_set_eee_i350(sc);
 
 	/* dummy read from WUC */
@@ -9592,6 +9592,7 @@ wm_set_eee_i350(struct wm_softc *sc)
 		    | EEER_LPI_FC);
 	} else {
 		ipcnfg &= ~(IPCNFG_EEE_1G_AN | IPCNFG_EEE_100M_AN);
+		ipcnfg &= ~IPCNFG_10BASE_TE;
 		eeer &= ~(EEER_TX_LPI_EN | EEER_RX_LPI_EN
 		    | EEER_LPI_FC);
 	}

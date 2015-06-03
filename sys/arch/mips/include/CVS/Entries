@@ -19,7 +19,7 @@
 /cache_tx39.h/1.6/Mon Apr 28 20:23:28 2008/-kk/
 /cachectl.h/1.10/Thu Mar 29 21:20:08 2012/-kk/
 /cdefs.h/1.15/Tue Mar 25 02:35:27 2014/-kk/
-/cpu.h/1.110/Wed May 13 03:32:51 2015/-kk/
+/cpu.h/1.111/Wed Jun  3 06:54:35 2015/-kk/
 /cpu_counter.h/1.4/Sun Feb 20 07:45:47 2011/-kk/
 /cpuregs.h/1.90/Fri May  1 11:31:31 2015/-kk/
 /cpuset.h/1.3/Thu Apr  2 02:27:53 2015/-kk/
@@ -45,7 +45,7 @@
 /lock.h/1.18/Sun Feb 20 07:45:47 2011/-kk/
 /locore.h/1.97/Wed May 13 03:32:51 2015/-kk/
 /math.h/1.7/Thu Feb 13 15:35:51 2014/-kk/
-/mcontext.h/1.20/Wed Sep 12 15:09:49 2012/-kk/
+/mcontext.h/1.21/Wed Jun  3 06:54:35 2015/-kk/
 /mips1_pte.h/1.19/Sun Feb 20 07:45:47 2011/-kk/
 /mips3_clock.h/1.5/Tue Jan  8 14:46:28 2008/-kk/
 /mips3_pte.h/1.28/Thu Sep 22 05:08:52 2011/-kk/

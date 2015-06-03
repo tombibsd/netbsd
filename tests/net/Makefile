@@ -4,10 +4,10 @@
 
 TESTSDIR=	${TESTSBASE}/net
 
-TESTS_SUBDIRS=		fdpass in_cksum mcast net sys
+TESTS_SUBDIRS=		fdpass in_cksum net sys
 .if (${MKRUMP} != "no")
-TESTS_SUBDIRS+=		bpf bpfilter carp icmp if if_bridge if_loop mpls npf
-TESTS_SUBDIRS+=		route
+TESTS_SUBDIRS+=		bpf bpfilter carp icmp if if_bridge if_loop mcast
+TESTS_SUBDIRS+=		mpls npf route
 .if (${MKSLJIT} != "no")
 TESTS_SUBDIRS+=		bpfjit
 .endif

@@ -261,7 +261,6 @@ SUBST="${SUBST};s#@MACHINE@#${MACHINE}#g"
 #	ssp			${HAVE_SSP} != no
 #	tpm			${MKTPM} != no
 #	x11			${MKX11} != no && ${X11FLAVOUR} != "Xorg"
-#	x11radeonkms		${MKX11} != no && ${MKX11RADEONKMS} != no
 #	xorg			${MKX11} != no && ${X11FLAVOUR} == "Xorg"
 #	xorg_server		${MKXORG_SERVER} != no
 #	yp			${MKYP} != no

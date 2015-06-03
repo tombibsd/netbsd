@@ -229,6 +229,7 @@
 ./usr/lib/librumpnet_pic.a			comp-c-piclib		rump,picinstall
 ./usr/lib/librumpnet_shmif_pic.a		comp-c-piclib		rump,picinstall
 ./usr/lib/librumpnet_sockin_pic.a		comp-c-piclib		rump,picinstall
+./usr/lib/librumpnet_tap_pic.a		comp-c-piclib		rump,picinstall
 ./usr/lib/librumpnet_virtif_pic.a		comp-c-piclib		rump,picinstall
 ./usr/lib/librumpuser_pic.a			comp-c-piclib		rump,picinstall
 ./usr/lib/librumpvfs_aio_pic.a		comp-c-piclib		rump,picinstall

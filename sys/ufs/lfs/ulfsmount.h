@@ -73,6 +73,11 @@ struct ulfsmount {
 	/* Extended attribute information. */
 	struct ulfs_extattr_per_mount um_extattr;
 
+	/* Cleaner lwp, set on first bmapv syscall. */
+	struct lwp *um_cleaner_thread;
+
+	/* Hint from cleaner, only valid if curlwp == um_cleaner_thread. */
+	BLOCK_INFO *um_cleaner_hint;
 	/* Quota-related material. */
 	struct vnode *um_quotas[ULFS_MAXQUOTAS]; /* quota files */
 	kauth_cred_t um_cred[ULFS_MAXQUOTAS];	/* quota file access cred */

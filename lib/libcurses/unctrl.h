@@ -53,6 +53,6 @@ __END_DECLS
 #define	unctrllen(c)	__unctrllen[((unsigned char)c) & 0xff]
 
 #ifdef HAVE_WCHAR
-#define	wunctrl(wc)		__wunctrl[( int )(wc->vals[ 0 ]) & 0xff]
+#define	wunctrl(wc)		__wunctrl[( int )((wc)->vals[ 0 ]) & 0xff]
 #endif /* HAVE_WCHAR */
 #endif /* _UNCTRL_H_ */

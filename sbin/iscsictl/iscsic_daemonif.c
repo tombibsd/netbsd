@@ -1171,24 +1171,3 @@ get_version(int argc, char **argv)
 
 	return 0;
 }
-
-
-#ifdef ISCSI_DEBUG
-/*
- * kill_daemon:
- *    Handle kill_daemon command.
- *
- *    Parameter:  argc, argv (shifted)
- *
- *    Returns:    Always 0.
-*/
-
-int
-kill_daemon(int argc, char **argv)
-{
-	check_extra_args(argc, argv);
-
-	send_request(ISCSID_DAEMON_TERMINATE, 0, NULL);
-	return 0;
-}
-#endif

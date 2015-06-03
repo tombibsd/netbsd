@@ -1,15 +1,15 @@
 /Makefile/1.6/Sat May 14 17:58:56 2005/-kk/
 /gettext.3/1.12/Thu Nov 12 00:43:52 2009/-kk/
-/gettext.c/1.28/Mon Jul 30 23:04:42 2012/-kk/
+/gettext.c/1.29/Wed Jun  3 06:53:48 2015/-kk/
 /gettext_dummy.c/1.3/Tue Sep 25 08:16:08 2007/-kk/
 /gettext_iconv.c/1.8/Wed Feb 18 13:08:22 2009/-kk/
-/libintl.h/1.4/Fri Oct 14 22:42:01 2011/-kk/
+/libintl.h/1.5/Wed Jun  3 06:53:48 2015/-kk/
 /libintl_local.h/1.12/Tue Sep 25 08:22:44 2007/-kk/
 /pathnames.h/1.1.1.1/Tue Oct 31 10:45:04 2000/-kk/
 /plural_parser.c/1.2/Wed Jan 17 23:24:22 2007/-kk/
 /plural_parser.h/1.2/Tue Sep 25 08:19:09 2007/-kk/
-/shlib_version/1.2/Sun Jan 11 03:07:48 2009/-kk/
+/shlib_version/1.3/Wed Jun  3 06:53:48 2015/-kk/
 /strhash.c/1.3/Tue Sep 25 08:19:09 2007/-kk/
 /sysdep.c/1.2/Wed Apr 27 09:50:26 2005/-kk/
-/textdomain.c/1.13/Wed Mar 21 10:10:36 2012/-kk/
+/textdomain.c/1.14/Wed Jun  3 06:53:48 2015/-kk/
 D

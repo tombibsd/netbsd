@@ -2,9 +2,9 @@
 /iscsid.8/1.11/Sun Jul 20 13:26:02 2014/-kk/
 /iscsid.h/1.4/Sat Mar 21 02:29:31 2015/-kk/
 /iscsid_discover.c/1.4/Sun Jun 24 13:08:38 2012/-kk/
-/iscsid_driverif.c/1.6/Sat Dec 29 08:28:20 2012/-kk/
+/iscsid_driverif.c/1.7/Wed Jun  3 06:53:59 2015/-kk/
 /iscsid_globals.h/1.7/Mon May 28 00:13:19 2012/-kk/
 /iscsid_lists.c/1.8/Sat Dec 29 08:28:20 2012/-kk/
-/iscsid_main.c/1.8/Sat Dec 29 08:28:20 2012/-kk/
+/iscsid_main.c/1.9/Wed Jun  3 06:53:59 2015/-kk/
 /iscsid_targets.c/1.5/Sat Dec 29 08:28:20 2012/-kk/
 D

@@ -77,6 +77,11 @@ static struct tegra124_cpufreq_rate {
 void
 tegra124_cpuinit(void)
 {
+	/* Set VDD_CPU voltage to 1.4V */
+	tegra_car_periph_i2c_enable(4, 204000000);
+	tegra_i2c_dvc_write(0x40, 0x4f00, 2);
+	delay(10000);
+
 	tegra_cpufreq_register(&tegra124_cpufreq_func);
 }
 

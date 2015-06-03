@@ -431,6 +431,7 @@ extern vaddr_t	pmap_curmaxkvaddr;
  * Starting VA of direct mapped memory (usually KERNEL_BASE).
  */
 extern vaddr_t pmap_directbase;
+extern vaddr_t pmap_directlimit;
 #endif
 
 /*

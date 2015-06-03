@@ -30,6 +30,6 @@
 /t_syslog.c/1.2/Sun Mar 18 07:00:51 2012/-kk/
 /t_time.c/1.3/Tue Dec  9 04:16:24 2014/-kk/
 /t_ttyname.c/1.3/Sun May  1 18:14:01 2011/-kk/
-/t_vis.c/1.7/Fri Oct  3 09:51:05 2014/-kk/
+/t_vis.c/1.8/Wed Jun  3 06:55:57 2015/-kk/
 D/execve////
 D/posix_spawn////

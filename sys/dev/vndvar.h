@@ -106,7 +106,7 @@ struct vnode;
  * A vnode disk's state information.
  */
 struct vnd_softc {
-	device_t         sc_dev;
+	device_t	 sc_dev;
 	int		 sc_flags;	/* flags */
 	uint64_t	 sc_size;	/* size of vnd */
 	struct vnode	*sc_vp;		/* vnode */

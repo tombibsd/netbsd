@@ -929,7 +929,7 @@ struct lfs {
 #define lfs_sumsize lfs_dlfs.dlfs_sumsize
 #define lfs_serial lfs_dlfs.dlfs_serial
 #define lfs_ibsize lfs_dlfs.dlfs_ibsize
-#define lfs_start lfs_dlfs.dlfs_start
+#define lfs_s0addr lfs_dlfs.dlfs_start
 #define lfs_tstamp lfs_dlfs.dlfs_tstamp
 #define lfs_inodefmt lfs_dlfs.dlfs_inodefmt
 #define lfs_interleave lfs_dlfs.dlfs_interleave
@@ -1071,9 +1071,9 @@ struct lfs {
 			   (fs)->lfs_ssize << (fs)->lfs_blktodb :	\
 			   lfs_btofsb((fs), (fs)->lfs_ssize)) * (seg))
 #define	lfs_dtosn(fs, daddr)	/* block address to segment number */	\
-	((uint32_t)(((daddr) - (fs)->lfs_start) / lfs_segtod((fs), 1)))
+	((uint32_t)(((daddr) - (fs)->lfs_s0addr) / lfs_segtod((fs), 1)))
 #define lfs_sntod(fs, sn)	/* segment number to disk address */	\
-	((daddr_t)(lfs_segtod((fs), (sn)) + (fs)->lfs_start))
+	((daddr_t)(lfs_segtod((fs), (sn)) + (fs)->lfs_s0addr))
 
 /*
  * Structures used by lfs_bmapv and lfs_markv to communicate information

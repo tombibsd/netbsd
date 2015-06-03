@@ -334,7 +334,7 @@ GNode *
 Targ_FindNode(const char *name, int flags)
 {
     GNode         *gn;	      /* node in that element */
-    Hash_Entry	  *he;	      /* New or used hash entry for node */
+    Hash_Entry	  *he = NULL; /* New or used hash entry for node */
     Boolean	  isNew;      /* Set TRUE if Hash_CreateEntry had to create */
 			      /* an entry for the node */
 

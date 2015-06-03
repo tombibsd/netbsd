@@ -36,6 +36,7 @@
 /addc.ll/1.1.1.1/Thu Nov 28 14:18:09 2013/-kk/
 /addi.ll/1.1.1.2/Tue Jan 14 16:01:59 2014/-kk/
 /addressing-mode.ll/1.1.1.1/Thu Nov 28 14:18:09 2013/-kk/
+/adjust-callstack-sp.ll/1.1.1.1/Fri May 29 17:18:42 2015/-kk/
 /align16.ll/1.1.1.2/Tue Jan 14 16:01:59 2014/-kk/
 /alloca.ll/1.1.1.1/Thu Nov 28 14:18:09 2013/-kk/
 /alloca16.ll/1.1.1.2/Tue Jan 14 16:01:59 2014/-kk/
@@ -69,6 +70,7 @@
 /cache-intrinsic.ll/1.1.1.1/Fri May 30 18:11:19 2014/-kk/
 /call-optimization.ll/1.1.1.1/Sun Jan  5 16:17:30 2014/-kk/
 /cfi_offset.ll/1.1.1.1/Sun Aug 10 17:04:41 2014/-kk/
+/check-adde-redundant-moves.ll/1.1.1.1/Fri May 29 17:18:43 2015/-kk/
 /check-noat.ll/1.1.1.1/Thu Nov 28 14:18:09 2013/-kk/
 /ci2.ll/1.1.1.2/Thu Feb  5 08:38:04 2015/-kk/
 /cmov.ll/1.1.1.5/Thu Feb  5 08:38:04 2015/-kk/
@@ -108,11 +110,11 @@
 /f16abs.ll/1.1.1.2/Tue Jan 14 16:01:59 2014/-kk/
 /fabs.ll/1.1.1.2/Tue Jun  3 03:05:22 2014/-kk/
 /fastcc.ll/1.1.1.4/Thu Feb  5 08:38:04 2015/-kk/
-/fcmp.ll/1.1.1.2/Thu Feb  5 08:38:04 2015/-kk/
+/fcmp.ll/1.1.1.3/Wed Jun  3 06:47:49 2015/-kk/
 /fcopysign-f32-f64.ll/1.1.1.2/Tue Jun  3 03:05:22 2014/-kk/
 /fcopysign.ll/1.1.1.3/Fri Oct  3 09:23:01 2014/-kk/
 /fixdfsf.ll/1.1.1.2/Tue Jan 14 16:01:59 2014/-kk/
-/fmadd1.ll/1.1.1.4/Fri Oct  3 09:23:01 2014/-kk/
+/fmadd1.ll/1.1.1.5/Wed Jun  3 06:47:49 2015/-kk/
 /fneg.ll/1.1.1.2/Tue Jun  3 03:05:22 2014/-kk/
 /fp-indexed-ls.ll/1.1.1.3/Fri Oct  3 09:23:01 2014/-kk/
 /fp-spill-reload.ll/1.1.1.1/Thu Nov 28 14:18:09 2013/-kk/
@@ -207,7 +209,7 @@
 /mips16ex.ll/1.1.1.2/Fri Oct  3 09:23:01 2014/-kk/
 /mips16fpe.ll/1.1.1.2/Tue Jan 14 16:01:59 2014/-kk/
 /mips64-f128-call.ll/1.1.1.1/Thu Nov 28 14:18:09 2013/-kk/
-/mips64-f128.ll/1.1.1.4/Thu Feb  5 08:38:04 2015/-kk/
+/mips64-f128.ll/1.1.1.5/Wed Jun  3 06:47:49 2015/-kk/
 /mips64-libcall.ll/1.1.1.1/Thu Nov 28 14:18:09 2013/-kk/
 /mips64-sret.ll/1.1.1.3/Thu Feb  5 08:38:04 2015/-kk/
 /mips64directive.ll/1.1.1.2/Tue Jun  3 03:05:22 2014/-kk/
@@ -221,6 +223,8 @@
 /mips64lea.ll/1.1.1.2/Tue Jun  3 03:05:22 2014/-kk/
 /mips64muldiv.ll/1.1.1.3/Fri Oct  3 09:23:01 2014/-kk/
 /mips64shift.ll/1.1.1.1/Thu Nov 28 14:18:09 2013/-kk/
+/mips64signextendsesf.ll/1.1.1.1/Fri May 29 17:18:43 2015/-kk/
+/mips64sinttofpsf.ll/1.1.1.1/Fri May 29 17:18:43 2015/-kk/
 /mipslopat.ll/1.1.1.1/Thu Nov 28 14:18:09 2013/-kk/
 /misha.ll/1.1.1.1/Thu Nov 28 14:18:09 2013/-kk/
 /mno-ldc1-sdc1.ll/1.1.1.2/Fri Oct  3 09:23:01 2014/-kk/
@@ -234,6 +238,7 @@
 /named-register-n64.ll/1.1.1.1/Thu Jan 29 19:54:40 2015/-kk/
 /named-register-o32.ll/1.1.1.1/Thu Jan 29 19:54:40 2015/-kk/
 /neg1.ll/1.1.1.1/Thu Nov 28 14:18:09 2013/-kk/
+/no-odd-spreg-msa.ll/1.1.1.1/Fri May 29 17:18:43 2015/-kk/
 /no-odd-spreg.ll/1.1.1.1/Sun Aug 10 17:04:42 2014/-kk/
 /nomips16.ll/1.1.1.3/Thu Feb  5 08:38:04 2015/-kk/
 /not1.ll/1.1.1.1/Thu Nov 28 14:18:09 2013/-kk/

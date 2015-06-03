@@ -443,21 +443,6 @@ in_pcbbind(void *v, struct sockaddr_in *sin, struct lwp *l)
 }
 
 /*
- * adapter function that accepts nam as mbuf for in_pcbconnect()
- */
-int
-in_pcbconnect_m(void *v, struct mbuf *nam, struct lwp *l)
-{
-	struct sockaddr_in *sin = mtod(nam, struct sockaddr_in *);
-
-	if (sizeof (*sin) != nam->m_len) {
-		return EINVAL;
-	}
-
-	return in_pcbconnect(v, sin, l);
-}
-
-/*
  * Connect from a socket to a specified address.
  * Both address and port must be specified in argument sin.
  * If don't have a local address for this socket yet,

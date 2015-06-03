@@ -6,8 +6,8 @@
 /aes-ppc.pl/1.1.1.3/Thu Jul 26 14:59:28 2012/-kk/
 /aes-s390x.pl/1.1.1.4/Thu Oct 24 10:28:41 2013/-kk/
 /aes-sparcv9.pl/1.1.1.2/Thu Jul 26 14:59:32 2012/-kk/
-/aes-x86_64.pl/1.1.1.3/Thu Oct 24 10:28:41 2013/-kk/
-/aesni-sha1-x86_64.pl/1.1.1.2/Thu Oct 24 10:28:41 2013/-kk/
+/aes-x86_64.pl/1.2/Wed Jun  3 06:43:51 2015/-kk/
+/aesni-sha1-x86_64.pl/1.2/Wed Jun  3 06:43:51 2015/-kk/
 /aesni-x86.pl/1.1.1.3/Thu Jul 26 14:59:25 2012/-kk/
 /aesni-x86_64.pl/1.2/Wed Oct 29 08:08:44 2014/-kk/
 /bsaes-x86_64.pl/1.1.1.3/Fri Jan 31 08:44:57 2014/-kk/

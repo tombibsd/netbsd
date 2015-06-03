@@ -77,7 +77,7 @@ void nfs_boot_flushrt (struct ifnet *);
 int nfs_boot_setrecvtimo (struct socket *);
 int nfs_boot_enbroadcast (struct socket *);
 int nfs_boot_sobind_ipport (struct socket *, uint16_t, struct lwp *);
-int nfs_boot_sendrecv (struct socket *, struct mbuf *,
+int nfs_boot_sendrecv (struct socket *, struct sockaddr_in *,
 			   int (*)(struct mbuf*, void*, int), struct mbuf*,
 			   int (*)(struct mbuf**, void*), struct mbuf**,
 			   struct mbuf**, void*, struct lwp *);

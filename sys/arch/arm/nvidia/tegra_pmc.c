@@ -117,8 +117,9 @@ tegra_pmc_power(u_int partid, bool enable)
 {
 	bus_space_tag_t bst;
 	bus_space_handle_t bsh;
-	uint32_t status;
+	uint32_t status, toggle;
 	bool state;
+	int retry = 10000;
 
 	tegra_pmc_get_bs(&bst, &bsh);
 
@@ -126,6 +127,17 @@ tegra_pmc_power(u_int partid, bool enable)
 	state = !!(status & __BIT(partid));
 	if (state == enable)
 		return;
+
+	while (--retry > 0) {
+		toggle = bus_space_read_4(bst, bsh, PMC_PWRGATE_TOGGLE_0_REG);
+		if ((toggle & PMC_PWRGATE_TOGGLE_0_START) == 0)
+			break;
+		delay(1);
+	}
+	if (retry == 0) {
+		printf("ERROR: Couldn't enable PMC partition %#x\n", partid);
+		return;
+	}
 
 	bus_space_write_4(bst, bsh, PMC_PWRGATE_TOGGLE_0_REG,
 	    __SHIFTIN(partid, PMC_PWRGATE_TOGGLE_0_PARTID) |

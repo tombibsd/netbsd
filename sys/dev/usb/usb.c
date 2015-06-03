@@ -75,10 +75,12 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #if defined(USBHIST)
 
-USBHIST_DEFINE(usbhist);
 #ifndef USBHIST_SIZE
 #define USBHIST_SIZE 50000
 #endif
+
+static struct kern_history_ent usbhistbuf[USBHIST_SIZE];
+USBHIST_DEFINE(usbhist) = KERNHIST_INITIALIZER(usbhist, usbhistbuf);
 
 #endif
 
@@ -275,7 +277,7 @@ usb_once_init(void)
 	struct usb_taskq *taskq;
 	int i;
 
-	USBHIST_INIT(usbhist, USBHIST_SIZE);
+	USBHIST_LINK_STATIC(usbhist);
 
 	selinit(&usb_selevent);
 	mutex_init(&usb_event_lock, MUTEX_DEFAULT, IPL_NONE);

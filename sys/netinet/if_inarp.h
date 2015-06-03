@@ -80,14 +80,11 @@ int arpresolve(struct ifnet *, struct rtentry *, struct mbuf *,
 void arpintr(void);
 void arprequest(struct ifnet *, const struct in_addr *, const struct in_addr *,
     const u_int8_t *);
-void arp_init(void);
 void arp_drain(void);
 int arpioctl(u_long, void *);
 void arpwhohas(struct ifnet *, struct in_addr *);
 
 void revarpinput(struct mbuf *);
-void in_revarpinput(struct mbuf *);
-void revarprequest(struct ifnet *);
 int revarpwhoarewe(struct ifnet *, struct in_addr *, struct in_addr *);
 #endif
 

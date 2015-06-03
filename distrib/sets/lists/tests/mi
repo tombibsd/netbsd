@@ -3151,15 +3151,18 @@
 ./usr/tests/net/in_cksum/t_in_cksum		tests-net-tests		atf
 ./usr/tests/net/in_cksum/in_cksum		tests-net-tests		atf
 ./usr/tests/net/mcast				tests-net-tests
-./usr/tests/net/mcast/Atffile			tests-net-tests		atf
-./usr/tests/net/mcast/Kyuafile			tests-net-tests		atf,kyua
-./usr/tests/net/mcast/t_mcast			tests-net-tests		atf
+./usr/tests/net/mcast/Atffile			tests-net-tests		atf,rump
+./usr/tests/net/mcast/Kyuafile			tests-net-tests		atf,rump,kyua
+./usr/tests/net/mcast/mcast			tests-net-tests		atf,rump
+./usr/tests/net/mcast/t_mcast			tests-net-tests		atf,rump
 ./usr/tests/net/mpls				tests-net-tests
 ./usr/tests/net/mpls/Atffile			tests-net-tests		atf,rump
 ./usr/tests/net/mpls/Kyuafile			tests-net-tests		atf,rump,kyua
 ./usr/tests/net/mpls/t_ldp_regen		tests-net-tests		atf,rump
 ./usr/tests/net/mpls/t_ldp_static		tests-net-tests		obsolete
 ./usr/tests/net/mpls/t_mpls_fw			tests-net-tests		atf,rump
+./usr/tests/net/mpls/t_mpls_fw6			tests-net-tests		atf,rump
+./usr/tests/net/mpls/t_mpls_fw64		tests-net-tests		atf,rump
 ./usr/tests/net/mpls/t_rfc4182			tests-net-tests		atf,rump
 ./usr/tests/net/net				tests-net-tests
 ./usr/tests/net/net/Atffile			tests-net-tests		atf

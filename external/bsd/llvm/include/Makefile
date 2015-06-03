@@ -49,6 +49,7 @@ INCS=	altivec.h
 INCS=	arm_acle.h \
 	arm_neon.h
 .endif
+INCS+=	stdatomic.h
 INCSDIR=	/usr/include/clang-${CLANG_VERSION:R}
 
 .PATH:	${LLVM_SRCDIR}/include/llvm/IR \

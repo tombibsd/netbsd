@@ -240,7 +240,7 @@ setup(const char *dev)
 				(unsigned long)idaddr);
 		tdaddr = lfs_sntod(fs, lfs_dtosn(fs, idaddr));
 		if (lfs_sntod(fs, lfs_dtosn(fs, tdaddr)) == tdaddr) {
-			if (tdaddr == fs->lfs_start)
+			if (tdaddr == fs->lfs_s0addr)
 				tdaddr += lfs_btofsb(fs, LFS_LABELPAD);
 			for (i = 0; i < LFS_MAXNUMSB; i++) {
 				if (fs->lfs_sboffs[i] == tdaddr)

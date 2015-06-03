@@ -232,7 +232,7 @@ extern struct cpu_info cpu_info_store;
 register struct lwp *mips_curlwp asm(MIPS_CURLWP_QUOTED);
 
 #define	curlwp			mips_curlwp
-#define	curcpu()		(curlwp->l_cpu)
+#define	curcpu()		lwp_getcpu(curlwp)
 #define	curpcb			((struct pcb *)lwp_getpcb(curlwp))
 #ifdef MULTIPROCESSOR
 #define	cpu_number()		(curcpu()->ci_index)

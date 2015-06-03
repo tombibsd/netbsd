@@ -164,7 +164,7 @@
 ./usr/lib/64/libhx509.so.5			base-compat-shlib	compat,pic,kerberos,arch64
 ./usr/lib/64/libhx509.so.5.0			base-compat-shlib	compat,pic,kerberos,arch64
 ./usr/lib/64/libintl.so.1			base-compat-shlib	compat,pic,arch64
-./usr/lib/64/libintl.so.1.0			base-compat-shlib	compat,pic,arch64
+./usr/lib/64/libintl.so.1.1			base-compat-shlib	compat,pic,arch64
 ./usr/lib/64/libipsec.so.3			base-compat-shlib	compat,pic,arch64
 ./usr/lib/64/libipsec.so.3.0			base-compat-shlib	compat,pic,arch64
 ./usr/lib/64/libirs.so.8			base-compat-shlib	compat,pic,arch64
@@ -513,7 +513,7 @@
 ./usr/lib/o32/libhx509.so.5			base-compat-shlib	compat,pic,kerberos,arch64
 ./usr/lib/o32/libhx509.so.5.0			base-compat-shlib	compat,pic,kerberos,arch64
 ./usr/lib/o32/libintl.so.1			base-compat-shlib	compat,pic,arch64
-./usr/lib/o32/libintl.so.1.0			base-compat-shlib	compat,pic,arch64
+./usr/lib/o32/libintl.so.1.1			base-compat-shlib	compat,pic,arch64
 ./usr/lib/o32/libipsec.so.3			base-compat-shlib	compat,pic,arch64
 ./usr/lib/o32/libipsec.so.3.0			base-compat-shlib	compat,pic,arch64
 ./usr/lib/o32/libirs.so.8			base-compat-shlib	compat,pic,arch64

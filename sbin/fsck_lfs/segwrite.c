@@ -634,9 +634,9 @@ lfs_initseg(struct lfs * fs)
 		brelse(bp, 0);
 		/* Segment zero could also contain the labelpad */
 		if (fs->lfs_version > 1 && sp->seg_number == 0 &&
-		    fs->lfs_start < lfs_btofsb(fs, LFS_LABELPAD)) {
-			fs->lfs_offset += lfs_btofsb(fs, LFS_LABELPAD) - fs->lfs_start;
-			sp->seg_bytes_left -= LFS_LABELPAD - lfs_fsbtob(fs, fs->lfs_start);
+		    fs->lfs_s0addr < lfs_btofsb(fs, LFS_LABELPAD)) {
+			fs->lfs_offset += lfs_btofsb(fs, LFS_LABELPAD) - fs->lfs_s0addr;
+			sp->seg_bytes_left -= LFS_LABELPAD - lfs_fsbtob(fs, fs->lfs_s0addr);
 		}
 	} else {
 		sp->seg_number = lfs_dtosn(fs, fs->lfs_curseg);

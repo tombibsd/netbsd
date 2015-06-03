@@ -31,8 +31,13 @@
 
 #include <arm/nvidia/tegra_reg.h>
 
+#ifdef __HAVE_MM_MD_DIRECT_MAPPED_PHYS
 #define KERNEL_VM_BASE		0xc0000000
 #define KERNEL_VM_SIZE		0x20000000 /* 0x20000000 = 512MB */
+#else
+#define KERNEL_VM_BASE		0x90000000
+#define KERNEL_VM_SIZE		0x50000000 /* 0x50000000 = 1.25GB */
+#endif
 
 #define CONSADDR_VA     (CONSADDR - TEGRA_APB_BASE + TEGRA_APB_VBASE)
 

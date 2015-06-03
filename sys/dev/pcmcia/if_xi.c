@@ -58,7 +58,6 @@
 __KERNEL_RCSID(0, "$NetBSD$");
 
 #include "opt_inet.h"
-#include "opt_ipx.h"
 
 #include <sys/param.h>
 #include <sys/systm.h>
@@ -83,12 +82,6 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <netinet/ip.h>
 #include <netinet/if_inarp.h>
 #endif
-
-#ifdef IPX
-#include <netipx/ipx.h>
-#include <netipx/ipx_if.h>
-#endif
-
 
 #include <net/bpf.h>
 #include <net/bpfdesc.h>

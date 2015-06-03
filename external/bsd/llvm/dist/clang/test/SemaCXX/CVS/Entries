@@ -186,6 +186,7 @@
 /cxx0x-initializer-references.cpp/1.1.1.2/Thu Feb  5 08:37:49 2015/-kk/
 /cxx0x-initializer-scalars.cpp/1.1.1.2/Tue Jun  3 03:04:57 2014/-kk/
 /cxx0x-initializer-stdinitializerlist.cpp/1.1.1.3/Sat Mar 21 02:42:50 2015/-kk/
+/cxx0x-noexcept-expression.cpp/1.1.1.1/Fri May 29 17:21:50 2015/-kk/
 /cxx0x-nontrivial-union.cpp/1.1.1.1/Thu Nov 28 14:14:56 2013/-kk/
 /cxx0x-return-init-list.cpp/1.1.1.1/Thu Nov 28 14:14:56 2013/-kk/
 /cxx0x-type-convert-construct.cpp/1.1.1.2/Thu Feb 27 08:51:49 2014/-kk/
@@ -464,6 +465,7 @@
 /template-implicit-vars.cpp/1.1.1.2/Fri Oct  3 09:22:39 2014/-kk/
 /templated-friend-decl.cpp/1.1.1.1/Thu Nov 28 14:14:56 2013/-kk/
 /this.cpp/1.1.1.1/Thu Nov 28 14:14:56 2013/-kk/
+/thread-safety-reference-handling.cpp/1.1.1.1/Fri May 29 17:21:50 2015/-kk/
 /trailing-return-0x.cpp/1.1.1.3/Thu Feb  5 08:37:49 2015/-kk/
 /trivial-constructor.cpp/1.1.1.1/Thu Nov 28 14:14:56 2013/-kk/
 /trivial-destructor.cpp/1.1.1.1/Thu Nov 28 14:14:56 2013/-kk/
@@ -571,7 +573,7 @@
 /warn-tautological-compare.cpp/1.1.1.3/Fri Oct  3 09:22:39 2014/-kk/
 /warn-tautological-undefined-compare.cpp/1.1.1.1/Sun Aug 10 17:08:44 2014/-kk/
 /warn-thread-safety-analysis.cpp/1.1.1.7/Thu Feb  5 08:37:50 2015/-kk/
-/warn-thread-safety-negative.cpp/1.1.1.2/Thu Feb  5 08:37:50 2015/-kk/
+/warn-thread-safety-negative.cpp/1.1.1.3/Wed Jun  3 06:47:24 2015/-kk/
 /warn-thread-safety-parsing.cpp/1.1.1.4/Tue Jun  3 03:04:58 2014/-kk/
 /warn-thread-safety-verbose.cpp/1.1.1.1/Thu Jan 29 19:57:37 2015/-kk/
 /warn-undefined-bool-conversion.cpp/1.1.1.1/Sun Aug 10 17:08:44 2014/-kk/

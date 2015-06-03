@@ -1,7 +1,7 @@
 /Makefile/1.12/Thu Oct 24 10:28:53 2013/-kk/
 /config.h/1.9/Thu Feb  2 03:50:32 2012/-kk/
 /extern.h/1.12/Sat Feb 16 17:58:43 2008/-kk/
-/make_lfs.c/1.30/Thu Apr  2 02:27:42 2015/-kk/
+/make_lfs.c/1.31/Wed Jun  3 06:54:00 2015/-kk/
 /misc.c/1.7/Wed Jan 17 21:59:49 2007/-kk/
 /newfs.c/1.29/Thu Oct 24 10:28:53 2013/-kk/
 /newfs_lfs.8/1.23/Tue Jan 14 16:04:48 2014/-kk/

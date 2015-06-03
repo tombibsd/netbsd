@@ -1332,6 +1332,8 @@ ffs_mountfs(struct vnode *devvp, struct mount *mp, struct lwp *l)
 			DPRINTF("bcount %x != fsize %x", bp->b_bcount,
 			    fs->fs_fsize);
 			error = EINVAL;
+			bset = BC_INVAL;
+			goto out;
 		}
 		brelse(bp, BC_INVAL);
 		bp = NULL;

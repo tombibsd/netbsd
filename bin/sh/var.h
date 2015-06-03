@@ -125,5 +125,6 @@ void mklocal(const char *, int);
 void listmklocal(struct strlist *, int);
 void poplocalvars(void);
 int unsetvar(const char *, int);
+void choose_ps1(void);
 int setvarsafe(const char *, const char *, int);
 void print_quoted(const char *);

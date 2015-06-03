@@ -1095,11 +1095,12 @@ NESTED_NOPROFILE(MIPSX(user_reserved_insn), CALLFRAME_SIZ, ra)
 	_MFC0	v0, MIPS_COP_0_EXC_PC
 	PTR_ADDIU v0, 4
 	_MTC0	v0, MIPS_COP_0_EXC_PC
+	COP0_SYNC
 
 	PTR_L	v1, L_PRIVATE(k1)		# rdhwr $3,$29 updates v1
+
 	REG_L	AT, CALLFRAME_SIZ+TF_REG_AST(k0)# restore reg
 	REG_L	v0, CALLFRAME_SIZ+TF_REG_V0(k0) # restore reg
-	sll	$0,$0,3				# just in case
 	eret
 END(MIPSX(user_reserved_insn))
 

@@ -621,7 +621,7 @@
 /avx-vbroadcast.ll/1.1.1.2/Thu Feb 27 08:52:16 2014/-kk/
 /avx-vextractf128.ll/1.1.1.1/Thu Nov 28 14:18:11 2013/-kk/
 /avx-vinsertf128.ll/1.1.1.1/Thu Nov 28 14:18:12 2013/-kk/
-/avx-vperm2x128.ll/1.1.1.1/Thu Jan 29 19:54:42 2015/-kk/
+/avx-vperm2x128.ll/1.1.1.2/Wed Jun  3 06:47:58 2015/-kk/
 /avx-vzeroupper.ll/1.1.1.2/Tue Jun  3 03:05:29 2014/-kk/
 /avx-win64-args.ll/1.1.1.1/Thu Nov 28 14:18:12 2013/-kk/
 /avx-win64.ll/1.1.1.1/Thu Nov 28 14:18:12 2013/-kk/
@@ -814,6 +814,7 @@
 /cttz-ctlz.ll/1.1.1.1/Thu Jan 29 19:54:43 2015/-kk/
 /cvt16.ll/1.1.1.1/Sun Aug 10 17:04:46 2014/-kk/
 /cvtv2f32.ll/1.1.1.1/Thu Nov 28 14:18:11 2013/-kk/
+/dag-optnone.ll/1.1.1.1/Fri May 29 17:18:40 2015/-kk/
 /dag-rauw-cse.ll/1.1.1.1/Thu Nov 28 14:18:13 2013/-kk/
 /dagcombine-and-setcc.ll/1.1.1.1/Sun Aug 10 17:04:46 2014/-kk/
 /dagcombine-buildvector.ll/1.1.1.1/Thu Nov 28 14:18:11 2013/-kk/
@@ -923,7 +924,6 @@
 /fastcc.ll/1.1.1.1/Thu Nov 28 14:18:12 2013/-kk/
 /fastcc3struct.ll/1.1.1.1/Thu Nov 28 14:18:13 2013/-kk/
 /fastisel-gep-promote-before-add.ll/1.1.1.1/Thu Nov 28 14:18:12 2013/-kk/
-/fastmath-optnone.ll/1.1.1.1/Thu Jan 29 19:54:42 2015/-kk/
 /fdiv.ll/1.1.1.1/Thu Nov 28 14:18:12 2013/-kk/
 /field-extract-use-trunc.ll/1.1.1.1/Thu Nov 28 14:18:11 2013/-kk/
 /fildll.ll/1.1.1.1/Thu Nov 28 14:18:12 2013/-kk/
@@ -1001,6 +1001,7 @@
 /gather-addresses.ll/1.1.1.2/Thu Feb  5 08:38:16 2015/-kk/
 /gcc_except_table.ll/1.1.1.3/Fri Oct  3 09:23:10 2014/-kk/
 /gcc_except_table_functions.ll/1.1.1.1/Thu Jan 29 19:54:43 2015/-kk/
+/getelementptr.ll/1.1.1.1/Fri May 29 17:18:40 2015/-kk/
 /ghc-cc.ll/1.1.1.2/Thu Feb  5 08:38:16 2015/-kk/
 /ghc-cc64.ll/1.1.1.2/Thu Feb  5 08:38:16 2015/-kk/
 /global-sections-tls.ll/1.1.1.1/Thu Nov 28 14:18:11 2013/-kk/
@@ -1047,7 +1048,7 @@
 /inalloca-ctor.ll/1.1.1.3/Thu Feb  5 08:38:16 2015/-kk/
 /inalloca-invoke.ll/1.1.1.3/Thu Feb  5 08:38:16 2015/-kk/
 /inalloca-regparm.ll/1.1.1.1/Sun Aug 10 17:04:46 2014/-kk/
-/inalloca-stdcall.ll/1.1.1.3/Thu Feb  5 08:38:16 2015/-kk/
+/inalloca-stdcall.ll/1.1.1.4/Wed Jun  3 06:48:01 2015/-kk/
 /inalloca.ll/1.1.1.3/Tue Jun  3 03:05:32 2014/-kk/
 /indirect-hidden.ll/1.1.1.1/Fri May 30 18:11:21 2014/-kk/
 /inline-asm-2addr.ll/1.1.1.1/Thu Nov 28 14:18:11 2013/-kk/
@@ -1142,6 +1143,7 @@
 /lower-bitcast.ll/1.1.1.2/Fri Oct  3 09:23:11 2014/-kk/
 /lower-vec-shift-2.ll/1.1.1.1/Thu Jan 29 19:54:43 2015/-kk/
 /lower-vec-shift.ll/1.1.1.1/Fri May 30 18:11:21 2014/-kk/
+/lower-vec-shuffle-bug.ll/1.1.1.1/Fri May 29 17:18:40 2015/-kk/
 /lsr-delayed-fold.ll/1.1.1.1/Thu Nov 28 14:18:11 2013/-kk/
 /lsr-i386.ll/1.1.1.1/Thu Nov 28 14:18:13 2013/-kk/
 /lsr-interesting-step.ll/1.1.1.2/Tue Jun  3 03:05:32 2014/-kk/
@@ -1370,6 +1372,7 @@
 /pr2182.ll/1.1.1.1/Thu Nov 28 14:18:13 2013/-kk/
 /pr22019.ll/1.1.1.1/Thu Jan 29 19:54:43 2015/-kk/
 /pr22103.ll/1.1.1.1/Thu Jan 29 19:54:43 2015/-kk/
+/pr22774.ll/1.1.1.1/Fri May 29 17:18:41 2015/-kk/
 /pr2326.ll/1.1.1.1/Thu Nov 28 14:18:12 2013/-kk/
 /pr2656.ll/1.1.1.1/Thu Nov 28 14:18:11 2013/-kk/
 /pr2659.ll/1.1.1.1/Thu Nov 28 14:18:13 2013/-kk/
@@ -1453,6 +1456,7 @@
 /scalar_widen_div.ll/1.1.1.1/Thu Nov 28 14:18:11 2013/-kk/
 /scalarize-bitcast.ll/1.1.1.1/Thu Nov 28 14:18:12 2013/-kk/
 /scev-interchange.ll/1.1.1.2/Thu Feb  5 08:38:20 2015/-kk/
+/scheduler-backtracking.ll/1.1.1.1/Fri May 29 17:18:40 2015/-kk/
 /sdiv-exact.ll/1.1.1.1/Thu Nov 28 14:18:11 2013/-kk/
 /segmented-stacks-dynamic.ll/1.1.1.3/Thu Feb  5 08:38:20 2015/-kk/
 /segmented-stacks.ll/1.1.1.3/Thu Feb  5 08:38:20 2015/-kk/
@@ -1460,6 +1464,7 @@
 /select.ll/1.1.1.2/Fri Oct  3 09:23:13 2014/-kk/
 /select_const.ll/1.1.1.1/Thu Nov 28 14:18:11 2013/-kk/
 /selectiondag-cse.ll/1.1.1.1/Thu Nov 28 14:18:12 2013/-kk/
+/setcc-combine.ll/1.1.1.1/Fri May 29 17:18:40 2015/-kk/
 /setcc-narrowing.ll/1.1.1.1/Thu Nov 28 14:18:11 2013/-kk/
 /setcc-sentinals.ll/1.1.1.1/Thu Nov 28 14:18:11 2013/-kk/
 /setcc.ll/1.1.1.1/Thu Nov 28 14:18:11 2013/-kk/
@@ -1781,7 +1786,7 @@
 /vector-shuffle-256-v4.ll/1.1.1.1/Thu Jan 29 19:54:43 2015/-kk/
 /vector-shuffle-256-v8.ll/1.1.1.1/Thu Jan 29 19:54:43 2015/-kk/
 /vector-shuffle-512-v16.ll/1.1.1.1/Thu Jan 29 19:54:42 2015/-kk/
-/vector-shuffle-512-v8.ll/1.1.1.1/Thu Jan 29 19:54:42 2015/-kk/
+/vector-shuffle-512-v8.ll/1.1.1.2/Wed Jun  3 06:48:06 2015/-kk/
 /vector-shuffle-combining.ll/1.1.1.2/Thu Feb  5 08:38:23 2015/-kk/
 /vector-shuffle-sse1.ll/1.1.1.1/Thu Jan 29 19:54:43 2015/-kk/
 /vector-trunc.ll/1.1.1.1/Thu Jan 29 19:54:43 2015/-kk/
@@ -1840,12 +1845,12 @@
 /widen_shuffle-1.ll/1.1.1.3/Thu Feb  5 08:38:24 2015/-kk/
 /win32-pic-jumptable.ll/1.1.1.1/Thu Jan 29 19:54:42 2015/-kk/
 /win32_sret.ll/1.1.1.4/Tue Jun  3 03:03:56 2014/-kk/
-/win64_alloca_dynalloca.ll/1.1.1.2/Tue Jan 14 16:02:14 2014/-kk/
+/win64_alloca_dynalloca.ll/1.1.1.3/Wed Jun  3 06:48:07 2015/-kk/
 /win64_call_epi.ll/1.1.1.2/Thu Feb  5 08:38:24 2015/-kk/
 /win64_eh.ll/1.1.1.2/Thu Feb  5 08:38:24 2015/-kk/
 /win64_params.ll/1.1.1.1/Thu Nov 28 14:18:12 2013/-kk/
 /win64_vararg.ll/1.1.1.2/Thu Feb  5 08:38:24 2015/-kk/
-/win_chkstk.ll/1.1.1.2/Tue Jan 14 16:02:14 2014/-kk/
+/win_chkstk.ll/1.1.1.3/Wed Jun  3 06:48:07 2015/-kk/
 /win_cst_pool.ll/1.1.1.2/Sat Mar 21 02:43:16 2015/-kk/
 /win_ftol2.ll/1.1.1.1/Thu Nov 28 14:18:11 2013/-kk/
 /windows-itanium-alloca.ll/1.1.1.1/Thu Jan 29 19:54:43 2015/-kk/

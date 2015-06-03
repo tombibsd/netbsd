@@ -56,7 +56,6 @@ struct ww_acquire_ctx {
 };
 
 struct ww_mutex {
-	kmutex_t		wwm_lock;
 	enum ww_mutex_state {
 		WW_UNLOCKED,	/* nobody owns it */
 		WW_OWNED,	/* owned by a lwp without a context */
@@ -67,9 +66,17 @@ struct ww_mutex {
 		struct lwp		*owner;
 		struct ww_acquire_ctx	*ctx;
 	}			wwm_u;
+	/*
+	 * XXX wwm_lock must *not* be first, so that the ww_mutex has a
+	 * different address from the kmutex for LOCKDEBUG purposes.
+	 */
+	kmutex_t		wwm_lock;
 	struct ww_class		*wwm_class;
 	struct rb_tree		wwm_waiters;
 	kcondvar_t		wwm_cv;
+#ifdef LOCKDEBUG
+	bool			wwm_debug;
+#endif
 };
 
 /* XXX Make the nm output a little more greppable...  */

@@ -26,7 +26,7 @@
 /if_sm_pcmcia.c/1.55/Sat Oct 27 17:18:37 2012/-kk/
 /if_tr_pcmcia.c/1.25/Sat Oct 27 17:18:37 2012/-kk/
 /if_wi_pcmcia.c/1.90/Thu Oct 24 10:28:58 2013/-kk/
-/if_xi.c/1.74/Fri Oct  3 09:26:02 2014/-kk/
+/if_xi.c/1.75/Wed Jun  3 06:55:01 2015/-kk/
 /if_xireg.h/1.8/Sun Dec 11 12:23:23 2005/-kk/
 /if_xivar.h/1.9/Wed Apr 22 07:36:59 2015/-kk/
 /isic_pcmcia.c/1.41/Sat Oct 27 17:18:37 2012/-kk/

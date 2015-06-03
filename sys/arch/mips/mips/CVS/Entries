@@ -18,7 +18,7 @@
 /copy.S/1.15/Tue Aug 16 06:55:11 2011/-kk/
 /core_machdep.c/1.7/Tue Jan 14 16:04:55 2014/-kk/
 /cpu_exec.c/1.64/Sun Jul 10 23:21:58 2011/-kk/
-/cpu_subr.c/1.18/Thu May 28 03:25:39 2015/-kk/
+/cpu_subr.c/1.19/Wed Jun  3 06:54:36 2015/-kk/
 /db_disasm.c/1.24/Thu Aug 18 21:04:23 2011/-kk/
 /db_interface.c/1.75/Thu Aug 18 21:04:23 2011/-kk/
 /db_trace.c/1.42/Fri Apr 29 22:14:59 2011/-kk/
@@ -43,13 +43,13 @@
 /mips3_subr.S/1.6/Sun Jul 31 15:39:29 2011/-kk/
 /mips64_subr.S/1.6/Sun Jul 31 15:39:29 2011/-kk/
 /mips64r2_subr.S/1.2/Sun Jul 31 15:39:29 2011/-kk/
-/mipsX_subr.S/1.56/Sun Feb 19 21:06:18 2012/-kk/
+/mipsX_subr.S/1.57/Wed Jun  3 06:54:36 2015/-kk/
 /mips_dsp.c/1.4/Tue Jun  3 02:54:11 2014/-kk/
 /mips_emul.c/1.26/Thu Nov  1 22:15:25 2012/-kk/
 /mips_fixup.c/1.10/Wed Nov  9 17:05:50 2011/-kk/
 /mips_fpu.c/1.12/Tue Jun  3 02:54:11 2014/-kk/
 /mips_fputrap.c/1.10/Sat Feb 26 15:41:32 2011/-kk/
-/mips_machdep.c/1.263/Fri May  1 11:31:33 2015/-kk/
+/mips_machdep.c/1.264/Wed Jun  3 06:54:36 2015/-kk/
 /mips_mcclock.c/1.19/Sun Feb 20 07:45:48 2011/-kk/
 /mips_mcclock.h/1.6/Sun Feb 20 07:45:48 2011/-kk/
 /mips_mcclock_loop.S/1.5/Mon Mar 28 12:26:59 2011/-kk/

@@ -706,7 +706,7 @@ gpio_as_input(uint32_t g, int pin)
 #define JZ_MSC_RESTO	0x10 /* 16bit response timeout in MSC_CLK */
 #define JZ_MSC_RDTO RW	0x14 /* 32bit read timeout in MSC_CLK */
 #define JZ_MSC_BLKLEN	0x18 /* 16bit block length */
-#define JZ_MSC_NOB RW	0x1c /* 16bit block counter */
+#define JZ_MSC_NOB	0x1c /* 16bit block counter */
 #define JZ_MSC_SNOB	0x20 /* 16bit successful block counter */
 #define JZ_MSC_IMASK	0x24 /* interrupt mask */
 	#define JZ_INT_AUTO_CMD23_DONE	0x40000000

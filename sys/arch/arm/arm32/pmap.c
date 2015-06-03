@@ -517,6 +517,7 @@ bool pmap_initialized;
  * Start of direct-mapped memory
  */
 vaddr_t pmap_directbase = KERNEL_BASE;
+vaddr_t pmap_directlimit;
 #endif
 
 /*
@@ -7859,7 +7860,7 @@ pmap_direct_mapped_phys(paddr_t pa, bool *ok_p, vaddr_t va)
 	if (physical_start <= pa && pa < physical_end) {
 #ifdef ARM_MMU_EXTENDED
 		const vaddr_t newva = pmap_directbase + pa - physical_start;
-		if (newva >= KERNEL_BASE) {
+		if (newva >= KERNEL_BASE && newva < pmap_directlimit) {
 			va = newva;
 			ok = true;
 		}

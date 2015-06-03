@@ -5,6 +5,10 @@
 
 TESTSDIR=	${TESTSBASE}/net/mcast
 
-TESTS_C=	t_mcast
+TESTS_SH=	t_mcast
+
+PROGS=		mcast
+MAN.mcast=	# empty
+BINDIR.mcast=	${TESTSDIR}
 
 .include <bsd.test.mk>

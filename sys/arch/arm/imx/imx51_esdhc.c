@@ -117,6 +117,7 @@ sdhc_attach(device_t parent, device_t self, void *aux)
 		break;;
 	}
 	sc->sc_sdhc.sc_clkbase = perclk / 1000;
+	sc->sc_sdhc.sc_flags |= SDHC_FLAG_USE_DMA;
 	sc->sc_sdhc.sc_flags |= SDHC_FLAG_HAVE_DVS |
 		SDHC_FLAG_NO_PWR0 |
 		SDHC_FLAG_32BIT_ACCESS |

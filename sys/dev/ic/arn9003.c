@@ -655,8 +655,8 @@ ar9003_tx_alloc(struct athn_softc *sc)
 	if (error != 0)
 		goto fail;
 
-	error = bus_dmamap_load_raw(sc->sc_dmat, sc->sc_txsmap, &sc->sc_txsseg,
-	    1, size, BUS_DMA_NOWAIT | BUS_DMA_READ);
+	error = bus_dmamap_load(sc->sc_dmat, sc->sc_txsmap, sc->sc_txsring,
+	     size, NULL, BUS_DMA_NOWAIT | BUS_DMA_READ);
 	if (error != 0)
 		goto fail;
 
@@ -681,8 +681,8 @@ ar9003_tx_alloc(struct athn_softc *sc)
 	if (error != 0)
 		goto fail;
 
-	error = bus_dmamap_load_raw(sc->sc_dmat, sc->sc_map, &sc->sc_seg, 1, size,
-	    BUS_DMA_NOWAIT | BUS_DMA_WRITE);
+	error = bus_dmamap_load(sc->sc_dmat, sc->sc_map, sc->sc_descs, size,
+	    NULL, BUS_DMA_NOWAIT | BUS_DMA_WRITE);
 	if (error != 0)
 		goto fail;
 

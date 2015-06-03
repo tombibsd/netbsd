@@ -581,6 +581,10 @@ again_faultbusy:
 		    &npages, 0, VM_PROT_READ | VM_PROT_WRITE, advice, gpflags);
 		UVMHIST_LOG(ubchist, "faultbusy getpages %d", error, 0, 0, 0);
 		if (error) {
+			/*
+			 * Flush: the mapping above might have been removed.
+			 */
+			pmap_update(pmap_kernel());
 			goto out;
 		}
 		for (i = 0; i < npages; i++) {

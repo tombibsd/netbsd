@@ -66,6 +66,8 @@ static const struct tegra_locators tegra_ppsb_locators[] = {
     TEGRA_CAR_OFFSET, TEGRA_CAR_SIZE, NOPORT, NOINTR },
   { "tegragpio",
     TEGRA_GPIO_OFFSET, TEGRA_GPIO_SIZE, NOPORT, NOINTR },
+  { "tegratimer",
+    TEGRA_TIMER_OFFSET, TEGRA_TIMER_SIZE, NOPORT, NOINTR },
 };
 
 static const struct tegra_locators tegra_apb_locators[] = {

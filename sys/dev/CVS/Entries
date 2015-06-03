@@ -22,7 +22,7 @@
 /clock_subr.h/1.25/Tue Dec  9 04:34:54 2014/-kk/
 /clockctl.c/1.32/Fri Oct  3 09:09:12 2014/-kk/
 /cninit.c/1.11/Tue Feb  8 20:20:26 2011/-kk/
-/cons.c/1.74/Sat Mar 21 02:37:48 2015/-kk/
+/cons.c/1.75/Wed Jun  3 06:54:54 2015/-kk/
 /cons.h/1.27/Tue Feb  8 20:20:26 2011/-kk/
 /dev_verbose.c/1.1/Sun Sep 21 14:30:22 2014/-kk/
 /dev_verbose.h/1.1/Sun Sep 21 14:30:22 2014/-kk/
@@ -68,8 +68,8 @@
 /verified_exec.c/1.71/Fri May  1 11:32:03 2015/-kk/
 /video.c/1.32/Fri Oct  3 09:09:12 2014/-kk/
 /video_if.h/1.7/Fri Dec 24 20:54:28 2010/-kk/
-/vnd.c/1.243/Fri May  1 11:32:03 2015/-kk/
-/vndvar.h/1.33/Thu Oct 24 10:28:58 2013/-kk/
+/vnd.c/1.245/Wed Jun  3 06:54:55 2015/-kk/
+/vndvar.h/1.34/Wed Jun  3 06:54:55 2015/-kk/
 D/acpi////
 D/adb////
 D/altmem////

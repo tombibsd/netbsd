@@ -47,9 +47,6 @@
 
 RCSID("$NetBSD$")
 
-#undef VERBOSE_INIT_ARM
-#define VERBOSE_INIT_ARM
-
 #if defined(VERBOSE_INIT_ARM)
 #define	XPUTC(n)	mov r0, n; bl xputc
 #define XPUTC_COM	1

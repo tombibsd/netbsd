@@ -118,10 +118,14 @@ extern struct drm_driver *const radeon_drm_driver;
 extern const struct pci_device_id *const radeon_device_ids;
 extern const size_t radeon_n_device_ids;
 
+/* Set this to false if you want to match R100/R200 */
+bool radeon_pci_ignore_r100_r200 = true;
+
 static bool
 radeon_pci_lookup(const struct pci_attach_args *pa, unsigned long *flags)
 {
 	size_t i;
+	enum radeon_family fam;
 
 	for (i = 0; i < radeon_n_device_ids; i++) {
 		if ((PCI_VENDOR(pa->pa_id) == radeon_device_ids[i].vendor) &&
@@ -131,6 +135,11 @@ radeon_pci_lookup(const struct pci_attach_args *pa, unsigned long *flags)
 
 	/* Did we find it?  */
 	if (i == radeon_n_device_ids)
+		return false;
+
+	/* NetBSD drm2 fails on R100 and many R200 chipsets, disable for now  */
+	fam = radeon_device_ids[i].driver_data & RADEON_FAMILY_MASK;
+	if (radeon_pci_ignore_r100_r200 && fam < CHIP_RV280)
 		return false;
 
 	if (flags)

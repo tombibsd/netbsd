@@ -45,6 +45,7 @@
 
 LEAF(strchr)
 XLEAF(index)
+	and	a1, 0xff		# limit to byte value
 1:
 	lbu	a2, 0(a0)		# get a byte
 	PTR_ADDU a0, 1

@@ -4745,7 +4745,6 @@ bge_intr(void *xsc)
 	if (sc->bge_flags & BGEF_TAGGED_STATUS) {
 		if (sc->bge_lasttag == statustag &&
 		    (~pcistate & intrmask)) {
-			printf("[SP]");
 			return (0);
 		}
 		sc->bge_lasttag = statustag;
