@@ -126,8 +126,8 @@ amiga_setboot(ib_params *params)
 		}
 		(void)strncpy(dline, params->command, CMDLN_LEN-1);
 
-		block[1] = 0;
-		block[1] = 0xffffffff - chksum(block, sumlen);
+		block[1] = htobe32(0);
+		block[1] = htobe32(0xffffffff - chksum(block, sumlen));
 	}
 
 	if (params->flags & IB_NOWRITE) {
@@ -164,7 +164,7 @@ chksum(block, size)
 
 	for (i=0; i<size; i++) {
 		lastsum = sum;
-		sum += htobe32(block[i]);
+		sum += be32toh(block[i]);
 		if (sum < lastsum)
 			++sum;
 	}

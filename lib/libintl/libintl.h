@@ -26,13 +26,19 @@
  * SUCH DAMAGE.
  */
 
-#ifndef __LIBINTL_H_DEFINED__
-#define __LIBINTL_H_DEFINED__
+#ifndef _LIBINTL_H_
+#define _LIBINTL_H_
 
 #include <sys/cdefs.h>
 
+#ifndef _LIBGETTEXT_H
+/*
+ * Avoid defining these if the GNU gettext compatibility header includes
+ * us, since it re-defines those unconditionally and creates inline functions
+ * for some of them. This is horrible.
+ */
 #define pgettext_expr(msgctxt, msgid) pgettext((msgctxt), (msgid))
-#define dpggettext_expr(domainname, msgctxt, msgid) \
+#define dpgettext_expr(domainname, msgctxt, msgid) \
     dpgettext((domainname), (msgctxt), (msgid))
 #define dcpgettext_expr(domainname, msgctxt, msgid, category) \
     dcpgettext((domainname), (msgctxt), (msgid), (category))
@@ -42,6 +48,7 @@
     dnpgettext((domainname), (msgctxt), (msgid1), (msgid2), (n))
 #define dcnpgettext_expr(domainname, msgctxt, msgid1, msgid2, n, category) \
     dcnpgettext((domainname), (msgctxt), (msgid1), (msgid2), (n), (category))
+#endif
 
 __BEGIN_DECLS
 char *gettext(const char *) __format_arg(1);
@@ -70,6 +77,7 @@ const char *dcnpgettext(const char *, const char *, const char *,
 char *textdomain(const char *);
 char *bindtextdomain(const char *, const char *);
 char *bind_textdomain_codeset(const char *, const char *);
+
 __END_DECLS
 
-#endif /*__LIBINTL_H_DEFINED__*/
+#endif /* _LIBINTL_H_ */

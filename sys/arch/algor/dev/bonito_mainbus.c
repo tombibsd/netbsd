@@ -43,6 +43,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <algor/autoconf.h>
 
+#include <mips/cpuregs.h>
 #include <mips/bonito/bonitoreg.h>
 
 #ifdef ALGOR_P6032

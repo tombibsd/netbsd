@@ -37,6 +37,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <netinet/in.h>
 #include <netinet/in_systm.h>
 #include <netinet/ip.h>
+#include <netinet/ip_var.h>
 #include <netinet/tcp.h>
 #include <netinet/in_offload.h>
 
@@ -53,12 +54,8 @@ ip_tso_output_callback(void *vp, struct mbuf *m)
 {
 	struct ip_tso_output_args *args = vp;
 	struct ifnet *ifp = args->ifp;
-	int error;
 
-	KERNEL_LOCK(1, NULL);
-	error = (*ifp->if_output)(ifp, m, args->sa, args->rt);
-	KERNEL_UNLOCK_ONE(NULL);
-	return error;
+	return ip_hresolv_output(ifp, m, args->sa, args->rt);
 }
 
 int

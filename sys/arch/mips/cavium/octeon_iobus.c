@@ -132,7 +132,7 @@ iobus_print(void *aux, const char *pnp)
 	if (pnp)
 		aprint_normal("%s at %s", aa->aa_name, pnp);
 
-	aprint_normal(": address=0x%016" PRIx64, aa->aa_unit->addr);
+	aprint_normal(" address 0x%016" PRIx64, aa->aa_unit->addr);
 
 	return UNCONF;
 }

@@ -428,9 +428,8 @@ extern vaddr_t	pmap_curmaxkvaddr;
 
 #if defined(ARM_MMU_EXTENDED) && defined(__HAVE_MM_MD_DIRECT_MAPPED_PHYS)
 /*
- * Starting VA of direct mapped memory (usually KERNEL_BASE).
+ * Ending VA of direct mapped memory (usually KERNEL_VM_BASE).
  */
-extern vaddr_t pmap_directbase;
 extern vaddr_t pmap_directlimit;
 #endif
 

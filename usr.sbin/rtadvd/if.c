@@ -134,8 +134,7 @@ if_getflags(int ifindex, int oifflags)
 	int s;
 
 	if ((s = socket(AF_INET6, SOCK_DGRAM, 0)) < 0) {
-		syslog(LOG_ERR, "<%s> socket: %s", __func__,
-		       strerror(errno));
+		syslog(LOG_ERR, "<%s> socket: %m", __func__);
 		return (oifflags & ~IFF_UP);
 	}
 

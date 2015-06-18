@@ -36,7 +36,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <mips/cavium/include/bootbusvar.h>
 
-const struct bootbus_dev	*bootbus_devs[] = {
+const struct bootbus_dev * const bootbus_devs[] = {
 };
 
 const size_t bootbus_ndevs = __arraycount(bootbus_devs);

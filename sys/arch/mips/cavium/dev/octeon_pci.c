@@ -66,7 +66,7 @@ octeon_pci_init(void)
 {
 #ifdef OCTEON_ETH_DEBUG
 	octeon_pci_intr_rml_ih = octeon_intr_establish(
-	    ffs64(CIU_INTX_SUM0_RML) - 1, 0, IPL_NET, octeon_pci_intr_rml, NULL);
+	    ffs64(CIU_INTX_SUM0_RML) - 1, IPL_NET, octeon_pci_intr_rml, NULL);
 #endif
 }
 

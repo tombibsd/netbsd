@@ -37,8 +37,8 @@
 #include <sys/cdefs.h>
 
 #include <mips/asm.h>
-#include <mips/cpu.h>
 #include <mips/trap.h>
+#include <mips/cpuregs.h>
 
 #include "assym.h"
 

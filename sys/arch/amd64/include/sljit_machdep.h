@@ -29,8 +29,16 @@
 #ifndef _AMD64_SLJITARCH_H
 #define _AMD64_SLJITARCH_H
 
+#if !defined __i386__
+
 #define SLJIT_CONFIG_X86_64 1
 
 #define SLJIT_CACHE_FLUSH(from, to)
+
+#else	/*	!__i386__	*/
+
+#include <i386/sljit_machdep.h>
+
+#endif
 
 #endif

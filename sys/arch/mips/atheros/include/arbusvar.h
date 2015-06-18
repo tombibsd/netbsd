@@ -44,6 +44,9 @@
 #define	_MIPS_ATHEROS_ARBUSVAR_H_
 
 #include <sys/bus.h>
+#include <sys/cpu.h>
+
+#include <mips/cpuregs.h>
 
 struct arbus_attach_args {
 	const char	*aa_name;

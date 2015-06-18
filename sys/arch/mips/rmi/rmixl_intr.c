@@ -81,7 +81,6 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/mutex.h>
 #include <sys/systm.h>
 
-#include <mips/cpuset.h>
 #include <mips/locore.h>
 
 #include <mips/rmi/rmixlreg.h>
@@ -958,7 +957,7 @@ rmixl_send_ipi(struct cpu_info *ci, int tag)
 	uint64_t req = 1 << tag;
 	uint32_t r;
 
-	if (! CPUSET_HAS_P(cpus_running, cpu_index(ci)))
+	if (!kcpuset_isset(cpus_running, cpu_index(ci)))
 		return -1;
 
 	KASSERT((tag >= 0) && (tag < NIPIS));

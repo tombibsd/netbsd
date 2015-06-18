@@ -1720,7 +1720,7 @@ lfs_newvnode(struct mount *mp, struct vnode *dvp, struct vnode *vp,
 	error = lfs_chkiq(ip, 1, cred, 0);
 	if (error) {
 		lfs_vfree(dvp, ino, mode);
-		ffs_deinit_vnode(ump, vp);
+		lfs_deinit_vnode(ump, vp);
 
 		return error;
 	}
@@ -1738,10 +1738,10 @@ lfs_newvnode(struct mount *mp, struct vnode *dvp, struct vnode *vp,
 		 */
 		if (ump->um_fstype == ULFS1)
 			ip->i_ffs1_rdev = ulfs_rw32(vap->va_rdev,
-			    ULFS_MPNEEDSWAP(ump));
+			    ULFS_MPNEEDSWAP(fs));
 		else
 			ip->i_ffs2_rdev = ulfs_rw64(vap->va_rdev,
-			    ULFS_MPNEEDSWAP(ump));
+			    ULFS_MPNEEDSWAP(fs));
 	}
 	lfs_vinit(mp, &vp);
 

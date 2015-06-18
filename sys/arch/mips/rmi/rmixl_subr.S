@@ -144,14 +144,14 @@ NESTED(rmixl_cpu_trampoline, CALLFRAME_SIZ, ra)
 	li		t0, 0
 #endif
 
-	mtc0		zero, $9, 7	/* disable all in MIPS_COP_0_EIMR */
+	mtc0		zero, RMIXL_COP_0_EIMR	/* disable all in MIPS_COP_0_EIMR */
 
 	mtc0		t0, MIPS_COP_0_STATUS
 
 	/* ensure COP_0_EBASE field 'EBASE' is 0 */
-	mfc0		t0, $15, 1	/* MIPS_COP_0_EBASE */
+	mfc0		t0, MIPS_COP_0_EBASE	/* MIPS_COP_0_EBASE */
 	and		t0, t0, 0x3ff
-	mtc0		t0, $15, 1	/* MIPS_COP_0_EBASE */
+	mtc0		t0, MIPS_COP_0_EBASE	/* MIPS_COP_0_EBASE */
 
 	/*
 	 * load our stack pointer from trampoline args
@@ -169,7 +169,7 @@ NESTED(rmixl_cpu_trampoline, CALLFRAME_SIZ, ra)
 	 * jump to common mips cpu_trampoline
 	 */
 	REG_L		a1, 2*SZREG(s0)		/* XXX ta_cpuinfo */
-	dmtc0		a1, $22, 0		/* MIPS_COP_0_OSSCRATCH */
+	dmtc0		a1, MIPS_COP_0_OSSCRATCH
 	j		cpu_trampoline
 	 nop
 

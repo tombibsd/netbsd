@@ -150,7 +150,7 @@ tegra124_mpinit(void)
 	tegra_pmc_power(PMC_PARTID_CPU3, true); started |= __BIT(3);
 
 	for (u_int i = 0x10000000; i > 0; i--) {
-		__asm __volatile("dmb" ::: "memory");
+		arm_dmb();
 		if (arm_cpu_hatched == started)
 			break;
 	}

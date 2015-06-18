@@ -132,10 +132,8 @@ z3rambd_altmem_strategy(void *aux, struct buf *bp)
 {
 	struct z3rambd_softc *sc = aux;
 	void *addr;
-	size_t off, bpos;
+	size_t off;
 	int s;
-
-	bpos = 0;
 
 	bp->b_resid = bp->b_bcount;
 	off = bp->b_blkno << DEV_BSHIFT;
@@ -162,4 +160,3 @@ z3rambd_altmem_getsize(void *aux)
 	struct z3rambd_softc *sc = aux;
 	return sc->sc_size;
 }
-

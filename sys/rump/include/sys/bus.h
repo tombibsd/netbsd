@@ -48,6 +48,7 @@ typedef struct {
 	bus_addr_t	ds_addr;
 	bus_size_t	ds_len;
 	vaddr_t		_ds_vacookie;
+	bus_size_t	_ds_sizecookie;
 } bus_dma_segment_t;
 
 typedef struct {

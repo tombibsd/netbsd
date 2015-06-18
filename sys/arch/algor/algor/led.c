@@ -38,6 +38,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <sys/param.h>
 
+#include <mips/cpuregs.h>
+
 #include <algor/autoconf.h>
 
 #ifdef ALGOR_P4032

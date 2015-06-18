@@ -144,6 +144,16 @@ imx6_memprobe(void)
 	bitwidth += __SHIFTOUT(ctrl, MMDC1_MDCTL_SDE_1);
 	bitwidth += (misc & MMDC1_MDMISC_DDR_4_BANK) ? 2 : 3;
 
+	/* over 4GB ? limit 3840MB (SoC design limitation) */
+	if (bitwidth >= 32) {
+		/*
+		 * XXX: bus_dma and uvm cannot treat 0xffffffff as high address
+		 *      correctly because of 0xffffffff + 1 = 0x00000000.
+		 *      therefore use 0xffffefff.
+		 */
+		return (psize_t)IMX6_MEM_SIZE - PAGE_SIZE;
+	}
+
 	return (psize_t)1 << bitwidth;
 }
 

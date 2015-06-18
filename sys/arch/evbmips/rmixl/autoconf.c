@@ -83,17 +83,19 @@ extern int	netboot;
 static void
 findroot(void)
 {
-	device_t dv;
-	deviter_t di;
-
 	if (booted_device)
 		return;
 
 	if ((booted_device == NULL) && netboot == 0) {
+		device_t dv;
+		deviter_t di;
+
 		for (dv = deviter_first(&di, DEVITER_F_ROOT_FIRST); dv != NULL;
 		    dv = deviter_next(&di)) {
-			if (device_class(dv) == DV_DISK &&
-			    device_is_a(dv, "wd"))
+			if (device_class(dv) == DV_DISK
+			    && (device_is_a(dv, "wd")
+				|| device_is_a(dv, "sd")
+				|| device_is_a(dv, "ld")))
 				booted_device = dv;
 		}
 		deviter_release(&di);

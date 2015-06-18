@@ -305,7 +305,7 @@ genfb_attach(struct genfb_softc *sc, struct genfb_ops *ops)
 	genfb_restore_palette(sc);
 
 	sc->sc_splash.si_depth = sc->sc_depth;
-	sc->sc_splash.si_bits = sc->sc_console_screen.scr_ri.ri_bits;
+	sc->sc_splash.si_bits = sc->sc_console_screen.scr_ri.ri_origbits;
 	sc->sc_splash.si_hwbits = sc->sc_fbaddr;
 	sc->sc_splash.si_width = sc->sc_width;
 	sc->sc_splash.si_height = sc->sc_height;

@@ -896,9 +896,8 @@ MK${var}:=	yes
 .if ${MACHINE_ARCH} == "x86_64" || ${MACHINE_ARCH} == "sparc64" \
     || ${MACHINE_ARCH} == "mips64eb" || ${MACHINE_ARCH} == "mips64el" \
     || ${MACHINE_ARCH} == "powerpc64" || ${MACHINE_CPU} == "aarch64" \
-    || ${MACHINE_ARCH} == "riscv64"
-MKCOMPAT?=	yes
-.elif !empty(MACHINE_ARCH:Mearm*)
+    || ${MACHINE_ARCH} == "riscv64" \
+    || !empty(MACHINE_ARCH:Mearm*)
 MKCOMPAT?=	yes
 .else
 # Don't let this build where it really isn't supported.

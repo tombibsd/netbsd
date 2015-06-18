@@ -40,8 +40,10 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <sys/param.h>
 #include <sys/bus.h>
+#include <sys/cpu.h>
 
 #include <mips/locore.h>
+#include <mips/cpuregs.h>
 
 #include <mips/alchemy/dev/augpiovar.h>
 #include <mips/alchemy/dev/aupcmciavar.h>

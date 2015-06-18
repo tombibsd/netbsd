@@ -42,14 +42,17 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include "opt_ddb.h"
 
 #include <sys/param.h>
-#include <sys/systm.h>
 #include <sys/conf.h>
+#include <sys/cpu.h>
 #include <sys/device.h>
-#include <sys/tty.h>
 #include <sys/intr.h>
+#include <sys/tty.h>
+#include <sys/systm.h>
 
 #include <dev/cons.h>
 #include <dev/ic/z8530reg.h>
+
+#include <mips/cpuregs.h>
 
 #include <machine/autoconf.h>
 #include <machine/z8530var.h>

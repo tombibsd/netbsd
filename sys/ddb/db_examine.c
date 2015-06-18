@@ -101,6 +101,12 @@ db_examine(db_addr_t addr, char *fmt, int count)
 				size = 4;
 				width = 12;
 				break;
+			case 'q':
+				if (sizeof(db_expr_t) != sizeof(uint64_t)) {
+					size = -1;
+					db_error("q not supported\n");
+					/*NOTREACHED*/
+				}
 			case 'L':	/* implementation maximum */
 				size = sizeof value;
 				width = 12 * (sizeof value / 4);

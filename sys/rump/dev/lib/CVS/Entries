@@ -15,6 +15,7 @@ D/libnetsmb////
 D/libopencrypto////
 D/libpad////
 D/libpci////
+D/libpci_auich////
 D/libpci_eap////
 D/libpci_hdaudio////
 D/libpci_if_iwn////

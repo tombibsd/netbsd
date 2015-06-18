@@ -87,7 +87,7 @@ ATF_TC_HEAD(sigqueue_err, tc)
 
 ATF_TC_BODY(sigqueue_err, tc)
 {
-	union sigval sv;
+	static union sigval sv;
 
 	errno = 0;
 	ATF_REQUIRE_ERRNO(EINVAL, sigqueue(getpid(), -1, sv) == -1);

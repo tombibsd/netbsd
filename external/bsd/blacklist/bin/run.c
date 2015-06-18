@@ -116,6 +116,9 @@ run_change(const char *how, const struct conf *c, char *id, size_t len)
 	size_t off;
 
 	switch (c->c_proto) {
+	case -1:
+		prname = "";
+		break;
 	case IPPROTO_TCP:
 		prname = "tcp";
 		break;
@@ -127,7 +130,11 @@ run_change(const char *how, const struct conf *c, char *id, size_t len)
 		return -1;
 	}
 
-	snprintf(poname, sizeof(poname), "%d", c->c_port);
+	if (c->c_port != -1)
+		snprintf(poname, sizeof(poname), "%d", c->c_port);
+	else
+		poname[0] = '\0';
+
 	snprintf(maskname, sizeof(maskname), "%d", c->c_lmask);
 	sockaddr_snprintf(adname, sizeof(adname), "%a", (const void *)&c->c_ss);
 

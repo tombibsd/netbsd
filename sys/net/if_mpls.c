@@ -53,6 +53,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <netinet/in_systm.h>
 #include <netinet/in_var.h>
 #include <netinet/ip.h>
+#include <netinet/ip_var.h>
 #endif
 
 #ifdef INET6
@@ -469,9 +470,13 @@ mpls_send_frame(struct mbuf *m, struct ifnet *ifp, struct rtentry *rt)
 	case IFT_ETHER:
 	case IFT_TUNNEL:
 	case IFT_LOOP:
+#ifdef INET
+		ret = ip_hresolv_output(ifp, m, rt->rt_gateway, rt);
+#else
 		KERNEL_LOCK(1, NULL);
 		ret =  (*ifp->if_output)(ifp, m, rt->rt_gateway, rt);
 		KERNEL_UNLOCK_ONE(NULL);
+#endif
 		return ret;
 		break;
 	default:

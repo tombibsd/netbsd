@@ -44,4 +44,10 @@
 
 #endif /* _KERNEL */
 
+#ifdef __OCTEON__
+#define	SYNCW	syncw
+#else
+#define	SYNCW	nop
+#endif
+
 #endif /* _ATOMIC_OP_ASM_H_ */

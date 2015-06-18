@@ -1176,7 +1176,7 @@ uvm_pageout(void *arg)
 		    uvmexp.paging == 0) {
 			rumpuser_dprintf("pagedaemoness: failed to reclaim "
 			    "memory ... sleeping (deadlock?)\n");
-			cv_timedwait(&pdaemoncv, &pdaemonmtx, hz);
+			kpause("pddlk", false, hz, &pdaemonmtx);
 		}
 	}
 

@@ -46,6 +46,9 @@ LEAF(_atomic_cas_32)
 	beq		t0, zero, 1b
  	 nop
 	move		v0, a1
+#ifdef _MIPS_ARCH_OCTEONP
+	syncw
+#endif
 2:
 	j		ra
 	 nop
@@ -63,6 +66,9 @@ LEAF(_atomic_cas_64)
 	beq		t0, zero, 1b
  	 nop
 	move		v0, a1
+#ifdef _MIPS_ARCH_OCTEONP
+	syncw
+#endif
 2:
 	j		ra
 	 nop

@@ -40,6 +40,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <sys/bus.h>
 
+#include <mips/cpuregs.h>
 #include <mips/bonito/bonitoreg.h>
 
 #include <evbmips/loongson/autoconf.h>

@@ -33,6 +33,7 @@
 
 #define	PIC_MAXSOURCES			256
 #define	PIC_MAXMAXSOURCES		(256 + 6 * 32)
+#define	__HAVE_PIC_PENDING_INTRS	/* for imxgpio */
 
 /*
  * The BCM53xx uses a generic interrupt controller so pull that stuff.

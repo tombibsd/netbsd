@@ -30,11 +30,13 @@
 __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <sys/param.h>
-#include <sys/systm.h>
+#include <sys/bus.h>
 #include <sys/device.h>
-#include <uvm/uvm_param.h>
+#include <sys/systm.h>
 
-#include <machine/bus.h>
+#include <uvm/uvm_extern.h>
+
+#include <mips/cpuregs.h>
 
 #include <hpcmips/vr/vripif.h>
 #include <hpcmips/vr/dsureg.h>

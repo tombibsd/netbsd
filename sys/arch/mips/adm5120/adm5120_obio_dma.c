@@ -71,6 +71,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #define	_MIPS_BUS_DMA_PRIVATE
 #include <sys/bus.h>
 
+#include <mips/cpuregs.h>
+
 #include <mips/adm5120/include/adm5120_obiovar.h>
 
 void

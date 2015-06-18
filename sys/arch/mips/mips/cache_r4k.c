@@ -40,6 +40,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <sys/param.h>
 
+#include <mips/cpuregs.h>
 #include <mips/cache.h>
 #include <mips/cache_r4k.h>
 

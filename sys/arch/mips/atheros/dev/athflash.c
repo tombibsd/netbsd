@@ -318,8 +318,6 @@ int
 flashwrite(dev_t dev, struct uio *uio, int flag)
 {
 	struct flash_softc	*sc;
-	bus_space_tag_t		iot;
-	bus_space_handle_t	ioh;
 	bus_size_t		off;
 	int			stat;
 	int			error;
@@ -333,9 +331,6 @@ flashwrite(dev_t dev, struct uio *uio, int flag)
 	if (uio->uio_resid % sc->sc_sector_size)
 		return EINVAL;
 
-	iot = sc->sc_iot;
-	ioh = sc->sc_ioh;
-	
 	for (off = uio->uio_offset;
 	     uio->uio_resid > 0;
 	     off += sc->sc_sector_size) {

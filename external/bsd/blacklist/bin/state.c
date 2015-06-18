@@ -47,6 +47,7 @@ __RCSID("$NetBSD$");
 #include "bl.h"
 #include "internal.h"
 #include "conf.h"
+#include "support.h"
 #include "state.h"
 
 static HASHINFO openinfo = {
@@ -102,18 +103,7 @@ static void
 dumpkey(const struct conf *k)
 {
 	char buf[10240];
-	size_t z;
-	int r;
-	const unsigned char *p = (const void *)k;
-	const unsigned char *e = p + sizeof(*k);
-	r = snprintf(buf, sizeof(buf), "%s: ", __func__);
-	if (r == -1 || (z = (size_t)r) >= sizeof(buf))
-		z = sizeof(buf);
-	while (p < e) {
-		r = snprintf(buf + z, sizeof(buf) - z, "%.2x", *p++);
-		if (r == -1 || (z += (size_t)r) >= sizeof(buf))
-			z = sizeof(buf);
-	}
+	hexdump(buf, sizeof(buf), __func__, k, sizeof(*k));
 	(*lfun)(LOG_DEBUG, "%s", buf);
 	(*lfun)(LOG_DEBUG, "%s: %s", __func__,
 	    conf_print(buf, sizeof(buf), "", "", k));

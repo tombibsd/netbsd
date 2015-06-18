@@ -1,8 +1,6 @@
 #	$NetBSD$
 
-MLIBDIR?=	none
-
-.if (${MACHINE_ARCH} == "x86_64" && ${MLIBDIR} != "i386")
+.if (${MACHINE_ARCH} == "x86_64" && ${MLIBDIR:Unone} != "i386")
 SRCS+=	x86_64_mtrr.c x86_64_iopl.c
 .endif
 

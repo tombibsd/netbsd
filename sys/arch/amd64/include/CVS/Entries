@@ -79,7 +79,7 @@
 /segments.h/1.24/Thu Oct 24 10:28:57 2013/-kk/
 /setjmp.h/1.2/Sun Oct 26 00:08:15 2008/-kk/
 /signal.h/1.12/Thu Oct 24 10:28:57 2013/-kk/
-/sljit_machdep.h/1.1/Wed Jul 23 18:19:43 2014/-kk/
+/sljit_machdep.h/1.2/Thu Jun 18 03:42:15 2015/-kk/
 /specialreg.h/1.5/Wed Oct 17 19:53:04 2007/-kk/
 /sysarch.h/1.6/Mon Apr 16 19:12:17 2007/-kk/
 /trap.h/1.1/Sat Apr 26 18:39:48 2003/-kk/

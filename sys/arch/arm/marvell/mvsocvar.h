@@ -119,8 +119,12 @@ enum mvsoc_tags {
 	ARMADAXP_TAG_PEX2_IO,
 	ARMADAXP_TAG_PEX3_MEM,
 	ARMADAXP_TAG_PEX3_IO,
+	ARMADAXP_TAG_CRYPT0,
+	ARMADAXP_TAG_CRYPT1,
 };
 int mvsoc_target(int, uint32_t *, uint32_t *, uint32_t *, uint32_t *);
+int mvsoc_target_dump(struct mvsoc_softc *);
+int mvsoc_attr_dump(struct mvsoc_softc *, uint32_t, uint32_t);
 
 extern int (*mvsoc_clkgating)(struct marvell_attach_args *);
 

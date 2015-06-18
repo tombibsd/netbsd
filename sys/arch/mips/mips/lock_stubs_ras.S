@@ -36,7 +36,6 @@
 #include <sys/errno.h>
 
 #include <machine/asm.h>
-#include <machine/cpu.h>
 
 #include "assym.h"
 

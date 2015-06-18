@@ -97,7 +97,7 @@ octeon_ipd_init(struct octeon_ipd_attach_args *aa,
 	octeon_ipd_intr_evcnt_attach(sc);
 	if (octeon_ipd_intr_drop_ih == NULL)
 		octeon_ipd_intr_drop_ih = octeon_intr_establish(
-		   ffs64(CIU_INTX_SUM0_IPD_DRP) - 1, 0, IPL_NET,
+		   ffs64(CIU_INTX_SUM0_IPD_DRP) - 1, IPL_NET,
 		   octeon_ipd_intr_drop, NULL);
 	__octeon_ipd_softc[sc->sc_port] = sc;
 #endif /* OCTEON_ETH_DEBUG */

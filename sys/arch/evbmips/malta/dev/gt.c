@@ -44,6 +44,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <dev/pci/pcivar.h>
 
+#include <mips/cpuregs.h>
+
 #include <evbmips/malta/maltareg.h>
 #include <evbmips/malta/maltavar.h>
 

@@ -369,10 +369,8 @@ in_getifa(struct ifaddr *ifa, const struct sockaddr *dst0)
 	}
 
 	ia = (struct in_ifaddr *)best_ifa;
-	if (ia->ia4_flags & IN_IFF_NOTREADY) {
-		errno = EADDRNOTAVAIL;
+	if (ia->ia4_flags & IN_IFF_NOTREADY)
 		return NULL;
-	}
 
 #ifdef GETIFA_DEBUG
 	if (in_selsrc_debug) {

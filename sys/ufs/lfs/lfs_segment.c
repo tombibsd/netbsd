@@ -479,7 +479,7 @@ lfs_writevnodes(struct lfs *fs, struct mount *mp, struct segment *sp, int op)
 {
 	struct inode *ip;
 	struct vnode *vp;
-	int inodes_written = 0, only_cleaning;
+	int inodes_written = 0;
 	int error = 0;
 
 	ASSERT_SEGLOCK(fs);
@@ -547,14 +547,10 @@ lfs_writevnodes(struct lfs *fs, struct mount *mp, struct segment *sp, int op)
 			continue;
 		}
 
-		only_cleaning = 0;
 		/*
 		 * Write the inode/file if dirty and it's not the IFILE.
 		 */
 		if ((ip->i_flag & IN_ALLMOD) || !VPISEMPTY(vp)) {
-			only_cleaning =
-			    ((ip->i_flag & IN_ALLMOD) == IN_CLEANING);
-
 			if (ip->i_number != LFS_IFILE_INUM) {
 				error = lfs_writefile(fs, sp, vp);
 				if (error) {
@@ -598,10 +594,7 @@ lfs_writevnodes(struct lfs *fs, struct mount *mp, struct segment *sp, int op)
 			}
 		}
 
-		if (lfs_clean_vnhead && only_cleaning)
-			vrele(vp);
-		else
-			vrele(vp);
+		vrele(vp);
 
 		mutex_enter(&mntvnode_lock);
 	}

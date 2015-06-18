@@ -17,9 +17,6 @@ CPPFLAGS+= -DIPSEC -I${.CURDIR}
 CPPFLAGS+= -I${NETBSDSRCDIR}/sys/dist/pf
 CPPFLAGS+= -I${NETBSDSRCDIR}/sbin/route
 
-CWARNFLAGS.clang+=	-Wno-format
-COPTS.show.c += -Wno-format-nonliteral
-
 .PATH:  ${.CURDIR}/../../lib/libc/gen
 .PATH:  ${.CURDIR}/../../lib/libc/net
 .PATH:  ${.CURDIR}/../../sbin/route

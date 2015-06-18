@@ -36,6 +36,7 @@
 #define AWIN_bpi		3
 #define AWIN_hummingbird_a31	4
 #define AWIN_allwinner_a80	5
+#define AWIN_olimexlime2	6
 
 #include <arm/allwinner/awin_reg.h>
 

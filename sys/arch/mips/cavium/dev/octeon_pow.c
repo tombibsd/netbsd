@@ -328,7 +328,6 @@ octeon_pow_intr_establish(int group, int level,
 
 	pow_ih->pi_ih = octeon_intr_establish(
 	    ffs64(CIU_INTX_SUM0_WORKQ_0) - 1 + group,
-	    0/* XXX */,
 	    level,
 	    octeon_pow_intr, pow_ih);
 	KASSERT(pow_ih->pi_ih != NULL);

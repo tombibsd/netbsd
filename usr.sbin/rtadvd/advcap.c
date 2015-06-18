@@ -136,8 +136,7 @@ getent(char *bp, char *name, char *cp)
 		tf = open(RM = cp, O_RDONLY);
 	}
 	if (tf < 0) {
-		syslog(LOG_INFO,
-		       "<%s> open: %s", __func__, strerror(errno));
+		syslog(LOG_INFO, "<%s> open: %m", __func__);
 		return (-2);
 	}
 	for (;;) {

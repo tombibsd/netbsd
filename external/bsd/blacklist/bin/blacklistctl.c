@@ -85,7 +85,7 @@ main(int argc, char *argv[])
 	argc--;
 	argv++;
 
-	while ((o = getopt(argc, argv, "abdrw")) != -1)
+	while ((o = getopt(argc, argv, "abD:drw")) != -1)
 		switch (o) {
 		case 'a':
 			all = 1;
@@ -93,6 +93,9 @@ main(int argc, char *argv[])
 			break;
 		case 'b':
 			blocked = 1;
+		case 'D':
+			dbname = optarg;
+			break;
 			break;
 		case 'd':
 			debug++;

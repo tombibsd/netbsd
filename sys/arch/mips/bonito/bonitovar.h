@@ -34,6 +34,8 @@
 
 #include <dev/pci/pcivar.h>
 
+#include <mips/cpuregs.h>
+
 struct bonito_config {
 	int		bc_adbase;	/* AD line base for config access */
 

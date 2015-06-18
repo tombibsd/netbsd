@@ -1,8 +1,8 @@
-/au1000.c/1.10/Sun Jul 10 23:13:23 2011/-kk/
-/au1100.c/1.10/Sun Jul 10 23:13:23 2011/-kk/
-/au1500.c/1.11/Sun Jul 10 23:13:23 2011/-kk/
-/au1550.c/1.14/Sun Jul 10 23:13:23 2011/-kk/
-/au_chipdep.c/1.4/Sun Jul 10 23:13:23 2011/-kk/
+/au1000.c/1.11/Thu Jun 18 03:42:19 2015/-kk/
+/au1100.c/1.11/Thu Jun 18 03:42:19 2015/-kk/
+/au1500.c/1.12/Thu Jun 18 03:42:19 2015/-kk/
+/au1550.c/1.15/Thu Jun 18 03:42:19 2015/-kk/
+/au_chipdep.c/1.5/Thu Jun 18 03:42:19 2015/-kk/
 /au_cpureg_mem.c/1.6/Fri Jul  1 18:39:29 2011/-kk/
 /au_himem_space.c/1.14/Fri Jan 27 18:52:57 2012/-kk/
 /au_icu.c/1.29/Sat Jan 14 16:09:19 2012/-kk/

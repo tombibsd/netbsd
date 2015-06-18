@@ -38,6 +38,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #define __INTR_PRIVATE
 
 #include <sys/param.h>
+#include <sys/cpu.h>
 #include <sys/malloc.h>
 #include <sys/intr.h>
 

@@ -61,11 +61,14 @@ cpu_intr(int ppl, vaddr_t pc, uint32_t status)
 	const u_int blcnt = curlwp->l_blcnt;
 #endif
 	KASSERT(ci->ci_cpl == IPL_HIGH);
+	KDASSERT(mips_cp0_status_read() & MIPS_SR_INT_IE);
 
 	ci->ci_data.cpu_nintr++;
 
 	while (ppl < (ipl = splintr(&pending))) {
+		KDASSERT(mips_cp0_status_read() & MIPS_SR_INT_IE);
 		splx(ipl);	/* lower to interrupt level */
+		KDASSERT(mips_cp0_status_read() & MIPS_SR_INT_IE);
 
 		KASSERTMSG(ci->ci_cpl == ipl,
 		    "%s: cpl (%d) != ipl (%d)", __func__, ci->ci_cpl, ipl);
@@ -104,4 +107,5 @@ cpu_intr(int ppl, vaddr_t pc, uint32_t status)
 	}
 
 	KASSERT(ci->ci_cpl == IPL_HIGH);
+	KDASSERT(mips_cp0_status_read() & MIPS_SR_INT_IE);
 }

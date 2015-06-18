@@ -218,13 +218,12 @@ cpu_rmixl_attach(device_t parent, device_t self, void *aux)
 			return;
 		}
 
-		const u_long cpu_mask = 1L << cpu_index(ci);
 		for (size_t i=0; i < 10000; i++) {
-			if ((cpus_hatched & cpu_mask) != 0)
+			if (!kcpuset_isset(cpus_hatched, cpu_index(ci)))
 				 break;
 			DELAY(100);
 		}
-		if ((cpus_hatched & cpu_mask) == 0) {
+		if (!kcpuset_isset(cpus_hatched, cpu_index(ci))) {
 			aprint_error(": failed to hatch\n");
 			return;
 		}
@@ -321,10 +320,9 @@ cpu_rmixl_hatch(struct cpu_info *ci)
 
 	(void)splhigh();
 
-#ifdef DEBUG
-	uint32_t ebase;
-	asm volatile("dmfc0 %0, $15, 1;" : "=r"(ebase));
-	KASSERT((ebase & __BITS(9,0)) == ci->ci_cpuid);
+#ifdef DIAGNOSTIC
+	uint32_t ebase = mipsNN_cp0_ebase_read();
+	KASSERT((ebase & MIPS_EBASE_CPUNUM) == ci->ci_cpuid);
 	KASSERT(curcpu() == ci);
 #endif
 

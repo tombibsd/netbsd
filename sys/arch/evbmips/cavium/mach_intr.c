@@ -44,6 +44,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <sys/param.h>
 #include <sys/bus.h>
+#include <sys/lwp.h>
 #include <sys/device.h>
 #include <sys/intr.h>
 #include <sys/kernel.h>
@@ -56,7 +57,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 void
 evbmips_intr_init(void)
 {
-	octeon_intr_init();
+	octeon_intr_init(curcpu());
 }
 
 void

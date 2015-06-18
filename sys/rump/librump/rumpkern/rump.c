@@ -125,6 +125,7 @@ int  (*rump_vfs_makeonedevnode)(dev_t, const char *,
 				devmajor_t, devminor_t) = (void *)nullop;
 int  (*rump_vfs_makedevnodes)(dev_t, const char *, char,
 			      devmajor_t, devminor_t, int) = (void *)nullop;
+int  (*rump_vfs_makesymlink)(const char *, const char *) = (void *)nullop;
 
 rump_proc_vfs_init_fn rump_proc_vfs_init = (void *)nullop;
 rump_proc_vfs_release_fn rump_proc_vfs_release = (void *)nullop;

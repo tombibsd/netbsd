@@ -40,14 +40,15 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include "opt_use_poll.h"
 
 #include <sys/param.h>
-#include <sys/systm.h>
+#include <sys/bus.h>
 #include <sys/callout.h>
 #include <sys/device.h>
-
-#include <machine/bus.h>
-#include <machine/intr.h>
+#include <sys/intr.h>
+#include <sys/systm.h>
 
 #include <dev/hpc/hpckbdvar.h>
+
+#include <mips/cpuregs.h>
 
 #include <hpcmips/tx/tx39var.h>
 #include <hpcmips/tx/txcsbusvar.h>

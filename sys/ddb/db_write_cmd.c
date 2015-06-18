@@ -67,6 +67,15 @@ db_write_cmd(db_expr_t address, bool have_addr,
 	case '\0':
 		size = 4;
 		break;
+	case 'q':
+		if (sizeof(db_expr_t) != sizeof(uint64_t)) {
+			size = -1;
+			db_error("q not supported\n");
+			/*NOTREACHED*/
+		}
+	case 'L':
+		size = sizeof(db_expr_t);
+		break;
 	default:
 		size = -1;
 		db_error("Unknown size\n");

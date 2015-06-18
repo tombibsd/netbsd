@@ -35,6 +35,9 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+#ifndef _MIPS_CACHE_H_
+#define _MIPS_CACHE_H_
+
 /*
  * Cache operations.
  *
@@ -287,3 +290,5 @@ void	mips_config_cache(void);
 void	mips_dcache_compute_align(void);
 
 #include <mips/cache_mipsNN.h>
+
+#endif /* _MIPS_CACHE_H_ */

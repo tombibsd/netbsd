@@ -65,6 +65,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <dev/pci/pcivar.h>
 #include <dev/pci/pcidevs.h>
 
+#include <mips/cpuregs.h>
 #include <mips/bonito/bonitoreg.h>
 #include <mips/bonito/bonitovar.h>
 

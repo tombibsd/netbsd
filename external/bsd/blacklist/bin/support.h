@@ -38,6 +38,7 @@ void vdlog(int, const char *, va_list)
     __attribute__((__format__(__printf__, 2, 0)));
 void dlog(int, const char *, ...)
     __attribute__((__format__(__printf__, 2, 3)));
+ssize_t hexdump(char *, size_t, const char *, const void *, size_t);
 __END_DECLS
 
 #endif /* _SUPPORT_H */

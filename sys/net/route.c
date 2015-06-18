@@ -213,6 +213,8 @@ rt_get_ifa(struct rtentry *rt)
 #endif
 	else {
 		ifa = (*ifa->ifa_getifa)(ifa, rt_getkey(rt));
+		if (ifa == NULL)
+			return NULL;
 		rt_replace_ifa(rt, ifa);
 		return ifa;
 	}
@@ -676,8 +678,11 @@ rt_getifa(struct rt_addrinfo *info)
 	}
 	if ((ifa = info->rti_ifa) == NULL)
 		return ENETUNREACH;
-	if (ifa->ifa_getifa != NULL)
+	if (ifa->ifa_getifa != NULL) {
 		info->rti_ifa = ifa = (*ifa->ifa_getifa)(ifa, dst);
+		if (ifa == NULL)
+			return ENETUNREACH;
+	}
 	if (info->rti_ifp == NULL)
 		info->rti_ifp = ifa->ifa_ifp;
 	return 0;

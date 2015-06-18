@@ -577,7 +577,7 @@ output_font_name(File &f)
     ;
   *(p + 1) = '\0';
   printf("# %s\n", font_name);
-  delete font_name;
+  delete[] font_name;
 }
 
 static void

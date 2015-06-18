@@ -341,9 +341,15 @@ test_xresolve_rtm()
 	rump.route -n monitor > ./mon.log &
 	pid=$!
 
+	# Give route monitor a chance to setup a routing socket
+	sleep 1
+
 	atf_check -s exit:0 -o ignore rump.ping -n -w 1 -c 1 $ip
 	$DEBUG && rump.netstat -rn -f inet
-	$DEBUG && cat ./mon.log
+
+	# Give route monitor a chance to output a routing message
+	sleep 1
+	cat ./mon.log
 
 	atf_check -s exit:0 grep -q $rtm ./mon.log
 

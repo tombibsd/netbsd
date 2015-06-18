@@ -46,7 +46,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <net/if_ether.h>
 
-#include <machine/cpu.h>
+#include <mips/cpu.h>
+#include <mips/locore.h>
 
 #include <evbmips/cavium/octeon_uboot.h>
 
@@ -65,6 +66,7 @@ cpu_configure(void)
 
 	/* XXX need this? */
 	(void)spl0();
+	KDASSERT(mips_cp0_status_read() & MIPS_SR_INT_IE);
 }
 
 void

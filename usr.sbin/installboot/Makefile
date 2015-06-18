@@ -7,7 +7,6 @@ PROG=	installboot
 MAN=	installboot.8
 SRCS=	installboot.c sum.c machines.c fstypes.c
 
-
 ARCH_XLAT= amd64-i386.c news68k-news.c newsmips-news.c
 ARCH_XLAT+= sun2-sun68k.c sun3-sun68k.c
 
@@ -47,6 +46,9 @@ CPPFLAGS+=	-I${.CURDIR} -I.
 .for f in i386 macppc
 COPTS.${f}.c+=  -Wno-pointer-sign
 .endfor
+
+LDADD+= -lutil
+DPADD+= ${LIBUTIL}
 .endif
 
 .include <bsd.prog.mk>

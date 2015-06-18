@@ -36,7 +36,6 @@
 #include <sys/errno.h>
 
 #include <machine/asm.h>
-#include <machine/cpu.h>		/* MIPS_CURLWP */
 
 #include "assym.h"
 
@@ -45,8 +44,13 @@
 #endif
 
 #if defined(MULTIPROCESSOR)
+#if defined(__OCTEON__)
+#define	SYNC		syncw
+#define	BDSYNC		syncw
+#else
 #define	SYNC		sync
 #define	BDSYNC		sync
+#endif
 #else
 #define	SYNC		/* nothing */
 #define	BDSYNC		nop

@@ -23,6 +23,17 @@ attach	mainbus at root
 file	arch/mips/cavium/mainbus.c		mainbus
 file	arch/mips/cavium/mainbus_octeon1p.c	mainbus
 
+device	cpunode { [core=-1] }
+attach	cpunode at mainbus
+
+device	cpu {}
+attach	cpu at cpunode with cpu_cpunode
+
+device	wdog: sysmon_wdog
+attach	wdog at cpunode with wdog_cpunode
+
+file	arch/mips/cavium/octeon_cpunode.c	cpunode | cpu | wdog needs-flag
+
 # I/O Bus
 
 device	iobus {}

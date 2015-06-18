@@ -57,7 +57,6 @@
 
 #include <sys/errno.h>
 #include <mips/asm.h>
-#include <mips/cpu.h>
 #include "assym.h"
 
 	.set	noreorder

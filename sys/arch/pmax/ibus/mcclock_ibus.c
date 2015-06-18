@@ -31,9 +31,11 @@
 __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <sys/param.h>
-#include <sys/kernel.h>
+#include <sys/cpu.h>
 #include <sys/device.h>
+#include <sys/kernel.h>
 #include <sys/systm.h>
+
 #include <dev/clock_subr.h>
 
 #include <dev/dec/mcclockvar.h>

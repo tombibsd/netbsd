@@ -38,7 +38,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <mips/cavium/include/mainbusvar.h>
 
 const char * const mainbus_devs[] = {
-	"cpu",
+	"cpunode",
 #if 1
 /* XXX board-specific, not cpu-specific... */
 	"flash",
@@ -48,4 +48,4 @@ const char * const mainbus_devs[] = {
 	"iobus",
 	"bootbus"
 };
-const size_t mainbus_ndevs = sizeof(mainbus_devs) / sizeof(mainbus_devs[0]);
+const size_t mainbus_ndevs = __arraycount(mainbus_devs);

@@ -61,18 +61,35 @@ LEAF(_membar_sync)
 #endif
 END(_membar_sync)
 
+#ifdef __OCTEON__
+LEAF(_membar_producer)
+	j	ra
+	 syncw
+END(_membar_producer)
+#endif
+
 #ifdef _KERNEL
 STRONG_ALIAS(mb_read, _membar_sync)
+#ifdef __OCTEON__
+STRONG_ALIAS(mb_write, _membar_producer)
+#else
 STRONG_ALIAS(mb_write, _membar_sync)
+#endif
 STRONG_ALIAS(mb_memory, _membar_sync)
 #endif
 
 ATOMIC_OP_ALIAS(membar_sync,_membar_sync)
 ATOMIC_OP_ALIAS(membar_enter,_membar_sync)
 STRONG_ALIAS(_membar_enter,_membar_sync)
+#ifdef __OCTEON__
+ATOMIC_OP_ALIAS(membar_exit,_membar_producer)
+STRONG_ALIAS(_membar_exit,_membar_producer)
+STRONG_ALIAS(membar_producer,_membar_producer)
+#else
 ATOMIC_OP_ALIAS(membar_exit,_membar_sync)
 STRONG_ALIAS(_membar_exit,_membar_sync)
 ATOMIC_OP_ALIAS(membar_producer,_membar_sync)
 STRONG_ALIAS(_membar_producer,_membar_sync)
+#endif
 ATOMIC_OP_ALIAS(membar_consumer,_membar_sync)
 STRONG_ALIAS(_membar_consumer,_membar_sync)

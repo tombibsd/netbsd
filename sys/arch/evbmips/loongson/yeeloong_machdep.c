@@ -30,6 +30,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/device.h>
 #include <sys/types.h>
 
+#include <mips/cpuregs.h>
 #include <evbmips/loongson/autoconf.h>
 #include <mips/pmon/pmon.h>
 #include <evbmips/loongson/loongson_intr.h>

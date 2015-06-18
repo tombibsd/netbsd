@@ -114,6 +114,7 @@ softint_process(uint32_t ipending)
 	KASSERT((ipending & MIPS_SOFT_INT_MASK) != 0);
 	KASSERT((ipending & ~MIPS_SOFT_INT_MASK) == 0);
 	KASSERT(ci->ci_cpl == IPL_HIGH);
+	KDASSERT(mips_cp0_status_read() & MIPS_SR_INT_IE);
 	KASSERTMSG(ci->ci_mtx_count == 0,
 	    "%s: cpu%u (%p): ci_mtx_count (%d) != 0",
 	     __func__, cpu_index(ci), ci, ci->ci_mtx_count);

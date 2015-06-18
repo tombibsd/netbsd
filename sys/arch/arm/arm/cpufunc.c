@@ -1380,6 +1380,10 @@ struct cpu_functions pj4bv7_cpufuncs = {
 	.cf_dcache_inv_range	= armv7_dcache_inv_range,
 	.cf_dcache_wb_range	= armv7_dcache_wb_range,
 
+	.cf_sdcache_wbinv_range	= (void *)cpufunc_nullop,
+	.cf_sdcache_inv_range	= (void *)cpufunc_nullop,
+	.cf_sdcache_wb_range	= (void *)cpufunc_nullop,
+
 	.cf_idcache_wbinv_all	= armv7_idcache_wbinv_all,
 	.cf_idcache_wbinv_range	= armv7_idcache_wbinv_range,
 

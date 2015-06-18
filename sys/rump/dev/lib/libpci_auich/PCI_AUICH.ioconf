@@ -1,0 +1,11 @@
+#	$NetBSD$
+#
+
+ioconf pci_auich
+
+include "conf/files"
+include "dev/pci/files.pci"
+
+pseudo-root pci*
+
+auich* at pci?

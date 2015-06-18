@@ -46,8 +46,13 @@
 #endif
 
 typedef	vaddr_t		db_addr_t;	/* address - unsigned */
+#ifdef __mips_n32
+#define	DDB_EXPR_FMT	"ll"		/* expression is long long */
+typedef	int64_t		db_expr_t;	/* expression - signed */
+#else
 #define	DDB_EXPR_FMT	"l"		/* expression is long */
 typedef	long		db_expr_t;	/* expression - signed */
+#endif
 
 typedef struct reg db_regs_t;
 

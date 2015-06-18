@@ -3,7 +3,7 @@
 .include <bsd.own.mk>
 
 SUBDIR=	libgrep libnlsut libnlspr info .WAIT \
-	gettext msgattrib msgcat msgcmp msgcomm msgconv msgen msgfilter \
+	msgattrib msgcat msgcmp msgcomm msgconv msgen msgfilter \
 	msgfmt msginit msgmerge msgunfmt msguniq xgettext
 
 .if ${MKNLS} != "no"

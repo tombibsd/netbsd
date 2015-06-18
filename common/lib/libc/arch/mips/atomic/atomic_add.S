@@ -46,12 +46,16 @@ RCSID("$NetBSD$")
 
 
 LEAF(_atomic_add_32)
+#if defined(_MIPS_ARCH_OCTEONP) || defined(_MIPS_ARCH_OCTEON2)
+	saa		a1, (a0)
+#else
 1:	INT_LL		t0, 0(a0)
 	 nop
 	INT_ADDU	t0, a1
 	INT_SC		t0, 0(a0)
 	beq		t0, zero, 1b
  	 nop
+#endif
 	j		ra
 	 nop
 END(_atomic_add_32)
@@ -72,12 +76,16 @@ ATOMIC_OP_ALIAS(atomic_add_32_nv, _atomic_add_32_nv)
 
 #if !defined(__mips_o32)
 LEAF(_atomic_add_64)
+#if defined(_MIPS_ARCH_OCTEONP) || defined(_MIPS_ARCH_OCTEON2)
+	saad		a1, (a0)
+#else
 1:	REG_LL		t0, 0(a0)
 	 nop
 	REG_ADDU	t0, a1
 	REG_SC		t0, 0(a0)
 	beq		t0, zero, 1b
  	 nop
+#endif
 	j		ra
 	 nop
 END(_atomic_add_64)

@@ -54,7 +54,7 @@ LEAF(_atomic_swap_32)
  	 nop
 2:
 	j		ra
-	 nop
+	 SYNCW
 END(_atomic_swap_32)
 ATOMIC_OP_ALIAS(atomic_swap_32, _atomic_swap_32)
 
@@ -68,7 +68,7 @@ LEAF(_atomic_swap_64)
  	 nop
 2:
 	j		ra
-	 nop
+	 SYNCW
 END(_atomic_swap_64)
 ATOMIC_OP_ALIAS(atomic_swap_64, _atomic_swap_64)
 #endif

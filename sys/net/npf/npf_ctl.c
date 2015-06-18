@@ -49,13 +49,9 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include "npf_impl.h"
 #include "npf_conn.h"
 
-#if defined(DEBUG) || defined(DIAGNOSTIC)
 #define	NPF_ERR_DEBUG(e) \
 	prop_dictionary_set_cstring_nocopy((e), "source-file", __FILE__); \
 	prop_dictionary_set_uint32((e), "source-line", __LINE__);
-#else
-#define	NPF_ERR_DEBUG(e)
-#endif
 
 /*
  * npfctl_switch: enable or disable packet inspection.

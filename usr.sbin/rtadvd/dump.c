@@ -99,9 +99,9 @@ if_dump(void)
 	struct dnssl_domain *dnsd;
 	char *p, len;
 	char prefixbuf[INET6_ADDRSTRLEN];
-	struct timeval now;
+	struct timespec now;
 
-	gettimeofday(&now, NULL); /* XXX: unused in most cases */
+	clock_gettime(CLOCK_MONOTONIC, &now); /* XXX: unused in most cases */
 	TAILQ_FOREACH(rai, &ralist, next) {
 		fprintf(fp, "%s:\n", rai->ifname);
 
@@ -198,7 +198,7 @@ if_dump(void)
 				pfx->autoconfflg ? "A" : "",
 				"");
 			if (pfx->timer) {
-				struct timeval *rest;
+				struct timespec *rest;
 
 				rest = rtadvd_timer_rest(pfx->timer);
 				if (rest) { /* XXX: what if not? */

@@ -184,8 +184,13 @@ static __inline void
 __cpu_simple_unlock(__cpu_simple_lock_t *lp)
 {
 
+#ifndef _MIPS_ARCH_OCTEONP
 	mb_memory();
+#endif
 	*lp = __SIMPLELOCK_UNLOCKED;
+#ifdef _MIPS_ARCH_OCTEONP
+	mb_write();
+#endif
 }
 
 #endif /* _MIPS_LOCK_H_ */

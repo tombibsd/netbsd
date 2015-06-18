@@ -535,7 +535,7 @@ cpu_dumpconf(void)
 		else if (dumplo == 0)
 			dumplo = nblks - btodb(ctob(dumpsize));
 	}
-	--dumplo;	/* XXX assume header fits in one block */
+	dumplo -= btodb(ctob(btoc(MDHDRSIZE + ctob(1) - 1)));
 	/*
 	 * Don't dump on the first PAGE_SIZE (why PAGE_SIZE?)
 	 * in case the dump device includes a disk label.

@@ -784,10 +784,7 @@ lfs_mknod(void *v)
 	}
 
 	fstrans_done(ap->a_dvp->v_mount);
-	if (error != 0) {
-		*vpp = NULL;
-		return (error);
-	}
+	KASSERT(error == 0);
 	VOP_UNLOCK(*vpp);
 	return (0);
 }
@@ -1017,9 +1014,6 @@ lfs_mkdir(void *v)
 
 out:
 	fstrans_done(dvp->v_mount);
-#if defined(LFS_QUOTA) || defined(LFS_QUOTA2)
-out2:
-#endif
 
 	UNMARK_VNODE(dvp);
 	UNMARK_VNODE(*vpp);

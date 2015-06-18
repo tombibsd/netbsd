@@ -146,7 +146,7 @@ octeon_mpi_attach(device_t parent, device_t self, void *aux)
 	    (0x7d << MPI_CFG_CLKDIV_SHIFT) | MPI_CFG_CSENA | MPI_CFG_ENABLE | MPI_CFG_INT_ENA);
 	/* Enable device interrupts */
 	sc->sc_ih = octeon_intr_establish(ffs64(CIU_INTX_SUM0_MPI) - 1,
-		0, IPL_SERIAL, octeon_mpi_intr, sc);
+		IPL_SERIAL, octeon_mpi_intr, sc);
 	if (sc->sc_ih == NULL)
 		panic("l2sw: can't establish interrupt\n");
 #else

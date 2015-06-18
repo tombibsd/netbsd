@@ -6,8 +6,8 @@
 /clock.c/1.22/Wed Mar 16 14:43:36 2011/-kk/
 /cpu.c/1.18/Sat Feb 26 12:08:30 2011/-kk/
 /hpcapm_machdep.c/1.5/Wed Mar 16 13:23:41 2011/-kk/
-/interrupt.c/1.18/Sun Feb 20 07:58:14 2011/-kk/
-/kloader_machdep.c/1.7/Wed Mar 18 10:22:29 2009/-kk/
+/interrupt.c/1.19/Thu Jun 18 03:42:18 2015/-kk/
+/kloader_machdep.c/1.8/Thu Jun 18 03:42:18 2015/-kk/
 /kloader_tx39.S/1.4/Mon Apr 28 20:23:21 2008/-kk/
 /kloader_vr41.S/1.4/Mon Apr 28 20:23:21 2008/-kk/
 /locore_machdep.S/1.8/Sun Dec 11 12:17:33 2005/-kk/

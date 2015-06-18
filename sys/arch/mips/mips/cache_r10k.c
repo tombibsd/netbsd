@@ -61,6 +61,7 @@
 
 #include <sys/param.h>
 
+#include <mips/cpuregs.h>
 #include <mips/cache.h>
 #include <mips/cache_r4k.h>
 #include <mips/cache_r10k.h>

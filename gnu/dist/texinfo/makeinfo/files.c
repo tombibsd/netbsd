@@ -458,8 +458,7 @@ full_pathname (char *filename)
           temp_home = (char *) getenv ("HOME");
           result = xmalloc (strlen (&filename[1])
                                     + 1
-                                    + temp_home ? strlen (temp_home)
-                                    : 0);
+                                    + (temp_home ? strlen (temp_home) : 0));
           *result = 0;
 
           if (temp_home)

@@ -42,7 +42,7 @@
 /kttcpio.h/1.1/Fri Jun 28 23:27:14 2002/-kk/
 /ld.c/1.83/Wed May 13 03:33:05 2015/-kk/
 /ldvar.h/1.23/Wed May 13 03:33:05 2015/-kk/
-/lockstat.c/1.22/Sat Mar 21 02:47:11 2015/-kk/
+/lockstat.c/1.23/Thu Jun 18 03:42:25 2015/-kk/
 /lockstat.h/1.13/Sat Mar 21 02:37:48 2015/-kk/
 /md.c/1.74/Fri May  1 11:32:03 2015/-kk/
 /md.h/1.11/Mon Dec 14 03:11:22 2009/-kk/

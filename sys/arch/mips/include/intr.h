@@ -64,6 +64,8 @@
 #define	IST_LEVEL_HIGH	4		/* level triggered, active high */
 #define	IST_LEVEL_LOW	5		/* level triggered, active low */
 
+#define IST_MPSAFE	0x100		/* interrupt is MPSAFE */
+
 #define	IPI_NOP		0		/* do nothing, interrupt only */
 #define	IPI_AST		1		/* force ast */
 #define	IPI_SHOOTDOWN	2		/* do a tlb shootdown */
@@ -73,7 +75,8 @@
 #define	IPI_HALT	6		/* halt cpu */
 #define	IPI_XCALL	7		/* xcall */
 #define	IPI_GENERIC	8		/* generic IPI */
-#define	NIPIS		9
+#define	IPI_WDOG	9		/* tickle a wdog */
+#define	NIPIS		10
 
 #ifdef __INTR_PRIVATE
 struct splsw {

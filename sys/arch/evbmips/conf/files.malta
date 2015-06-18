@@ -41,6 +41,9 @@ include "dev/ata/files.ata"
 # Machine-independent PC-style keyboard controller drivers
 include "dev/pckbport/files.pckbport"
 
+# Machine-independent bluetooth device support
+include "dev/bluetooth/files.bluetooth"
+
 # Machine-independent USB device support
 include "dev/usb/files.usb"
 

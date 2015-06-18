@@ -104,4 +104,8 @@
 #define	ta3	$15
 #endif /* __mips_n32 || __mips_n64 */
 
+#ifdef _KERNEL
+#define	MIPS_CURLWP	t8	/* needs to synced with cpu.h */
+#endif
+
 #endif /* _MIPS_REGDEF_H */

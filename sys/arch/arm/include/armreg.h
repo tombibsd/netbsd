@@ -645,6 +645,22 @@
 #define L2CTRL_NUMCPU	__BITS(25,24)	// numcpus - 1
 #define L2CTRL_ICPRES	__BIT(23)	// Interrupt Controller is present
 
+/* Translation Table Base Register */
+#define	TTBR_C			__BIT(0)	/* without MPE */
+#define	TTBR_S			__BIT(1)
+#define	TTBR_IMP		__BIT(2)
+#define	TTBR_RGN_MASK		__BITS(4,3)
+#define	 TTBR_RGN_NC		__SHIFTIN(0, TTBR_RGN_MASK)
+#define	 TTBR_RGN_WBWA		__SHIFTIN(1, TTBR_RGN_MASK)
+#define	 TTBR_RGN_WT		__SHIFTIN(2, TTBR_RGN_MASK)
+#define	 TTBR_RGN_WBNWA		__SHIFTIN(3, TTBR_RGN_MASK)
+#define	TTBR_NOS		__BIT(5)
+#define	TTBR_IRGN_MASK		(__BIT(6) | __BIT(0))
+#define	 TTBR_IRGN_NC		0
+#define	 TTBR_IRGN_WBWA		__BIT(6)
+#define	 TTBR_IRGN_WT		__BIT(0)
+#define	 TTBR_IRGN_WBNWA	(__BIT(0) | __BIT(6))
+
 /* Translate Table Base Control Register */
 #define TTBCR_S_EAE	__BIT(31)	// Extended Address Extension
 #define TTBCR_S_PD1	__BIT(5)	// Don't use TTBR1

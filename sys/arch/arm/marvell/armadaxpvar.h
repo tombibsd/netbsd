@@ -26,6 +26,7 @@
  */
 #ifndef _ARMDAXPVAR_H_
 #define _ARMDAXPVAR_H_
+#include <arm/marvell/mvsocvar.h>
 #include <machine/bus_defs.h>
 
 /* device initalization */
@@ -40,5 +41,8 @@ extern void armadaxp_sdcache_inv_range(vaddr_t, paddr_t, psize_t);
 extern void armadaxp_sdcache_wb_range(vaddr_t, paddr_t, psize_t);
 extern void armadaxp_sdcache_wbinv_range(vaddr_t, paddr_t, psize_t);
 
-#endif /* _ARMDAXPVAR_H_ */
+/* mbus initialization */
+extern int armadaxp_init_mbus(void);
+extern int armadaxp_attr_dump(struct mvsoc_softc *, uint32_t, uint32_t);
 
+#endif /* _ARMDAXPVAR_H_ */

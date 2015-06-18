@@ -52,6 +52,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/systm.h>
 #include <sys/device.h>
 #include <sys/bus.h>
+#include <sys/cpu.h>
 #include <sys/workqueue.h>
 
 #include <dev/usb/usb.h>
@@ -308,7 +309,7 @@ octeon_dwc2_attach(device_t parent, device_t self, void *aux)
 	    config_found(sc->sc_dwc2.sc_dev, &sc->sc_dwc2.sc_bus, usbctlprint);
 
 	sc->sc_ih = octeon_intr_establish(ffs64(CIU_INTX_SUM0_USB) - 1,
-	    0, IPL_BIO, dwc2_intr, sc);
+	    IPL_BIO, dwc2_intr, sc);
 	if (sc->sc_ih == NULL)
 		panic("can't establish common interrupt\n");
 }

@@ -50,6 +50,7 @@ extern int	(*rump_vfs_makeonedevnode)(dev_t, const char *,
 					   devmajor_t, devminor_t);
 extern int	(*rump_vfs_makedevnodes)(dev_t, const char *, char,
 					 devmajor_t, devminor_t, int);
+extern int	(*rump_vfs_makesymlink)(const char *, const char *);
 extern void	(*rump_vfs_drainbufs)(int);
 extern void	(*rump_vfs_fini)(void);
 

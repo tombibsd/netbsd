@@ -1,5 +1,5 @@
 /Makefile.inc/1.10/Wed Mar 21 05:47:53 2012/-kk/
-/Makefile/1.220/Sat Mar 21 02:38:02 2015/-kk/
+/Makefile/1.221/Thu Jun 18 03:42:38 2015/-kk/
 D/apply////
 D/apropos////
 D/asa////
@@ -68,6 +68,7 @@ D/getaddrinfo////
 D/getconf////
 D/getent////
 D/getopt////
+D/gettext////
 D/gprof////
 D/grep////
 D/gzip////

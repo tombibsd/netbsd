@@ -43,10 +43,12 @@
 __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <sys/param.h>
-#include <sys/systm.h>
-#include <sys/device.h>
-
 #include <sys/bus.h>
+#include <sys/device.h>
+#include <sys/systm.h>
+
+#include <mips/cpuregs.h>
+
 #include <mips/atheros/include/ar5312reg.h>
 #include <mips/atheros/include/platform.h>
 

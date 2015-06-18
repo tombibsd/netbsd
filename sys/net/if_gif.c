@@ -44,6 +44,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/errno.h>
 #include <sys/ioctl.h>
 #include <sys/time.h>
+#include <sys/socketvar.h>
 #include <sys/syslog.h>
 #include <sys/proc.h>
 #include <sys/protosw.h>
@@ -344,12 +345,16 @@ gifintr(void *arg)
 		switch (sc->gif_psrc->sa_family) {
 #ifdef INET
 		case AF_INET:
+			mutex_enter(softnet_lock);
 			error = in_gif_output(ifp, family, m);
+			mutex_exit(softnet_lock);
 			break;
 #endif
 #ifdef INET6
 		case AF_INET6:
+			mutex_enter(softnet_lock);
 			error = in6_gif_output(ifp, family, m);
+			mutex_exit(softnet_lock);
 			break;
 #endif
 		default:

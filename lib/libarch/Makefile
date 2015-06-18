@@ -18,7 +18,7 @@ LIBC_MACHINE_CPU?=	${MACHINE_CPU}
 
 # Build the library if SRCS is now defined ...
 .if defined(SRCS)
-.if defined(MLIBDIR) && ${MLIBDIR} != "none" && ${LIBC_MACHINE_CPU} != "arm"
+.if defined(MLIBDIR) && ${LIBC_MACHINE_CPU} != "arm"
 LIB=	${MLIBDIR}
 .else
 LIB=	${LIBC_MACHINE_CPU}

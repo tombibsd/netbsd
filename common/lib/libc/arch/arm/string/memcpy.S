@@ -10,4 +10,6 @@
 
 #if defined(__ARM_EABI__) && !defined(_RUMPKERNEL)
 STRONG_ALIAS(__aeabi_memcpy, memcpy)
+STRONG_ALIAS(__aeabi_memcpy4, memcpy)
+STRONG_ALIAS(__aeabi_memcpy8, memcpy)
 #endif

@@ -217,7 +217,7 @@ void rmixlfw_mmap_print(rmixlfw_mmap_t *);
 
 
 #ifdef MULTIPROCESSOR
-static bool rmixl_fixup_cop0_oscratch(int32_t, uint32_t [2]);
+static bool rmixl_fixup_cop0_oscratch(int32_t, uint32_t [2], void *);
 void rmixl_get_wakeup_info(struct rmixl_config *);
 #ifdef MACHDEP_DEBUG
 static void rmixl_wakeup_info_print(volatile rmixlfw_cpu_wakeup_info_t *);
@@ -408,7 +408,7 @@ mach_init(int argc, int32_t *argv, void *envp, int64_t infop)
 	__asm __volatile("dmtc0 %0,$%1"
 		:: "r"(&cpu_info_store), "n"(MIPS_COP_0_OSSCRATCH));
 #ifdef MULTIPROCESSOR
-	mips_fixup_exceptions(rmixl_fixup_cop0_oscratch);
+	mips_fixup_exceptions(rmixl_fixup_cop0_oscratch, NULL);
 #endif
 	rmixl_fixup_curcpu();
 }
@@ -451,7 +451,7 @@ rmixl_pcr_init_core(void)
 
 #ifdef MULTIPROCESSOR
 static bool
-rmixl_fixup_cop0_oscratch(int32_t load_addr, uint32_t new_insns[2])
+rmixl_fixup_cop0_oscratch(int32_t load_addr, uint32_t new_insns[2], void *arg)
 {
 	size_t offset = load_addr - (intptr_t)&cpu_info_store;
 
@@ -1018,7 +1018,7 @@ cpu_reboot(int howto, char *bootstr)
 {
 
 	/* Take a snapshot before clobbering any registers. */
-	savectx(curpcb);
+	savectx(lwp_getpcb(curlwp));
 
 	if (cold) {
 		howto |= RB_HALT;

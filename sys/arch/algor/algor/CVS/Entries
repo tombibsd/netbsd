@@ -19,7 +19,7 @@
 /algor_p6032reg.h/1.2/Mon Apr 28 20:23:10 2008/-kk/
 /algor_p6032var.h/1.5/Fri Jul  8 18:48:56 2011/-kk/
 /autoconf.c/1.22/Sat Oct 27 17:17:24 2012/-kk/
-/led.c/1.7/Sat Jul  9 16:03:00 2011/-kk/
+/led.c/1.8/Thu Jun 18 03:42:14 2015/-kk/
 /locore_machdep.S/1.4/Wed Jan  9 14:46:49 2008/-kk/
 /machdep.c/1.53/Fri Apr 11 02:03:26 2014/-kk/
 /pmon.c/1.6/Mon Dec 14 00:45:59 2009/-kk/

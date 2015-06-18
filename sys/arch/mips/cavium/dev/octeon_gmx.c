@@ -241,7 +241,7 @@ octeon_gmx_attach(device_t parent, device_t self, void *aux)
 	octeon_gmx_intr_evcnt_attach(sc);
 	if (octeon_gmx_intr_drop_ih == NULL)
 		octeon_gmx_intr_drop_ih = octeon_intr_establish(
-		   ffs64(CIU_INTX_SUM0_GMX_DRP) - 1, 0, IPL_NET,
+		   ffs64(CIU_INTX_SUM0_GMX_DRP) - 1, IPL_NET,
 		   octeon_gmx_intr_drop, NULL);
 #endif
 }

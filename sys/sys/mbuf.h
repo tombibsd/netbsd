@@ -913,6 +913,8 @@ struct	m_tag *m_tag_next(struct mbuf *, struct m_tag *);
 						    * loop detection/recovery
 						    */
 
+#define	PACKET_TAG_MPLS				29 /* Indicate it's for MPLS */
+
 /*
  * Return the number of bytes in the mbuf chain, m.
  */

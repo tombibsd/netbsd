@@ -72,22 +72,22 @@ CTFMFLAGS+= -g
 
 # ELF platforms depend on crti.o, crtbegin.o, crtend.o, and crtn.o
 .ifndef LIBCRTBEGIN
-LIBCRTBEGIN=	${DESTDIR}/usr/lib/crti.o ${_GCC_CRTBEGIN}
+LIBCRTBEGIN=	${DESTDIR}/usr/lib/${MLIBDIR:D${MLIBDIR}/}crti.o ${_GCC_CRTBEGIN}
 .MADE: ${LIBCRTBEGIN}
 .endif
 .ifndef LIBCRTEND
-LIBCRTEND=	${_GCC_CRTEND} ${DESTDIR}/usr/lib/crtn.o
+LIBCRTEND=	${_GCC_CRTEND} ${DESTDIR}/usr/lib/${MLIBDIR:D${MLIBDIR}/}crtn.o
 .MADE: ${LIBCRTEND}
 .endif
 _SHLINKER=	${SHLINKDIR}/ld.elf_so
 
 .ifndef LIBCRT0
-LIBCRT0=	${DESTDIR}/usr/lib/crt0.o
+LIBCRT0=	${DESTDIR}/usr/lib/${MLIBDIR:D${MLIBDIR}/}crt0.o
 .MADE: ${LIBCRT0}
 .endif
 
 .ifndef LIBCRTI
-LIBCRTI=	${DESTDIR}/usr/lib/crti.o
+LIBCRTI=	${DESTDIR}/usr/lib/${MLIBDIR:D${MLIBDIR}/}crti.o
 .MADE: ${LIBCRTI}
 .endif
 

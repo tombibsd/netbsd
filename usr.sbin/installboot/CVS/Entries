@@ -1,10 +1,10 @@
-/Makefile/1.48/Sat Mar  1 06:05:19 2014/-kk/
+/Makefile/1.50/Thu Jun 18 03:42:44 2015/-kk/
 /bbinfo.c/1.14/Sun Apr  5 11:55:39 2009/-kk/
 /ext2fs.c/1.9/Thu Oct 24 10:29:00 2013/-kk/
 /ffs.c/1.32/Thu Oct 24 10:29:00 2013/-kk/
 /fstypes.c/1.13/Thu Jan 14 16:27:49 2010/-kk/
 /installboot.8/1.89/Thu Apr  2 02:25:33 2015/-kk/
-/installboot.c/1.36/Thu Nov  3 20:46:41 2011/-kk/
+/installboot.c/1.38/Thu Jun 18 03:42:44 2015/-kk/
 /installboot.h/1.39/Sat Mar  1 06:05:19 2014/-kk/
 /machines.c/1.39/Sat Mar  1 06:05:19 2014/-kk/
 /sum.c/1.5/Thu Jan 14 16:27:49 2010/-kk/

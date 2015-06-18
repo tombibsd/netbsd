@@ -36,11 +36,12 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include "opt_memsize.h"
 
 #include <sys/param.h>
-
 #include <sys/device.h>
+#include <sys/cpu.h>
 
 #include <prop/proplib.h>
 
+#include <mips/cpuregs.h>
 #include <mips/atheros/include/platform.h>
 #include <mips/atheros/include/ar9344reg.h>
 

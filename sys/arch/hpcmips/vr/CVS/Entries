@@ -53,11 +53,11 @@
 /vrcpudef.h/1.4/Sun Feb 10 15:09:32 2002/-kk/
 /vrdcu.c/1.7/Sat Oct 27 17:17:55 2012/-kk/
 /vrdcuvar.h/1.1/Mon Feb 11 04:33:23 2002/-kk/
-/vrdmaau.c/1.6/Sat Oct 27 17:17:56 2012/-kk/
+/vrdmaau.c/1.7/Thu Jun 18 03:42:18 2015/-kk/
 /vrdmaauvar.h/1.1/Mon Feb 11 04:33:24 2002/-kk/
 /vrdsiu_mouse.c/1.12/Sat Oct 27 17:17:56 2012/-kk/
 /vrdsiureg.h/1.1/Thu May 30 01:44:59 2002/-kk/
-/vrdsu.c/1.11/Sat Oct 27 17:17:56 2012/-kk/
+/vrdsu.c/1.12/Thu Jun 18 03:42:18 2015/-kk/
 /vrdsuvar.h/1.2/Sun Sep 16 05:32:21 2001/-kk/
 /vrecu.c/1.10/Sat Oct 27 17:17:56 2012/-kk/
 /vrgiu.c/1.42/Sat Oct 27 17:17:56 2012/-kk/

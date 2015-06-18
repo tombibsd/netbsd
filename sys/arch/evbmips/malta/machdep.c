@@ -282,7 +282,7 @@ mach_init(int argc, char **argv, yamon_env_var *envp, u_long memsize)
 	/*
 	 * We can never be running on more than one processor but we can dream.
 	 */
-	mips_fixup_exceptions(mips_fixup_zero_relative);
+	mips_fixup_exceptions(mips_fixup_zero_relative, NULL);
 #endif
 }
 

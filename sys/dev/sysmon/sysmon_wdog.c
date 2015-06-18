@@ -92,6 +92,7 @@ wdog_preinit(void)
 	mutex_init(&sysmon_wdog_list_mtx, MUTEX_DEFAULT, IPL_NONE);
 	mutex_init(&sysmon_wdog_mtx, MUTEX_DEFAULT, IPL_SOFTCLOCK);
 	cv_init(&sysmon_wdog_cv, "wdogref");
+	callout_init(&sysmon_wdog_callout, 0);
 
 	return 0;
 }
@@ -109,7 +110,6 @@ sysmon_wdog_init(void)
 	sysmon_wdog_cphook = critpollhook_establish(sysmon_wdog_critpoll, NULL);
 	if (sysmon_wdog_cphook == NULL)
 		printf("WARNING: unable to register watchdog critpoll hook\n");
-	callout_init(&sysmon_wdog_callout, 0);
 
 	error = sysmon_attach_minor(SYSMON_MINOR_WDOG, &sysmon_wdog_opvec);
 

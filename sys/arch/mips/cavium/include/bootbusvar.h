@@ -57,7 +57,7 @@ struct bootbus_attach_args {
 	bus_dma_tag_t	aa_dmat;
 };
 
-extern const struct bootbus_dev *bootbus_devs[];
+extern const struct bootbus_dev * const bootbus_devs[];
 extern const size_t bootbus_ndevs;
 
 void		bootbus_bootstrap(struct octeon_config *);

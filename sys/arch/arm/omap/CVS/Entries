@@ -1,9 +1,11 @@
 /am335x_cm_padconf.c/1.3/Tue Dec  9 04:43:36 2014/-kk/
 /am335x_dmtimer.c/1.1/Tue Dec 11 19:06:23 2012/-kk/
 /am335x_prcm.c/1.8/Fri Oct  3 10:04:58 2014/-kk/
-/am335x_prcm.h/1.8/Mon Jul 21 08:07:27 2014/-kk/
+/am335x_prcm.h/1.9/Thu Jun 18 03:42:16 2015/-kk/
+/am335x_trng.c/1.1/Sat Jun  6 14:00:32 2015/-kk/
+/am335x_trngreg.h/1.1/Sat Jun  6 14:00:32 2015/-kk/
 /files.omap/1.6/Wed Jun  6 20:21:45 2012/-kk/
-/files.omap2/1.30/Wed Apr 22 07:35:48 2015/-kk/
+/files.omap2/1.31/Thu Jun 18 03:42:16 2015/-kk/
 /files.omapl1x/1.1/Thu Oct 24 10:28:57 2013/-kk/
 /if_cpsw.c/1.12/Wed Apr 22 07:35:48 2015/-kk/
 /if_cpswreg.h/1.5/Wed Apr 22 07:35:48 2015/-kk/
@@ -30,7 +32,7 @@
 /omap2_obiovar.h/1.3/Wed Apr 22 07:35:48 2015/-kk/
 /omap2_prcm.c/1.5/Thu Oct 24 10:28:57 2013/-kk/
 /omap2_prcm.h/1.3/Thu Oct 24 10:28:57 2013/-kk/
-/omap2_reg.h/1.29/Wed Apr 22 07:35:48 2015/-kk/
+/omap2_reg.h/1.30/Thu Jun 18 03:42:16 2015/-kk/
 /omap3_ehci.c/1.10/Fri Apr 11 02:03:28 2014/-kk/
 /omap3_i2c.c/1.3/Thu Oct 24 10:28:57 2013/-kk/
 /omap3_i2creg.h/1.1/Mon Dec 31 12:45:49 2012/-kk/

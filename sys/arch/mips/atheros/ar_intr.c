@@ -47,9 +47,11 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <sys/param.h>
 #include <sys/intr.h>
+#include <sys/cpu.h>
 #include <sys/kernel.h>
 #include <sys/malloc.h>
 
+#include <mips/cpuregs.h>
 #include <mips/locore.h>
 #include <mips/atheros/include/platform.h>
 

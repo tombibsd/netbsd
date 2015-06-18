@@ -229,7 +229,6 @@ atalk_print2(const struct sockaddr *sa, const struct sockaddr *mask, int what)
 void
 atalkprotopr(u_long off, const char *name)
 {
-	struct ddpcb cb;
 	struct ddpcb *next;
 	struct ddpcb *initial;
 	int width = 22;
@@ -237,7 +236,6 @@ atalkprotopr(u_long off, const char *name)
 		return;
 	if (kread(off, (char *)&initial, sizeof(struct ddpcb *)) < 0)
 		return;
-	ddpcb = cb;
 	for (next = initial; next != NULL;) {
 		u_long	ppcb = (u_long)next;
 

@@ -21,6 +21,3 @@
   the build system makes this quite difficult.  one option for "cheating"
   would be to put it into librumpuser which is always available for
   local clients (per definition of local client).
-* add autoconf support to librumpuser to clean up the #ifdef acrobatics
-  and fix some of the issues that cannot be handled purely with static
-  ifdefs (autoconf to be used for non-native builds only)

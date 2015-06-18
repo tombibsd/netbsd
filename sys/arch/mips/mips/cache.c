@@ -598,7 +598,7 @@ primary_cache_is_2way:
 
 		if (mci->mci_picache_size / mci->mci_picache_ways > PAGE_SIZE ||
 		    mci->mci_pdcache_size / mci->mci_pdcache_ways > PAGE_SIZE)
-			mci->mci_cache_virtual_alias = 1;
+			mci->mci_cache_virtual_alias = true;
 
 		mco->mco_icache_sync_all =
 		    ls2_icache_sync_all;
@@ -677,7 +677,7 @@ primary_cache_is_2way:
 		    (MIPS3_MAX_PCACHE_SIZE - 1) & ~PAGE_MASK;	/* va[14:12] */
 		mci->mci_cache_prefer_mask = MIPS3_MAX_PCACHE_SIZE - 1;
 
-		mci->mci_cache_virtual_alias = 0;
+		mci->mci_cache_virtual_alias = false;
 		/* FALLTHROUGH */
 	case MIPS_R4600:
 #ifdef ENABLE_MIPS_R4700

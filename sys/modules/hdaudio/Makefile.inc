@@ -1,4 +1,4 @@
 #	$NetBSD$
 
-.PATH:	${S}/dev/hdaudio
-SRCS=	hdaudio.c
+.PATH:	${NETBSDSRCDIR}/sys/dev/hdaudio
+SRCS+=	hdaudio.c

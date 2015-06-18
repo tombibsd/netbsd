@@ -87,6 +87,13 @@ makedevnodes(dev_t devtype, const char *basename, char minchar,
 	return error;
 }
 
+static int
+makesymlink(const char *dst, const char *src)
+{
+
+	return do_sys_symlink(dst, src, UIO_SYSSPACE);
+}
+
 enum { NOTEXIST, SAME, DIFFERENT };
 static int
 doesitexist(const char *path, bool isblk, devmajor_t dmaj, devminor_t dmin)
@@ -177,6 +184,7 @@ rump_vfs_builddevs(struct devsw_conv *dcvec, size_t dcvecsize)
 
 	rump_vfs_makeonedevnode = makeonedevnode;
 	rump_vfs_makedevnodes = makedevnodes;
+	rump_vfs_makesymlink = makesymlink;
 
 	for (i = 0; i < dcvecsize; i++) {
 		dc = &dcvec[i];

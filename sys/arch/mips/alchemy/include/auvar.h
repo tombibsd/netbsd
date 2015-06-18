@@ -69,6 +69,8 @@
 #ifndef _MIPS_ALCHEMY_AUVAR_H_
 #define	_MIPS_ALCHEMY_AUVAR_H_
 
+#include <mips/cpuregs.h>
+
 #include "opt_alchemy.h"
 
 struct au_dev {

@@ -30,7 +30,9 @@
 __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <sys/param.h>
+#include <sys/cpu.h>
 #include <sys/systm.h>
+
 #include <mips/cache.h>
 
 #include <machine/sysconf.h>
