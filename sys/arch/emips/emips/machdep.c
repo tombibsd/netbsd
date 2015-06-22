@@ -82,8 +82,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <ddb/db_extern.h>
 #endif
 
-extern vaddr_t iospace;
-extern vsize_t iospace_size;
+vaddr_t iospace = 64 * 1024; /* BUGBUG make it an option? */
+vsize_t iospace_size;
 
 #include "ksyms.h"
 
@@ -315,7 +315,8 @@ mach_init(int argc, char *argv[], int code, intptr_t cv, u_int bim, char *bip)
 	/*
 	 * Initialize the virtual memory system.
 	 */
-	iospace_size = 64*1024; /* BUGBUG make it an option? */
+	iospace = pmap_limits.virtual_start;
+	pmap_limits.virtual_start += iospace_size;
 	pmap_bootstrap();
 
 	mips_init_lwp0_uarea();

@@ -27,7 +27,7 @@
 /int_mwgwtypes.h/1.1/Sat Dec 16 05:45:52 2006/-kk/
 /int_types.h/1.1/Sat Dec 16 05:45:58 2006/-kk/
 /intr.h/1.9/Fri Oct  3 09:09:11 2014/-kk/
-/kloader.h/1.1/Wed Mar 11 09:02:04 2009/-kk/
+/kloader.h/1.2/Mon Jun 22 02:34:59 2015/-kk/
 /limits.h/1.1/Sat Dec 16 05:46:18 2006/-kk/
 /loadfile_machdep.h/1.2/Fri Oct  3 09:25:56 2014/-kk/
 /lock.h/1.1/Sat Dec 16 05:46:24 2006/-kk/

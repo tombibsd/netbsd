@@ -34,9 +34,9 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #ifdef _KERNEL_OPT
 #include "opt_execfmt.h"
-# define	DEPS1	"compat"
+# define	DEPS1	"compat,compat_sysv"
 #else
-# define	DEPS1	"compat,ksem"
+# define	DEPS1	"compat,compat_sysv,ksem"
 #endif
 
 #ifndef ELFSIZE

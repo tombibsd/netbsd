@@ -123,7 +123,7 @@ main(int argc, char *argv[])
 			cvtlevel = argtoi('c', "conversion level", optarg, 10);
 			if (cvtlevel > 4) {
 				cvtlevel = 4;
-				warnx("Using maximum conversion level of %d\n",
+				warnx("Using maximum conversion level of %d",
 				    cvtlevel);
 			}
 			break;
@@ -188,7 +188,7 @@ main(int argc, char *argv[])
 
 	if (snap_backup || snap_internal) {
 		if (!nflag || yflag) {
-			warnx("Cannot use -x or -X without -n\n");
+			warnx("Cannot use -x or -X without -n");
 			snap_backup = NULL;
 			snap_internal = 0;
 		}

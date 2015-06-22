@@ -338,6 +338,7 @@ struct bge_softc {
 	int			bge_txcnt;
 	struct callout		bge_timeout;
 	int			bge_pending_rxintr_change;
+	int			bge_detaching;
 	SLIST_HEAD(, txdmamap_pool_entry) txdma_list;
 	struct txdmamap_pool_entry *txdma[BGE_TX_RING_CNT];
 

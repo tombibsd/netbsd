@@ -2273,15 +2273,17 @@ sparc_bus_map(bus_space_tag_t t, bus_addr_t addr, bus_size_t size,
 	}
 
 #ifdef _LP64
-	/* If it's not LINEAR don't bother to map it.  Use phys accesses. */
-	if ((flags & BUS_SPACE_MAP_LINEAR) == 0) {
-		hp->_ptr = addr;
-		if (map_little)
-			hp->_asi = ASI_PHYS_NON_CACHED_LITTLE;
-		else
-			hp->_asi = ASI_PHYS_NON_CACHED;
-		hp->_sasi = ASI_PHYS_NON_CACHED;
-		return (0);
+	if (!CPU_ISSUN4V) {
+		/* If it's not LINEAR don't bother to map it.  Use phys accesses. */
+		if ((flags & BUS_SPACE_MAP_LINEAR) == 0) {
+			hp->_ptr = addr;
+			if (map_little)
+				hp->_asi = ASI_PHYS_NON_CACHED_LITTLE;
+			else
+				hp->_asi = ASI_PHYS_NON_CACHED;
+			hp->_sasi = ASI_PHYS_NON_CACHED;
+			return (0);
+		}
 	}
 #endif
 

@@ -3,7 +3,7 @@
 
 PROG=	make
 SRCS=	arch.c buf.c compat.c cond.c dir.c for.c hash.c job.c main.c \
-	make.c parse.c str.c suff.c targ.c trace.c var.c util.c 
+	make.c metachar.c parse.c str.c suff.c targ.c trace.c var.c util.c 
 SRCS+=  strlist.c
 SRCS+=  make_malloc.c
 SRCS+=	lstAppend.c lstAtEnd.c lstAtFront.c lstClose.c lstConcat.c \

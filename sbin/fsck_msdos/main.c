@@ -106,7 +106,7 @@ main(int argc, char **argv)
 		}
 	}
 	if (snap_backup != NULL && (!alwaysno || alwaysyes)) {
-		warnx("Cannot use -x without -n\n");
+		warnx("Cannot use -x without -n");
 		snap_backup = NULL;
 	}
 	argc -= optind;

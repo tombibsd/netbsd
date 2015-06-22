@@ -85,6 +85,6 @@ yperr_string(int incode)
 	case YPERR_BUSY:
 		return __UNCONST("Database is busy");
 	}
-	(void) snprintf(err, sizeof(err), "YP unknown error %d\n", incode);
+	(void) snprintf(err, sizeof(err), "YP unknown error %d", incode);
 	return err;
 }

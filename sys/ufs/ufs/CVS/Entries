@@ -14,7 +14,7 @@
 /ufs_dirhash.c/1.37/Sat Dec 27 03:35:55 2014/-kk/
 /ufs_extattr.c/1.46/Tue Dec  9 04:35:06 2014/-kk/
 /ufs_extern.h/1.79/Thu Apr  2 02:28:10 2015/-kk/
-/ufs_inode.c/1.94/Thu Jun 18 03:42:36 2015/-kk/
+/ufs_inode.c/1.95/Mon Jun 22 02:35:13 2015/-kk/
 /ufs_lookup.c/1.134/Thu Apr  2 02:28:10 2015/-kk/
 /ufs_quota.c/1.117/Sun Jul 20 13:08:42 2014/-kk/
 /ufs_quota.h/1.22/Sun Jul 20 13:08:42 2014/-kk/

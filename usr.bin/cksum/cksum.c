@@ -194,7 +194,7 @@ main(int argc, char **argv)
 		switch(ch) {
 		case 'a':
 			if (hash) {
-				warnx("illegal use of -a option\n");
+				warnx("illegal use of -a option");
 				usage();
 			}
 			i = 0;
@@ -305,7 +305,7 @@ main(int argc, char **argv)
 			    argc>0?argv[0]:"stdin");
 		
 		while(fgets(buf, sizeof(buf), f) != NULL) {
-			s=strrchr(buf, '\n');
+			s = strrchr(buf, '\n');
 			if (s)
 				*s = '\0';
 

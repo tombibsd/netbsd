@@ -193,7 +193,7 @@
 /dl10019.c/1.12/Sun Jul 22 14:32:56 2012/-kk/
 /dl10019reg.h/1.2/Mon Apr 28 20:23:49 2008/-kk/
 /dl10019var.h/1.2/Mon Apr 28 20:23:49 2008/-kk/
-/dm9000.c/1.7/Sat Mar 21 02:47:12 2015/-kk/
+/dm9000.c/1.8/Mon Jun 22 02:35:02 2015/-kk/
 /dm9000reg.h/1.2/Sat Jan 28 08:29:55 2012/-kk/
 /dm9000var.h/1.2/Sat Jan 28 08:29:55 2012/-kk/
 /dp8390.c/1.82/Wed Apr 22 07:36:51 2015/-kk/
@@ -211,7 +211,7 @@
 /ds.h/1.10/Sun Feb 12 16:34:11 2012/-kk/
 /ds1286reg.h/1.8/Sun Dec 11 12:21:26 2005/-kk/
 /ds1687reg.h/1.10/Sun May  4 12:50:38 2008/-kk/
-/dwc_gmac.c/1.32/Sat Mar 21 02:29:52 2015/-kk/
+/dwc_gmac.c/1.33/Mon Jun 22 02:35:02 2015/-kk/
 /dwc_gmac_reg.h/1.14/Tue Dec  9 04:43:47 2014/-kk/
 /dwc_gmac_var.h/1.6/Tue Dec  9 04:43:47 2014/-kk/
 /dwc_mmc.c/1.6/Thu Feb  5 08:41:10 2015/-kk/

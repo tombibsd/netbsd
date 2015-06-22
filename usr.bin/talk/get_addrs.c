@@ -75,7 +75,7 @@ get_addrs(const char *my_machine_name, const char *his_machine_name)
 	/* find the server's port */
 	sp = getservbyname("ntalk", "udp");
 	if (sp == 0)
-		errx(EXIT_FAILURE, "%s/%s: service is not registered.\n",
+		errx(EXIT_FAILURE, "%s/%s: service is not registered.",
 		     "ntalk", "udp");
 	daemon_port = sp->s_port;
 }

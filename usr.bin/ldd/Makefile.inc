@@ -2,6 +2,8 @@
 
 WARNS?=	3	# XXX: -Wsign-compare issues ld.elf_so source
 
+.if ${MKCOMPAT} != "no"
+
 .if ${MACHINE_ARCH} == "sparc64"
 MLIBDIR=	sparc
 .endif
@@ -20,6 +22,8 @@ MLIBDIR=	64
 COMPAT_MLIBDIR=	o32
 CPPFLAGS+= -DLDD_ELF64 -DMIPS_N32
 .endif
+
+.endif	# MKCOMPAT
 
 .if exists(${.CURDIR}/../../Makefile.inc)
 .include "${.CURDIR}/../../Makefile.inc"

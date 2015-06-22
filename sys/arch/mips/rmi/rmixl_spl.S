@@ -33,7 +33,6 @@
 
 #include <sys/cdefs.h>
 
-#include <machine/param.h>
 #include <mips/asm.h>
 #include <mips/cpuregs.h>
 

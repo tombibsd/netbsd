@@ -138,7 +138,7 @@ ingenic_send_ipi(struct cpu_info *ci, int tag)
 
 	msg = 1 << tag;
 
-	if (cpus_running & (1 << cpu_index(ci))) {
+	if (kcpuset_isset(cpus_running, cpu_index(ci))) {
 		if (cpu_index(ci) == 0) {
 			MTC0(msg, CP0_CORE_MBOX, 0);
 		} else {

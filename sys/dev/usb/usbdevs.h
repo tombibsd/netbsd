@@ -4,7 +4,7 @@
  * THIS FILE AUTOMATICALLY GENERATED.  DO NOT EDIT.
  *
  * generated from:
- *	NetBSD: usbdevs,v 1.696 2015/04/06 17:15:32 bouyer Exp
+ *	NetBSD: usbdevs,v 1.697 2015/06/17 14:20:14 nonaka Exp
  */
 
 /*
@@ -1986,8 +1986,9 @@
 #define	USB_PRODUCT_LACIE_CDRW	0xa602		/* CD R/W */
 
 /* Lenovo products */
-#define	USB_PRODUCT_LENOVO_ETHERNET	0x7203		/* USB 2.0 Ethernet */
 #define	USB_PRODUCT_LENOVO_AX88179	0x304b		/* AX88179 USB 3.0 gigabit ethernet controller */
+#define	USB_PRODUCT_LENOVO_COMPACTKBDWTP	0x6047		/* ThinkPad Compact USB keyboard with TrackPoint */
+#define	USB_PRODUCT_LENOVO_ETHERNET	0x7203		/* USB 2.0 Ethernet */
 
 /* Lexar products */
 #define	USB_PRODUCT_LEXAR_JUMPSHOT	0x0001		/* jumpSHOT CompactFlash Reader */

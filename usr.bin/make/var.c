@@ -138,6 +138,7 @@ __RCSID("$NetBSD$");
 #include    "buf.h"
 #include    "dir.h"
 #include    "job.h"
+#include    "metachar.h"
 
 extern int makelevel;
 /*
@@ -2245,7 +2246,7 @@ VarGetPattern(GNode *ctxt, Var_Parse_State *vpstate MAKE_ATTR_UNUSED,
 /*-
  *-----------------------------------------------------------------------
  * VarQuote --
- *	Quote shell meta-characters in the string
+ *	Quote shell meta-characters and space characters in the string
  *
  * Results:
  *	The quoted string
@@ -2260,29 +2261,25 @@ VarQuote(char *str)
 {
 
     Buffer  	  buf;
-    /* This should cover most shells :-( */
-    static const char meta[] = "\n \t'`\";&<>()|*?{}[]\\$!#^~";
     const char	*newline;
-    size_t len, nlen;
+    size_t nlen;
 
     if ((newline = Shell_GetNewline()) == NULL)
 	    newline = "\\\n";
     nlen = strlen(newline);
 
     Buf_Init(&buf, 0);
-    while (*str != '\0') {
-	if ((len = strcspn(str, meta)) != 0) {
-	    Buf_AddBytes(&buf, len, str);
-	    str += len;
-	} else if (*str == '\n') {
+
+    for (; *str != '\0'; str++) {
+	if (*str == '\n') {
 	    Buf_AddBytes(&buf, nlen, newline);
-	    ++str;
-	} else {
-	    Buf_AddByte(&buf, '\\');
-	    Buf_AddByte(&buf, *str);
-	    ++str;
+	    continue;
 	}
+	if (isspace((unsigned char)*str) || ismeta((unsigned char)*str))
+	    Buf_AddByte(&buf, '\\');
+	Buf_AddByte(&buf, *str);
     }
+
     str = Buf_Destroy(&buf, FALSE);
     if (DEBUG(VAR))
 	fprintf(debug_file, "QuoteMeta: [%s]\n", str);

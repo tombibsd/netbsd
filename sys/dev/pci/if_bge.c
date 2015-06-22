@@ -4863,7 +4863,8 @@ bge_tick(void *xsc)
 
 	bge_asf_driver_up(sc);
 
-	callout_reset(&sc->bge_timeout, hz, bge_tick, sc);
+	if (!sc->bge_detaching)
+		callout_reset(&sc->bge_timeout, hz, bge_tick, sc);
 
 	splx(s);
 }
@@ -5890,9 +5891,10 @@ bge_stop(struct ifnet *ifp, int disable)
 {
 	struct bge_softc *sc = ifp->if_softc;
 
-	if (disable)
+	if (disable) {
+		sc->bge_detaching = 1;
 		callout_halt(&sc->bge_timeout, NULL);
-	else
+	} else
 		callout_stop(&sc->bge_timeout);
 
 	/* Disable host interrupts. */

@@ -446,11 +446,11 @@ bus_dmamap_sync(bus_dma_tag_t t, bus_dmamap_t map,
 void
 bus_dmamem_free(bus_dma_tag_t t, bus_dma_segment_t *segs, int nsegs)
 {
-#ifdef rumpcomp_pci_free
+#ifdef RUMPCOMP_USERFEATURE_PCI_DMAFREE
 	vaddr_t vacookie = segs[0]._ds_vacookie;
 	bus_size_t sizecookie = segs[0]._ds_sizecookie;
 
-	rumpcomp_pci_free(vacookie, sizecookie);
+	rumpcomp_pci_dmafree(vacookie, sizecookie);
 #else
 	panic("bus_dmamem_free not implemented");
 #endif

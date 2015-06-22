@@ -361,8 +361,7 @@ main(int argc, char *argv[])
 	fp = NULL;
 
 	if (insert_padding(&img, &fsize)) {
-		fprintf(stderr, "section relocation failed\n");
-		exit(1);
+		errx(1, "section relocation failed");
 	}
 
 	if (outfile == NULL || strcmp(outfile, "-") == 0)

@@ -1013,10 +1013,12 @@ prtab(const char *s, unsigned char *t, int num_rows)
 int
 main(int argc, char *argv[])
 {
-    if (argc < 2)
-	errx(1, "Usage: %s password [salt]\n", argv[0]);
+	if (argc < 2) {
+		fprintf(stderr, "Usage: %s password [salt]\n", getprogname());
+		return EXIT_FAILURE;
+	}
 
-    printf("%s\n", crypt(argv[1], (argc > 2) ? argv[2] : argv[1]));
-    exit(0);
+	printf("%s\n", crypt(argv[1], (argc > 2) ? argv[2] : argv[1]));
+	return EXIT_SUCCESS;
 }
 #endif

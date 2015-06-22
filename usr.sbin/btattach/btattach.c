@@ -440,7 +440,7 @@ uart_recv_pkt(int fd, struct iovec *iov, int ioc)
 		break;
 
 	default: /* out of sync? */
-		errx(EXIT_FAILURE, "unknown packet type 0x%2.2x\n", type);
+		errx(EXIT_FAILURE, "unknown packet type 0x%2.2x", type);
 	}
 
 	while (want-- > 0)

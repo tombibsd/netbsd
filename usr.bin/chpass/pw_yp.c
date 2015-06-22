@@ -136,7 +136,7 @@ pw_yp(struct passwd *pw, uid_t ypuid)
 	 */
 	if ((rpcport = getrpcport(master, YPPASSWDPROG, YPPASSWDPROC_UPDATE,
 	    IPPROTO_UDP)) == 0) {
-		warnx("master YP server not running yppasswd daemon.\n\t%s\n",
+		warnx("master YP server not running yppasswd daemon.\n\t%s",
 		    "Can't change password.");
 		return (1);
 	}

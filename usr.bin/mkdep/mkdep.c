@@ -472,7 +472,7 @@ main(int argc, char **argv)
 
 	exit(EXIT_SUCCESS);
 wrerror:
-	err(EXIT_FAILURE, "unable to %s to file %s\n",
+	err(EXIT_FAILURE, "unable to %s to file %s",
 	    aflag & O_TRUNC ? "write" : "append", filename);
 }
 

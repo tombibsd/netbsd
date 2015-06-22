@@ -131,7 +131,7 @@ pserialize_destroy(pserialize_t psz)
  *	Perform the write side of passive serialization.  The calling
  *	thread holds an exclusive lock on the data object(s) being updated.
  *	We wait until every processor in the system has made at least two
- *	passes through cpu_swichto().  The wait is made with the caller's
+ *	passes through cpu_switchto().  The wait is made with the caller's
  *	update lock held, but is short term.
  */
 void

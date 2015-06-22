@@ -228,4 +228,10 @@ typedef struct modstat {
 
 int	modctl(int, void *);
 
+#ifdef _KERNEL
+/* attention: pointers passed are userland pointers!,
+   see modctl_load_t */
+int	handle_modctl_load(const char *, int, const char *, size_t);
+#endif
+
 #endif	/* !_SYS_MODULE_H_ */

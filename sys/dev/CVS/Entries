@@ -12,7 +12,7 @@
 /auvolconv.h/1.1/Tue Nov 18 01:53:17 2014/-kk/
 /bio.c/1.12/Sat Mar 21 02:47:11 2015/-kk/
 /biovar.h/1.9/Sat Mar 21 02:47:11 2015/-kk/
-/ccd.c/1.162/Mon Jan 12 06:48:42 2015/-kk/
+/ccd.c/1.163/Mon Jun 22 02:35:01 2015/-kk/
 /ccdvar.h/1.34/Fri Oct  3 09:36:15 2014/-kk/
 /cgd.c/1.98/Wed May 13 03:33:05 2015/-kk/
 /cgd_crypto.c/1.13/Fri May  1 11:32:03 2015/-kk/
@@ -36,7 +36,7 @@
 /fssvar.h/1.28/Sat Mar  1 06:04:40 2014/-kk/
 /keylock.c/1.3/Sat Mar  1 06:04:40 2014/-kk/
 /keylock.h/1.1/Sat Aug 15 09:43:58 2009/-kk/
-/kloader.c/1.26/Thu Feb 13 15:22:27 2014/-kk/
+/kloader.c/1.27/Mon Jun 22 02:35:01 2015/-kk/
 /kloader.h/1.7/Mon Sep  8 23:36:54 2008/-kk/
 /kttcp.c/1.37/Fri Oct  3 09:25:58 2014/-kk/
 /kttcpio.h/1.1/Fri Jun 28 23:27:14 2002/-kk/

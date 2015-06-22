@@ -21,3 +21,4 @@ is taken as the current.
 1.15:	Properly close the firmware handle before starting the kernel
 1.16:	Add support to boot with root on cd9660
 1.17:	Add support for sun4v architecture
+1.18:	Fix loading of kernels with huge .bss

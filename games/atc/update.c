@@ -50,7 +50,15 @@ __RCSID("$NetBSD$");
 #endif
 #endif /* not lint */
 
-#include "include.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+
+#include "def.h"
+#include "struct.h"
+#include "extern.h"
+#include "tunable.h"
 
 static int next_plane(void);
 static int too_close(const PLANE *p1, const PLANE *p2, int);

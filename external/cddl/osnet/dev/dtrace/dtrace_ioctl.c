@@ -659,10 +659,15 @@ again:
 		mutex_exit(&dtrace_provider_lock);
 
 		if (pvp == NULL && error == 0) {
-			error = module_autoload(pvd->dtvd_name,
-			    MODULE_CLASS_MISC);
-			if (error == 0)
-				goto again;
+			char name[NAME_MAX];
+
+			if (snprintf(name, sizeof name, "dtrace_%s",
+			    pvd->dtvd_name) < sizeof name) {
+				error = module_autoload(name,
+				    MODULE_CLASS_MISC);
+				if (error == 0)
+					goto again;
+			}
 		}
 
 		if (pvp == NULL)

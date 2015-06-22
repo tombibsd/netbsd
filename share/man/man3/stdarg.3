@@ -33,7 +33,7 @@
 .\"
 .\"	@(#)stdarg.3	8.1 (Berkeley) 6/5/93
 .\"
-.Dd August 18, 2002
+.Dd June 14, 2015
 .Dt STDARG 3
 .Os
 .Sh NAME
@@ -222,10 +222,12 @@ foo(char *fmt, ...)
 .Sh COMPATIBILITY
 These macros are
 .Em not
-compatible with the historic macros they replace.
-A backward compatible version can be found in the include
-file
-.In varargs.h .
+compatible with the historic
+.In varargs.h
+macros they replaced.
+Any remaining code using the pre-C89
+.In varargs.h
+interface should be updated.
 .Sh STANDARDS
 The
 .Fn va_start ,

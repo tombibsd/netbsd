@@ -43,6 +43,9 @@
  * For more info on this and all of my stuff, mail edjames@berkeley.edu.
  */
 
+#include <time.h>  /* for time_t */
+
+
 extern char		GAMES[];
 extern const char	*filename;
 

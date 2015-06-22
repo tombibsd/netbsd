@@ -268,5 +268,19 @@ mips_paddr_to_tlbpfn(paddr_t pa)
 
 extern	pt_entry_t *Sysmap;		/* kernel pte table */
 extern	u_int Sysmapsize;		/* number of pte's in Sysmap */
+
+static inline bool
+pte_zero_p(pt_entry_t pte)
+{
+	return pte.pt_entry == 0;
+}
+
+#define PRIxPTE		PRIx32
+static inline uint32_t
+pte_value(pt_entry_t pte)
+{
+	return pte.pt_entry;
+}
+
 #endif	/* defined(_KERNEL) && !defined(_LOCORE) */
 #endif /* __MIPS_PTE_H__ */

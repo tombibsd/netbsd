@@ -1503,8 +1503,7 @@ sock_open(void)
 		exit(1);
 	}
 
-	sndcmsgbuflen = CMSG_SPACE(sizeof(struct in6_pktinfo)) + 
-				CMSG_SPACE(sizeof(int));
+	sndcmsgbuflen = CMSG_SPACE(sizeof(struct in6_pktinfo));
 	sndcmsgbuf = malloc(sndcmsgbuflen);
 	if (sndcmsgbuf == NULL) {
 		syslog(LOG_ERR, "<%s> malloc: %m", __func__);

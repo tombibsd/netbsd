@@ -598,7 +598,7 @@ recreate(const char *p, const char *q)
 	int ret;
 
 	if ((ret = unlink(q)) == -1 && errno != ENOENT)
-		warn("unlink(%s)\n", q);
+		warn("unlink(%s)", q);
 	if ((ret = symlink(p, q)) == -1)
 		warn("symlink(%s -> %s)", q, p);
 	return ret;

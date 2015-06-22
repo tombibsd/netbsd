@@ -786,4 +786,24 @@ netbsd32_copyout_plistref(netbsd32_pointer_t n32p, struct plistref *p)
 	    sizeof(struct netbsd32_plistref));
 }
 
+static __inline void
+netbsd32_to_mq_attr(const struct netbsd32_mq_attr *a32,
+    struct mq_attr *attr)
+{
+	attr->mq_flags = a32->mq_flags;
+	attr->mq_maxmsg = a32->mq_maxmsg;
+	attr->mq_msgsize = a32->mq_msgsize;
+	attr->mq_curmsgs = a32->mq_curmsgs;
+}
+
+static __inline void
+netbsd32_from_mq_attr(const struct mq_attr *attr,
+	struct netbsd32_mq_attr *a32)
+{
+	a32->mq_flags = attr->mq_flags;
+	a32->mq_maxmsg = attr->mq_maxmsg;
+	a32->mq_msgsize = attr->mq_msgsize;
+	a32->mq_curmsgs = attr->mq_curmsgs;
+}
+
 #endif /* _COMPAT_NETBSD32_NETBSD32_CONV_H_ */

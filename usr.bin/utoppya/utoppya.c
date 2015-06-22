@@ -295,7 +295,7 @@ cmd_rename(int argc, char **argv)
 		;
 
 	if (strcmp(n, o) == 0)
-		errx(EX_DATAERR, "'%s' and '%s' refer to the same file\n",
+		errx(EX_DATAERR, "'%s' and '%s' refer to the same file",
 		    oldpath, newpath);
 
 	if (find_toppy_dirent(oldpath, &ud) == 0)

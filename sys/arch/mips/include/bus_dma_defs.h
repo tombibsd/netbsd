@@ -213,7 +213,7 @@ struct mips_bus_dmamap {
 };
 
 #ifdef _MIPS_BUS_DMA_PRIVATE
-#define	_BUS_AVAIL_END	mips_avail_end
+#define	_BUS_AVAIL_END	pmap_limits.avail_end
 /*
  * Cookie used for bounce buffers. A pointer to one of these it stashed in
  * the DMA map.

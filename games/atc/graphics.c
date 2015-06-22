@@ -50,7 +50,16 @@ __RCSID("$NetBSD$");
 #endif
 #endif /* not lint */
 
-#include "include.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <curses.h>
+#include <errno.h>
+#include <err.h>
+
+#include "def.h"
+#include "struct.h"
+#include "extern.h"
+#include "tunable.h"
 
 #define C_TOPBOTTOM		'-'
 #define C_LEFTRIGHT		'|'

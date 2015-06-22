@@ -377,7 +377,7 @@ monthrange(int month, int year, int before, int after, int yearly)
 	endmonth = (month + after) % 12;
 
 	if (startyear < 0 || endyear > 9999) {
-		errx(1, "year should be in 1-9999\n");
+		errx(1, "year should be in 1-9999");
 	}
 
 	year = startyear;

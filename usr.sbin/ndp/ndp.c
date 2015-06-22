@@ -353,7 +353,7 @@ set(int argc, char **argv)
 	hints.ai_family = AF_INET6;
 	gai_error = getaddrinfo(host, NULL, &hints, &res);
 	if (gai_error) {
-		warnx("%s: %s\n", host, gai_strerror(gai_error));
+		warnx("%s: %s", host, gai_strerror(gai_error));
 		return 1;
 	}
 	mysin->sin6_addr = ((struct sockaddr_in6 *)(void *)res->ai_addr)->sin6_addr;
@@ -420,7 +420,7 @@ get(char *host)
 	hints.ai_family = AF_INET6;
 	gai_error = getaddrinfo(host, NULL, &hints, &res);
 	if (gai_error) {
-		warnx("%s: %s\n", host, gai_strerror(gai_error));
+		warnx("%s: %s", host, gai_strerror(gai_error));
 		return;
 	}
 	mysin->sin6_addr = ((struct sockaddr_in6 *)(void *)res->ai_addr)->sin6_addr;
@@ -454,7 +454,7 @@ delete(char *host)
 	hints.ai_family = AF_INET6;
 	gai_error = getaddrinfo(host, NULL, &hints, &res);
 	if (gai_error) {
-		warnx("%s: %s\n", host, gai_strerror(gai_error));
+		warnx("%s: %s", host, gai_strerror(gai_error));
 		return 1;
 	}
 	mysin->sin6_addr = ((struct sockaddr_in6 *)(void *)res->ai_addr)->sin6_addr;

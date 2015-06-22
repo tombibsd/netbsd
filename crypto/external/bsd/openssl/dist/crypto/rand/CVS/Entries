@@ -1,4 +1,4 @@
-/Makefile/1.1.1.1/Sun Jul 19 23:04:37 2009/-kk/
+/Makefile/1.1.1.2/Mon Jun 22 02:28:04 2015/-kk/
 /md_rand.c/1.9/Thu Apr  2 02:24:11 2015/-kk/
 /rand.h/1.1.1.6/Thu Apr  2 02:24:11 2015/-kk/
 /rand_egd.c/1.3/Thu Apr  2 02:24:11 2015/-kk/
@@ -6,7 +6,7 @@
 /rand_lcl.h/1.1.1.3/Thu Apr  2 02:24:11 2015/-kk/
 /rand_lib.c/1.1.1.7/Thu Apr  2 02:24:11 2015/-kk/
 /rand_nw.c/1.1.1.3/Thu Apr  2 02:24:11 2015/-kk/
-/rand_os2.c/1.1.1.2/Thu Apr  2 02:24:11 2015/-kk/
+/rand_os2.c/1.1.1.3/Mon Jun 22 02:28:04 2015/-kk/
 /rand_unix.c/1.5/Thu Apr  2 02:24:11 2015/-kk/
 /rand_vms.c/1.1.1.3/Thu Apr  2 02:24:11 2015/-kk/
 /rand_win.c/1.1.1.6/Thu Apr  2 02:24:11 2015/-kk/

@@ -76,7 +76,7 @@ typedef __uint32_t	vsize_t;
 #define	PRIxVSIZE	PRIx32
 #define	PRIdVSIZE	PRId32
 #endif
-#endif
+#endif /* NETBSD_SOURCE */
 
 typedef int		mips_prid_t;
 /* Make sure this is signed; we need pointers to be sign-extended. */
@@ -123,7 +123,9 @@ typedef struct label_t {
 #define	_L_S8		11
 #define	_L_RA		12
 #define	_L_SR		13
-#endif
+
+typedef __uint32_t tlb_asid_t;
+#endif /* defined(_KERNEL) || defined(_NETBSD_SOURCE) */
 
 #if defined(_KERNEL) || defined(_KMEMUSER)
 #define	PCU_FPU		0

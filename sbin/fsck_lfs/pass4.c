@@ -137,7 +137,7 @@ pass4(void)
 			break;
 
 		default:
-			err(EEXIT, "BAD STATE %d FOR INODE I=%llu\n",
+			err(EEXIT, "BAD STATE %d FOR INODE I=%llu",
 			    statemap[inumber], (unsigned long long)inumber);
 		}
 	}

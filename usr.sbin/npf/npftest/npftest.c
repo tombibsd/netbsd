@@ -115,7 +115,7 @@ load_npf_config(const char *config)
 	/* Pass the XML configuration for NPF kernel component to load. */
 	error = rumpns_npf_test_load(xml);
 	if (error) {
-		errx(EXIT_FAILURE, "npf_test_load: %s\n", strerror(error));
+		errx(EXIT_FAILURE, "npf_test_load: %s", strerror(error));
 	}
 	free(xml);
 

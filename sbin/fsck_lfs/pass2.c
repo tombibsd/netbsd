@@ -74,7 +74,7 @@ pass2(void)
 		if (reply("ALLOCATE") == 0)
 			err(EEXIT, "%s", "");
 		if (allocdir(ULFS_ROOTINO, ULFS_ROOTINO, 0755) != ULFS_ROOTINO)
-			err(EEXIT, "CANNOT ALLOCATE ROOT INODE\n");
+			err(EEXIT, "CANNOT ALLOCATE ROOT INODE");
 		break;
 
 	case DCLEAR:
@@ -82,7 +82,7 @@ pass2(void)
 		if (reply("REALLOCATE")) {
 			freeino(ULFS_ROOTINO);
 			if (allocdir(ULFS_ROOTINO, ULFS_ROOTINO, 0755) != ULFS_ROOTINO)
-				err(EEXIT, "CANNOT ALLOCATE ROOT INODE\n");
+				err(EEXIT, "CANNOT ALLOCATE ROOT INODE");
 			break;
 		}
 		if (reply("CONTINUE") == 0)
@@ -95,7 +95,7 @@ pass2(void)
 		if (reply("REALLOCATE")) {
 			freeino(ULFS_ROOTINO);
 			if (allocdir(ULFS_ROOTINO, ULFS_ROOTINO, 0755) != ULFS_ROOTINO)
-				err(EEXIT, "CANNOT ALLOCATE ROOT INODE\n");
+				err(EEXIT, "CANNOT ALLOCATE ROOT INODE");
 			break;
 		}
 		if (reply("FIX") == 0)
@@ -111,7 +111,7 @@ pass2(void)
 		break;
 
 	default:
-		errx(EEXIT, "BAD STATE %d FOR ROOT INODE\n", statemap[ULFS_ROOTINO]);
+		errx(EEXIT, "BAD STATE %d FOR ROOT INODE", statemap[ULFS_ROOTINO]);
 	}
 	statemap[ULFS_WINO] = FSTATE;
 	typemap[ULFS_WINO] = LFS_DT_WHT;

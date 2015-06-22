@@ -143,12 +143,11 @@ Be verbose.
 .Pp
 For device configurations to persist across boots, add entries to the
 .Pa /etc/bluetooth/btdevctl.conf
-file and
-set the
+file and ensure the
 .Xr rc.conf 5
 variable
-.Sy btdevctl
-to YES.
+.Sy bluetooth
+is set to YES.
 .Sh FILES
 .Bl -tag -compact
 .It Pa /etc/bluetooth/btdevctl.conf

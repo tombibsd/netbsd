@@ -4,7 +4,7 @@
 /boot.c/1.31/Sun Jul 20 13:08:28 2014/-kk/
 /boot.h/1.10/Thu Feb 27 08:55:55 2014/-kk/
 /bootinfo.c/1.3/Mon Apr 28 20:23:36 2008/-kk/
-/loadfile_machdep.c/1.13/Tue May  6 05:50:03 2014/-kk/
+/loadfile_machdep.c/1.14/Mon Jun 22 02:34:57 2015/-kk/
 /net.c/1.8/Mon Jul 16 11:26:27 2012/-kk/
 /net.h/1.3/Mon Jul 16 11:26:27 2012/-kk/
 /netif_of.c/1.9/Sat Jul 30 04:18:38 2011/-kk/
@@ -14,5 +14,5 @@
 /prf.c/1.3/Mon Apr 28 20:23:36 2008/-kk/
 /promlib.c/1.3/Sat May 21 15:50:42 2011/-kk/
 /srt0.s/1.6/Wed Oct 17 19:57:16 2007/-kk/
-/version/1.20/Tue Dec 17 04:13:29 2013/-kk/
+/version/1.21/Mon Jun 22 02:34:57 2015/-kk/
 D

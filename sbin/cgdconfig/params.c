@@ -277,7 +277,7 @@ params_verify_method(string_t *in)
 
 	if (p->verify_method == VERIFY_UNKNOWN)
 		warnx("params_setverify_method: unrecognized "
-		    "verify method \"%s\"\n", vm);
+		    "verify method \"%s\"", vm);
 	return p;
 }
 
@@ -515,7 +515,7 @@ keygen_method(string_t *in)
 	string_free(in);
 
 	if (kg->kg_method == KEYGEN_UNKNOWN)
-		warnx("unrecognized key generation method \"%s\"\n", kgm);
+		warnx("unrecognized key generation method \"%s\"", kgm);
 	return kg;
 }
 

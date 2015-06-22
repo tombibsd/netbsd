@@ -2,7 +2,7 @@
 /ctl.c/1.10/Tue Mar 20 20:34:59 2012/-kk/
 /ctl_transact.c/1.11/Tue Sep  6 18:32:03 2011/-kk/
 /display.c/1.9/Tue Sep  6 18:32:03 2011/-kk/
-/get_addrs.c/1.11/Sat Dec 29 23:44:22 2012/-kk/
+/get_addrs.c/1.12/Mon Jun 22 02:35:22 2015/-kk/
 /get_names.c/1.16/Sat Dec 29 23:44:23 2012/-kk/
 /init_disp.c/1.12/Tue Sep  6 18:32:03 2011/-kk/
 /invite.c/1.10/Sat Dec 29 23:44:23 2012/-kk/

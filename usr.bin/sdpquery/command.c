@@ -127,7 +127,7 @@ do_sdp_record(int argc, const char **argv)
 	for (; argc-- > 0; argv++) {
 		handle = strtoul(*argv, &ep, 0);
 		if (*argv[0] == '\0' || *ep != '\0' || handle > UINT32_MAX)
-			errx(EXIT_FAILURE, "Invalid handle: %s\n", *argv);
+			errx(EXIT_FAILURE, "Invalid handle: %s", *argv);
 
 		rv = sdp_service_attribute(ss, (uint32_t)handle, NULL, &rsp);
 		if (!rv)

@@ -44,6 +44,7 @@
 
 #define PG_VADDR(pg)	kloader_phystov(VM_PAGE_TO_PHYS(pg))
 vaddr_t kloader_phystov(paddr_t pa);
+extern paddr_t avail_start, avail_end;
 
 #include <dev/kloader.h>
 

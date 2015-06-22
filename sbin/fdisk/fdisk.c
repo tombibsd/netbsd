@@ -1200,7 +1200,7 @@ get_extended_ptn(void)
 			break;
 	}
 
-	warnx("Extended partition table is corrupt\n");
+	warnx("Extended partition table is corrupt");
 	ext.is_corrupt = 1;
 	ext.num_ptn = 0;
 }
@@ -2246,7 +2246,7 @@ change_part(int extended, int part, int sysid, daddr_t start, daddr_t size,
 		errtext = check_overlap(part, sysid, start, size, 0);
 	if (errtext != NULL && !I_flag) {
 		if (f_flag)
-			errx(2, "%s\n", errtext);
+			errx(2, "%s", errtext);
 		printf("%s\n", errtext);
 		return 0;
 	}
@@ -2264,7 +2264,7 @@ change_part(int extended, int part, int sysid, daddr_t start, daddr_t size,
 		else
 			errtext = check_overlap(part, sysid, start, size, 1);
 		if (errtext)
-			errx(1, "%s\n", errtext);
+			errx(1, "%s", errtext);
 	}
 
 

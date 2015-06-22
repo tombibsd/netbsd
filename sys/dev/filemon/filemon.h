@@ -31,7 +31,7 @@
 #define FILEMON_SET_FD		_IOWR('S', 1, int)
 #define FILEMON_SET_PID		_IOWR('S', 2, pid_t)
 
-#define FILEMON_VERSION		4
+#define FILEMON_VERSION		5
 
 #ifdef _KERNEL
 struct filemon {

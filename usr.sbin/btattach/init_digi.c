@@ -53,7 +53,7 @@ init_digi(int fd, unsigned int speed)
 	case B57600:	rate = 0x08;	break;
 	case B115200:	rate = 0x09;	break;
 	default:
-		errx(EXIT_FAILURE, "invalid speed for digi: %u\n", speed);
+		errx(EXIT_FAILURE, "invalid speed for digi: %u", speed);
 	}
 
 	uart_send_cmd(fd, HCI_CMD_DIGIANSWER_SET_UART_BAUD_RATE, &rate, sizeof(rate));

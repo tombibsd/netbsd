@@ -396,7 +396,7 @@ getinoinfo(ino_t inumber)
 			continue;
 		return (inp);
 	}
-	err(EEXIT, "cannot find inode %llu\n", (unsigned long long)inumber);
+	err(EEXIT, "cannot find inode %llu", (unsigned long long)inumber);
 	return ((struct inoinfo *) 0);
 }
 
@@ -566,7 +566,7 @@ blkerror(ino_t ino, const char *type, daddr_t blk)
 		return;
 
 	default:
-		err(EEXIT, "BAD STATE %d TO BLKERR\n", statemap[ino]);
+		err(EEXIT, "BAD STATE %d TO BLKERR", statemap[ino]);
 		/* NOTREACHED */
 	}
 }

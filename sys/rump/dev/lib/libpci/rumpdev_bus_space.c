@@ -34,7 +34,8 @@
 
 #include "pci_user.h"
 
-#if defined(RUMP_PCI_IOSPACE) && (defined(__i386__) || defined(__x86_64__))
+#if defined(RUMPCOMP_USERFEATURE_PCI_IOSPACE) \
+    && (defined(__i386__) || defined(__x86_64__))
 #define IOSPACE_SUPPORTED
 #endif
 

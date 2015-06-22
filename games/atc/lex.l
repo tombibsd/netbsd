@@ -51,7 +51,6 @@ __RCSID("$NetBSD$");
 #endif
 #endif /* not lint */
 
-#include "include.h"
 #undef ECHO		/* XXX: work around lex(1) vs termios lameness */
 #include "grammar.h"
 

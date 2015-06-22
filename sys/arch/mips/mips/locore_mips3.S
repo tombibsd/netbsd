@@ -91,7 +91,6 @@
 
 #include <mips/asm.h>
 #include <mips/cpuregs.h>
-#include <machine/param.h>
 
 #include "assym.h"
 
@@ -122,7 +121,7 @@
  *============================================================================
  */
 	.set	noreorder
-#if __mips < 3
+#if (__mips < 3) || __mips_o32
 	.set	mips3
 #endif
 

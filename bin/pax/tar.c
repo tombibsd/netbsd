@@ -1009,7 +1009,7 @@ longlink(ARCHD *arcn, int type)
 		gnu_hack_len = arcn->nlen + 1;
 		break;
 	default:
-		errx(1, "Invalid type in GNU longlink %d\n", type);
+		errx(1, "Invalid type in GNU longlink %d", type);
 	}
 
 	/*

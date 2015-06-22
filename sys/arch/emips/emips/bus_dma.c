@@ -658,10 +658,10 @@ _bus_dmamem_alloc(bus_dma_tag_t t, bus_size_t size, bus_size_t alignment,
     bus_size_t boundary, bus_dma_segment_t *segs, int nsegs, int *rsegs,
     int flags)
 {
-	return (_bus_dmamem_alloc_range_common(t, size, alignment, boundary,
-					       segs, nsegs, rsegs, flags,
-					       mips_avail_start /*low*/,
-					       mips_avail_end - PAGE_SIZE /*high*/));
+	return _bus_dmamem_alloc_range_common(t, size, alignment, boundary,
+	     segs, nsegs, rsegs, flags,
+	     pmap_limits.avail_start /*low*/,
+	     pmap_limits.avail_end - PAGE_SIZE /*high*/);
 }
 
 /*

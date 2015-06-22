@@ -36,13 +36,13 @@
 #define _MIPS_KCORE_H_
 
 typedef struct cpu_kcore_hdr {
-	u_int32_t	sysmappa;		/* PA of Sysmap */
-	u_int32_t	sysmapsize;		/* size of Sysmap */
-	u_int32_t	archlevel;		/* MIPS architecture level */
-	u_int32_t	pg_shift;		/* PTE page frame num shift */
-	u_int32_t	pg_frame;		/* PTE page frame num mask */
-	u_int32_t	pg_v;			/* PTE valid bit */
-	u_int32_t	nmemsegs;		/* Number of RAM segments */
+	uint64_t	sysmappa;		/* PA of Sysmap */
+	uint32_t	sysmapsize;		/* size of Sysmap */
+	uint32_t	archlevel;		/* MIPS architecture level */
+	uint32_t	pg_shift;		/* PTE page frame num shift */
+	uint32_t	pg_frame;		/* PTE page frame num mask */
+	uint32_t	pg_v;			/* PTE valid bit */
+	uint32_t	nmemsegs;		/* Number of RAM segments */
 #if 0
 	phys_ram_seg_t  memsegs[];		/* RAM segments */
 #endif

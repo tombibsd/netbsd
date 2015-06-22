@@ -30,3 +30,7 @@
 #define	KLOADER_NO_BOOTINFO
 #define PG_VADDR(pg)	MIPS_PHYS_TO_KSEG0(VM_PAGE_TO_PHYS(pg))
 #include <dev/kloader.h>
+
+/* XXX: kludge: MI kloader.c assumes avail_start and avail_end are common */
+#define avail_start	pmap_limits.avail_start
+#define avail_end	pmap_limits.avail_end

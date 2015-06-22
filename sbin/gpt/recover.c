@@ -64,7 +64,7 @@ usage_recover(void)
 static void
 recover(int fd)
 {
-	off_t last;
+	uint64_t last;
 	map_t *gpt, *tpg;
 	map_t *tbl, *lbt;
 	struct gpt_hdr *hdr;
@@ -91,6 +91,13 @@ recover(int fd)
 	}
 
 	last = mediasz / secsz - 1LL;
+
+	if (gpt != NULL &&
+	    ((struct gpt_hdr *)(gpt->map_data))->hdr_lba_alt != last) {
+		warnx("%s: media size has changed, please use 'gpt resizedisk'",
+		   device_name);
+		return;
+	}
 
 	if (tbl != NULL && lbt == NULL) {
 		lbt = map_add(last - tbl->map_size, tbl->map_size,

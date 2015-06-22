@@ -66,7 +66,7 @@ init_bcm2035(int fd, unsigned int speed)
 	case B460800:	rate = 0xfd22;	break;
 	case B921600:	rate = 0xff55;	break;
 	default:
-		errx(EXIT_FAILURE, "invalid speed for bcm2035: %u\n", speed);
+		errx(EXIT_FAILURE, "invalid speed for bcm2035: %u", speed);
 	};
 
 	rate = htole16(rate);

@@ -222,12 +222,12 @@ _vrdcu_dmamem_alloc(bus_dma_tag_t t, bus_size_t size, bus_size_t alignment,
 
 	DPRINTFN(1, ("_vrdcu_dmamem_alloc\n"));
 
-	high = (mips_avail_end < VRDMAAU_BOUNCE_THRESHOLD ?
-		mips_avail_end : VRDMAAU_BOUNCE_THRESHOLD) - PAGE_SIZE;
+	high = (pmap_limits.avail_end < VRDMAAU_BOUNCE_THRESHOLD ?
+		pmap_limits.avail_end : VRDMAAU_BOUNCE_THRESHOLD) - PAGE_SIZE;
 	alignment = alignment > VRDMAAU_ALIGNMENT ?
 		    alignment : VRDMAAU_ALIGNMENT;
 
 	return _hpcmips_bd_mem_alloc_range(t, size, alignment, boundary,
 					   segs, nsegs, rsegs, flags,
-					   mips_avail_start, high);
+					   pmap_limits.avail_start, high);
 }

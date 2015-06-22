@@ -107,6 +107,7 @@ struct generic_attach_args {
 #ifndef __BSD_PT_ENTRY_T
 #define __BSD_PT_ENTRY_T	__uint32_t
 typedef __BSD_PT_ENTRY_T	pt_entry_t;
+#define PRIxPTE			PRIx32
 #endif
 
 #include <uvm/pmap/tlb.h>

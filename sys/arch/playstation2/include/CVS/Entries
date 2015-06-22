@@ -26,7 +26,7 @@
 /intr.h/1.12/Mon Mar 31 11:41:01 2014/-kk/
 /kcore.h/1.3/Mon Mar 31 11:25:49 2014/-kk/
 /kdbparam.h/1.3/Mon Mar 31 11:25:49 2014/-kk/
-/kloader.h/1.5/Mon Mar 31 11:25:49 2014/-kk/
+/kloader.h/1.6/Mon Jun 22 02:34:54 2015/-kk/
 /limits.h/1.3/Mon Mar 31 11:25:49 2014/-kk/
 /lock.h/1.3/Mon Mar 31 11:25:49 2014/-kk/
 /locore.h/1.4/Mon Mar 31 11:25:49 2014/-kk/

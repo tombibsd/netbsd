@@ -264,7 +264,7 @@ get_name(char *name, int letters)
 			*ptr = '0';
 		}
 		if (ptr < name + letters) {
-			errx(1, "Ran out of file names.\n");
+			errx(1, "Ran out of file names.");
 		}
 	}
 }

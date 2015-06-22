@@ -145,10 +145,12 @@ awin_wdt_setmode(struct sysmon_wdog *smw)
 	}
 
 	if ((smw->smw_mode & WDOG_MODE_MASK) == WDOG_MODE_DISARMED) {
-		/*
-		 * We can't disarm the watchdog.
-		 */
-		return sc->sc_wdog_armed ? EBUSY : 0;
+		if (sc->sc_wdog_armed)
+			/* can not disarm pre-armed kernel mode wdog */
+			return EBUSY;
+
+		bus_space_write_4(sc->sc_bst, sc->sc_bsh, sc->sc_mode_reg, 0);
+		return 0;
 	}
 
 	if (sc->sc_wdog_armed && smw->smw_period == sc->sc_wdog_period) {

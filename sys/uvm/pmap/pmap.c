@@ -214,7 +214,9 @@ struct pmap_kernel kernel_pmap_store = {
 
 struct pmap * const kernel_pmap_ptr = &kernel_pmap_store.kernel_pmap;
 
-struct pmap_limits pmap_limits;
+struct pmap_limits pmap_limits = {
+	.virtual_start = VM_MIN_KERNEL_ADDRESS,
+};
 
 #ifdef UVMHIST
 static struct kern_history_ent pmapexechistbuf[10000];
@@ -351,8 +353,8 @@ void
 pmap_virtual_space(vaddr_t *vstartp, vaddr_t *vendp)
 {
 
-	*vstartp = VM_MIN_KERNEL_ADDRESS;
-	*vendp = VM_MAX_KERNEL_ADDRESS;
+	*vstartp = pmap_limits.virtual_start;
+	*vendp = pmap_limits.virtual_end;
 }
 
 vaddr_t

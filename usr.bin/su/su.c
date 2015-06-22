@@ -231,7 +231,7 @@ main(int argc, char **argv)
 		pwd->pw_class = class;
 	}
 	if ((lc = login_getclass(pwd->pw_class)) == NULL)
-		errx(EXIT_FAILURE, "Unknown class %s\n", pwd->pw_class);
+		errx(EXIT_FAILURE, "Unknown class %s", pwd->pw_class);
 
 	pw_warntime = (time_t)login_getcaptime(lc, "password-warn",
 	    _PASSWORD_WARNDAYS * SECSPERDAY,

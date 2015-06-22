@@ -268,7 +268,7 @@ extern vaddr_t cpu_spinup_trampoline;
 
 extern  char   *mp_tramp_code;
 extern  u_long  mp_tramp_code_len;
-extern  u_long  mp_tramp_tlb_slots;
+extern  u_long  mp_tramp_dtlb_slots, mp_tramp_itlb_slots;
 extern  u_long  mp_tramp_func;
 extern  u_long  mp_tramp_ci;
 

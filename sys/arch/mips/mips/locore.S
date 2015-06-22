@@ -58,7 +58,6 @@
 #include <sys/cdefs.h>
 #include <sys/errno.h>
 
-#include <machine/param.h>
 #include <mips/asm.h>
 #include <mips/cpuregs.h>
 #include <mips/trap.h>

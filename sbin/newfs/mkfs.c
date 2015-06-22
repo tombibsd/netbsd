@@ -1573,7 +1573,7 @@ ilog2(int val)
 	for (n = 0; n < sizeof(n) * CHAR_BIT; n++)
 		if (1 << n == val)
 			return (n);
-	errx(1, "ilog2: %d is not a power of 2\n", val);
+	errx(1, "ilog2: %d is not a power of 2", val);
 }
 
 static void

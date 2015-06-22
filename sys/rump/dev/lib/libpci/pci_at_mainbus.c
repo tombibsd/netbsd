@@ -43,6 +43,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include "rump_private.h"
 #include "rump_vfs_private.h"
 
+#include "pci_user.h"
+
 RUMP_COMPONENT(RUMP_COMPONENT_DEV)
 {
 	extern const struct cdevsw pci_cdevsw;
@@ -80,8 +82,17 @@ RUMP_COMPONENT(RUMP_COMPONENT_DEV_AFTERMAINBUS)
 #endif
 	pba.pba_flags = PCI_FLAGS_MEM_OKAY |
 	    PCI_FLAGS_MRL_OKAY | PCI_FLAGS_MRM_OKAY | PCI_FLAGS_MWI_OKAY;;
-#ifdef RUMP_PCI_IOSPACE
-	pba.pba_flags |= PCI_FLAGS_IO_OKAY;
+
+#ifdef RUMPCOMP_USERFEATURE_PCI_IOSPACE
+	int error;
+
+	error = rumpcomp_pci_iospace_init();
+	if (!error) {
+		pba.pba_flags |= PCI_FLAGS_IO_OKAY;
+	} else {
+		aprint_error("pci: I/O space init error %d, I/O space not "
+		    "available\n", error);
+	}
 #endif
 
 	mainbus = device_find_by_driver_unit("mainbus", 0);

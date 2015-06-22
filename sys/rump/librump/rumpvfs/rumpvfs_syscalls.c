@@ -44,6 +44,9 @@ extern sy_call_t sys_fdatasync;
 extern sy_call_t sys___posix_rename;
 extern sy_call_t sys_lchmod;
 extern sy_call_t sys_lchown;
+extern sy_call_t sys___posix_chown;
+extern sy_call_t sys___posix_fchown;
+extern sy_call_t sys___posix_lchown;
 extern sy_call_t sys_preadv;
 extern sy_call_t sys_pwritev;
 extern sy_call_t sys___getcwd;
@@ -145,6 +148,9 @@ static const struct rump_onesyscall mysys[] = {
 	{ 270,	sys___posix_rename },
 	{ 274,	sys_lchmod },
 	{ 275,	sys_lchown },
+	{ 283,	sys___posix_chown },
+	{ 284,	sys___posix_fchown },
+	{ 285,	sys___posix_lchown },
 	{ 289,	sys_preadv },
 	{ 290,	sys_pwritev },
 	{ 296,	sys___getcwd },

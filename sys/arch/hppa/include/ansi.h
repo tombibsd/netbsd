@@ -48,7 +48,7 @@
  *	#undef	_BSD_SIZE_T_
  *	#endif
  */
-#define	_BSD_CLOCK_T_	unsigned long int	/* clock() */
+#define	_BSD_CLOCK_T_	unsigned int		/* clock() */
 #define	_BSD_PTRDIFF_T_	long int		/* ptr1 - ptr2 */
 #define	_BSD_SIZE_T_	unsigned long int	/* sizeof() */
 #define	_BSD_SSIZE_T_	long int		/* byte count or error */

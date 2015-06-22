@@ -56,7 +56,6 @@
 
 #include <mips/asm.h>
 #include <mips/cpuregs.h>
-#include <machine/param.h>
 
 #include "assym.h"
 

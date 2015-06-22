@@ -398,7 +398,7 @@ main(int argc, char *argv[])
 	parsesort("tdev,pid");
 	SIMPLEQ_FOREACH(vent, &sortlist, next) {
 		if (vent->var->flag & LWP || vent->var->type == UNSPECIFIED)
-			warnx("Cannot sort on %s, sort key ignored\n",
+			warnx("Cannot sort on %s, sort key ignored",
 				vent->var->name);
 	}
 
@@ -558,7 +558,7 @@ pick_representative_lwp(struct kinfo_proc2 *ki, struct kinfo_lwp *kl, int nlwps)
 		break;
 	}
 	/* Error condition! */
-	warnx("Inconsistent LWP state for process %d\n", ki->p_pid);
+	warnx("Inconsistent LWP state for process %d", ki->p_pid);
 	return kl;
 }
 

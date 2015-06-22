@@ -436,7 +436,7 @@ dumpheader(struct ktr_header *kth)
 				break;
 			default:
 			badversion:
-				err(1, "Unsupported ktrace version %x\n",
+				err(1, "Unsupported ktrace version %x",
 				    kth->ktr_version);
 			}
 		}
@@ -997,7 +997,7 @@ ktrpsig(void *v, int len)
 		}
 		/*NOTREACHED*/
 	default:
-		warnx("Unhandled size %d for ktrpsig\n", len);
+		warnx("Unhandled size %d for ktrpsig", len);
 		break;
 	}
 }

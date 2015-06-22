@@ -1,8 +1,8 @@
-/pmap.c/1.11/Mon Feb 16 03:14:32 2015/-kk/
-/pmap.h/1.4/Tue Mar 25 02:35:52 2014/-kk/
-/pmap_segtab.c/1.1/Wed Oct  3 00:51:46 2012/-kk/
+/pmap.c/1.12/Mon Jun 22 02:35:14 2015/-kk/
+/pmap.h/1.5/Mon Jun 22 02:35:14 2015/-kk/
+/pmap_segtab.c/1.2/Mon Jun 22 02:35:14 2015/-kk/
 /pmap_synci.c/1.2/Thu Oct 24 10:28:58 2013/-kk/
-/pmap_tlb.c/1.11/Wed Apr 22 07:37:50 2015/-kk/
+/pmap_tlb.c/1.12/Mon Jun 22 02:35:16 2015/-kk/
 /pmap_tlb.h/1.8/Sun Apr 12 03:35:21 2015/-kk/
 /tlb.h/1.1/Wed Oct  3 00:51:47 2012/-kk/
 /vmpagemd.h/1.2/Fri Mar 14 04:28:30 2014/-kk/

@@ -122,8 +122,7 @@ quip_openserver(void)
 	strlcpy(addr.sun_path, QUIP_PATH,sizeof(addr.sun_path));
 
 	if (connect(fd, (struct sockaddr *)&addr, sizeof(addr)) < 0) {
-		fprintf(stderr, "can't talk to altqd!\n"
-			"probably, altqd is not running\n");
+		warnx("can't talk to altqd;probably, altqd is not running");
 		return (-1);
 	}
 

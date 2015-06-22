@@ -57,8 +57,6 @@
 }
 
 %{
-#include "include.h"
-
 #include <sys/cdefs.h>
 #ifndef lint
 #if 0
@@ -67,6 +65,13 @@ static char sccsid[] = "@(#)grammar.y	8.1 (Berkeley) 5/31/93";
 __RCSID("$NetBSD$");
 #endif
 #endif /* not lint */
+
+#include <stdio.h>
+
+#include "def.h"
+#include "struct.h"
+#include "extern.h"
+#include "tunable.h"
 
 int line = 1;
 

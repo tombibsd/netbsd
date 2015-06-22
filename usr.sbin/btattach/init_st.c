@@ -59,7 +59,7 @@ init_st(int fd, unsigned int speed)
 	case B460800:	rate = 0x13;	break;
 	case B921600:	rate = 0x14;	break;
 	default:
-		errx(EXIT_FAILURE, "invalid speed for st: %u\n", speed);
+		errx(EXIT_FAILURE, "invalid speed for st: %u", speed);
 	}
 
 	uart_send_cmd(fd, HCI_CMD_ST_SET_UART_BAUD_RATE, &rate, sizeof(rate));

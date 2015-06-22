@@ -460,7 +460,7 @@ ELFNAME2(linux,copyargs)(struct lwp *l, struct exec_package *pack,
 	a++;
 
 	a->a_type = LINUX_AT_RANDOM;
-	a->a_v = (Elf_Addr)*stackp;
+	a->a_v = (Elf_Addr)(uintptr_t)*stackp;
 	a++;
 
 	a->a_type = AT_NULL;

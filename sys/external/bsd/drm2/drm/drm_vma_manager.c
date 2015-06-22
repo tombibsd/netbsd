@@ -289,6 +289,8 @@ drm_vma_node_revoke(struct drm_vma_offset_node *node, struct file *file)
 	if (found != NULL)
 		rb_tree_remove_node(&node->von_files, found);
 	rw_exit(&node->von_lock);
+	if (found != NULL)
+		kmem_free(found, sizeof(*found));
 }
 
 bool

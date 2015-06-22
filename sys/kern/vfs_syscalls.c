@@ -573,7 +573,7 @@ sys_unmount(struct lwp *l, const struct sys_unmount_args *uap, register_t *retva
 		return error;
 	}
 
-	NDINIT(&nd, LOOKUP, LOCKLEAF | TRYEMULROOT, pb);
+	NDINIT(&nd, LOOKUP, NOFOLLOW | LOCKLEAF | TRYEMULROOT, pb);
 	if ((error = namei(&nd)) != 0) {
 		pathbuf_destroy(pb);
 		return error;

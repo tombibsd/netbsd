@@ -268,7 +268,7 @@ main(int argc, char *argv[])
 	endfsent();
 	for (i = 0; i < argc; i++)
 		if ((done & (1 << i)) == 0)
-			warnx("%s not found in %s\n", argv[i], FSTAB);
+			warnx("%s not found in %s", argv[i], FSTAB);
 	return errs;
 }
 

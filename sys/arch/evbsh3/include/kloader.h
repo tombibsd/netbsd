@@ -32,6 +32,7 @@
 #define PG_VADDR(pg)	SH3_PHYS_TO_P1SEG(VM_PAGE_TO_PHYS(pg))
 
 #define	KLOADER_NO_BOOTINFO
+extern paddr_t avail_start, avail_end;
 
 #include <dev/kloader.h>
 

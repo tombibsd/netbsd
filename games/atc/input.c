@@ -50,8 +50,22 @@ __RCSID("$NetBSD$");
 #endif
 #endif /* not lint */
 
-#include "include.h"
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <termios.h>
+#include <ctype.h>
+#include <assert.h>
+#include <math.h>
+
 #include "pathnames.h"
+#include "def.h"
+#include "struct.h"
+#include "extern.h"
+#include "tunable.h"
 
 static void rezero(void);
 static void noise(void);

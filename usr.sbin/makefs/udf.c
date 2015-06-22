@@ -995,7 +995,7 @@ udf_copy_file(struct stat *st, char *path, fsnode *cur, struct fileid_desc *fid,
 	while (chunk) {
 		rd = read(f, data, chunk);
 		if (rd != chunk) {
-			warn("Short read of file %s\n", cur->name);
+			warn("Short read of file %s", cur->name);
 			error = errno;
 			break;
 		}

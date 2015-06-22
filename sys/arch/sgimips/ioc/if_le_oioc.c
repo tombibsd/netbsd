@@ -188,7 +188,8 @@ le_attach(device_t parent, device_t self, void *aux)
 
 	/* Allocate a contiguous chunk of physical memory for the le buffer. */
 	error = uvm_pglistalloc(OIOC_LANCE_NPAGES * PAGE_SIZE,
-	    mips_avail_start, mips_avail_end, PAGE_SIZE, 0, &mlist, 1, 0);
+	    pmap_limits.avail_start, pmap_limits.avail_end, PAGE_SIZE, 0,
+	    &mlist, 1, 0);
 	if (error) {
 		aprint_error(": failed to allocate ioc<->lance buffer space, "
 		    "error = %d\n", error);

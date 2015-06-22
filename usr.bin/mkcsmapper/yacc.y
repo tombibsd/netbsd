@@ -659,7 +659,7 @@ do_mkpv(FILE *in)
 	else
 		out = stdout;
 
-	if (out==NULL)
+	if (out == NULL)
 		err(EXIT_FAILURE, "fopen");
 
 	ret = _pivot_factory_convert(out, in);
@@ -667,18 +667,15 @@ do_mkpv(FILE *in)
 	if (ret && output)
 		unlink(output); /* dump failure */
 	if (ret)
-		errx(EXIT_FAILURE, "%s\n", strerror(ret));
+ 		errc(EXIT_FAILURE, ret, "");
 }
 
 __dead static void
 usage(void)
 {
-	warnx("usage: \n"
-	      "\t%s [-d] [-o outfile] [infile]\n"
-	      "\t%s -m [-d] [-o outfile] [infile]\n"
-	      "\t%s -p [-d] [-o outfile] [infile]\n",
-	      getprogname(), getprogname(), getprogname());
-	exit(1);
+	fprintf(stderr, "Usage: %s [-m|-p] [-d] [-o outfile] [infile]\n",
+	    getprogname());
+	exit(EXIT_FAILURE);
 }
 
 int

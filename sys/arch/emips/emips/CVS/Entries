@@ -1,5 +1,5 @@
 /autoconf.c/1.6/Sun Jul 29 18:05:47 2012/-kk/
-/bus_dma.c/1.3/Tue Oct  2 23:54:53 2012/-kk/
+/bus_dma.c/1.4/Mon Jun 22 02:34:45 2015/-kk/
 /bus_space.c/1.2/Sun Feb 12 16:34:07 2012/-kk/
 /clock.c/1.3/Sat Oct 27 17:17:46 2012/-kk/
 /cons.h/1.2/Fri Jun 17 18:40:46 2011/-kk/
@@ -7,7 +7,7 @@
 /emipstype.h/1.1/Wed Jan 26 01:18:50 2011/-kk/
 /interrupt.c/1.5/Sat Oct 27 17:17:46 2012/-kk/
 /locore_machdep.S/1.1/Wed Jan 26 01:18:50 2011/-kk/
-/machdep.c/1.10/Fri Apr 11 02:03:29 2014/-kk/
+/machdep.c/1.11/Mon Jun 22 02:34:45 2015/-kk/
 /machdep.h/1.1/Wed Jan 26 01:18:50 2011/-kk/
 /mainbus.c/1.3/Sun Jun 12 03:21:21 2011/-kk/
 /promcall.c/1.3/Sun Jun 12 13:40:14 2011/-kk/

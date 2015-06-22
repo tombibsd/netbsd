@@ -130,7 +130,7 @@ snarf(const void *addr, void *buf, size_t len)
 	cc = kvm_read(get_kvmd(), (unsigned long) addr, buf, len);
 
 	if (cc != len) {
-		warnx("%s: short read at %p, len %zx cc %zx\n", __func__, addr,
+		warnx("%s: short read at %p, len %zx cc %zx", __func__, addr,
 		    len, cc);
 	}
 }

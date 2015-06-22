@@ -522,7 +522,7 @@ addid(uint32_t id, int idtype, const char *name)
 				name = pw->pw_name;
 			break;
 		default:
-			errx(1, "Unknown quota ID type %d\n", idtype);
+			errx(1, "Unknown quota ID type %d", idtype);
 		}
 	}
 

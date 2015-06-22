@@ -50,7 +50,12 @@ __RCSID("$NetBSD$");
 #endif
 #endif /* not lint */
 
-#include "include.h"
+#include <termios.h>
+
+#include "def.h"
+#include "struct.h"
+#include "extern.h"
+#include "tunable.h"
 
 char		GAMES[] =	"Game_List";
 

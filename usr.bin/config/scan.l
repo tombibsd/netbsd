@@ -362,7 +362,7 @@ package[ \t]+{FILENAME}{RESTOFLINE}	{
 		/* Detect NUL characters in the config file and
 		 * error out.
 		 */
-		cfgerror("NUL character detected at line %i\n", yyline);
+		cfgerror("NUL character detected at line %i", yyline);
 	}
 #.*	{ /* ignored (comment) */; }
 [ \t]+	{ /* ignored (white space) */; }
@@ -505,7 +505,7 @@ include(const char *fname, int ateof, int conditional, int direct)
 		s = sourcepath(fname);
 	if ((fp = fopen(s, "r")) == NULL) {
 		if (conditional == 0)
-			cfgerror("cannot open %s for reading: %s\n", s,
+			cfgerror("cannot open %s for reading: %s", s,
 			    strerror(errno));
 		else if (vflag)
 			cfgwarn("cannot open conditional include file %s: %s",
@@ -514,7 +514,7 @@ include(const char *fname, int ateof, int conditional, int direct)
 		return (-1);
 	}
 	if (curdir_push(s) == -1) {
-		cfgerror("cannot record current working directory for %s\n", s);
+		cfgerror("cannot record current working directory for %s", s);
 		fclose(fp);
 		free(s);
 		return (-1);

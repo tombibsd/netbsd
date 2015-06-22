@@ -553,7 +553,7 @@ mklong(const char *str, char ch)
 
 	len = strlen(str) + 2;
 	if (len > sizeof copy) {
-		warnx("format %s too complex\n", str);
+		warnx("format %s too complex", str);
 		len = 4;
 	}
 	(void)memmove(copy, str, len - 3);

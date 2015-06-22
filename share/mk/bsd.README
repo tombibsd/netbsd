@@ -136,6 +136,10 @@ MKCATPAGES	If "no", don't build or install the catman pages.
 MKCOMPAT  	If "no", don't build or install the src/compat.
 		Default: yes on amd64/mips64/sparc64, no elsewhere.
 
+MKCOMPATTESTS  	If "yes", build and install the NetBSD test suite when
+		building and installing src/compat.
+		Default: no
+
 MKCOMPLEX	If "no", don't build libm support for <complex.h>
 		Default: yes
 
@@ -1943,7 +1947,11 @@ OBJDUMP		Display information from object files.  [objdump]
 
 RANLIB		Generate index to archive.  [ranlib]
 
+READELF		Display information from ELF object files.  [readelf]
+
 SIZE		List section sizes and total size.  [size]
+
+STRINGS		Display printable character sequences in files.  [strings]
 
 STRIP		Discard symbols from object files.  [strip]
 

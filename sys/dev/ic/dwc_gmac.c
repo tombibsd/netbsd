@@ -238,6 +238,11 @@ dwc_gmac_attach(struct dwc_gmac_softc *sc, uint32_t mii_clk)
         }
 
 	/*
+	 * We can support 802.1Q VLAN-sized frames.
+	 */
+	sc->sc_ec.ec_capabilities |= ETHERCAP_VLAN_MTU;
+
+	/*
 	 * Ready, attach interface
 	 */
 	if_attach(ifp);

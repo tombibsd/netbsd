@@ -426,7 +426,6 @@ kloader_load(void)
 int
 kloader_alloc_memory(size_t sz)
 {
-	extern paddr_t avail_start, avail_end;
 	int n, error;
 
 	n = (sz + BUCKET_SIZE - 1) / BUCKET_SIZE	/* kernel &co */

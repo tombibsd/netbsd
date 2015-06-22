@@ -27,7 +27,7 @@
 /genassym.cf/1.30/Fri Jan 14 02:06:23 2011/-kk/
 /isr.h/1.13/Tue May 19 18:39:26 2009/-kk/
 /locore.s/1.155/Thu Dec 22 15:33:28 2011/-kk/
-/machdep.c/1.244/Thu Jun 18 03:42:15 2015/-kk/
+/machdep.c/1.245/Mon Jun 22 02:34:43 2015/-kk/
 /memlist.h/1.6/Thu Apr 25 09:20:29 2002/-kk/
 /pmap_bootstrap.c/1.9/Sun Dec  6 06:41:29 2009/-kk/
 /simple_busfuncs.c/1.11/Sun Feb 12 16:34:06 2012/-kk/

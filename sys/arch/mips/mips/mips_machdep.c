@@ -1816,7 +1816,6 @@ cpu_dump(void)
 		cpuhdrp->pg_v      = MIPS1_PG_V;
 	}
 	cpuhdrp->sysmappa   = MIPS_KSEG0_TO_PHYS(Sysmap);
-	cpuhdrp->sysmapsize = Sysmapsize;
 	cpuhdrp->nmemsegs   = mem_cluster_cnt;
 
 	/*
@@ -2395,7 +2394,7 @@ mm_md_kernacc(void *ptr, vm_prot_t prot, bool *handled)
 	if (v < MIPS_XKPHYS_START) {
 		return EFAULT;
 	}
-	if (MIPS_XKPHYS_P(v) && v > MIPS_PHYS_TO_XKPHYS_CACHED(mips_avail_end +
+	if (MIPS_XKPHYS_P(v) && v > MIPS_PHYS_TO_XKPHYS_CACHED(pmap_limits.avail_end +
 	    mips_round_page(MSGBUFSIZE))) {
 		return EFAULT;
 	}
@@ -2410,7 +2409,7 @@ mm_md_kernacc(void *ptr, vm_prot_t prot, bool *handled)
 	if (v < MIPS_KSEG0_START) {
 		return EFAULT;
 	}
-	if (v < MIPS_PHYS_TO_KSEG0(mips_avail_end +
+	if (v < MIPS_PHYS_TO_KSEG0(pmap_limits.avail_end +
 	    mips_round_page(MSGBUFSIZE))) {
 		*handled = true;
 		return 0;

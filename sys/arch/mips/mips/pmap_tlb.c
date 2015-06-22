@@ -560,13 +560,14 @@ pmap_tlb_shootdown_bystanders(pmap_t pm)
 		/*
 		 * Skip this TLB if there are no active mappings for it.
 		 */
-		if (!kcpuset_intersecting_p(pm_active, ti->ti_kcpuset) == 0)
+		if (!kcpuset_intersecting_p(pm_active, ti->ti_kcpuset))
 			continue;
 		struct pmap_asid_info * const pai = PMAP_PAI(pm, ti);
 		kcpuset_remove(pm_active, ti->ti_kcpuset);
 		TLBINFO_LOCK(ti);
 		cpuid_t j = kcpuset_ffs_intersecting(pm->pm_onproc, ti->ti_kcpuset);
-		if (j != 0) {
+		// post decrement since ffs returns bit + 1 or 0 if no bit
+		if (j-- > 0) {
 			if (kernel_p) {
 				ti->ti_tlbinvop =
 				    TLBINV_KERNEL_MAP(ti->ti_tlbinvop);
@@ -598,7 +599,7 @@ pmap_tlb_shootdown_bystanders(pmap_t pm)
 			 * change now that we have released the lock but we
 			 * can tolerate spurious shootdowns.
 			 */
-			cpu_send_ipi(cpu_lookup(j-1), IPI_SHOOTDOWN);
+			cpu_send_ipi(cpu_lookup(j), IPI_SHOOTDOWN);
 			ipi_sent = true;
 			continue;
 		}

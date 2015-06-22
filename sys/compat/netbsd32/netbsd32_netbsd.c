@@ -1417,7 +1417,7 @@ int
 netbsd32_pathconf(struct lwp *l, const struct netbsd32_pathconf_args *uap, register_t *retval)
 {
 	/* {
-		syscallarg(int) fd;
+		syscallarg(netbsd32_charp) path;
 		syscallarg(int) name;
 	} */
 	struct sys_pathconf_args ua;
@@ -2761,6 +2761,44 @@ netbsd32_paccept(struct lwp *l, const struct netbsd32_paccept_args *uap,
 
 	return sys_paccept(l, &ua, retval);
 }
+
+int
+netbsd32_fdiscard(struct lwp *l, const struct netbsd32_fdiscard_args *uap,
+	register_t *retval)
+{
+	/* {
+		syscallarg(int) fd;
+		syscallarg(netbsd32_off_t) pos;
+		syscallarg(netbsd32_off_t) len;
+	} */
+	struct sys_fdiscard_args ua;
+
+	NETBSD32TO64_UAP(fd);
+	NETBSD32TO64_UAP(pos);
+	NETBSD32TO64_UAP(len);
+
+	return sys_fdiscard(l, &ua, retval);
+}
+
+int
+netbsd32_posix_fallocate(struct lwp *l, const struct netbsd32_posix_fallocate_args *uap,
+	register_t *retval)
+{
+	/* {
+		syscallarg(int) fd;
+		syscallarg(netbsd32_off_t) pos;
+		syscallarg(netbsd32_off_t) len;
+	} */
+	struct sys_posix_fallocate_args ua;
+
+	NETBSD32TO64_UAP(fd);
+	NETBSD32TO64_UAP(pos);
+	NETBSD32TO64_UAP(len);
+
+	return sys_posix_fallocate(l, &ua, retval);
+}
+
+
 
 /*
  * MI indirect system call support.

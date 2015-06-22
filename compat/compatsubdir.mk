@@ -25,6 +25,9 @@ SUBDIR=	${BOOTSTRAP_SUBDIRS}
 .else
 SUBDIR= ../../../lib .WAIT \
 	../../../libexec/ld.elf_so
+.if ${MKCOMPATTESTS} != "no"
+SUBDIR+= ../../../tests
+.endif
 .endif
 
 .include <bsd.subdir.mk>

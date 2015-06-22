@@ -113,7 +113,6 @@ options 	MIIVERBOSE	# verbose PHY autoconfig messages
 #options 	PCI_NETBSD_ENABLE_IDE=0x1
 
 options 	NFS_BOOT_DHCP
-options 	NFS_V2_ONLY
 
 config		netbsd	root on ? type ?
 #config		netbsd	root on cnmac0 type nfs

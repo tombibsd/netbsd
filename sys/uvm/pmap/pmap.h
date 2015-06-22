@@ -148,6 +148,7 @@ struct pmap_kernel {
 struct pmap_limits {
 	paddr_t avail_start;
 	paddr_t avail_end;
+	vaddr_t virtual_start;
 	vaddr_t virtual_end;
 };
 

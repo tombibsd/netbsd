@@ -1579,7 +1579,7 @@ udf_fidsize(struct fileid_desc *fid)
 	uint32_t size;
 
 	if (udf_rw16(fid->tag.id) != TAGID_FID)
-		errx(EINVAL, "got udf_fidsize on non FID\n");
+		errx(EINVAL, "got udf_fidsize on non FID");
 
 	size = UDF_FID_SIZE + fid->l_fi + udf_rw16(fid->l_iu);
 	size = (size + 3) & ~3;

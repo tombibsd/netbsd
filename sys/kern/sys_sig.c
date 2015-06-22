@@ -211,8 +211,7 @@ sys___sigaltstack14(struct lwp *l, const struct sys___sigaltstack14_args *uap,
 	return 0;
 }
 
-
-static int
+int
 kill1(struct lwp *l, pid_t pid, ksiginfo_t *ksi, register_t *retval)
 {
 	int error;

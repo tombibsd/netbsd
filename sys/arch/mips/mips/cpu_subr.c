@@ -80,9 +80,9 @@ struct cpu_info cpu_info_store
     = {
 	.ci_curlwp = &lwp0,
 	.ci_tlb_info = &pmap_tlb0_info,
-	.ci_pmap_seg0tab = (void *)(MIPS_KSEG2_START + 0x1eadbeef),
+	.ci_pmap_user_segtab = (void *)(MIPS_KSEG2_START + 0x1eadbeef),
 #ifdef _LP64
-	.ci_pmap_segtab = (void *)(MIPS_KSEG2_START + 0x1eadbeef),
+	.ci_pmap_user_seg0tab = (void *)(MIPS_KSEG2_START + 0x1eadbeef),
 #endif
 	.ci_cpl = IPL_HIGH,
 	.ci_tlb_slot = -1,
@@ -194,7 +194,7 @@ cpu_info_alloc(struct pmap_tlb_info *ti, cpuid_t cpu_id, cpuid_t cpu_package_id,
 	 * allocate enough VA so we can map pages with the right color
 	 * (to avoid cache alias problems).
 	 */
-	if (mips_avail_end > MIPS_KSEG1_START - MIPS_KSEG0_START) {
+	if (pmap_limits.avail_end > MIPS_KSEG1_START - MIPS_KSEG0_START) {
 		ci->ci_pmap_dstbase = uvm_km_alloc(kernel_map,
 		    uvmexp.ncolors * PAGE_SIZE, 0, UVM_KMF_VAONLY);
 		KASSERT(ci->ci_pmap_dstbase);

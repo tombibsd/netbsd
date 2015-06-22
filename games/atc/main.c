@@ -55,8 +55,19 @@ __RCSID("$NetBSD$");
 #endif
 #endif /* not lint */
 
-#include "include.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <signal.h>
+#include <termios.h>
+#include <getopt.h>
+#include <err.h>
+
 #include "pathnames.h"
+#include "def.h"
+#include "struct.h"
+#include "extern.h"
+#include "tunable.h"
 
 extern FILE	*yyin;
 

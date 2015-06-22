@@ -78,7 +78,7 @@ init_swave(int fd, unsigned int speed)
 	case B57600:	cp.transport_rate = 0x01;	break;
 	case B115200:	cp.transport_rate = 0x00;	break;
 	default:
-		errx(EXIT_FAILURE, "invalid speed for swave: %u\n", speed);
+		errx(EXIT_FAILURE, "invalid speed for swave: %u", speed);
 	}
 
 	uart_send_cmd(fd, HCI_CMD_SWAVE_PARAM_ACCESS_SET, &cp, sizeof(cp));

@@ -230,6 +230,7 @@ ccdcreate(int unit) {
 	}
 	/* Initialize per-softc structures. */
 	snprintf(sc->sc_xname, sizeof(sc->sc_xname), "ccd%d", unit);
+	sc->sc_unit = unit;
 	mutex_init(&sc->sc_dvlock, MUTEX_DEFAULT, IPL_NONE);
 	sc->sc_iolock = mutex_obj_alloc(MUTEX_DEFAULT, IPL_NONE);
 	cv_init(&sc->sc_stop, "ccdstop");

@@ -529,7 +529,7 @@ fput_body(FILE *fi, FILE *fo, struct Content *Cp)
 
 	enc = mime_fio_encoder(Cp->C_encoding);
 	if (enc == NULL)
-		warnx("unknown transfer encoding type: %s\n", Cp->C_encoding);
+		warnx("unknown transfer encoding type: %s", Cp->C_encoding);
 	else
 		enc(fi, fo, 0);
 }

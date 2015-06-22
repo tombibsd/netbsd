@@ -106,7 +106,7 @@ main(int argc, char **argv)
 		case 'm':
 			lfmode = argtoi('m', "mode", optarg, 8);
 			if (lfmode & ~07777)
-				err(1, "bad mode to -m: %o\n", lfmode);
+				err(1, "bad mode to -m: %o", lfmode);
 			printf("** lost+found creation mode %o\n", lfmode);
 			break;
 
@@ -191,7 +191,7 @@ argtoi(int flag, const char *req, const char *str, int base)
 
 	ret = (int) strtol(str, &cp, base);
 	if (cp == str || *cp)
-		err(FSCK_EXIT_USAGE, "-%c flag requires a %s\n", flag, req);
+		err(FSCK_EXIT_USAGE, "-%c flag requires a %s", flag, req);
 	return (ret);
 }
 

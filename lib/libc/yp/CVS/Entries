@@ -8,7 +8,7 @@
 /yp_match.c/1.19/Tue Mar 20 16:30:26 2012/-kk/
 /yp_order.c/1.14/Mon Jun 25 22:32:46 2012/-kk/
 /ypclnt.3/1.26/Sun Mar  4 11:52:32 2012/-kk/
-/yperr_string.c/1.8/Mon Jun 25 22:32:46 2012/-kk/
+/yperr_string.c/1.9/Mon Jun 22 02:34:28 2015/-kk/
 /yplib.c/1.46/Fri Oct  3 09:57:26 2014/-kk/
 /ypprot_err.c/1.6/Mon Jun 25 22:32:46 2012/-kk/
 D

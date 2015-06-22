@@ -50,8 +50,21 @@ __RCSID("$NetBSD$");
 #endif
 #endif /* not lint */
 
-#include "include.h"
+#include <sys/types.h>
+#include <sys/utsname.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <pwd.h>
+#include <err.h>
+
 #include "pathnames.h"
+#include "def.h"
+#include "struct.h"
+#include "extern.h"
+#include "tunable.h"
 
 static FILE *score_fp;
 

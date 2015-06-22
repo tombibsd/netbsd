@@ -413,6 +413,7 @@ command_help(char *arg)
 	       "modules {on|off|enabled|disabled}\n"
 	       "load {path_to_module}\n"
 	       "multiboot [xdNx:][filename] [<args>]\n"
+	       "splash {path_to_image_file}\n"
 	       "userconf {command}\n"
 	       "rndseed {path_to_rndseed_file}\n"
 	       "help|?\n"

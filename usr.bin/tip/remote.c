@@ -128,12 +128,12 @@ getremcap(char *host)
 	else
 		DU = cgetflag("du");
 	if (DV == NULL) {
-		errx(3, "%s: missing device spec\n", host);
+		errx(3, "%s: missing device spec", host);
 	}
 	if (DU && CU == NULL)
 		CU = DV;
 	if (DU && PN == NULL) {
-		errx(3, "%s: missing phone number\n", host);
+		errx(3, "%s: missing phone number", host);
 	}
 
 	HD = cgetflag("hd");

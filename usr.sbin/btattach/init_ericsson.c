@@ -78,7 +78,7 @@ init_ericsson(int fd, unsigned int speed)
 	case 300000:	rate = 0x27;	break;
 	case 400000:	rate = 0x2b;	break;
 	default:
-		errx(EXIT_FAILURE, "invalid speed for ericsson: %u\n", speed);
+		errx(EXIT_FAILURE, "invalid speed for ericsson: %u", speed);
 	}
 
 	uart_send_cmd(fd, HCI_CMD_ERICSSON_SET_UART_BAUD_RATE, &rate, sizeof(rate));

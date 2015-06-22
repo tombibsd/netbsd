@@ -132,8 +132,6 @@
 #endif
 #include <mips/trap.h>
 
-#include <machine/param.h>
-
 #include "assym.h"
 
 #ifdef _LP64
