@@ -602,8 +602,9 @@ npe_activate(struct npe_softc *sc)
 		return error;
 	}
 
-	if (bus_dmamap_load(sc->sc_dt, sc->sc_stats_map, sc->sc_stats,
-	    sizeof(struct npestats), NULL, BUS_DMA_NOWAIT) != 0) {
+	error = bus_dmamap_load(sc->sc_dt, sc->sc_stats_map, sc->sc_stats,
+	    sizeof(struct npestats), NULL, BUS_DMA_NOWAIT);
+	if (error) {
 		aprint_error_dev(sc->sc_dev,
 		    "unable to %s for %s, error %u\n",
 		    "load map", "stats block", error);

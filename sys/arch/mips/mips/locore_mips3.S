@@ -206,7 +206,7 @@ LEAF(mips_wait_idle)
 #if __mips >= 32
 	teqi	v1, 0
 #else
-	bnez	v1, 2b
+	beqz	v1, 1b
 	 nop
 #endif
 	jr	ra

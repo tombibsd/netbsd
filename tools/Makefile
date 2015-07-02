@@ -212,7 +212,8 @@ SUBDIR+=	mkubootimage
 .endif
 
 .if ${MKX11} != "no" && ${X11FLAVOUR} == "Xorg"
-SUBDIR+=	../external/mit/xorg/tools/makestrs
+SUBDIR+=	makestrs
+SUBDIR+=	makekeys
 .endif
 
 .endif # TOOLCHAIN_BUILDRUMP

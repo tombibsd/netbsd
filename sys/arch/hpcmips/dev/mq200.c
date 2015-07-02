@@ -33,8 +33,9 @@
 __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <sys/param.h>
-#include <sys/kernel.h>
+#include <sys/bus.h>
 #include <sys/device.h>
+#include <sys/kernel.h>
 #include <sys/systm.h>
 #include <sys/reboot.h>
 
@@ -42,8 +43,9 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <dev/wscons/wsconsio.h>
 
+#include <mips/locore.h>
+
 #include <machine/bootinfo.h>
-#include <machine/bus.h>
 #include <machine/autoconf.h>
 #include <machine/config_hook.h>
 #include <machine/platid.h>

@@ -101,6 +101,7 @@ const char	devcls[] = "devcls";
 #endif
 
 static vnode_t	*specfs_hash[SPECHSZ];
+extern struct mount *dead_rootmount;
 
 /*
  * This vnode operations vector is used for special device nodes
@@ -1077,11 +1078,28 @@ spec_inactive(void *v)
 {
 	struct vop_inactive_args /* {
 		struct vnode *a_vp;
-		struct proc *a_l;
+		struct bool *a_recycle;
 	} */ *ap = v;
+	struct vnode *vp = ap->a_vp;
 
-	VOP_UNLOCK(ap->a_vp);
-	return (0);
+	KASSERT(vp->v_mount == dead_rootmount);
+	*ap->a_recycle = true;
+	VOP_UNLOCK(vp);
+	return 0;
+}
+
+int
+spec_reclaim(void *v)
+{
+	struct vop_reclaim_args /* {
+		struct vnode *a_vp;
+	} */ *ap = v;
+	struct vnode *vp = ap->a_vp;
+
+	KASSERT(vp->v_mount == dead_rootmount);
+	vcache_remove(vp->v_mount, &vp->v_data, sizeof(vp->v_data));
+	vp->v_data = NULL;
+	return 0;
 }
 
 /*

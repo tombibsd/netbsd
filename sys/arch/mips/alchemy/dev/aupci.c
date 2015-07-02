@@ -45,12 +45,12 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/device.h>
 #include <sys/malloc.h>
 #include <sys/extent.h>
+#include <sys/bus.h>
 
 #include <uvm/uvm_extern.h>
 
-#include <sys/bus.h>
-#include <machine/cpu.h>
-#include <machine/pte.h>
+#include <mips/locore.h>
+#include <mips/pte.h>
 
 #include <dev/pci/pcivar.h>
 #include <dev/pci/pcireg.h>

@@ -41,11 +41,11 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/device.h>
 #include <sys/gpio.h>
 #include <sys/kernel.h>
+#include <sys/bus.h>
 
 #include <dev/gpio/gpiovar.h>
 
-#include <sys/bus.h>
-#include <machine/cpu.h>
+#include <mips/locore.h>
 
 #include <mips/alchemy/include/aubusvar.h>
 #include <mips/alchemy/include/aureg.h>

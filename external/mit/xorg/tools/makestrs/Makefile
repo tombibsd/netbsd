@@ -6,7 +6,9 @@ NOMAN=	1
 
 .PATH:	${X11SRCDIR.Xt}/util
 
-HOSTPROG=	makestrs
-HOST_CPPFLAGS+=	-I.
+PROG=	makestrs
+SRCS=	makestrs.c
 
-.include <bsd.hostprog.mk>
+CPPFLAGS+=	-I.
+
+.include <bsd.prog.mk>

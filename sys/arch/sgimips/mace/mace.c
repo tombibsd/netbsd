@@ -261,7 +261,7 @@ mace_intr_establish(int intr, int level, int (*func)(void *), void *arg)
 			maceintrtab[i].intrmask = level;
 			snprintf(maceintrtab[i].evname,
 			    sizeof(maceintrtab[i].evname),
-			    "intr %d level 0x%x", intr, level);
+			    "intr %d lv 0x%x", intr, level);
 			evcnt_attach_dynamic(&maceintrtab[i].evcnt,
 			    EVCNT_TYPE_INTR, NULL,
 			    "mace", maceintrtab[i].evname);

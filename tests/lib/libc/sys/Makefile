@@ -71,7 +71,7 @@ SRCS.t_mprotect=	t_mprotect.c ${SRCS_EXEC_PROT}
 
 LDADD.t_getpid+=        -lpthread
 
-.if (${MKRUMP} != "no")
+.if (${MKRUMP} != "no") && !defined(BSD_MK_COMPAT_FILE)
 TESTS_C+=		t_posix_fadvise
 LDADD.t_posix_fadvise+= -lrumpvfs -lrump -lrumpuser -lrump -lpthread
 .endif

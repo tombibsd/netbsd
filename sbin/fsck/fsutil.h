@@ -51,7 +51,7 @@ int checkfstab(int, int, void *(*)(struct fstab *),
     int (*) (const char *, const char *, const char *, void *, pid_t *));
 
 void (*ckfinish)(int);
-volatile sig_atomic_t returntosingle;
+extern volatile sig_atomic_t returntosingle;
 void catch(int) __dead;
 void catchquit(int);
 void voidquit(int);

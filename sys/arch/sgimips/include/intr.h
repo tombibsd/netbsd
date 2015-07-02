@@ -43,8 +43,6 @@
 #include <sys/queue.h>
 #include <sys/types.h>
 #include <sys/evcnt.h>
-#include <mips/cpuregs.h>
-#include <mips/locore.h>
 
 #define NINTR	32
 

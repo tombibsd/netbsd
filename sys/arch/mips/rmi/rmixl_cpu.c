@@ -474,9 +474,11 @@ rmixl_cpuinfo_print(u_int cpuindex)
 		printf("ci_tlb_slot %d\n", ci->ci_tlb_slot);
 		printf("ci_pmap_asid_cur %d\n", ci->ci_pmap_asid_cur);
 		printf("ci_tlb_info %p\n", ci->ci_tlb_info);
-		printf("ci_pmap_seg0tab %p\n", ci->ci_pmap_seg0tab);
+		printf("ci_pmap_kern_segtab %p\n", ci->ci_pmap_kern_segtab);
+		printf("ci_pmap_user_segtab %p\n", ci->ci_pmap_user_segtab);
 #ifdef _LP64
-		printf("ci_pmap_segtab %p\n", ci->ci_pmap_segtab);
+		printf("ci_pmap_kern_seg0tab %p\n", ci->ci_pmap_kern_seg0tab);
+		printf("ci_pmap_user_seg0tab %p\n", ci->ci_pmap_user_seg0tab);
 #else
 		printf("ci_pmap_srcbase %#"PRIxVADDR"\n", ci->ci_pmap_srcbase);
 		printf("ci_pmap_dstbase %#"PRIxVADDR"\n", ci->ci_pmap_dstbase);

@@ -46,6 +46,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <uvm/uvm_extern.h>
 
+#include <mips/locore.h>
 #include <mips/cache.h>		/* Set L2-cache size */
 
 #include <machine/autoconf.h>
@@ -159,6 +160,8 @@ tr2a_init(void)
 
 	/* Register system-board specific ops. */
 	_SBD_OPS_REGISTER_ALL(tr2a);
+
+	mips_locore_jumpvec.ljv_wbflush = platform.wbflush;
 }
 
 int

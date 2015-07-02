@@ -48,6 +48,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <dev/cons.h>
 
+#include <mips/locore.h>
+
 #include <machine/yamon.h>
 
 static int  yamongetc(dev_t);

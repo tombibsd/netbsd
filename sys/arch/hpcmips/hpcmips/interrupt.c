@@ -42,6 +42,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/malloc.h>
 #include <sys/intr.h>
 
+#include <mips/locore.h>
+
 #include <machine/sysconf.h>
 
 void

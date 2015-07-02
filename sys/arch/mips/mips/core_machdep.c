@@ -53,10 +53,10 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <uvm/uvm_extern.h>
 
+#include <mips/locore.h>
 #include <mips/pcb.h>
 #include <mips/cache.h>
 #include <mips/regnum.h>
-#include <mips/locore.h>
 #include <mips/pte.h>
 #include <mips/psl.h>
 

@@ -217,7 +217,7 @@ CLEANFILES+= ${CPPSCRIPTS}
 .if defined(PKGDIST) && !defined(PKGCONFIG)
 PKGCONFIG=	${PKGDIST:tl}
 .endif
-.if defined(PKGCONFIG)
+.if defined(PKGCONFIG) && !defined(MLIBDIR)
 
 .include <bsd.files.mk>
 

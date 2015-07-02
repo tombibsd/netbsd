@@ -5,7 +5,7 @@
 TESTSDIR=	${TESTSBASE}/net
 
 TESTS_SUBDIRS=		fdpass in_cksum net sys
-.if (${MKRUMP} != "no")
+.if (${MKRUMP} != "no") && !defined(BSD_MK_COMPAT_FILE)
 TESTS_SUBDIRS+=		bpf bpfilter carp icmp if if_bridge if_loop mcast
 TESTS_SUBDIRS+=		mpls npf route
 .if (${MKSLJIT} != "no")

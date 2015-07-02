@@ -618,8 +618,8 @@ sys_mq_open(struct lwp *l, const struct sys_mq_open_args *uap,
 	struct mq_attr *attr = NULL, a;
 	int error;
 
-	if ((SCARG(uap, oflag) & O_CREAT) && (SCARG(uap,attr) != NULL)) {
-		error = copyin(&a, SCARG(uap,attr), sizeof(a));
+	if ((SCARG(uap, oflag) & O_CREAT) != 0 && SCARG(uap, attr) != NULL) {
+		error = copyin(SCARG(uap, attr), &a, sizeof(a));
 		if (error)
 			return error;
 		attr = &a;

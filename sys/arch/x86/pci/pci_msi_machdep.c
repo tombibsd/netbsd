@@ -236,8 +236,7 @@ pci_msix_alloc_common(pci_intr_handle_t **ihps, u_int *table_indexes,
 	pci_intr_handle_t *vectors;
 	int error, i;
 
-	if (((pa->pa_flags & PCI_FLAGS_MSI_OKAY) == 0)
-	    || ((pa->pa_flags & PCI_FLAGS_MSIX_OKAY) == 0)) {
+	if ((pa->pa_flags & PCI_FLAGS_MSIX_OKAY) == 0) {
 		DPRINTF(("PCI host bridge does not support MSI-X.\n"));
 		return ENODEV;
 	}

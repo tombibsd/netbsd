@@ -49,6 +49,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <dev/cons.h>
 #include <dev/ic/z8530reg.h>
 
+#include <mips/locore.h>
+
 #include <machine/sbdiovar.h>
 #include <machine/z8530var.h>
 

@@ -3,7 +3,7 @@
 /athlon.md/1.1.1.3/Fri Mar 14 04:25:45 2014/-kk/
 /atom.md/1.1.1.2/Fri Mar 14 04:25:45 2014/-kk/
 /att.h/1.1.1.2/Fri Mar 14 04:25:45 2014/-kk/
-/avx2intrin.h/1.1.1.1/Sat Mar  1 08:43:17 2014/-kk/
+/avx2intrin.h/1.1.1.2/Thu Jul  2 04:07:57 2015/-kk/
 /avxintrin.h/1.1.1.3/Fri Mar 14 04:25:45 2014/-kk/
 /avxmath.h/1.1.1.1/Sat Mar  1 08:43:18 2014/-kk/
 /bdver1.md/1.1.1.1/Sat Mar  1 08:43:18 2014/-kk/
@@ -30,7 +30,7 @@
 /djgpp.h/1.1.1.2/Fri Mar 14 04:25:45 2014/-kk/
 /djgpp.opt/1.1.1.2/Fri Mar 14 04:25:45 2014/-kk/
 /driver-i386.c/1.5/Wed Oct 29 08:10:29 2014/-kk/
-/emmintrin.h/1.1.1.2/Fri Mar 14 04:25:45 2014/-kk/
+/emmintrin.h/1.1.1.3/Thu Jul  2 04:07:57 2015/-kk/
 /f16cintrin.h/1.1.1.2/Mon Mar  3 02:44:49 2014/-kk/
 /fma4intrin.h/1.1.1.2/Fri Mar 14 04:25:45 2014/-kk/
 /fmaintrin.h/1.1.1.1/Sat Mar  1 08:43:19 2014/-kk/
@@ -55,9 +55,9 @@
 /i386-modes.def/1.1.1.2/Fri Mar 14 04:25:45 2014/-kk/
 /i386-opts.h/1.1.1.1/Sat Mar  1 08:43:18 2014/-kk/
 /i386-protos.h/1.1.1.3/Fri Mar 14 04:25:45 2014/-kk/
-/i386.c/1.9/Mon Jan 12 06:44:02 2015/-kk/
+/i386.c/1.10/Thu Jul  2 04:07:58 2015/-kk/
 /i386.h/1.3/Fri Mar 14 04:25:47 2014/-kk/
-/i386.md/1.1.1.5/Wed Oct 29 08:10:29 2014/-kk/
+/i386.md/1.1.1.6/Thu Jul  2 04:07:59 2015/-kk/
 /i386.opt/1.1.1.2/Fri Mar 14 04:25:48 2014/-kk/
 /i386elf.h/1.1.1.2/Fri Mar 14 04:25:48 2014/-kk/
 /ia32intrin.h/1.1.1.2/Fri Mar 14 04:25:48 2014/-kk/
@@ -96,7 +96,7 @@
 /pmmintrin.h/1.1.1.2/Fri Mar 14 04:25:48 2014/-kk/
 /popcntintrin.h/1.1.1.2/Fri Mar 14 04:25:48 2014/-kk/
 /ppro.md/1.1.1.2/Fri Mar 14 04:25:48 2014/-kk/
-/predicates.md/1.1.1.2/Fri Mar 14 04:25:48 2014/-kk/
+/predicates.md/1.1.1.3/Thu Jul  2 04:07:59 2015/-kk/
 /prfchwintrin.h/1.1.1.1/Sat Mar  1 08:43:17 2014/-kk/
 /rdos.h/1.1.1.1/Sat Mar  1 08:43:18 2014/-kk/
 /rdos64.h/1.1.1.1/Sat Mar  1 08:43:17 2014/-kk/
@@ -106,7 +106,7 @@
 /smmintrin.h/1.1.1.2/Fri Mar 14 04:25:48 2014/-kk/
 /sol2-bi.h/1.1.1.1/Sat Mar  1 08:43:18 2014/-kk/
 /sol2.h/1.1.1.2/Fri Mar 14 04:25:48 2014/-kk/
-/sse.md/1.1.1.4/Fri Mar 14 04:25:48 2014/-kk/
+/sse.md/1.1.1.5/Thu Jul  2 04:07:59 2015/-kk/
 /ssemath.h/1.1.1.2/Fri Mar 14 04:25:48 2014/-kk/
 /sync.md/1.1.1.2/Fri Mar 14 04:25:48 2014/-kk/
 /sysv4.h/1.1.1.2/Fri Mar 14 04:25:48 2014/-kk/

@@ -420,13 +420,13 @@ Notes:
 There is a flex2netbsd script to help newer imports.
 
 Package:	gcc
-Version:	4.8.4
-Current Vers:	4.8.4/5.1
+Version:	4.8.5
+Current Vers:	4.8.5/5.1
 Maintainer:	FSF
 Archive Site:	ftp://ftp.gnu.org/gnu/gcc/
 Home Page:	http://www.gnu.org/software/gcc/
 Mailing List:	gcc-bugs@gnu.org
-Responsible:	thorpej, mrg
+Responsible:	mrg, christos, skrll
 License:	GPLv3, LGPLv3.1
 Location:	gnu/dist/gcc4
 Location:	external/gpl3/gcc.old/dist
@@ -1337,8 +1337,8 @@ Notes:
 Added changes from a5 -> a12 manually.
 
 Package:	tz
-Version:	tzcode2015d / tzdata2015b
-Current Vers:	tzcode2015d / tzdata2015d
+Version:	tzcode2015d / tzdata2015e
+Current Vers:	tzcode2015e / tzdata2015e
 Maintainer:	Paul Eggert <eggert@cs.ucla.edu>
 Archive Site:	ftp://ftp.iana.org/tz/releases/
 Archive Site:	ftp://munnari.oz.au/pub/oldtz/

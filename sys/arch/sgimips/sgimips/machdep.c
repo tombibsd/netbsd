@@ -50,10 +50,12 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/kernel.h>
 #include <sys/proc.h>
 #include <sys/buf.h>
+#include <sys/bus.h>
 #include <sys/reboot.h>
 #include <sys/conf.h>
 #include <sys/file.h>
 #include <sys/malloc.h>
+#include <sys/intr.h>
 #include <sys/mbuf.h>
 #include <sys/msgbuf.h>
 #include <sys/device.h>
@@ -67,18 +69,15 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <uvm/uvm_extern.h>
 
-#include <machine/cpu.h>
+#include <mips/locore.h>
+
 #include <machine/reg.h>
 #include <machine/psl.h>
-#include <machine/pte.h>
 #include <machine/autoconf.h>
 #include <machine/machtype.h>
 #include <machine/sysconf.h>
-#include <machine/intr.h>
 #include <machine/bootinfo.h>
-#include <sys/bus.h>
 
-#include <mips/locore.h>
 #include <mips/cache.h>
 #include <mips/cache_r5k.h>
 #ifdef ENABLE_MIPS4_CACHE_R10K

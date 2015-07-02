@@ -32,13 +32,16 @@
 #include <sys/cdefs.h>
 __KERNEL_RCSID(0, "$NetBSD$");
 
+#define _EWS4800MIPS_BUS_DMA_PRIVATE
+
 #include <sys/param.h>
-#include <sys/systm.h>
+#include <sys/bus.h>
 #include <sys/device.h>
+#include <sys/systm.h>
+
+#include <mips/locore.h>
 
 #include <machine/autoconf.h>
-#define _EWS4800MIPS_BUS_DMA_PRIVATE
-#include <machine/bus.h>
 #include <machine/sbdvar.h>
 #include <machine/sbdiovar.h>
 

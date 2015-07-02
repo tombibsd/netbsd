@@ -1,6 +1,6 @@
 #	$NetBSD$
 
-MKPRIVATELIB=	yes
+LIBISPRIVATE=	yes
 
 .include <bsd.own.mk>
 

@@ -1823,7 +1823,6 @@ et_encap(struct et_softc *sc, struct mbuf **m0)
 
 		MGETHDR(m_new, M_DONTWAIT, MT_DATA);
 		if (m_new == NULL) {
-			m_freem(m);
 			aprint_error_dev(sc->sc_dev, "can't defrag TX mbuf\n");
 			error = ENOBUFS;
 			goto back;
@@ -1833,7 +1832,6 @@ et_encap(struct et_softc *sc, struct mbuf **m0)
 		if (m->m_pkthdr.len > MHLEN) {
 			MCLGET(m_new, M_DONTWAIT);
 			if (!(m_new->m_flags & M_EXT)) {
-				m_freem(m);
 				m_freem(m_new);
 				error = ENOBUFS;
 			}

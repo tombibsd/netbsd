@@ -12,9 +12,9 @@
 /arm-protos.h/1.1.1.3/Wed Oct 29 08:10:28 2014/-kk/
 /arm-tables.opt/1.1.1.1/Sat Mar  1 08:43:28 2014/-kk/
 /arm-tune.md/1.1.1.2/Fri Mar 14 04:25:39 2014/-kk/
-/arm.c/1.1.1.5/Wed Oct 29 08:10:29 2014/-kk/
-/arm.h/1.10/Mon Jan 12 06:44:01 2015/-kk/
-/arm.md/1.8/Mon Jan 12 06:44:01 2015/-kk/
+/arm.c/1.1.1.6/Thu Jul  2 04:07:55 2015/-kk/
+/arm.h/1.11/Thu Jul  2 04:07:55 2015/-kk/
+/arm.md/1.9/Thu Jul  2 04:07:56 2015/-kk/
 /arm.opt/1.1.1.2/Fri Mar 14 04:25:40 2014/-kk/
 /arm1020e.md/1.1.1.2/Fri Mar 14 04:25:40 2014/-kk/
 /arm1026ejs.md/1.1.1.2/Fri Mar 14 04:25:40 2014/-kk/

@@ -2,14 +2,23 @@
 
 # build libraries for xorg
 
+.include <bsd.own.mk>
+
 SUBDIR=	libfontenc freetype libFS libICE libglapi \
 	libXau libXdmcp libdrm libpciaccess libpthread-stubs .WAIT
 .if ${MACHINE_ARCH} == "i386" || ${MACHINE_ARCH} == "x86_64"
 SUBDIR+=libdrm_intel
 .endif
-SUBDIR+=libdrm_radeon pixman xkeyboard-config libxcb \
+SUBDIR+=libdrm_radeon pixman
+.if !defined(MLIBDIR)
+SUBDIR+=xkeyboard-config
+.endif
+SUBDIR+=libxcb \
 	.WAIT
-SUBDIR+=dri7 dri gallium fontconfig libSM libX11 \
+.if !defined(MLIBDIR)
+SUBDIR+=dri7 dri gallium
+.endif
+SUBDIR+=fontconfig libSM libX11 \
 	.WAIT \
 	libXcomposite libXdamage libXext libXfixes libXt \
 	libxkbfile \

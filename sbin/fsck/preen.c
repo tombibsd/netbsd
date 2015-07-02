@@ -38,6 +38,11 @@ __RCSID("$NetBSD$");
 #endif
 #endif /* not lint */
 
+/*
+ * used by sbin/fsck
+ * used by usr.sbin/quotacheck
+ */
+
 #include <sys/param.h>
 #include <sys/stat.h>
 #include <sys/wait.h>

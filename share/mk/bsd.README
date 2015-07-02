@@ -140,6 +140,10 @@ MKCOMPATTESTS  	If "yes", build and install the NetBSD test suite when
 		building and installing src/compat.
 		Default: no
 
+MKCOMPATX11  	If "yes", build and install the X11 libraries when
+		building and installing src/compat.
+		Default: no
+
 MKCOMPLEX	If "no", don't build libm support for <complex.h>
 		Default: yes
 

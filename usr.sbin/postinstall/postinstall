@@ -500,7 +500,7 @@ file_exists_exact()
 	_path="${1#.}"
 	[ -h "${DEST_DIR}${_path}" ] || \
         	[ -e "${DEST_DIR}${_path}" ] || return 1
-	while [ "${_path}" != "/" ] ; do
+	while [ "${_path}" != "/" -a "${_path}" != "." ] ; do
 		_dirname="$(dirname "${_path}" 2>/dev/null)"
 		_basename="$(basename "${_path}" 2>/dev/null)"
 		ls -fa "${DEST_DIR}${_dirname}" 2> /dev/null \
@@ -1178,7 +1178,7 @@ do_mtree()
 	if ! $SOURCEMODE; then
 		MTREE_DIR="${SRC_DIR}/etc/mtree"
 	else
-		${MAKE} -s -C "${SRC_DIR}/etc/mtree" emit_dist_file > \
+		env AWK={$AWK:Q} ${MAKE} -s -C "${SRC_DIR}/etc/mtree" emit_dist_file > \
 		    "${SCRATCHDIR}/NetBSD.dist"
 		MTREE_DIR="${SCRATCHDIR}"
 	fi

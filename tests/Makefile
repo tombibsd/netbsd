@@ -9,7 +9,7 @@ TESTSDIR=	${TESTSBASE}
 TESTS_SUBDIRS=		bin dev games include kernel lib libexec net
 TESTS_SUBDIRS+=		sbin sys usr.bin usr.sbin
 
-. if (${MKRUMP} != "no")
+. if (${MKRUMP} != "no") && !defined(BSD_MK_COMPAT_FILE)
 TESTS_SUBDIRS+=		fs rump
 
 . if ${MKKMOD} != "no"

@@ -194,7 +194,6 @@ ingenic_clockintr(uint32_t id)
 #ifdef USE_OST
 	uint32_t new_cnt;
 #endif
-	ci->ci_ev_count_compare.ev_count++;
 
 	/* clear flags */
 	writereg(JZ_TC_TFCR, TFR_OSTFLAG);

@@ -70,6 +70,8 @@ pthread_rwlock_t lk;
 
 struct timespec to;
 
+static pthread_rwlock_t static_rwlock = PTHREAD_RWLOCK_INITIALIZER;
+
 /* ARGSUSED */
 static void *
 do_nothing(void *dummy)
@@ -117,9 +119,23 @@ ATF_TC_BODY(rwlock1, tc)
 		"%s", strerror(error));
 }
 
+ATF_TC(rwlock_static);
+ATF_TC_HEAD(rwlock_static, tc)
+{
+	atf_tc_set_md_var(tc, "descr", "rwlock w/ static initializer");
+}
+ATF_TC_BODY(rwlock_static, tc)
+{
+
+	PTHREAD_REQUIRE(pthread_rwlock_rdlock(&static_rwlock));
+	PTHREAD_REQUIRE(pthread_rwlock_unlock(&static_rwlock));
+	PTHREAD_REQUIRE(pthread_rwlock_destroy(&static_rwlock));
+}
+
 ATF_TP_ADD_TCS(tp)
 {
 	ATF_TP_ADD_TC(tp, rwlock1);
+	ATF_TP_ADD_TC(tp, rwlock_static);
 
 	return atf_no_error();
 }

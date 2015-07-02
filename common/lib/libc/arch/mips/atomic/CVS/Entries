@@ -8,5 +8,5 @@
 /atomic_op_asm.h/1.3/Thu Jun 18 03:38:01 2015/-kk/
 /atomic_or.S/1.4/Wed Mar 14 16:50:34 2012/-kk/
 /atomic_swap.S/1.5/Thu Jun 18 03:38:01 2015/-kk/
-/membar_ops.S/1.6/Thu Jun 18 03:38:01 2015/-kk/
+/membar_ops.S/1.8/Thu Jul  2 04:04:10 2015/-kk/
 D

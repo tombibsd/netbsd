@@ -42,7 +42,8 @@ __ssp_redirect0(ssize_t, read, (int __fd, void *__buf, size_t __len), \
 __ssp_redirect(ssize_t, readlink, (const char *__restrict __path, \
     char *__restrict __buf, size_t __len), (__path, __buf, __len));
 
-__ssp_redirect(char *, getcwd, (char *__buf, size_t __len), (__buf, __len));
+__ssp_redirect_raw(char *, getcwd, getcwd, (char *__buf, size_t __len),
+    (__buf, __len), __buf != 0, __ssp_bos);
 
 __END_DECLS
 

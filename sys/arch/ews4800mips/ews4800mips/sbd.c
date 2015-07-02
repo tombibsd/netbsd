@@ -40,6 +40,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <uvm/uvm_extern.h>
 
+#include <mips/locore.h>
+
 #include <machine/sbdvar.h>
 #include <machine/sbd.h>
 

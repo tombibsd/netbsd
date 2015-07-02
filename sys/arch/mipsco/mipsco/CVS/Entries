@@ -6,7 +6,7 @@
 /disksubr.c/1.27/Mon Mar 16 23:11:12 2009/-kk/
 /interrupt.c/1.11/Sun Feb 20 07:56:16 2011/-kk/
 /locore_machdep.S/1.7/Mon Apr 28 20:23:28 2008/-kk/
-/machdep.c/1.78/Sat Jun 14 03:56:32 2014/-kk/
+/machdep.c/1.79/Thu Jul  2 04:14:01 2015/-kk/
 /mainbus.c/1.10/Sun Feb 20 07:56:16 2011/-kk/
 /mips_3x30.c/1.16/Fri Apr 11 02:03:31 2014/-kk/
 /prom.c/1.6/Mon Apr 28 20:23:28 2008/-kk/

@@ -45,6 +45,7 @@
  */
 
 #ifndef _LOCORE
+#if 0
 struct mips1_pte {
 #if BYTE_ORDER == BIG_ENDIAN
 unsigned int	pg_pfnum:20,		/* HW: core page frame number or 0 */
@@ -69,6 +70,7 @@ unsigned int	pg_prot:2,		/* SW: access control */
 		pg_pfnum:20;		/* HW: core page frame number or 0 */
 #endif
 };
+#endif
 #endif /* _LOCORE */
 
 #define	MIPS1_PG_PROT	0x00000003

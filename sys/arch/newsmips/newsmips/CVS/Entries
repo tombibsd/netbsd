@@ -5,7 +5,7 @@
 /cpu_cons.c/1.13/Sat Jul 28 23:08:57 2012/-kk/
 /disksubr.c/1.28/Wed Jan  2 11:48:26 2008/-kk/
 /locore_machdep.S/1.16/Sun Feb 20 07:56:31 2011/-kk/
-/machdep.c/1.116/Tue Dec  9 04:43:40 2014/-kk/
+/machdep.c/1.117/Thu Jul  2 04:14:03 2015/-kk/
 /machid.h/1.6/Sun Dec 11 12:18:25 2005/-kk/
 /mainbus.c/1.11/Wed Apr  9 15:40:30 2008/-kk/
 /news3400.c/1.23/Fri Apr 11 02:03:34 2014/-kk/

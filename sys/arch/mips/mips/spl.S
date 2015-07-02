@@ -86,8 +86,8 @@ _splraise:
 	or	v1, MIPS_INT_MASK		# enable all interrupts
 	xor	a0, v1				# disable ipl's masked bits
 	DYNAMIC_STATUS_MASK(a0,v0)		# machine dependent masking
-#if defined(_LP64) && MULTIPROCESSOR
-	li	v1, MIPS3_SR_KX | MIPS3_SR_UX	# keep 64-bit addressing on
+#if !defined(__mips_o32) && defined(MULTIPROCESSOR)
+	li	v1, MIPS3_SR_KX			# keep 64-bit addressing on
 	mtc0	v1, MIPS_COP_0_STATUS		## disable interrupts
 #else
 	mtc0	zero, MIPS_COP_0_STATUS		## disable interrupts

@@ -43,6 +43,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/systm.h>
 #include <sys/cpu.h>
 
+#include <mips/locore.h>
+
 static int	cpu_match(device_t, cfdata_t, void *);
 static void	cpu_attach(device_t, device_t, void *);
 

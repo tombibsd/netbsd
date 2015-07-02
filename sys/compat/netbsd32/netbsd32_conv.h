@@ -39,6 +39,7 @@
 #include <sys/param.h>
 #include <sys/systm.h>
 #include <sys/kernel.h>
+#include <sys/dirent.h>
 #include <sys/ipc.h>
 #include <sys/msg.h>
 #define msg __msg /* Don't ask me! */

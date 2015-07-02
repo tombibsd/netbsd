@@ -13,3 +13,7 @@ ARCHDIR_SUBDIR=	x86/i386-xen x86/i386pae-xen
 .if ${MACHINE_ARCH} == "powerpc"
 ARCHDIR_SUBDIR=	powerpc/powerpc-4xx powerpc/powerpc-booke
 .endif
+
+.if ${MACHINE_ARCH} == "mips64eb" || ${MACHINE_ARCH} == "mips64el"
+ARCHDIR_SUBDIR= mips/mips-n32
+.endif

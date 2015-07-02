@@ -34,6 +34,17 @@
 __RCSID("$NetBSD$");
 #endif /* not lint */
 
+/*
+ * used by sbin/fsck
+ * used by sbin/fsck_ext2fs
+ * used by sbin/fsck_ffs
+ * used by sbin/fsck_lfs
+ * used by sbin/fsck_msdos
+ * used by sbin/fsck_v7fs
+ * used by sbin/fsdb
+ * used by usr.sbin/quotacheck
+ */
+
 #include <sys/param.h>
 
 #include <stdio.h>
@@ -52,6 +63,8 @@ __RCSID("$NetBSD$");
 
 #include "fsutil.h"
 #include "exitvalues.h"
+
+volatile sig_atomic_t returntosingle;
 
 static const char *dev = NULL;
 static int hot = 0;

@@ -2798,6 +2798,67 @@ netbsd32_posix_fallocate(struct lwp *l, const struct netbsd32_posix_fallocate_ar
 	return sys_posix_fallocate(l, &ua, retval);
 }
 
+int
+netbsd32_pset_create(struct lwp *l,
+    const struct netbsd32_pset_create_args *uap, register_t *retval)
+{
+	/* {
+		syscallarg(netbsd32_psetidp_t) psid;
+	}; */
+
+	return sys_pset_create(l, (const void *)uap, retval);
+}
+
+int
+netbsd32_pset_destroy(struct lwp *l,
+     const struct netbsd32_pset_destroy_args *uap, register_t *retval)
+{
+	/* {
+		syscallarg(psetid_t) psid;
+	}; */
+
+	return sys_pset_destroy(l, (const void *)uap, retval);
+}
+
+int
+netbsd32_pset_assign(struct lwp *l,
+     const struct netbsd32_pset_assign_args *uap, register_t *retval)
+{
+	/* {
+		syscallarg(psetid_t) psid;
+		syscallarg(cpuid_t) cpuid;
+		syscallarg(netbsd32_psetidp_t) opsid;
+	}; */
+	struct sys_pset_assign_args ua;
+
+	SCARG(&ua, psid) = SCARG(uap, psid);
+	NETBSD32TO64_UAP(cpuid);
+	NETBSD32TOP_UAP(opsid, psetid_t);
+
+	return sys_pset_assign(l, &ua, retval);
+}
+
+int
+netbsd32__pset_bind(struct lwp *l,
+     const struct netbsd32__pset_bind_args *uap, register_t *retval)
+{
+	/* {
+		syscallarg(idtype_t) idtype;
+		syscallarg(id_t) first_id;
+		syscallarg(id_t) second_id;
+		syscallarg(psetid_t) psid;
+		syscallarg(netbsd32_psetidp_t) opsid;
+	}; */
+	struct sys__pset_bind_args ua;
+
+	SCARG(&ua, idtype) = SCARG(uap, idtype);
+	SCARG(&ua, first_id) = SCARG(uap, first_id);
+	SCARG(&ua, second_id) = SCARG(uap, second_id);
+	SCARG(&ua, psid) = SCARG(uap, psid);
+	NETBSD32TOP_UAP(opsid, psetid_t);
+
+	return sys__pset_bind(l, &ua, retval);
+}
 
 
 /*

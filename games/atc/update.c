@@ -232,6 +232,32 @@ update(int dummy __unused)
 #endif
 }
 
+void
+loser(const PLANE *p, const char *s)
+{
+	int			c;
+#ifdef BSD
+	struct itimerval	itv;
+#endif
+
+	/* disable timer */
+#ifdef BSD
+	itv.it_value.tv_sec = 0;
+	itv.it_value.tv_usec = 0;
+	(void)setitimer(ITIMER_REAL, &itv, NULL);
+#endif
+#ifdef SYSV
+	alarm(0);
+#endif
+
+	losermsg(p, s);
+	while ((c = getAChar()) != EOF && c != ' ')
+		;
+	shutdown_gr();
+	(void)log_score(0);
+	exit(0);
+}
+
 const char *
 command(const PLANE *pp)
 {

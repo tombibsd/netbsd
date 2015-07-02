@@ -418,46 +418,12 @@ void
 cpu_startup(void)
 {
 	struct adm5120_config *admc = &adm5120_configuration;
-	char pbuf[9];
-	vaddr_t minaddr, maxaddr;
-#ifdef DEBUG
-	extern int pmapdebug;		/* XXX */
-	int opmapdebug = pmapdebug;
-
-	pmapdebug = 0;		/* Shut up pmap debug during bootstrap */
-#endif
 
 	if ((admc->properties = prop_dictionary_create()) == NULL)
 		printf("%s: prop_dictionary_create\n", __func__);
 	parse_args(admc->properties, admc->argc, admc->argv, NULL);
 
-	/*
-	 * Good {morning,afternoon,evening,night}.
-	 */
-	printf("%s%s", copyright, version);
-	printf("%s\n", cpu_getmodel());
-	format_bytes(pbuf, sizeof(pbuf), ctob(physmem));
-	printf("total memory = %s\n", pbuf);
-
-	minaddr = 0;
-
-	/*
-	 * Allocate a submap for physio
-	 */
-	phys_map = uvm_km_suballoc(kernel_map, &minaddr, &maxaddr,
-	    VM_PHYS_SIZE, 0, FALSE, NULL);
-
-	/*
-	 * No need to allocate an mbuf cluster submap.  Mbuf clusters
-	 * are allocated via the pool allocator, and we use KSEG to
-	 * map those pages.
-	 */
-
-#ifdef DEBUG
-	pmapdebug = opmapdebug;
-#endif
-	format_bytes(pbuf, sizeof(pbuf), ptoa(uvmexp.free));
-	printf("avail memory = %s\n", pbuf);
+	cpu_startup_common();
 }
 
 void

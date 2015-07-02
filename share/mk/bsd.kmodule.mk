@@ -37,10 +37,10 @@ CFLAGS+=	${${ACTIVE_CC} == "gcc":? -mlongcall :}
 CFLAGS+=	-fno-pic
 .elif ${MACHINE_CPU} == "riscv"
 CFLAGS+=	-fPIC -Wa,-fno-pic
-.elif ${MACHINE_ARCH} == "mips64eb"
+.elif ${MACHINE_ARCH} == "mips64eb" && !defined(BSD_MK_COMPAT_FILE)
 CFLAGS+=	-mabi=64
 LDFLAGS+=	-Wl,-m,elf64btsmip
-.elif ${MACHINE_ARCH} == "mips64el"
+.elif ${MACHINE_ARCH} == "mips64el" && !defined(BSD_MK_COMPAT_FILE)
 CFLAGS+=	-mabi=64
 LDFLAGS+=	-Wl,-m,elf64ltsmip
 .endif

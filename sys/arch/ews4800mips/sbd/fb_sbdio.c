@@ -46,9 +46,9 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <dev/wsfont/wsfont.h>
 #include <dev/rasops/rasops.h>
 
+#include <mips/locore.h>
 #include <mips/pte.h>
 
-#include <machine/locore.h>
 #include <machine/sbdiovar.h>
 
 #include <machine/gareg.h>

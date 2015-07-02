@@ -381,6 +381,28 @@ descr
 	used in the link(2) system call.
 kcah
 
+hack	g++ 5.1 barfs on volatile in initializers
+cdata	26 Jun 2015
+who	pooka
+file	src/lib/libpthread/pthread_types.h	: 1.14
+file	src/lib/libpthread/pthread_types.h	: 1.15
+pr	lib/49989
+descr
+	Trying to use e.g. pthread_mutex_t m = PTHREAD_MUTEX_INITIALIZER
+	in C++ results in:
+		error: temporary of non-literal type '__pthread_mutex_st'
+		in a constant expression
+		constexpr mutex() _NOEXCEPT : __m_(PTHREAD_MUTEX_INITIALIZER) {}
+		[...]
+		include/pthread_types.h:101:8: note: '__pthread_mutex_st' is
+		not literal because:
+		struct __pthread_mutex_st {
+		^
+		include/pthread_types.h:103:17: note:   non-static data
+		member '__pthread_mutex_st::ptm_errorcheck' has volatile type
+		pthread_spin_t ptm_errorcheck;
+kcah
+
 port	vax
 
 	hack	gcc4/vax ICE

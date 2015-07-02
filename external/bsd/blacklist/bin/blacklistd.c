@@ -284,6 +284,7 @@ update(void)
 		return;
 	}
 
+again:
 	for (n = 0, f = 1; state_iterate(state, &c, &dbi, f) == 1;
 	    f = 0, n++)
 	{
@@ -305,6 +306,7 @@ update(void)
 			    buf, c.c_lmask, c.c_port, c.c_duration);
 		}
 		state_del(state, &c);
+		goto again;
 	}
 }
 

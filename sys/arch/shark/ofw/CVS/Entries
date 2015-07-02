@@ -2,7 +2,7 @@
 /com_ofisa_machdep.c/1.8/Sat Oct 27 17:18:11 2012/-kk/
 /cpu_ofbus.c/1.8/Sun Jun  5 17:03:18 2011/-kk/
 /if_cs_ofisa_machdep.c/1.11/Wed Apr 22 07:36:27 2015/-kk/
-/igsfb_ofbus.c/1.15/Tue Jan 14 16:04:59 2014/-kk/
+/igsfb_ofbus.c/1.16/Thu Jul  2 04:14:07 2015/-kk/
 /igsfb_ofbusvar.h/1.4/Thu May  8 02:10:52 2008/-kk/
 /lpt_ofisa_machdep.c/1.9/Sat Oct 27 17:18:11 2012/-kk/
 /ofisa_machdep.c/1.10/Sat Oct 27 17:18:11 2012/-kk/

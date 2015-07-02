@@ -29,13 +29,16 @@
 #include <sys/cdefs.h>
 __KERNEL_RCSID(0, "$NetBSD$");
 
-#include <sys/param.h>
-#include <sys/systm.h>
-#include <sys/malloc.h>
-#include <sys/extent.h>
-
 #define	_EWS4800MIPS_BUS_SPACE_PRIVATE
-#include <machine/bus.h>
+
+#include <sys/param.h>
+#include <sys/bus.h>
+#include <sys/extent.h>
+#include <sys/malloc.h>
+#include <sys/systm.h>
+
+#include <mips/locore.h>
+
 #include <machine/sbdvar.h>
 
 #ifdef BUS_SPACE_DEBUG

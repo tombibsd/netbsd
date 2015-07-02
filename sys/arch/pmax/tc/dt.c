@@ -225,6 +225,7 @@ dt_attach(device_t parent, device_t self, void *aux)
 	if (sc->sc_sih == NULL) {
 		printf("%s: memory exhausted\n", device_xname(self));
 		free(msg, M_DEVBUF);
+		return;
 	}
 
 	SIMPLEQ_INIT(&sc->sc_queue);

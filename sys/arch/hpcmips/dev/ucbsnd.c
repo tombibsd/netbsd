@@ -48,11 +48,11 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/device.h>
 #include <sys/proc.h>
 #include <sys/endian.h>
+#include <sys/bus.h>
+#include <sys/intr.h>
 
+#include <mips/locore.h>
 #include <mips/cache.h>
-
-#include <machine/bus.h>
-#include <machine/intr.h>
 
 #include <hpcmips/tx/tx39var.h>
 #include <hpcmips/tx/tx39sibvar.h>

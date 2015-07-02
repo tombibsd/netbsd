@@ -37,7 +37,6 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/param.h>
 #include <sys/systm.h>
 #include <sys/device.h>
-
 #include <sys/bus.h>
 
 #include <dev/usb/usb.h>   
@@ -47,6 +46,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <dev/usb/ohcireg.h>
 #include <dev/usb/ohcivar.h>
+
+#include <mips/locore.h>
 
 #include <mips/atheros/include/arbusvar.h>
 

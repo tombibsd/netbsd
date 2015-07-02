@@ -26,6 +26,8 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include <mips/cpuregs.h>
+
 #if defined(_DEBUG)
 #define DPRINTF(x)	printf x;
 #else

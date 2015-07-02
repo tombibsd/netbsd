@@ -6,7 +6,7 @@
 /dbau1550reg.h/1.5/Mon Oct  2 08:13:53 2006/-kk/
 /genericbd.c/1.6/Thu Jun 18 03:42:17 2015/-kk/
 /mach_intr.c/1.6/Sun Jul 10 00:03:52 2011/-kk/
-/machdep.c/1.54/Fri Apr 11 02:03:29 2014/-kk/
+/machdep.c/1.55/Thu Jul  2 04:13:53 2015/-kk/
 /mainbus.c/1.10/Sun Feb 20 07:48:33 2011/-kk/
 /mtx-1.c/1.8/Thu Jun 18 03:42:17 2015/-kk/
 /obio.c/1.4/Fri Jul  1 18:44:45 2011/-kk/

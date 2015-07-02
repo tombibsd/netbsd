@@ -230,9 +230,6 @@ struct ews4800mips_bus_space {
 };
 
 #ifdef _KERNEL
-/* Don't use locore.h wbflush */
-#undef wbflush
-#define	wbflush()	platform.wbflush()
 #ifdef _EWS4800MIPS_BUS_SPACE_PRIVATE
 
 #ifndef __read_1

@@ -185,7 +185,7 @@ void	module_print(const char *, ...) __printflike(1, 2);
 
 #define MODULE_BASE_SIZE 64
 extern char	module_base[MODULE_BASE_SIZE];
-extern char	*module_machine;
+extern const char	*module_machine;
 
 #else	/* _KERNEL */
 

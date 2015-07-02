@@ -38,6 +38,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <dev/pci/pcivar.h>
 
+#include <mips/locore.h>
+
 #include <mips/atheros/include/arbusvar.h>
 #include <mips/atheros/include/ar9344reg.h>
 

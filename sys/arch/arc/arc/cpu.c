@@ -43,7 +43,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <uvm/uvm_extern.h>
 
-#include <machine/cpu.h>
+#include <mips/locore.h>
+
 #include <machine/autoconf.h>
 
 #include "ioconf.h"

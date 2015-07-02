@@ -485,6 +485,9 @@ do-x11: .PHONY .MAKE
 .if ${X11FLAVOUR} == "Xorg"
 	${MAKEDIRTARGET} external/mit/xorg/tools all
 	${MAKEDIRTARGET} external/mit/xorg/lib build_install
+.if ${MKCOMPATX11} != "no"
+	${MAKEDIRTARGET} compat build_install BOOTSTRAP_SUBDIRS="../../../external/mit/xorg/lib"
+.endif
 .else
 	${MAKEDIRTARGET} x11 build
 .endif

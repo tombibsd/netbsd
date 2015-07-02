@@ -6,6 +6,8 @@ TESTSDIR=	${TESTSBASE}/lib/libc/db
 
 TESTS_SH+=	t_db
 
+TESTS_C+=	t_db_hash_seq
+
 BINDIR=		${TESTSDIR}
 MKMAN=		no
 

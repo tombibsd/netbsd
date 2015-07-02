@@ -63,11 +63,10 @@
 #include <sys/cdefs.h>
 __KERNEL_RCSID(0, "$NetBSD$");
 
+#include <sys/param.h>
 #include <sys/types.h>
 #include <sys/bus.h>
 #include <sys/cpu.h>
-
-#include <sys/param.h>
 #include <sys/time.h>
 #include <sys/systm.h>
 #include <sys/errno.h>
@@ -84,8 +83,6 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #ifdef	PCI_NETBSD_CONFIGURE
 #include <mips/cache.h>
 #endif
-
-#include <mips/pte.h>
 
 #include <mips/adm5120/include/adm5120_mainbusvar.h>
 #include <mips/adm5120/include/adm5120reg.h>

@@ -301,7 +301,7 @@ midi_event_local_to_output(seq_event_t e, u_char *buffer, size_t bufsize)
 {
 	size_t	size = 0;
 
-	LOG("UNHANDLED SEQ_COCAL");
+	LOG("UNHANDLED SEQ_LOCAL");
 
 	return size;
 }

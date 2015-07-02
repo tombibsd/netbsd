@@ -768,7 +768,8 @@ sme_events_worker(struct work *wk, void *arg)
 	envsys_data_t *edata = see->see_edata;
 
 	KASSERT(wk == &see->see_wk);
-	KASSERT(sme != NULL || edata != NULL);
+	KASSERT(sme != NULL);
+	KASSERT(edata != NULL);
 
 	mutex_enter(&sme->sme_mtx);
 	see->see_flags |= SEE_EVENT_WORKING;

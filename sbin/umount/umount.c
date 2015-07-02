@@ -96,9 +96,6 @@ main(int argc, char *argv[])
 #endif /* SMALL */
 	const char **typelist = NULL;
 
-	/* Start disks transferring immediately. */
-	sync();
-
 #ifdef SMALL
 #define OPTS "fR"
 #else

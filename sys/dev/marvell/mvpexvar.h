@@ -38,6 +38,7 @@ struct mvpex_intrhand {
 
 	void *ih_intrtab;
 
+	char ih_evname[PCI_INTRSTR_LEN];
 	struct evcnt ih_evcnt;
 };
 

@@ -20,8 +20,8 @@
 /nfs_srvsocket.c/1.4/Thu Sep  3 20:59:12 2009/-kk/
 /nfs_srvsubs.c/1.14/Mon Nov  5 19:06:27 2012/-kk/
 /nfs_subs.c/1.227/Fri Oct  3 09:26:21 2014/-kk/
-/nfs_syscalls.c/1.155/Fri Oct  3 09:51:02 2014/-kk/
-/nfs_var.h/1.92/Tue Jun  3 03:10:01 2014/-kk/
+/nfs_syscalls.c/1.156/Thu Jul  2 04:14:36 2015/-kk/
+/nfs_var.h/1.93/Thu Jul  2 04:14:36 2015/-kk/
 /nfs_vfsops.c/1.229/Tue Jun  3 03:10:01 2014/-kk/
 /nfs_vnops.c/1.308/Thu May 28 03:25:59 2015/-kk/
 /nfsdiskless.h/1.32/Wed Jun  3 06:55:53 2015/-kk/

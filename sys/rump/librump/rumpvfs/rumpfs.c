@@ -1647,6 +1647,7 @@ rump_vop_spec(void *v)
 	case VOP_LOCK_DESCOFFSET:
 	case VOP_UNLOCK_DESCOFFSET:
 	case VOP_ISLOCKED_DESCOFFSET:
+	case VOP_INACTIVE_DESCOFFSET:
 	case VOP_RECLAIM_DESCOFFSET:
 		opvec = rump_vnodeop_p;
 		break;

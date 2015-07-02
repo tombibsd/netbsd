@@ -58,7 +58,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <uvm/uvm_extern.h>
 
 struct vm_map *module_map;
-char	*module_machine;
+const char *module_machine;
 char	module_base[MODULE_BASE_SIZE];
 
 struct modlist        module_list = TAILQ_HEAD_INITIALIZER(module_list);

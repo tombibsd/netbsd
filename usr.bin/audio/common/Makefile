@@ -3,6 +3,6 @@
 LIBISPRIVATE=	yes
 
 LIB=	audio
-SRCS=	audio.c wav.c sun.c
+SRCS=	audio.c decode.c wav.c sun.c
 
 .include <bsd.lib.mk>

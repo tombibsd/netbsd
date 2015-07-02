@@ -285,9 +285,13 @@ ENTRY(cpu_in_cksum)
 	ret
 
 .Mout_of_mbufs:
+#ifdef __PIC__
+	leaq	.Mout_of_mbufs_msg(%rip), %rdi
+#else
 	movq	$.Mout_of_mbufs_msg, %rdi
+#endif
 	movl	$0, %eax
-	call	_C_LABEL(printf)
+	call	PIC_PLT(_C_LABEL(printf))
 	jmp	.Mreturn
 END(cpu_in_cksum)
 

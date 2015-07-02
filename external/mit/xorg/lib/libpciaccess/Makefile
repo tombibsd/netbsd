@@ -6,6 +6,8 @@ LIB=	pciaccess
 .PATH:	${X11SRCDIR.${LIB}}/src
 .PATH:	${X11SRCDIR.${LIB}}/include
 
+XORG_MACHINE_ARCH?=${MACHINE_ARCH}
+
 SRCS=	common_bridge.c \
 	common_io.c \
 	common_iterator.c \
@@ -31,16 +33,16 @@ PKGDIST=	${LIB}
 LDADD+=	-lpci -lz
 DPADD+=	${LIBPCI} ${LIBZ}
 
-.if ${MACHINE_ARCH} == "i386" || ${MACHINE_ARCH} == "x86_64"
+.if ${XORG_MACHINE_ARCH} == "i386" || ${XORG_MACHINE_ARCH} == "x86_64"
 CPPFLAGS+=	-DHAVE_MTRR
 .endif
 
-.if ${MACHINE_ARCH} == "i386"
+.if ${XORG_MACHINE_ARCH} == "i386"
 LDADD+=	-li386
 DPADD+=	${LIBI386}
 .endif
 
-.if ${MACHINE_ARCH} == "x86_64"
+.if ${XORG_MACHINE_ARCH} == "x86_64"
 LDADD+=	-lx86_64
 DPADD+=	${LIBX86_64}
 .endif

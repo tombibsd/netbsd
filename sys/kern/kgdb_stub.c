@@ -85,8 +85,17 @@ static void *kgdb_ioarg;
 static u_char buffer[KGDB_BUFLEN];
 static kgdb_reg_t gdb_regs[KGDB_NUMREGS];
 
-#define GETC()	((*kgdb_getc)(kgdb_ioarg))
-#define PUTC(c)	((*kgdb_putc)(kgdb_ioarg, c))
+#define GETC()	kgdb_waitc(kgdb_ioarg)
+#define PUTC(c)	(*kgdb_putc)(kgdb_ioarg, c)
+
+static int
+kgdb_waitc(void *arg)
+{
+	int c;
+	while ((c = (*kgdb_getc)(arg)) == -1)
+		continue;
+	return c;
+}
 
 /*
  * db_trap_callback can be hooked by MD port code to handle special

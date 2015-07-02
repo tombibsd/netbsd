@@ -812,7 +812,7 @@ set_autoconfig(int fd, int raidID, char *autoconf)
 
 	if (strncasecmp(autoconf, "root", 4) == 0 ||
 	    strncasecmp(autoconf, "hard", 4) == 0 ||
-	    strncasecmp(autoconf, "force", 4) == 0) {
+	    strncasecmp(autoconf, "force", 5) == 0) {
 		root_config = 1;
 	} else if (strncasecmp(autoconf, "soft", 4) == 0) {
 		root_config = 2;
@@ -1097,7 +1097,7 @@ get_bar(char *string, double percent, int max_strlen)
 		(int)((percent * max_strlen)/ 100);
 	if (offset < 0)
 		offset = 0;
-	snprintf(string,max_strlen,"%s",&stars[offset]);
+	snprintf(string,max_strlen,"%s",stars+offset);
 }
 
 static void

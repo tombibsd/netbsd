@@ -1,10 +1,10 @@
 /autoconf.c/1.9/Sun Jul 29 18:05:43 2012/-kk/
-/bus_dma.c/1.14/Mon Jun 22 02:34:47 2015/-kk/
-/bus_space.c/1.5/Fri Jan 27 18:52:55 2012/-kk/
+/bus_dma.c/1.15/Thu Jul  2 04:13:54 2015/-kk/
+/bus_space.c/1.6/Thu Jul  2 04:13:54 2015/-kk/
 /clock.c/1.8/Mon Apr 28 20:23:18 2008/-kk/
 /cons_machdep.c/1.8/Mon Jun 22 02:34:47 2015/-kk/
 /cons_machdep.h/1.2/Mon Apr 28 20:23:18 2008/-kk/
-/cpu.c/1.4/Sun Feb 20 07:55:20 2011/-kk/
+/cpu.c/1.5/Thu Jul  2 04:13:54 2015/-kk/
 /disklabel_conv.c/1.4/Mon Apr 28 20:23:18 2008/-kk/
 /disksubr.c/1.8/Sun Aug  2 12:04:28 2009/-kk/
 /interrupt.c/1.8/Sun Feb 20 07:55:20 2011/-kk/
@@ -12,11 +12,11 @@
 /machdep.c/1.26/Fri Apr 11 02:03:29 2014/-kk/
 /mainbus.c/1.5/Sun Feb 20 07:55:20 2011/-kk/
 /pdinfo.c/1.5/Thu Feb 13 15:22:17 2014/-kk/
-/sbd.c/1.3/Mon Dec 14 00:46:03 2009/-kk/
+/sbd.c/1.4/Thu Jul  2 04:13:54 2015/-kk/
 /sector.c/1.7/Mon Apr 28 20:23:18 2008/-kk/
-/tr2.c/1.5/Sun Feb 20 07:55:20 2011/-kk/
+/tr2.c/1.6/Thu Jul  2 04:13:54 2015/-kk/
 /tr2_intr.c/1.12/Thu Mar 10 17:05:41 2011/-kk/
-/tr2a.c/1.5/Sun Feb 20 07:55:20 2011/-kk/
+/tr2a.c/1.6/Thu Jul  2 04:13:54 2015/-kk/
 /tr2a_intr.c/1.15/Thu Mar 10 17:05:41 2011/-kk/
 /vtoc.c/1.4/Mon Apr 28 20:23:18 2008/-kk/
 D

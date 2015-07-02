@@ -568,8 +568,8 @@ defrouter_delreq(struct nd_defrouter *dr)
 			 */
 			oldrt->rt_refcnt++;
 			rtfree(oldrt);
-			nd6_numroutes--;
 		}
+		nd6_numroutes--;
 	}
 
 	dr->installed = 0;

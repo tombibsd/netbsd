@@ -27,7 +27,7 @@ PROGS+=		h_ps_strings2
 LDADD.t_mqueue+= -lrt
 
 
-.if (${MKRUMP} != "no")
+.if (${MKRUMP} != "no") && !defined(BSD_MK_COMPAT_FILE)
 TESTS_SUBDIRS+=	tty
 
 TESTS_C+=	t_extattrctl

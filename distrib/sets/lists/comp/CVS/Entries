@@ -4,13 +4,13 @@
 /ad.hppa/1.7/Mon Nov 11 15:18:11 2013/-kk/
 /ad.m68k.shl/1.10/Tue Jan 14 16:01:09 2014/-kk/
 /ad.m68k/1.49/Mon Nov 11 15:18:11 2013/-kk/
-/ad.mips/1.54/Thu Feb  5 08:37:06 2015/-kk/
-/ad.powerpc/1.76/Thu Feb  5 08:37:06 2015/-kk/
+/ad.mips/1.55/Thu Jul  2 04:05:01 2015/-kk/
+/ad.powerpc/1.79/Thu Jul  2 04:05:01 2015/-kk/
 /ad.riscv/1.4/Thu Feb  5 08:37:06 2015/-kk/
 /ad.sh3/1.29/Mon Nov 11 15:18:11 2013/-kk/
 /md.algor/1.16/Sun Jul 17 20:54:31 2011/-kk/
 /md.alpha/1.66/Tue Jan 14 16:01:10 2014/-kk/
-/md.amd64/1.230/Thu Feb  5 08:37:06 2015/-kk/
+/md.amd64/1.231/Thu Jul  2 04:05:01 2015/-kk/
 /md.amiga/1.59/Thu Oct 24 10:28:41 2013/-kk/
 /md.amigappc/1.13/Fri Oct  3 09:40:31 2014/-kk/
 /md.arc/1.24/Sun Jul 17 20:54:31 2011/-kk/
@@ -57,7 +57,7 @@
 /md.sun3/1.62/Thu Oct 24 10:28:41 2013/-kk/
 /md.vax/1.40/Mon Nov 11 15:18:11 2013/-kk/
 /md.x68k/1.60/Thu Oct 24 10:28:41 2013/-kk/
-/mi/1.1965/Wed Jun  3 06:44:40 2015/-kk/
-/shl.mi/1.274/Wed Jun  3 06:44:41 2015/-kk/
-/stl.mi/1.1/Fri Jul  2 21:19:00 2010/-kk/
+/mi/1.1969/Thu Jul  2 04:05:01 2015/-kk/
+/shl.mi/1.275/Thu Jul  2 04:05:01 2015/-kk/
+/stl.mi/1.2/Thu Jul  2 04:05:01 2015/-kk/
 D

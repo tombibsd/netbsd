@@ -242,7 +242,8 @@ ptyfs_inactive(void *v)
 
 	if (ptyfs->ptyfs_type == PTYFSptc)
 		ptyfs_clr_active(vp->v_mount, ptyfs->ptyfs_pty);
-	return spec_inactive(v);
+	VOP_UNLOCK(vp);
+	return 0;
 }
 
 /*

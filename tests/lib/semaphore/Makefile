@@ -2,7 +2,7 @@
 #
 .include <bsd.own.mk>
 
-.if (${MKRUMP} != "no")
+.if (${MKRUMP} != "no") && !defined(BSD_MK_COMPAT_FILE)
 TESTS_SUBDIRS=		pthread
 .endif
 

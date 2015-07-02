@@ -3,7 +3,7 @@
 /if_mec.c/1.51/Wed Apr 22 07:36:26 2015/-kk/
 /if_mecreg.h/1.4/Thu Aug  7 15:05:02 2008/-kk/
 /lpt_mace.c/1.9/Fri Jul  1 18:53:47 2011/-kk/
-/mace.c/1.21/Sat Mar 21 02:21:05 2015/-kk/
+/mace.c/1.22/Thu Jul  2 04:14:06 2015/-kk/
 /macekbc.c/1.8/Sun Apr 12 03:34:51 2015/-kk/
 /macereg.h/1.3/Fri Apr 13 03:36:24 2007/-kk/
 /macevar.h/1.3/Sun Dec 11 12:18:54 2005/-kk/

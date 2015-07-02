@@ -11,11 +11,11 @@
 /c_nec_eisa.c/1.16/Sun Feb 20 07:52:42 2011/-kk/
 /c_nec_jazz.c/1.14/Wed Dec 25 07:37:17 2013/-kk/
 /c_nec_pci.c/1.20/Sat Oct 13 17:58:53 2012/-kk/
-/cpu.c/1.19/Sun Mar  6 14:58:42 2011/-kk/
+/cpu.c/1.20/Thu Jul  2 04:13:47 2015/-kk/
 /disksubr.c/1.29/Thu Oct 24 10:28:57 2013/-kk/
 /interrupt.c/1.9/Wed Mar  2 10:51:04 2011/-kk/
 /locore_machdep.S/1.16/Fri Nov 27 03:23:04 2009/-kk/
-/machdep.c/1.128/Fri Apr 11 02:03:27 2014/-kk/
+/machdep.c/1.129/Thu Jul  2 04:13:48 2015/-kk/
 /mainbus.c/1.23/Sun Mar  6 14:58:42 2011/-kk/
 /minidebug.c/1.21/Thu Aug 18 21:04:23 2011/-kk/
 /p_acer_pica_61.c/1.12/Sun Mar  6 14:58:42 2011/-kk/

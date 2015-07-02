@@ -279,10 +279,9 @@ nd6_option(union nd_opts *ndopts)
 	struct nd_opt_hdr *nd_opt;
 	int olen;
 
-	if (ndopts == NULL)
-		panic("ndopts == NULL in nd6_option");
-	if (ndopts->nd_opts_last == NULL)
-		panic("uninitialized ndopts in nd6_option");
+	KASSERT(ndopts != NULL);
+	KASSERT(ndopts->nd_opts_last != NULL);
+
 	if (ndopts->nd_opts_search == NULL)
 		return NULL;
 	if (ndopts->nd_opts_done)
@@ -330,10 +329,9 @@ nd6_options(union nd_opts *ndopts)
 	struct nd_opt_hdr *nd_opt;
 	int i = 0;
 
-	if (ndopts == NULL)
-		panic("ndopts == NULL in nd6_options");
-	if (ndopts->nd_opts_last == NULL)
-		panic("uninitialized ndopts in nd6_options");
+	KASSERT(ndopts != NULL);
+	KASSERT(ndopts->nd_opts_last != NULL);
+
 	if (ndopts->nd_opts_search == NULL)
 		return 0;
  
@@ -1898,10 +1896,8 @@ nd6_cache_lladdr(
 	int llchange;
 	int newstate = 0;
 
-	if (ifp == NULL)
-		panic("ifp == NULL in nd6_cache_lladdr");
-	if (from == NULL)
-		panic("from == NULL in nd6_cache_lladdr");
+	KASSERT(ifp != NULL);
+	KASSERT(from != NULL);
 
 	/* nothing must be updated for unspecified address */
 	if (IN6_IS_ADDR_UNSPECIFIED(from))

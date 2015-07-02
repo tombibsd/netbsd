@@ -22,7 +22,7 @@
 /t_once.c/1.1/Fri Jul 16 15:42:53 2010/-kk/
 /t_preempt.c/1.2/Wed Nov  3 16:10:22 2010/-kk/
 /t_resolv.sh/1.1/Fri Jul 16 15:42:53 2010/-kk/
-/t_rwlock.c/1.1/Fri Jul 16 15:42:53 2010/-kk/
+/t_rwlock.c/1.2/Thu Jul  2 04:14:44 2015/-kk/
 /t_sem.c/1.8/Tue Dec  9 04:24:10 2014/-kk/
 /t_sigalarm.c/1.1/Fri Jul 16 15:42:53 2010/-kk/
 /t_siglongjmp.c/1.1/Fri Jul 16 15:42:53 2010/-kk/

@@ -33,6 +33,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/device.h>
 #include <sys/cpu.h>
 
+#include <mips/locore.h>
+
 #include <machine/autoconf.h>
 
 #include "ioconf.h"

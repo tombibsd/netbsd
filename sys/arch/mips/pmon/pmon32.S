@@ -28,10 +28,11 @@
  * than four arguments; other functions are not affected.
  */
 
-#include <machine/param.h>
 #include <machine/asm.h>
 
-#ifndef _STANDALONE
+#ifdef _STANDALONE
+#include <machine/param.h>
+#else
 #include "assym.h"
 #endif
 

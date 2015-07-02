@@ -16,6 +16,7 @@ CSU_MACHINE_ARCH=	riscv32
 CRYPTO_MACHINE_CPU=	riscv32
 LDELFSO_MACHINE_CPU=	riscv32
 GOMP_MACHINE_ARCH=	riscv32
+XORG_MACHINE_ARCH=	riscv32
 
 .include "${.PARSEDIR}/../../m32.mk"
 .endif

@@ -117,9 +117,6 @@ genath_cpu_intr_establish(int intr, int (*func)(void *), void *arg)
 	ih->ih_arg = arg;
 	ih->ih_irq = intr;
 
-	if (ih == NULL)
-		return NULL;
-
 	const int s = splhigh();
 
 	LIST_INSERT_HEAD(&cpu_intrs[intr].intr_qh, ih, ih_q);

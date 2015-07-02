@@ -1,17 +1,11 @@
 #	$NetBSD$
 
-MAKEKEYSDIR!=	cd ${NETBSDSRCDIR}/external/mit/xorg/tools/makekeys && ${PRINTOBJDIR}
-MAKEKEYS=	${MAKEKEYSDIR}/makekeys
-
-${MAKEKEYS}:
-	(cd ${NETBSDSRCDIR}/external/mit/xorg/tools/makekeys && ${MAKE})
-
 DPSRCS+=	ks_tables.h
 CLEANFILES+=	ks_tables.h
 
 KSDEF=	${DESTDIR}${X11INCDIR}/X11/keysymdef.h
 
-ks_tables.h: ${MAKEKEYS} ${KSDEF}
+ks_tables.h: ${KSDEF}
 	${_MKTARGET_CREATE}
 	rm -f ${.TARGET}
-	${MAKEKEYS} ${KSDEF} > ${.TARGET}
+	${TOOL_MAKEKEYS} ${KSDEF} > ${.TARGET}

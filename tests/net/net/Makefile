@@ -9,7 +9,7 @@ TESTS_C=	t_unix
 TESTS_C+=	t_tcp
 TESTS_C+=	t_udp
 TESTS_C+=	t_pktinfo
-.if (${MKRUMP} != "no")
+.if (${MKRUMP} != "no") && !defined(BSD_MK_COMPAT_FILE)
 TESTS_C+=	t_raw
 TESTS_SH=	t_forwarding
 .endif

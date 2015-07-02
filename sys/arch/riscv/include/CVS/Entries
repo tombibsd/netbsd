@@ -27,7 +27,7 @@
 /intr.h/1.2/Thu Apr  2 02:27:54 2015/-kk/
 /kcore.h/1.1/Fri Sep 19 17:36:26 2014/-kk/
 /limits.h/1.1/Fri Sep 19 17:36:26 2014/-kk/
-/lock.h/1.2/Thu Apr  2 02:27:54 2015/-kk/
+/lock.h/1.4/Thu Jul  2 04:14:06 2015/-kk/
 /locore.h/1.2/Thu Apr  2 02:27:54 2015/-kk/
 /math.h/1.1/Fri Sep 19 17:36:26 2014/-kk/
 /mcontext.h/1.4/Sun Apr 12 03:34:50 2015/-kk/

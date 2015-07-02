@@ -660,7 +660,6 @@ mvpex_intr_establish(void *v, pci_intr_handle_t pin, int ipl,
 	struct mvpex_intrhand *pexih;
 	uint32_t mask;
 	int ih = pin - 1, s;
-	char buf[PCI_INTRSTR_LEN];
 
 	intrtab = &sc->sc_intrtab[ih];
 
@@ -674,8 +673,9 @@ mvpex_intr_establish(void *v, pci_intr_handle_t pin, int ipl,
 	pexih->ih_arg = intrarg;
 	pexih->ih_type = ipl;
 	pexih->ih_intrtab = intrtab;
+	mvpex_intr_string(v, pin, pexih->ih_evname, sizeof(pexih->ih_evname));
 	evcnt_attach_dynamic(&pexih->ih_evcnt, EVCNT_TYPE_INTR, NULL, "mvpex",
-	    mvpex_intr_string(v, pin, buf, sizeof(buf)));
+	    pexih->ih_evname);
 
 	s = splhigh();
 

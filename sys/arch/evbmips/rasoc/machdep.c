@@ -217,17 +217,7 @@ mach_init(void)
 void
 cpu_startup(void)
 {
-#ifdef DEBUG
-	extern int pmapdebug;
-	const int opmapdebug = pmapdebug;
-	pmapdebug = 0;		/* Shut up pmap debug during bootstrap */
-#endif
-
 	cpu_startup_common();
-
-#ifdef DEBUG
-	pmapdebug = opmapdebug;
-#endif
 }
 
 void

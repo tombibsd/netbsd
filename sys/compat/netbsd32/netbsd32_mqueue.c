@@ -61,8 +61,8 @@ netbsd32_mq_open(struct lwp *l, const struct netbsd32_mq_open_args *uap,
 	struct mq_attr *attr = NULL, a;
 	int error;
 
-	if ((SCARG(uap, oflag) & O_CREAT) && (SCARG_P32(uap,attr) != NULL)) {
-		error = copyin(&attr32, SCARG_P32(uap,attr), sizeof(attr32));
+	if ((SCARG(uap, oflag) & O_CREAT) && SCARG_P32(uap, attr) != NULL) {
+		error = copyin(SCARG_P32(uap, attr), &attr32, sizeof(attr32));
 		if (error)
 			return error;
 		netbsd32_to_mq_attr(&attr32, &a);
@@ -255,19 +255,16 @@ netbsd32_mq_receive(struct lwp *l, const struct netbsd32_mq_receive_args *uap,
 	return error;
 }
 
-#ifdef COMPAT_50
-
 int
-compat_50_netbsd32_mq_timedsend(struct lwp *l,
-    const struct compat_50_netbsd32_mq_timedsend_args *uap,
-    register_t *retval)
+netbsd32___mq_timedsend50(struct lwp *l,
+     const struct netbsd32___mq_timedsend50_args *uap, register_t *retval)
 {
 	/* {
 		syscallarg(mqd_t) mqdes;
 		syscallarg(const netbsd32_charp) msg_ptr;
 		syscallarg(netbsd32_size_t) msg_len;
 		syscallarg(unsigned) msg_prio;
-		syscallarg(const netbsd32_timespec50p_t) abs_timeout;
+		syscallarg(const netbsd32_timespecp_t) abs_timeout;
 	} */
 	struct timespec ts, *tsp;
 	struct netbsd32_timespec ts32;
@@ -290,16 +287,15 @@ compat_50_netbsd32_mq_timedsend(struct lwp *l,
 }
 
 int
-compat_50_netbsd32_mq_timedreceive(struct lwp *l,
-    const struct compat_50_netbsd32_mq_timedreceive_args *uap,
-    register_t *retval)
+netbsd32___mq_timedreceive50(struct lwp *l,
+    const struct netbsd32___mq_timedreceive50_args *uap, register_t *retval)
 {
 	/* {
 		syscallarg(mqd_t) mqdes;
 		syscallarg(netbsd32_charp) msg_ptr;
 		syscallarg(netbsd32_size_t) msg_len;
 		syscallarg(netbsd32_uintp) msg_prio;
-		syscallarg(const netbsd32_timespec50p_t) abs_timeout;
+		syscallarg(const netbsd32_timespecp_t) abs_timeout;
 	} */
 	struct timespec ts, *tsp;
 	struct netbsd32_timespec ts32;
@@ -325,4 +321,4 @@ compat_50_netbsd32_mq_timedreceive(struct lwp *l,
 
 	return error;
 }
-#endif
+

@@ -56,8 +56,10 @@
 
 typedef union pt_entry {
 	uint32_t	 pt_entry;	/* for copying, etc. */
+#if 0
 	struct mips1_pte pt_mips1_pte;	/* for getting to bits by name */
 	struct mips3_pte pt_mips3_pte;
+#endif
 } pt_entry_t;
 
 /*

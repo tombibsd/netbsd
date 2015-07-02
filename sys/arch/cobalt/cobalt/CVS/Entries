@@ -6,6 +6,6 @@
 /disksubr.c/1.25/Thu Oct 24 10:28:57 2013/-kk/
 /interrupt.c/1.7/Fri Jul  1 20:36:42 2011/-kk/
 /locore_machdep.S/1.6/Sun Dec 11 12:17:05 2005/-kk/
-/machdep.c/1.116/Sat Apr 19 05:36:45 2014/-kk/
+/machdep.c/1.117/Thu Jul  2 04:13:50 2015/-kk/
 /mainbus.c/1.19/Fri Oct  3 09:08:55 2014/-kk/
 D

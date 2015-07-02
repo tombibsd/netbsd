@@ -1,3 +1,4 @@
+/*	$NetBSD$	*/
 /*-
  * Copyright (c) 2008 The NetBSD Foundation, Inc.
  * All rights reserved.
@@ -26,6 +27,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+
 #define	FSCK_EXIT_OK			0
 #define	FSCK_EXIT_USAGE			1
 #define	FSCK_EXIT_UNRESOLVED		2

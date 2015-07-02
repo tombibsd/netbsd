@@ -138,8 +138,8 @@ int	spec_fsync(void *);
 #define	spec_readdir	genfs_badop
 #define	spec_readlink	genfs_badop
 #define	spec_abortop	genfs_badop
-#define	spec_reclaim	genfs_nullop
 int	spec_inactive(void *);
+int	spec_reclaim(void *);
 #define	spec_lock	genfs_nolock
 #define	spec_unlock	genfs_nounlock
 int	spec_bmap(void *);

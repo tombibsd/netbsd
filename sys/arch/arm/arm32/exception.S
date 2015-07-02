@@ -265,4 +265,3 @@ ENTRY_NP(undefinedinstruction_bounce)
 	adr	lr, .Lexception_exit
 	b	_C_LABEL(undefinedinstruction)
 END(undefinedinstruction_bounce)
-ASEND(undefined_entry)

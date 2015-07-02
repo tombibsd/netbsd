@@ -27,8 +27,13 @@ SUBDIR= ../../../lib .WAIT \
 	../../../libexec/ld.elf_so
 .if ${MKCOMPATTESTS} != "no"
 SUBDIR+= ../../../tests
+SUBDIR+= ../../../tests/share		# because MKSHARE=no above
+SUBDIR+= ../../../external/bsd/atf/tests
 .endif
-.endif
+.if ${MKCOMPATX11} != no && ${MKX11} != no && ${X11FLAVOUR} == "Xorg" && make(obj)
+SUBDIR+= ../../../external/mit/xorg/lib
+.endif # } MKX11
+.endif # } BOOTSTRAP_SUBDIRS
 
 .include <bsd.subdir.mk>
 

@@ -978,37 +978,14 @@ consinit(void)
 void
 cpu_startup(void)
 {
-	vaddr_t minaddr, maxaddr;
-	char pbuf[9];
-
-	/*
-	 * Good {morning,afternoon,evening,night}.
-	 */
-	printf("%s%s", copyright, version);
-	format_bytes(pbuf, sizeof(pbuf), ctob((uint64_t)physmem));
-	printf("total memory = %s\n", pbuf);
-
 	/*
 	 * Virtual memory is bootstrapped -- notify the bus spaces
 	 * that memory allocation is now safe.
 	 */
 	rmixl_configuration.rc_mallocsafe = 1;
 
-	minaddr = 0;
-	/*
-	 * Allocate a submap for physio.
-	 */
-	phys_map = uvm_km_suballoc(kernel_map, &minaddr, &maxaddr,
-				    VM_PHYS_SIZE, 0, FALSE, NULL);
-
-	/*
-	 * (No need to allocate an mbuf cluster submap.  Mbuf clusters
-	 * are allocated via the pool allocator, and we use XKSEG to
-	 * map those pages.)
-	 */
-
-	format_bytes(pbuf, sizeof(pbuf), ptoa(uvmexp.free));
-	printf("avail memory = %s\n", pbuf);
+	/* Do the usual stuff */
+	cpu_startup_common();
 }
 
 int	waittime = -1;

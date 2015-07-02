@@ -1132,6 +1132,17 @@ systrace_args(register_t sysnum, const void *params, uintptr_t *uarg, size_t *n_
 		*n_args = 3;
 		break;
 	}
+#if defined(NFSSERVER) || !defined(_KERNEL_OPT)
+	/* netbsd32_nfssvc */
+	case 155: {
+		struct netbsd32_nfssvc_args *p = params;
+		iarg[0] = SCARG(p, flag); /* int */
+		uarg[1] = (intptr_t) SCARG(p, argp).i32; /* netbsd32_voidp */
+		*n_args = 2;
+		break;
+	}
+#else
+#endif
 	/* netbsd32_ogetdirentries */
 	case 156: {
 		struct compat_43_netbsd32_ogetdirentries_args *p = params;
@@ -2865,6 +2876,40 @@ systrace_args(register_t sysnum, const void *params, uintptr_t *uarg, size_t *n_
 		*n_args = 5;
 		break;
 	}
+	/* netbsd32_pset_create */
+	case 412: {
+		struct netbsd32_pset_create_args *p = params;
+		uarg[0] = (intptr_t) SCARG(p, psid).i32; /* netbsd32_psetidp_t */
+		*n_args = 1;
+		break;
+	}
+	/* netbsd32_pset_destroy */
+	case 413: {
+		struct netbsd32_pset_destroy_args *p = params;
+		iarg[0] = SCARG(p, psid); /* psetid_t */
+		*n_args = 1;
+		break;
+	}
+	/* netbsd32_pset_assign */
+	case 414: {
+		struct netbsd32_pset_assign_args *p = params;
+		iarg[0] = SCARG(p, psid); /* psetid_t */
+		iarg[1] = SCARG(p, cpuid); /* cpuid_t */
+		uarg[2] = (intptr_t) SCARG(p, opsid).i32; /* netbsd32_psetidp_t */
+		*n_args = 3;
+		break;
+	}
+	/* netbsd32__pset_bind */
+	case 415: {
+		struct netbsd32__pset_bind_args *p = params;
+		iarg[0] = SCARG(p, idtype); /* idtype_t */
+		iarg[1] = SCARG(p, first_id); /* id_t */
+		iarg[2] = SCARG(p, second_id); /* id_t */
+		iarg[3] = SCARG(p, psid); /* psetid_t */
+		uarg[4] = (intptr_t) SCARG(p, opsid).i32; /* netbsd32_psetidp_t */
+		*n_args = 5;
+		break;
+	}
 	/* netbsd32___posix_fadvise50 */
 	case 416: {
 		struct netbsd32___posix_fadvise50_args *p = params;
@@ -2991,6 +3036,28 @@ systrace_args(register_t sysnum, const void *params, uintptr_t *uarg, size_t *n_
 		uarg[1] = (intptr_t) SCARG(p, info).i32; /* netbsd32_siginfop_t */
 		uarg[2] = (intptr_t) SCARG(p, timeout).i32; /* netbsd32_timespecp_t */
 		*n_args = 3;
+		break;
+	}
+	/* netbsd32___mq_timedsend50 */
+	case 432: {
+		struct netbsd32___mq_timedsend50_args *p = params;
+		iarg[0] = SCARG(p, mqdes); /* mqd_t */
+		uarg[1] = (intptr_t) SCARG(p, msg_ptr).i32; /* const netbsd32_charp */
+		iarg[2] = SCARG(p, msg_len); /* netbsd32_size_t */
+		uarg[3] = SCARG(p, msg_prio); /* unsigned */
+		uarg[4] = (intptr_t) SCARG(p, abs_timeout).i32; /* const netbsd32_timespecp_t */
+		*n_args = 5;
+		break;
+	}
+	/* netbsd32___mq_timedreceive50 */
+	case 433: {
+		struct netbsd32___mq_timedreceive50_args *p = params;
+		iarg[0] = SCARG(p, mqdes); /* mqd_t */
+		uarg[1] = (intptr_t) SCARG(p, msg_ptr).i32; /* netbsd32_charp */
+		iarg[2] = SCARG(p, msg_len); /* netbsd32_size_t */
+		uarg[3] = (intptr_t) SCARG(p, msg_prio).i32; /* netbsd32_uintp */
+		uarg[4] = (intptr_t) SCARG(p, abs_timeout).i32; /* const netbsd32_timespecp_t */
+		*n_args = 5;
 		break;
 	}
 	/* netbsd32__lwp_park */
@@ -5227,6 +5294,22 @@ systrace_entry_setargdesc(int sysnum, int ndx, char *desc, size_t descsz)
 			break;
 		};
 		break;
+#if defined(NFSSERVER) || !defined(_KERNEL_OPT)
+	/* netbsd32_nfssvc */
+	case 155:
+		switch(ndx) {
+		case 0:
+			p = "int";
+			break;
+		case 1:
+			p = "netbsd32_voidp";
+			break;
+		default:
+			break;
+		};
+		break;
+#else
+#endif
 	/* netbsd32_ogetdirentries */
 	case 156:
 		switch(ndx) {
@@ -8185,6 +8268,64 @@ systrace_entry_setargdesc(int sysnum, int ndx, char *desc, size_t descsz)
 			break;
 		};
 		break;
+	/* netbsd32_pset_create */
+	case 412:
+		switch(ndx) {
+		case 0:
+			p = "netbsd32_psetidp_t";
+			break;
+		default:
+			break;
+		};
+		break;
+	/* netbsd32_pset_destroy */
+	case 413:
+		switch(ndx) {
+		case 0:
+			p = "psetid_t";
+			break;
+		default:
+			break;
+		};
+		break;
+	/* netbsd32_pset_assign */
+	case 414:
+		switch(ndx) {
+		case 0:
+			p = "psetid_t";
+			break;
+		case 1:
+			p = "cpuid_t";
+			break;
+		case 2:
+			p = "netbsd32_psetidp_t";
+			break;
+		default:
+			break;
+		};
+		break;
+	/* netbsd32__pset_bind */
+	case 415:
+		switch(ndx) {
+		case 0:
+			p = "idtype_t";
+			break;
+		case 1:
+			p = "id_t";
+			break;
+		case 2:
+			p = "id_t";
+			break;
+		case 3:
+			p = "psetid_t";
+			break;
+		case 4:
+			p = "netbsd32_psetidp_t";
+			break;
+		default:
+			break;
+		};
+		break;
 	/* netbsd32___posix_fadvise50 */
 	case 416:
 		switch(ndx) {
@@ -8399,6 +8540,50 @@ systrace_entry_setargdesc(int sysnum, int ndx, char *desc, size_t descsz)
 			break;
 		case 2:
 			p = "netbsd32_timespecp_t";
+			break;
+		default:
+			break;
+		};
+		break;
+	/* netbsd32___mq_timedsend50 */
+	case 432:
+		switch(ndx) {
+		case 0:
+			p = "mqd_t";
+			break;
+		case 1:
+			p = "const netbsd32_charp";
+			break;
+		case 2:
+			p = "netbsd32_size_t";
+			break;
+		case 3:
+			p = "unsigned";
+			break;
+		case 4:
+			p = "const netbsd32_timespecp_t";
+			break;
+		default:
+			break;
+		};
+		break;
+	/* netbsd32___mq_timedreceive50 */
+	case 433:
+		switch(ndx) {
+		case 0:
+			p = "mqd_t";
+			break;
+		case 1:
+			p = "netbsd32_charp";
+			break;
+		case 2:
+			p = "netbsd32_size_t";
+			break;
+		case 3:
+			p = "netbsd32_uintp";
+			break;
+		case 4:
+			p = "const netbsd32_timespecp_t";
 			break;
 		default:
 			break;
@@ -9830,6 +10015,14 @@ systrace_return_setargdesc(int sysnum, int ndx, char *desc, size_t descsz)
 		if (ndx == 0 || ndx == 1)
 			p = "int";
 		break;
+#if defined(NFSSERVER) || !defined(_KERNEL_OPT)
+	/* netbsd32_nfssvc */
+	case 155:
+		if (ndx == 0 || ndx == 1)
+			p = "int";
+		break;
+#else
+#endif
 	/* netbsd32_ogetdirentries */
 	case 156:
 		if (ndx == 0 || ndx == 1)
@@ -10824,6 +11017,26 @@ systrace_return_setargdesc(int sysnum, int ndx, char *desc, size_t descsz)
 		if (ndx == 0 || ndx == 1)
 			p = "netbsd32_voidp";
 		break;
+	/* netbsd32_pset_create */
+	case 412:
+		if (ndx == 0 || ndx == 1)
+			p = "int";
+		break;
+	/* netbsd32_pset_destroy */
+	case 413:
+		if (ndx == 0 || ndx == 1)
+			p = "int";
+		break;
+	/* netbsd32_pset_assign */
+	case 414:
+		if (ndx == 0 || ndx == 1)
+			p = "int";
+		break;
+	/* netbsd32__pset_bind */
+	case 415:
+		if (ndx == 0 || ndx == 1)
+			p = "int";
+		break;
 	/* netbsd32___posix_fadvise50 */
 	case 416:
 		if (ndx == 0 || ndx == 1)
@@ -10898,6 +11111,16 @@ systrace_return_setargdesc(int sysnum, int ndx, char *desc, size_t descsz)
 	case 431:
 		if (ndx == 0 || ndx == 1)
 			p = "int";
+		break;
+	/* netbsd32___mq_timedsend50 */
+	case 432:
+		if (ndx == 0 || ndx == 1)
+			p = "int";
+		break;
+	/* netbsd32___mq_timedreceive50 */
+	case 433:
+		if (ndx == 0 || ndx == 1)
+			p = "netbsd32_ssize_t";
 		break;
 	/* netbsd32__lwp_park */
 	case 434:

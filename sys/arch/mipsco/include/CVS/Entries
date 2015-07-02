@@ -7,6 +7,7 @@
 /bus.h/1.21/Sun Feb 12 16:34:09 2012/-kk/
 /cdefs.h/1.1/Sat Aug 12 22:58:10 2000/-kk/
 /cpu.h/1.7/Tue Sep  4 06:23:16 2001/-kk/
+/cpu_counter.h/1.1/Wed Jun 24 06:18:11 2015/-kk/
 /db_machdep.h/1.3/Sat Jul  9 16:58:05 2011/-kk/
 /disklabel.h/1.8/Tue Aug 30 12:39:56 2011/-kk/
 /ecoff_machdep.h/1.1/Sat Aug 12 22:58:14 2000/-kk/

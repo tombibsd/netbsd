@@ -495,6 +495,12 @@ mpacpi_pci_foundbus(struct acpi_devnode *ad)
 	}
 
 	mpr = kmem_zalloc(sizeof(struct mpacpi_pcibus), KM_SLEEP);
+	mpr->mpr_handle = ad->ad_handle;
+	mpr->mpr_buf = buf;
+	mpr->mpr_seg = ad->ad_pciinfo->ap_segment;
+	mpr->mpr_bus = ad->ad_pciinfo->ap_downbus;
+	TAILQ_INSERT_TAIL(&mpacpi_pcibusses, mpr, mpr_list);
+
 	if ((ad->ad_devinfo->Flags & ACPI_PCI_ROOT_BRIDGE) != 0) {
 		if (mp_verbose)
 			printf("mpacpi: found root PCI bus %d\n",
@@ -505,12 +511,6 @@ mpacpi_pci_foundbus(struct acpi_devnode *ad)
 			printf("mpacpi: found subordinate bus %d\n",
 			    mpr->mpr_bus);
 	}
-
-	mpr->mpr_handle = ad->ad_handle;
-	mpr->mpr_buf = buf;
-	mpr->mpr_seg = ad->ad_pciinfo->ap_segment;
-	mpr->mpr_bus = ad->ad_pciinfo->ap_downbus;
-	TAILQ_INSERT_TAIL(&mpacpi_pcibusses, mpr, mpr_list);
 
 	/*
 	 * XXX this wrongly assumes that bus numbers are unique

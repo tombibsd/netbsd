@@ -33,19 +33,20 @@
 __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <sys/param.h>
-#include <sys/systm.h>
+#include <sys/bus.h>
 #include <sys/device.h>
+#include <sys/intr.h>
+#include <sys/mbuf.h>
+#include <sys/socket.h>
+#include <sys/systm.h>
 
 #include <net/if.h>
 #include <net/if_dl.h>
 #include <net/if_media.h>
 #include <net/if_ether.h>
-#include <sys/socket.h>
-#include <sys/mbuf.h>
 
 #include <mips/cache.h>
-#include <machine/bus.h>
-#include <machine/intr.h>
+#include <mips/locore.h>
 #include <machine/sbdvar.h>	/* for ether_addr() */
 #include <machine/sbdiovar.h>
 

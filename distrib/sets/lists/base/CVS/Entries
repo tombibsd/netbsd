@@ -4,12 +4,12 @@
 /ad.m68000/1.2/Wed Mar 10 23:13:09 2010/-kk/
 /ad.m68k.shl/1.7/Thu Aug 12 16:07:07 2004/-kk/
 /ad.m68k/1.18/Wed Mar 10 23:13:09 2010/-kk/
-/ad.mips/1.69/Wed Jun  3 06:44:39 2015/-kk/
-/ad.powerpc/1.37/Wed Jun  3 06:44:39 2015/-kk/
+/ad.mips/1.70/Thu Jul  2 04:05:00 2015/-kk/
+/ad.powerpc/1.40/Thu Jul  2 04:05:00 2015/-kk/
 /ad.riscv/1.19/Wed Jun  3 06:44:39 2015/-kk/
 /md.acorn32/1.13/Thu Oct 24 10:28:41 2013/-kk/
 /md.alpha/1.42/Fri Oct  3 09:21:52 2014/-kk/
-/md.amd64/1.264/Wed Jun  3 06:44:39 2015/-kk/
+/md.amd64/1.265/Thu Jul  2 04:05:00 2015/-kk/
 /md.amiga/1.56/Fri Oct  3 09:21:52 2014/-kk/
 /md.arc/1.13/Fri Oct  3 09:21:52 2014/-kk/
 /md.atari/1.54/Fri Oct  3 09:21:52 2014/-kk/
@@ -50,7 +50,7 @@
 /md.sun3/1.48/Fri Oct  3 09:21:52 2014/-kk/
 /md.vax/1.30/Fri Oct  3 09:21:52 2014/-kk/
 /md.x68k/1.46/Thu Oct 24 10:28:41 2013/-kk/
-/mi/1.1103/Wed May 13 03:27:54 2015/-kk/
+/mi/1.1104/Thu Jul  2 04:05:00 2015/-kk/
 /module.mi/1.13/Fri Dec 11 15:22:33 2009/-kk/
 /rescue.ad.arm/1.3/Thu Oct 24 10:28:41 2013/-kk/
 /rescue.ad.m68k.shl/1.3/Thu Apr 24 14:19:32 2014/-kk/
@@ -64,5 +64,5 @@
 /rescue.sparc64/1.3/Wed Mar 10 23:13:09 2010/-kk/
 /rescue.sun2/1.3/Wed Mar 10 23:13:09 2010/-kk/
 /rescue.vax/1.3/Thu Apr 24 14:19:32 2014/-kk/
-/shl.mi/1.738/Wed Jun  3 06:44:40 2015/-kk/
+/shl.mi/1.741/Thu Jul  2 04:05:01 2015/-kk/
 D

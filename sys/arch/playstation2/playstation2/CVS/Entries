@@ -9,7 +9,7 @@
 /interrupt.h/1.6/Sun Jul 20 13:26:17 2014/-kk/
 /kloader_machdep.c/1.5/Mon Mar 31 11:25:49 2014/-kk/
 /locore_machdep.S/1.12/Thu Apr  2 02:27:53 2015/-kk/
-/machdep.c/1.30/Mon Mar 31 11:25:49 2014/-kk/
+/machdep.c/1.31/Thu Jul  2 04:14:04 2015/-kk/
 /mainbus.c/1.12/Mon Mar 31 11:25:49 2014/-kk/
 /sifbios.c/1.11/Mon Mar 31 11:25:49 2014/-kk/
 /sifbios.h/1.5/Mon Mar 31 11:25:49 2014/-kk/
