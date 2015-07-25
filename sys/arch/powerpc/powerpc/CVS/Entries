@@ -10,7 +10,7 @@
 /db_memrw.c/1.9/Sun Dec 11 12:18:46 2005/-kk/
 /db_trace.c/1.57/Tue Dec 13 11:03:52 2011/-kk/
 /fixup.c/1.10/Fri Oct  3 09:25:48 2014/-kk/
-/fpu.c/1.35/Tue Jun  3 02:54:17 2014/-kk/
+/fpu.c/1.36/Sat Jul 25 01:30:20 2015/-kk/
 /fpu_subr.S/1.2/Tue Jan 18 01:02:55 2011/-kk/
 /fubyte.c/1.5/Sun Dec 11 12:18:46 2005/-kk/
 /fuswintr.c/1.5/Sun Dec 11 12:18:46 2005/-kk/
@@ -49,5 +49,5 @@
 /syscall.c/1.53/Mon Nov 11 15:21:32 2013/-kk/
 /trap.c/1.150/Fri Oct  3 09:36:10 2014/-kk/
 /trap_subr.S/1.78/Fri Oct  3 09:09:05 2014/-kk/
-/vm_machdep.c/1.98/Sat Oct 20 14:42:15 2012/-kk/
+/vm_machdep.c/1.100/Sat Jul 25 01:30:20 2015/-kk/
 D

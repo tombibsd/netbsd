@@ -176,6 +176,7 @@ ${PROG}: ${KMOD}_tmp.o ${KMOD}_tramp.o
 .endif
 .else
 ${PROG}: ${OBJS} ${DPADD} ${KMODSCRIPT}
+	${_MKTARGET_LINK}
 	${CC} ${LDFLAGS} -nostdlib -r -Wl,-T,${KMODSCRIPT},-d \
 		-Wl,-Map=${.TARGET}.map \
 		-o ${.TARGET} ${OBJS}

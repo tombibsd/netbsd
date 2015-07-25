@@ -1,0 +1,15 @@
+/common.vsprops/1.1.1.1/Fri Jul 10 13:02:50 2015/-kk/
+/debug-x64.vsprops/1.1.1.1/Fri Jul 10 13:02:50 2015/-kk/
+/debug.vsprops/1.1.1.1/Fri Jul 10 13:02:50 2015/-kk/
+/ntp.sln/1.1.1.1/Fri Jul 10 13:02:50 2015/-kk/
+/release-x64.vsprops/1.1.1.1/Fri Jul 10 13:02:50 2015/-kk/
+/release.vsprops/1.1.1.1/Fri Jul 10 13:02:50 2015/-kk/
+D/instsrv////
+D/libntp////
+D/loopback-pps////
+D/ntp-keygen////
+D/ntpd-keyword-gen////
+D/ntpd////
+D/ntpdate////
+D/ntpdc////
+D/ntpq////

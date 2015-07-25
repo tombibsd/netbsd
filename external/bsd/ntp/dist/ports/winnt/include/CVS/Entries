@@ -1,0 +1,17 @@
+/clockstuff.h/1.1.1.1/Fri Jul 10 13:02:50 2015/-kk/
+/config.h/1.1.1.1/Fri Jul 10 13:02:50 2015/-kk/
+/gaa_compat.h/1.1.1.1/Fri Jul 10 13:02:50 2015/-kk/
+/hopf_PCI_io.h/1.1.1.1/Fri Jul 10 13:02:50 2015/-kk/
+/netdb.h/1.1.1.1/Fri Jul 10 13:02:50 2015/-kk/
+/ntp_iocompletionport.h/1.1.1.1/Fri Jul 10 13:02:50 2015/-kk/
+/ntp_timer.h/1.1.1.1/Fri Jul 10 13:02:50 2015/-kk/
+/ntservice.h/1.1.1.1/Fri Jul 10 13:02:50 2015/-kk/
+/stdint.h/1.1.1.1/Fri Jul 10 13:02:50 2015/-kk/
+/stdnoreturn.h/1.1.1.1/Fri Jul 10 13:02:50 2015/-kk/
+/syslog.h/1.1.1.1/Fri Jul 10 13:02:50 2015/-kk/
+/termios.h/1.1.1.1/Fri Jul 10 13:02:50 2015/-kk/
+/timepps.h/1.1.1.1/Fri Jul 10 13:02:50 2015/-kk/
+/unistd.h/1.1.1.1/Fri Jul 10 13:02:50 2015/-kk/
+/win32_io.h/1.1.1.1/Fri Jul 10 13:02:50 2015/-kk/
+D/arpa////
+D/sys////

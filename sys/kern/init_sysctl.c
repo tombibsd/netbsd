@@ -615,12 +615,6 @@ SYSCTL_SETUP(sysctl_hw_setup, "sysctl hw subtree setup")
 
 	sysctl_createv(clog, 0, NULL, NULL,
 		       CTLFLAG_PERMANENT,
-		       CTLTYPE_STRING, "machine",
-		       SYSCTL_DESCR("Machine class"),
-		       NULL, 0, machine, 0,
-		       CTL_HW, HW_MACHINE, CTL_EOL);
-	sysctl_createv(clog, 0, NULL, NULL,
-		       CTLFLAG_PERMANENT,
 		       CTLTYPE_STRING, "model",
 		       SYSCTL_DESCR("Machine model"),
 		       NULL, 0, __UNCONST(model), 0,
@@ -657,12 +651,6 @@ SYSCTL_SETUP(sysctl_hw_setup, "sysctl hw subtree setup")
 		       SYSCTL_DESCR("Software page size"),
 		       NULL, PAGE_SIZE, NULL, 0,
 		       CTL_HW, HW_PAGESIZE, CTL_EOL);
-	sysctl_createv(clog, 0, NULL, NULL,
-		       CTLFLAG_PERMANENT,
-		       CTLTYPE_STRING, "machine_arch",
-		       SYSCTL_DESCR("Machine CPU class"),
-		       NULL, 0, machine_arch, 0,
-		       CTL_HW, HW_MACHINE_ARCH, CTL_EOL);
 	sysctl_createv(clog, 0, NULL, NULL,
 		       CTLFLAG_PERMANENT|CTLFLAG_IMMEDIATE,
 		       CTLTYPE_INT, "alignbytes",

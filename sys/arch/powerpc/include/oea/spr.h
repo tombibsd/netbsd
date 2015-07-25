@@ -262,6 +262,9 @@
 #define	  L3CR_L3DO		  0x00000040 /* 25: L3 data-only mode */
 #define	  L3CR_PMEN		  0x00000004 /* 29: Private memory enable */
 #define	  L3CR_PMSIZ		  0x00000004 /* 31: Private memory size (0=1MB, 1=2MB) */
+#define SPR_ICTC		0x3fb	/* ..6. instruction cache throttling */
+#define  ICTC_ENABLE		  0x00000001 /* enable throttling */
+#define  ICTC_COUNT_M		  0x000001fe /* number of waits to insert */
 #define	SPR_THRM1		0x3fc	/* ..6. Thermal Management Register */
 #define	SPR_THRM2		0x3fd	/* ..6. Thermal Management Register */
 #define	 SPR_THRM_TIN		  0x80000000 /* Thermal interrupt bit (RO) */

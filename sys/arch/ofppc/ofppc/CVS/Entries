@@ -1,5 +1,5 @@
 /cpu.c/1.16/Wed Jun 29 06:13:09 2011/-kk/
-/disksubr.c/1.25/Thu Feb  2 21:54:34 2012/-kk/
+/disksubr.c/1.26/Sat Jul 25 01:30:16 2015/-kk/
 /locore.S/1.49/Tue Dec  9 04:23:53 2014/-kk/
 /machdep.c/1.117/Fri Apr 11 02:03:37 2014/-kk/
 /mainbus.c/1.30/Fri Jan  2 11:21:13 2015/-kk/

@@ -121,7 +121,7 @@
 #define	ARM_ARCH_5	0
 #endif
 
-#if defined(CPU_ARM11) || defined(CPU_CORTEXA8) || defined(CPU_ARM11MPCORE)
+#if defined(CPU_ARM11) || defined(CPU_ARM11MPCORE)
 #define ARM_ARCH_6	1
 #else
 #define ARM_ARCH_6	0

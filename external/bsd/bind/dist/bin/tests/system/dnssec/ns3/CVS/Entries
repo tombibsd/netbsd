@@ -1,9 +1,12 @@
 /auto-nsec.example.db.in/1.1.1.3/Mon Jun  4 17:54:24 2012/-kk/
 /auto-nsec3.example.db.in/1.1.1.3/Mon Jun  4 17:54:24 2012/-kk/
 /bogus.example.db.in/1.1.1.3/Mon Jun  4 17:54:24 2012/-kk/
+/dnskey-nsec3-unknown.example.db.in/1.1.1.1/Wed Jul  8 15:37:42 2015/-kk/
+/dnskey-unknown.example.db.in/1.1.1.1/Wed Jul  8 15:37:42 2015/-kk/
 /dynamic.example.db.in/1.1.1.3/Mon Jun  4 17:54:24 2012/-kk/
 /expired.example.db.in/1.1.1.5/Tue Dec  4 19:22:33 2012/-kk/
 /expiring.example.db.in/1.1.1.3/Tue Dec  4 19:22:33 2012/-kk/
+/future.example.db.in/1.1.1.1/Wed Jul  8 15:37:42 2015/-kk/
 /inline.example.db/1.1.1.1/Tue Dec  4 19:22:33 2012/-kk/
 /insecure.below-cname.example.db/1.1.1.2/Mon Jun  4 17:54:24 2012/-kk/
 /insecure.example.db/1.1.1.3/Mon Jun  4 17:54:24 2012/-kk/
@@ -13,7 +16,7 @@
 /kskonly.example.db.in/1.1.1.3/Mon Jun  4 17:54:24 2012/-kk/
 /lower.example.db.in/1.1.1.1/Tue Dec  4 19:22:33 2012/-kk/
 /multiple.example.db.in/1.1.1.3/Mon Jun  4 17:54:24 2012/-kk/
-/named.conf/1.1.1.11/Fri Mar 14 04:22:47 2014/-kk/
+/named.conf/1.1.1.12/Sat Jul 25 01:19:00 2015/-kk/
 /nosign.example.db.in/1.1.1.2/Mon Jun  4 17:54:24 2012/-kk/
 /nsec3-unknown.example.db.in/1.1.1.3/Mon Jun  4 17:54:24 2012/-kk/
 /nsec3.example.db.in/1.1.1.3/Mon Jun  4 17:54:24 2012/-kk/
@@ -33,7 +36,7 @@
 /siginterval.example.db.in/1.1.1.1/Tue Dec 31 20:10:18 2013/-kk/
 /siginterval1.conf/1.1.1.1/Tue Dec 31 20:10:18 2013/-kk/
 /siginterval2.conf/1.1.1.1/Tue Dec 31 20:10:18 2013/-kk/
-/sign.sh/1.1.1.15/Thu Dec 11 09:05:46 2014/-kk/
+/sign.sh/1.1.1.16/Sat Jul 25 01:19:00 2015/-kk/
 /split-dnssec.example.db.in/1.1.1.2/Mon Jun  4 17:54:25 2012/-kk/
 /split-smart.example.db.in/1.1.1.2/Mon Jun  4 17:54:25 2012/-kk/
 /ttlpatch.example.db.in/1.1.1.2/Mon Jun  4 17:54:25 2012/-kk/

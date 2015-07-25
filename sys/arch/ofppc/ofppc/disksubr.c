@@ -410,7 +410,6 @@ read_rdb_label(dev_t dev, void (*strat)(struct buf *), struct disklabel *lp,
 			 */
 			msg = "bad partition info (environ < 11)";
 			goto done;
-			continue;
 		}
 
 		/*

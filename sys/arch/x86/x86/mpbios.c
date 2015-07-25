@@ -1313,8 +1313,25 @@ mpbios_int(const uint8_t *ent, int enttype, struct mp_intr_map *mpi)
 		sc = NULL;
 #endif
 		if (sc == NULL) {
-			printf("mpbios: can't find ioapic %d\n", id);
+#if NIOAPIC > 0
+			/*
+			 * If we couldn't find an ioapic by given id, retry to
+			 * get it by a pin number.
+			 */
+			sc = ioapic_find_bybase(pin);
+			if (sc == NULL) {
+				aprint_error("mpbios: can't find ioapic by"
+				    " neither apid(%d) nor pin number(%d)\n",
+				    id, pin);
+				return;
+			}
+			aprint_verbose("mpbios: use apid %d instead of %d\n",
+			    sc->sc_pic.pic_apicid, id);
+			id = sc->sc_pic.pic_apicid;
+#else
+			aprint_error("mpbios: can't find ioapic %d\n", id);
 			return;
+#endif
 		}
 
 		/*

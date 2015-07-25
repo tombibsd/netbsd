@@ -296,7 +296,7 @@ tegra_dc_port(device_t dev)
 
 int
 tegra_dc_enable(device_t dev, device_t outputdev,
-    const struct videomode *mode)
+    const struct videomode *mode, const uint8_t *edid)
 {
 	struct tegra_dc_softc * const sc = device_private(dev);
 	prop_dictionary_t prop = device_properties(dev);
@@ -338,6 +338,13 @@ tegra_dc_enable(device_t dev, device_t outputdev,
 	};
 
 	sc->sc_fbdev = config_found(sc->sc_dev, &tfb, tegra_dc_print);
+
+	if (sc->sc_fbdev != NULL && edid != NULL) {
+		prop_data_t data = prop_data_create_data(edid, 128);
+		prop_dictionary_set(device_properties(sc->sc_fbdev),
+		    "EDID", data);
+		prop_object_release(data);
+	}
 
 	return 0;
 }

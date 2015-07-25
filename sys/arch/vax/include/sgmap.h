@@ -63,6 +63,8 @@ void	vax_sgmap_init(bus_dma_tag_t, struct vax_sgmap *, const char *,
 int	vax_sgmap_alloc(bus_dmamap_t, bus_size_t, struct vax_sgmap *, int);
 void	vax_sgmap_free(bus_dmamap_t, struct vax_sgmap *);
 
+int	vax_sgmap_reserve(bus_addr_t, bus_size_t, struct vax_sgmap *);
+
 int     vax_sgmap_load(bus_dma_tag_t, bus_dmamap_t, void *, bus_size_t,
 	    struct proc *, int, struct vax_sgmap *);
 

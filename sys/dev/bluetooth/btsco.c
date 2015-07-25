@@ -798,7 +798,9 @@ btsco_start_output(void *hdl, void *block, int blksize,
 	sc->sc_tx_intr = intr;
 	sc->sc_tx_intrarg = intrarg;
 
+	kpreempt_disable();
 	softint_schedule(sc->sc_intr);
+	kpreempt_enable();
 	return 0;
 }
 

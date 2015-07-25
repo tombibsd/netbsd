@@ -84,15 +84,17 @@ fpu_state_load(lwp_t *l, u_int flags)
 		memset(&pcb->pcb_fpu, 0, sizeof(pcb->pcb_fpu));
 	}
 
-	const register_t msr = mfmsr();
-        mtmsr((msr & ~PSL_EE) | PSL_FP);
-	__asm volatile ("isync");
+	if ((flags & PCU_REENABLE) == 0) {
+		const register_t msr = mfmsr();
+		mtmsr((msr & ~PSL_EE) | PSL_FP);
+		__asm volatile ("isync");
 
-	fpu_load_from_fpreg(&pcb->pcb_fpu);
-	__asm volatile ("sync");
+		fpu_load_from_fpreg(&pcb->pcb_fpu);
+		__asm volatile ("sync");
 
-	mtmsr(msr);
-	__asm volatile ("isync");
+		mtmsr(msr);
+		__asm volatile ("isync");
+	}
 
 	curcpu()->ci_ev_fpusw.ev_count++;
 	l->l_md.md_utf->tf_srr1 |= PSL_FP|(pcb->pcb_flags & (PCB_FE0|PCB_FE1));

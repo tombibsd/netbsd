@@ -206,7 +206,8 @@ SUBDIR+=	wmihp
 SUBDIR+=	wmimsi
 .endif
 
-.if ${MACHINE_CPU} == "arm" || !empty(MACHINE_ARCH:Mmips64*)
+.if ${MACHINE_CPU} == "arm" \
+    || (!empty(MACHINE_ARCH:Mmips64*) && !defined(BSD_MK_COMPAT_FILE))
 SUBDIR+=	compat_netbsd32
 .endif
 

@@ -7,6 +7,7 @@ TESTSDIR=	${TESTSBASE}/net/if
 
 TESTS_C=	t_compat
 TESTS_SH=	t_ifconf
+TESTS_SH+=	t_ifconfig
 
 PROGS=		ifconf
 MAN.ifconf=	# empty

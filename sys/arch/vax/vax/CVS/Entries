@@ -6,7 +6,7 @@
 /cmi.c/1.13/Tue Dec 14 23:44:49 2010/-kk/
 /compat_13_machdep.c/1.4/Sun Jul  3 02:18:21 2011/-kk/
 /compat_16_machdep.c/1.4/Sun Jul  3 02:18:21 2011/-kk/
-/conf.c/1.67/Tue Dec 14 23:44:49 2010/-kk/
+/conf.c/1.68/Sat Jul 25 01:30:26 2015/-kk/
 /core_machdep.c/1.6/Tue Jan 14 16:05:01 2014/-kk/
 /crl.c/1.32/Fri Oct  3 09:09:09 2014/-kk/
 /crl.h/1.2/Mon Apr 12 20:57:52 1999/-kk/
@@ -56,7 +56,7 @@
 /procfs_machdep.c/1.5/Sat Apr 19 05:36:50 2014/-kk/
 /sbi.c/1.37/Sat Apr  2 10:21:58 2011/-kk/
 /scb.c/1.18/Tue Dec 14 23:44:49 2010/-kk/
-/sgmap.c/1.17/Fri Jan 27 18:53:06 2012/-kk/
+/sgmap.c/1.18/Sat Jul 25 01:30:26 2015/-kk/
 /sig_machdep.c/1.21/Sun Jul  3 02:18:21 2011/-kk/
 /subr.S/1.33/Mon Dec 20 00:25:45 2010/-kk/
 /syscall.c/1.23/Thu Oct 24 10:28:57 2013/-kk/

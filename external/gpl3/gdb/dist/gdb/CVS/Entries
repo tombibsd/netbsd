@@ -485,7 +485,7 @@
 /nbsd-nat.h/1.1.1.3/Thu Jun 26 06:44:25 2014/-kk/
 /nbsd-tdep.c/1.1.1.3/Thu Jun 26 06:44:25 2014/-kk/
 /nbsd-tdep.h/1.1.1.3/Thu Jun 26 06:44:25 2014/-kk/
-/nbsd-thread.c/1.21/Sun Jul 20 13:57:20 2014/-kk/
+/nbsd-thread.c/1.22/Sat Jul 25 01:24:06 2015/-kk/
 /nios2-linux-tdep.c/1.1.1.1/Sun Jun 22 23:41:01 2014/-kk/
 /nios2-tdep.c/1.1.1.1/Sun Jun 22 23:41:02 2014/-kk/
 /nios2-tdep.h/1.1.1.1/Sun Jun 22 23:40:58 2014/-kk/

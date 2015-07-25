@@ -1,12 +1,12 @@
-/ad.aarch64/1.9/Thu Feb  5 08:37:06 2015/-kk/
-/ad.arm.shl/1.6/Tue Jan 14 16:01:09 2014/-kk/
-/ad.arm/1.67/Wed Jun  3 06:44:40 2015/-kk/
+/ad.aarch64/1.10/Sat Jul 25 01:18:35 2015/-kk/
+/ad.arm.shl/1.7/Sat Jul 25 01:18:35 2015/-kk/
+/ad.arm/1.68/Sat Jul 25 01:18:35 2015/-kk/
 /ad.hppa/1.7/Mon Nov 11 15:18:11 2013/-kk/
 /ad.m68k.shl/1.10/Tue Jan 14 16:01:09 2014/-kk/
 /ad.m68k/1.49/Mon Nov 11 15:18:11 2013/-kk/
 /ad.mips/1.55/Thu Jul  2 04:05:01 2015/-kk/
 /ad.powerpc/1.79/Thu Jul  2 04:05:01 2015/-kk/
-/ad.riscv/1.4/Thu Feb  5 08:37:06 2015/-kk/
+/ad.riscv/1.5/Sat Jul 25 01:18:35 2015/-kk/
 /ad.sh3/1.29/Mon Nov 11 15:18:11 2013/-kk/
 /md.algor/1.16/Sun Jul 17 20:54:31 2011/-kk/
 /md.alpha/1.66/Tue Jan 14 16:01:10 2014/-kk/
@@ -52,7 +52,7 @@
 /md.sbmips/1.17/Fri Oct  3 09:40:31 2014/-kk/
 /md.sgimips/1.21/Fri Oct  3 09:40:31 2014/-kk/
 /md.sparc/1.85/Fri Oct  3 09:40:31 2014/-kk/
-/md.sparc64/1.191/Thu Feb  5 08:37:06 2015/-kk/
+/md.sparc64/1.192/Sat Jul 25 01:18:35 2015/-kk/
 /md.sun2/1.20/Thu Oct 24 10:28:41 2013/-kk/
 /md.sun3/1.62/Thu Oct 24 10:28:41 2013/-kk/
 /md.vax/1.40/Mon Nov 11 15:18:11 2013/-kk/

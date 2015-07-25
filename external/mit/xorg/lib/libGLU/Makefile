@@ -1,7 +1,5 @@
 #	$NetBSD$
 
-NOLINT=		1	# XTODO: tess.ln SIGSEGVs lint :(
-
 .include <bsd.own.mk>
 
 LIB=		GLU

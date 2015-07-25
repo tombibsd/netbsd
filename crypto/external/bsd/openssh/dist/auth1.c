@@ -427,16 +427,6 @@ do_authentication(Authctxt *authctxt)
 	if ((style = strchr(user, ':')) != NULL)
 		*style++ = '\0';
 
-#ifdef KRB5
-	/* XXX - SSH.com Kerberos v5 braindeath. */
-	if ((datafellows & SSH_BUG_K5USER) &&
-	    options.kerberos_authentication) {
-		char *p;
-		if ((p = strchr(user, '@')) != NULL)
-			*p = '\0';
-	}
-#endif
-
 	authctxt->user = user;
 	authctxt->style = style;
 

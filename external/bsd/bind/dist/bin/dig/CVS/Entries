@@ -1,15 +1,15 @@
 /Makefile.in/1.1.1.9/Thu Dec 11 09:05:43 2014/-kk/
-/dig.1/1.9/Thu Dec 11 09:05:43 2014/-kk/
+/dig.1/1.10/Sat Jul 25 01:18:50 2015/-kk/
 /dig.c/1.10/Thu Dec 11 09:05:43 2014/-kk/
-/dig.docbook/1.1.1.10/Thu Dec 11 09:05:43 2014/-kk/
-/dig.html/1.1.1.10/Thu Dec 11 09:05:43 2014/-kk/
-/dighost.c/1.14/Thu Dec 11 09:05:44 2014/-kk/
+/dig.docbook/1.1.1.11/Sat Jul 25 01:18:50 2015/-kk/
+/dig.html/1.1.1.11/Sat Jul 25 01:18:50 2015/-kk/
+/dighost.c/1.15/Sat Jul 25 01:18:50 2015/-kk/
 /host.1/1.5/Thu Dec 11 09:05:44 2014/-kk/
-/host.c/1.10/Thu Dec 11 09:05:44 2014/-kk/
+/host.c/1.11/Sat Jul 25 01:18:50 2015/-kk/
 /host.docbook/1.1.1.5/Sun Jul 20 13:23:15 2014/-kk/
 /host.html/1.1.1.6/Thu Dec 11 09:05:44 2014/-kk/
 /nslookup.1/1.7/Thu Dec 11 09:05:44 2014/-kk/
-/nslookup.c/1.10/Thu Dec 11 09:05:44 2014/-kk/
+/nslookup.c/1.11/Sat Jul 25 01:18:50 2015/-kk/
 /nslookup.docbook/1.1.1.7/Sun Jul 20 13:23:15 2014/-kk/
 /nslookup.html/1.1.1.9/Thu Dec 11 09:05:44 2014/-kk/
 D/include////

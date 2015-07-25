@@ -27,7 +27,7 @@
  * SUCH DAMAGE.
  */
 
-#define INITDEFINES	     121
+#define INITDEFINES	     122
 #define INITDEFINENDS	       6
 #define INITDEFINE6S	      68
 

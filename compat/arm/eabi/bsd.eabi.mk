@@ -4,7 +4,7 @@
 
 MLIBDIR=		eabi
 
-EARM_COMPAT_FLAGS=	-mfloat-abi=soft
+EARM_COMPAT_FLAGS=	-mfloat-abi=soft -mfpu=none
 EARM_COMPAT_FLAGS+=	-mabi=aapcs-linux
 MKSOFTFLOAT=yes
 

@@ -1,11 +1,11 @@
 /Makefile.in/1.1.1.9/Thu Dec 11 09:05:46 2014/-kk/
-/README/1.1.1.4/Tue Jan 14 16:01:21 2014/-kk/
-/ans.pl/1.2/Sat Mar 21 02:26:25 2015/-kk/
+/README/1.1.1.5/Sat Jul 25 01:18:59 2015/-kk/
+/ans.pl/1.3/Sat Jul 25 01:18:59 2015/-kk/
 /cleanall.sh/1.1.1.6/Thu Dec 11 09:05:46 2014/-kk/
 /cleanpkcs11.sh/1.1.1.5/Fri Mar 14 04:22:47 2014/-kk/
-/conf.sh.in/1.1.1.14/Thu Dec 11 09:05:46 2014/-kk/
+/conf.sh.in/1.1.1.15/Sat Jul 25 01:18:59 2015/-kk/
 /digcomp.pl/1.1.1.5/Tue Jan 14 16:01:21 2014/-kk/
-/genzone.sh/1.1.1.8/Thu Dec 11 09:05:46 2014/-kk/
+/genzone.sh/1.1.1.9/Sat Jul 25 01:18:59 2015/-kk/
 /ifconfig.sh/1.1.1.7/Thu Oct 24 10:28:41 2013/-kk/
 /org.isc.bind.system.plist/1.1.1.1/Tue Feb 15 19:31:07 2011/-kk/
 /org.isc.bind.system/1.1.1.4/Fri Mar 14 04:22:47 2014/-kk/
@@ -14,7 +14,7 @@
 /runall.sh/1.1.1.7/Thu Dec 11 09:05:46 2014/-kk/
 /send.pl/1.1.1.5/Tue Dec  4 19:22:27 2012/-kk/
 /setup.sh/1.1.1.5/Thu Dec 11 09:05:46 2014/-kk/
-/start.pl/1.1.1.11/Fri Mar 14 04:22:47 2014/-kk/
+/start.pl/1.1.1.12/Sat Jul 25 01:18:59 2015/-kk/
 /start.sh/1.1.1.4/Tue Dec  4 19:22:27 2012/-kk/
 /stop.pl/1.1.1.4/Tue Dec  4 19:22:27 2012/-kk/
 /stop.sh/1.1.1.4/Tue Dec  4 19:22:27 2012/-kk/
@@ -36,6 +36,7 @@ D/checkzone////
 D/common////
 D/coverage////
 D/database////
+D/delv////
 D/dialup////
 D/dlv////
 D/dlvauto////
@@ -57,6 +58,7 @@ D/glue////
 D/gost////
 D/inline////
 D/ixfr////
+D/legacy////
 D/limits////
 D/logfileconfig////
 D/lwresd////
@@ -69,10 +71,12 @@ D/nsupdate////
 D/pending////
 D/pkcs11////
 D/pkcs11ssl////
+D/reclimit////
 D/redirect////
 D/resolver////
 D/rndc////
 D/rpz////
+D/rpzrecurse////
 D/rrchecker////
 D/rrl////
 D/rrsetorder////

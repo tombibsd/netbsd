@@ -17,10 +17,8 @@ TESTS_C+=	t_floatunditf
 TESTS_C+=	t_fmtcheck
 TESTS_C+=	t_fnmatch
 TESTS_C+=	t_fpclassify
-.if ${MACHINE_CPU} != "aarch64"
 TESTS_C+=	t_fpsetmask
 TESTS_C+=	t_fpsetround
-.endif
 TESTS_C+=	t_ftok
 TESTS_C+=	t_getcwd
 TESTS_C+=	t_getgrent

@@ -166,6 +166,7 @@ ip_hresolv_needed(const struct ifnet * const ifp)
 	case IFT_FDDI:
 	case IFT_HIPPI:
 	case IFT_IEEE1394:
+	case IFT_ISO88025:
 		return true;
 	default:
 		return false;

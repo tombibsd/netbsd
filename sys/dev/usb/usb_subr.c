@@ -889,7 +889,8 @@ usbd_attachinterfaces(device_t parent, usbd_device_handle dev,
 			    loc != uiaa.configno)
 				continue;
 			loc = locators[USBIFIFCF_INTERFACE];
-			if (loc != USBIFIFCF_INTERFACE && loc != uiaa.ifaceno)
+			if (loc != USBIFIFCF_INTERFACE_DEFAULT &&
+			    loc != uiaa.ifaceno)
 				continue;
 		}
 		dv = config_found_sm_loc(parent, "usbifif", ilocs, &uiaa,

@@ -89,6 +89,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include "rump_dev_private.h"
 
 char machine[] = MACHINE;
+char machine_arch[] = MACHINE_ARCH;
 
 struct proc *initproc;
 

@@ -173,6 +173,7 @@ hdaudio_pci_attach(device_t parent, device_t self, void *opaque)
 		csr = pci_conf_read(sc->sc_pc, sc->sc_tag, PCI_COMMAND_STATUS_REG);
 		csr &= ~(PCI_COMMAND_MASTER_ENABLE | PCI_COMMAND_BACKTOBACK_ENABLE);
 		pci_conf_write(sc->sc_pc, sc->sc_tag, PCI_COMMAND_STATUS_REG, csr);
+		pmf_device_deregister(self);
 	}
 }
 

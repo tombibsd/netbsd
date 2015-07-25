@@ -1,5 +1,5 @@
 /altdb.conf/1.1.1.1/Tue Jul  8 04:46:14 2014/-kk/
-/altdlz.conf/1.1.1.1/Tue Jul  8 04:46:15 2014/-kk/
+/altdlz.conf/1.1.1.2/Sat Jul 25 01:18:59 2015/-kk/
 /bad-also-notify.conf/1.1.1.1/Thu Oct 24 10:28:41 2013/-kk/
 /bad-dnssec.conf/1.1.1.2/Tue Jan 14 16:01:21 2014/-kk/
 /bad-hint.conf/1.1.1.1/Tue Jul  8 04:46:15 2014/-kk/
@@ -8,6 +8,8 @@
 /bad-master-request-ixfr.conf/1.1.1.1/Wed Dec 10 02:25:16 2014/-kk/
 /bad-maxttlmap.conf/1.1.1.1/Fri Feb 28 17:40:07 2014/-kk/
 /bad-noddns.conf/1.1.1.1/Tue Jul  8 04:46:15 2014/-kk/
+/bad-sharedwritable1.conf/1.1.1.1/Wed Jul  8 15:37:42 2015/-kk/
+/bad-sharedwritable2.conf/1.1.1.1/Wed Jul  8 15:37:42 2015/-kk/
 /bad-sharedzone1.conf/1.1.1.1/Fri Feb 28 17:40:07 2014/-kk/
 /bad-sharedzone2.conf/1.1.1.1/Fri Feb 28 17:40:07 2014/-kk/
 /bad-tsig.conf/1.1.1.1/Thu Oct 24 10:28:41 2013/-kk/
@@ -26,17 +28,17 @@
 /dnssec.1/1.1.1.4/Thu Dec 11 09:05:46 2014/-kk/
 /dnssec.2/1.1.1.4/Thu Dec 11 09:05:46 2014/-kk/
 /dnssec.3/1.1.1.4/Thu Dec 11 09:05:46 2014/-kk/
-/good.conf/1.1.1.9/Sun Jul 20 13:23:20 2014/-kk/
+/good.conf/1.1.1.10/Sat Jul 25 01:18:59 2015/-kk/
 /hint-nofile.conf/1.1.1.1/Tue Dec 31 20:10:16 2013/-kk/
 /inline-bad.conf/1.1.1.1/Tue Dec 31 20:10:16 2013/-kk/
 /inline-good.conf/1.1.1.1/Tue Dec 31 20:10:16 2013/-kk/
 /inline-no.conf/1.1.1.1/Tue Dec 31 20:10:16 2013/-kk/
-/max-ttl.conf/1.1.1.1/Fri Feb 28 17:40:07 2014/-kk/
+/max-ttl.conf/1.1.1.2/Sat Jul 25 01:18:59 2015/-kk/
 /maxttl-bad.conf/1.1.1.1/Fri Feb 28 17:40:07 2014/-kk/
 /maxttl-bad.db/1.1.1.1/Fri Feb 28 17:40:07 2014/-kk/
 /maxttl.db/1.1.1.1/Fri Feb 28 17:40:07 2014/-kk/
 /notify.conf/1.1.1.1/Fri Feb 28 17:40:07 2014/-kk/
 /range.conf/1.1.1.1/Fri Feb 28 17:40:07 2014/-kk/
-/tests.sh/1.1.1.11/Thu Dec 11 09:05:46 2014/-kk/
+/tests.sh/1.1.1.12/Sat Jul 25 01:18:59 2015/-kk/
 /warn-keydir.conf/1.1.1.1/Fri Feb 28 17:40:07 2014/-kk/
 D

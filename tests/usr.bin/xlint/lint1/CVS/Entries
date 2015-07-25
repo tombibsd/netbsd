@@ -1,4 +1,4 @@
-/Makefile/1.7/Thu May 28 03:26:04 2015/-kk/
+/Makefile/1.8/Sat Jul 25 01:31:11 2015/-kk/
 /d_alignof.c/1.1/Sat Mar 17 16:33:15 2012/-kk/
 /d_c99_complex_num.c/1.1/Sat Mar 17 16:33:15 2012/-kk/
 /d_c99_complex_split.c/1.2/Tue May  6 05:50:30 2014/-kk/
@@ -17,6 +17,7 @@
 /d_c99_union_init3.c/1.1/Sat Mar 17 16:33:15 2012/-kk/
 /d_c9x_array_init.c/1.1/Sat Mar 17 16:33:15 2012/-kk/
 /d_c9x_recursive_init.c/1.1/Sat Mar 17 16:33:15 2012/-kk/
+/d_cast_fun_array_param.c/1.1/Wed Jul  1 15:36:44 2015/-kk/
 /d_cast_init.c/1.1/Sat Mar 17 16:33:15 2012/-kk/
 /d_cast_init2.c/1.1/Sat Mar 17 16:33:15 2012/-kk/
 /d_cast_lhs.c/1.1/Sat Mar 17 16:33:15 2012/-kk/

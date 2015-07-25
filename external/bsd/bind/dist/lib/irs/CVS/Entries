@@ -4,7 +4,7 @@
 /dnsconf.c/1.5/Thu Dec 11 09:05:51 2014/-kk/
 /gai_strerror.c/1.5/Thu Dec 11 09:05:51 2014/-kk/
 /getaddrinfo.c/1.7/Thu Dec 11 09:05:51 2014/-kk/
-/getnameinfo.c/1.6/Thu Dec 11 09:05:51 2014/-kk/
+/getnameinfo.c/1.7/Sat Jul 25 01:19:10 2015/-kk/
 /resconf.c/1.8/Thu Dec 11 09:05:51 2014/-kk/
 /version.c/1.4/Thu Dec 11 09:05:51 2014/-kk/
 D/include////

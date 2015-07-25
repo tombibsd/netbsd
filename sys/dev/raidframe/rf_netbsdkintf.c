@@ -195,14 +195,14 @@ static int raidread_component_label(unsigned,
     dev_t, struct vnode *, RF_ComponentLabel_t *);
 
 
-dev_type_open(raidopen);
-dev_type_close(raidclose);
-dev_type_read(raidread);
-dev_type_write(raidwrite);
-dev_type_ioctl(raidioctl);
-dev_type_strategy(raidstrategy);
-dev_type_dump(raiddump);
-dev_type_size(raidsize);
+static dev_type_open(raidopen);
+static dev_type_close(raidclose);
+static dev_type_read(raidread);
+static dev_type_write(raidwrite);
+static dev_type_ioctl(raidioctl);
+static dev_type_strategy(raidstrategy);
+static dev_type_dump(raiddump);
+static dev_type_size(raidsize);
 
 const struct bdevsw raid_bdevsw = {
 	.d_open = raidopen,
@@ -597,8 +597,7 @@ rf_buildroothack(RF_ConfigSet_t *config_sets)
 	}
 }
 
-
-int
+static int
 raidsize(dev_t dev)
 {
 	struct raid_softc *rs;
@@ -631,7 +630,7 @@ raidsize(dev_t dev)
 
 }
 
-int
+static int
 raiddump(dev_t dev, daddr_t blkno, void *va, size_t size)
 {
 	int     unit = raidunit(dev);
@@ -767,8 +766,9 @@ out:
 		
 	return error;
 }
+
 /* ARGSUSED */
-int
+static int
 raidopen(dev_t dev, int flags, int fmt,
     struct lwp *l)
 {
@@ -852,8 +852,9 @@ bad:
 
 
 }
+
 /* ARGSUSED */
-int
+static int
 raidclose(dev_t dev, int flags, int fmt, struct lwp *l)
 {
 	int     unit = raidunit(dev);
@@ -902,7 +903,7 @@ raidclose(dev_t dev, int flags, int fmt, struct lwp *l)
 
 }
 
-void
+static void
 raidstrategy(struct buf *bp)
 {
 	unsigned int unit = raidunit(bp->b_dev);
@@ -972,8 +973,9 @@ done:
 	bp->b_resid = bp->b_bcount;
 	biodone(bp);
 }
+
 /* ARGSUSED */
-int
+static int
 raidread(dev_t dev, struct uio *uio, int flags)
 {
 	int     unit = raidunit(dev);
@@ -988,8 +990,9 @@ raidread(dev_t dev, struct uio *uio, int flags)
 	return (physio(raidstrategy, NULL, dev, B_READ, minphys, uio));
 
 }
+
 /* ARGSUSED */
-int
+static int
 raidwrite(dev_t dev, struct uio *uio, int flags)
 {
 	int     unit = raidunit(dev);
@@ -1037,7 +1040,7 @@ raid_detach_unlocked(struct raid_softc *rs)
 	return 0;
 }
 
-int
+static int
 raidioctl(dev_t dev, u_long cmd, void *data, int flag, struct lwp *l)
 {
 	int     unit = raidunit(dev);

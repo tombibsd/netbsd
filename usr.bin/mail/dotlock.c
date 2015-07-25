@@ -80,13 +80,13 @@ create_exclusive(const char *fname)
 	/*
 	 * We try to create the unique filename.
 	 */
-	for (ntries = 0; ntries < 5; ntries++) {
+	for (ntries = 0; ; ntries++) {
 		fd = open(path, O_WRONLY|O_CREAT|O_TRUNC|O_EXCL|O_SYNC, 0);
 		if (fd != -1) {
 			(void)close(fd);
 			break;
 		}
-		else if (errno == EEXIST)
+		else if (errno == EEXIST && ntries < 5)
 			continue;
 		else
 			return -1;

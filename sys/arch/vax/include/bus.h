@@ -184,7 +184,11 @@ struct vax_bus_space {
 
 #define bus_space_free(t, h, s)						\
 	(*(t)->vbs_free)((t)->vbs_cookie, (h), (s))
-
+/*
+ * Get kernel virtual address for ranges mapped BUS_SPACE_MAP_LINEAR.
+ */
+#define bus_space_vaddr(t, h)						\
+	((void *) (h))
 /*
  * Mmap bus space for a user application.
  */

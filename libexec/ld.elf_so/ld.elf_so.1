@@ -89,6 +89,11 @@ The list of default paths which is set to
 .Pa /usr/lib .
 .El
 .Pp
+Dynamic loading via
+.Xr dlopen 3
+uses the DT_RPATH entries of the main binary, independently of which object
+the call came from.
+.Pp
 .Nm
 will expand the following variables if present in the paths:
 .Bl -tag -width $PLATFORM

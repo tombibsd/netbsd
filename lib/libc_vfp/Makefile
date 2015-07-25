@@ -10,5 +10,7 @@ USE_SHLIBDIR=	yes
 CPUFLAGS+=	-mfpu=vfp -marm
 
 SRCS=		vfpsf.S vfpdf.S
+AFLAGS.vfpsf.S+=	-mfpu=vfp
+AFLAGS.vfpdf.S+=	-mfpu=vfp
 
 .include <bsd.lib.mk>

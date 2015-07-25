@@ -104,6 +104,7 @@ struct ptrace_io_desc {
 #define	PIOD_WRITE_D	2	/* write to D spcae */
 #define	PIOD_READ_I	3	/* read from I space */
 #define	PIOD_WRITE_I	4	/* write to I space */
+#define PIOD_READ_AUXV	5	/* Read from aux array */
 
 /*
  * Argument structure for PT_LWPINFO.

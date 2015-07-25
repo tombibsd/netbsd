@@ -33,7 +33,7 @@ SUBDIR+=	libarch \
 SUBDIR+=	libkern
 .endif
 
-.if (${MACHINE_CPU} == "arm")
+.if (${MACHINE_CPU} == "arm" || ${MACHINE_CPU} == "aarch64")
 LIBC_MACHINE_ARCH?=${MACHINE_ARCH}
 .if empty(LIBC_MACHINE_ARCH:M*hf*)
 SUBDIR+=	libc_vfp

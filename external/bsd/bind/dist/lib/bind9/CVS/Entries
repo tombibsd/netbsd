@@ -1,7 +1,7 @@
 /Makefile.in/1.1.1.8/Thu Dec 11 09:05:51 2014/-kk/
-/api/1.1.1.15/Thu Dec 11 09:05:51 2014/-kk/
-/check.c/1.11/Thu Dec 11 09:05:51 2014/-kk/
-/getaddresses.c/1.5/Thu Dec 11 09:05:51 2014/-kk/
+/api/1.1.1.16/Sat Jul 25 01:19:08 2015/-kk/
+/check.c/1.12/Sat Jul 25 01:19:08 2015/-kk/
+/getaddresses.c/1.6/Sat Jul 25 01:19:08 2015/-kk/
 /version.c/1.4/Thu Dec 11 09:05:51 2014/-kk/
 D/include////
 D/win32////

@@ -70,7 +70,8 @@ LRINTNAME(double x)
 		/* round, using current direction */
 		x += TWO52[s];
 		x -= TWO52[s];
-	}
+	} else
+		return x;
 
 	EXTRACT_WORDS(i0, i1, x);
 	e = ((i0 >> 20) & 0x7ff) - DBL_EXP_BIAS;

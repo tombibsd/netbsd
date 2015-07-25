@@ -19,7 +19,7 @@
 /conf.c/1.73/Thu Dec 15 14:25:12 2011/-kk/
 /custom.h/1.12/Thu Apr 25 09:20:27 2002/-kk/
 /device.h/1.14/Sat Oct 27 17:17:26 2012/-kk/
-/disksubr.c/1.62/Fri Oct  3 10:04:57 2014/-kk/
+/disksubr.c/1.63/Sat Jul 25 01:29:50 2015/-kk/
 /dkbad.c/1.12/Sat Mar 14 21:04:03 2009/-kk/
 /drcustom.h/1.8/Wed Apr  9 01:54:43 2003/-kk/
 /gayle.c/1.8/Mon Jan 26 07:10:13 2015/-kk/

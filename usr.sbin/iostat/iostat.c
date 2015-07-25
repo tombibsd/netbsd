@@ -88,6 +88,7 @@ __RCSID("$NetBSD$");
 #include <string.h>
 #include <unistd.h>
 #include <math.h>
+#include <fnmatch.h>
 
 #include "drvstats.h"
 
@@ -511,7 +512,7 @@ selectdrives(int argc, char *argv[])
 #endif
 		tried++;
 		for (i = 0; i < (int)ndrive; i++) {
-			if (strcmp(cur.name[i], *argv))
+			if (fnmatch(*argv, cur.name[i], 0))
 				continue;
 			cur.select[i] = 1;
 			++ndrives;

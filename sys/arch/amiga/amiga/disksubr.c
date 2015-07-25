@@ -331,7 +331,6 @@ readdisklabel(dev_t dev, void (*strat)(struct buf *), struct disklabel *lp, stru
 			 */
 			msg = "bad partition info (environ < 11)";
 			goto done;
-			continue;
 		}
 
 		/*

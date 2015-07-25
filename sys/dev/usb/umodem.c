@@ -98,17 +98,12 @@ umodem_match(device_t parent, cfdata_t match, void *aux)
 	usb_interface_descriptor_t *id;
 	int cm, acm;
 
-	id = usbd_get_interface_descriptor(uaa->iface);
-	if (uaa->subclass != UISUBCLASS_ABSTRACT_CONTROL_MODEL &&
-	    (id->bInterfaceClass == UICLASS_CDC_DATA &&
-	     id->bInterfaceSubClass == UISUBCLASS_DATA))
-		return (UMATCH_IFACECLASS_IFACESUBCLASS);
-
 	if (uaa->class != UICLASS_CDC ||
 	    uaa->subclass != UISUBCLASS_ABSTRACT_CONTROL_MODEL ||
 	    !(uaa->proto == UIPROTO_CDC_NOCLASS || uaa->proto == UIPROTO_CDC_AT))
 		return (UMATCH_NONE);
 
+	id = usbd_get_interface_descriptor(uaa->iface);
 	if (umodem_get_caps(uaa->device, &cm, &acm, id) == -1)
 		return (UMATCH_NONE);
 

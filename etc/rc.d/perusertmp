@@ -36,7 +36,7 @@ perusertmp_start()
 	if [ ! -d ${per_user_tmp_dir} ]; then
 		/bin/mkdir -p ${per_user_tmp_dir}
 	fi
-	/usr/sbin/chown root:wheel ${per_user_tmp_dir}
+	/sbin/chown root:wheel ${per_user_tmp_dir}
 	/bin/chmod 0555 ${per_user_tmp_dir}
 
 	# Create magic link for /tmp.

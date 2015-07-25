@@ -108,9 +108,8 @@ dead_newvnode(struct mount *mp, struct vnode *dvp, struct vnode *vp,
 	uvm_vnp_setsize(vp, 0);
 	spec_node_init(vp, vap->va_rdev);
 
-	vp->v_data = vp;
-	*key_len = sizeof(vp->v_data);
-	*new_key = &vp->v_data;
+	*key_len = sizeof(vp->v_interlock);
+	*new_key = &vp->v_interlock;
 
 	return 0;
 }

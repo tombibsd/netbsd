@@ -74,7 +74,8 @@ LRINTNAME(float x)
 		/* round, using current direction */
 		w = TWO23[s] + x;
 		x = w - TWO23[s];
-	}
+	} else
+		return x;
 
 	GET_FLOAT_WORD(i0, x);
 	e = ((i0 >> SNG_FRACBITS) & 0xff) - SNG_EXP_BIAS;

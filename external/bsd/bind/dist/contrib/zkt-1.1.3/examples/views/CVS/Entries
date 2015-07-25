@@ -1,0 +1,12 @@
+/dnssec-extern.conf/1.1.1.1/Wed Jul  8 15:37:54 2015/-kk/
+/dnssec-intern.conf/1.1.1.1/Wed Jul  8 15:37:54 2015/-kk/
+/dnssec-signer-extern/1.1.1.1/Wed Jul  8 15:37:54 2015/-kk/
+/dnssec-signer-intern/1.1.1.1/Wed Jul  8 15:37:54 2015/-kk/
+/dnssec-zkt-extern/1.1.1.1/Wed Jul  8 15:37:54 2015/-kk/
+/dnssec-zkt-intern/1.1.1.1/Wed Jul  8 15:37:54 2015/-kk/
+/named.conf/1.1.1.1/Wed Jul  8 15:37:54 2015/-kk/
+/named.log/1.1.1.1/Wed Jul  8 15:37:54 2015/-kk/
+/root.hint/1.1.1.1/Wed Jul  8 15:37:54 2015/-kk/
+/viewtest.sh/1.1.1.1/Wed Jul  8 15:37:54 2015/-kk/
+D/extern////
+D/intern////

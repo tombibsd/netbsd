@@ -29,6 +29,7 @@ SRCS=	cmd_args.c				\
 	ntpd-opts.c				\
 	ntpd.c					\
 	ntpsim.c				\
+	rc_cmdlength.c				\
 	refclock_acts.c				\
 	refclock_arbiter.c			\
 	refclock_arc.c				\

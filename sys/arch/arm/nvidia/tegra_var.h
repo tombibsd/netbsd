@@ -148,7 +148,8 @@ void	tegra_xusbpad_sata_enable(void);
 
 struct videomode;
 int	tegra_dc_port(device_t);
-int	tegra_dc_enable(device_t, device_t, const struct videomode *);
+int	tegra_dc_enable(device_t, device_t, const struct videomode *,
+			const uint8_t *);
 void	tegra_dc_hdmi_start(device_t);
 
 #define TEGRA_CPUFREQ_MAX	16

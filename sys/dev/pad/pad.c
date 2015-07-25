@@ -354,6 +354,7 @@ pad_read(dev_t dev, struct uio *uio, int flags)
 	intr = sc->sc_intr;
 	intrarg = sc->sc_intrarg;
 
+	kpreempt_disable();
 	while (uio->uio_resid > 0 && !err) {
 		err = pad_get_block(sc, &pb, min(uio->uio_resid, PAD_BLKSIZE));
 		if (!err) {
@@ -375,6 +376,7 @@ pad_read(dev_t dev, struct uio *uio, int flags)
 		err = cv_wait_sig(&sc->sc_condvar, &sc->sc_lock);
 		if (err != 0) {
 			mutex_exit(&sc->sc_lock);
+			kpreempt_enable();
 			return err;
 		}
 		intr = sc->sc_intr;
@@ -387,6 +389,7 @@ pad_read(dev_t dev, struct uio *uio, int flags)
 		mutex_exit(&sc->sc_intr_lock);
 	}
 	mutex_exit(&sc->sc_lock);
+	kpreempt_enable();
 
 	return err;
 }

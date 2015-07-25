@@ -2,9 +2,16 @@
 /bad-nsec3owner-padded.db/1.1.1.1/Wed Dec 10 02:25:16 2014/-kk/
 /bad1.db/1.1.1.1/Thu Oct 24 10:28:41 2013/-kk/
 /bad2.db/1.1.1.1/Tue Jul  8 04:46:15 2014/-kk/
+/bad3.db/1.1.1.1/Wed Jul  8 15:37:42 2015/-kk/
+/bad4.db/1.1.1.1/Wed Jul  8 15:37:42 2015/-kk/
+/badttl.db/1.1.1.1/Wed Jul  8 15:37:42 2015/-kk/
 /good-nsec3-nopadhash.db/1.1.1.1/Wed Dec 10 02:25:16 2014/-kk/
 /good1.db/1.1.1.2/Mon Jun  4 17:54:22 2012/-kk/
+/inherit.db/1.1.1.1/Wed Jul  8 15:37:42 2015/-kk/
+/nowarn.inherited.owner.db/1.1.1.1/Wed Jul  8 15:37:42 2015/-kk/
 /spf.db/1.1.1.1/Thu Oct 24 10:28:41 2013/-kk/
 /test1.db/1.1.1.1/Fri Feb 28 17:40:07 2014/-kk/
 /test2.db/1.1.1.1/Fri Feb 28 17:40:07 2014/-kk/
+/warn.inherit.origin.db/1.1.1.1/Wed Jul  8 15:37:42 2015/-kk/
+/warn.inherited.owner.db/1.1.1.1/Wed Jul  8 15:37:42 2015/-kk/
 D

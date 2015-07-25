@@ -1,8 +1,14 @@
-/Makefile.inc/1.1/Sun Aug 10 05:47:36 2014/-kk/
+/Makefile.inc/1.2/Sat Jul 25 01:29:13 2015/-kk/
 /_lwp.c/1.1/Sun Aug 10 05:47:36 2014/-kk/
 /_setjmp.S/1.1/Sun Aug 10 05:47:36 2014/-kk/
 /fabs_ieee754.S/1.1/Sun Aug 10 05:47:36 2014/-kk/
 /flt_rounds.c/1.1/Sun Aug 10 05:47:36 2014/-kk/
+/fpgetmask.c/1.1/Sun Jul  5 22:07:09 2015/-kk/
+/fpgetround.c/1.1/Sun Jul  5 22:07:09 2015/-kk/
+/fpgetsticky.c/1.1/Sun Jul  5 22:07:09 2015/-kk/
+/fpsetmask.c/1.1/Tue Jul  7 21:40:19 2015/-kk/
+/fpsetround.c/1.1/Tue Jul  7 21:40:19 2015/-kk/
+/fpsetsticky.c/1.1/Tue Jul  7 21:40:19 2015/-kk/
 /makecontext.c/1.1/Sun Aug 10 05:47:36 2014/-kk/
 /nanf.c/1.1/Sun Aug 10 05:47:36 2014/-kk/
 /resumecontext.c/1.1/Sun Aug 10 05:47:36 2014/-kk/

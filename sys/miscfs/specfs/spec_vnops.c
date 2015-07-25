@@ -1097,8 +1097,7 @@ spec_reclaim(void *v)
 	struct vnode *vp = ap->a_vp;
 
 	KASSERT(vp->v_mount == dead_rootmount);
-	vcache_remove(vp->v_mount, &vp->v_data, sizeof(vp->v_data));
-	vp->v_data = NULL;
+	vcache_remove(vp->v_mount, &vp->v_interlock, sizeof(vp->v_interlock));
 	return 0;
 }
 
