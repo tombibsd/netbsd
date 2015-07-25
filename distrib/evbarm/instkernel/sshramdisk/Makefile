@@ -13,7 +13,11 @@ DBG=		-Os
 CRUNCHBIN=	ramdiskbin
 LISTS=		${.CURDIR}/list ${DISTRIBDIR}/common/list.sysinst
 MTREECONF=	${.CURDIR}/mtree.conf
+.if empty(MACHINE_ARCH:M*eb)
 IMAGEENDIAN=	le
+.else
+IMAGEENDIAN=	be
+.endif
 MAKEDEVTARGETS=	ramdisk
 IMAGEDEPENDS=	${CRUNCHBIN} \
 		dot.profile master.passwd sshd_config ssh_host_dsa_key \

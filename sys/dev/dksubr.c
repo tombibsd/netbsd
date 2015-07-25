@@ -116,7 +116,6 @@ dk_open(struct dk_softc *dksc, dev_t dev,
 	    dksc->sc_xname, dksc, dev, flags));
 
 	mutex_enter(&dk->dk_openlock);
-	part = DISKPART(dev);
 
 	/*
 	 * If there are wedges, and this is not RAW_PART, then we
@@ -126,8 +125,6 @@ dk_open(struct dk_softc *dksc, dev_t dev,
 		ret = EBUSY;
 		goto done;
 	}
-
-	pmask = 1 << part;
 
 	/*
 	 * If we're init'ed and there are no other open partitions then
@@ -194,10 +191,9 @@ dk_close(struct dk_softc *dksc, dev_t dev,
 	if (dk->dk_openmask == 0) {
 		if (dkd->d_lastclose != NULL)
 			(*dkd->d_lastclose)(dksc->sc_dev);
+		if ((dksc->sc_flags & DKF_KLABEL) == 0)
+			dksc->sc_flags &= ~DKF_VLABEL;
 	}
-
-	if ((dksc->sc_flags & DKF_KLABEL) == 0)
-		dksc->sc_flags &= ~DKF_VLABEL;
 
 	mutex_exit(&dk->dk_openlock);
 	return 0;
@@ -263,7 +259,15 @@ dk_strategy(struct dk_softc *dksc, struct buf *bp)
 		}
 	}
 
-	blkno = bp->b_blkno;
+	/*      
+	 * Convert the block number to absolute and put it in terms
+	 * of the device's logical block size.
+	 */
+	if (secsize >= DEV_BSIZE)
+		blkno = bp->b_blkno / (secsize / DEV_BSIZE);
+	else
+		blkno = bp->b_blkno * (DEV_BSIZE / secsize);
+
 	if (part != RAW_PART)
 		blkno += lp->d_partitions[DISKPART(bp->b_dev)].p_offset;
 	bp->b_rawblkno = blkno;

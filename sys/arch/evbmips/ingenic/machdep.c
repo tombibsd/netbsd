@@ -242,6 +242,7 @@ consinit(void)
 	 * Everything related to console initialization is done
 	 * in mach_init().
 	 */
+	apbus_init();
 	ingenic_com_cnattach();
 }
 

@@ -9,5 +9,7 @@ DPADD+=	${LIBXT} ${LIBSM} ${LIBICE} ${LIBXEXT} ${LIBX11}
 
 .PATH:	${X11SRCDIR.${PROG}}
 
+.include "../../xorg-pkg-ver.mk"
+
 .include <bsd.x11.mk>
 .include <bsd.prog.mk>

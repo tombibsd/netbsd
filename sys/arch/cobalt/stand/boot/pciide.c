@@ -59,7 +59,7 @@ pciide_init(struct wdc_channel *chp, u_int *unit)
 	ctlreg = MIPS_PHYS_TO_KSEG1(COBALT_IO_SPACE_BASE +
 	    PCIIDE_COMPAT_CTL_BASE(compatchan));
 
-	/* set up cmd regsiters */
+	/* set up cmd registers */
 	chp->c_cmdbase = (uint8_t *)cmdreg;
 	chp->c_data = (uint16_t *)(cmdreg + wd_data);
 	for (i = 0; i < WDC_NPORTS; i++)

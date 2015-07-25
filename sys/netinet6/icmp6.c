@@ -2472,8 +2472,10 @@ icmp6_redirect_output(struct mbuf *m0, struct rtentry *rt)
 		len = sizeof(*nd_opt) + ifp->if_addrlen;
 		len = (len + 7) & ~7;	/* round by 8 */
 		/* safety check */
-		if (len + (p - (u_char *)ip6) > maxlen)
+		if (len + (p - (u_char *)ip6) > maxlen) {
+			rtfree(rt);
 			goto nolladdropt;
+		}
 		if (!(rt_nexthop->rt_flags & RTF_GATEWAY) &&
 		    (rt_nexthop->rt_flags & RTF_LLINFO) &&
 		    (rt_nexthop->rt_gateway->sa_family == AF_LINK) &&
@@ -2486,6 +2488,7 @@ icmp6_redirect_output(struct mbuf *m0, struct rtentry *rt)
 			memcpy(lladdr, CLLADDR(sdl), ifp->if_addrlen);
 			p += len;
 		}
+		rtfree(rt);
 	}
   nolladdropt:;
 

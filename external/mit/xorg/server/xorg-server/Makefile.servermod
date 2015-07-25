@@ -2,13 +2,19 @@
 
 .if defined(XMODULEDIR)
 SHLIB_MAJOR=0
+
+# dri, dri2 and fb need to be linked statically as well?
+.if !defined(XMODULEDIRANDSTATIC)
+MKSTATICLIB:=	no
 .endif
+
+.else
 
 # if these aren't defined the module being built is not installed
 # instead it is statically linked into the xserver
-.if !defined(XMODULEDIR) && !defined(XMODULE)
 libinstall::
 moduleinstall::
+
 .endif
 
 # x11 modules that are installed need the X11FLAGS.LOADABLE's defined

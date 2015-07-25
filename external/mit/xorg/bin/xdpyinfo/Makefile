@@ -20,5 +20,7 @@ DPADD+= ${LIBXTST} ${LIBXI} ${LIBXRENDER} ${LIBXINERAMA} ${LIBXCOMPOSITE} \
 
 COPTS.xdpyinfo.c+=	-Wno-error	# xf86vmstr.h
 
+.include "../../xorg-pkg-ver.mk"
+
 .include <bsd.x11.mk>
 .include <bsd.prog.mk>

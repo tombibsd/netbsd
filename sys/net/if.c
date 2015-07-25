@@ -963,20 +963,23 @@ if_rt_walktree(struct rtentry *rt, void *v)
 {
 	struct ifnet *ifp = (struct ifnet *)v;
 	int error;
+	struct rtentry *retrt;
 
 	if (rt->rt_ifp != ifp)
 		return 0;
 
 	/* Delete the entry. */
-	++rt->rt_refcnt;
 	error = rtrequest(RTM_DELETE, rt_getkey(rt), rt->rt_gateway,
-	    rt_mask(rt), rt->rt_flags, NULL);
-	KASSERT((rt->rt_flags & RTF_UP) == 0);
-	rt->rt_ifp = NULL;
-	rtfree(rt);
-	if (error != 0)
+	    rt_mask(rt), rt->rt_flags, &retrt);
+	if (error == 0) {
+		KASSERT(retrt == rt);
+		KASSERT((retrt->rt_flags & RTF_UP) == 0);
+		retrt->rt_ifp = NULL;
+		rtfree(retrt);
+	} else {
 		printf("%s: warning: unable to delete rtentry @ %p, "
 		    "error = %d\n", ifp->if_xname, rt, error);
+	}
 	return ERESTART;
 }
 

@@ -245,7 +245,7 @@ RootWindow::WMCreate(HWND w, LPCREATESTRUCT aux)
 	_progress_bar = new ProgressBar(_app, *this, rect);
 	_progress_bar->create(aux);
 
- 	// regsiter myself to menu
+ 	// register myself to menu
 	HpcMenuInterface::Instance()._root = this;
 
 	rect.top += _button_height;

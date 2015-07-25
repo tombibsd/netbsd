@@ -167,6 +167,7 @@ ip_hresolv_needed(const struct ifnet * const ifp)
 	case IFT_HIPPI:
 	case IFT_IEEE1394:
 	case IFT_ISO88025:
+	case IFT_SLIP:
 		return true;
 	default:
 		return false;
@@ -200,12 +201,17 @@ klock_if_output(struct ifnet * const ifp, struct mbuf * const m,
  */
 int
 ip_hresolv_output(struct ifnet * const ifp0, struct mbuf * const m,
-    const struct sockaddr * const dst, struct rtentry *rt0)
+    const struct sockaddr * const dst, struct rtentry *rt00)
 {
 	int error = 0;
 	struct ifnet *ifp = ifp0;
-	struct rtentry *rt;
+	struct rtentry *rt, *rt0, *gwrt;
 
+#define RTFREE_IF_NEEDED(_rt) \
+	if ((_rt) != NULL && (_rt) != rt00) \
+		rtfree((_rt));
+
+	rt0 = rt00;
 retry:
 	if (!ip_hresolv_needed(ifp)) {
 		rt = rt0;
@@ -231,10 +237,8 @@ retry:
 			goto bad;
 		}
 		rt0 = rt;
-		rt->rt_refcnt--;
 		if (rt->rt_ifp != ifp) {
 			ifp = rt->rt_ifp;
-			rt0 = rt;
 			goto retry;
 		}
 	}
@@ -242,24 +246,27 @@ retry:
 	if ((rt->rt_flags & RTF_GATEWAY) == 0)
 		goto out;
 
-	rt = rt->rt_gwroute;
+	gwrt = rt_get_gwroute(rt);
+	RTFREE_IF_NEEDED(rt);
+	rt = gwrt;
 	if (rt == NULL || (rt->rt_flags & RTF_UP) == 0) {
 		if (rt != NULL) {
-			rtfree(rt);
+			RTFREE_IF_NEEDED(rt);
 			rt = rt0;
 		}
 		if (rt == NULL) {
 			error = EHOSTUNREACH;
 			goto bad;
 		}
-		rt = rt->rt_gwroute = rtalloc1(rt->rt_gateway, 1);
+		gwrt = rt->rt_gwroute = rtalloc1(rt->rt_gateway, 1);
+		RTFREE_IF_NEEDED(rt);
+		rt = gwrt;
 		if (rt == NULL) {
 			error = EHOSTUNREACH;
 			goto bad;
 		}
 		/* the "G" test below also prevents rt == rt0 */
 		if ((rt->rt_flags & RTF_GATEWAY) != 0 || rt->rt_ifp != ifp) {
-			rt->rt_refcnt--;
 			rt0->rt_gwroute = NULL;
 			error = EHOSTUNREACH;
 			goto bad;
@@ -299,12 +306,18 @@ out:
 	}
 #endif
 
-	return klock_if_output(ifp, m, dst, rt);
+	error = klock_if_output(ifp, m, dst, rt);
+	goto exit;
+
 bad:
 	if (m != NULL)
 		m_freem(m);
+exit:
+	RTFREE_IF_NEEDED(rt);
 
 	return error;
+
+#undef RTFREE_IF_NEEDED
 }
 
 /*

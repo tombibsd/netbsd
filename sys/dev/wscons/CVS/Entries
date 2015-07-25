@@ -11,14 +11,14 @@
 /wscons_rfont.h/1.4/Sat Jan 13 18:42:45 2007/-kk/
 /wscons_rinit.c/1.7/Tue Oct 29 08:21:44 2013/-kk/
 /wscons_rops.c/1.11/Sun Dec 11 12:24:12 2005/-kk/
-/wsconsio.h/1.113/Thu May 28 03:25:54 2015/-kk/
+/wsconsio.h/1.114/Sat Jul 25 01:52:23 2015/-kk/
 /wsdisplay.c/1.138/Fri Oct  3 09:09:20 2014/-kk/
 /wsdisplay_compat_usl.c/1.48/Thu Oct 24 10:28:58 2013/-kk/
 /wsdisplay_glyphcache.c/1.6/Fri Jan 31 08:48:49 2014/-kk/
 /wsdisplay_glyphcachevar.h/1.4/Thu Oct  4 10:26:32 2012/-kk/
 /wsdisplay_usl_io.h/1.3/Tue May 15 15:06:23 2001/-kk/
 /wsdisplay_util.c/1.2/Thu Oct 24 10:28:58 2013/-kk/
-/wsdisplay_vcons.c/1.33/Tue Dec  9 04:24:02 2014/-kk/
+/wsdisplay_vcons.c/1.34/Sat Jul 25 01:52:23 2015/-kk/
 /wsdisplay_vcons_util.c/1.2/Wed May 25 06:01:39 2011/-kk/
 /wsdisplay_vconsvar.h/1.23/Tue Mar 25 02:35:40 2014/-kk/
 /wsdisplayvar.h/1.51/Thu Feb 13 15:22:32 2014/-kk/

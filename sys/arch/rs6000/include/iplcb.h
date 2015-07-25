@@ -547,7 +547,7 @@ struct ipl_info {
 	int32_t		io_planar_level_reg_22;
 	int32_t		io_planar_level_reg_23;
 
-	/* Component regsiter test results for the other BUID's */
+	/* Component register test results for the other BUID's */
 	int32_t		CRR_results_21;
 	int32_t		CRR_results_22;
 	int32_t		CRR_results_23;

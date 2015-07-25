@@ -354,7 +354,7 @@ fdc_dmastart(struct fdc_softc *fdc, int read, void *addr, vsize_t count)
 	 * Note 2:
 	 *  FDC is connected to LSB 8 bits of X68000 16 bit bus
 	 *  (as BUS_SPACE_MAP_SHIFTED_ODD defined in bus.h)
-	 *  so each FDC regsiter is mapped at sparse odd address.
+	 *  so each FDC register is mapped at sparse odd address.
 	 *
 	 * XXX: No proper API to get DMA address of FDC register for DMAC.
 	 */

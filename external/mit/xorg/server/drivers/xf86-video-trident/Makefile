@@ -11,6 +11,8 @@ SRCS+=		trident_tv.c trident_video.c tvga_dac.c xp_accel.c
 SRCS+=		xp4_accel.c xp4_accel_exa.c
 MAN=		trident.4
 
+CPPFLAGS+=	-DHAVE_XAA_H
+
 COPTS.trident_driver.c=	-Wno-error	# XXX xf86dgastr.h
 
 CWARNFLAGS.clang+=	-Wno-return-type -Wno-empty-body

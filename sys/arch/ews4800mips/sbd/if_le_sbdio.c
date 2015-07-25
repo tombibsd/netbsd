@@ -61,7 +61,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <dev/ic/am7990var.h>
 
 #define	LEREG1_RDP	0	/* offset to lance data register */
-#define	LEREG1_RAP	6	/* offset to lance address regsiter */
+#define	LEREG1_RAP	6	/* offset to lance address register */
 #define	LE_MEMSIZE	(64 * 1024)
 
 struct le_sbdio_softc {

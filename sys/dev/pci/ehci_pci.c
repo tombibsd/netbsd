@@ -142,14 +142,14 @@ ehci_pci_attach(device_t parent, device_t self, void *aux)
 		return;
 	}
 
+	sc->sc_pc = pc;
+	sc->sc_tag = tag;
+	sc->sc.sc_bus.dmatag = pa->pa_dmat;
+
 	/* Disable interrupts, so we don't get any spurious ones. */
 	sc->sc.sc_offs = EREAD1(&sc->sc, EHCI_CAPLENGTH);
 	DPRINTF(("%s: offs=%d\n", device_xname(self), sc->sc.sc_offs));
 	EOWRITE4(&sc->sc, EHCI_USBINTR, 0);
-
-	sc->sc_pc = pc;
-	sc->sc_tag = tag;
-	sc->sc.sc_bus.dmatag = pa->pa_dmat;
 
 	/* Handle quirks */
 	switch (quirk) {
@@ -325,7 +325,7 @@ ehci_dump_caps(ehci_softc_t *sc, pci_chipset_tag_t pc, pcitag_t tag)
 		switch (id) {
 		case EHCI_CAP_ID_LEGACY:
 			legctlsts = pci_conf_read(pc, tag,
-						  addr + PCI_EHCI_USBLEGCTLSTS);
+			    addr + PCI_EHCI_USBLEGCTLSTS);
 			printf("ehci_dump_caps: legsup=0x%08x "
 			       "legctlsts=0x%08x\n", cap, legctlsts);
 			break;

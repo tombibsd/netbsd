@@ -4,8 +4,8 @@ DRIVER=		xf86-video-mach64
 DRIVER_NAME=	mach64_drv
 
 SRCS=		atibus.c atichip.c atiprobe.c atividmem.c \
-		atiadjust.c atiaudio.c aticlock.c aticonfig.c \
-		aticonsole.c atidac.c atidecoder.c atidsp.c \
+		atiadjust.c aticlock.c aticonfig.c \
+		aticonsole.c atidac.c atidsp.c \
 		atii2c.c atilock.c atimach64.c atimach64accel.c \
 		atimach64cursor.c atimach64i2c.c atimach64io.c \
 		atimach64xv.c atimode.c atipreinit.c atiprint.c \

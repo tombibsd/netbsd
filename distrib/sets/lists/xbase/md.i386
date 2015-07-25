@@ -13,5 +13,5 @@
 ./usr/X11R7/lib/libchromeXvMCPro.so.1.0		-unknown-		xorg
 ./usr/X11R7/lib/libdrm_intel.so			-unknown-		xorg
 ./usr/X11R7/lib/libdrm_intel.so.0		-unknown-		xorg
-./usr/X11R7/lib/libdrm_intel.so.0.0		-unknown-		xorg
+./usr/X11R7/lib/libdrm_intel.so.0.1		-unknown-		xorg
 ./usr/X11R7/share/pciids/pci.ids		-unknown-		obsolete

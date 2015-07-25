@@ -76,7 +76,7 @@
 #define DELAY(x) delay(x)
 
 /*
- * NE2000 on Neptune-X and Nereid has the following regsiter mappings:
+ * NE2000 on Neptune-X and Nereid has the following register mappings:
  *  - 8bit NIC registers are mapped at sparse even addresses
  *  - 16bit data registers on NE2000 ASIC are used to transfer stream data
  *    so no software byte swap ops are necessary even on word access

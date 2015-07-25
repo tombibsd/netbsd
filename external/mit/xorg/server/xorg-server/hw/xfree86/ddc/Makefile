@@ -1,8 +1,7 @@
 #	$NetBSD$
 
-LIBISPRIVATE=yes
-
 .include "../../../Makefile.serverlib"
+.include "../../../Makefile.servermod"
 
 LIB=		ddc
 

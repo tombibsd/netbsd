@@ -755,7 +755,7 @@ lfs_indirtrunc(struct inode *ip, daddr_t lbn, daddr_t dbn,
 
 	bap = (int32_t *)bp->b_data;	/* XXX ondisk32 */
 	if (lastbn >= 0) {
-		copy = (int32_t *)lfs_malloc(fs, fs->lfs_bsize, LFS_NB_IBLOCK);
+		copy = lfs_malloc(fs, fs->lfs_bsize, LFS_NB_IBLOCK);
 		memcpy((void *)copy, (void *)bap, (u_int)fs->lfs_bsize);
 		memset((void *)&bap[last + 1], 0,
 		/* XXX ondisk32 */

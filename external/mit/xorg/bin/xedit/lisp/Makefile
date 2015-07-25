@@ -25,5 +25,9 @@ CPPFLAGS+=	-DANSI_SOURCE
 
 CWARNFLAGS.clang+=	-Wno-format
 
+# Ugh. writes to const char *
+COPTS.format.c+=	-Wno-error
+COPTS.lisp.c+=		-Wno-error
+
 .include <bsd.x11.mk>
 .include <bsd.lib.mk>

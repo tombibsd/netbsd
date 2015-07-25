@@ -8,7 +8,8 @@ LIB=	Xrandr
 .PATH:	${X11SRCDIR.${LIB}}/man
 
 SRCS=	Xrandr.c XrrConfig.c XrrCrtc.c XrrMode.c XrrOutput.c \
-	XrrProperty.c XrrScreen.c XrrProvider.c XrrProviderProperty.c
+	XrrProperty.c XrrScreen.c XrrProvider.c XrrProviderProperty.c \
+	XrrMonitor.c
 
 INCS=	Xrandr.h
 INCSDIR=${X11INCDIR}/X11/extensions

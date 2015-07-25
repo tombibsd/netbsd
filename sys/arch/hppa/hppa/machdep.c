@@ -1883,7 +1883,7 @@ hppa_setvmspace(struct lwp *l)
 	tf->tf_sr4 = tf->tf_sr5 = tf->tf_sr6 =
 	tf->tf_iisq_head = tf->tf_iisq_tail = space;
 
-	/* Load the protection regsiters. */
+	/* Load the protection registers. */
 	tf->tf_pidr1 = tf->tf_pidr2 = pmap->pm_pid;
 }
 

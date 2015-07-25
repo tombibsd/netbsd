@@ -12,4 +12,4 @@ makeoptions	BOARDTYPE="ingenic"
 
 include 	"arch/evbmips/conf/files.ingenic"
 include 	"arch/mips/conf/files.ingenic"
-
+include 	"dev/sdmmc/files.sdmmc"			# SD/MMC devices

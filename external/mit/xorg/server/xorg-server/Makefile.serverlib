@@ -1,7 +1,10 @@
 #	$NetBSD$
 
-NOLINT=         1
-NOPROFILE=      1
+# We can't use LIBISPRIVATE here as we need the ".so" installed.
+MKPICINSTALL:=	no
+MKLINT:=	no
+MKDEBUGLIB:=	no
+MKPROFILE:=	no
 
 .include <bsd.own.mk>		# for NETBSDSRCDIR
 .include <bsd.endian.mk>

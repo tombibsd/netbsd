@@ -10,6 +10,9 @@ SRCS+=		smilynx_output.c smilynx_hw.c smilynx.h
 SRCS+=		smi501_crtc.c smi501_output.c
 MAN=		siliconmotion.4
 
-CPPFLAGS+=	-I${X11SRCDIR.${DRIVER}}/../include -DHAVE_CONFIG_H
+CPPFLAGS+=	-DHAVE_XAA_H -DHAVE_XMODES -DHAVE_XEXTPROTO_71
 
 .include "../Makefile.xf86-driver"
+
+XORG_PKG_VER_PROG=	${DRIVER}
+.include "../../../xorg-pkg-ver.mk"

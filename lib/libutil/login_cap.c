@@ -424,6 +424,7 @@ static struct {
 	{ RLIMIT_NOFILE,	R_CNUMB, "openfiles", },
 	{ RLIMIT_CORE,		R_CSIZE, "coredumpsize", },
 	{ RLIMIT_SBSIZE,	R_CSIZE, "sbsize", },
+	{ RLIMIT_AS,		R_CSIZE, "vmemoryuse", },
 	{ -1, 0, 0 }
 };
 

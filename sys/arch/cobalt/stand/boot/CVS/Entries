@@ -16,7 +16,7 @@
 /ns16550.c/1.5/Tue Apr 29 15:24:50 2008/-kk/
 /ns16550.h/1.6/Wed May 14 13:29:28 2008/-kk/
 /pci.c/1.2/Wed May 14 13:29:28 2008/-kk/
-/pciide.c/1.8/Mon Apr 28 20:23:16 2008/-kk/
+/pciide.c/1.9/Sat Jul 25 01:51:57 2015/-kk/
 /prf.c/1.5/Mon Apr 28 20:23:16 2008/-kk/
 /start.S/1.7/Mon Apr 28 20:23:16 2008/-kk/
 /tgets.c/1.4/Wed Oct 17 19:54:09 2007/-kk/

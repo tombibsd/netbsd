@@ -12,10 +12,10 @@
 /n8_driver_parms.h/1.1/Thu Oct 30 12:02:14 2008/-kk/
 /n8_memory.c/1.1/Thu Oct 30 12:02:14 2008/-kk/
 /n8_memory.h/1.1/Thu Oct 30 12:02:14 2008/-kk/
-/n8_rn_common.h/1.1/Thu Oct 30 12:02:14 2008/-kk/
+/n8_rn_common.h/1.2/Sat Jul 25 01:52:22 2015/-kk/
 /n8_sksInit.c/1.1/Thu Oct 30 12:02:14 2008/-kk/
 /n8_sksInit.h/1.1/Thu Oct 30 12:02:14 2008/-kk/
-/nsp2000_regs.h/1.1/Thu Oct 30 12:02:14 2008/-kk/
+/nsp2000_regs.h/1.2/Sat Jul 25 01:52:22 2015/-kk/
 /nsp_ioctl.c/1.1/Thu Oct 30 12:02:14 2008/-kk/
 /userPool.c/1.1/Thu Oct 30 12:02:14 2008/-kk/
 /userPool.h/1.1/Thu Oct 30 12:02:14 2008/-kk/

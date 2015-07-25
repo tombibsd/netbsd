@@ -166,7 +166,7 @@ ypproc_match_2_svc(void *argp, struct svc_req *rqstp)
 	if (secure && securecheck(caller))
 		res.status = YP_YPERR;
 	else
-		res = ypdb_get_record(k->domain, k->map, k->keydat, FALSE);
+		res = ypdb_get_record(k->domain, k->map, k->keydat, secure);
 
 	return ((void *)&res);
 }

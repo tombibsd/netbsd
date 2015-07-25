@@ -10,7 +10,10 @@ CDMAKEFSOPTIONS= bootimage=i386;bootxx.${MACHINE},no-emul-boot,allow-multidot
 CDINSTKERNEL=	../../instkernel
 CDKERNELS=	netbsd-GENERIC.gz       netbsd
 CDRELEASE_NOISOS=	true
-CD_SETS=	base etc modules
+CD_SETS=	base etc
+.if ${MKKMOD} != "no"
+CD_SETS+=	modules
+.endif
 
 image_md_pre:
 	${RM} -f cdrom/etc/gettytab cdrom/etc/ttys cdrom/etc/rc

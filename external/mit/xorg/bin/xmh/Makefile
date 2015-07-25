@@ -19,6 +19,7 @@ DPADD+=	${LIBXAW} ${LIBXMU} ${LIBXT} ${LIBSM} ${LIBICE} \
 	${LIBXPM} ${LIBXEXT} ${LIBX11}
 
 .PATH:	${X11SRCDIR.${PROG}} ${X11SRCDIR.${PROG}}/app-defaults
+.PATH:	${X11SRCDIR.${PROG}}/man
 
 CWARNFLAGS.clang+=	-Wno-format
 

@@ -759,7 +759,7 @@ gt_watchdog_init(struct gt_softc *gt)
 	 * from scratch to get it in a known state.
 	 *
 	 * on GT-64260A we always see 0xffffffff
-	 * in both the GT_WDOG_Config_Enb and GT_WDOG_Value regsiters.
+	 * in both the GT_WDOG_Config_Enb and GT_WDOG_Value registers.
 	 */
 	r = gt_read(gt, GT_WDOG_Config);
 	if (r != ~0) {

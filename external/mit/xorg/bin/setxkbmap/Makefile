@@ -15,5 +15,7 @@ DPADD+=	${LIBXKBFILE} ${LIBXEXT} ${LIBX11}
 
 X11EXTRAMANDEFS+=	-e 's,__xkbconfigroot__,${X11LIBDIR}/xkb,g'
 
+.include "../../xorg-pkg-ver.mk"
+
 .include <bsd.x11.mk>
 .include <bsd.prog.mk>

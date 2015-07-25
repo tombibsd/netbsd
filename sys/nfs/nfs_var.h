@@ -329,6 +329,7 @@ void nfsrv_init(int);
 void nfsrv_fini(void);
 void nfs_iodinit(void);
 void nfs_iodfini(void);
+int nfs_iodbusy(struct nfsmount *);
 int nfs_set_niothreads(int);
 int nfs_getauth(struct nfsmount *, struct nfsreq *, kauth_cred_t, char **,
 	int *, char *, int *, NFSKERBKEY_T);

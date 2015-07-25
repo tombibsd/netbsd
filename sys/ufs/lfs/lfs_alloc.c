@@ -555,7 +555,7 @@ lfs_order_freelist(struct lfs *fs)
 
 	maxino = ((fs->lfs_ivnode->v_size >> fs->lfs_bshift) -
 		  fs->lfs_cleansz - fs->lfs_segtabsz) * fs->lfs_ifpb;
-	fs->lfs_ino_bitmap = (lfs_bm_t *)
+	fs->lfs_ino_bitmap =
 		malloc(((maxino + BMMASK) >> BMSHIFT) * sizeof(lfs_bm_t),
 		       M_SEGMENT, M_WAITOK | M_ZERO);
 	KASSERT(fs->lfs_ino_bitmap != NULL);

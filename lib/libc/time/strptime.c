@@ -37,7 +37,6 @@ __RCSID("$NetBSD$");
 #include "namespace.h"
 #include <sys/localedef.h>
 #include <sys/types.h>
-#include <sys/clock.h>
 #include <ctype.h>
 #include <locale.h>
 #include <string.h>
@@ -50,6 +49,10 @@ __RCSID("$NetBSD$");
 __weak_alias(strptime,_strptime)
 __weak_alias(strptime_l, _strptime_l)
 #endif
+
+static const u_char *conv_num(const unsigned char *, int *, uint, uint);
+static const u_char *find_string(const u_char *, int *, const char * const *,
+	const char * const *, int);
 
 #define _TIME_LOCALE(loc) \
     ((_TimeLocale *)((loc)->part_impl[(size_t)LC_TIME]))
@@ -84,12 +87,14 @@ static const char * const nadt[5] = {
        "EDT",    "CDT",    "MDT",    "PDT",    "\0\0\0"
 };
 
-static const u_char *conv_num(const unsigned char *, int *, uint, uint);
-static const u_char *find_string(const u_char *, int *, const char * const *,
-	const char * const *, int);
-
+/*
+ * Table to determine the ordinal date for the start of a month.
+ * Ref: http://en.wikipedia.org/wiki/ISO_week_date
+ */
 static const int start_of_month[2][13] = {
+	/* non-leap year */
 	{ 0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334, 365 },
+	/* leap year */
 	{ 0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335, 366 }
 };
 
@@ -104,7 +109,7 @@ static int
 first_wday_of(int yr)
 {
 	return ((2 * (3 - (yr / 100) % 4)) + (yr % 100) + ((yr % 100) /  4) +
-	    (is_leap_year(yr) ? 6 : 0) + 1) % 7;
+	    (isleap(yr) ? 6 : 0) + 1) % 7;
 }
 
 char *
@@ -364,6 +369,7 @@ literal:
 			bp = conv_num(bp, &i, 1, 7);
 			tm->tm_wday = i % 7;
 			LEGAL_ALT(ALT_O);
+			state |= S_WDAY;
 			continue;
 
 		case 'g':	/* The year corresponding to the ISO week
@@ -480,7 +486,6 @@ literal:
 				continue;
 			case '+':
 				neg = 0;
-				state |= S_WDAY | S_MON | S_MDAY | S_YEAR;
 				break;
 			case '-':
 				neg = 1;
@@ -587,11 +592,13 @@ literal:
 
 	if (!HAVE_YDAY(state) && HAVE_YEAR(state)) {
 		if (HAVE_MON(state) && HAVE_MDAY(state)) {
-			tm->tm_yday =  start_of_month[is_leap_year(tm->tm_year +
+			/* calculate day of year (ordinal date) */
+			tm->tm_yday =  start_of_month[isleap_sum(tm->tm_year,
 			    TM_YEAR_BASE)][tm->tm_mon] + (tm->tm_mday - 1);
 			state |= S_YDAY;
 		} else if (day_offset != -1) {
-			/* Set the date to the first Sunday (or Monday)
+			/*
+			 * Set the date to the first Sunday (or Monday)
 			 * of the specified week of the year.
 			 */
 			if (!HAVE_WDAY(state)) {
@@ -608,9 +615,11 @@ literal:
 
 	if (HAVE_YDAY(state) && HAVE_YEAR(state)) {
 		int isleap;
+
 		if (!HAVE_MON(state)) {
+			/* calculate month of day of year */
 			i = 0;
-			isleap = is_leap_year(tm->tm_year + TM_YEAR_BASE);
+			isleap = isleap_sum(tm->tm_year, TM_YEAR_BASE);
 			while (tm->tm_yday >= start_of_month[isleap][i])
 				i++;
 			if (i > 12) {
@@ -621,13 +630,17 @@ literal:
 			tm->tm_mon = i - 1;
 			state |= S_MON;
 		}
+
 		if (!HAVE_MDAY(state)) {
-			isleap = is_leap_year(tm->tm_year + TM_YEAR_BASE);
+			/* calculate day of month */
+			isleap = isleap_sum(tm->tm_year, TM_YEAR_BASE);
 			tm->tm_mday = tm->tm_yday -
 			    start_of_month[isleap][tm->tm_mon] + 1;
 			state |= S_MDAY;
 		}
+
 		if (!HAVE_WDAY(state)) {
+			/* calculate day of week */
 			i = 0;
 			week_offset = first_wday_of(tm->tm_year);
 			while (i++ <= tm->tm_yday) {

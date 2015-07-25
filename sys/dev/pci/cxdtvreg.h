@@ -67,7 +67,7 @@
 #define CXDTV_I2C_C_CTRL	0x36c004
 #define CXDTV_I2C_C_XFER_STATUS	0x36c044
 
-/* for CXDTV_PCI_INT_ regsiters */
+/* for CXDTV_PCI_INT_ registers */
 #define CXT_PI_VID_INT		__BIT(0)
 #define CXT_PI_AUD_INT		__BIT(1)
 #define CXT_PI_TS_INT		__BIT(2)

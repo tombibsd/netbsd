@@ -30,7 +30,7 @@
 /flockfile.c/1.11/Thu Mar 15 18:22:30 2012/-kk/
 /fmemopen.3/1.7/Mon Oct  8 18:15:09 2012/-kk/
 /fmemopen.c/1.8/Thu Mar 29 14:27:33 2012/-kk/
-/fopen.3/1.30/Sat Mar 21 02:20:39 2015/-kk/
+/fopen.3/1.31/Sat Jul 25 01:51:38 2015/-kk/
 /fopen.c/1.15/Thu Mar 15 18:22:30 2012/-kk/
 /fparseln.3/1.5/Tue Jan 14 16:04:41 2014/-kk/
 /fparseln.c/1.10/Wed Oct 21 01:07:45 2009/-kk/
@@ -77,7 +77,7 @@
 /getwchar.c/1.4/Thu Mar 15 18:22:30 2012/-kk/
 /glue.h/1.5/Thu Aug  7 16:43:27 2003/-kk/
 /local.h/1.38/Sun Jun 22 14:31:48 2014/-kk/
-/makebuf.c/1.17/Thu Mar 15 18:22:30 2012/-kk/
+/makebuf.c/1.18/Sat Jul 25 01:51:38 2015/-kk/
 /mkdtemp.c/1.12/Sun Jun 22 14:31:48 2014/-kk/
 /mkostemp.c/1.1/Wed Jun 18 17:47:58 2014/-kk/
 /mkostemps.c/1.1/Wed Jun 18 17:47:58 2014/-kk/
@@ -106,7 +106,7 @@
 /rget.c/1.13/Thu Mar 15 18:22:30 2012/-kk/
 /scanf.3/1.27/Fri May 14 03:04:32 2010/-kk/
 /scanf.c/1.14/Thu Oct 24 10:28:53 2013/-kk/
-/setbuf.3/1.13/Thu Aug  7 16:43:31 2003/-kk/
+/setbuf.3/1.14/Sat Jul 25 01:51:38 2015/-kk/
 /setbuf.c/1.10/Thu Mar 15 18:22:30 2012/-kk/
 /setbuffer.c/1.13/Thu Mar 15 18:22:30 2012/-kk/
 /setvbuf.c/1.19/Thu Mar 15 18:22:30 2012/-kk/

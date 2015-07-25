@@ -47,7 +47,7 @@
 /ntp_scanner.c/1.9/Sat Jul 25 01:21:00 2015/-kk/
 /ntp_scanner.h/1.3/Sat Jul 25 01:21:00 2015/-kk/
 /ntp_signd.c/1.3/Sat Jul 25 01:21:00 2015/-kk/
-/ntp_timer.c/1.3/Sat Jul 25 01:21:00 2015/-kk/
+/ntp_timer.c/1.4/Sat Jul 25 01:47:56 2015/-kk/
 /ntp_util.c/1.7/Sat Jul 25 01:21:00 2015/-kk/
 /ntpd-opts.c/1.4/Sat Jul 25 01:21:00 2015/-kk/
 /ntpd-opts.def/1.1.1.3/Sat Dec 27 03:33:44 2014/-kk/

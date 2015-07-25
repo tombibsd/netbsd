@@ -133,6 +133,10 @@ RLIMIT_RSS	/* resident set size */
 RLIMIT_MEMLOCK	/* locked-in-memory address space */
 RLIMIT_NPROC	/* number of processes */
 RLIMIT_NOFILE	/* number of open files */
+RLIMIT_SBSIZE	/* maximum size of all socket buffers */
+RLIMIT_AS	/* virtual process size (inclusive of mmap) */
+RLIMIT_VMEM	/* alias of RLIMIT_AS */
+RLIMIT_NTHR	/* number of threads */
 .TE
 .DE
 .ne 1i

@@ -106,8 +106,8 @@ lfs_setup_resblks(struct lfs *fs)
 	int maxbpp;
 
 	ASSERT_NO_SEGLOCK(fs);
-	fs->lfs_resblk = (res_t *)malloc(LFS_N_TOTAL * sizeof(res_t), M_SEGMENT,
-					  M_WAITOK);
+	fs->lfs_resblk = malloc(LFS_N_TOTAL * sizeof(res_t), M_SEGMENT,
+				M_WAITOK);
 	for (i = 0; i < LFS_N_TOTAL; i++) {
 		fs->lfs_resblk[i].inuse = 0;
 		fs->lfs_resblk[i].p = NULL;

@@ -55,8 +55,8 @@ reallocarr(void *ptr, size_t num, size_t size)
 	void *optr;
 	void *nptr;
 
-	memcpy(&optr, ptr, sizeof(ptr));
 	saved_errno = errno;
+	memcpy(&optr, ptr, sizeof(ptr));
 	if (num == 0 || size == 0) {
 		free(optr);
 		nptr = NULL;

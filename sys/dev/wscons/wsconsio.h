@@ -657,4 +657,24 @@ struct wsdisplayio_fbinfo {
 
 #define WSDISPLAYIO_GET_FBINFO	_IOWR('W', 104, struct wsdisplayio_fbinfo)
 
+struct wsdisplayio_blit {
+	uint32_t serial;
+	uint32_t op;
+	uint32_t srcx;
+	uint32_t srcy;
+	uint32_t dstx;
+	uint32_t dsty;
+	uint32_t width;
+	uint32_t height;
+	uint32_t pen;
+};
+
+/* blit ops */
+#define WSFB_BLIT_FILL		1	/* fill rectangle */
+#define WSFB_BLIT_COPY		2	/* copy rectangle */
+#define WSFB_BLIT_TRANS		3	/* copy rectangle with color key */
+
+#define WSDISPLAYIO_DOBLIT   	_IOWR('W', 105, struct wsdisplayio_blit)
+#define WSDISPLAYIO_WAITBLIT 	_IOWR('W', 106, struct wsdisplayio_blit)
+
 #endif /* _DEV_WSCONS_WSCONSIO_H_ */

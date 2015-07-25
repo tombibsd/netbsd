@@ -57,7 +57,7 @@ nbuf_init(nbuf_t *nbuf, struct mbuf *m, const ifnet_t *ifp)
 
 	nbuf->nb_mbuf0 = m;
 	nbuf->nb_ifp = ifp;
-	nbuf->nb_ifid =  ifid;
+	nbuf->nb_ifid = ifid;
 	nbuf_reset(nbuf);
 }
 

@@ -194,7 +194,7 @@ wdc_init(struct wd_softc *sc, u_int *unit)
 	}
 	ctlreg = cmdreg + MMEYE_WDC_CTLBASE;
 
-	/* set up cmd regsiters */
+	/* set up cmd registers */
 	chp->c_cmdbase = (uint8_t *)cmdreg;
 	chp->c_data = (uint16_t *)(cmdreg + wd_data);
 	for (i = 0; i < WDC_NPORTS; i++)

@@ -378,7 +378,7 @@ wdc_init(int addr)
 
 	memset(&ch, 0, sizeof(ch));
 
-	/* set up cmd/ctl regsiters */
+	/* set up cmd/ctl registers */
 	tmp.c_cmdbase = addr;
 #define WDC_ISA_AUXREG_OFFSET	0x206
 	tmp.c_ctlbase = addr + WDC_ISA_AUXREG_OFFSET;

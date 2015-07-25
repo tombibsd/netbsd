@@ -54,6 +54,7 @@
 .Fa "intmax_t lo"
 .Fa "intmax_t hi"
 .Fa "int *rstatus"
+.Fc
 .Sh DESCRIPTION
 The
 .Fn strtoi
@@ -161,7 +162,6 @@ argument.
 The following example will always return a number in
 .Dv [1..99]
 range no matter what the input is, and warn if the conversion failed.
-.Pp
 .Bd -literal -offset indent
 int e;
 intmax_t lval = strtoi(buf, NULL, 0, 1, 99, &e);

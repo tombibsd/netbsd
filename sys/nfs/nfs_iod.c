@@ -202,6 +202,22 @@ nfs_iodfini(void)
 }
 
 int
+nfs_iodbusy(struct nfsmount *nmp)
+{
+	struct nfs_iod *iod;
+	int ret = 0;
+
+	mutex_enter(&nfs_iodlist_lock);
+	LIST_FOREACH(iod, &nfs_iodlist_all, nid_all) {
+		if (iod->nid_mount == nmp)
+			ret++;
+	}
+	mutex_exit(&nfs_iodlist_lock);
+
+	return ret;
+}
+
+int
 nfs_set_niothreads(int newval)
 {
 	struct nfs_iod *nid;

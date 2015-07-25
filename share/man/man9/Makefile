@@ -879,6 +879,8 @@ MLINKS+=vfsops.9 VFS_MOUNT.9 \
 	vfsops.9 VFS_STATVFS.9 \
 	vfsops.9 VFS_SYNC.9 \
 	vfsops.9 VFS_VGET.9 \
+	vfsops.9 VFS_LOADVNODE.9 \
+	vfsops.9 VFS_NEWVNODE.9 \
 	vfsops.9 VFS_FHTOVP.9 \
 	vfsops.9 VFS_VPTOFH.9 \
 	vfsops.9 VFS_CHECKEXP.9 \
@@ -920,8 +922,11 @@ MLINKS+=vnode.9 vref.9 \
 	vnode.9 vput.9 \
 	vnode.9 vhold.9 \
 	vnode.9 holdrele.9 \
-	vnode.9 getnewvnode.9 \
-	vnode.9 ungetnewvnode.9 \
+	vnode.9 vcache_get.9 \
+	vnode.9 vcache_new.9 \
+	vnode.9 vcache_rekey_enter.9 \
+	vnode.9 vcache_rekey_exit.9 \
+	vnode.9 vcache_remove.9 \
 	vnode.9 vrecycle.9 \
 	vnode.9 vgone.9 \
 	vnode.9 vgonel.9 \

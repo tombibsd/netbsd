@@ -2037,7 +2037,7 @@ do_manconf()
 		if [ "${op}" = "fix" ]; then
 			notfixed="${NOT_FIXED}"
 		fi
-		msg "The file /etc/man.conf has not been adapted to mandoc usage, you"
+		msg "The file /etc/man.conf has not been adapted to mandoc usage; you"
 		msg "probably want to copy a new version over. ${notfixed}"
 	fi
 

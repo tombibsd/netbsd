@@ -74,7 +74,7 @@
  */
 
 /*
- * PLX Local Address Base values for the board RAM and FPGA regsiters.
+ * PLX Local Address Base values for the board RAM and FPGA registers.
  *
  * These values are specific to the Cyclades-Z.
  */

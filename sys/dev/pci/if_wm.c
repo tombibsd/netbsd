@@ -155,9 +155,7 @@ int	wm_debug = WM_DEBUG_TX | WM_DEBUG_RX | WM_DEBUG_LINK | WM_DEBUG_GMII
 #endif
 
 #ifdef __HAVE_PCI_MSI_MSIX
-#if 0 /* off by default */
-#define WM_MSI_MSIX	1
-#endif
+#define WM_MSI_MSIX	1 /* Enable by default */
 #endif
 
 /*
@@ -1474,8 +1472,13 @@ wm_attach(device_t parent, device_t self, void *aux)
 	 *  82545: Errata  4 (easy to reproduce device timeout)
 	 *  82546: Errata 26 (easy to reproduce device timeout)
 	 *  82541: Errata  7 (easy to reproduce device timeout)
+	 *
+	 * "Byte Enables 2 and 3 are not set on MSI writes"
+	 *
+	 *  82571 & 82572: Errata 63
 	 */
-	if (sc->sc_type <= WM_T_82541_2)
+	if ((sc->sc_type <= WM_T_82541_2) || (sc->sc_type == WM_T_82571)
+	    || (sc->sc_type == WM_T_82572))
 		pa->pa_flags &= ~PCI_FLAGS_MSI_OKAY;
 
 	if ((sc->sc_type == WM_T_82575) || (sc->sc_type == WM_T_82576)

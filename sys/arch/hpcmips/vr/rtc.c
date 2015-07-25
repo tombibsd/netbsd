@@ -162,7 +162,7 @@ vrrtc_attach(device_t parent, device_t self, void *aux)
 	/* RTC interrupt handler is directly dispatched from CPU intr */
 	vr_intr_establish(VR_INTR1, vrrtc_intr, sc);
 	/* But need to set level 1 interrupt mask register, 
-	 * so regsiter fake interrurpt handler
+	 * so register fake interrurpt handler
 	 */
 	if (!(sc->sc_ih = vrip_intr_establish(va->va_vc, va->va_unit, 0,
 	    IPL_CLOCK, 0, 0))) {

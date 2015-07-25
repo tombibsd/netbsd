@@ -231,11 +231,11 @@ compat_ifioctl(struct socket *so, u_long ocmd, u_long cmd, void *data,
 	 */
 	if (cmd == ocmd) {
 		cmd = compat_cvtcmd(ocmd);
-		if (cmd != ocmd) {
-			oifr = data;
-			data = ifr = &ifrb;
-			ifreqo2n(oifr, ifr);
-		}
+	}
+	if (cmd != ocmd) {
+		oifr = data;
+		data = ifr = &ifrb;
+		ifreqo2n(oifr, ifr);
 	}
 
 	switch (ocmd) {

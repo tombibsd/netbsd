@@ -78,7 +78,7 @@
 /cxdtv.c/1.14/Fri Apr 11 02:03:42 2014/-kk/
 /cxdtv_boards.c/1.2/Thu Jul 14 23:47:45 2011/-kk/
 /cxdtv_boards.h/1.1/Mon Jul 11 00:46:04 2011/-kk/
-/cxdtvreg.h/1.2/Mon Sep 26 18:07:38 2011/-kk/
+/cxdtvreg.h/1.3/Sat Jul 25 01:52:20 2015/-kk/
 /cxdtvvar.h/1.4/Tue Aug  9 01:42:24 2011/-kk/
 /cy82c693.c/1.9/Tue Mar 25 02:35:38 2014/-kk/
 /cy82c693reg.h/1.2/Mon Apr 28 20:23:54 2008/-kk/
@@ -89,12 +89,12 @@
 /cybervar.h/1.3/Mon Apr 28 20:23:54 2008/-kk/
 /cypide.c/1.30/Thu Oct 24 10:28:58 2013/-kk/
 /cz.c/1.61/Tue Dec  9 04:34:58 2014/-kk/
-/czreg.h/1.2/Tue Dec 25 18:33:40 2007/-kk/
+/czreg.h/1.3/Sat Jul 25 01:52:20 2015/-kk/
 /dpt_pci.c/1.27/Fri Apr 11 02:03:43 2014/-kk/
 /eap.c/1.95/Fri Apr 11 02:03:43 2014/-kk/
 /eapreg.h/1.13/Mon Apr 28 20:23:54 2008/-kk/
 /eapvar.h/1.4/Wed Nov 23 23:07:35 2011/-kk/
-/ehci_pci.c/1.59/Fri Oct  3 10:05:14 2014/-kk/
+/ehci_pci.c/1.60/Sat Jul 25 01:52:20 2015/-kk/
 /emuxki.c/1.63/Fri Apr 11 02:03:43 2014/-kk/
 /emuxkireg.h/1.8/Mon Apr 28 20:23:54 2008/-kk/
 /emuxkivar.h/1.13/Wed Nov 23 23:07:35 2011/-kk/
@@ -235,7 +235,7 @@
 /if_vtereg.h/1.2/Thu Apr 28 17:32:48 2011/-kk/
 /if_vtevar.h/1.4/Wed Apr 22 07:36:57 2015/-kk/
 /if_wi_pci.c/1.55/Fri Apr 11 02:03:49 2014/-kk/
-/if_wm.c/1.336/Thu Jul  2 04:14:18 2015/-kk/
+/if_wm.c/1.339/Sat Jul 25 01:52:21 2015/-kk/
 /if_wmreg.h/1.78/Mon Jun 22 02:35:04 2015/-kk/
 /if_wmvar.h/1.29/Thu Jun 18 03:42:27 2015/-kk/
 /if_wpi.c/1.71/Mon Jan 12 06:48:51 2015/-kk/

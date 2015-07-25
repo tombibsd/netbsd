@@ -967,6 +967,12 @@ nfs_sndlock(struct nfsmount *nmp, struct nfsreq *rep)
 	bool catch_p = false;
 	int error = 0;
 
+	if (nmp->nm_flag & NFSMNT_SOFT)
+		timeo = nmp->nm_retry * nmp->nm_timeo;
+
+	if (nmp->nm_iflag & NFSMNT_DISMNTFORCE)
+		timeo = hz;
+
 	if (rep) {
 		l = rep->r_lwp;
 		if (rep->r_nmp->nm_flag & NFSMNT_INT)
@@ -980,9 +986,20 @@ nfs_sndlock(struct nfsmount *nmp, struct nfsreq *rep)
 			goto quit;
 		}
 		if (catch_p) {
-			cv_timedwait_sig(&nmp->nm_sndcv, &nmp->nm_lock, timeo);
+			error = cv_timedwait_sig(&nmp->nm_sndcv,
+						 &nmp->nm_lock, timeo);
 		} else {
-			cv_timedwait(&nmp->nm_sndcv, &nmp->nm_lock, timeo);
+			error = cv_timedwait(&nmp->nm_sndcv,
+					     &nmp->nm_lock, timeo);
+		}
+
+		if (error) {
+			if ((error == EWOULDBLOCK) &&
+			    (nmp->nm_flag & NFSMNT_SOFT)) {
+				error = EIO;
+				goto quit;
+			}
+			error = 0;
 		}
 		if (catch_p) {
 			catch_p = false;

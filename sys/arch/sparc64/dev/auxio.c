@@ -65,7 +65,7 @@ struct auxio_softc {
 	/* parent's tag */
 	bus_space_tag_t		sc_tag;
 
-	/* handles to the various auxio regsiter sets */
+	/* handles to the various auxio register sets */
 	bus_space_handle_t	sc_led;
 	bus_space_handle_t	sc_pci;
 	bus_space_handle_t	sc_freq;

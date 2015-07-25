@@ -29,7 +29,7 @@
 /*
  * The AUXIO registers; their offset in the Ebus2 address space, plus the
  * bits for each register.  Note that the fdthree (FD), SUNW,CS4231 (AUDIO)
- * and power (POWER) devices on the Ebus2 have their AUXIO regsiters mapped
+ * and power (POWER) devices on the Ebus2 have their AUXIO registers mapped
  * into their own "reg" properties, not the "auxio" device's "reg" properties.
  */
 #define	AUXIO_FD			0x00720000

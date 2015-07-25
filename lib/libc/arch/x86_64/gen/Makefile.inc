@@ -10,10 +10,10 @@ SRCS+=	__setjmp14.S
 SRCS+=	_setjmp.S
 SRCS+=	__sigsetjmp14.S
 
+.if ${RUMPRUN} != "yes"
 SRCS+=	resumecontext.S swapcontext.S
-
-# objects built from C sources
 SRCS+=	_lwp.c makecontext.c
+.endif
 
 # Common ieee754 constants and functions
 SRCS+=	infinityf_ieee754.c infinity_ieee754.c

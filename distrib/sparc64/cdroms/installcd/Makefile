@@ -1,11 +1,14 @@
 #	$NetBSD$
+
+.include <bsd.own.mk>
+
 CDBASE=		sparc64cd		# gives ${CDBASE}.iso
 CDRELEASE=	true			# include $RELEASEDIR/$MACHINE
 CDKERNELS=	${RELEASEDIR}/${MACHINE}/binary/kernel/netbsd-GENERIC.gz	netbsd
-CD_SETS=	base etc modules
-
-# for PRINTOBJDIR
-.include <bsd.own.mk>
+CD_SETS=	base etc
+.if ${MKKMOD} != "no"
+CD_SETS+=	modules
+.endif
 
 SYSINSTDIR!= cd ${.CURDIR}/../../../../usr.sbin/sysinst/arch/${MACHINE} && ${PRINTOBJDIR}
 

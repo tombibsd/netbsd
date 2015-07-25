@@ -22,9 +22,9 @@ SRCS.fontconfig=	fcatomic.c fcblanks.c fccache.c fccfg.c \
 		ftglue.c
 
 .PATH:	${FREETYPE}/src/base
-SRCS.freetype=	ftapi.c ftbase.c ftbbox.c ftbdf.c ftdebug.c ftglyph.c \
-		ftinit.c ftmm.c ftpfr.c ftstroke.c ftsynth.c ftsystem.c \
-		fttype1.c ftwinfnt.c ftxf86.c ftbitmap.c
+SRCS.freetype=	ftapi.c ftbase.c ftbbox.c ftbdf.c ftdebug.c ftfntfmt.c \
+		ftglyph.c ftinit.c ftmm.c ftpfr.c ftstroke.c ftsynth.c \
+		ftsystem.c fttype1.c ftwinfnt.c ftbitmap.c
 
 .PATH: ${FREETYPE}/src/autofit
 SRCS.freetype+=	autofit.c

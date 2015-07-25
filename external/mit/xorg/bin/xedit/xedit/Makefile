@@ -7,6 +7,7 @@ SRCS=		xedit.c commands.c util.c ispell.c options.c hook.c lisp.c \
 		tags.c hash.c
 
 CPPFLAGS+=	-I${X11SRCDIR.xedit}/lisp/re
+CPPFLAGS+=	-DHAVE_GETPAGESIZE
 
 APPDEFS=	Xedit Xedit-color
 

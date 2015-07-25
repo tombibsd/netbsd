@@ -736,9 +736,10 @@ vcons_copycols(void *cookie, int row, int srccol, int dstcol, int ncols)
 
 	vcons_lock(scr);
 	if (SCREEN_IS_VISIBLE(scr) && SCREEN_CAN_DRAW(scr)) {
-		scr->scr_vd->copycols(cookie, row, srccol, dstcol, ncols);
 #if defined(VCONS_DRAW_INTR)
-		vcons_invalidate_cache(scr->scr_vd);
+		vcons_update_screen(scr);
+#else
+		scr->scr_vd->copycols(cookie, row, srccol, dstcol, ncols);
 #endif
 	}
 	vcons_unlock(scr);
@@ -907,9 +908,10 @@ vcons_copyrows(void *cookie, int srcrow, int dstrow, int nrows)
 
 	vcons_lock(scr);
 	if (SCREEN_IS_VISIBLE(scr) && SCREEN_CAN_DRAW(scr)) {
-		scr->scr_vd->copyrows(cookie, srcrow, dstrow, nrows);
 #if defined(VCONS_DRAW_INTR)
-		vcons_invalidate_cache(scr->scr_vd);
+		vcons_update_screen(scr);
+#else
+		scr->scr_vd->copyrows(cookie, srcrow, dstrow, nrows);
 #endif
 	}
 	vcons_unlock(scr);

@@ -37,8 +37,6 @@ CPPFLAGS+=	-I${X11SRCDIR.${DRIVER}}/src/cim \
 		-I${X11SRCDIR.${DRIVER}}/src/gfx \
 		-I${X11SRCDIR.${DRIVER}}/src/panel
 
-CPPFLAGS+=	-DHAVE_CONFIG_H -I${X11SRCDIR.${DRIVER}}/../include
-
 # XXX ugh
 CPPFLAGS+=	-Doff64_t=off_t -Dlseek64=lseek
 
@@ -47,3 +45,6 @@ COPTS.lx_memory.c+=	-Wno-error	# XXX
 COPTS.panel.c+=		-Wno-error	# XXX -- huh? don't get this one
 
 .include "../Makefile.xf86-driver"
+
+XORG_PKG_VER_PROG=	${DRIVER}
+.include "../../../xorg-pkg-ver.mk"

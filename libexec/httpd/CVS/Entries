@@ -3,7 +3,7 @@
 /Makefile/1.23/Wed Apr 22 07:35:14 2015/-kk/
 /auth-bozo.c/1.16/Fri Jan  2 11:20:27 2015/-kk/
 /bozohttpd.8/1.51/Wed May 13 03:32:24 2015/-kk/
-/bozohttpd.c/1.65/Sat Jul 25 01:29:30 2015/-kk/
+/bozohttpd.c/1.66/Sat Jul 25 01:51:42 2015/-kk/
 /bozohttpd.h/1.35/Wed May 13 03:32:24 2015/-kk/
 /cgi-bozo.c/1.27/Wed May 13 03:32:24 2015/-kk/
 /content-bozo.c/1.12/Wed May 13 03:32:24 2015/-kk/
@@ -14,7 +14,7 @@
 /netbsd_queue.h/1.1/Thu Oct 24 10:28:53 2013/-kk/
 /printenv.lua/1.2/Tue Jan 14 16:04:43 2014/-kk/
 /ssl-bozo.c/1.18/Sun Jul 20 13:58:23 2014/-kk/
-/tilde-luzah-bozo.c/1.10/Tue Jan 14 16:04:43 2014/-kk/
+/tilde-luzah-bozo.c/1.11/Sat Jul 25 01:51:42 2015/-kk/
 D/debug////
 D/libbozohttpd////
 D/lua////

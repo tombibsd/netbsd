@@ -429,8 +429,8 @@ check_segsum(struct lfs *fs, daddr_t offset, u_int64_t nextserial,
 		}
 		nblocks += ninos;
 		/* Create the sum array */
-		datap = dp = (u_long *)malloc(nblocks * sizeof(u_long),
-					      M_SEGMENT, M_WAITOK);
+		datap = dp = malloc(nblocks * sizeof(u_long),
+				    M_SEGMENT, M_WAITOK);
 	}
 
 	/* Handle individual blocks */
