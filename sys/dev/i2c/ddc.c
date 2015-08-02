@@ -98,20 +98,28 @@ ddc_read_edid(i2c_tag_t tag, uint8_t *dest, size_t len)
 int
 ddc_read_edid_block(i2c_tag_t tag, uint8_t *dest, size_t len, uint8_t block)
 {
+	uint8_t edid[256];
 	uint8_t wbuf[2];
 	int error;
 
 	if ((error = iic_acquire_bus(tag, I2C_F_POLL)) != 0)
 		return error;
 
-	wbuf[0] = block;	/* start address */
+	wbuf[0] = block >> 1;	/* start address */
 
 	if ((error = iic_exec(tag, I2C_OP_READ_WITH_STOP, DDC_ADDR, wbuf, 1,
-		dest, len, I2C_F_POLL)) != 0) {
+		edid, sizeof(edid), I2C_F_POLL)) != 0) {
 		iic_release_bus(tag, I2C_F_POLL);
 		return error;
 	}
 	iic_release_bus(tag, I2C_F_POLL);
+
+	if (block & 1) {
+		memcpy(dest, &edid[128], min(len, 128));
+	} else {
+		memcpy(dest, &edid[0], min(len, 128));
+	}
+
 	return 0;
 }
 

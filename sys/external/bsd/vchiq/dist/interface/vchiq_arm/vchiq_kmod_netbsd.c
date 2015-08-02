@@ -117,7 +117,7 @@ vchiq_defer(device_t self)
 
 	vchiq_core_initialize();
 
-	sc->sc_ih = bcm2835_intr_establish(sc->sc_intr, IPL_SCHED,
+	sc->sc_ih = intr_establish(sc->sc_intr, IPL_SCHED, IST_LEVEL,
 	    vchiq_intr, sc);
 	if (sc->sc_ih == NULL) {
 		aprint_error_dev(self, "failed to establish interrupt %d\n",

@@ -693,12 +693,13 @@ sdmmc_card_intr(device_t dev)
 {
 	struct sdmmc_softc *sc = device_private(dev);
 
-	if (sc->sc_sct->card_enable_intr) {
-		mutex_enter(&sc->sc_intr_task_mtx);
-		if (!sdmmc_task_pending(&sc->sc_intr_task))
-			sdmmc_add_task(sc, &sc->sc_intr_task);
-		mutex_exit(&sc->sc_intr_task_mtx);
-	}
+	if (sc->sc_sct->card_enable_intr == NULL)
+		return;
+
+	mutex_enter(&sc->sc_intr_task_mtx);
+	if (!sdmmc_task_pending(&sc->sc_intr_task))
+		sdmmc_add_task(sc, &sc->sc_intr_task);
+	mutex_exit(&sc->sc_intr_task_mtx);
 }
 
 void

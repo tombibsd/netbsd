@@ -371,7 +371,6 @@ procfs_do_pid_statm(struct lwp *curl, struct lwp *l,
 	int	 	 error;
 	int	 	 len;
 
-	error = ENAMETOOLONG;
 	bf = malloc(LBFSZ, M_TEMP, M_WAITOK);
 
 	/* XXX - we use values from vmspace, since dsl says that ru figures
@@ -419,7 +418,7 @@ procfs_do_pid_stat(struct lwp *curl, struct lwp *l,
 	struct timeval rt;
 	struct vmspace	*vm;
 	struct kinfo_proc2 ki;
-	int error = 0;
+	int error;
 
 	bf = malloc(LBFSZ, M_TEMP, M_WAITOK);
 

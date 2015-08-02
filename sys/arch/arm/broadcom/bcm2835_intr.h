@@ -43,13 +43,6 @@ void bcm2835_irq_handler(void *);
 
 #include <arm/pic/picvar.h>
 
-static __inline void *
-bcm2835_intr_establish(int irq, int ipl, int (*func)(void *), void *arg)
-{
-
-	return intr_establish(irq, ipl, IST_LEVEL, func, arg);
-}
-
 void bcm2836mp_intr_init(struct cpu_info *);
 
 #endif	/* _LOCORE */

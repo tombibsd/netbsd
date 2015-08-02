@@ -12,6 +12,7 @@ DPADD+=	${LIBXAW} ${LIBXMU} ${LIBXT} ${LIBSM} ${LIBICE} \
 	${LIBXPM} ${LIBXEXT} ${LIBX11}
 
 .PATH:	${X11SRCDIR.${PROG}}
+.PATH:	${X11SRCDIR.${PROG}}/man
 .PATH:	${X11SRCDIR.${PROG}}/app-defaults
 
 .include <bsd.x11.mk>

@@ -95,8 +95,7 @@ tegra_genfb_attach(device_t parent, device_t self, void *aux)
 	prop_dictionary_set_uint32(prop, "height", tfb->tfb_height);
 	prop_dictionary_set_uint8(prop, "depth", tfb->tfb_depth);
 	prop_dictionary_set_uint32(prop, "linebytes", tfb->tfb_stride);
-	prop_dictionary_set_uint64(prop, "address",
-	    tfb->tfb_dmamap->dm_segs[0].ds_addr);
+	prop_dictionary_set_uint64(prop, "address", 0);
 	prop_dictionary_set_uint64(prop, "virtual_address",
 	    (uintptr_t)tfb->tfb_dmap);
 

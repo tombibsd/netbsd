@@ -232,6 +232,7 @@ __dead void
 rumpuser_exit(int rv)
 {
 
+	printf("halted\n");
 	if (rv == RUMPUSER_PANIC)
 		abort();
 	else

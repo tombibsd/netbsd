@@ -200,15 +200,8 @@ typedef	unsigned long	cpuid_t;
 typedef	int		psetid_t;
 
 #if defined(_KERNEL) || defined(_STANDALONE)
-/*
- * Boolean type definitions for the kernel environment.  User-space
- * boolean definitions are found in <stdbool.h>.
- */
-#ifndef __cplusplus
-#define bool	_Bool
-#define true	1
-#define false	0
-#endif
+
+#include <sys/stdbool.h>
 
 /*
  * Deprecated Mach-style boolean_t type.  Should not be used by new code.

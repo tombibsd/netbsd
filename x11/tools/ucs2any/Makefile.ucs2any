@@ -1,7 +1,0 @@
-#	$NetBSD$
-
-UCS2ANYDIR!=	cd ${NETBSDSRCDIR}/x11/tools/ucs2any && ${PRINTOBJDIR}
-UCS2ANY=	${UCS2ANYDIR}/ucs2any
-
-${UCS2ANY}:
-	(cd ${NETBSDSRCDIR}/x11/tools/ucs2any && ${MAKE})

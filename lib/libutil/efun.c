@@ -128,6 +128,16 @@ erealloc(void *p, size_t n)
 	return q;
 }
 
+void
+ereallocarr(void *p, size_t n, size_t s)
+{
+	int rv = reallocarr(p, n, s);
+	if (rv != 0) {
+		errno = rv;
+		(*efunc)(1, "Cannot re-allocate %zu * %zu bytes", n, s);
+	}
+}
+
 FILE *
 efopen(const char *p, const char *m)
 {

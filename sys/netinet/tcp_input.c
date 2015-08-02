@@ -2713,7 +2713,10 @@ after_listen:
 				tp->t_lastm = NULL;
 			sbdrop(&so->so_snd, acked);
 			tp->t_lastoff -= acked;
-			tp->snd_wnd -= acked;
+			if (tp->snd_wnd > acked)
+				tp->snd_wnd -= acked;
+			else
+				tp->snd_wnd = 0;
 			ourfinisacked = 0;
 		}
 		sowwakeup(so);

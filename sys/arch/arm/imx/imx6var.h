@@ -48,10 +48,10 @@ extern bus_space_handle_t imx6_armcore_bsh;
 
 /* iomux utility functions in imx6_iomux.c */
 struct iomux_conf {
-	u_int pin;
-#define IOMUX_CONF_EOT	((u_int)(-1))
-	u_short mux;
-	u_short pad;
+	uint32_t pin;	/* ((MUXADDR<<16)|PADADDR) */
+#define IOMUX_CONF_EOT	((uint32_t)(-1))
+	uint32_t mux:8,
+	         pad:24;
 };
 
 uint32_t iomux_read(uint32_t);

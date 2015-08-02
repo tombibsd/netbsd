@@ -4,6 +4,7 @@
 
 LIB=	xcb
 .PATH:	${X11SRCDIR.${LIB}}/src
+.PATH:	${X11SRCDIR.${LIB}}/man
 .PATH:	${X11SRCDIR.${LIB}}
 .PATH:	${.CURDIR}/../files
 

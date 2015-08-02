@@ -29,6 +29,10 @@
  * SUCH DAMAGE.
  */
 
+#if HAVE_NBTOOL_CONFIG_H
+#include "nbtool_config.h"
+#endif
+
 #include <sys/cdefs.h>
 __RCSID("$NetBSD$");
 
@@ -40,16 +44,17 @@ __RCSID("$NetBSD$");
 #include <stdlib.h>
 #include <string.h>
 
-__CTASSERT(65535 < SIZE_MAX / 65535);
-
 #ifdef _LIBC
 #ifdef __weak_alias
 __weak_alias(reallocarr, _reallocarr)
 #endif
 #endif
 
+#define SQRT_SIZE_MAX (1UL << (sizeof(size_t) << 2))
+
+#if !HAVE_REALLOCARR
 int
-reallocarr(void *ptr, size_t num, size_t size)
+reallocarr(void *ptr, size_t number, size_t size)
 {
 	int saved_errno, result;
 	void *optr;
@@ -57,16 +62,21 @@ reallocarr(void *ptr, size_t num, size_t size)
 
 	saved_errno = errno;
 	memcpy(&optr, ptr, sizeof(ptr));
-	if (num == 0 || size == 0) {
+	if (number == 0 || size == 0) {
 		free(optr);
 		nptr = NULL;
 		memcpy(ptr, &nptr, sizeof(ptr));
 		errno = saved_errno;
 		return 0;
 	}
-	if ((num >= 65535 || size >= 65535) && num > SIZE_MAX / size)
+
+	if ((number >= SQRT_SIZE_MAX || size >= SQRT_SIZE_MAX) &&
+	    number > SIZE_MAX / size) {
+		errno = saved_errno;
 		return EOVERFLOW;
-	nptr = realloc(optr, num * size);
+	}
+
+	nptr = realloc(optr, number * size);
 	if (nptr == NULL) {
 		result = errno;
 	} else {
@@ -76,3 +86,4 @@ reallocarr(void *ptr, size_t num, size_t size)
 	errno = saved_errno;
 	return result;
 }
+#endif

@@ -94,6 +94,8 @@ u_int uboot_args[4] = { 0 };
 #define CONMODE ((TTYDEF_CFLAG & ~(CSIZE | CSTOPB | PARENB)) | CS8) /* 8N1 */
 #endif
 
+void nitrogen6_setup_iomux(void);
+
 static const bus_addr_t comcnaddr = (bus_addr_t)CONADDR;
 static const int comcnspeed = CONSPEED;
 static const int comcnmode = CONMODE | CLOCAL;
@@ -169,6 +171,9 @@ initarm(void *arg)
 	arm_cpu_max = (scu_cfg & SCU_CFG_CPUMAX) + 1;
 	membar_producer();
 #endif /* MULTIPROCESSOR */
+
+	nitrogen6_setup_iomux();
+
 	consinit();
 
 	/*

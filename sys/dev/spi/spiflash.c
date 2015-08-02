@@ -681,6 +681,7 @@ spiflash_common_read(spiflash_handle_t sc, size_t start, size_t size,
 			return rv;
 		}
 
+		data += cnt;
 		start += cnt;
 		size -= cnt;
 	}

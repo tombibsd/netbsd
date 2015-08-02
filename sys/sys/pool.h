@@ -32,6 +32,8 @@
 
 #ifndef _SYS_POOL_H_
 #define _SYS_POOL_H_
+
+#include <sys/stdbool.h>
 #include <sys/stdint.h>
 
 struct pool_sysctl {
@@ -189,6 +191,8 @@ struct pool {
 	 */
 	void		*pr_freecheck;
 	void		*pr_qcache;
+	bool		pr_redzone;
+	size_t		pr_reqsize;
 };
 
 /*
@@ -253,7 +257,11 @@ struct pool_cache {
 	unsigned int	pc_nfull;	/* full groups in cache */
 	unsigned int	pc_npart;	/* partial groups in cache */
 	unsigned int	pc_refcnt;	/* ref count for pagedaemon, etc */
+
+	/* Diagnostic aides. */
 	void		*pc_freecheck;
+	bool		pc_redzone;
+	size_t		pc_reqsize;
 
 	/* CPU layer. */
 	pool_cache_cpu_t pc_cpu0 __aligned(CACHE_LINE_SIZE);

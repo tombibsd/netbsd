@@ -1,6 +1,6 @@
 /adb_bt.c/1.6/Wed Sep  8 04:48:03 2010/-kk/
 /adb_bus.c/1.10/Tue Dec  9 04:23:59 2014/-kk/
-/adb_kbd.c/1.24/Tue Dec  9 04:23:59 2014/-kk/
+/adb_kbd.c/1.26/Sun Aug  2 04:02:47 2015/-kk/
 /adb_keymap.h/1.5/Tue Dec  9 04:23:59 2014/-kk/
 /adb_ms.c/1.16/Tue Dec  9 04:16:11 2014/-kk/
 /adb_usb_map.c/1.2/Tue Dec  9 04:23:59 2014/-kk/

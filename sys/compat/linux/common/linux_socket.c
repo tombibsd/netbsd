@@ -1115,7 +1115,7 @@ linux_getifconf(struct lwp *l, register_t *retval, void *data)
 	struct ifaddr *ifa;
 	struct sockaddr *sa;
 	struct osockaddr *osa;
-	int space = 0, error = 0;
+	int space = 0, error;
 	const int sz = (int)sizeof(ifr);
 	bool docopy;
 

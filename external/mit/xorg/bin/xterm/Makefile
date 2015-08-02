@@ -31,9 +31,10 @@ BUILDSYMLINKS=	XTerm-col.ad XTerm-color.ad
 
 LDADD+=	-lXft -lfontconfig -lfreetype -lexpat -lXrender
 DPADD+=	${LIBXFT} ${LIBFONTCONFIG} ${LIBFREETYPE} ${LIBEXPAT} ${LIBXRENDER}
-LDADD+=	-lXaw -lXmu -lXt -lSM -lICE -lXpm -lXext -lX11 -lcurses -lterminfo -lutil
-DPADD+=	${LIBXAW} ${LIBXMU} ${LIBXT} ${LIBSM} ${LIBICE} \
-	${LIBXPM} ${LIBXEXT} ${LIBX11} ${LIBCURSES} ${LIBTERMINFO} ${LIBUTIL}
+LDADD+=	-lXaw -lXmu -lXt -lSM -lICE -lXinerama
+DPADD+=	${LIBXAW} ${LIBXMU} ${LIBXT} ${LIBSM} ${LIBICE} ${LIBXINERAMA}
+LDADD+=	-lXpm -lXext -lX11 -lcurses -lterminfo -lutil
+DPADD+=	${LIBXPM} ${LIBXEXT} ${LIBX11} ${LIBCURSES} ${LIBTERMINFO} ${LIBUTIL}
 
 SUBDIR=	resize uxterm
 

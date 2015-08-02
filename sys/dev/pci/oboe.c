@@ -238,7 +238,7 @@ oboe_attach(device_t parent, device_t self, void *aux)
 
 	oboe_alloc_taskfile(sc);
 
-	sc->sc_child = config_found((void *)sc, &ia, ir_print);
+	sc->sc_child = config_found(self, &ia, ir_print);
 }
 
 static int

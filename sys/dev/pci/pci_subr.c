@@ -114,6 +114,7 @@ static const struct pci_class pci_interface_sata[] = {
 static const struct pci_class pci_interface_nvm[] = {
 	{ "vendor specific",	PCI_INTERFACE_NVM_VND,		NULL,	},
 	{ "NVMHCI 1.0",		PCI_INTERFACE_NVM_NVMHCI10,	NULL,	},
+	{ "NVMe",		PCI_INTERFACE_NVM_NVME,		NULL,	},
 	{ NULL,			0,				NULL,	},
 };
 

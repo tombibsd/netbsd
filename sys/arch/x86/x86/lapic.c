@@ -411,7 +411,7 @@ lapic_calibrate_timer(struct cpu_info *ci)
 		/*
 		 * Compute delay in cycles for likely short delays in usec.
 		 */
-		for (i=0; i<26; i++)
+		for (i = 0; i < 26; i++)
 			lapic_delaytab[i] = (lapic_frac_cycle_per_usec * i) >>
 			    32;
 

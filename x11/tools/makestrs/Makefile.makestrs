@@ -1,7 +1,0 @@
-#	$NetBSD$
-
-MAKESTRSDIR!=	cd ${NETBSDSRCDIR}/x11/tools/makestrs && ${PRINTOBJDIR}
-MAKESTRS=	${MAKESTRSDIR}/makestrs
-
-${MAKESTRS}:
-	(cd ${NETBSDSRCDIR}/x11/tools/makestrs && ${MAKE})

@@ -542,7 +542,7 @@ _INSTRANLIB=${empty(PRESERVE):?-a "${RANLIB} -t":}
 __archivebuild: .USE
 	${_MKTARGET_BUILD}
 	rm -f ${.TARGET}
-	${AR} ${_ARFL} ${.TARGET} ${.ALLSRC:M*o:O}
+	${AR} ${_ARFL} ${.TARGET} `NM=${NM} ${LORDER} ${.ALLSRC:M*o} | ${TSORT}`
 .endif
 
 .if !target(__archiveinstall)

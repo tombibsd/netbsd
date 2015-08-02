@@ -1,7 +1,0 @@
-#	$NetBSD$
-
-XKBCOMPDIR!=	cd ${NETBSDSRCDIR}/x11/tools/xkbcomp && ${PRINTOBJDIR}
-XKBCOMP=	${XKBCOMPDIR}/xkbcomp
-
-${XKBCOMP}:
-	(cd ${NETBSDSRCDIR}/x11/tools/xkbcomp && ${MAKE})

@@ -612,13 +612,13 @@ armgic_attach(device_t parent, device_t self, void *aux)
 #ifdef MULTIPROCESSOR
 	intr_establish(ARMGIC_SGI_IPIBASE + IPI_AST, IPL_VM,
 	    IST_MPSAFE | IST_EDGE, pic_ipi_ast, (void *)-1);
-	intr_establish(ARMGIC_SGI_IPIBASE + IPI_XCALL, IPL_VM,
+	intr_establish(ARMGIC_SGI_IPIBASE + IPI_XCALL, IPL_HIGH,
 	    IST_MPSAFE | IST_EDGE, pic_ipi_xcall, (void *)-1);
-	intr_establish(ARMGIC_SGI_IPIBASE + IPI_GENERIC, IPL_VM,
+	intr_establish(ARMGIC_SGI_IPIBASE + IPI_GENERIC, IPL_HIGH,
 	    IST_MPSAFE | IST_EDGE, pic_ipi_generic, (void *)-1);
 	intr_establish(ARMGIC_SGI_IPIBASE + IPI_NOP, IPL_VM,
 	    IST_MPSAFE | IST_EDGE, pic_ipi_nop, (void *)-1);
-	intr_establish(ARMGIC_SGI_IPIBASE + IPI_SHOOTDOWN, IPL_VM,
+	intr_establish(ARMGIC_SGI_IPIBASE + IPI_SHOOTDOWN, IPL_SCHED,
 	    IST_MPSAFE | IST_EDGE, pic_ipi_shootdown, (void *)-1);
 #ifdef DDB
 	intr_establish(ARMGIC_SGI_IPIBASE + IPI_DDB, IPL_HIGH,

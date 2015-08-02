@@ -143,7 +143,7 @@ cpu_initclocks(void)
 	stcl += counts_per_hz;
 
 	bus_space_write_4(sc->sc_iot, sc->sc_ioh, BCM2835_STIMER_C3, stcl);
-	clock_ih = bcm2835_intr_establish(BCM2835_INT_TIMER3, IPL_CLOCK,
+	clock_ih = intr_establish(BCM2835_INT_TIMER3, IPL_CLOCK, IST_LEVEL,
 	    clockhandler, NULL);
 	if (clock_ih == NULL)
 		panic("%s: unable to register timer interrupt", __func__);

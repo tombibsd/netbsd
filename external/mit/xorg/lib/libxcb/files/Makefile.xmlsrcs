@@ -20,14 +20,6 @@ XMLSRCS= \
 	shm.c \
 	sync.c \
 	xc_misc.c \
-	xcb_auth.c \
-	xcb_conn.c \
-	xcb_ext.c \
-	xcb_in.c \
-	xcb_list.c \
-	xcb_out.c \
-	xcb_util.c \
-	xcb_xid.c \
 	xevie.c \
 	xf86dri.c \
 	xfixes.c \

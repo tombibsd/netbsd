@@ -12,6 +12,9 @@ include	"arch/evbarm/conf/std.nitrogen6"
 
 maxusers	32
 
+# Board Type
+options 	EVBARM_BOARDTYPE=nitrogen6x
+
 # CPU options
 options 	CPU_CORTEX
 options 	CPU_CORTEXA9

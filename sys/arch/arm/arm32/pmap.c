@@ -7875,7 +7875,7 @@ pmap_map_poolpage(paddr_t pa)
 {
 	bool ok __diagused;
 	vaddr_t va = pmap_direct_mapped_phys(pa, &ok, 0);
-	KASSERT(ok);
+	KASSERTMSG(ok, "pa %#lx not direct mappable", pa);
 #if defined(PMAP_CACHE_VIPT) && !defined(ARM_MMU_EXTENDED)
 	if (arm_cache_prefer_mask != 0) {
 		struct vm_page * const pg = PHYS_TO_VM_PAGE(pa);

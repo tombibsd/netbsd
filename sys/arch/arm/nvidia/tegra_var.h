@@ -96,7 +96,7 @@ u_int	tegra_car_pllp0_rate(void);
 u_int	tegra_car_plld2_rate(void);
 u_int	tegra_car_uart_rate(u_int);
 u_int	tegra_car_periph_sdmmc_rate(u_int);
-int	tegra_car_periph_sdmmc_set_div(u_int, u_int);
+int	tegra_car_periph_sdmmc_set_rate(u_int, u_int);
 int	tegra_car_periph_usb_enable(u_int);
 void	tegra_car_periph_hda_enable(void);
 void	tegra_car_periph_sata_enable(void);

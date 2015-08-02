@@ -24,7 +24,7 @@
 /CUBIEBOARD_INSTALL/1.3/Wed Apr 22 07:35:55 2015/-kk/
 /CUBIETRUCK/1.8/Thu Jun 18 03:42:16 2015/-kk/
 /CUBIETRUCK_INSTALL/1.1/Fri Apr 11 04:19:47 2014/-kk/
-/CUBOX-I/1.2/Wed Oct 29 08:13:00 2014/-kk/
+/CUBOX-I/1.3/Sun Aug  2 04:02:35 2015/-kk/
 /CUBOX-I_INSTALL/1.1/Sat Jul 18 00:57:10 2015/-kk/
 /DEVKIT8000/1.1/Wed Sep  8 22:53:53 2010/-kk/
 /DNS323/1.7/Fri Oct  3 09:36:03 2014/-kk/
@@ -32,7 +32,7 @@
 /GEMINI_INSTALL/1.2/Mon May 19 16:25:47 2014/-kk/
 /GEMINI_MASTER/1.31/Fri Oct  3 09:43:15 2014/-kk/
 /GEMINI_SLAVE/1.31/Fri Oct  3 09:43:15 2014/-kk/
-/GENERIC.common/1.7/Wed Apr 22 07:35:55 2015/-kk/
+/GENERIC.common/1.8/Sun Aug  2 04:02:35 2015/-kk/
 /GENERIC_USERMODE/1.1/Sun Nov 10 20:01:55 2013/-kk/
 /GOLDENGATE/1.11/Fri Oct  3 09:43:15 2014/-kk/
 /GOLDENGATE_INSTALL/1.2/Mon May 19 16:25:47 2014/-kk/
@@ -59,7 +59,7 @@
 /IQ80321_INSTALL/1.2/Thu Feb  9 19:07:37 2012/-kk/
 /IXDP425/1.49/Fri Oct  3 09:43:15 2014/-kk/
 /IXM1200/1.60/Fri Oct  3 09:43:15 2014/-kk/
-/JETSONTK1/1.28/Wed Jun  3 06:54:22 2015/-kk/
+/JETSONTK1/1.29/Sun Aug  2 04:02:35 2015/-kk/
 /JETSONTK1_INSTALL/1.1/Thu May 14 00:07:04 2015/-kk/
 /KOBO/1.7/Sun Apr 12 03:34:36 2015/-kk/
 /KOBO_INSTALL/1.1/Fri Jul 25 11:22:50 2014/-kk/
@@ -82,7 +82,7 @@
 /NETWALKER/1.34/Wed May 13 03:32:42 2015/-kk/
 /NETWALKER_INSTALL/1.3/Mon May 19 16:25:47 2014/-kk/
 /NETWALKER_MD/1.3/Sun Apr 15 08:17:42 2012/-kk/
-/NITROGEN6X/1.4/Wed Oct 29 08:13:00 2014/-kk/
+/NITROGEN6X/1.5/Sun Aug  2 04:02:35 2015/-kk/
 /NITROGEN6X_INSTALL/1.1/Sat Sep 27 04:03:24 2014/-kk/
 /NSLU2/1.38/Fri Oct  3 09:43:16 2014/-kk/
 /ODROID-C1/1.18/Fri May  1 11:29:02 2015/-kk/
@@ -166,7 +166,7 @@
 /files.mpcsa/1.2/Thu Jul  3 01:15:38 2008/-kk/
 /files.n900/1.5/Thu Oct 24 10:28:57 2013/-kk/
 /files.netwalker/1.9/Wed May 13 03:32:42 2015/-kk/
-/files.nitrogen6/1.1/Thu Sep 25 05:05:28 2014/-kk/
+/files.nitrogen6/1.2/Sun Aug  2 04:02:36 2015/-kk/
 /files.npwr_fc/1.3/Thu Oct 24 10:28:57 2013/-kk/
 /files.nslu2/1.3/Mon Dec  3 15:33:32 2007/-kk/
 /files.odroid/1.1/Sun Apr 13 02:26:26 2014/-kk/
@@ -261,7 +261,7 @@
 /std.mv2120/1.2/Sun Dec 16 23:47:56 2012/-kk/
 /std.n900/1.5/Tue Dec  9 04:23:48 2014/-kk/
 /std.netwalker/1.10/Fri Oct  3 09:43:16 2014/-kk/
-/std.nitrogen6/1.2/Sat Mar 21 02:29:40 2015/-kk/
+/std.nitrogen6/1.3/Sun Aug  2 04:02:36 2015/-kk/
 /std.npwr_fc/1.6/Sun Dec 16 23:47:56 2012/-kk/
 /std.nslu2/1.5/Sun Dec 16 23:47:56 2012/-kk/
 /std.odroid/1.5/Fri Jan  2 11:20:55 2015/-kk/

@@ -149,7 +149,6 @@ ioapic_read_ul(struct ioapic_softc *sc,int regid)
 	val = *sc->sc_data;
 
 	return val;
-	
 }
 
 static inline  void

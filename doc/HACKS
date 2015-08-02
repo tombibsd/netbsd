@@ -967,7 +967,6 @@ port	x68k
 	who	christos
 	file	src/external/gpl3/gcc/usr.bin/bakend/Makefile: 1.17
 		xsrc/external/mit/xorg/lib/libGLU/Makefile: 1.11
-		src/x11/lib/GLU/Makefile: 1.9
 	descr
 		workaround for:
 		internal compiler error: in cselib_record_set, at cselib.c:1999

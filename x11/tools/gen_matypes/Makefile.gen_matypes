@@ -1,7 +1,0 @@
-#	$NetBSD$
-
-GEN_MATYPESDIR!=cd ${NETBSDSRCDIR}/x11/tools/gen_matypes && ${PRINTOBJDIR}
-GEN_MATYPES=	${GEN_MATYPESDIR}/gen_matypes
-
-${GEN_MATYPES}:
-	(cd ${NETBSDSRCDIR}/x11/tools/gen_matypes && ${MAKE})

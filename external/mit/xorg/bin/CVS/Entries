@@ -31,7 +31,6 @@ D/makedepend////
 D/makeg////
 D/makestrs////
 D/mergelib////
-D/missing-apps////
 D/mkdirhier////
 D/mkfontdir////
 D/mkfontscale////
@@ -40,8 +39,10 @@ D/oclock////
 D/proxymngr////
 D/revpath////
 D/rgb////
+D/rstart////
 D/sessreg////
 D/setxkbmap////
+D/showfont////
 D/smproxy////
 D/ssh-askpass////
 D/sxpm////

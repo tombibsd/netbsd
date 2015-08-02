@@ -51,7 +51,7 @@
 /insque.3/1.5/Fri Apr 30 10:24:02 2010/-kk/
 /insque.c/1.3/Mon Jun 25 22:32:45 2012/-kk/
 /jemalloc.3/1.9/Thu Oct 24 10:28:53 2013/-kk/
-/jemalloc.c/1.37/Mon Jan 26 07:10:04 2015/-kk/
+/jemalloc.c/1.38/Sun Aug  2 04:02:22 2015/-kk/
 /jrand48.c/1.9/Sun Oct 27 08:19:44 2013/-kk/
 /l64a.c/1.14/Tue Mar 13 21:13:48 2012/-kk/
 /labs.c/1.8/Mon Jun 25 22:32:45 2012/-kk/
@@ -63,7 +63,7 @@
 /lrand48.c/1.9/Sun Oct 27 08:19:44 2013/-kk/
 /lsearch.3/1.3/Tue Jul 12 08:28:42 2005/-kk/
 /lsearch.c/1.7/Mon Jun 25 22:32:45 2012/-kk/
-/malloc.3/1.41/Mon Feb 16 03:13:50 2015/-kk/
+/malloc.3/1.44/Sun Aug  2 04:02:22 2015/-kk/
 /malloc.c/1.56/Fri Oct  3 09:57:25 2014/-kk/
 /memory.3/1.11/Sun Sep 11 10:05:23 2011/-kk/
 /merge.c/1.14/Tue Mar 13 21:13:48 2012/-kk/
@@ -82,7 +82,7 @@
 /qdiv.c/1.7/Mon Jun 25 22:32:45 2012/-kk/
 /qsort.3/1.14/Fri Oct  3 09:57:25 2014/-kk/
 /qsort.c/1.22/Sat May 26 21:47:05 2012/-kk/
-/quick_exit.3/1.2/Thu Oct 24 10:28:53 2013/-kk/
+/quick_exit.3/1.3/Sun Aug  2 04:02:22 2015/-kk/
 /quick_exit.c/1.1/Thu Oct 24 10:28:53 2013/-kk/
 /radixsort.3/1.13/Thu Aug  7 16:43:43 2003/-kk/
 /radixsort.c/1.19/Sat Sep  5 08:53:06 2009/-kk/
@@ -92,10 +92,10 @@
 /rand48.h/1.6/Wed May 18 19:36:36 2011/-kk/
 /rand_r.c/1.6/Mon Jun 25 22:32:45 2012/-kk/
 /random.3/1.21/Wed Jun 18 08:42:15 2014/-kk/
-/reallocarr.3/1.3/Thu Feb 19 23:08:21 2015/-kk/
-/reallocarr.c/1.2/Sat Jul 25 01:51:38 2015/-kk/
-/reallocarray.3/1.3/Fri Feb  6 08:37:39 2015/-kk/
-/reallocarray.c/1.4/Sat Mar 21 02:37:22 2015/-kk/
+/reallocarr.3/1.4/Sun Aug  2 04:02:22 2015/-kk/
+/reallocarr.c/1.3/Sun Aug  2 04:02:22 2015/-kk/
+/reallocarray.3/1.4/Sun Aug  2 04:02:22 2015/-kk/
+/reallocarray.c/1.5/Sun Aug  2 04:02:22 2015/-kk/
 /remque.c/1.3/Mon Jun 25 22:32:45 2012/-kk/
 /seed48.c/1.8/Sun Jun 12 05:21:28 2005/-kk/
 /setenv.c/1.44/Mon Jan 26 07:10:04 2015/-kk/

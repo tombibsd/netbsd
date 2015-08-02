@@ -1747,11 +1747,16 @@ netbsd32_swapctl_stats(struct lwp *l, struct sys_swapctl_args *uap, register_t *
 
 	if (count < 0)
 		return EINVAL;
-	if (count == 0 || uvmexp.nswapdev == 0)
-		return 0;
-	/* Make sure userland cannot exhaust kernel memory */
+
+	swapsys_lock(RW_WRITER);
+
 	if ((size_t)count > (size_t)uvmexp.nswapdev)
 		count = uvmexp.nswapdev;
+	if (count == 0) {
+		/* No swap device */
+		swapsys_unlock();
+		return 0;
+	}
 
 	ksep_len = sizeof(*ksep) * count;
 	ksep = kmem_alloc(ksep_len, KM_SLEEP);
@@ -1759,6 +1764,8 @@ netbsd32_swapctl_stats(struct lwp *l, struct sys_swapctl_args *uap, register_t *
 
 	uvm_swap_stats(SWAP_STATS, ksep, count, retval);
 	count = *retval;
+
+	swapsys_unlock();
 
 	for (i = 0; i < count; i++) {
 		se32.se_dev = ksep[i].se_dev;

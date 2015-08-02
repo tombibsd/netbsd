@@ -3299,6 +3299,7 @@
 ./usr/include/sys/stat.h			comp-c-include
 ./usr/include/sys/statvfs.h			comp-c-include
 ./usr/include/sys/stdarg.h			comp-c-include
+./usr/include/sys/stdbool.h			comp-c-include
 ./usr/include/sys/stdint.h			comp-c-include
 ./usr/include/sys/swap.h			comp-c-include
 ./usr/include/sys/syncobj.h			comp-c-include
@@ -3316,6 +3317,7 @@
 ./usr/include/sys/timeb.h			comp-c-include
 ./usr/include/sys/timepps.h			comp-c-include
 ./usr/include/sys/times.h			comp-c-include
+./usr/include/sys/timespec.h			comp-c-include
 ./usr/include/sys/timex.h			comp-c-include
 ./usr/include/sys/tls.h				comp-c-include
 ./usr/include/sys/tprintf.h			comp-obsolete		obsolete
@@ -3394,6 +3396,7 @@
 ./usr/include/ufs/ffs/ffs_extern.h		comp-c-include
 ./usr/include/ufs/ffs/fs.h			comp-c-include
 ./usr/include/ufs/lfs/lfs.h			comp-c-include
+./usr/include/ufs/lfs/lfs_accessors.h		comp-c-include
 ./usr/include/ufs/lfs/lfs_extern.h		comp-c-include
 ./usr/include/ufs/lfs/lfs_inode.h		comp-c-include
 ./usr/include/ufs/mfs/mfs_extern.h		comp-c-include
@@ -6422,6 +6425,7 @@
 ./usr/share/man/cat3/erase.0			comp-c-catman		.cat
 ./usr/share/man/cat3/erasechar.0		comp-c-catman		.cat
 ./usr/share/man/cat3/erealloc.0			comp-c-catman		.cat
+./usr/share/man/cat3/ereallocarr.0		comp-c-catman		.cat
 ./usr/share/man/cat3/erf.0			comp-c-catman		.cat
 ./usr/share/man/cat3/erfc.0			comp-c-catman		.cat
 ./usr/share/man/cat3/erfcf.0			comp-c-catman		.cat
@@ -10618,12 +10622,15 @@
 ./usr/share/man/cat9/pci_get_capability.0	comp-sys-catman		.cat
 ./usr/share/man/cat9/pci_get_powerstate.0	comp-sys-catman		.cat
 ./usr/share/man/cat9/pci_intr.0			comp-sys-catman		.cat
+./usr/share/man/cat9/pci_intr_alloc.0		comp-sys-catman		.cat
 ./usr/share/man/cat9/pci_intr_disestablish.0	comp-sys-catman		.cat
 ./usr/share/man/cat9/pci_intr_distribute.0	comp-sys-catman		.cat
 ./usr/share/man/cat9/pci_intr_establish.0	comp-sys-catman		.cat
 ./usr/share/man/cat9/pci_intr_evcnt.0		comp-sys-catman		.cat
 ./usr/share/man/cat9/pci_intr_map.0		comp-sys-catman		.cat
+./usr/share/man/cat9/pci_intr_release.0		comp-sys-catman		.cat
 ./usr/share/man/cat9/pci_intr_string.0		comp-sys-catman		.cat
+./usr/share/man/cat9/pci_intr_type.0		comp-sys-catman		.cat
 ./usr/share/man/cat9/pci_intx_alloc.0		comp-sys-catman		.cat
 ./usr/share/man/cat9/pci_intx_release.0		comp-sys-catman		.cat
 ./usr/share/man/cat9/pci_make_tag.0		comp-sys-catman		.cat
@@ -13355,6 +13362,7 @@
 ./usr/share/man/html3/erase.html		comp-c-htmlman		html
 ./usr/share/man/html3/erasechar.html		comp-c-htmlman		html
 ./usr/share/man/html3/erealloc.html		comp-c-htmlman		html
+./usr/share/man/html3/ereallocarr.html		comp-c-htmlman		html
 ./usr/share/man/html3/erf.html			comp-c-htmlman		html
 ./usr/share/man/html3/erfc.html			comp-c-htmlman		html
 ./usr/share/man/html3/erfcf.html		comp-c-htmlman		html
@@ -17422,12 +17430,15 @@
 ./usr/share/man/html9/pci_get_capability.html	comp-sys-htmlman	html
 ./usr/share/man/html9/pci_get_powerstate.html	comp-sys-htmlman	html
 ./usr/share/man/html9/pci_intr.html		comp-sys-htmlman	html
+./usr/share/man/html9/pci_intr_alloc.html	comp-sys-htmlman	html
 ./usr/share/man/html9/pci_intr_disestablish.html	comp-sys-htmlman	html
 ./usr/share/man/html9/pci_intr_distribute.html	comp-sys-htmlman	html
 ./usr/share/man/html9/pci_intr_establish.html	comp-sys-htmlman	html
 ./usr/share/man/html9/pci_intr_evcnt.html	comp-sys-htmlman	html
 ./usr/share/man/html9/pci_intr_map.html		comp-sys-htmlman	html
+./usr/share/man/html9/pci_intr_release.html	comp-sys-htmlman	html
 ./usr/share/man/html9/pci_intr_string.html	comp-sys-htmlman	html
+./usr/share/man/html9/pci_intr_type.html	comp-sys-htmlman	html
 ./usr/share/man/html9/pci_intx_alloc.html	comp-sys-htmlman	html
 ./usr/share/man/html9/pci_intx_release.html	comp-sys-htmlman	html
 ./usr/share/man/html9/pci_make_tag.html		comp-sys-htmlman	html
@@ -20200,6 +20211,7 @@
 ./usr/share/man/man3/erase.3			comp-c-man		.man
 ./usr/share/man/man3/erasechar.3		comp-c-man		.man
 ./usr/share/man/man3/erealloc.3			comp-c-man		.man
+./usr/share/man/man3/ereallocarr.3		comp-c-man		.man
 ./usr/share/man/man3/erf.3			comp-c-man		.man
 ./usr/share/man/man3/erfc.3			comp-c-man		.man
 ./usr/share/man/man3/erfcf.3			comp-c-man		.man
@@ -24391,12 +24403,15 @@
 ./usr/share/man/man9/pci_get_capability.9	comp-sys-man		.man
 ./usr/share/man/man9/pci_get_powerstate.9	comp-sys-man		.man
 ./usr/share/man/man9/pci_intr.9			comp-sys-man		.man
+./usr/share/man/man9/pci_intr_alloc.9		comp-sys-man		.man
 ./usr/share/man/man9/pci_intr_disestablish.9	comp-sys-man		.man
 ./usr/share/man/man9/pci_intr_distribute.9	comp-sys-man		.man
 ./usr/share/man/man9/pci_intr_establish.9	comp-sys-man		.man
 ./usr/share/man/man9/pci_intr_evcnt.9		comp-sys-man		.man
 ./usr/share/man/man9/pci_intr_map.9		comp-sys-man		.man
+./usr/share/man/man9/pci_intr_release.9		comp-sys-man		.man
 ./usr/share/man/man9/pci_intr_string.9		comp-sys-man		.man
+./usr/share/man/man9/pci_intr_type.9		comp-sys-man		.man
 ./usr/share/man/man9/pci_intx_alloc.9		comp-sys-man		.man
 ./usr/share/man/man9/pci_intx_release.9		comp-sys-man		.man
 ./usr/share/man/man9/pci_make_tag.9		comp-sys-man		.man

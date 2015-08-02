@@ -32,8 +32,8 @@
  * to go on to a new segment.
  */
 #define	LFS_PARTIAL_FITS(fs) \
-	((fs)->lfs_fsbpseg - ((fs)->lfs_offset - (fs)->lfs_curseg) > \
-	(fs)->lfs_frag)
+	(lfs_sb_getfsbpseg(fs) - (lfs_sb_getoffset(fs) - lfs_sb_getcurseg(fs)) > \
+	lfs_sb_getfrag(fs))
 
 /* op values to lfs_writevnodes */
 #define	VN_REG		0

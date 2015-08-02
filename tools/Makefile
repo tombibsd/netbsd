@@ -211,7 +211,7 @@ SUBDIR+=	elftosb
 SUBDIR+=	mkubootimage
 .endif
 
-.if ${MKX11} != "no" && ${X11FLAVOUR} == "Xorg"
+.if ${MKX11} != "no"
 SUBDIR+=	makestrs
 SUBDIR+=	makekeys
 .endif

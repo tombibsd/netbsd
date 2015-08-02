@@ -50,6 +50,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <uvm/uvm_extern.h>
 
 #elif defined(_EXTENT_TESTING)
+
 /*
  * user-land definitions, so it can fit into a testing harness.
  */

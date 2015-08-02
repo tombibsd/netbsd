@@ -40,6 +40,7 @@
 
 #include <ufs/ufs/dinode.h>
 #include <ufs/lfs/lfs.h>
+#include <ufs/lfs/lfs_accessors.h>
 
 #include <disktab.h>
 #include <err.h>
@@ -127,15 +128,15 @@ main(int argc, char **argv)
 		pread(devfd, buf, sboff, LFS_SBPAD);
 		memcpy(&fs->lfs_dlfs, buf, sizeof(struct dlfs));
 		if (sboff == LFS_LABELPAD && lfs_fsbtob(fs, 1) > LFS_LABELPAD)
-			sboff = lfs_fsbtob(fs, (off_t)fs->lfs_sboffs[0]);
+			sboff = lfs_fsbtob(fs, (off_t)lfs_sb_getsboff(fs, 0));
 		else
 			break;
 	}
 	close(devfd);
 
 	/* Calculate new number of segments. */
-	newnsegs = (newsize * secsize) / fs->lfs_ssize;
-	if (newnsegs == fs->lfs_nseg) {
+	newnsegs = (newsize * secsize) / lfs_sb_getssize(fs);
+	if (newnsegs == lfs_sb_getnseg(fs)) {
 		errx(0, "the filesystem is unchanged.");
 	}
 
@@ -145,7 +146,7 @@ main(int argc, char **argv)
 	 * Make the cleaner do this for us.
 	 * (XXX make the kernel able to do this instead?)
 	 */
-	for (i = fs->lfs_nseg - 1; i >= newnsegs; --i) {
+	for (i = lfs_sb_getnseg(fs) - 1; i >= newnsegs; --i) {
 		char cmd[128];
 
 		/* If it's already empty, don't call the cleaner */
@@ -164,7 +165,7 @@ main(int argc, char **argv)
 	}
 
 	if (verbose)
-		printf("Successfully resized %s from %d to %lld segments\n",
-			fsname, fs->lfs_nseg, (long long)newnsegs);
+		printf("Successfully resized %s from %u to %lld segments\n",
+			fsname, lfs_sb_getnseg(fs), (long long)newnsegs);
 	return 0;
 }

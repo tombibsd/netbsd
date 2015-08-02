@@ -93,7 +93,7 @@
 /imx6_i2c.c/1.2/Thu Apr  2 02:27:47 2015/-kk/
 /imx6_intr.h/1.3/Thu Jun 18 03:42:15 2015/-kk/
 /imx6_iomux.c/1.1/Thu Sep 25 05:05:28 2014/-kk/
-/imx6_iomuxreg.h/1.1/Thu Sep 25 05:05:28 2014/-kk/
+/imx6_iomuxreg.h/1.2/Sun Aug  2 04:02:34 2015/-kk/
 /imx6_mmdcreg.h/1.1/Thu Sep 25 05:05:28 2014/-kk/
 /imx6_ocotp.c/1.1/Thu Sep 25 05:05:28 2014/-kk/
 /imx6_ocotpreg.h/1.1/Thu Sep 25 05:05:28 2014/-kk/
@@ -107,7 +107,7 @@
 /imx6_usbreg.h/1.1/Thu Sep 25 05:05:28 2014/-kk/
 /imx6_usdhc.c/1.1/Thu Sep 25 05:05:28 2014/-kk/
 /imx6_wdog.c/1.1/Thu Sep 25 05:05:28 2014/-kk/
-/imx6var.h/1.2/Sun Oct 19 16:06:32 2014/-kk/
+/imx6var.h/1.3/Sun Aug  2 04:02:34 2015/-kk/
 /imx_dma.c/1.3/Tue Sep 18 05:47:27 2012/-kk/
 /imx_pcic.c/1.6/Sat Oct 27 17:17:39 2012/-kk/
 /imx_pcic.h/1.3/Sat Oct 27 17:17:39 2012/-kk/
@@ -131,7 +131,7 @@
 /imxspireg.h/1.1/Sat Mar 22 09:28:08 2014/-kk/
 /imxspivar.h/1.1/Sat Mar 22 09:28:08 2014/-kk/
 /imxssireg.h/1.1/Sat Nov 13 07:11:03 2010/-kk/
-/imxuart.c/1.17/Wed Apr 22 07:35:48 2015/-kk/
+/imxuart.c/1.19/Sun Aug  2 04:02:34 2015/-kk/
 /imxuartreg.h/1.5/Sat Sep  1 14:46:25 2012/-kk/
 /imxuartvar.h/1.5/Sat Oct 27 17:17:39 2012/-kk/
 /imxusb.c/1.7/Fri Oct  3 10:04:58 2014/-kk/

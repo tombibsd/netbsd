@@ -12,7 +12,7 @@ SRCS=		x86emu.c generic.c xf86x86emu.c xf86int10.c helper_mem.c \
 		helper_exec.c xf86int10module.c
 
 CPPFLAGS+=	-D__DRIVER__ -DFORCE_POST -D_CEXPORT= -DNO_LONG_LONG \
-		-D_X86EMU -DNO_SYS_HEADERS
+		-D_X86EMU
 
 .if ${MACHINE_ARCH} == "i386" || ${MACHINE_ARCH} == "x86_64"
 CPPFLAGS+=	-D_PC

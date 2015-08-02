@@ -10,6 +10,7 @@ LIB=	Xinerama
 SRCS=	Xinerama.c
 
 CPPFLAGS+=	${X11FLAGS.THREADLIB}
+CPPFLAGS+=	-DHAVE__XEATDATAWORDS
 
 MAN=	Xinerama.3
 MLINKS=	Xinerama.3 XineramaQueryExtension.3 \

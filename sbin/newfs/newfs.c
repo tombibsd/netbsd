@@ -493,9 +493,11 @@ main(int argc, char *argv[])
 				fso = fsi;
 		}
 	} else {	/* !Fflag && !mfs */
-		special = getfsspecname(specname, sizeof(specname), special);
-		raw = getdiskrawname(rawname, sizeof(rawname), special);
-		if (raw != NULL)
+		raw = getfsspecname(specname, sizeof(specname), special);
+		if (raw == NULL)
+			err(1, "%s: %s", special, specname);
+		special = getdiskrawname(rawname, sizeof(rawname), raw);
+		if (special == NULL)
 			special = raw;
 
 		fsi = opendisk(special, O_RDONLY, device, sizeof(device), 0);

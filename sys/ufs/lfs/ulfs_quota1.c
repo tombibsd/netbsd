@@ -780,7 +780,6 @@ lfs_q1sync(struct mount *mp)
 			mutex_exit(&dq->dq_interlock);
 		}
 		vput(vp);
-		mutex_enter(&mntvnode_lock);
 	}
 	vfs_vnode_iterator_destroy(marker);
 	return (0);

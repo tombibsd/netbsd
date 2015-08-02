@@ -845,8 +845,11 @@ sdmmc_set_relative_addr(struct sdmmc_softc *sc, struct sdmmc_function *sf)
 
 	/* Don't lock */
 
-	if (ISSET(sc->sc_caps, SMC_CAPS_SPI_MODE))
+	if (ISSET(sc->sc_caps, SMC_CAPS_SPI_MODE)) {
+		aprint_error_dev(sc->sc_dev,
+			"sdmmc_set_relative_addr: SMC_CAPS_SPI_MODE set");
 		return EIO;
+	}
 
 	memset(&cmd, 0, sizeof(cmd));
 	if (ISSET(sc->sc_flags, SMF_SD_MODE)) {
@@ -875,8 +878,11 @@ sdmmc_select_card(struct sdmmc_softc *sc, struct sdmmc_function *sf)
 
 	/* Don't lock */
 
-	if (ISSET(sc->sc_caps, SMC_CAPS_SPI_MODE))
+	if (ISSET(sc->sc_caps, SMC_CAPS_SPI_MODE)) {
+		aprint_error_dev(sc->sc_dev,
+			"sdmmc_select_card: SMC_CAPS_SPI_MODE set");
 		return EIO;
+	}
 
 	if (sc->sc_card == sf
 	 || (sf && sc->sc_card && sc->sc_card->rca == sf->rca)) {

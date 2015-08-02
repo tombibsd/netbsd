@@ -576,6 +576,14 @@ rf_pm_configure(int fd, int raidID, char *parityconf, int parityparams[])
 	    raidID, dis ? "dis" : "en");
 }
 
+/* convert "component0" into "absent" */
+static const char *rf_output_devname(const char *devname)
+{
+
+	if (strncmp(devname, "component", 9) == 0)
+		return "absent";
+	return devname;
+}
 
 static void
 rf_output_configuration(int fd, const char *name)
@@ -602,7 +610,8 @@ rf_output_configuration(int fd, const char *name)
 
 	printf("START disks\n");
 	for(i=0; i < device_config.ndevs; i++)
-		printf("%s\n", device_config.devs[i].devname);
+		printf("%s\n",
+		    rf_output_devname(device_config.devs[i].devname));
 	printf("\n");
 
 	if (device_config.nspares > 0) {

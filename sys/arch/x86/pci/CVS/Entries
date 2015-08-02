@@ -20,14 +20,14 @@
 /pci_addr_fixup.h/1.1/Sun May 18 02:06:14 2008/-kk/
 /pci_bus_fixup.c/1.2/Fri Jul  1 18:22:08 2011/-kk/
 /pci_bus_fixup.h/1.1/Sun May 18 02:06:14 2008/-kk/
-/pci_intr_machdep.c/1.33/Thu May 28 03:25:45 2015/-kk/
+/pci_intr_machdep.c/1.35/Sun Aug  2 04:02:45 2015/-kk/
 /pci_machdep.c/1.70/Fri May  1 11:31:53 2015/-kk/
 /pci_msi_machdep.c/1.6/Thu Jul  2 04:14:11 2015/-kk/
 /pci_msi_machdep.h/1.2/Fri May 15 08:36:41 2015/-kk/
-/pci_ranges.c/1.4/Sat Oct 27 17:18:14 2012/-kk/
+/pci_ranges.c/1.5/Sun Aug  2 04:02:45 2015/-kk/
 /pcib.c/1.15/Fri Apr  6 20:38:52 2012/-kk/
 /pcibvar.h/1.2/Tue Aug 18 17:15:10 2009/-kk/
-/pciide_machdep.c/1.14/Fri May  1 11:31:54 2015/-kk/
+/pciide_machdep.c/1.15/Sun Aug  2 04:02:45 2015/-kk/
 /rdcpcib.c/1.2/Fri Jul  1 18:22:08 2011/-kk/
 /tco.c/1.1/Sun May  3 02:50:59 2015/-kk/
 /tco.h/1.1/Sun May  3 02:50:59 2015/-kk/

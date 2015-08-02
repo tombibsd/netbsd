@@ -78,7 +78,7 @@
 ./usr/libdata/debug/usr/X11R7/lib/modules/drivers/neomagic_drv.so.1.debug	-unknown-		xorg,debug
 ./usr/libdata/debug/usr/X11R7/lib/modules/drivers/nv_drv.so.2.debug	-unknown-		xorg,debug
 ./usr/libdata/debug/usr/X11R7/lib/modules/drivers/radeon_drv.so.6.debug	-unknown-		xorg,debug
-./usr/libdata/debug/usr/X11R7/lib/modules/drivers/radeonhd_drv.so.1.debug	-unknown-		xorg,debug
+./usr/libdata/debug/usr/X11R7/lib/modules/drivers/radeonhd_drv.so.1.debug	-unknown-		xorg,debug,obsolete
 ./usr/libdata/debug/usr/X11R7/lib/modules/drivers/s3_drv.so.0.debug	-unknown-		xorg,debug
 ./usr/libdata/debug/usr/X11R7/lib/modules/drivers/s3virge_drv.so.1.debug	-unknown-		xorg,debug
 ./usr/libdata/debug/usr/X11R7/lib/modules/drivers/savage_drv.so.2.debug	-unknown-		xorg,debug

@@ -193,7 +193,7 @@ octeon_dwc2_attach(device_t parent, device_t self, void *aux)
 	switch (MIPS_PRID_IMPL(mips_options.mips_cpu_id)) {
 	case MIPS_CN50XX:
 		/*
-		 * 2. Configure the reference clock, PHY, and HCLK: 
+		 * 2. Configure the reference clock, PHY, and HCLK:
 		 * a. Write USBN_CLK_CTL[POR] = 1 and
 		 *    USBN_CLK_CTL[HRST,PRST,HCLK_RST] = 0
 		 */
@@ -309,7 +309,7 @@ octeon_dwc2_attach(device_t parent, device_t self, void *aux)
 	    config_found(sc->sc_dwc2.sc_dev, &sc->sc_dwc2.sc_bus, usbctlprint);
 
 	sc->sc_ih = octeon_intr_establish(ffs64(CIU_INTX_SUM0_USB) - 1,
-	    IPL_BIO, dwc2_intr, sc);
+	    IPL_VM, dwc2_intr, sc);
 	if (sc->sc_ih == NULL)
 		panic("can't establish common interrupt\n");
 }

@@ -54,6 +54,8 @@ struct sdhc_softc {
 #define	SDHC_FLAG_EXTDMA_DMAEN	0x00008000 /* ext. dma need SDHC_DMA_ENABLE */
 #define	SDHC_FLAG_NO_CLKBASE	0x00020000 /* ignore clkbase register */
 #define	SDHC_FLAG_SINGLE_POWER_WRITE 0x00040000
+#define	SDHC_FLAG_NO_TIMEOUT	0x00080000 /* ignore timeout interrupts */
+#define	SDHC_FLAG_USE_ADMA2	0x00100000
 
 	uint32_t		sc_clkbase;
 	int			sc_clkmsk;	/* Mask for SDCLK */
@@ -74,5 +76,6 @@ int	sdhc_detach(struct sdhc_softc *, int);
 bool	sdhc_suspend(device_t, const pmf_qual_t *);
 bool	sdhc_resume(device_t, const pmf_qual_t *);
 bool	sdhc_shutdown(device_t, int);
+kmutex_t *sdhc_host_lock(struct sdhc_host *);
 
 #endif	/* _SDHCVAR_H_ */

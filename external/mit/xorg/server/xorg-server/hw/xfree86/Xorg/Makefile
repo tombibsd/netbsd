@@ -11,7 +11,6 @@ BINMODE=	4711
 SRCS=		xorg.c libxorg.c
 
 CPPFLAGS+=	-I${DESTDIR}${X11INCDIR}/X11 \
-		-I${X11SRCDIR.xc}/include/fonts \
 		-I${X11SRCDIR.xorg-server}/fb \
 		-I${X11SRCDIR.xorg-server}/mi \
 		-I${X11SRCDIR.xorg-server}/include \

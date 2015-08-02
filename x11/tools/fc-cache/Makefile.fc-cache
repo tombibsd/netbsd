@@ -1,7 +1,0 @@
-#	$NetBSD$
-
-FCCACHEDIR!=	cd ${NETBSDSRCDIR}/x11/tools/fc-cache && ${PRINTOBJDIR}
-FCCACHE=	${FCCACHEDIR}/fc-cache
-
-${FCCACHE}:
-	(cd ${NETBSDSRCDIR}/x11/tools/fc-cache && ${MAKE})

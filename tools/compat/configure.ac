@@ -157,7 +157,7 @@ AC_CHECK_FUNCS(atoll asprintf asnprintf basename devname dirfd dirname \
 	getopt getopt_long group_from_gid gid_from_group \
 	heapsort isblank issetugid lchflags lchmod lchown lutimes mkstemp \
 	mkdtemp poll pread putc_unlocked pwcache_userdb pwcache_groupdb \
-	pwrite raise_default_signal random setenv \
+	pwrite raise_default_signal random reallocarr setenv \
 	setgroupent setprogname setpassent \
 	snprintb_m snprintf strlcat strlcpy strmode \
 	strndup strnlen strsep strsuftoll strtoi strtoll strtou \

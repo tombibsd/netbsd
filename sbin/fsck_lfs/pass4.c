@@ -37,6 +37,7 @@
 #define buf ubuf
 #define panic call_panic
 #include <ufs/lfs/lfs.h>
+#include <ufs/lfs/lfs_accessors.h>
 #include <ufs/lfs/lfs_inode.h>
 
 #include <err.h>
@@ -173,7 +174,7 @@ pass4check(struct inodesc * idesc)
 				sup->su_nbytes -= lfs_fsbtob(fs, 1);
 				VOP_BWRITE(bp);
 				seg_table[sn].su_nbytes -= lfs_fsbtob(fs, 1);
-				++fs->lfs_bfree;
+				lfs_sb_addbfree(fs, 1);
 				n_blks--;
 			}
 		}

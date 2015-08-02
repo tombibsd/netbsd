@@ -1,5 +1,8 @@
-/Makefile/1.11/Wed Apr 22 15:23:02 2009/-kk/
+/Makefile/1.12/Sun Aug  2 04:03:02 2015/-kk/
 /arp.4/1.10/Sun Sep  7 16:22:24 2003/-kk/
 /arp.8/1.23/Thu Oct 24 10:28:59 2013/-kk/
-/arp.c/1.51/Thu Oct 24 10:28:59 2013/-kk/
+/arp.c/1.53/Sun Aug  2 04:03:02 2015/-kk/
+/arp_hostops.c/1.1/Wed Jul 29 06:07:35 2015/-kk/
+/arp_rumpops.c/1.1/Wed Jul 29 06:07:35 2015/-kk/
+/prog_ops.h/1.1/Wed Jul 29 06:07:35 2015/-kk/
 D

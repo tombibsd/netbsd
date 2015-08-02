@@ -7,7 +7,7 @@
  * The device is based on the FTDI FT8U100AX chip. It has a DB25 on one side,
  * USB on the other.
  *
- * Thanx to FTDI (http://www.ftdi.co.uk) for so kindly providing details
+ * Thanx to FTDI (http://www.ftdichip.com) for so kindly providing details
  * of the protocol required to talk to the device and ongoing assistence
  * during development.
  *

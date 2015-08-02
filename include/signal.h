@@ -183,7 +183,7 @@ int	sigwaitinfo(const sigset_t * __restrict, siginfo_t * __restrict);
 void	psiginfo(const siginfo_t *, const char *);
 
 #ifndef __LIBC12_SOURCE__
-struct timespec;
+#include <sys/timespec.h>
 int	sigtimedwait(const sigset_t * __restrict,
     siginfo_t * __restrict, const struct timespec * __restrict)
     __RENAME(__sigtimedwait50);

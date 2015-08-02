@@ -245,8 +245,8 @@ vndattach(int num)
 
 	error = config_cfattach_attach(vnd_cd.cd_name, &vnd_ca);
 	if (error)
-		aprint_error("%s: unable to register cfattach\n",
-		    vnd_cd.cd_name);
+		aprint_error("%s: unable to register cfattach, error = %d\n",
+		    vnd_cd.cd_name, error);
 }
 
 static int

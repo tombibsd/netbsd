@@ -1,7 +1,0 @@
-#	$NetBSD$
-
-BDFTOPCFDIR!=	cd ${NETBSDSRCDIR}/x11/tools/bdftopcf && ${PRINTOBJDIR}
-BDFTOPCF=	${BDFTOPCFDIR}/bdftopcf
-
-${BDFTOPCF}:
-	(cd ${NETBSDSRCDIR}/x11/tools/bdftopcf && ${MAKE})

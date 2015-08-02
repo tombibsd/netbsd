@@ -380,7 +380,7 @@ cpu_reboot(int howto, char *bootstr)
 
 	/* your wish is my command */
 	if (howto & RB_HALT) {
-		printf("rump kernel halted\n");
+		printf("rump kernel halted (with RB_HALT, not exiting)\n");
 		rump_sysproxy_fini(finiarg);
 		for (;;) {
 			rumpuser_clock_sleep(RUMPUSER_CLOCK_RELWALL, 10, 0);
@@ -389,7 +389,6 @@ cpu_reboot(int howto, char *bootstr)
 
 	/* this function is __dead, we must exit */
  out:
-	printf("halted\n");
 	rump_sysproxy_fini(finiarg);
 	rumpuser_exit(ruhow);
 }

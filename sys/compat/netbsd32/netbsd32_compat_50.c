@@ -352,7 +352,7 @@ compat_50_netbsd32_clock_getres(struct lwp *l,
 	} */
 	struct netbsd32_timespec50 ts32;
 	struct timespec ts;
-	int error = 0;
+	int error;
 
 	error = clock_getres1(SCARG(uap, clock_id), &ts);
 	if (error != 0)

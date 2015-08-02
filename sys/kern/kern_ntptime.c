@@ -260,7 +260,7 @@ sys_ntp_adjtime(struct lwp *l, const struct sys_ntp_adjtime_args *uap, register_
 		syscallarg(struct timex *) tp;
 	} */
 	struct timex ntv;
-	int error = 0;
+	int error;
 
 	error = copyin((void *)SCARG(uap, tp), (void *)&ntv, sizeof(ntv));
 	if (error != 0)

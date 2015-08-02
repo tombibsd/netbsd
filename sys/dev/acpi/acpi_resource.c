@@ -99,6 +99,9 @@ acpi_resource_parse_callback(ACPI_RESOURCE *res, void *context)
 	ops = arg->ops;
 
 	switch (res->Type) {
+	case ACPI_RESOURCE_TYPE_END_TAG:
+		ACPI_DEBUG_PRINT((ACPI_DB_RESOURCES, "EndTag\n"));
+		break;
 	case ACPI_RESOURCE_TYPE_FIXED_IO:
 		ACPI_DEBUG_PRINT((ACPI_DB_RESOURCES,
 				     "FixedIo 0x%x/%u\n",
@@ -290,6 +293,10 @@ acpi_resource_parse_callback(ACPI_RESOURCE *res, void *context)
 				     "Address16 unimplemented\n"));
 		break;
 
+	case ACPI_RESOURCE_TYPE_ADDRESS64:
+		ACPI_DEBUG_PRINT((ACPI_DB_RESOURCES,
+				     "Address64 unimplemented\n"));
+		break;
 	case ACPI_RESOURCE_TYPE_EXTENDED_ADDRESS64:
 		ACPI_DEBUG_PRINT((ACPI_DB_RESOURCES,
 				     "Extended address64 unimplemented\n"));

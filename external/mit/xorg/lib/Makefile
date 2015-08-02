@@ -39,7 +39,7 @@ SUBDIR+=libchromeXvMCPro
 SUBDIR+=libGLU libGLw libXaw6 libXaw libXcursor \
 	libXrandr \
 	.WAIT \
-	libXft libglut \
+	libXpresent libXft libglut \
 	.WAIT \
 	libXdmGreet \
 	xcb-util

@@ -113,7 +113,6 @@ main(int argc, char *argv[])
 			vflag = 1;
 			break;
 		default:
-		case '?':
 			(void)fprintf(stderr,
 			    "Usage: %s [-beflnstuv] [-B bsize] [-] "
 			    "[file ...]\n", getprogname());

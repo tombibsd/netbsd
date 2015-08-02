@@ -380,6 +380,7 @@ sys_pset_assign(struct lwp *l, const struct sys_pset_assign_args *uap,
 				mutex_exit(&cpu_lock);
 				return EPERM;
 			}
+			lwp_unlock(t);
 		}
 		/*
 		 * Set the processor-set ID.

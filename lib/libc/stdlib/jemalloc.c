@@ -783,20 +783,58 @@ static unsigned		next_arena;
 static malloc_mutex_t	arenas_mtx; /* Protects arenas initialization. */
 #endif
 
-#ifndef NO_TLS
 /*
  * Map of pthread_self() --> arenas[???], used for selecting an arena to use
  * for allocations.
  */
-static __thread arena_t	*arenas_map;
-#define	get_arenas_map()	(arenas_map)
-#define	set_arenas_map(x)	(arenas_map = x)
+#ifndef NO_TLS
+static __thread arena_t	**arenas_map;
 #else
-#ifdef _REENTRANT
-static thread_key_t arenas_map_key;
+static arena_t	**arenas_map;
 #endif
-#define	get_arenas_map()	thr_getspecific(arenas_map_key)
-#define	set_arenas_map(x)	thr_setspecific(arenas_map_key, x)
+
+#if !defined(NO_TLS) || !defined(_REENTRANT)
+# define	get_arenas_map()	(arenas_map)
+# define	set_arenas_map(x)	(arenas_map = x)
+#else
+
+static thread_key_t arenas_map_key = -1;
+
+static inline arena_t **
+get_arenas_map(void)
+{
+	if (!__isthreaded)
+		return arenas_map;
+
+	if (arenas_map_key == -1) {
+		(void)thr_keycreate(&arenas_map_key, NULL);
+		if (arenas_map != NULL) {
+			thr_setspecific(arenas_map_key, arenas_map);
+			arenas_map = NULL;
+		}
+	}
+
+	return thr_getspecific(arenas_map_key);
+}
+
+static __inline void
+set_arenas_map(arena_t **a)
+{
+	if (!__isthreaded) {
+		arenas_map = a;
+		return;
+	}
+
+	if (arenas_map_key == -1) {
+		(void)thr_keycreate(&arenas_map_key, NULL);
+		if (arenas_map != NULL) {
+			_DIAGASSERT(arenas_map == a);
+			arenas_map = NULL;
+		}
+	}
+
+	thr_setspecific(arenas_map_key, a);
+}
 #endif
 
 #ifdef MALLOC_STATS
@@ -3653,11 +3691,6 @@ malloc_init_hard(void)
 		 */
 		opt_narenas_lshift += 2;
 	}
-
-#ifdef NO_TLS
-	/* Initialize arena key. */
-	(void)thr_keycreate(&arenas_map_key, NULL);
-#endif
 
 	/* Determine how many arenas to use. */
 	narenas = ncpus;

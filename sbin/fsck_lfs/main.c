@@ -32,7 +32,9 @@
 #include <sys/param.h>
 #include <sys/time.h>
 #include <sys/mount.h>
+
 #include <ufs/lfs/lfs.h>
+#include <ufs/lfs/lfs_accessors.h>
 
 #include <fstab.h>
 #include <stdbool.h>
@@ -224,7 +226,7 @@ checkfilesys(const char *filesys, char *mntpt, long auxdata, int child)
 	 * else.
 	 */
 	if (preen == 0) {
-		printf("** Last Mounted on %s\n", fs->lfs_fsmnt);
+		printf("** Last Mounted on %s\n", lfs_sb_getfsmnt(fs));
 		if (hotroot())
 			printf("** Root file system\n");
 		/*
@@ -308,9 +310,9 @@ checkfilesys(const char *filesys, char *mntpt, long auxdata, int child)
 	/*
 	 * print out summary statistics
 	 */
-	pwarn("%llu files, %lld used, %lld free\n",
-	    (unsigned long long)n_files, (long long) n_blks,
-	    (long long) fs->lfs_bfree);
+	pwarn("%ju files, %jd used, %jd free\n",
+	    (uintmax_t) n_files, (intmax_t) n_blks,
+	    (intmax_t) lfs_sb_getbfree(fs));
 
 	ckfini(1);
 

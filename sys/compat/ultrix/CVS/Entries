@@ -5,7 +5,7 @@
 /ultrix_exec.h/1.6/Wed Nov 19 18:36:06 2008/-kk/
 /ultrix_exec_ecoff.c/1.9/Sun Dec 11 12:20:30 2005/-kk/
 /ultrix_flock.h/1.2/Mon Dec 14 00:47:11 2009/-kk/
-/ultrix_fs.c/1.54/Tue Dec 17 04:05:06 2013/-kk/
+/ultrix_fs.c/1.55/Sun Aug  2 04:02:47 2015/-kk/
 /ultrix_ioctl.c/1.36/Mon Dec 14 00:47:12 2009/-kk/
 /ultrix_misc.c/1.122/Sun Feb 19 21:06:45 2012/-kk/
 /ultrix_mod.c/1.5/Fri Mar 14 04:28:19 2014/-kk/

@@ -1,3 +1,0 @@
-#	$NetBSD$
-
-.include "../Makefile.afb"

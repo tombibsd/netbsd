@@ -105,7 +105,7 @@ try_lfs(void)
 
 		if (sblk2.dlfs_magic == LFS_MAGIC) {
 			if (fsi_lfs.version == 1) {
-				if (sblk.dlfs_otstamp > sblk2.dlfs_otstamp)
+				if (sblk.dlfs_inopf > sblk2.dlfs_inopf)
 					s = &sblk2;
 			} else {
 				if (sblk.dlfs_serial > sblk2.dlfs_serial)

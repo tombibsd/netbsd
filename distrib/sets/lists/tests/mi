@@ -3098,6 +3098,11 @@
 ./usr/tests/net					tests-net-tests		compattestfile,atf
 ./usr/tests/net/Atffile				tests-net-tests		compattestfile,atf
 ./usr/tests/net/Kyuafile			tests-net-tests		compattestfile,atf,kyua
+./usr/tests/net/arp				tests-net-tests		compattestfile,atf
+./usr/tests/net/arp/Atffile			tests-net-tests		atf,rump
+./usr/tests/net/arp/Kyuafile			tests-net-tests		atf,rump,kyua
+./usr/tests/net/arp/t_arp			tests-net-tests		atf,rump
+./usr/tests/net/arp/t_dad			tests-net-tests		atf,rump
 ./usr/tests/net/bpf				tests-net-tests		compattestfile,atf
 ./usr/tests/net/bpf/Atffile			tests-net-tests		atf,rump
 ./usr/tests/net/bpf/Kyuafile			tests-net-tests		atf,rump,kyua
@@ -3748,6 +3753,7 @@
 ./usr/tests/usr.bin/xlint/lint1/d_c99_union_init1.c		tests-usr.bin-tests	compattestfile,atf
 ./usr/tests/usr.bin/xlint/lint1/d_c99_union_init2.c		tests-usr.bin-tests	compattestfile,atf
 ./usr/tests/usr.bin/xlint/lint1/d_c99_union_init3.c		tests-usr.bin-tests	compattestfile,atf
+./usr/tests/usr.bin/xlint/lint1/d_c99_union_init4.c		tests-usr.bin-tests	compattestfile,atf
 ./usr/tests/usr.bin/xlint/lint1/d_c9x_array_init.c		tests-usr.bin-tests	compattestfile,atf
 ./usr/tests/usr.bin/xlint/lint1/d_c9x_recursive_init.c		tests-usr.bin-tests	compattestfile,atf
 ./usr/tests/usr.bin/xlint/lint1/d_cast_fun_array_param.c	tests-usr.bin-tests	compattestfile,atf
@@ -3776,6 +3782,7 @@
 ./usr/tests/usr.bin/xlint/lint1/d_type_conv1.c			tests-usr.bin-tests	compattestfile,atf
 ./usr/tests/usr.bin/xlint/lint1/d_type_conv2.c			tests-usr.bin-tests	compattestfile,atf
 ./usr/tests/usr.bin/xlint/lint1/d_type_conv3.c			tests-usr.bin-tests	compattestfile,atf
+./usr/tests/usr.bin/xlint/lint1/d_type_question_colon.c		tests-usr.bin-tests	compattestfile,atf
 ./usr/tests/usr.bin/xlint/lint1/d_typefun.c			tests-usr.bin-tests	compattestfile,atf
 ./usr/tests/usr.bin/xlint/lint1/d_typename_as_var.c		tests-usr.bin-tests	compattestfile,atf
 ./usr/tests/usr.bin/xlint/lint1/d_zero_sized_arrays.c		tests-usr.bin-tests	compattestfile,atf

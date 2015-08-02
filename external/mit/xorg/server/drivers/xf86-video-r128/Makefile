@@ -3,12 +3,9 @@
 DRIVER=		xf86-video-r128
 DRIVER_NAME=	r128_drv
 
-SRCS=	r128_accel.c r128_cursor.c r128_driver.c \
+SRCS=	r128_accel.c r128_cursor.c r128_driver.c r128_exa.c \
 	r128_crtc.c r128_output.c \
 	r128_video.c r128_misc.c r128_probe.c r128_dri.c
-
-#SRCS+=	r128_exa.c r128_exa_render.c
-#CPPFLAGS+=	-DUSE_EXA
 
 MAN=	r128.4
 
@@ -23,7 +20,7 @@ CPPFLAGS+=	-DWITH_VGAHW
 
 CPPFLAGS+=	-I${DESTDIR}${X11INCDIR}/libdrm
 
-CPPFLAGS+=	-DHAVE_XAA_H -DR128DRI
+CPPFLAGS+=	-DHAVE_XAA_H -DUSE_EXA -DR128DRI
 
 CWARNFLAGS.clang+=	-Wno-format -Wno-pointer-sign
 

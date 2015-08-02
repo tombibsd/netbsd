@@ -30,7 +30,7 @@ SUBDIR+= ../../../tests
 SUBDIR+= ../../../tests/share		# because MKSHARE=no above
 SUBDIR+= ../../../external/bsd/atf/tests
 .endif
-.if ${MKCOMPATX11} != no && ${MKX11} != no && ${X11FLAVOUR} == "Xorg" && make(obj)
+.if ${MKCOMPATX11} != no && ${MKX11} != no && make(obj)
 SUBDIR+= ../../../external/mit/xorg/lib
 .endif # } MKX11
 .endif # } BOOTSTRAP_SUBDIRS

@@ -1261,12 +1261,8 @@ status(const struct sockaddr *sdl, prop_dictionary_t env,
 	if ((ifname = getifinfo(env, oenv, &flags)) == NULL)
 		err(EXIT_FAILURE, "%s: getifinfo", __func__);
 
-	(void)snprintb_m(fbuf, sizeof(fbuf), IFFBITS, flags, MAX_PRINT_LEN);
-	bp = fbuf;
-	while (*bp != '\0') {
-		printf("%s: flags=%s", ifname, &bp[2]);
-		bp += strlen(bp) + 1;
-	}
+	(void)snprintb(fbuf, sizeof(fbuf), IFFBITS, flags);
+	printf("%s: flags=%s", ifname, fbuf);
 
 	estrlcpy(ifr.ifr_name, ifname, sizeof(ifr.ifr_name));
 	if (prog_ioctl(s, SIOCGIFMETRIC, &ifr) == -1)

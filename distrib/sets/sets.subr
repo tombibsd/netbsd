@@ -262,8 +262,7 @@ SUBST="${SUBST};s#@MACHINE@#${MACHINE}#g"
 #	solaris			${MKDTRACE} != no or ${MKZFS} != no
 #	ssp			${HAVE_SSP} != no
 #	tpm			${MKTPM} != no
-#	x11			${MKX11} != no && ${X11FLAVOUR} != "Xorg"
-#	xorg			${MKX11} != no && ${X11FLAVOUR} == "Xorg"
+#	xorg			${MKX11} != no
 #	xorg_server		${MKXORG_SERVER} != no
 #	yp			${MKYP} != no
 #	zfs			${MKZFS} != no

@@ -28,7 +28,6 @@ file	uvm/uvm_glue.c			uvm
 file	uvm/uvm_init.c			uvm
 file	uvm/uvm_io.c			uvm
 file	uvm/uvm_km.c			uvm
-file	uvm/uvm_kmguard.c		debug
 file	uvm/uvm_loan.c			uvm
 file	uvm/uvm_map.c			uvm
 file	uvm/uvm_meter.c			uvm

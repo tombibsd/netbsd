@@ -1,5 +1,5 @@
 /a9_mpsubr.S/1.42/Thu Jun 18 03:42:15 2015/-kk/
-/a9tmr.c/1.12/Sat Mar 21 02:37:32 2015/-kk/
+/a9tmr.c/1.14/Sun Aug  2 04:02:34 2015/-kk/
 /a9tmr_intr.h/1.1/Sat Sep  1 00:03:14 2012/-kk/
 /a9tmr_reg.h/1.1/Sat Sep  1 00:03:14 2012/-kk/
 /a9tmr_var.h/1.4/Mon Jan 12 06:47:53 2015/-kk/
@@ -8,7 +8,7 @@
 /cpu_in_cksum_asm_neon.S/1.3/Sat Dec 22 18:58:29 2012/-kk/
 /cpu_in_cksum_neon.c/1.1/Mon Dec 17 00:44:03 2012/-kk/
 /files.cortex/1.5/Thu Feb 27 08:55:39 2014/-kk/
-/gic.c/1.19/Wed Apr 22 07:35:47 2015/-kk/
+/gic.c/1.20/Sun Aug  2 04:02:34 2015/-kk/
 /gic_intr.h/1.2/Sat Apr 19 05:36:38 2014/-kk/
 /gic_reg.h/1.5/Thu Jun 18 03:42:15 2015/-kk/
 /gtmr.c/1.16/Wed Apr 22 07:35:47 2015/-kk/

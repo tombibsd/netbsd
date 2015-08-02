@@ -46,6 +46,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/quota.h>
 #include <sys/quotactl.h>
 
+#include <ufs/lfs/lfs.h>
+#include <ufs/lfs/lfs_accessors.h>
 #include <ufs/lfs/lfs_extern.h>
 
 #include <ufs/lfs/ulfs_quota2.h>
@@ -1562,8 +1564,8 @@ lfs_quota2_mount(struct mount *mp)
 		return 0;
 
 	fs->um_flags |= ULFS_QUOTA2;
-	ump->umq2_bsize = fs->lfs_bsize;
-	ump->umq2_bmask = fs->lfs_bmask;
+	ump->umq2_bsize = lfs_sb_getbsize(fs);
+	ump->umq2_bmask = lfs_sb_getbmask(fs);
 	if (fs->lfs_quota_magic != Q2_HEAD_MAGIC) {
 		printf("%s: Invalid quota magic number\n",
 		    mp->mnt_stat.f_mntonname);

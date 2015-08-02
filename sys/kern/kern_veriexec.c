@@ -555,7 +555,7 @@ veriexec_fp_status(struct lwp *l, struct vnode *vp, int file_lock_state,
 {
 	size_t hash_len = vfe->ops->hash_len;
 	u_char *digest;
-	int error = 0;
+	int error;
 
 	digest = kmem_zalloc(hash_len, KM_SLEEP);
 

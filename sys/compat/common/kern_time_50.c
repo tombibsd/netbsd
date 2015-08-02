@@ -123,7 +123,7 @@ compat_50_sys_clock_getres(struct lwp *l,
 	} */
 	struct timespec50 ats50;
 	struct timespec ats;
-	int error = 0;
+	int error;
 
 	error = clock_getres1(SCARG(uap, clock_id), &ats);
 	if (error != 0)

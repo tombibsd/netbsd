@@ -1215,7 +1215,8 @@ hdaudio_stream_start(struct hdaudio_stream *st, int blksize,
 	KASSERT(st->st_bdl.dma_valid == true);
 
 	hdaudio_stream_stop(st);
-	hdaudio_stream_reset(st);
+	if ((sc->sc_flags & HDAUDIO_FLAG_NO_STREAM_RESET) == 0)
+		hdaudio_stream_reset(st);
 
 	/*
 	 * Configure buffer descriptor list

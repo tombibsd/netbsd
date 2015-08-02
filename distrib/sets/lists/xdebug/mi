@@ -81,6 +81,7 @@
 ./usr/X11R7/lib/libXmuu_g.a				-unknown-	debuglib,xorg,compatx11file
 ./usr/X11R7/lib/libXp_g.a				-obsolete-	obsolete
 ./usr/X11R7/lib/libXpm_g.a				-unknown-	debuglib,xorg,compatx11file
+./usr/X11R7/lib/libXpresent_g.a				-unknown-	debuglib,xorg,compatx11file
 ./usr/X11R7/lib/libXprintAppUtil_g.a			-obsolete-	obsolete
 ./usr/X11R7/lib/libXprintUtil_g.a			-obsolete-	obsolete
 ./usr/X11R7/lib/libXrandr_g.a				-unknown-	debuglib,xorg,compatx11file

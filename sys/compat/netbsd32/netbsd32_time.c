@@ -323,7 +323,7 @@ netbsd32___adjtime50(struct lwp *l, const struct netbsd32___adjtime50_args *uap,
 			atv.tv_usec += 1000000;
 			atv.tv_sec--;
 		}
-		(void) copyout(&atv, SCARG_P32(uap, olddelta), sizeof(atv));
+		error = copyout(&atv, SCARG_P32(uap, olddelta), sizeof(atv));
 		if (error)
 			return (error);
 	}

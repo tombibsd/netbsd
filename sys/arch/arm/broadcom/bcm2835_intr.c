@@ -361,7 +361,8 @@ bcm2836mp_pic_unblock_irqs(struct pic_softc *pic, size_t irqbase,
 		    BCM2836_LOCAL_TIMER_IRQ_CONTROL_BASE,
 		    BCM2836_LOCAL_TIMER_IRQ_CONTROL_SIZE,
 		    BUS_SPACE_BARRIER_READ|BUS_SPACE_BARRIER_WRITE);
-	} else if (irq_mask & BCM2836MP_MAILBOX_IRQS) {
+	}
+	if (irq_mask & BCM2836MP_MAILBOX_IRQS) {
 		uint32_t mask = __SHIFTOUT(irq_mask, BCM2836MP_MAILBOX_IRQS);
 		uint32_t val = bus_space_read_4(al_iot, al_ioh,
 		    BCM2836_LOCAL_MAILBOX_IRQ_CONTROLN(cpuid));
@@ -396,7 +397,8 @@ bcm2836mp_pic_block_irqs(struct pic_softc *pic, size_t irqbase,
 		bus_space_write_4(al_iot, al_ioh,
 		    BCM2836_LOCAL_TIMER_IRQ_CONTROLN(cpuid),
 		    val);
-	} else if (irq_mask & BCM2836MP_MAILBOX_IRQS) {
+	}
+	if (irq_mask & BCM2836MP_MAILBOX_IRQS) {
 		uint32_t mask = __SHIFTOUT(irq_mask, BCM2836MP_MAILBOX_IRQS);
 		uint32_t val = bus_space_read_4(al_iot, al_ioh,
 		    BCM2836_LOCAL_MAILBOX_IRQ_CONTROLN(cpuid));
@@ -464,6 +466,10 @@ static void bcm2836mp_cpu_init(struct pic_softc *pic, struct cpu_info *ci)
 static void
 bcm2836mp_send_ipi(struct pic_softc *pic, const kcpuset_t *kcp, u_long ipi)
 {
+	KASSERT(pic != NULL);
+	KASSERT(pic != &bcm2835_pic);
+	KASSERT(pic->pic_cpus != NULL);
+
 	const cpuid_t cpuid = pic - &bcm2836mp_pic[0];
 
 	bus_space_write_4(al_iot, al_ioh,
@@ -522,7 +528,7 @@ bcm2836mp_intr_init(struct cpu_info *ci)
 	pic->pic_cpus = ci->ci_kcpuset;
 	pic_add(pic, BCM2836_INT_BASECPUN(cpuid));
 
-	intr_establish(BCM2836_INT_MAILBOX0_CPUN(cpuid), IPL_VM,
+	intr_establish(BCM2836_INT_MAILBOX0_CPUN(cpuid), IPL_HIGH,
 	    IST_LEVEL | IST_MPSAFE, bcm2836mp_ipi_handler, NULL);
 
 	/* clock interrupt will attach with gtmr */

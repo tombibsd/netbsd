@@ -34,6 +34,7 @@
 #include <machine/bswap.h>
 #ifdef DUMP_LFS
 #include <ufs/lfs/lfs.h>
+#include <ufs/lfs/lfs_accessors.h>
 #endif
 #include <ufs/ufs/dinode.h>
 #include <protocols/dumprestore.h>

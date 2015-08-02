@@ -243,8 +243,10 @@ io_range_extend_by_win(struct range_infer_ctx *ric,
 		r[1].r_ofs = ofshigh;
 		r[1].r_val = iohigh;
 
-		baseh = (iohigh >> PCI_BRIDGE_IOHIGH_BASE_SHIFT) & PCI_BRIDGE_IOHIGH_BASE_MASK;
-		limith = (iohigh >> PCI_BRIDGE_IOHIGH_LIMIT_SHIFT) & PCI_BRIDGE_IOHIGH_LIMIT_MASK;
+		baseh = (iohigh >> PCI_BRIDGE_IOHIGH_BASE_SHIFT)
+		    & PCI_BRIDGE_IOHIGH_BASE_MASK;
+		limith = (iohigh >> PCI_BRIDGE_IOHIGH_LIMIT_SHIFT)
+		    & PCI_BRIDGE_IOHIGH_LIMIT_MASK;
 
 		baser |= baseh << 4;
 		limitr |= limith << 4;
@@ -385,8 +387,8 @@ mmio_range_extend(struct range_infer_ctx *ric, const pci_alloc_t *pal)
 }
 
 static bool
-mmio_range_extend_by_bar(struct range_infer_ctx *ric, int bus, int dev, int fun,
-    int ofs, pcireg_t curbar, pcireg_t sizebar)
+mmio_range_extend_by_bar(struct range_infer_ctx *ric, int bus, int dev,
+    int fun, int ofs, pcireg_t curbar, pcireg_t sizebar)
 {
 	int type;
 	bool prefetchable;

@@ -297,7 +297,7 @@ pmap_tlb_processpacket(pmap_tlb_packet_t *tp, kcpuset_t *target)
 {
 	int err = 0;
 
-	if (!kcpuset_match(target, kcpuset_running)) {
+	if (!kcpuset_match(target, kcpuset_attached)) {
 		const struct cpu_info * const self = curcpu();
 		CPU_INFO_ITERATOR cii;
 		struct cpu_info *lci;

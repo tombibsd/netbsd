@@ -109,7 +109,7 @@ bcmspi_attach(device_t parent, device_t self, void *aux)
 	for (u_int pin = 7; pin <= 11; pin++)
 		bcm2835gpio_function_select(pin, BCM2835_GPIO_ALT0);
 
-	sc->sc_intrh = bcm2835_intr_establish(aaa->aaa_intr, IPL_VM,
+	sc->sc_intrh = intr_establish(aaa->aaa_intr, IPL_VM, IST_LEVEL,
 	    bcmspi_intr, sc);
 	if (sc->sc_intrh == NULL) {
 		aprint_error_dev(sc->sc_dev, "unable to establish interrupt\n");

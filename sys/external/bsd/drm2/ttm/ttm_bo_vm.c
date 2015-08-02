@@ -118,7 +118,7 @@ ttm_bo_uvm_fault(struct uvm_faultinfo *ufi, vaddr_t vaddr,
 	/* drm prime buffers are not mappable.  XXX Catch this earlier?  */
 	if (bo->ttm && ISSET(bo->ttm->page_flags, TTM_PAGE_FLAG_SG)) {
 		ret = -EINVAL;
-		goto out0;
+		goto out1;
 	}
 
 	/* Notify the driver of a fault if it wants.  */
@@ -127,14 +127,15 @@ ttm_bo_uvm_fault(struct uvm_faultinfo *ufi, vaddr_t vaddr,
 		if (ret) {
 			if (ret == -ERESTART)
 				ret = -EIO;
-			goto out0;
+			goto out1;
 		}
 	}
 
 	ret = ttm_bo_uvm_fault_idle(bo, ufi);
 	if (ret) {
-		/* Unlocks if it restarts.  */
 		KASSERT(ret == -ERESTART);
+		/* ttm_bo_uvm_fault_idle calls uvmfault_unlockall for us.  */
+		ttm_bo_unreserve(bo);
 		/* XXX errno Linux->NetBSD */
 		return -ret;
 	}

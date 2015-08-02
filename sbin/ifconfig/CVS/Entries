@@ -14,7 +14,7 @@
 /extern.h/1.14/Fri Aug  7 18:53:37 2009/-kk/
 /ieee80211.c/1.28/Fri May  1 11:28:14 2015/-kk/
 /ifconfig.8/1.109/Wed Oct 29 08:12:48 2014/-kk/
-/ifconfig.c/1.234/Fri May  1 11:28:14 2015/-kk/
+/ifconfig.c/1.235/Sun Aug  2 04:02:27 2015/-kk/
 /ifconfig_hostops.c/1.1/Mon Dec 13 17:35:08 2010/-kk/
 /ifconfig_rumpops.c/1.1/Mon Dec 13 17:35:08 2010/-kk/
 /media.c/1.6/Mon Aug 29 14:35:00 2011/-kk/

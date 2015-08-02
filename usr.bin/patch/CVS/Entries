@@ -1,14 +1,14 @@
 /Makefile/1.9/Fri Sep 19 18:33:34 2008/-kk/
 /backupfile.c/1.15/Sat Apr 19 08:06:35 2014/-kk/
 /backupfile.h/1.6/Fri Sep 19 18:33:34 2008/-kk/
-/common.h/1.20/Tue Dec  9 04:43:59 2014/-kk/
-/inp.c/1.23/Wed Oct 21 17:16:11 2009/-kk/
+/common.h/1.21/Sun Aug  2 04:03:02 2015/-kk/
+/inp.c/1.24/Sun Aug  2 04:03:02 2015/-kk/
 /inp.h/1.10/Fri Sep 19 18:33:34 2008/-kk/
 /mkpath.c/1.1/Fri Sep 19 18:33:34 2008/-kk/
 /patch.1/1.17/Sat Apr 19 08:06:35 2014/-kk/
 /patch.c/1.29/Tue Sep  6 18:25:14 2011/-kk/
 /pathnames.h/1.1/Fri Sep 19 18:33:34 2008/-kk/
-/pch.c/1.27/Tue Dec  9 04:43:59 2014/-kk/
+/pch.c/1.28/Sun Aug  2 04:03:02 2015/-kk/
 /pch.h/1.10/Fri Sep 19 18:33:34 2008/-kk/
 /util.c/1.26/Sat Oct  2 19:31:14 2010/-kk/
 /util.h/1.12/Tue Sep  6 18:25:14 2011/-kk/

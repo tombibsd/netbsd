@@ -134,7 +134,7 @@ sys__lwp_create(struct lwp *l, const struct sys__lwp_create_args *uap,
 		syscallarg(lwpid_t *) new_lwp;
 	} */
 	struct proc *p = l->l_proc;
-	ucontext_t *newuc = NULL;
+	ucontext_t *newuc;
 	lwpid_t lid;
 	int error;
 

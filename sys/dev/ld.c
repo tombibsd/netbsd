@@ -308,12 +308,12 @@ static int
 ld_lastclose(device_t self)
 {
 	struct ld_softc *sc = device_private(self);
-		
+
 	if (sc->sc_flush != NULL && (*sc->sc_flush)(sc, 0) != 0)
 		aprint_error_dev(self, "unable to flush cache\n");
-	
+
 	return 0;
-}               
+}
 
 /* ARGSUSED */
 static int
@@ -516,7 +516,7 @@ static int
 ld_dumpblocks(device_t dev, void *va, daddr_t blkno, int nblk)
 {
 	struct ld_softc *sc = device_private(dev);
-	
+
 	if (sc->sc_dump == NULL)
 		return (ENXIO);
 

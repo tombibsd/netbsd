@@ -140,7 +140,7 @@ attach	awinac at awinio with awin_ac
 file	arch/arm/allwinner/awin_ac.c		awin_ac
 
 # A20/A31 HDMI
-device	awinhdmi: edid, ddc_read_edid, videomode
+device	awinhdmi: edid, videomode
 attach	awinhdmi at awinio with awin_hdmi
 file	arch/arm/allwinner/awin_hdmi.c		awin_hdmi
 

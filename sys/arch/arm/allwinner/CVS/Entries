@@ -12,7 +12,7 @@
 /awin_fb.c/1.9/Thu Dec 11 09:09:33 2014/-kk/
 /awin_gige.c/1.22/Sat Mar 21 02:46:46 2015/-kk/
 /awin_gpio.c/1.18/Wed Apr 22 07:35:46 2015/-kk/
-/awin_hdmi.c/1.15/Tue Dec  9 04:34:39 2014/-kk/
+/awin_hdmi.c/1.16/Sun Aug  2 04:02:34 2015/-kk/
 /awin_hdmiaudio.c/1.5/Tue Nov 18 01:53:53 2014/-kk/
 /awin_icu.c/1.2/Sat Mar  1 06:04:22 2014/-kk/
 /awin_intr.h/1.15/Fri Jan  2 11:20:46 2015/-kk/
@@ -33,5 +33,5 @@
 /awin_var.h/1.35/Wed Apr 22 07:35:47 2015/-kk/
 /awin_wdc.c/1.2/Sat Mar  1 06:04:22 2014/-kk/
 /awin_wdt.c/1.9/Mon Jun 22 02:34:44 2015/-kk/
-/files.awin/1.31/Wed Apr 22 07:35:47 2015/-kk/
+/files.awin/1.32/Sun Aug  2 04:02:34 2015/-kk/
 D

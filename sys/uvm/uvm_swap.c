@@ -430,6 +430,15 @@ swapdrum_getsdp(int pgno)
 	return NULL;
 }
 
+void swapsys_lock(krw_t op)
+{
+	rw_enter(&swap_syscall_lock, op);
+}
+
+void swapsys_unlock(void)
+{
+	rw_exit(&swap_syscall_lock);
+}
 
 /*
  * sys_swapctl: main entry point for swapctl(2) system call
@@ -740,6 +749,8 @@ uvm_swap_stats(int cmd, struct swapent *sep, int sec, register_t *retval)
 	struct swappri *spp;
 	struct swapdev *sdp;
 	int count = 0;
+
+	KASSERT(rw_lock_held(&swap_syscall_lock));
 
 	LIST_FOREACH(spp, &swap_priority, spi_swappri) {
 		TAILQ_FOREACH(sdp, &spp->spi_swapdev, swd_next) {

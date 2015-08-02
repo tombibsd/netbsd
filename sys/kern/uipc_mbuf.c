@@ -1689,7 +1689,7 @@ m_getptr(struct mbuf *m, int loc, int *off)
 /*
  * m_ext_free: release a reference to the mbuf external storage.
  *
- * => free the mbuf m itsself as well.
+ * => free the mbuf m itself as well.
  */
 
 void

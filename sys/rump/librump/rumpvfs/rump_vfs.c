@@ -468,12 +468,21 @@ rump_vfs_syncwait(struct mount *mp)
 /*
  * Dump info about mount point.  No locking.
  */
+static bool
+rump_print_selector(void *cl, struct vnode *vp)
+{
+	int *full = cl;
+
+	vfs_vnode_print(vp, *full, (void *)rumpuser_dprintf);
+	return false;
+}
+
 void
 rump_vfs_mount_print(const char *path, int full)
 {
 #ifdef DEBUGPRINT
 	struct vnode *mvp;
-	struct vnode *vp;
+	struct vnode_iterator *marker;
 	int error;
 
 	rumpuser_dprintf("\n==== dumping mountpoint at ``%s'' ====\n\n", path);
@@ -484,9 +493,9 @@ rump_vfs_mount_print(const char *path, int full)
 	vfs_mount_print(mvp->v_mount, full, (void *)rumpuser_dprintf);
 	if (full) {
 		rumpuser_dprintf("\n== dumping vnodes ==\n\n");
-		TAILQ_FOREACH(vp, &mvp->v_mount->mnt_vnodelist, v_mntvnodes) {
-			vfs_vnode_print(vp, full, (void *)rumpuser_dprintf);
-		}
+		vfs_vnode_iterator_init(mvp->v_mount, &marker);
+		vfs_vnode_iterator_next(marker, rump_print_selector, &full);
+		vfs_vnode_iterator_destroy(marker);
 	}
 	vrele(mvp);
 	rumpuser_dprintf("\n==== done ====\n\n");

@@ -703,6 +703,8 @@ mvpex_intr_disestablish(void *v, void *ih)
 	uint32_t mask;
 	int s;
 
+	evcnt_detach(&pexih->ih_evcnt);
+
 	intrtab = pexih->ih_intrtab;
 
 	s = splhigh();

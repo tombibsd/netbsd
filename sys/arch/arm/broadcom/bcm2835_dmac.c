@@ -213,8 +213,8 @@ bcm_dmac_alloc(enum bcm_dmac_type type, int ipl, void (*cb)(void *),
 		return NULL;
 
 	KASSERT(ch->ch_ih == NULL);
-	ch->ch_ih = bcm2835_intr_establish(BCM2835_INT_DMA0 + ch->ch_index,
-	    ipl, bcm_dmac_intr, ch);
+	ch->ch_ih = intr_establish(BCM2835_INT_DMA0 + ch->ch_index,
+	    ipl, IST_LEVEL, bcm_dmac_intr, ch);
 	if (ch->ch_ih == NULL) {
 		aprint_error_dev(sc->sc_dev,
 		    "failed to establish interrupt for DMA%d\n", ch->ch_index);

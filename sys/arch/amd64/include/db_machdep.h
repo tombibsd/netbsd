@@ -120,7 +120,7 @@ bool		db_phys_eq(task_t, vaddr_t, task_t, vaddr_t);
  * Constants for KGDB.
  */
 typedef	long		kgdb_reg_t;
-#define	KGDB_NUMREGS	16
+#define	KGDB_NUMREGS	20
 #define	KGDB_BUFLEN	512
 
 #if 0

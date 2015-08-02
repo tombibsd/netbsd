@@ -1950,7 +1950,7 @@ dofhopen(struct lwp *l, const void *ufhp, size_t fhsize, int oflags,
 	struct vnode *vp = NULL;
 	kauth_cred_t cred = l->l_cred;
 	file_t *nfp;
-	int indx, error = 0;
+	int indx, error;
 	struct vattr va;
 	fhandle_t *fh;
 	int flags;

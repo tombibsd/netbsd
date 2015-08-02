@@ -240,6 +240,8 @@ main(int argc, char *argv[])
 
 #if !HAVE_NBTOOL_CONFIG_H
 	special = getfsspecname(specname, sizeof(specname), argv[0]);
+	if (special == NULL)
+		err(1, "%s: %s", argv[0], specname);
 	raw = getdiskrawname(rawname, sizeof(rawname), special);
 	if (raw != NULL)
 		special = raw;

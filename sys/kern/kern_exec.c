@@ -1123,7 +1123,7 @@ execve_runproc(struct lwp *l, struct execve_data * restrict data,
 	vm->vm_minsaddr = (void *)epp->ep_minsaddr;
 
 #ifdef PAX_ASLR
-	pax_aslr_init(l, vm);
+	pax_aslr_init_vm(l, vm);
 #endif /* PAX_ASLR */
 
 	/* Now map address space. */

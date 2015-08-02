@@ -9,6 +9,8 @@ MAKEFS_FLAGS=	-f 14
 
 WARNS=		1
 DBG=		-Os
+DBG+=		-mthumb -mthumb-interwork
+DBG+=		-DNDEBUG
 
 CRUNCHBIN=	ramdiskbin
 LISTS=		${.CURDIR}/list ${DISTRIBDIR}/common/list.sysinst

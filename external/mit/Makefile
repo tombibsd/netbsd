@@ -4,7 +4,7 @@
 
 SUBDIR+=	expat lua
 
-.if ${MKX11} != "no" && ${X11FLAVOUR} == "Xorg"
+.if ${MKX11} != "no"
 SUBDIR+=	xorg
 .endif
 

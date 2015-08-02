@@ -90,7 +90,7 @@ static int
 vfs2fs(struct statfs12 *bfs, const struct statvfs *fs)
 {
 	struct statfs12 ofs;
-	int i = 0;
+	int i;
 	ofs.f_type = 0;
 	ofs.f_oflags = (short)fs->f_flag;
 
@@ -139,7 +139,7 @@ compat_20_sys_statfs(struct lwp *l, const struct compat_20_sys_statfs_args *uap,
 	} */
 	struct mount *mp;
 	struct statvfs *sbuf;
-	int error = 0;
+	int error;
 	struct vnode *vp;
 
 	error = namei_simple_user(SCARG(uap, path),

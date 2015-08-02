@@ -88,6 +88,7 @@
 ./usr/libdata/debug/usr/X11R7/lib/libXinerama.so.2.0.debug	-unknown-		xorg,debug,compatx11file
 ./usr/libdata/debug/usr/X11R7/lib/libXmu.so.7.0.debug	-unknown-		xorg,debug,compatx11file
 ./usr/libdata/debug/usr/X11R7/lib/libXmuu.so.2.0.debug	-unknown-		xorg,debug,compatx11file
+./usr/libdata/debug/usr/X11R7/lib/libXpresent.so.1.0.debug	-unknown-		xorg,debug,compatx11file
 ./usr/libdata/debug/usr/X11R7/lib/libXpm.so.5.0.debug	-unknown-		xorg,debug,compatx11file
 ./usr/libdata/debug/usr/X11R7/lib/libXrandr.so.3.2.debug	-unknown-		xorg,debug,compatx11file
 ./usr/libdata/debug/usr/X11R7/lib/libXrender.so.2.0.debug	-unknown-		xorg,debug,compatx11file

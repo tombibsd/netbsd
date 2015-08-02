@@ -1,3 +1,4 @@
+/*	$NetBSD$	*/
 /*	$OpenBSD: reallocarray.c,v 1.1 2014/05/08 21:43:49 deraadt Exp $	*/
 
 /*-
@@ -28,7 +29,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-#define _OPENBSD_SOURCE
+
 #include <sys/cdefs.h>
 __RCSID("$NetBSD$");
 

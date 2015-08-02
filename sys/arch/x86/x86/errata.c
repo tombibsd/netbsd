@@ -375,9 +375,9 @@ x86_errata(void)
 
 	if (upgrade && !again) {
 		again = 1;
-		aprint_normal_dev(ci->ci_dev, "WARNING: errata present, BIOS upgrade "
-		    "may be\n");
-		aprint_normal_dev(ci->ci_dev, "WARNING: necessary to ensure reliable "
-		    "operation\n");
+		aprint_normal_dev(ci->ci_dev, "WARNING: errata present,"
+		    " BIOS upgrade may be\n");
+		aprint_normal_dev(ci->ci_dev, "WARNING: necessary to ensure"
+		    " reliable operation\n");
 	}
 }

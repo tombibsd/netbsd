@@ -16,8 +16,8 @@ options 	MULTIPROCESSOR
 #options 	MEMSIZE=2048
 
 options 	DIAGNOSTIC	# internal consistency checks
-options 	DEBUG
-options 	LOCKDEBUG
+#options 	DEBUG
+#options 	LOCKDEBUG
 #options 	PMAP_DEBUG	# Enable pmap_debug_level code
 #options 	IPKDB		# remote kernel debugging
 #options 	VERBOSE_INIT_ARM # verbose bootstraping messages

@@ -3,7 +3,7 @@
 /devnodes.c/1.11/Thu Jun 18 03:42:36 2015/-kk/
 /devnull.c/1.6/Fri Oct  3 09:09:34 2014/-kk/
 /rump_etfs.3/1.4/Mon Jun 22 02:35:13 2015/-kk/
-/rump_vfs.c/1.82/Wed May 13 03:33:21 2015/-kk/
+/rump_vfs.c/1.83/Sun Aug  2 04:02:58 2015/-kk/
 /rump_vfs_private.h/1.19/Thu Jun 18 03:42:36 2015/-kk/
 /rumpblk.c/1.60/Wed Jun  3 06:55:55 2015/-kk/
 /rumpfs.4/1.1/Sun Nov  9 17:39:38 2014/-kk/

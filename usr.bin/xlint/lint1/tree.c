@@ -431,11 +431,14 @@ strmemb(tnode_t *tn, op_t op, sym_t *msym)
 				error(103);
 			}
 		} else {
+			char buf[64];
 			/* left operand of "->" must be pointer to ... */
 			if (tflag && tn->tn_type->t_tspec == PTR) {
-				warning(104);
+				tyname(buf, sizeof(buf), tn->tn_type);
+				warning(104, buf);
 			} else {
-				error(104);
+				tyname(buf, sizeof(buf), tn->tn_type);
+				error(104, buf);
 			}
 		}
 	} else {
@@ -2531,12 +2534,12 @@ bldcol(tnode_t *ln, tnode_t *rn)
 	} else if (lt == PTR && ln->tn_type->t_subt->t_tspec == VOID) {
 		if (rt != PTR)
 			LERROR("bldcol()");
-		rtp = ln->tn_type;
+		rtp = rn->tn_type;
 		mrgqual(&rtp, ln->tn_type, rn->tn_type);
 	} else if (rt == PTR && rn->tn_type->t_subt->t_tspec == VOID) {
 		if (lt != PTR)
 			LERROR("bldcol()");
-		rtp = rn->tn_type;
+		rtp = ln->tn_type;
 		mrgqual(&rtp, ln->tn_type, rn->tn_type);
 	} else {
 		if (lt != PTR || rt != PTR)

@@ -65,6 +65,7 @@
 
 #define vnode uvnode
 #include <ufs/lfs/lfs.h>
+#include <ufs/lfs/lfs_accessors.h>
 #include <ufs/lfs/lfs_inode.h>
 #undef vnode
 
@@ -198,11 +199,11 @@ pass0(void)
 		cip->free_head = freehd;
 		writeit = 1;
 	}
-	if (freehd != fs->lfs_freehd) {
-		pwarn("FREE LIST HEAD IN SUPERBLOCK SHOULD BE %d (WAS %d)\n",
-			(int)fs->lfs_freehd, (int)freehd);
+	if (freehd != lfs_sb_getfreehd(fs)) {
+		pwarn("FREE LIST HEAD IN SUPERBLOCK SHOULD BE %u (WAS %ju)\n",
+			lfs_sb_getfreehd(fs), (uintmax_t)freehd);
 		if (preen || reply("FIX")) {
-			fs->lfs_freehd = freehd;
+			lfs_sb_setfreehd(fs, freehd);
 			sbdirty();
 		}
 	}
@@ -221,7 +222,7 @@ pass0(void)
 	else
 		brelse(cbp, 0);
 
-	if (fs->lfs_freehd == 0) {
+	if (lfs_sb_getfreehd(fs) == 0) {
 		pwarn("%sree list head is 0x0\n", preen ? "f" : "F");
 		if (preen || reply("FIX"))
 			extend_ifile(fs);

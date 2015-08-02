@@ -53,7 +53,6 @@ __RCSID("$NetBSD$");
 #include <limits.h>
 #include <errno.h>
 #include <err.h>
-#include <stdbool.h>
 #include "netstat.h"
 #include "prog_ops.h"
 

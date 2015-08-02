@@ -107,7 +107,7 @@ bcmmbox_attach(device_t parent, device_t self, void *aux)
 		return;
 	}
 
-	sc->sc_intrh = bcm2835_intr_establish(aaa->aaa_intr, IPL_VM,
+	sc->sc_intrh = intr_establish(aaa->aaa_intr, IPL_VM, IST_LEVEL,
 	    bcmmbox_intr, sc);
 	if (sc->sc_intrh == NULL) {
 		aprint_error_dev(sc->sc_dev, "unable to establish interrupt\n");

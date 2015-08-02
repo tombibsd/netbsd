@@ -307,6 +307,7 @@
 ./usr/tests/libexec/ld.elf_so/h_helper_symver_dso2
 ./usr/tests/modules
 ./usr/tests/net
+./usr/tests/net/arp
 ./usr/tests/net/bpf
 ./usr/tests/net/bpfilter
 ./usr/tests/net/bpfjit

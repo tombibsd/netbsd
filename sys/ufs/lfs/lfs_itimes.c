@@ -50,6 +50,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #endif
 
 #include <ufs/lfs/lfs.h>
+#include <ufs/lfs/lfs_accessors.h>
 #include <ufs/lfs/lfs_inode.h>
 
 void

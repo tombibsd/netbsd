@@ -715,7 +715,7 @@ exec_elf_makecmds(struct lwp *l, struct exec_package *epp)
 	}
 
 #if defined(PAX_MPROTECT) || defined(PAX_SEGVGUARD) || defined(PAX_ASLR)
-	l->l_proc->p_pax = epp->ep_pax_flags;
+	pax_setup_elf_flags(l, epp->ep_pax_flags);
 #endif /* PAX_MPROTECT || PAX_SEGVGUARD || PAX_ASLR */
 
 	if (is_dyn)

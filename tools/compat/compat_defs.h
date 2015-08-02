@@ -469,6 +469,10 @@ ssize_t pwrite(int, const void *, size_t, off_t);
 int raise_default_signal(int);
 #endif
 
+#if !HAVE_REALLOCARR
+int reallocarr(void *, size_t, size_t);
+#endif
+
 #if !HAVE_SETENV
 int setenv(const char *, const char *, int);
 #endif

@@ -97,6 +97,7 @@ tegra_hdaudio_attach(device_t parent, device_t self, void *aux)
 	    loc->loc_size - TEGRA_HDAUDIO_OFFSET, &sc->sc.sc_memh);
 	sc->sc.sc_memvalid = true;
 	sc->sc.sc_dmat = tio->tio_dmat;
+	sc->sc.sc_flags = HDAUDIO_FLAG_NO_STREAM_RESET;
 
 	aprint_naive("\n");
 	aprint_normal(": HDA\n");

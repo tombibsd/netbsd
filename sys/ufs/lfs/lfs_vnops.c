@@ -164,6 +164,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <uvm/uvm_pager.h>
 
 #include <ufs/lfs/lfs.h>
+#include <ufs/lfs/lfs_accessors.h>
 #include <ufs/lfs/lfs_kernel.h>
 #include <ufs/lfs/lfs_extern.h>
 
@@ -420,8 +421,8 @@ lfs_fsync(void *v)
 				     PGO_CLEANIT | (wait ? PGO_SYNCIO : 0));
 		if (error == EAGAIN) {
 			mutex_enter(&lfs_lock);
-			mtsleep(&fs->lfs_avail, PCATCH | PUSER, "lfs_fsync",
-				hz / 100 + 1, &lfs_lock);
+			mtsleep(&fs->lfs_availsleep, PCATCH | PUSER,
+				"lfs_fsync", hz / 100 + 1, &lfs_lock);
 			mutex_exit(&lfs_lock);
 		}
 	} while (error == EAGAIN);
@@ -1229,12 +1230,13 @@ lfs_wrapgo(struct lfs *fs, struct inode *ip, int waitfor)
 	}
 
 	if (--fs->lfs_nowrap == 0) {
-		log(LOG_NOTICE, "%s: re-enabled log wrap\n", fs->lfs_fsmnt);
+		log(LOG_NOTICE, "%s: re-enabled log wrap\n",
+		    lfs_sb_getfsmnt(fs));
 		wakeup(&fs->lfs_wrappass);
 		lfs_wakeup_cleaner(fs);
 	}
 	if (waitfor) {
-		mtsleep(&fs->lfs_nextseg, PCATCH | PUSER, "segment",
+		mtsleep(&fs->lfs_nextsegsleep, PCATCH | PUSER, "segment",
 		    0, &lfs_lock);
 	}
 
@@ -1363,7 +1365,7 @@ lfs_reclaim(void *v)
 	mutex_enter(&lfs_lock);
 	if (ip->i_flags & IN_PAGING) {
 		log(LOG_WARNING, "%s: reclaimed vnode is IN_PAGING\n",
-		    fs->lfs_fsmnt);
+		    lfs_sb_getfsmnt(fs));
 		ip->i_flags &= ~IN_PAGING;
 		TAILQ_REMOVE(&fs->lfs_pchainhd, ip, i_lfs_pchain);
 	}
@@ -1681,31 +1683,34 @@ lfs_flush_pchain(struct lfs *fs)
 	mutex_enter(&lfs_lock);
     top:
 	for (ip = TAILQ_FIRST(&fs->lfs_pchainhd); ip != NULL; ip = nip) {
+		struct mount *mp = ITOV(ip)->v_mount;
+		ino_t ino = ip->i_number;
+
 		nip = TAILQ_NEXT(ip, i_lfs_pchain);
-		vp = ITOV(ip);
 
 		if (!(ip->i_flags & IN_PAGING))
 			goto top;
 
-		mutex_enter(vp->v_interlock);
-		if (vdead_check(vp, VDEAD_NOWAIT) != 0 ||
-		    (vp->v_uflag & VU_DIROP) != 0) {
-			mutex_exit(vp->v_interlock);
-			continue;
-		}
-		if (vp->v_type != VREG) {
-			mutex_exit(vp->v_interlock);
-			continue;
-		}
-		if (vget(vp, LK_NOWAIT, false /* !wait */))
-			continue;
 		mutex_exit(&lfs_lock);
-
-		if (vn_lock(vp, LK_EXCLUSIVE | LK_NOWAIT | LK_RETRY) != 0) {
+		if (vcache_get(mp, &ino, sizeof(ino), &vp) != 0) {
+			mutex_enter(&lfs_lock);
+			continue;
+		};
+		if (vn_lock(vp, LK_EXCLUSIVE | LK_NOWAIT) != 0) {
 			vrele(vp);
 			mutex_enter(&lfs_lock);
 			continue;
 		}
+		ip = VTOI(vp);
+		mutex_enter(&lfs_lock);
+		if ((vp->v_uflag & VU_DIROP) != 0 || vp->v_type != VREG ||
+		    !(ip->i_flags & IN_PAGING)) {
+			mutex_exit(&lfs_lock);
+			vput(vp);
+			mutex_enter(&lfs_lock);
+			goto top;
+		}
+		mutex_exit(&lfs_lock);
 
 		error = lfs_writefile(fs, sp, vp);
 		if (!VPISEMPTY(vp) && !WRITEINPROG(vp) &&
@@ -1854,7 +1859,7 @@ segwait_common:
 		 * to be immediately reclaimed.
 		 */
 		lfs_writer_enter(fs, "pndirop");
-		off = fs->lfs_offset;
+		off = lfs_sb_getoffset(fs);
 		lfs_seglock(fs, SEGM_FORCE_CKP | SEGM_CKP);
 		lfs_flush_dirops(fs);
 		LFS_CLEANERINFO(cip, fs, bp);
@@ -1869,7 +1874,7 @@ segwait_common:
 		LFS_CLEANERINFO(cip, fs, bp);
 		DLOG((DLOG_CLEAN, "lfs_fcntl: reclaim wrote %" PRId64
 		      " blocks, cleaned %" PRId32 " segments (activesb %d)\n",
-		      fs->lfs_offset - off, cip->clean - oclean,
+		      lfs_sb_getoffset(fs) - off, cip->clean - oclean,
 		      fs->lfs_activesb));
 		LFS_SYNC_CLEANERINFO(cip, fs, bp, 0);
 #else
@@ -1935,7 +1940,8 @@ segwait_common:
 			cv_wait(&fs->lfs_stopcv, &lfs_lock);
 		fs->lfs_stoplwp = curlwp;
 		if (fs->lfs_nowrap == 0)
-			log(LOG_NOTICE, "%s: disabled log wrap\n", fs->lfs_fsmnt);
+			log(LOG_NOTICE, "%s: disabled log wrap\n",
+			    lfs_sb_getfsmnt(fs));
 		++fs->lfs_nowrap;
 		if (*(int *)ap->a_data == 1
 		    || ap->a_command == LFCNWRAPSTOP_COMPAT) {

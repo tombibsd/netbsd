@@ -16,7 +16,7 @@ struct clfs_seguse {
  * The cleaner's view of the superblock data structure.
  */
 struct clfs {
-	struct dlfs lfs_dlfs;	   /* Leverage LFS lfs_* defines here */
+	struct dlfs lfs_dlfs;
 
 	/* Ifile */
 	int clfs_ifilefd;	   /* Ifile file descriptor */
@@ -36,6 +36,13 @@ struct clfs {
 	int clfs_nactive;	   /* How many segments' blocks we have */
 	int clfs_onhold;	   /* If cleaning this fs is on hold */
 };
+
+/*
+ * Get lfs accessors that use struct clfs. This must come after the
+ * definition of struct clfs. (blah)
+ */
+#define STRUCT_LFS struct clfs
+#include <ufs/lfs/lfs_accessors.h>
 
 /*
  * Fraction of the could-be-clean segments required to be clean.

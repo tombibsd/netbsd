@@ -319,14 +319,14 @@ test_ping_member()
 	rump.ifconfig -v shmif0
 	atf_check -s exit:0 -o ignore rump.ping -q -n -w $TIMEOUT -c 1 $IPBR1
 	rump.ifconfig -v shmif0
-	# It's known to fail. See PR#48104
-	atf_check -s not-exit:0 -o ignore rump.ping -q -n -w $TIMEOUT -c 1 $IPBR2
+	# Test for PR#48104
+	atf_check -s exit:0 -o ignore rump.ping -q -n -w $TIMEOUT -c 1 $IPBR2
 	rump.ifconfig -v shmif0
 
 	export RUMP_SERVER=$SOCK3
 	rump.ifconfig -v shmif0
-	# It's known to fail. See PR#48104
-	atf_check -s not-exit:0 -o ignore rump.ping -q -n -w $TIMEOUT -c 1 $IPBR1
+	# Test for PR#48104
+	atf_check -s exit:0 -o ignore rump.ping -q -n -w $TIMEOUT -c 1 $IPBR1
 	rump.ifconfig -v shmif0
 	atf_check -s exit:0 -o ignore rump.ping -q -n -w $TIMEOUT -c 1 $IPBR2
 	rump.ifconfig -v shmif0
@@ -340,16 +340,15 @@ test_ping6_member()
 	rump.ifconfig -v shmif0
 	atf_check -s exit:0 -o ignore ping6 -q -n -X $TIMEOUT -c 1 $IP6BR1
 	rump.ifconfig -v shmif0
-	# It's known to fail. See PR#48104
-	atf_check -s not-exit:0 -o ignore ping6 -q -n -X $TIMEOUT -c 1 $IP6BR2
+	# Test for PR#48104
+	atf_check -s exit:0 -o ignore ping6 -q -n -X $TIMEOUT -c 1 $IP6BR2
 	rump.ifconfig -v shmif0
 
 	export RUMP_SERVER=$SOCK3
 	rump.ifconfig -v shmif0
-	# It's known to fail. See PR#48104
-	atf_check -s not-exit:0 -o ignore ping6 -q -n -X $TIMEOUT -c 1 $IP6BR1
+	# Test for PR#48104
+	atf_check -s exit:0 -o ignore ping6 -q -n -X $TIMEOUT -c 1 $IP6BR1
 	rump.ifconfig -v shmif0
-	# FIXME: it doesn't work for some reason
 	atf_check -s exit:0 -o ignore ping6 -q -n -X $TIMEOUT -c 1 $IP6BR2
 	rump.ifconfig -v shmif0
 

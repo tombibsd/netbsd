@@ -36,6 +36,7 @@
 #define buf ubuf
 #define vnode uvnode
 #include <ufs/lfs/lfs.h>
+#include <ufs/lfs/lfs_accessors.h>
 
 #include <err.h>
 #include <stdio.h>
@@ -118,10 +119,10 @@ static void
 write_superblocks(void)
 {
 	if (debug)
-		pwarn("writing superblocks with lfs_idaddr = 0x%x\n",
-			(int)fs->lfs_idaddr);
-	lfs_writesuper(fs, fs->lfs_sboffs[0]);
-	lfs_writesuper(fs, fs->lfs_sboffs[1]);
+		pwarn("writing superblocks with lfs_idaddr = 0x%jx\n",
+			(uintmax_t)lfs_sb_getidaddr(fs));
+	lfs_writesuper(fs, lfs_sb_getsboff(fs, 0));
+	lfs_writesuper(fs, lfs_sb_getsboff(fs, 1));
 	fsmodified = 1;
 }
 
@@ -138,8 +139,8 @@ ckfini(int markclean)
 		}
 	}
 
-	if (!nflag && (fs->lfs_pflags & LFS_PF_CLEAN) == 0) {
-		fs->lfs_pflags |= LFS_PF_CLEAN;
+	if (!nflag && (lfs_sb_getpflags(fs) & LFS_PF_CLEAN) == 0) {
+		lfs_sb_setpflags(fs, lfs_sb_getpflags(fs) | LFS_PF_CLEAN);
 		fsmodified = 1;
 	}
 
@@ -156,7 +157,7 @@ ckfini(int markclean)
 		else if (!reply("MARK FILE SYSTEM CLEAN"))
 			markclean = 0;
 		if (markclean) {
-			fs->lfs_pflags |= LFS_PF_CLEAN;
+			lfs_sb_setpflags(fs, lfs_sb_getpflags(fs) | LFS_PF_CLEAN);
 			sbdirty();
 			write_superblocks();
 			if (!preen)

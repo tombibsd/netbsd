@@ -214,7 +214,7 @@ ultrix_sys_getmnt(struct lwp *l, const struct ultrix_sys_getmnt_args *uap, regis
 	int skip;
 	int start;
 	long count, maxcount;
-	int error = 0;
+	int error;
 
 	nmp = NULL;	/* XXX keep gcc quiet */
 	path = NULL;

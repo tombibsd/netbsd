@@ -119,7 +119,7 @@ enum usb_otg_state {
 #define usleep_range(l, u)	do { DELAY(u); } while (0)
 
 #define spinlock_t		kmutex_t
-#define spin_lock_init(lock)	mutex_init(lock, MUTEX_DEFAULT, IPL_SCHED)
+#define spin_lock_init(lock)	mutex_init(lock, MUTEX_DEFAULT, IPL_VM)
 #define	spin_lock(l)		do { mutex_spin_enter(l); } while (0)
 #define	spin_unlock(l)		do { mutex_spin_exit(l); } while (0)
 

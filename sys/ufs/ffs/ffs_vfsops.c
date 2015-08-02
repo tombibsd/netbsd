@@ -2269,7 +2269,7 @@ ffs_sbupdate(struct ufsmount *mp, int waitfor)
 {
 	struct fs *fs = mp->um_fs;
 	struct buf *bp;
-	int error = 0;
+	int error;
 	u_int32_t saveflag;
 
 	error = ffs_getblk(mp->um_devvp,

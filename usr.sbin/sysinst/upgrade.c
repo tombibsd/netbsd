@@ -66,7 +66,7 @@ do_upgrade(void)
 	if (find_disks(msg_string(MSG_upgrade)) < 0)
 		return;
 
-        if (set_swap_if_low_ram(pm->diskdev, NULL) < 0)
+	if (set_swap_if_low_ram(pm->diskdev, NULL) < 0)
 		return;
 
 	if (md_pre_update() < 0)

@@ -393,7 +393,7 @@ vend_rfc1048(u_char *cp, u_int len)
 			/* let it override bp_siaddr */
 			(void)memcpy(&rootip.s_addr, cp, sizeof(rootip.s_addr));
 		}
-	        if (tag == TAG_ROOTPATH && size < sizeof(rootpath)) {
+		if (tag == TAG_ROOTPATH && size < sizeof(rootpath)) {
 			strncpy(rootpath, (char *)cp, sizeof(rootpath));
 			rootpath[size] = '\0';
 		}

@@ -287,12 +287,13 @@ struct iwm_rx_ring {
 	int			cur;
 };
 
-#define IWM_FLAG_USE_ICT	0x01
-#define IWM_FLAG_HW_INITED	0x02
-#define IWM_FLAG_STOPPED	0x04
-#define IWM_FLAG_RFKILL		0x08
-#define IWM_FLAG_BUSY		0x10
-#define IWM_FLAG_ATTACHED	0x20
+#define IWM_FLAG_USE_ICT	__BIT(0)
+#define IWM_FLAG_HW_INITED	__BIT(1)
+#define IWM_FLAG_STOPPED	__BIT(2)
+#define IWM_FLAG_RFKILL		__BIT(3)
+#define IWM_FLAG_BUSY		__BIT(4)
+#define IWM_FLAG_ATTACHED	__BIT(5)
+#define IWM_FLAG_FW_LOADED	__BIT(6)
 
 struct iwm_ucode_status {
 	uint32_t uc_error_event_table;
@@ -477,6 +478,8 @@ struct iwm_softc {
 	int sc_noise;
 
 	int host_interrupt_operation_mode;
+
+	struct sysctllog *sc_clog;
 
 	struct bpf_if *		sc_drvbpf;
 
