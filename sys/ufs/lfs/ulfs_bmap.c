@@ -70,6 +70,24 @@ ulfs_issequential(const struct lfs *fs, daddr_t daddr0, daddr_t daddr1)
 }
 
 /*
+ * This is used for block pointers in inodes and elsewhere, which can
+ * contain the magic value UNWRITTEN, which is -2. This is mishandled
+ * by u32 -> u64 promotion unless special-cased.
+ *
+ * XXX this should be rolled into better inode accessors and go away.
+ */
+static inline uint64_t
+ulfs_fix_unwritten(uint32_t val)
+{
+	if (val == (uint32_t)UNWRITTEN) {
+		return (uint64_t)(int64_t)UNWRITTEN;
+	} else {
+		return val;
+	}
+}
+
+
+/*
  * Bmap converts the logical block number of a file to its physical block
  * number on the disk. The conversion is done by using the logical block
  * number to index into the array of block pointers described by the dinode.
@@ -154,8 +172,8 @@ ulfs_bmaparray(struct vnode *vp, daddr_t bn, daddr_t *bnp, struct indir *ap,
 		if (nump != NULL)
 			*nump = 0;
 		if (ump->um_fstype == ULFS1)
-			daddr = ulfs_rw32(ip->i_ffs1_db[bn],
-			    ULFS_MPNEEDSWAP(fs));
+			daddr = ulfs_fix_unwritten(ulfs_rw32(ip->i_ffs1_db[bn],
+			    ULFS_MPNEEDSWAP(fs)));
 		else
 			daddr = ulfs_rw64(ip->i_ffs2_db[bn],
 			    ULFS_MPNEEDSWAP(fs));
@@ -183,10 +201,10 @@ ulfs_bmaparray(struct vnode *vp, daddr_t bn, daddr_t *bnp, struct indir *ap,
 			if (ump->um_fstype == ULFS1) {
 				for (++bn; bn < ULFS_NDADDR && *runp < maxrun &&
 				    is_sequential(fs,
-				        ulfs_rw32(ip->i_ffs1_db[bn - 1],
-				            ULFS_MPNEEDSWAP(fs)),
-				        ulfs_rw32(ip->i_ffs1_db[bn],
-				            ULFS_MPNEEDSWAP(fs)));
+				        ulfs_fix_unwritten(ulfs_rw32(ip->i_ffs1_db[bn - 1],
+				            ULFS_MPNEEDSWAP(fs))),
+				        ulfs_fix_unwritten(ulfs_rw32(ip->i_ffs1_db[bn],
+				            ULFS_MPNEEDSWAP(fs))));
 				    ++bn, ++*runp);
 			} else {
 				for (++bn; bn < ULFS_NDADDR && *runp < maxrun &&
@@ -211,8 +229,8 @@ ulfs_bmaparray(struct vnode *vp, daddr_t bn, daddr_t *bnp, struct indir *ap,
 
 	/* Get disk address out of indirect block array */
 	if (ump->um_fstype == ULFS1)
-		daddr = ulfs_rw32(ip->i_ffs1_ib[xap->in_off],
-		    ULFS_MPNEEDSWAP(fs));
+		daddr = ulfs_fix_unwritten(ulfs_rw32(ip->i_ffs1_ib[xap->in_off],
+		    ULFS_MPNEEDSWAP(fs)));
 	else
 		daddr = ulfs_rw64(ip->i_ffs2_ib[xap->in_off],
 		    ULFS_MPNEEDSWAP(fs));
@@ -274,16 +292,16 @@ ulfs_bmaparray(struct vnode *vp, daddr_t bn, daddr_t *bnp, struct indir *ap,
 			}
 		}
 		if (ump->um_fstype == ULFS1) {
-			daddr = ulfs_rw32(((u_int32_t *)bp->b_data)[xap->in_off],
-			    ULFS_MPNEEDSWAP(fs));
+			daddr = ulfs_fix_unwritten(ulfs_rw32(((u_int32_t *)bp->b_data)[xap->in_off],
+			    ULFS_MPNEEDSWAP(fs)));
 			if (num == 1 && daddr && runp) {
 				for (bn = xap->in_off + 1;
 				    bn < MNINDIR(fs) && *runp < maxrun &&
 				    is_sequential(fs,
-				        ulfs_rw32(((int32_t *)bp->b_data)[bn-1],
-				            ULFS_MPNEEDSWAP(fs)),
-				        ulfs_rw32(((int32_t *)bp->b_data)[bn],
-				            ULFS_MPNEEDSWAP(fs)));
+				        ulfs_fix_unwritten(ulfs_rw32(((int32_t *)bp->b_data)[bn-1],
+				            ULFS_MPNEEDSWAP(fs))),
+				        ulfs_fix_unwritten(ulfs_rw32(((int32_t *)bp->b_data)[bn],
+				            ULFS_MPNEEDSWAP(fs))));
 				    ++bn, ++*runp);
 			}
 		} else {

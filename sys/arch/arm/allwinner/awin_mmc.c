@@ -976,7 +976,14 @@ done:
 #ifdef AWIN_MMC_DEBUG
 		aprint_error_dev(sc->sc_dev, "i/o error %d\n", cmd->c_error);
 #endif
-		awin_mmc_host_reset(sc);
+		MMC_WRITE(sc, AWIN_MMC_GCTRL,
+		    MMC_READ(sc, AWIN_MMC_GCTRL) |
+		      AWIN_MMC_GCTRL_DMARESET | AWIN_MMC_GCTRL_FIFORESET);
+		for (int retry = 0; retry < 1000; retry++) {
+			if (!(MMC_READ(sc, AWIN_MMC_GCTRL) & AWIN_MMC_GCTRL_RESET))
+				break;
+			delay(10);
+		}
 		awin_mmc_update_clock(sc);
 	}
 

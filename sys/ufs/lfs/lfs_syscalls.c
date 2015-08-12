@@ -872,7 +872,7 @@ lfs_do_segclean(struct lfs *fs, unsigned long segnum)
 	lfs_sb_addavail(fs, lfs_segtod(fs, 1));
 	if (sup->su_flags & SEGUSE_SUPERBLOCK)
 		lfs_sb_subavail(fs, lfs_btofsb(fs, LFS_SBPAD));
-	if (fs->lfs_version > 1 && segnum == 0 &&
+	if (lfs_sb_getversion(fs) > 1 && segnum == 0 &&
 	    lfs_sb_gets0addr(fs) < lfs_btofsb(fs, LFS_LABELPAD))
 		lfs_sb_subavail(fs, lfs_btofsb(fs, LFS_LABELPAD) - lfs_sb_gets0addr(fs));
 	mutex_enter(&lfs_lock);

@@ -109,73 +109,136 @@ ulfs_daddr_t ifibc; /* How many indirect blocks */
 # define HIGHEST_USED_INO ULFS_ROOTINO
 #endif
 
-static struct lfs lfs_default =  {
-	.lfs_dlfs = { /* lfs_dlfs */
-		/* dlfs_magic */	LFS_MAGIC,
-		/* dlfs_version */	LFS_VERSION,
-		/* dlfs_size */		0,
-		/* dlfs_ssize */	DFL_LFSSEG,
-		/* dlfs_dsize */	0,
-		/* dlfs_bsize */	DFL_LFSBLOCK,
-		/* dlfs_fsize */	DFL_LFSFRAG,
-		/* dlfs_frag */		DFL_LFSBLOCK/DFL_LFSFRAG,
-		/* dlfs_freehd */	HIGHEST_USED_INO + 1,
-		/* dlfs_bfree */	0,
-		/* dlfs_nfiles */	0,
-		/* dlfs_avail */	0,
-		/* dlfs_uinodes */	0,
-		/* dlfs_idaddr */	0,
-		/* dlfs_ifile */	LFS_IFILE_INUM,
-		/* dlfs_lastseg */	0,
-		/* dlfs_nextseg */	0,
-		/* dlfs_curseg */	0,
-		/* dlfs_offset */	0,
-		/* dlfs_lastpseg */	0,
-		/* dlfs_inopf */	0,
-		/* dlfs_minfree */	MINFREE,
-		/* dlfs_maxfilesize */	0,
-		/* dlfs_fsbpseg */	0,
-		/* dlfs_inopb */	DFL_LFSBLOCK/sizeof(struct ulfs1_dinode),
-		/* dlfs_ifpb */		DFL_LFSBLOCK/sizeof(IFILE),
-		/* dlfs_sepb */		DFL_LFSBLOCK/sizeof(SEGUSE),
+static const struct dlfs dlfs32_default = {
+		.dlfs_magic =		LFS_MAGIC,
+		.dlfs_version =		LFS_VERSION,
+		.dlfs_size =		0,
+		.dlfs_ssize =		DFL_LFSSEG,
+		.dlfs_dsize =		0,
+		.dlfs_bsize =		DFL_LFSBLOCK,
+		.dlfs_fsize =		DFL_LFSFRAG,
+		.dlfs_frag =		DFL_LFSBLOCK/DFL_LFSFRAG,
+		.dlfs_freehd =		HIGHEST_USED_INO + 1,
+		.dlfs_bfree =		0,
+		.dlfs_nfiles =		0,
+		.dlfs_avail =		0,
+		.dlfs_uinodes =		0,
+		.dlfs_idaddr =		0,
+		.dlfs_ifile =		LFS_IFILE_INUM,
+		.dlfs_lastseg =		0,
+		.dlfs_nextseg =		0,
+		.dlfs_curseg =		0,
+		.dlfs_offset =		0,
+		.dlfs_lastpseg =	0,
+		.dlfs_inopf =		0,
+		.dlfs_minfree =		MINFREE,
+		.dlfs_maxfilesize =	0,
+		.dlfs_fsbpseg =		0,
+		.dlfs_inopb =		DFL_LFSBLOCK/sizeof(struct ulfs1_dinode),
+		.dlfs_ifpb =		DFL_LFSBLOCK/sizeof(IFILE),
+		.dlfs_sepb =		DFL_LFSBLOCK/sizeof(SEGUSE),
 		/* XXX ondisk32 */
-		/* dlfs_nindir */	DFL_LFSBLOCK/sizeof(int32_t),
-		/* dlfs_nseg */		0,
-		/* dlfs_nspf */		0,
-		/* dlfs_cleansz */	0,
-		/* dlfs_segtabsz */	0,
-		/* dlfs_segmask */	DFL_LFSSEG_MASK,
-		/* dlfs_segshift */	DFL_LFSSEG_SHIFT,
-		/* dlfs_bshift */	DFL_LFSBLOCK_SHIFT,
-		/* dlfs_ffshift */	DFL_LFS_FFSHIFT,
-		/* dlfs_fbshift */	DFL_LFS_FBSHIFT,
-		/* dlfs_bmask */	DFL_LFSBLOCK_MASK,
-		/* dlfs_ffmask */	DFL_LFS_FFMASK,
-		/* dlfs_fbmask */	DFL_LFS_FBMASK,
-		/* dlfs_blktodb */	0,
-		/* dlfs_sushift */	0,
-		/* dlfs_maxsymlinklen */	ULFS1_MAXSYMLINKLEN,
-		/* dlfs_sboffs */	{ 0 },
-		/* dlfs_nclean */       0,
-		/* dlfs_fsmnt */        { 0 },
-		/* dlfs_pflags */       LFS_PF_CLEAN,
-		/* dlfs_dmeta */	0,
-		/* dlfs_minfreeseg */   0,
-		/* dlfs_sumsize */	0,
-		/* dlfs_serial */	0,
-		/* dlfs_ibsize */	DFL_LFSFRAG,
-		/* dlfs_start */	0,
-		/* dlfs_tstamp */       0,
-		/* dlfs_inodefmt */     LFS_44INODEFMT,
-		/* dlfs_interleave */   0,
-		/* dlfs_ident */        0,
-		/* dlfs_fsbtodb */      0,
-		/* dlfs_resvseg */      0,
+		.dlfs_nindir =		DFL_LFSBLOCK/sizeof(int32_t),
+		.dlfs_nseg =		0,
+		.dlfs_nspf =		0,
+		.dlfs_cleansz =		0,
+		.dlfs_segtabsz =	0,
+		.dlfs_segmask =		DFL_LFSSEG_MASK,
+		.dlfs_segshift =	DFL_LFSSEG_SHIFT,
+		.dlfs_bshift =		DFL_LFSBLOCK_SHIFT,
+		.dlfs_ffshift =		DFL_LFS_FFSHIFT,
+		.dlfs_fbshift =		DFL_LFS_FBSHIFT,
+		.dlfs_bmask =		DFL_LFSBLOCK_MASK,
+		.dlfs_ffmask =		DFL_LFS_FFMASK,
+		.dlfs_fbmask =		DFL_LFS_FBMASK,
+		.dlfs_blktodb =		0,
+		.dlfs_sushift =		0,
+		.dlfs_maxsymlinklen =	ULFS1_MAXSYMLINKLEN,
+		.dlfs_sboffs =		{ 0 },
+		.dlfs_nclean =  	0,
+		.dlfs_fsmnt =   	{ 0 },
+		.dlfs_pflags =  	LFS_PF_CLEAN,
+		.dlfs_dmeta =		0,
+		.dlfs_minfreeseg =	0,
+		.dlfs_sumsize =		0,
+		.dlfs_serial =		0,
+		.dlfs_ibsize =		DFL_LFSFRAG,
+		.dlfs_s0addr =		0,
+		.dlfs_tstamp =  	0,
+		.dlfs_inodefmt =	LFS_44INODEFMT,
+		.dlfs_interleave =	0,
+		.dlfs_ident =		0,
+		.dlfs_fsbtodb =		0,
+		.dlfs_resvseg =		0,
 
-		/* dlfs_pad */ 		{ 0 },
-		/* dlfs_cksum */	0
-	},
+		.dlfs_pad = 		{ 0 },
+		.dlfs_cksum =		0
 };
+
+static const struct dlfs64 dlfs64_default = {
+		.dlfs_magic =		LFS64_MAGIC,
+		.dlfs_version =		LFS_VERSION,
+		.dlfs_size =		0,
+		.dlfs_dsize =		0,
+		.dlfs_ssize =		DFL_LFSSEG,
+		.dlfs_bsize =		DFL_LFSBLOCK,
+		.dlfs_fsize =		DFL_LFSFRAG,
+		.dlfs_frag =		DFL_LFSBLOCK/DFL_LFSFRAG,
+		.dlfs_freehd =		HIGHEST_USED_INO + 1,
+		.dlfs_nfiles =		0,
+		.dlfs_bfree =		0,
+		.dlfs_avail =		0,
+		.dlfs_idaddr =		0,
+		.dlfs_uinodes =		0,
+		.dlfs_ifile =		LFS_IFILE_INUM,
+		.dlfs_lastseg =		0,
+		.dlfs_nextseg =		0,
+		.dlfs_curseg =		0,
+		.dlfs_offset =		0,
+		.dlfs_lastpseg =	0,
+		.dlfs_inopf =		0,
+		.dlfs_minfree =		MINFREE,
+		.dlfs_maxfilesize =	0,
+		.dlfs_fsbpseg =		0,
+		.dlfs_inopb =		DFL_LFSBLOCK/sizeof(struct ulfs1_dinode),
+		.dlfs_ifpb =		DFL_LFSBLOCK/sizeof(IFILE),
+		.dlfs_sepb =		DFL_LFSBLOCK/sizeof(SEGUSE),
+		.dlfs_nindir =		DFL_LFSBLOCK/sizeof(int64_t),
+		.dlfs_nseg =		0,
+		.dlfs_nspf =		0,
+		.dlfs_cleansz =		0,
+		.dlfs_segtabsz =	0,
+		.dlfs_bshift =		DFL_LFSBLOCK_SHIFT,
+		.dlfs_ffshift =		DFL_LFS_FFSHIFT,
+		.dlfs_fbshift =		DFL_LFS_FBSHIFT,
+		.dlfs_bmask =		DFL_LFSBLOCK_MASK,
+		.dlfs_ffmask =		DFL_LFS_FFMASK,
+		.dlfs_fbmask =		DFL_LFS_FBMASK,
+		.dlfs_blktodb =		0,
+		.dlfs_sushift =		0,
+		.dlfs_sboffs =		{ 0 },
+		.dlfs_maxsymlinklen =	ULFS1_MAXSYMLINKLEN,
+		.dlfs_nclean =  	0,
+		.dlfs_fsmnt =   	{ 0 },
+		.dlfs_pflags =  	LFS_PF_CLEAN,
+		.dlfs_dmeta =		0,
+		.dlfs_minfreeseg =	0,
+		.dlfs_sumsize =		0,
+		.dlfs_ibsize =		DFL_LFSFRAG,
+		.dlfs_inodefmt =	LFS_44INODEFMT,
+		.dlfs_serial =		0,
+		.dlfs_s0addr =		0,
+		.dlfs_tstamp =  	0,
+		.dlfs_interleave =	0,
+		.dlfs_ident =		0,
+		.dlfs_fsbtodb =		0,
+		.dlfs_resvseg =		0,
+
+		.dlfs_pad = 		{ 0 },
+		.dlfs_cksum =		0
+};
+
+static const struct lfs lfs_default;
 
 #define	UMASK	0755
 
@@ -209,6 +272,7 @@ maxfilesize(int bshift)
 	uint64_t nptr; /* number of block pointers per block */
 	uint64_t maxblock;
 
+	/* XXX ondisk32 */
 	nptr = (1 << bshift) / sizeof(uint32_t);
 	maxblock = ULFS_NDADDR + nptr + nptr * nptr + nptr * nptr * nptr;
 
@@ -273,7 +337,7 @@ make_dinode(ino_t ino, struct ulfs1_dinode *dip, int nfrags, struct lfs *fs)
 
 /*
  * Construct a set of directory entries in "bufp".  We assume that all the
- * entries in protodir fir in the first DIRBLKSIZ.  
+ * entries in protodir fit in the first DIRBLKSIZ.  
  */
 static void
 make_dir(void *bufp, struct lfs_direct *protodir, int entries)
@@ -320,9 +384,11 @@ make_lfs(int devfd, uint secsize, struct dkwedge_info *dkw, int minfree,
 	char tbuf[BUFSIZ];
 	struct ubuf *bp;
 	struct uvnode *vp, *save_devvp;
-	int bb, ubb, dmeta, labelskew;
+	daddr_t bb, ubb;
+	int dmeta, labelskew;
 	u_int64_t tsepb, tnseg;
 	time_t stamp;
+	bool is64 = false; /* XXX notyet */
 
 	/*
 	 * Initialize buffer cache.  Use a ballpark guess of the length of
@@ -338,13 +404,19 @@ make_lfs(int devfd, uint secsize, struct dkwedge_info *dkw, int minfree,
 	fs = lfs_init(devfd, start, (ulfs_daddr_t)0, 1, 1/* XXX debug*/);
 	save_devvp = fs->lfs_devvp;
 	vp = fs->lfs_ivnode;
+	/* XXX this seems like a rubbish */
 	*fs = lfs_default;
+	if (is64) {
+		fs->lfs_dlfs_u.u_64 = dlfs64_default;
+	} else {
+		fs->lfs_dlfs_u.u_32 = dlfs32_default;
+	}
 	fs->lfs_ivnode = vp;
 	fs->lfs_devvp = save_devvp;
 
 
 	/* Set version first of all since it is used to compute other fields */
-	fs->lfs_version = version;
+	lfs_sb_setversion(fs, version);
 
 	/* If partition is not an LFS partition, warn that that is the case */
 	if (strcmp(dkw->dkw_ptype, DKW_PTYPE_LFS) != 0) {
@@ -419,12 +491,18 @@ make_lfs(int devfd, uint secsize, struct dkwedge_info *dkw, int minfree,
 		lfs_sb_setnindir(fs, bsize / sizeof(int32_t));
 	}
 
-	if (fs->lfs_version == 1) {
+	if (lfs_sb_getversion(fs) == 1) {
 		lfs_sb_setsumsize(fs, LFS_V1_SUMMARY_SIZE);
-		lfs_sb_setsegshift(fs, lfs_log2(ssize));
-		if (1 << lfs_sb_getsegshift(fs) != ssize)
-			fatal("%d: segment size not power of 2", ssize);
-		lfs_sb_setsegmask(fs, ssize - 1);
+		if (!is64) {
+			unsigned segshift;
+
+			segshift = lfs_log2(ssize);
+			if (1 << segshift != ssize)
+				fatal("%d: segment size not power of 2",
+				      ssize);
+			fs->lfs_dlfs_u.u_32.dlfs_segshift = segshift;
+			fs->lfs_dlfs_u.u_32.dlfs_segmask = ssize - 1;
+		}
 		lfs_sb_setifpb(fs, lfs_sb_getbsize(fs) / sizeof(IFILE_V1));
 		lfs_sb_setibsize(fs, lfs_sb_getbsize(fs));
 		lfs_sb_setsepb(fs, bsize / sizeof(SEGUSE_V1));
@@ -439,8 +517,11 @@ make_lfs(int devfd, uint secsize, struct dkwedge_info *dkw, int minfree,
 			goto tryagain;
 		}
 		lfs_sb_setsumsize(fs, fsize);
-		lfs_sb_setsegshift(fs, 0);
-		lfs_sb_setsegmask(fs, 0);
+		if (!is64) {
+			/* these do not exist in the 64-bit superblock */
+			fs->lfs_dlfs_u.u_32.dlfs_segshift = 0;
+			fs->lfs_dlfs_u.u_32.dlfs_segmask = 0;
+		}
 		lfs_sb_setsepb(fs, bsize / sizeof(SEGUSE));
 		lfs_sb_setssize(fs, ssize);
 		lfs_sb_setibsize(fs, ibsize);
@@ -525,8 +606,8 @@ make_lfs(int devfd, uint secsize, struct dkwedge_info *dkw, int minfree,
 	 * Now that we've determined what we're going to do, announce it
 	 * to the user.
 	 */
-        printf("Creating a version %d LFS", fs->lfs_version);
-        if (fs->lfs_version > 1)
+        printf("Creating a version %d LFS", lfs_sb_getversion(fs));
+        if (lfs_sb_getversion(fs) > 1)
                 printf(" with roll-forward ident 0x%x", lfs_sb_getident(fs));
         printf("\n");   
         fssize = (double)lfs_sb_getnseg(fs);
@@ -543,8 +624,8 @@ make_lfs(int devfd, uint secsize, struct dkwedge_info *dkw, int minfree,
 	 * and segment usage table, and half a block per segment that can't
 	 * be written due to fragmentation.
 	 */
-	lfs_sb_setdsize(fs, (lfs_sb_getnseg(fs) - lfs_sb_getminfreeseg(fs)) *
-		lfs_segtod(fs, 1));
+	lfs_sb_setdsize(fs,
+		lfs_segtod(fs, lfs_sb_getnseg(fs) - lfs_sb_getminfreeseg(fs)));
 	lfs_sb_setbfree(fs, lfs_sb_getdsize(fs));
 	lfs_sb_subbfree(fs, LFS_DBTOFSB(fs, ((lfs_sb_getnseg(fs) / 2) << 
 		lfs_sb_getblktodb(fs))));
@@ -582,18 +663,18 @@ make_lfs(int devfd, uint secsize, struct dkwedge_info *dkw, int minfree,
 		lfs_sb_sets0addr(fs, lfs_sb_getsboff(fs, 0));
 	else
 		lfs_sb_sets0addr(fs, LFS_DBTOFSB(fs, start));
-        lfs_sb_setdsize(fs, lfs_sb_getdsize(fs) - sb_fsb);
+        lfs_sb_subdsize(fs, sb_fsb);
 	for (i = 1; i < LFS_MAXNUMSB; i++) {
 		sb_addr = ((i * sb_interval) * lfs_segtod(fs, 1))
 		    + lfs_sb_getsboff(fs, 0);
 		/* Segment 0 eats the label, except for version 1 */
-		if (fs->lfs_version > 1 && lfs_sb_gets0addr(fs) < label_fsb)
+		if (lfs_sb_getversion(fs) > 1 && lfs_sb_gets0addr(fs) < label_fsb)
 			sb_addr -= label_fsb - start;
 		if (sb_addr + sizeof(struct dlfs)
 		    >= LFS_DBTOFSB(fs, dkw->dkw_size))
 			break;
 		lfs_sb_setsboff(fs, i, sb_addr);
-		lfs_sb_setdsize(fs, lfs_sb_getdsize(fs) - sb_fsb);
+		lfs_sb_subdsize(fs, sb_fsb);
 	}
 
 	/* We need >= 2 superblocks */
@@ -787,7 +868,7 @@ make_lfs(int devfd, uint secsize, struct dkwedge_info *dkw, int minfree,
                         lfs_sb_addavail(fs, lfs_segtod(fs, 1));
                         if (segp->su_flags & SEGUSE_SUPERBLOCK)
                                 lfs_sb_subavail(fs, lfs_btofsb(fs, LFS_SBPAD));
-                        if (i == 0 && fs->lfs_version > 1 &&
+                        if (i == 0 && lfs_sb_getversion(fs) > 1 &&
                             lfs_sb_gets0addr(fs) < lfs_btofsb(fs, LFS_LABELPAD))
                                 lfs_sb_subavail(fs, lfs_btofsb(fs, LFS_LABELPAD) -
                                     lfs_sb_gets0addr(fs));
@@ -801,7 +882,7 @@ make_lfs(int devfd, uint secsize, struct dkwedge_info *dkw, int minfree,
         lfs_sb_subavail(fs, lfs_segtod(fs, (lfs_sb_getminfreeseg(fs) - (lfs_sb_getminfreeseg(fs) / 2))));
 
         labelskew = 0;
-        if (fs->lfs_version > 1 && lfs_sb_gets0addr(fs) < lfs_btofsb(fs, LFS_LABELPAD))
+        if (lfs_sb_getversion(fs) > 1 && lfs_sb_gets0addr(fs) < lfs_btofsb(fs, LFS_LABELPAD))
                 labelskew = lfs_btofsb(fs, LFS_LABELPAD);
         lfs_sb_setbfree(fs, lfs_sb_getdsize(fs) - labelskew - (ubb + bb) / 2);
 
@@ -838,7 +919,7 @@ make_lfs(int devfd, uint secsize, struct dkwedge_info *dkw, int minfree,
 		/* Leave the time stamp on the alt sb, zero the rest */
 		if (i == 2) {
 			lfs_sb_settstamp(fs, 0);
-			lfs_sb_setcksum(fs, lfs_sb_cksum(&(fs->lfs_dlfs)));
+			lfs_sb_setcksum(fs, lfs_sb_cksum(fs));
 		}
 		if (!Nflag)
 			lfs_writesuper(fs, seg_addr);

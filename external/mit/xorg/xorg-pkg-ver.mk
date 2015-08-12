@@ -11,7 +11,7 @@ _XORG_PKG_CONFIGURE_PATH=	${X11SRCDIR.${XORG_PKG_VER_PROG}}/${XORG_PKG_VER_CONFI
 
 .if exists(${X11SRCDIR.${XORG_PKG_VER_PROG}}/configure)
 XORG_PKG_PACKAGE_VERSION!= \
-	awk -F= '/^PACKAGE_VERSION=/ {				\
+	${TOOL_AWK} -F= '/^PACKAGE_VERSION=/ {			\
 	     match($$2, "([0-9]+\\.)+[0-9]+");			\
 	     version = substr($$2, RSTART, RLENGTH);		\
 	     print version;					\
@@ -23,8 +23,8 @@ CPPFLAGS+=	-DVERSION=\"${XORG_PKG_PACKAGE_VERSION:Q}\"
 .endif
 
 XORG_PKG_PACKAGE_STRING!= \
-	awk -F= '/^PACKAGE_STRING=/ {				\
-	     match($$2, "[a-zA-Z-_]+[ 	]+([0-9]+\\.)+[0-9]+");	\
+	${TOOL_AWK} -F= '/^PACKAGE_STRING=/ {			\
+	     match($$2, "[-_a-zA-Z]+[ 	]+([0-9]+\\.)+[0-9]+");	\
 	     string = substr($$2, RSTART, RLENGTH);		\
 	     print string;					\
 	     exit 0;						\
@@ -34,8 +34,8 @@ CPPFLAGS+=	-DPACKAGE_STRING=\"${XORG_PKG_PACKAGE_STRING:Q}\"
 .endif
 
 XORG_PKG_PACKAGE_NAME!= \
-	awk -F= '/^PACKAGE_NAME=/ {				\
-	     match($$2, "'"'"'[a-zA-Z-_0-9]+'"'"'");		\
+	${TOOL_AWK} -F= '/^PACKAGE_NAME=/ {			\
+	     match($$2, "'"'"'[-_a-zA-Z0-9]+'"'"'");		\
 	     name = substr($$2, RSTART, RLENGTH);		\
 	     print name;					\
 	     exit 0;						\

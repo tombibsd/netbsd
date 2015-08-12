@@ -274,7 +274,7 @@ retry:
 	}
 	if ((rt->rt_flags & RTF_REJECT) != 0) {
 		if (rt->rt_rmx.rmx_expire == 0 ||
-		    time_second < rt->rt_rmx.rmx_expire) {
+		    time_uptime < rt->rt_rmx.rmx_expire) {
 			error = (rt == rt0) ? EHOSTDOWN : EHOSTUNREACH;
 			goto bad;
 		}

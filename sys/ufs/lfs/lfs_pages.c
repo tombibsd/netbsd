@@ -784,8 +784,8 @@ lfs_putpages(void *v)
 	
 		if (error == EDEADLK || error == EAGAIN) {
 			DLOG((DLOG_PAGE, "lfs_putpages: genfs_putpages returned"
-			      " %d ino %d off %x (seg %d)\n", error,
-			      ip->i_number, lfs_sb_getoffset(fs),
+			      " %d ino %d off %jx (seg %d)\n", error,
+			      ip->i_number, (uintmax_t)lfs_sb_getoffset(fs),
 			      lfs_dtosn(fs, lfs_sb_getoffset(fs))));
 
 			if (oreclaim) {
@@ -799,8 +799,8 @@ lfs_putpages(void *v)
 			}
 		} else if (error) {
 			DLOG((DLOG_PAGE, "lfs_putpages: genfs_putpages returned"
-			      " %d ino %d off %x (seg %d)\n", error,
-			      (int)ip->i_number, lfs_sb_getoffset(fs),
+			      " %d ino %d off %jx (seg %d)\n", error,
+			      (int)ip->i_number, (uintmax_t)lfs_sb_getoffset(fs),
 			      lfs_dtosn(fs, lfs_sb_getoffset(fs))));
 		}
 		/* genfs_do_putpages loses the interlock */

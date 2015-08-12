@@ -12,6 +12,7 @@ TESTS_C+=	t_pktinfo
 .if (${MKRUMP} != "no") && !defined(BSD_MK_COMPAT_FILE)
 TESTS_C+=	t_raw
 TESTS_SH=	t_forwarding
+TESTS_SH+=	t_ipv6_lifetime
 .endif
 
 LDADD.t_raw+=	-lrumpnet_local -lrumpnet_netinet -lrumpnet_net

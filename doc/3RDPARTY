@@ -67,6 +67,7 @@ Notes:
 Amd2netbsd script to convert to BSD make system and remove unneeded files.
 Fix symbolic links before import.
 Check external/bsd/am-utils/include/config.h is correct after import.
+Update date of release in external/bsd/am-utils/man/Makefile (two places).
 
 Package:	Automated Testing Framework (ATF)
 Version:	0.20
@@ -1255,7 +1256,7 @@ Responsible:	joerg
 License:	Public domain
 Location:	external/public-domain/sqlite/dist
 Notes:
-Run cleantags before inporting because sqlite3.c has an RCSID
+Run cleantags before importing because sqlite3.c has an RCSID
 
 Package:	tcpdump
 Version:	4.7.3

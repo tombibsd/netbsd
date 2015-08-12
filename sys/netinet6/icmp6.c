@@ -1812,9 +1812,9 @@ ni6_store_addrs(struct icmp6_nodeinfo *ni6,
 				ltime = ND6_INFINITE_LIFETIME;
 			else {
 				if (ifa6->ia6_lifetime.ia6t_expire >
-				    time_second)
+				    time_uptime)
 					ltime = ifa6->ia6_lifetime.ia6t_expire -
-					    time_second;
+					    time_uptime;
 				else
 					ltime = 0;
 			}

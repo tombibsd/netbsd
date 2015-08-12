@@ -182,7 +182,7 @@ int lfs_writeinode(struct lfs *, struct segment *, struct inode *);
 int lfs_gatherblock(struct segment *, struct buf *, kmutex_t *);
 int lfs_gather(struct lfs *, struct segment *, struct vnode *, int (*match )(struct lfs *, struct buf *));
 void lfs_update_single(struct lfs *, struct segment *, struct vnode *,
-    daddr_t, int32_t, int);
+    daddr_t, daddr_t, int);
 void lfs_updatemeta(struct segment *);
 int lfs_rewind(struct lfs *, int);
 void lfs_unset_inval_all(struct lfs *);
@@ -272,7 +272,7 @@ extern const struct genfs_ops lfs_genfsops;
 u_int32_t cksum(void *, size_t);
 u_int32_t lfs_cksum_part(void *, size_t, u_int32_t);
 #define lfs_cksum_fold(sum)	(sum)
-u_int32_t lfs_sb_cksum(struct dlfs *);
+u_int32_t lfs_sb_cksum(struct lfs *);
 
 __END_DECLS
 

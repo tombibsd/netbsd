@@ -53,7 +53,7 @@
 /if_rumvar.h/1.9/Mon Feb 21 23:50:42 2011/-kk/
 /if_run.c/1.11/Sat Mar 21 02:47:18 2015/-kk/
 /if_runvar.h/1.1/Wed May 30 14:30:35 2012/-kk/
-/if_smsc.c/1.23/Wed Apr 22 07:37:00 2015/-kk/
+/if_smsc.c/1.24/Wed Aug 12 04:14:24 2015/-kk/
 /if_smscreg.h/1.5/Fri Oct  3 09:43:37 2014/-kk/
 /if_smscvar.h/1.4/Wed Apr 22 07:37:00 2015/-kk/
 /if_udav.c/1.44/Wed Apr 22 07:37:00 2015/-kk/

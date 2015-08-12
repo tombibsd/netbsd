@@ -1,10 +1,10 @@
 /CHANGES/1.20/Sat Mar 21 02:46:31 2015/-kk/
 /Makefile.boot/1.6/Tue Jan 14 16:04:43 2014/-kk/
-/Makefile/1.23/Wed Apr 22 07:35:14 2015/-kk/
+/Makefile/1.24/Wed Aug 12 04:13:33 2015/-kk/
 /auth-bozo.c/1.16/Fri Jan  2 11:20:27 2015/-kk/
 /bozohttpd.8/1.51/Wed May 13 03:32:24 2015/-kk/
 /bozohttpd.c/1.66/Sat Jul 25 01:51:42 2015/-kk/
-/bozohttpd.h/1.35/Wed May 13 03:32:24 2015/-kk/
+/bozohttpd.h/1.36/Wed Aug 12 04:13:33 2015/-kk/
 /cgi-bozo.c/1.27/Wed May 13 03:32:24 2015/-kk/
 /content-bozo.c/1.12/Wed May 13 03:32:24 2015/-kk/
 /daemon-bozo.c/1.16/Tue Jan 14 16:04:43 2014/-kk/

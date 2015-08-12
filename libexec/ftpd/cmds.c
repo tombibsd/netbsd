@@ -249,8 +249,10 @@ mlsd(const char *path)
 		goto mlsdperror;
 
 	dout = dataconn("MLSD", (off_t)-1, "w");
-	if (dout == NULL)
+	if (dout == NULL) {
+		(void) closedir(dirp);
 		return;
+	}
 
 	memset(&f, 0, sizeof(f));
 	f.stat = &sb;

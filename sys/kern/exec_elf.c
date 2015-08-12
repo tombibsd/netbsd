@@ -646,10 +646,7 @@ exec_elf_makecmds(struct lwp *l, struct exec_package *epp)
 		return error;
 
 	if (eh->e_type == ET_DYN)
-		/*
-		 * XXX allow for executing shared objects. It seems silly
-		 * but other ELF-based systems allow it as well.
-		 */
+		/* PIE, and some libs have an entry point */
 		is_dyn = true;
 	else if (eh->e_type != ET_EXEC)
 		return ENOEXEC;
@@ -701,7 +698,7 @@ exec_elf_makecmds(struct lwp *l, struct exec_package *epp)
 	 *
 	 * Probe functions would normally see if the interpreter (if any)
 	 * exists. Emulation packages may possibly replace the interpreter in
-	 * interp[] with a changed path (/emul/xxx/<path>).
+	 * interp with a changed path (/emul/xxx/<path>).
 	 */
 	pos = ELFDEFNNAME(NO_ADDR);
 	if (epp->ep_esch->u.elf_probe_func) {

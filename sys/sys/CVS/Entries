@@ -150,7 +150,7 @@
 /once.h/1.5/Thu Oct  9 10:48:21 2008/-kk/
 /optstr.h/1.3/Mon Apr 28 20:24:11 2008/-kk/
 /param.h/1.482/Sat Jul 25 01:52:35 2015/-kk/
-/pax.h/1.13/Sun Aug  2 04:02:59 2015/-kk/
+/pax.h/1.14/Wed Aug 12 04:14:38 2015/-kk/
 /pcq.h/1.2/Sat Jun 14 03:56:49 2014/-kk/
 /pcu.h/1.12/Tue Jun  3 02:54:47 2014/-kk/
 /percpu.h/1.3/Wed Apr  9 05:11:20 2008/-kk/
@@ -234,7 +234,7 @@
 /times.h/1.13/Sun Dec 11 12:25:21 2005/-kk/
 /timespec.h/1.1/Fri Jul 31 12:51:32 2015/-kk/
 /timetc.h/1.6/Sun Jan 11 02:45:56 2009/-kk/
-/timevar.h/1.33/Thu Oct 24 10:28:58 2013/-kk/
+/timevar.h/1.34/Wed Aug 12 04:14:38 2015/-kk/
 /timex.h/1.18/Sun Apr  5 19:59:26 2009/-kk/
 /tls.h/1.1/Wed Mar  9 23:10:07 2011/-kk/
 /tprintf.h/1.18/Mon Nov 21 04:36:06 2011/-kk/

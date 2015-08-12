@@ -37,9 +37,8 @@
 __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <sys/param.h>
-#include <sys/proc.h>
-#include <sys/sched.h>
 #include <sys/systm.h>
+#include <sys/lwp.h>
 #include <sys/condvar.h>
 #include <sys/sleepq.h>
 #include <sys/lockdebug.h>

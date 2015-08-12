@@ -134,26 +134,22 @@ configservers()
 doping()
 {
 
-	export LD_PRELOAD=/usr/lib/librumphijack.so
-	export RUMPHIJACK="socket=inet6:inet"
 	export RUMP_SERVER=${RUMP_SERVER1}
 	atf_check -s exit:0 \
 	    -o match:" bytes from fd00:1234::2, icmp_seq=" \
-	    ping6 -n -o -X 2 fd00:1234::2
+	    rump.ping6 -n -o -X 2 fd00:1234::2
 	export RUMP_SERVER=${RUMP_SERVER2}
 	atf_check -s exit:0 \
 	    -o match:" bytes from fd00:1234:0:1::2, icmp_seq=" \
-	    ping6 -n -o -X 2 fd00:1234:0:1::2
+	    rump.ping6 -n -o -X 2 fd00:1234:0:1::2
 	export RUMP_SERVER=${RUMP_SERVER3}
 	atf_check -s exit:0 \
 	    -o match:" bytes from fd00:1234:0:2::2, icmp_seq=" \
-	    ping6 -n -o -X 2 fd00:1234:0:2::2
+	    rump.ping6 -n -o -X 2 fd00:1234:0:2::2
 	export RUMP_SERVER=${RUMP_SERVER1}
 	atf_check -s exit:0 \
 	    -o match:" bytes from fd00:1234:0:3::1, icmp_seq=" \
-	    ping6 -n -o -X 2 fd00:1234:0:3::1
-	unset LD_PRELOAD
-	unset RUMPHIJACK
+	    rump.ping6 -n -o -X 2 fd00:1234:0:3::1
 	unset RUMP_SERVER
 }
 

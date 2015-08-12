@@ -93,9 +93,9 @@ ip6_cantforward(const struct ip6_hdr *ip6, const struct ifnet *srcifp,
 	if (dstifp)
 		in6_ifstat_inc(dstifp, ifs6_in_discard);
 
-	if (ip6_log_time + ip6_log_interval >= time_second)
+	if (ip6_log_time + ip6_log_interval >= time_uptime)
 		return;
-	ip6_log_time = time_second;
+	ip6_log_time = time_uptime;
 
 	va_start(ap, fmt);
 	vsnprintf(reason, sizeof(reason), fmt, ap);

@@ -82,7 +82,7 @@ static void bcmemmc_attach(device_t, device_t, void *);
 static void bcmemmc_attach_i(device_t);
 #if NBCMDMAC > 0
 static int bcmemmc_xfer_data_dma(struct sdhc_softc *, struct sdmmc_command *);
-static void bcmemmc_dma_done(void *);
+static void bcmemmc_dma_done(uint32_t, uint32_t, void *);
 #endif
 
 CFATTACH_DECL_NEW(bcmemmc, sizeof(struct bcmemmc_softc),
@@ -118,6 +118,7 @@ bcmemmc_attach(device_t parent, device_t self, void *aux)
 	sc->sc.sc_flags |= SDHC_FLAG_NO_HS_BIT;
 	sc->sc.sc_caps = SDHC_VOLTAGE_SUPP_3_3V | SDHC_HIGH_SPEED_SUPP |
 	    (SDHC_MAX_BLK_LEN_1024 << SDHC_MAX_BLK_LEN_SHIFT);
+	sc->sc.sc_caps2 = SDHC_SDR50_SUPP;
 
 	sc->sc.sc_host = sc->sc_hosts;
 	sc->sc.sc_clkbase = 50000;	/* Default to 50MHz */
@@ -308,7 +309,10 @@ bcmemmc_xfer_data_dma(struct sdhc_softc *sdhc_sc, struct sdmmc_command *cmd)
 	sc->sc_state = EMMC_DMA_STATE_BUSY;
 	bcm_dmac_set_conblk_addr(sc->sc_dmac,
 	    sc->sc_dmamap->dm_segs[0].ds_addr);
-	bcm_dmac_transfer(sc->sc_dmac);
+	error = bcm_dmac_transfer(sc->sc_dmac);
+	if (error)
+		return error;
+
 	while (sc->sc_state == EMMC_DMA_STATE_BUSY) {
 		error = cv_timedwait(&sc->sc_cv, plock, hz * 10);
 		if (error == EWOULDBLOCK) {
@@ -327,14 +331,19 @@ bcmemmc_xfer_data_dma(struct sdhc_softc *sdhc_sc, struct sdmmc_command *cmd)
 }
 
 static void
-bcmemmc_dma_done(void *arg)
+bcmemmc_dma_done(uint32_t status, uint32_t error, void *arg)
 {
 	struct bcmemmc_softc * const sc = arg;
 	kmutex_t *plock = sdhc_host_lock(sc->sc_hosts[0]);
 
+	if (status != (DMAC_CS_INT|DMAC_CS_END))
+		device_printf(sc->sc.sc_dev, "status %#x error %#x\n",
+			status,error);
+
 	mutex_enter(plock);
 	KASSERT(sc->sc_state == EMMC_DMA_STATE_BUSY);
-	sc->sc_state = EMMC_DMA_STATE_IDLE;
+	if (status & DMAC_CS_END)
+		sc->sc_state = EMMC_DMA_STATE_IDLE;
 	cv_broadcast(&sc->sc_cv);
 	mutex_exit(plock);
 }

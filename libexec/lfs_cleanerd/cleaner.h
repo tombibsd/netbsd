@@ -16,7 +16,11 @@ struct clfs_seguse {
  * The cleaner's view of the superblock data structure.
  */
 struct clfs {
-	struct dlfs lfs_dlfs;
+	union {
+		struct dlfs u_32;
+		struct dlfs64 u_64;
+	} lfs_dlfs_u;
+	unsigned lfs_is64 : 1;
 
 	/* Ifile */
 	int clfs_ifilefd;	   /* Ifile file descriptor */
@@ -63,7 +67,6 @@ int invalidate_segment(struct clfs *, int);
 void lfs_ientry(IFILE **, struct clfs *, ino_t, struct ubuf **);
 int load_segment(struct clfs *, int, BLOCK_INFO **, int *);
 int needs_cleaning(struct clfs *, CLEANERINFO *);
-int32_t parse_pseg(struct clfs *, daddr_t, BLOCK_INFO **, int *);
 int reinit_fs(struct clfs *);
 void reload_ifile(struct clfs *);
 void toss_old_blocks(struct clfs *, BLOCK_INFO **, int *, int *);

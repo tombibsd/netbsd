@@ -132,6 +132,7 @@ ${SA}.txt: ${SRCS2.${SA}} ${DEPSRCS2.${SA}}
 ${SA}.ps: ${SRCS2.${SA}} ${DEPSRCS2.${SA}}
 	${_MKTARGET_FORMAT}
 	${TOOL_ROFF_PS} ${ROFFFLAGS} ${MACROS} ${PAGES} ${SRCS2.${SA}} \
+		| ${TOOL_SED} -e '/^%%CreationDate:/d' \
 		> ${.TARGET}
 
 ${SA}.pdf: ${SRCS2.${SA}} ${DEPSRCS2.${SA}}
@@ -146,7 +147,7 @@ ${SA}.html: ${SRCS2.${SA}} ${DEPSRCS2.${SA}}
 		> ${.TARGET}
 
 ${SA}.ps.gz: ${SA}.ps
-	${TOOL_GZIP} -9 -c ${.ALLSRC} > ${.TARGET}
+	${TOOL_GZIP} -9 -c -n ${.ALLSRC} > ${.TARGET}
 
 .endfor # SUBARTICLES
 

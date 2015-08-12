@@ -492,12 +492,16 @@ bcm2836mp_ipi_handler(void *priv)
 		const u_int ipi = bit - 1;
 		switch (ipi) {
 		case IPI_AST:
+			pic_ipi_ast(priv);
+			break;
 		case IPI_NOP:
-#ifdef __HAVE_PREEMPTION
-		case IPI_KPREEMPT:
-#endif
 			pic_ipi_nop(priv);
 			break;
+#ifdef __HAVE_PREEMPTION
+		case IPI_KPREEMPT:
+			pic_ipi_kpreempt(priv);
+			break;
+#endif
 		case IPI_XCALL:
 			pic_ipi_xcall(priv);
 			break;

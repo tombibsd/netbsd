@@ -336,7 +336,6 @@ main(int argc, char **argv)
 		(void)fprintf(stderr, "Here we go.\n");
 	(void)signal(SIGHUP, get_exportlist);
 	(void)signal(SIGTERM, send_umntall);
-	pidfile(NULL);
 
 	rpcb_unset(RPCPROG_MNT, RPCMNT_VER1, NULL);
 	rpcb_unset(RPCPROG_MNT, RPCMNT_VER3, NULL);
@@ -463,6 +462,7 @@ main(int argc, char **argv)
 		(void)signal(SIGINT, SIG_IGN);
 		(void)signal(SIGQUIT, SIG_IGN);
 	}
+	pidfile(NULL);
 	svc_run();
 	syslog(LOG_ERR, "Mountd died");
 	exit(1);

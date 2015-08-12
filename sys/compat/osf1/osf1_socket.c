@@ -116,7 +116,7 @@ osf1_sys_sendmsg_xopen(struct lwp *l, const struct osf1_sys_sendmsg_xopen_args *
 		return (EINVAL);
 
 	iov_len = bsd_msghdr.msg_iovlen;
-	if (iov_len > IOV_MAX)
+	if ((iov_len > IOV_MAX) || (iov_len == 0))
 		return EMSGSIZE;
 	bsd_iovec = kmem_alloc(iov_len * sizeof(struct iovec), KM_SLEEP);
 	bsd_msghdr.msg_iov = bsd_iovec;

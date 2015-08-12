@@ -226,7 +226,8 @@ seq(FILE *fp, u_char **line)
 void
 putrec(const RECHEADER *rec, FILE *fp)
 {
-	EWRITE(rec, 1, REC_ROUNDUP(offsetof(RECHEADER, data) + rec->length), fp);
+	EWRITE(rec, 1, REC_ROUNDUP(offsetof(RECHEADER, data) + rec->length), fp,
+	       "failed to write temp file");
 }
 
 /*
@@ -235,7 +236,8 @@ putrec(const RECHEADER *rec, FILE *fp)
 void
 putline(const RECHEADER *rec, FILE *fp)
 {
-	EWRITE(rec->data+rec->offset, 1, rec->length - rec->offset, fp);
+	EWRITE(rec->data+rec->offset, 1, rec->length - rec->offset, fp,
+	       "failed to write");
 }
 
 /*
@@ -244,7 +246,8 @@ putline(const RECHEADER *rec, FILE *fp)
 void
 putkeydump(const RECHEADER *rec, FILE *fp)
 {
-	EWRITE(rec, 1, REC_ROUNDUP(offsetof(RECHEADER, data) + rec->offset), fp);
+	EWRITE(rec, 1, REC_ROUNDUP(offsetof(RECHEADER, data) + rec->offset), fp,
+	       "failed to write debug key");
 }
 
 /*

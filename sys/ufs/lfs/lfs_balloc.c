@@ -193,7 +193,7 @@ lfs_balloc(struct vnode *vp, off_t startoffset, int iosize, kauth_cred_t cred,
 			}
 			ip->i_lfs_effnblks += frags;
 			mutex_enter(&lfs_lock);
-			lfs_sb_setbfree(fs, lfs_sb_getbfree(fs) - frags);
+			lfs_sb_subbfree(fs, frags);
 			mutex_exit(&lfs_lock);
 			ip->i_ffs1_db[lbn] = UNWRITTEN;
 		} else {
@@ -219,8 +219,7 @@ lfs_balloc(struct vnode *vp, off_t startoffset, int iosize, kauth_cred_t cred,
 	if (error)
 		return (error);
 
-	daddr = (daddr_t)((int32_t)daddr); /* XXX ondisk32 */
-	KASSERT(daddr <= LFS_MAX_DADDR);
+	KASSERT(daddr <= LFS_MAX_DADDR(fs));
 
 	/*
 	 * Do byte accounting all at once, so we can gracefully fail *before*
@@ -238,7 +237,7 @@ lfs_balloc(struct vnode *vp, off_t startoffset, int iosize, kauth_cred_t cred,
 	}
 	if (ISSPACE(fs, bcount, cred)) {
 		mutex_enter(&lfs_lock);
-		lfs_sb_setbfree(fs, lfs_sb_getbfree(fs) - bcount);
+		lfs_sb_subbfree(fs, bcount);
 		mutex_exit(&lfs_lock);
 		ip->i_lfs_effnblks += bcount;
 	} else {
@@ -442,7 +441,7 @@ lfs_fragextend(struct vnode *vp, int osize, int nsize, daddr_t lbn, struct buf *
 	}
 
 	mutex_enter(&lfs_lock);
-	lfs_sb_setbfree(fs, lfs_sb_getbfree(fs) - frags);
+	lfs_sb_subbfree(fs, frags);
 	mutex_exit(&lfs_lock);
 	ip->i_lfs_effnblks += frags;
 	ip->i_flag |= IN_CHANGE | IN_UPDATE;

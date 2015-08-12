@@ -321,6 +321,7 @@
 ./usr/tests/net/mcast
 ./usr/tests/net/mpls
 ./usr/tests/net/net
+./usr/tests/net/ndp
 ./usr/tests/net/npf
 ./usr/tests/net/route
 ./usr/tests/net/sys

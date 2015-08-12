@@ -319,7 +319,7 @@ ip_init(void)
 	ip_reass_init();
 
 	ip_ids = ip_id_init();
-	ip_id = time_second & 0xfffff;
+	ip_id = time_uptime & 0xfffff;
 
 	ip_mtudisc_timeout_q = rt_timer_queue_create(ip_mtudisc_timeout);
 #ifdef GATEWAY

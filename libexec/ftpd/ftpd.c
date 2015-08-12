@@ -3482,8 +3482,10 @@ send_file_list(const char *whichf)
 		while ((dir = readdir(dirp)) != NULL) {
 			char nbuf[MAXPATHLEN];
 
-			if (urgflag && handleoobcmd())
+			if (urgflag && handleoobcmd()) {
+				(void) closedir(dirp);
 				goto cleanup_send_file_list;
+			}
 
 			if (ISDOTDIR(dir->d_name) || ISDOTDOTDIR(dir->d_name))
 				continue;
@@ -3506,8 +3508,10 @@ send_file_list(const char *whichf)
 				if (dout == NULL) {
 					dout = dataconn("file list", (off_t)-1,
 						"w");
-					if (dout == NULL)
+					if (dout == NULL) {
+						(void) closedir(dirp);
 						goto cleanup_send_file_list;
+					}
 					transflag = 1;
 				}
 				p = nbuf;

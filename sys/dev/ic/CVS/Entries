@@ -214,7 +214,7 @@
 /dwc_gmac.c/1.33/Mon Jun 22 02:35:02 2015/-kk/
 /dwc_gmac_reg.h/1.14/Tue Dec  9 04:43:47 2014/-kk/
 /dwc_gmac_var.h/1.6/Tue Dec  9 04:43:47 2014/-kk/
-/dwc_mmc.c/1.6/Thu Feb  5 08:41:10 2015/-kk/
+/dwc_mmc.c/1.7/Wed Aug 12 04:14:20 2015/-kk/
 /dwc_mmc_reg.h/1.4/Mon Jan 26 07:10:24 2015/-kk/
 /dwc_mmc_var.h/1.4/Tue Dec 30 00:19:50 2014/-kk/
 /dwc_tmr.c/1.1/Sat Jan 17 15:04:47 2015/-kk/

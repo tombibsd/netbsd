@@ -94,6 +94,11 @@ extern u_int32_t lfs_sb_cksum(struct dlfs *);
 extern u_int32_t lfs_cksum_part(void *, size_t, u_int32_t);
 extern int ulfs_getlbns(struct lfs *, struct uvnode *, daddr_t, struct indir *, int *);
 
+/* Ugh */
+#define FSMNT_SIZE MAX(sizeof(((struct dlfs *)0)->dlfs_fsmnt), \
+			sizeof(((struct dlfs64 *)0)->dlfs_fsmnt))
+
+
 /* Compat */
 void pwarn(const char *unused, ...) { /* Does nothing */ };
 
@@ -133,9 +138,9 @@ handle_error(struct clfs **cfsp, int n)
 int
 reinit_fs(struct clfs *fs)
 {
-	char fsname[sizeof(fs->lfs_dlfs.dlfs_fsmnt)];
+	char fsname[FSMNT_SIZE];
 
-	memcpy(fsname, fs->lfs_dlfs.dlfs_fsmnt, sizeof(fsname));
+	memcpy(fsname, lfs_sb_getfsmnt(fs), sizeof(fsname));
 	fsname[sizeof(fsname) - 1] = '\0';
 
 	kops.ko_close(fs->clfs_ifilefd);
@@ -202,7 +207,7 @@ init_unmounted_fs(struct clfs *fs, char *fsname)
 int
 init_fs(struct clfs *fs, char *fsname)
 {
-	char mnttmp[sizeof(fs->lfs_dlfs.dlfs_fsmnt)];
+	char mnttmp[FSMNT_SIZE];
 	struct statvfs sf;
 	int rootfd;
 	int i;
@@ -254,11 +259,19 @@ init_fs(struct clfs *fs, char *fsname)
 		return -1;
 	}
 
-	memcpy(&(fs->lfs_dlfs), sbuf, sizeof(struct dlfs));
+	__CTASSERT(sizeof(struct dlfs) == sizeof(struct dlfs64));
+	memcpy(&fs->lfs_dlfs_u, sbuf, sizeof(struct dlfs));
 	free(sbuf);
 
+	/* If it is not LFS, complain and exit! */
+	if (fs->lfs_dlfs_u.u_32.dlfs_magic != LFS_MAGIC) {
+		syslog(LOG_ERR, "%s: not LFS", fsname);
+		return -1;
+	}
+	fs->lfs_is64 = 0; /* XXX notyet */
+
 	/* If this is not a version 2 filesystem, complain and exit */
-	if (fs->lfs_version != 2) {
+	if (lfs_sb_getversion(fs) != 2) {
 		syslog(LOG_ERR, "%s: not a version 2 LFS", fsname);
 		return -1;
 	}
@@ -266,7 +279,7 @@ init_fs(struct clfs *fs, char *fsname)
 	/* Assume fsname is the mounted name */
 	strncpy(mnttmp, fsname, sizeof(mnttmp));
 	mnttmp[sizeof(mnttmp) - 1] = '\0';
-	memcpy(fs->lfs_dlfs.dlfs_fsmnt, mnttmp, sizeof(mnttmp));
+	lfs_sb_setfsmnt(fs, mnttmp);
 
 	/* Set up vnodes for Ifile and raw device */
 	fs->lfs_ivnode = fd_vget(fs->clfs_ifilefd, lfs_sb_getbsize(fs), 0, 0);
@@ -380,13 +393,14 @@ check_test_pattern(BLOCK_INFO *bip)
  * Parse the partial segment at daddr, adding its information to
  * bip.	 Return the address of the next partial segment to read.
  */
-int32_t
+static daddr_t
 parse_pseg(struct clfs *fs, daddr_t daddr, BLOCK_INFO **bipp, int *bic)
 {
 	SEGSUM *ssp;
 	IFILE *ifp;
 	BLOCK_INFO *bip, *nbip;
-	int32_t *iaddrp, idaddr, odaddr;
+	int32_t *iaddrp;
+	daddr_t idaddr, odaddr;
 	FINFO *fip;
 	struct ubuf *ifbp;
 	struct ulfs1_dinode *dip;
@@ -405,6 +419,7 @@ parse_pseg(struct clfs *fs, daddr_t daddr, BLOCK_INFO **bipp, int *bic)
 	 */
 	cp = fd_ptrget(fs->clfs_devvp, daddr);
 	ssp = (SEGSUM *)cp;
+	/* XXX ondisk32 */
 	iaddrp = ((int32_t *)(cp + lfs_sb_getibsize(fs))) - 1;
 	fip = (FINFO *)(cp + sizeof(SEGSUM));
 
@@ -412,16 +427,16 @@ parse_pseg(struct clfs *fs, daddr_t daddr, BLOCK_INFO **bipp, int *bic)
 	 * Check segment header magic and checksum
 	 */
 	if (ssp->ss_magic != SS_MAGIC) {
-		syslog(LOG_WARNING, "%s: sumsum magic number bad at 0x%x:"
+		syslog(LOG_WARNING, "%s: sumsum magic number bad at 0x%jx:"
 		       " read 0x%x, expected 0x%x", lfs_sb_getfsmnt(fs),
-		       (int32_t)daddr, ssp->ss_magic, SS_MAGIC);
+		       (intmax_t)daddr, ssp->ss_magic, SS_MAGIC);
 		return 0x0;
 	}
 	ck = cksum(&ssp->ss_datasum, lfs_sb_getsumsize(fs) - sizeof(ssp->ss_sumsum));
 	if (ck != ssp->ss_sumsum) {
-		syslog(LOG_WARNING, "%s: sumsum checksum mismatch at 0x%x:"
+		syslog(LOG_WARNING, "%s: sumsum checksum mismatch at 0x%jx:"
 		       " read 0x%x, computed 0x%x", lfs_sb_getfsmnt(fs),
-		       (int32_t)daddr, ssp->ss_sumsum, ck);
+		       (intmax_t)daddr, ssp->ss_sumsum, ck);
 		return 0x0;
 	}
 
@@ -443,8 +458,8 @@ parse_pseg(struct clfs *fs, daddr_t daddr, BLOCK_INFO **bipp, int *bic)
 		 * If we don't have either one, it's an error.
 		 */
 		if (fic >= ssp->ss_nfinfo && *iaddrp != daddr) {
-			syslog(LOG_WARNING, "%s: bad pseg at %x (seg %d)",
-			       lfs_sb_getfsmnt(fs), odaddr, lfs_dtosn(fs, odaddr));
+			syslog(LOG_WARNING, "%s: bad pseg at %jx (seg %d)",
+			       lfs_sb_getfsmnt(fs), (intmax_t)odaddr, lfs_dtosn(fs, odaddr));
 			*bipp = bip;
 			return 0x0;
 		}
@@ -517,8 +532,8 @@ parse_pseg(struct clfs *fs, daddr_t daddr, BLOCK_INFO **bipp, int *bic)
 			struct ubuf *nbp;
 			SEGSUM *nssp;
 
-			syslog(LOG_WARNING, "fixing short FINFO at %x (seg %d)",
-			       odaddr, lfs_dtosn(fs, odaddr));
+			syslog(LOG_WARNING, "fixing short FINFO at %jx (seg %d)",
+			       (intmax_t)odaddr, lfs_dtosn(fs, odaddr));
 			bread(fs->clfs_devvp, odaddr, lfs_sb_getfsize(fs),
 			    0, &nbp);
 			nssp = (SEGSUM *)nbp->b_data;
@@ -527,8 +542,8 @@ parse_pseg(struct clfs *fs, daddr_t daddr, BLOCK_INFO **bipp, int *bic)
 				lfs_sb_getsumsize(fs) - sizeof(nssp->ss_sumsum));
 			bwrite(nbp);
 #endif
-			syslog(LOG_WARNING, "zero-length FINFO at %x (seg %d)",
-			       odaddr, lfs_dtosn(fs, odaddr));
+			syslog(LOG_WARNING, "zero-length FINFO at %jx (seg %d)",
+			       (intmax_t)odaddr, lfs_dtosn(fs, odaddr));
 			continue;
 		}
 
@@ -590,8 +605,9 @@ parse_pseg(struct clfs *fs, daddr_t daddr, BLOCK_INFO **bipp, int *bic)
 
 #ifndef REPAIR_ZERO_FINFO
 	if (ssp->ss_datasum != ck) {
-		syslog(LOG_WARNING, "%s: data checksum bad at 0x%x:"
-		       " read 0x%x, computed 0x%x", lfs_sb_getfsmnt(fs), odaddr,
+		syslog(LOG_WARNING, "%s: data checksum bad at 0x%jx:"
+		       " read 0x%x, computed 0x%x", lfs_sb_getfsmnt(fs),
+		       (intmax_t)odaddr,
 		       ssp->ss_datasum, ck);
 		*bic = obic;
 		return 0x0;
@@ -637,7 +653,7 @@ log_segment_read(struct clfs *fs, int sn)
 int
 load_segment(struct clfs *fs, int sn, BLOCK_INFO **bipp, int *bic)
 {
-	int32_t daddr;
+	daddr_t daddr;
 	int i, npseg;
 
 	daddr = lfs_sntod(fs, sn);

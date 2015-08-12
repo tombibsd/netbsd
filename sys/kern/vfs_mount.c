@@ -824,7 +824,7 @@ dounmount(struct mount *mp, int flags, struct lwp *l)
 	if (used_syncer)
 		vfs_syncer_remove_from_worklist(mp);
 	error = 0;
-	if ((mp->mnt_flag & MNT_RDONLY) == 0) {
+	if (((mp->mnt_flag & MNT_RDONLY) == 0) && ((flags & MNT_FORCE) == 0)) {
 		error = VFS_SYNC(mp, MNT_WAIT, l->l_cred);
 	}
 	if (error == 0 || (flags & MNT_FORCE)) {

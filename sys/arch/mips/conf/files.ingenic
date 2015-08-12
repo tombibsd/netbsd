@@ -40,3 +40,8 @@ device 	jzmmc : sdmmcbus
 attach 	jzmmc at apbus
 file 	arch/mips/ingenic/jzmmc.c	jzmmc
 defflag	opt_ingenic.h	JZMMC_DEBUG
+
+# Random number generator
+device	jzrng
+attach	jzrng at apbus with ingenic_rng
+file	arch/mips/ingenic/ingenic_rng.c	ingenic_rng

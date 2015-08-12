@@ -1861,8 +1861,14 @@ int
 fd_clone(file_t *fp, unsigned fd, int flag, const struct fileops *fops,
 	 void *data)
 {
+	fdfile_t *ff;
+	filedesc_t *fdp;
 
-	fp->f_flag = flag;
+	fp->f_flag |= flag & FMASK;
+	fdp = curproc->p_fd;
+	ff = fdp->fd_dt->dt_ff[fd];
+	KASSERT(ff != NULL);
+	ff->ff_exclose = (flag & O_CLOEXEC) != 0;
 	fp->f_type = DTYPE_MISC;
 	fp->f_ops = fops;
 	fp->f_data = data;

@@ -101,6 +101,7 @@ int	tegra_car_periph_usb_enable(u_int);
 void	tegra_car_periph_hda_enable(void);
 void	tegra_car_periph_sata_enable(void);
 int	tegra_car_periph_i2c_enable(u_int, u_int);
+void	tegra_car_periph_cec_enable(void);
 void	tegra_car_utmip_init(void);
 void	tegra_car_utmip_enable(u_int);
 void	tegra_car_hdmi_enable(u_int);

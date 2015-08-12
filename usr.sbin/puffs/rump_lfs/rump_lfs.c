@@ -60,7 +60,7 @@ cleaner(void *arg)
 int
 main(int argc, char *argv[])
 {
-	struct ufs_args args;
+	struct ulfs_args args;
 	char canon_dev[UKFS_DEVICE_MAXPATHLEN], canon_dir[MAXPATHLEN];
 	char rawdev[MAXPATHLEN];
 	struct p2k_mount *p2m;

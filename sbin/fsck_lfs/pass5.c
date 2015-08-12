@@ -60,9 +60,9 @@ pass5(void)
 	SEGUSE *su;
 	struct ubuf *bp;
 	int i;
-	unsigned long bb;	/* total number of used blocks (lower bound) */
-	unsigned long ubb;	/* upper bound number of used blocks */
-	unsigned long avail;	/* blocks available for writing */
+	daddr_t bb;		/* total number of used blocks (lower bound) */
+	daddr_t ubb;		/* upper bound number of used blocks */
+	daddr_t avail;		/* blocks available for writing */
 	unsigned long dmeta;	/* blocks in segsums and inodes */
 	int nclean;		/* clean segments */
 	size_t labelskew;
@@ -120,7 +120,7 @@ pass5(void)
 			avail += lfs_segtod(fs, 1);
 			if (su->su_flags & SEGUSE_SUPERBLOCK)
 				avail -= lfs_btofsb(fs, LFS_SBPAD);
-			if (i == 0 && fs->lfs_version > 1 &&
+			if (i == 0 && lfs_sb_getversion(fs) > 1 &&
 			    lfs_sb_gets0addr(fs) < lfs_btofsb(fs, LFS_LABELPAD))
 				avail -= lfs_btofsb(fs, LFS_LABELPAD) -
 				    lfs_sb_gets0addr(fs);
@@ -152,8 +152,8 @@ pass5(void)
 		}
 	}
 	if (avail != lfs_sb_getavail(fs)) {
-		pwarn("AVAIL GIVEN AS %d, SHOULD BE %ld\n",
-		      lfs_sb_getavail(fs), avail);
+		pwarn("AVAIL GIVEN AS %jd, SHOULD BE %jd\n",
+		      (intmax_t)lfs_sb_getavail(fs), (intmax_t)avail);
 		if (preen || reply("FIX")) {
 			lfs_sb_setavail(fs, avail);
 			sbdirty();
@@ -169,15 +169,15 @@ pass5(void)
 	}
 
 	labelskew = 0;
-	if (fs->lfs_version > 1 &&
+	if (lfs_sb_getversion(fs) > 1 &&
 	    lfs_sb_gets0addr(fs) < lfs_btofsb(fs, LFS_LABELPAD))
 		labelskew = lfs_btofsb(fs, LFS_LABELPAD);
 	if (lfs_sb_getbfree(fs) > lfs_sb_getdsize(fs) - bb - labelskew ||
 	    lfs_sb_getbfree(fs) < lfs_sb_getdsize(fs) - ubb - labelskew) {
-		pwarn("BFREE GIVEN AS %jd, SHOULD BE BETWEEN %ld AND %ld\n",
+		pwarn("BFREE GIVEN AS %jd, SHOULD BE BETWEEN %jd AND %jd\n",
 		    (intmax_t)lfs_sb_getbfree(fs),
-		    lfs_sb_getdsize(fs) - ubb - labelskew,
-		    lfs_sb_getdsize(fs) - bb - labelskew);
+		    (intmax_t)(lfs_sb_getdsize(fs) - ubb - labelskew),
+		    (intmax_t)(lfs_sb_getdsize(fs) - bb - labelskew));
 		if (preen || reply("FIX")) {
 			lfs_sb_setbfree(fs,
 				((lfs_sb_getdsize(fs) - labelskew - ubb) +

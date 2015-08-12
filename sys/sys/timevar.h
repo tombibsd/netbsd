@@ -188,4 +188,16 @@ bool	time_wraps(struct timespec *, struct timespec *);
 extern volatile time_t time_second;	/* current second in the epoch */
 extern volatile time_t time_uptime;	/* system uptime in seconds */
 
+static inline time_t time_mono_to_wall(time_t t)
+{
+
+	return t - time_uptime + time_second;
+}
+
+static inline time_t time_wall_to_mono(time_t t)
+{
+
+	return t - time_second + time_uptime;
+}
+
 #endif /* !_SYS_TIMEVAR_H_ */

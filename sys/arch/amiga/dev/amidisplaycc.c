@@ -60,7 +60,6 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <amiga/dev/viewioctl.h>
 #include <amiga/amiga/device.h>
 #include <dev/wscons/wsconsio.h>
-#include <dev/rcons/raster.h>
 #include <dev/wscons/wscons_raster.h>
 #include <dev/wscons/wsdisplayvar.h>
 #include <dev/cons.h>

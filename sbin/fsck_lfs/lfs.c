@@ -72,8 +72,8 @@
 
 #define vnode uvnode
 #include <ufs/lfs/lfs.h>
-#include <ufs/lfs/lfs_accessors.h>
 #include <ufs/lfs/lfs_inode.h>
+#include <ufs/lfs/lfs_accessors.h>
 #undef vnode
 
 #include <assert.h>
@@ -95,7 +95,7 @@
 #define panic call_panic
 
 extern u_int32_t cksum(void *, size_t);
-extern u_int32_t lfs_sb_cksum(struct dlfs *);
+extern u_int32_t lfs_sb_cksum(struct lfs *);
 extern void pwarn(const char *, ...);
 
 extern struct uvnodelst vnodelist;
@@ -427,15 +427,19 @@ static int
 check_sb(struct lfs *fs)
 {
 	u_int32_t checksum;
+	u_int32_t magic;
 
-	if (fs->lfs_magic != LFS_MAGIC) {
+	/* we can read the magic out of either the 32-bit or 64-bit dlfs */
+	magic = fs->lfs_dlfs_u.u_32.dlfs_magic;
+
+	if (magic != LFS_MAGIC) {
 		printf("Superblock magic number (0x%lx) does not match "
-		       "expected 0x%lx\n", (unsigned long) fs->lfs_magic,
+		       "expected 0x%lx\n", (unsigned long) magic,
 		       (unsigned long) LFS_MAGIC);
 		return 1;
 	}
 	/* checksum */
-	checksum = lfs_sb_cksum(&(fs->lfs_dlfs));
+	checksum = lfs_sb_cksum(fs);
 	if (lfs_sb_getcksum(fs) != checksum) {
 		printf("Superblock checksum (%lx) does not match computed checksum (%lx)\n",
 		    (unsigned long) lfs_sb_getcksum(fs), (unsigned long) checksum);
@@ -482,7 +486,8 @@ lfs_init(int devfd, daddr_t sblkno, daddr_t idaddr, int dummy_read, int debug)
 
 		(void)bread(devvp, sblkno, LFS_SBPAD, 0, &bp);
 		fs = ecalloc(1, sizeof(*fs));
-		fs->lfs_dlfs = *((struct dlfs *) bp->b_data);
+		__CTASSERT(sizeof(struct dlfs) == sizeof(struct dlfs64));
+		memcpy(&fs->lfs_dlfs_u, bp->b_data, sizeof(struct dlfs));
 		fs->lfs_devvp = devvp;
 		bp->b_flags |= B_INVAL;
 		brelse(bp, 0);
@@ -493,7 +498,8 @@ lfs_init(int devfd, daddr_t sblkno, daddr_t idaddr, int dummy_read, int debug)
 			(void)bread(devvp, LFS_FSBTODB(fs, lfs_sb_getsboff(fs, 1)),
 		    	LFS_SBPAD, 0, &bp);
 			altfs = ecalloc(1, sizeof(*altfs));
-			altfs->lfs_dlfs = *((struct dlfs *) bp->b_data);
+			memcpy(&altfs->lfs_dlfs_u, bp->b_data,
+			       sizeof(struct dlfs));
 			altfs->lfs_devvp = devvp;
 			bp->b_flags |= B_INVAL;
 			brelse(bp, 0);
@@ -526,7 +532,7 @@ lfs_init(int devfd, daddr_t sblkno, daddr_t idaddr, int dummy_read, int debug)
 	}
 
 	/* Compatibility */
-	if (fs->lfs_version < 2) {
+	if (lfs_sb_getversion(fs) < 2) {
 		lfs_sb_setsumsize(fs, LFS_V1_SUMMARY_SIZE);
 		lfs_sb_setibsize(fs, lfs_sb_getbsize(fs));
 		lfs_sb_sets0addr(fs, lfs_sb_getsboff(fs, 0));
@@ -644,7 +650,7 @@ try_verify(struct lfs *osb, struct uvnode *devvp, ulfs_daddr_t goal, int debug)
 			break;
 		}
 		if (debug)
-			pwarn("summary good: 0x%x/%d\n", (int)daddr,
+			pwarn("summary good: 0x%x/%d\n", (uintmax_t)daddr,
 			      (int)sp->ss_serial);
 		assert (bc > 0);
 		odaddr = daddr;
@@ -695,11 +701,11 @@ lfs_verify(struct lfs *sb0, struct lfs *sb1, struct uvnode *devvp, int debug)
 		      (uintmax_t) lfs_sb_getserial(sb0),
 		      (uintmax_t) lfs_sb_getserial(sb1));
 
-	if ((sb0->lfs_version == 1 &&
+	if ((lfs_sb_getversion(sb0) == 1 &&
 		lfs_sb_getotstamp(sb0) != lfs_sb_getotstamp(sb1)) ||
-	    (sb0->lfs_version > 1 &&
+	    (lfs_sb_getversion(sb0) > 1 &&
 		lfs_sb_getserial(sb0) != lfs_sb_getserial(sb1))) {
-		if (sb0->lfs_version == 1) {
+		if (lfs_sb_getversion(sb0) == 1) {
 			if (lfs_sb_getotstamp(sb0) > lfs_sb_getotstamp(sb1)) {
 				osb = sb1;
 				nsb = sb0;
@@ -756,7 +762,7 @@ check_summary(struct lfs *fs, SEGSUM *sp, ulfs_daddr_t pseg_addr, int debug,
 
 	/* Count the blocks. */
 	nblocks = howmany(sp->ss_ninos, LFS_INOPB(fs));
-	bc = nblocks << (fs->lfs_version > 1 ? lfs_sb_getffshift(fs) : lfs_sb_getbshift(fs));
+	bc = nblocks << (lfs_sb_getversion(fs) > 1 ? lfs_sb_getffshift(fs) : lfs_sb_getbshift(fs));
 	assert(bc >= 0);
 
 	fp = (FINFO *) (sp + 1);
@@ -818,15 +824,15 @@ check_summary(struct lfs *fs, SEGSUM *sp, ulfs_daddr_t pseg_addr, int debug,
 	}
 
 	if (datac != nblocks) {
-		pwarn("Partial segment at 0x%llx expected %d blocks counted %d\n",
-		    (long long) pseg_addr, nblocks, datac);
+		pwarn("Partial segment at 0x%jx expected %d blocks counted %d\n",
+		    (intmax_t)pseg_addr, nblocks, datac);
 	}
 	ccksum = cksum(datap, nblocks * sizeof(u_int32_t));
 	/* Check the data checksum */
 	if (ccksum != sp->ss_datasum) {
-		pwarn("Partial segment at 0x%" PRIx32 " data checksum"
+		pwarn("Partial segment at 0x%jx data checksum"
 		      " mismatch: given 0x%x, computed 0x%x\n",
-		      pseg_addr, sp->ss_datasum, ccksum);
+		      (uintmax_t)pseg_addr, sp->ss_datasum, ccksum);
 		free(datap);
 		return 0;
 	}
@@ -926,7 +932,7 @@ extend_ifile(struct lfs *fs)
 	max = i + lfs_sb_getifpb(fs);
 	lfs_sb_subbfree(fs, lfs_btofsb(fs, lfs_sb_getbsize(fs)));
 
-	if (fs->lfs_version == 1) {
+	if (lfs_sb_getversion(fs) == 1) {
 		for (ifp_v1 = (IFILE_V1 *)bp->b_data; i < max; ++ifp_v1) {
 			ifp_v1->if_version = 1;
 			ifp_v1->if_daddr = LFS_UNUSED_DADDR;

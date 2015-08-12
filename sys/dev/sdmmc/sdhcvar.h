@@ -56,10 +56,13 @@ struct sdhc_softc {
 #define	SDHC_FLAG_SINGLE_POWER_WRITE 0x00040000
 #define	SDHC_FLAG_NO_TIMEOUT	0x00080000 /* ignore timeout interrupts */
 #define	SDHC_FLAG_USE_ADMA2	0x00100000
+#define	SDHC_FLAG_POLL_CARD_DET	0x00200000 /* polling card detect */
+#define	SDHC_FLAG_SLOW_SDR50  	0x00400000 /* reduce SDR50 speed */
 
 	uint32_t		sc_clkbase;
 	int			sc_clkmsk;	/* Mask for SDCLK */
 	uint32_t		sc_caps;/* attachment provided capabilities */
+	uint32_t		sc_caps2;
 
 	int (*sc_vendor_rod)(struct sdhc_softc *, int);
 	int (*sc_vendor_write_protect)(struct sdhc_softc *);

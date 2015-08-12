@@ -253,7 +253,7 @@ main(int argc, char **argv)
 		syslog(LOG_WARNING, "BAD SU %s to %s%s: %s",
 		    username, user, ontty(), safe_pam_strerror(pamh, pam_err));
 		(void)pam_end(pamh, pam_err);
-		errx(EXIT_FAILURE, "Sorry: %s", safe_pam_strerror(pamh, pam_err));
+		errx(EXIT_FAILURE, "Sorry: %s", safe_pam_strerror(NULL, pam_err));
 	}
 
 	/*

@@ -234,6 +234,8 @@ iic*		at awiniic?
 # On-board 16550 UARTs
 com0		at awinio? port 0			# UART0 (console)
 options 	CONADDR=0x01c28000, CONSPEED=115200
+#com1		at awinio? port 3	# CON3: rx = pin 10, tx = pin 8
+#com2		at awinio? port 7	#  J12: rx = pin  4, tx = pin 6
 
 # Consumer IR
 awinir0		at awinio?

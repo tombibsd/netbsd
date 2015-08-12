@@ -46,7 +46,7 @@ __RCSID("$NetBSD$");
 #include <sys/param.h>
 #include <sys/mount.h>
 
-#include <ufs/ufs/ufsmount.h>
+#include <ufs/lfs/lfs.h>
 
 #include <err.h>
 #include <errno.h>
@@ -94,7 +94,7 @@ main(int argc, char **argv)
 
 void
 mount_lfs_parseargs(int argc, char *argv[],
-	struct ufs_args *args, int *mntflags,
+	struct ulfs_args *args, int *mntflags,
 	char *canon_dev, char *canon_dir)
 {
 	int ch;
@@ -149,7 +149,7 @@ mount_lfs_parseargs(int argc, char *argv[],
 int
 mount_lfs(int argc, char *argv[])
 {
-	struct ufs_args args;
+	struct ulfs_args args;
 	int mntflags;
 	int mntsize, oldflags, i;
 	char fs_name[MAXPATHLEN], canon_dev[MAXPATHLEN];

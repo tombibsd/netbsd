@@ -63,8 +63,12 @@ amlogicrng0	at amlogicio0
 amlogicrtc0	at amlogicio0
 
 # SDHC controller
-amlogicsdhc0	at amlogicio0 port 1
-sdmmc*		at amlogicsdhc?
+amlogicsdhc0	at amlogicio0
+amlogicsdio0	at amlogicio0
+sdmmc0		at amlogicsdhc0
+sdmmc1		at amlogicsdio0
+ld0		at sdmmc0
+ld1		at sdmmc1
 ld*		at sdmmc?
 
 # Gigabit ethernet

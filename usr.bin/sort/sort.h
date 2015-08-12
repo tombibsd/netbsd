@@ -100,9 +100,9 @@
 		err(2, "%p", file);					\
 }
 
-#define	EWRITE(ptr, size, n, f) {					\
+#define	EWRITE(ptr, size, n, f, fmt) {					\
 	if (!fwrite(ptr, size, n, f))					\
-		 err(2, NULL);						\
+		 err(2, fmt);						\
 }
 
 /* Records are limited to MAXBUFSIZE (8MB) and less if you want to sort

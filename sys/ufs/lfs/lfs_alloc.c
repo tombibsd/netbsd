@@ -161,7 +161,7 @@ lfs_extend_ifile(struct lfs *fs, kauth_cred_t cred)
 #endif /* DIAGNOSTIC */
 	xmax = i + lfs_sb_getifpb(fs);
 
-	if (fs->lfs_version == 1) {
+	if (lfs_sb_getversion(fs) == 1) {
 		for (ifp_v1 = (IFILE_V1 *)bp->b_data; i < xmax; ++ifp_v1) {
 			SET_BITMAP_FREE(fs, i);
 			ifp_v1->if_version = 1;
@@ -391,7 +391,7 @@ lfs_vfree(struct vnode *vp, ino_t ino, int mode)
 
 	/* Drain of pending writes */
 	mutex_enter(vp->v_interlock);
-	while (fs->lfs_version > 1 && WRITEINPROG(vp)) {
+	while (lfs_sb_getversion(fs) > 1 && WRITEINPROG(vp)) {
 		cv_wait(&vp->v_cv, vp->v_interlock);
 	}
 	mutex_exit(vp->v_interlock);
@@ -447,7 +447,7 @@ lfs_vfree(struct vnode *vp, ino_t ino, int mode)
 	old_iaddr = ifp->if_daddr;
 	ifp->if_daddr = LFS_UNUSED_DADDR;
 	++ifp->if_version;
-	if (fs->lfs_version == 1) {
+	if (lfs_sb_getversion(fs) == 1) {
 		LFS_GET_HEADFREE(fs, cip, cbp, &(ifp->if_nextfree));
 		LFS_PUT_HEADFREE(fs, cip, cbp, ino);
 		(void) LFS_BWRITE_LOG(bp); /* Ifile */

@@ -72,7 +72,7 @@ lfs_itimes(struct inode *ip, const struct timespec *acc,
 #endif
 		ip->i_ffs1_atime = acc->tv_sec;
 		ip->i_ffs1_atimensec = acc->tv_nsec;
-		if (ip->i_lfs->lfs_version > 1) {
+		if (lfs_sb_getversion(ip->i_lfs) > 1) {
 			struct lfs *fs = ip->i_lfs;
 			struct buf *ibp;
 			IFILE *ifp;

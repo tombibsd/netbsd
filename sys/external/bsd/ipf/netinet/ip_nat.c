@@ -1227,11 +1227,11 @@ ipf_nat_ioctl(ipf_main_softc_t *softc, void *data, ioctlcmd_t cmd, int mode,
 			switch (nl.nl_v)
 			{
 			case 4 :
-				ptr = ipf_nat_lookupredir(&nl);
+				ptr = ipf_nat_lookupredir(softc, &nl);
 				break;
 #ifdef USE_INET6
 			case 6 :
-				ptr = ipf_nat6_lookupredir(&nl);
+				ptr = ipf_nat6_lookupredir(softc, &nl);
 				break;
 #endif
 			default:
@@ -4574,12 +4574,13 @@ find_out_wild_ports:
 /*     nl_out* = destination information (translated)                       */
 /* ------------------------------------------------------------------------ */
 nat_t *
-ipf_nat_lookupredir(natlookup_t *np)
+ipf_nat_lookupredir(ipf_main_softc_t *softc, natlookup_t *np)
 {
 	fr_info_t fi;
 	nat_t *nat;
 
 	bzero((char *)&fi, sizeof(fi));
+	fi.fin_main_soft = softc;
 	if (np->nl_flags & IPN_IN) {
 		fi.fin_data[0] = ntohs(np->nl_realport);
 		fi.fin_data[1] = ntohs(np->nl_outport);

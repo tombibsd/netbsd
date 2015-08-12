@@ -687,12 +687,8 @@ out:
 	UNMARK_VNODE(dvp);
 	/* XXX: is it even possible for the symlink to get MARK'd? */
 	UNMARK_VNODE(*vpp);
-	if (!((*vpp)->v_uflag & VU_DIROP)) {
-		KASSERT(error != 0);
+	if (error) {
 		*vpp = NULL;
-	}
-	else {
-		KASSERT(error == 0);
 	}
 	lfs_unset_dirop(fs, dvp, "symlink");
 
@@ -744,13 +740,6 @@ lfs_mknod(void *v)
 	/* Either way we're done with the dirop at this point */
 	UNMARK_VNODE(dvp);
 	UNMARK_VNODE(*vpp);
-	if (!((*vpp)->v_uflag & VU_DIROP)) {
-		KASSERT(error != 0);
-		*vpp = NULL;
-	}
-	else {
-		KASSERT(error == 0);
-	}
 	lfs_unset_dirop(fs, dvp, "mknod");
 	/*
 	 * XXX this is where this used to be (though inside some evil
@@ -843,12 +832,8 @@ out:
 
 	UNMARK_VNODE(dvp);
 	UNMARK_VNODE(*vpp);
-	if (!((*vpp)->v_uflag & VU_DIROP)) {
-		KASSERT(error != 0);
+	if (error) {
 		*vpp = NULL;
-	}
-	else {
-		KASSERT(error == 0);
 	}
 	lfs_unset_dirop(fs, dvp, "create");
 
@@ -1018,12 +1003,8 @@ out:
 
 	UNMARK_VNODE(dvp);
 	UNMARK_VNODE(*vpp);
-	if (!((*vpp)->v_uflag & VU_DIROP)) {
-		KASSERT(error != 0);
+	if (error) {
 		*vpp = NULL;
-	}
-	else {
-		KASSERT(error == 0);
 	}
 	lfs_unset_dirop(fs, dvp, "mkdir");
 
@@ -1186,7 +1167,7 @@ lfs_getattr(void *v)
 		vap->va_blocksize = MAXBSIZE;
 	else
 		vap->va_blocksize = vp->v_mount->mnt_stat.f_iosize;
-	vap->va_bytes = lfs_fsbtob(fs, (u_quad_t)ip->i_lfs_effnblks);
+	vap->va_bytes = lfs_fsbtob(fs, ip->i_lfs_effnblks);
 	vap->va_type = vp->v_type;
 	vap->va_filerev = ip->i_modrev;
 	fstrans_done(vp->v_mount);
@@ -1466,7 +1447,7 @@ lfs_strategy(void *v)
 			    tbn >= fs->lfs_cleanint[i]) {
 				DLOG((DLOG_CLEAN,
 				      "lfs_strategy: ino %d lbn %" PRId64
-				      " ind %d sn %d fsb %" PRIx32
+				      " ind %d sn %d fsb %" PRIx64
 				      " given sn %d fsb %" PRIx64 "\n",
 				      ip->i_number, bp->b_lblkno, i,
 				      lfs_dtosn(fs, fs->lfs_cleanint[i]),

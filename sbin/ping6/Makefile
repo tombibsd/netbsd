@@ -1,16 +1,24 @@
 # $NetBSD$
 
-USE_FORT?= yes	# setuid
-PROG=	ping6
-MAN=	ping6.8
+.include <bsd.own.mk>
 
-BINOWN=	root
-BINMODE=4555
+USE_FORT?=	yes	# setuid
+RUMPPRG=	ping6
+MAN=		ping6.8
 
-CPPFLAGS+=-DINET6
-CPPFLAGS+=-DIPSEC
+BINOWN=		root
+BINMODE=	4555
 
-LDADD+=	-lipsec -lm
-DPADD+=	${LIBIPSEC} ${LIBM}
+CPPFLAGS+=	-DINET6
+CPPFLAGS+=	-DIPSEC
+
+LDADD+=		-lipsec -lm
+DPADD+=		${LIBIPSEC} ${LIBM}
+
+.PATH:		${.CURDIR}/../../lib/libc/net
+RUMPSRCS=	getnameinfo.c
+.if (${MKRUMP} != "no")
+CPPFLAGS+= 	-DRUMP_ACTION
+.endif
 
 .include <bsd.prog.mk>

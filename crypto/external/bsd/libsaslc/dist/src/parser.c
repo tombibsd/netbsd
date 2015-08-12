@@ -186,8 +186,10 @@ saslc__parse_line(char *line, saslc__dict_t *dict)
 
 	key = NULL;
 	while ((t = saslc__parse_get_token(&line)) != NULL) {
-		if (t->type == TOKEN_COMMENT)
+		if (t->type == TOKEN_COMMENT) {
+			free(t);
 			break;
+		}
 
 		if (key == NULL) {  /* get the key */
 			if (t->type != TOKEN_KEY)

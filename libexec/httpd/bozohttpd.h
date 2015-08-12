@@ -41,6 +41,11 @@
 #endif
 #include <stdio.h>
 
+/* QNX provides a lot of NetBSD things in nbutil.h */
+#ifdef USE_NBUTIL
+#include <nbutil.h>
+#endif
+
 /* lots of "const" but gets free()'ed etc at times, sigh */
 
 /* headers */

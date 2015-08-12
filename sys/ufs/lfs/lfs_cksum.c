@@ -100,10 +100,18 @@ cksum(void *str, size_t len)
 }
 
 u_int32_t
-lfs_sb_cksum(struct dlfs *fs)
+lfs_sb_cksum(struct lfs *fs)
 {
+	void *ptr;
 	size_t size;
 
-	size = (size_t)offsetof(struct dlfs, dlfs_cksum);
-	return cksum(fs, size);
+	if (fs->lfs_is64) {
+		ptr = &fs->lfs_dlfs_u.u_64;
+		size = (size_t)offsetof(struct dlfs64, dlfs_cksum);
+	} else {
+		ptr = &fs->lfs_dlfs_u.u_32;
+		size = (size_t)offsetof(struct dlfs64, dlfs_cksum);
+	}
+
+	return cksum(ptr, size);
 }

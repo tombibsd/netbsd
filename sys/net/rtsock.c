@@ -717,8 +717,11 @@ rt_setmetrics(int which, const struct rt_xmsghdr *in, struct rtentry *out)
 	metric(RTV_RTTVAR, rmx_rttvar);
 	metric(RTV_HOPCOUNT, rmx_hopcount);
 	metric(RTV_MTU, rmx_mtu);
-	metric(RTV_EXPIRE, rmx_expire);
 #undef metric
+	if (which & RTV_EXPIRE) {
+		out->rt_rmx.rmx_expire = in->rtm_rmx.rmx_expire ?
+		    time_wall_to_mono(in->rtm_rmx.rmx_expire) : 0;
+	}
 }
 
 static void
@@ -732,8 +735,9 @@ rtm_setmetrics(const struct rtentry *in, struct rt_xmsghdr *out)
 	metric(rmx_rttvar);
 	metric(rmx_hopcount);
 	metric(rmx_mtu);
-	metric(rmx_expire);
 #undef metric
+	out->rtm_rmx.rmx_expire = in->rt_rmx.rmx_expire ?
+	    time_mono_to_wall(in->rt_rmx.rmx_expire) : 0;
 }
 
 static int

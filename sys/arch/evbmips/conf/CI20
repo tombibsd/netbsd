@@ -220,6 +220,9 @@ cd*		at scsibus? target ? lun ?	# SCSI CD-ROM drives
 # Ethernet
 axe*	at uhub? port ?
 
+# Random number generator
+jzrng0	at apbus0
+
 # MII/PHY support
 #acphy*		at mii? phy ?		# DAltima AC101 and AMD Am79c874 PHYs
 #amhphy* 	at mii? phy ?		# AMD 79c901 Ethernet PHYs

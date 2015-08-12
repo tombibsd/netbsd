@@ -556,8 +556,10 @@ saslc__sess_xxcode(saslc_sess_t *sess, saslc__mech_xxcode_t xxcode,
 	ate = 0;
 	do {
 		len = xxcode(sess, in, inlen, &pkt, &pktlen);
-		if (len == -1)  /* error */
+		if (len == -1) {
+			free(buf);
 			return -1;
+		}
 
 		ate += len;
 		in = (const char *)in + len;
@@ -570,7 +572,10 @@ saslc__sess_xxcode(saslc_sess_t *sess, saslc__mech_xxcode_t xxcode,
 			continue;
 
 		buflen += pktlen;
+		p = buf;
 		if ((buf = realloc(buf, buflen)) == NULL) {
+			/* we should free memory if realloc(2) failed */
+			free(p);
 			saslc__error_set_errno(ERR(sess), ERROR_NOMEM);
 			return -1;
 		}

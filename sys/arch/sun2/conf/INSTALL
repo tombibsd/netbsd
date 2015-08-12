@@ -37,7 +37,6 @@ options		PIPE_SOCKETPAIR		# smaller, but slower pipe(2)
 #options 	DEBUG		# kernel debugging code
 #options 	DIAGNOSTIC	# extra kernel sanity checking
 #options 	USERCONF	# userconf(4) support
-#options 	KMEMSTATS	# kernel memory statistics (vmstat -m)
 #options 	PMAP_DEBUG
 #options 	SCSIDEBUG
 #options 	SCSIVERBOSE		# Verbose SCSI errors

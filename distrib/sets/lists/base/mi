@@ -549,6 +549,7 @@
 ./sbin/rump.modstat				base-sysutil-root	rump
 ./sbin/rump.modunload				base-sysutil-root	rump
 ./sbin/rump.ping				base-netutil-root	rump
+./sbin/rump.ping6				base-netutil-root	inet6,rump
 ./sbin/rump.raidctl				base-sysutil-root	rump
 ./sbin/rump.route				base-netutil-root	rump
 ./sbin/rump.sysctl				base-sysutil-root	rump
@@ -1023,6 +1024,7 @@
 ./usr/include/dev/eisa				base-obsolete		obsolete
 ./usr/include/dev/filemon			base-c-usr
 ./usr/include/dev/hdaudio			base-c-usr
+./usr/include/dev/hdmicec			base-c-usr
 ./usr/include/dev/hpc				base-c-usr
 ./usr/include/dev/i2c				base-c-usr
 ./usr/include/dev/i2o				base-c-usr
@@ -1107,11 +1109,8 @@
 ./usr/include/g++/tr1				base-cxx-usr
 ./usr/include/g++/tr1_impl			base-cxx-usr
 ./usr/include/g++/tr2				base-cxx-usr
-./usr/include/gcc-4.1				base-c-usr		gcc=4
-./usr/include/gcc-4.1				base-obsolete		!gcc,obsolete
-./usr/include/gcc-4.1				base-obsolete		gcc=45,obsolete
-./usr/include/gcc-4.1				base-obsolete		gcc=48,obsolete
-./usr/include/gcc-4.5				base-c-usr
+./usr/include/gcc-4.1				base-obsolete		obsolete
+./usr/include/gcc-4.5				base-c-usr		obsolete
 ./usr/include/gcc-4.8				base-c-usr
 ./usr/include/gssapi				base-c-usr
 ./usr/include/gssapi/rpc			base-obsolete		obsolete
@@ -1820,6 +1819,7 @@
 ./usr/sbin/rtquery				base-netutil-bin
 ./usr/sbin/rtsold				base-obsolete		obsolete
 ./usr/sbin/rump.arp				base-netutil-bin	rump
+./usr/sbin/rump.ndp				base-netutil-bin	inet6,rump
 ./usr/sbin/rump.envstat				base-sysutil-bin	rump
 ./usr/sbin/rump.powerd				base-sysutil-bin	rump
 ./usr/sbin/rump.traceroute			base-netutil-bin	rump

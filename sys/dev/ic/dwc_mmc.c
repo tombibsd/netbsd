@@ -482,12 +482,6 @@ dwc_mmc_exec_command(sdmmc_chipset_handle_t sch, struct sdmmc_command *cmd)
 
 	cmd->c_resid = cmd->c_datalen;
 	MMC_WRITE(sc, DWC_MMC_CMD_REG, cmdval | cmd->c_opcode);
-	if (cmd->c_datalen > 0) {
-		cmd->c_error = dwc_mmc_pio_transfer(sc, cmd);
-		if (cmd->c_error) {
-			goto done;
-		}
-	}
 
 	cmd->c_error = dwc_mmc_wait_rint(sc,
 	    DWC_MMC_INT_ERROR|DWC_MMC_INT_CD, hz * 10);
@@ -506,6 +500,11 @@ dwc_mmc_exec_command(sdmmc_chipset_handle_t sch, struct sdmmc_command *cmd)
 	}
 
 	if (cmd->c_datalen > 0) {
+		cmd->c_error = dwc_mmc_pio_transfer(sc, cmd);
+		if (cmd->c_error) {
+			goto done;
+		}
+
 		cmd->c_error = dwc_mmc_wait_rint(sc,
 		    DWC_MMC_INT_ERROR|DWC_MMC_INT_ACD|DWC_MMC_INT_DTO,
 		    hz * 10);

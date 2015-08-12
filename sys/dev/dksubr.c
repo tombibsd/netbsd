@@ -289,7 +289,9 @@ dk_done(struct dk_softc *dksc, struct buf *bp)
 	struct disk *dk = &dksc->sc_dkdev;
 
 	if (bp->b_error != 0) {
-		diskerr(bp, dksc->sc_xname, "error", LOG_PRINTF, 0,
+		struct cfdriver *cd = device_cfdriver(dksc->sc_dev);
+
+		diskerr(bp, cd->cd_name, "error", LOG_PRINTF, 0,
 			dk->dk_label);
 		printf("\n");
 	}

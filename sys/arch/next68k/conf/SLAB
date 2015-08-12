@@ -36,7 +36,6 @@ makeoptions	DEBUG="-g"		# debugging symbols for gdb
 #options 	KGDB_DEVRATE=9600	# baud rate
 
 # Other debugging options
-options 	KMEMSTATS	# kernel memory statistics (vmstat -m)
 #options 	PMAP_DEBUG
 options 	SCSIDEBUG
 options 	SCSIVERBOSE		# Verbose SCSI errors

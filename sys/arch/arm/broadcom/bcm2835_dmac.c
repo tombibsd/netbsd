@@ -53,7 +53,7 @@ struct bcm_dmac_channel {
 	struct bcm_dmac_softc *ch_sc;
 	void *ch_ih;
 	uint8_t ch_index;
-	void (*ch_callback)(void *);
+	void (*ch_callback)(uint32_t, uint32_t, void *);
 	void *ch_callbackarg;
 	uint32_t ch_debug;
 };
@@ -165,23 +165,26 @@ bcm_dmac_intr(void *priv)
 {
 	struct bcm_dmac_channel *ch = priv;
 	struct bcm_dmac_softc *sc = ch->ch_sc;
-	uint32_t cs;
+	uint32_t cs, ce;
 
 	cs = DMAC_READ(sc, DMAC_CS(ch->ch_index));
-	if (!(cs & DMAC_CS_INTMASK))
-		return 0;
-
 	DMAC_WRITE(sc, DMAC_CS(ch->ch_index), cs);
+	cs &= DMAC_CS_INT | DMAC_CS_END | DMAC_CS_ERROR;
+
+	ce = DMAC_READ(sc, DMAC_DEBUG(ch->ch_index));
+	ce &= DMAC_DEBUG_READ_ERROR | DMAC_DEBUG_FIFO_ERROR
+	    | DMAC_DEBUG_READ_LAST_NOT_SET_ERROR;
+	DMAC_WRITE(sc, DMAC_DEBUG(ch->ch_index), ce);
 
 	if (ch->ch_callback)
-		ch->ch_callback(ch->ch_callbackarg);
+		ch->ch_callback(cs, ce, ch->ch_callbackarg);
 
 	return 1;
 }
 
 struct bcm_dmac_channel *
-bcm_dmac_alloc(enum bcm_dmac_type type, int ipl, void (*cb)(void *),
-    void *cbarg)
+bcm_dmac_alloc(enum bcm_dmac_type type, int ipl,
+    void (*cb)(uint32_t, uint32_t, void *), void *cbarg)
 {
 	struct bcm_dmac_softc *sc;
 	struct bcm_dmac_channel *ch = NULL;
@@ -234,9 +237,9 @@ bcm_dmac_free(struct bcm_dmac_channel *ch)
 
 	bcm_dmac_halt(ch);
 
+	/* reset chip */
 	val = DMAC_READ(sc, DMAC_CS(ch->ch_index));
 	val |= DMAC_CS_RESET;
-	val |= DMAC_CS_ABORT;
 	val &= ~DMAC_CS_ACTIVE;
 	DMAC_WRITE(sc, DMAC_CS(ch->ch_index), val);
 
@@ -275,7 +278,22 @@ bcm_dmac_transfer(struct bcm_dmac_channel *ch)
 void
 bcm_dmac_halt(struct bcm_dmac_channel *ch)
 {
-	bcm_dmac_set_conblk_addr(ch, 0);
+	struct bcm_dmac_softc *sc = ch->ch_sc;
+	uint32_t val;
+
+	/* pause DMA */
+	val = DMAC_READ(sc, DMAC_CS(ch->ch_index));
+	val &= ~DMAC_CS_ACTIVE;
+	DMAC_WRITE(sc, DMAC_CS(ch->ch_index), val);
+
+	/* wait for paused state ? */
+
+	/* end descriptor chain */
+	DMAC_WRITE(sc, DMAC_NEXTCONBK(ch->ch_index), 0);
+
+	/* resume DMA that then stops */
+	val |= DMAC_CS_ACTIVE | DMAC_CS_ABORT;
+	DMAC_WRITE(sc, DMAC_CS(ch->ch_index), val);
 }
 
 #if defined(DDB)

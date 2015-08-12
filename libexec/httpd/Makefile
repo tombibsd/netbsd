@@ -15,6 +15,10 @@
 #	DO_HTPASSWD		/* support .htpasswd files */
 #	NO_LUA_SUPPORT		/* don't support Lua for dynamic content */
 #
+# other system specific defines:
+#	HAVE_NBUTIL_H		/* netbsd compat is in <nbutil.h>
+#				(don't forget to also enable -lnbutil)
+#
 # these are usually set via the "COPTS" variable, or some other method
 # for setting CFLAGS relevant to your make, eg
 #   % make COPTS="-DDO_HTPASSWD"
@@ -32,6 +36,17 @@ LDADD=	-lcrypt -llua -lm
 DPADD=	${LIBCRYPT} ${LIBLUA} ${LIBM}
 
 WARNS?=	4
+
+.if defined(.OS.MAKE)
+OPSYS=	${.OS.MAKE}
+.else
+OPSYS:=	${:!uname -s!:S/-//g:S/\///g}
+.endif
+
+.if ${OPSYS} == "QNX"
+CPPFLAGS+=	-DHAVE_NBUTIL_H
+LDADD+=		-lnbutil
+.endif
 
 .include <bsd.own.mk>
 

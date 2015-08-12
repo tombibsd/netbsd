@@ -86,7 +86,7 @@ fs_read_sblock(char *superblock)
 	sblock = (struct lfs *)superblock;
 	while(1) {
 		rawread(sboff, (char *) sblock, LFS_SBPAD);
-		if (sblock->lfs_magic != LFS_MAGIC) {
+		if (sblock->lfs_dlfs_u.u_32.dlfs_magic != LFS_MAGIC) {
 #ifdef notyet
 			if (sblock->lfs_magic == bswap32(LFS_MAGIC)) {
 				lfs_sb_swap(sblock, sblock, 0);
@@ -111,11 +111,11 @@ fs_read_sblock(char *superblock)
 	if (ns)
 		lfs_sb_swap(u.tbuf, u.tbuf, 0);
 #endif
-	if (u.lfss.lfs_magic != LFS_MAGIC) {
+	if (u.lfss.lfs_dlfs_u.u_32.dlfs_magic != LFS_MAGIC) {
 		msg("Warning: secondary superblock at 0x%" PRIx64 " bad magic\n",
 			LFS_FSBTODB(sblock, (off_t)lfs_sb_getsboff(sblock, 1)));
 	} else {
-		if (sblock->lfs_version > 1) {
+		if (lfs_sb_getversion(sblock) > 1) {
 			if (lfs_sb_getserial(&u.lfss) < lfs_sb_getserial(sblock)) {
 				memcpy(sblock, u.tbuf, sizeof(u.tbuf));
 				sboff = lfs_fsbtob(sblock, (off_t)lfs_sb_getsboff(sblock, 1));
@@ -147,14 +147,14 @@ fs_parametrize(void)
 	spcl.c_flags = iswap32(iswap32(spcl.c_flags) | DR_NEWINODEFMT);
 
 	ufsi.ufs_dsize = LFS_FSBTODB(sblock, lfs_sb_getsize(sblock));
-	if (sblock->lfs_version == 1) 
+	if (lfs_sb_getversion(sblock) == 1) 
 		ufsi.ufs_dsize = lfs_sb_getsize(sblock) >> lfs_sb_getblktodb(sblock);
 	ufsi.ufs_bsize = lfs_sb_getbsize(sblock);
 	ufsi.ufs_bshift = lfs_sb_getbshift(sblock);
 	ufsi.ufs_fsize = lfs_sb_getfsize(sblock);
 	ufsi.ufs_frag = lfs_sb_getfrag(sblock);
 	ufsi.ufs_fsatoda = lfs_sb_getfsbtodb(sblock);
-	if (sblock->lfs_version == 1)
+	if (lfs_sb_getversion(sblock) == 1)
 		ufsi.ufs_fsatoda = 0;
 	ufsi.ufs_nindir = lfs_sb_getnindir(sblock);
 	ufsi.ufs_inopb = lfs_sb_getinopb(sblock);

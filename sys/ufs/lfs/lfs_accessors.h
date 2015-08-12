@@ -244,7 +244,7 @@
 	    ((IN) / lfs_sb_getsepb(F)) + lfs_sb_getcleansz(F),		\
 	    lfs_sb_getbsize(F), 0, &(BP))) != 0)			\
 		panic("lfs: ifile read: %d", _e);			\
-	if ((F)->lfs_version == 1)					\
+	if (lfs_sb_getversion(F) == 1)					\
 		(SP) = (SEGUSE *)((SEGUSE_V1 *)(BP)->b_data +		\
 			((IN) & (lfs_sb_getsepb(F) - 1)));		\
 	else								\
@@ -278,7 +278,7 @@
 	(IN) / lfs_sb_getifpb(F) + lfs_sb_getcleansz(F) + lfs_sb_getsegtabsz(F), \
 	lfs_sb_getbsize(F), 0, &(BP))) != 0)				\
 		panic("lfs: ifile ino %d read %d", (int)(IN), _e);	\
-	if ((F)->lfs_version == 1)					\
+	if (lfs_sb_getversion(F) == 1)					\
 		(IP) = (IFILE *)((IFILE_V1 *)(BP)->b_data +		\
 				 (IN) % lfs_sb_getifpb(F));		\
 	else								\
@@ -332,7 +332,7 @@
  * Always called with the segment lock held.
  */
 #define LFS_GET_HEADFREE(FS, CIP, BP, FREEP) do {			\
-	if ((FS)->lfs_version > 1) {					\
+	if (lfs_sb_getversion(FS) > 1) {				\
 		LFS_CLEANERINFO((CIP), (FS), (BP));			\
 		lfs_sb_setfreehd(FS, (CIP)->free_head);			\
 		brelse(BP, 0);						\
@@ -342,7 +342,7 @@
 
 #define LFS_PUT_HEADFREE(FS, CIP, BP, VAL) do {				\
 	lfs_sb_setfreehd(FS, VAL);					\
-	if ((FS)->lfs_version > 1) {					\
+	if (lfs_sb_getversion(FS) > 1) {				\
 		LFS_CLEANERINFO((CIP), (FS), (BP));			\
 		(CIP)->free_head = (VAL);				\
 		LFS_BWRITE_LOG(BP);					\
@@ -371,7 +371,7 @@
  * On-disk segment summary information
  */
 
-#define SEGSUM_SIZE(fs) ((fs)->lfs_version == 1 ? sizeof(SEGSUM_V1) : sizeof(SEGSUM))
+#define SEGSUM_SIZE(fs) (lfs_sb_getversion(fs) == 1 ? sizeof(SEGSUM_V1) : sizeof(SEGSUM))
 
 /*
  * Super block.
@@ -388,50 +388,81 @@
 #define STRUCT_LFS struct lfs
 #endif
 
-#define LFS_DEF_SB_ACCESSOR(type, field) \
+#define LFS_DEF_SB_ACCESSOR_FULL(type, type32, field) \
 	static __unused inline type				\
 	lfs_sb_get##field(STRUCT_LFS *fs)			\
 	{							\
-		return fs->lfs_dlfs.dlfs_##field;		\
+		if (fs->lfs_is64) {				\
+			return fs->lfs_dlfs_u.u_64.dlfs_##field; \
+		} else {					\
+			return fs->lfs_dlfs_u.u_32.dlfs_##field; \
+		}						\
 	}							\
 	static __unused inline void				\
 	lfs_sb_set##field(STRUCT_LFS *fs, type val)		\
 	{							\
-		fs->lfs_dlfs.dlfs_##field = val;		\
+		if (fs->lfs_is64) {				\
+			fs->lfs_dlfs_u.u_64.dlfs_##field = val;	\
+		} else {					\
+			fs->lfs_dlfs_u.u_32.dlfs_##field = val;	\
+		}						\
 	}							\
 	static __unused inline void				\
 	lfs_sb_add##field(STRUCT_LFS *fs, type val)		\
 	{							\
-		type *p = &fs->lfs_dlfs.dlfs_##field;		\
-		*p += val;					\
+		if (fs->lfs_is64) {				\
+			type *p64 = &fs->lfs_dlfs_u.u_64.dlfs_##field; \
+			*p64 += val;				\
+		} else {					\
+			type32 *p32 = &fs->lfs_dlfs_u.u_32.dlfs_##field; \
+			*p32 += val;				\
+		}						\
 	}							\
 	static __unused inline void				\
 	lfs_sb_sub##field(STRUCT_LFS *fs, type val)		\
 	{							\
-		type *p = &fs->lfs_dlfs.dlfs_##field;		\
-		*p -= val;					\
+		if (fs->lfs_is64) {				\
+			type *p64 = &fs->lfs_dlfs_u.u_64.dlfs_##field; \
+			*p64 -= val;				\
+		} else {					\
+			type32 *p32 = &fs->lfs_dlfs_u.u_32.dlfs_##field; \
+			*p32 -= val;				\
+		}						\
+	}
+
+#define LFS_DEF_SB_ACCESSOR(t, f) LFS_DEF_SB_ACCESSOR_FULL(t, t, f)
+
+#define LFS_DEF_SB_ACCESSOR_32ONLY(type, field, val64) \
+	static __unused inline type				\
+	lfs_sb_get##field(STRUCT_LFS *fs)			\
+	{							\
+		if (fs->lfs_is64) {				\
+			return val64;				\
+		} else {					\
+			return fs->lfs_dlfs_u.u_32.dlfs_##field; \
+		}						\
 	}
 
 #define lfs_magic lfs_dlfs.dlfs_magic
-#define lfs_version lfs_dlfs.dlfs_version
-LFS_DEF_SB_ACCESSOR(u_int32_t, size);
+LFS_DEF_SB_ACCESSOR(u_int32_t, version);
+LFS_DEF_SB_ACCESSOR_FULL(u_int64_t, u_int32_t, size);
 LFS_DEF_SB_ACCESSOR(u_int32_t, ssize);
-LFS_DEF_SB_ACCESSOR(u_int32_t, dsize);
+LFS_DEF_SB_ACCESSOR_FULL(u_int64_t, u_int32_t, dsize);
 LFS_DEF_SB_ACCESSOR(u_int32_t, bsize);
 LFS_DEF_SB_ACCESSOR(u_int32_t, fsize);
 LFS_DEF_SB_ACCESSOR(u_int32_t, frag);
 LFS_DEF_SB_ACCESSOR(u_int32_t, freehd);
-LFS_DEF_SB_ACCESSOR(int32_t, bfree);
+LFS_DEF_SB_ACCESSOR_FULL(int64_t, int32_t, bfree);
 LFS_DEF_SB_ACCESSOR(u_int32_t, nfiles);
-LFS_DEF_SB_ACCESSOR(int32_t, avail);
+LFS_DEF_SB_ACCESSOR_FULL(int64_t, int32_t, avail);
 LFS_DEF_SB_ACCESSOR(int32_t, uinodes);
-LFS_DEF_SB_ACCESSOR(int32_t, idaddr);
+LFS_DEF_SB_ACCESSOR_FULL(int64_t, int32_t, idaddr);
 LFS_DEF_SB_ACCESSOR(u_int32_t, ifile);
-LFS_DEF_SB_ACCESSOR(int32_t, lastseg);
-LFS_DEF_SB_ACCESSOR(int32_t, nextseg);
-LFS_DEF_SB_ACCESSOR(int32_t, curseg);
-LFS_DEF_SB_ACCESSOR(int32_t, offset);
-LFS_DEF_SB_ACCESSOR(int32_t, lastpseg);
+LFS_DEF_SB_ACCESSOR_FULL(int64_t, int32_t, lastseg);
+LFS_DEF_SB_ACCESSOR_FULL(int64_t, int32_t, nextseg);
+LFS_DEF_SB_ACCESSOR_FULL(int64_t, int32_t, curseg);
+LFS_DEF_SB_ACCESSOR_FULL(int64_t, int32_t, offset);
+LFS_DEF_SB_ACCESSOR_FULL(int64_t, int32_t, lastpseg);
 LFS_DEF_SB_ACCESSOR(u_int32_t, inopf);
 LFS_DEF_SB_ACCESSOR(u_int32_t, minfree);
 LFS_DEF_SB_ACCESSOR(uint64_t, maxfilesize);
@@ -444,8 +475,8 @@ LFS_DEF_SB_ACCESSOR(u_int32_t, nseg);
 LFS_DEF_SB_ACCESSOR(u_int32_t, nspf);
 LFS_DEF_SB_ACCESSOR(u_int32_t, cleansz);
 LFS_DEF_SB_ACCESSOR(u_int32_t, segtabsz);
-LFS_DEF_SB_ACCESSOR(u_int32_t, segmask);
-LFS_DEF_SB_ACCESSOR(u_int32_t, segshift);
+LFS_DEF_SB_ACCESSOR_32ONLY(u_int32_t, segmask, 0);
+LFS_DEF_SB_ACCESSOR_32ONLY(u_int32_t, segshift, 0);
 LFS_DEF_SB_ACCESSOR(u_int64_t, bmask);
 LFS_DEF_SB_ACCESSOR(u_int32_t, bshift);
 LFS_DEF_SB_ACCESSOR(u_int64_t, ffmask);
@@ -464,7 +495,7 @@ LFS_DEF_SB_ACCESSOR(u_int32_t, minfreeseg);
 LFS_DEF_SB_ACCESSOR(u_int32_t, sumsize);
 LFS_DEF_SB_ACCESSOR(u_int64_t, serial);
 LFS_DEF_SB_ACCESSOR(u_int32_t, ibsize);
-LFS_DEF_SB_ACCESSOR(int32_t, s0addr);
+LFS_DEF_SB_ACCESSOR_FULL(int64_t, int32_t, s0addr);
 LFS_DEF_SB_ACCESSOR(u_int64_t, tstamp);
 LFS_DEF_SB_ACCESSOR(u_int32_t, inodefmt);
 LFS_DEF_SB_ACCESSOR(u_int32_t, interleave);
@@ -488,7 +519,11 @@ lfs_sb_getsboff(STRUCT_LFS *fs, unsigned n)
 #ifdef KASSERT /* ugh */
 	KASSERT(n < LFS_MAXNUMSB);
 #endif
-	return fs->lfs_dlfs.dlfs_sboffs[n];
+	if (fs->lfs_is64) {
+		return fs->lfs_dlfs_u.u_64.dlfs_sboffs[n];
+	} else {
+		return fs->lfs_dlfs_u.u_32.dlfs_sboffs[n];
+	}
 }
 static __unused inline void
 lfs_sb_setsboff(STRUCT_LFS *fs, unsigned n, int32_t val)
@@ -496,7 +531,11 @@ lfs_sb_setsboff(STRUCT_LFS *fs, unsigned n, int32_t val)
 #ifdef KASSERT /* ugh */
 	KASSERT(n < LFS_MAXNUMSB);
 #endif
-	fs->lfs_dlfs.dlfs_sboffs[n] = val;
+	if (fs->lfs_is64) {
+		fs->lfs_dlfs_u.u_64.dlfs_sboffs[n] = val;
+	} else {
+		fs->lfs_dlfs_u.u_32.dlfs_sboffs[n] = val;
+	}
 }
 
 /*
@@ -505,8 +544,28 @@ lfs_sb_setsboff(STRUCT_LFS *fs, unsigned n, int32_t val)
 static __unused inline const char *
 lfs_sb_getfsmnt(STRUCT_LFS *fs)
 {
-	return fs->lfs_dlfs.dlfs_fsmnt;
+	if (fs->lfs_is64) {
+		return fs->lfs_dlfs_u.u_64.dlfs_fsmnt;
+	} else {
+		return fs->lfs_dlfs_u.u_32.dlfs_fsmnt;
+	}
 }
+
+static __unused inline void
+lfs_sb_setfsmnt(STRUCT_LFS *fs, const char *str)
+{
+	if (fs->lfs_is64) {
+		(void)strncpy(fs->lfs_dlfs_u.u_64.dlfs_fsmnt, str,
+			sizeof(fs->lfs_dlfs_u.u_64.dlfs_fsmnt));
+	} else {
+		(void)strncpy(fs->lfs_dlfs_u.u_32.dlfs_fsmnt, str,
+			sizeof(fs->lfs_dlfs_u.u_32.dlfs_fsmnt));
+	}
+}
+
+/* Highest addressable fsb */
+#define LFS_MAX_DADDR(fs) \
+	((fs)->lfs_is64 ? 0x7fffffffffffffff : 0x7fffffff)
 
 /* LFS_NINDIR is the number of indirects in a file system block. */
 #define	LFS_NINDIR(fs)	(lfs_sb_getnindir(fs))
@@ -516,27 +575,47 @@ lfs_sb_getfsmnt(STRUCT_LFS *fs)
 /* LFS_INOPF is the number of inodes in a fragment. */
 #define LFS_INOPF(fs)	(lfs_sb_getinopf(fs))
 
-#define	lfs_blksize(fs, ip, lbn) \
-	(((lbn) >= ULFS_NDADDR || (ip)->i_ffs1_size >= ((lbn) + 1) << lfs_sb_getbshift(fs)) \
-	    ? lfs_sb_getbsize(fs) \
-	    : (lfs_fragroundup(fs, lfs_blkoff(fs, (ip)->i_ffs1_size))))
 #define	lfs_blkoff(fs, loc)	((int)((loc) & lfs_sb_getbmask(fs)))
 #define lfs_fragoff(fs, loc)    /* calculates (loc % fs->lfs_fsize) */ \
     ((int)((loc) & lfs_sb_getffmask(fs)))
 
+/* XXX: lowercase these as they're no longer macros */
+/* Frags to diskblocks */
+static __unused inline uint64_t
+LFS_FSBTODB(STRUCT_LFS *fs, uint64_t b)
+{
 #if defined(_KERNEL)
-#define	LFS_FSBTODB(fs, b)	((b) << (lfs_sb_getffshift(fs) - DEV_BSHIFT))
-#define	LFS_DBTOFSB(fs, b)	((b) >> (lfs_sb_getffshift(fs) - DEV_BSHIFT))
+	return b << (lfs_sb_getffshift(fs) - DEV_BSHIFT);
 #else
-#define	LFS_FSBTODB(fs, b)	((b) << lfs_sb_getfsbtodb(fs))
-#define	LFS_DBTOFSB(fs, b)	((b) >> lfs_sb_getfsbtodb(fs))
+	return b << lfs_sb_getfsbtodb(fs);
 #endif
+}
+/* Diskblocks to frags */
+static __unused inline uint64_t
+LFS_DBTOFSB(STRUCT_LFS *fs, uint64_t b)
+{
+#if defined(_KERNEL)
+	return b >> (lfs_sb_getffshift(fs) - DEV_BSHIFT);
+#else
+	return b >> lfs_sb_getfsbtodb(fs);
+#endif
+}
 
 #define	lfs_lblkno(fs, loc)	((loc) >> lfs_sb_getbshift(fs))
 #define	lfs_lblktosize(fs, blk)	((blk) << lfs_sb_getbshift(fs))
 
-#define lfs_fsbtob(fs, b)	((b) << lfs_sb_getffshift(fs))
-#define lfs_btofsb(fs, b)	((b) >> lfs_sb_getffshift(fs))
+/* Frags to bytes */
+static __unused inline uint64_t
+lfs_fsbtob(STRUCT_LFS *fs, uint64_t b)
+{
+	return b << lfs_sb_getffshift(fs);
+}
+/* Bytes to frags */
+static __unused inline uint64_t
+lfs_btofsb(STRUCT_LFS *fs, uint64_t b)
+{
+	return b >> lfs_sb_getffshift(fs);
+}
 
 #define lfs_numfrags(fs, loc)	/* calculates (loc / fs->lfs_fsize) */	\
 	((loc) >> lfs_sb_getffshift(fs))
@@ -557,16 +636,29 @@ lfs_sb_getfsmnt(STRUCT_LFS *fs)
 	    ? lfs_sb_getbsize(fs) \
 	    : (lfs_fragroundup(fs, lfs_blkoff(fs, (dp)->di_size))))
 
-#define	lfs_segsize(fs)	((fs)->lfs_version == 1 ?	     		\
+#define	lfs_segsize(fs)	(lfs_sb_getversion(fs) == 1 ?	     		\
 			   lfs_lblktosize((fs), lfs_sb_getssize(fs)) :	\
 			   lfs_sb_getssize(fs))
-#define lfs_segtod(fs, seg) (((fs)->lfs_version == 1     ?	    	\
-			   lfs_sb_getssize(fs) << lfs_sb_getblktodb(fs) : \
-			   lfs_btofsb((fs), lfs_sb_getssize(fs))) * (seg))
+/* XXX segtod produces a result in frags despite the 'd' */
+#define lfs_segtod(fs, seg) (lfs_btofsb(fs, lfs_segsize(fs)) * (seg))
 #define	lfs_dtosn(fs, daddr)	/* block address to segment number */	\
 	((uint32_t)(((daddr) - lfs_sb_gets0addr(fs)) / lfs_segtod((fs), 1)))
 #define lfs_sntod(fs, sn)	/* segment number to disk address */	\
 	((daddr_t)(lfs_segtod((fs), (sn)) + lfs_sb_gets0addr(fs)))
+
+/* XXX, blah. make this appear only if struct inode is defined */
+#ifdef _UFS_LFS_LFS_INODE_H_
+static __unused inline uint32_t
+lfs_blksize(STRUCT_LFS *fs, struct inode *ip, uint64_t lbn)
+{
+	if (lbn >= ULFS_NDADDR || ip->i_ffs1_size >= (lbn + 1) << lfs_sb_getbshift(fs)) {
+		return lfs_sb_getbsize(fs);
+	} else {
+		return lfs_fragroundup(fs, lfs_blkoff(fs, ip->i_ffs1_size));
+	}
+}
+#endif
+
 
 /*
  * Macros for determining free space on the disk, with the variable metadata
@@ -605,7 +697,7 @@ lfs_sb_getfsmnt(STRUCT_LFS *fs)
 				   (u_int64_t)lfs_sb_getminfree(F)) /	     \
 				  100)
 
-/* Can credential C write BB blocks */
+/* Can credential C write BB blocks? XXX: kauth_cred_geteuid is abusive */
 #define ISSPACE(F, BB, C)						\
 	((((C) == NOCRED || kauth_cred_geteuid(C) == 0) &&		\
 	  LFS_EST_BFREE(F) >= (BB)) ||					\

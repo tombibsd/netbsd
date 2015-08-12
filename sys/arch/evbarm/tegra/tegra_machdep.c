@@ -395,6 +395,10 @@ tegra_device_register(device_t self, void *aux)
 #endif
 	}
 
+	if (device_is_a(self, "tegracec")) {
+		prop_dictionary_set_cstring(dict, "hdmi-device", "tegrahdmi0");
+	}
+
 #ifdef BOARD_JETSONTK1
 	if (device_is_a(self, "sdhc")
 	    && device_is_a(device_parent(self), "tegraio")) {

@@ -113,6 +113,8 @@ static const struct tegra_locators tegra_apb_locators[] = {
     TEGRA_SATA_OFFSET, TEGRA_SATA_SIZE, NOPORT, TEGRA_INTR_SATA },
   { "hdaudio",
     TEGRA_HDA_OFFSET, TEGRA_HDA_SIZE, NOPORT, TEGRA_INTR_HDA },
+  { "tegracec",
+    TEGRA_CEC_OFFSET, TEGRA_CEC_SIZE, NOPORT, TEGRA_INTR_CEC },
 };
 
 static const struct tegra_locators tegra_ahb_a2_locators[] = {

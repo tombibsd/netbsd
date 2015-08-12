@@ -1,5 +1,5 @@
 /Makefile.inc/1.1/Wed Nov  3 16:10:24 2010/-kk/
-/Makefile/1.24/Sun Aug  2 04:03:01 2015/-kk/
+/Makefile/1.25/Wed Aug 12 04:14:42 2015/-kk/
 D/arp////
 D/bpf////
 D/bpfilter////
@@ -14,6 +14,7 @@ D/if_loop////
 D/in_cksum////
 D/mcast////
 D/mpls////
+D/ndp////
 D/net////
 D/npf////
 D/route////

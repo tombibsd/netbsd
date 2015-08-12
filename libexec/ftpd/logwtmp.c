@@ -124,13 +124,12 @@ ftpd_logwtmpx(const char *line, const char *name, const char *host,
 	if (fdx < 0) 
 		return;
 	if (fstat(fdx, &buf) == 0) {
+		(void)memset(&ut, 0, sizeof(ut));
 		(void)strncpy(ut.ut_line, line, sizeof(ut.ut_line));
 		(void)strncpy(ut.ut_name, name, sizeof(ut.ut_name));
 		(void)strncpy(ut.ut_host, host, sizeof(ut.ut_host));
 		if (haddr)
 			(void)memcpy(&ut.ut_ss, &haddr->si_su, haddr->su_len);
-		else
-			(void)memset(&ut.ut_ss, 0, sizeof(ut.ut_ss));
 		ut.ut_type = utx_type;
 		if (WIFEXITED(status))
 			ut.ut_exit.e_exit = (uint16_t)WEXITSTATUS(status);

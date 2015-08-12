@@ -422,7 +422,7 @@ sys_mmap(struct lwp *l, const struct sys_mmap_args *uap, register_t *retval)
 #endif /* PAX_MPROTECT */
 
 #ifdef PAX_ASLR
-	pax_aslr(l, &addr, orig_addr, flags);
+	pax_aslr_mmap(l, &addr, orig_addr, flags);
 #endif /* PAX_ASLR */
 
 	/*

@@ -28,7 +28,6 @@ no options 	INSECURE
 
 no options 	USERCONF
 no options 	SYSCTL_INCLUDE_DESCR
-no options 	KMEMSTATS
 
 no options 	COMPAT_10
 no options 	COMPAT_11

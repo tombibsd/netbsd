@@ -108,7 +108,6 @@ getignored(const char *auxname)
 	     fgets(inbuffer, sizeof(inbuffer)-1, fyle) != NULL; nignored++)
 		continue;
 	names_ignored = Calloc(nignored+1, sizeof (char *));
-	fclose(fyle);
 	if (freopen(filename, "r", fyle) == NULL) {
 #ifdef FULLDEBUG
 		fprintf(stderr, "%s: Failure to open \"%s\" for second read.\n",

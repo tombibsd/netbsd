@@ -130,7 +130,28 @@ awin_com_match(device_t parent, cfdata_t cf, void *aux)
 	awin_gpio_pinset_acquire(pinset);
 
 	bus_space_subregion(iot, aio->aio_core_bsh,
-	    loc->loc_offset, loc->loc_size, &bsh);
+	    loc->loc_offset / 4, loc->loc_size, &bsh);
+
+	/*
+	 * Clock gating, soft reset
+	 */
+	if (awin_chip_id() == AWIN_CHIP_ID_A80) {
+		awin_reg_set_clear(aio->aio_core_bst, aio->aio_ccm_bsh,
+		    AWIN_A80_CCU_SCLK_BUS_CLK_GATING4_REG,
+		    AWIN_A80_CCU_SCLK_BUS_CLK_GATING4_UART0 << loc->loc_port, 0);
+		awin_reg_set_clear(aio->aio_core_bst, aio->aio_ccm_bsh,
+		    AWIN_A80_CCU_SCLK_BUS_SOFT_RST4_REG,
+		    AWIN_A80_CCU_SCLK_BUS_SOFT_RST4_UART0 << loc->loc_port, 0);
+	} else {
+		awin_reg_set_clear(aio->aio_core_bst, aio->aio_ccm_bsh,
+		   AWIN_APB1_GATING_REG,
+		   AWIN_APB_GATING1_UART0 << loc->loc_port, 0);
+		if (awin_chip_id() == AWIN_CHIP_ID_A31) {
+			awin_reg_set_clear(aio->aio_core_bst, aio->aio_ccm_bsh,
+			    AWIN_A31_APB2_RESET_REG,
+			    AWIN_A31_APB2_RESET_UART0_RST << loc->loc_port, 0);
+		}
+	}
 
 	const int rv = comprobe1(iot, bsh);
 

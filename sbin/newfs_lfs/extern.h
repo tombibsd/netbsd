@@ -31,9 +31,9 @@
  *	@(#)extern.h	8.2 (Berkeley) 5/24/95
  */
 
-struct dlfs;
+struct lfs;
 
-uint32_t lfs_sb_cksum(struct dlfs *);
+uint32_t lfs_sb_cksum(struct lfs *);
 void	fatal(const char *fmt, ...)
      __attribute__((__format__(__printf__,1,2)));
 u_int	lfs_log2(u_int);

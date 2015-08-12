@@ -1,6 +1,6 @@
 # $NetBSD$
-./usr/include/gcc-4.5/tgmath.h			comp-c-include		gcccmds,gcc=45
-./usr/include/gcc-4.8/tgmath.h			comp-c-include		gcccmds,gcc=48
+./usr/include/gcc-4.5/tgmath.h			comp-c-include		obsolete
+./usr/include/gcc-4.8/tgmath.h			comp-c-include		gcccmds,gcc
 ./usr/include/ieeefp.h				comp-obsolete		obsolete
 ./usr/include/vax				comp-c-include
 ./usr/include/vax/_G_config.h			comp-obsolete		obsolete

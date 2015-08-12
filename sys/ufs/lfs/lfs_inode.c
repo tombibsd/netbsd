@@ -90,8 +90,9 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <ufs/lfs/lfs_kernel.h>
 
 static int lfs_update_seguse(struct lfs *, struct inode *ip, long, size_t);
-static int lfs_indirtrunc (struct inode *, daddr_t, daddr_t,
-			   daddr_t, int, long *, long *, long *, size_t *);
+static int lfs_indirtrunc(struct inode *, daddr_t, daddr_t,
+			  daddr_t, int, daddr_t *, daddr_t *,
+			  long *, size_t *);
 static int lfs_blkfree (struct lfs *, struct inode *, daddr_t, size_t, long *, size_t *);
 static int lfs_vtruncbuf(struct vnode *, daddr_t, bool, int);
 
@@ -206,7 +207,8 @@ lfs_truncate(struct vnode *ovp, off_t length, int ioflag, kauth_cred_t cred)
 	struct lfs *fs;
 	struct buf *bp;
 	int offset, size, level;
-	long count, rcount, blocksreleased = 0, real_released = 0;
+	daddr_t count, rcount;
+	daddr_t blocksreleased = 0, real_released = 0;
 	int i, nblocks;
 	int aflags, error, allerror = 0;
 	off_t osize;
@@ -573,8 +575,8 @@ done:
 #ifdef DIAGNOSTIC
 	if (oip->i_size == 0 &&
 	    (oip->i_ffs1_blocks != 0 || oip->i_lfs_effnblks != 0)) {
-		printf("lfs_truncate: truncate to 0 but %d blks/%d effblks\n",
-		       oip->i_ffs1_blocks, oip->i_lfs_effnblks);
+		printf("lfs_truncate: truncate to 0 but %d blks/%jd effblks\n",
+		       oip->i_ffs1_blocks, (intmax_t)oip->i_lfs_effnblks);
 		panic("lfs_truncate: persistent blocks");
 	}
 #endif
@@ -700,8 +702,8 @@ lfs_finalize_fs_seguse(struct lfs *fs)
  */
 static int
 lfs_indirtrunc(struct inode *ip, daddr_t lbn, daddr_t dbn,
-	       daddr_t lastbn, int level, long *countp,
-	       long *rcountp, long *lastsegp, size_t *bcp)
+	       daddr_t lastbn, int level, daddr_t *countp,
+	       daddr_t *rcountp, long *lastsegp, size_t *bcp)
 {
 	int i;
 	struct buf *bp;
@@ -710,8 +712,9 @@ lfs_indirtrunc(struct inode *ip, daddr_t lbn, daddr_t dbn,
 	struct vnode *vp;
 	daddr_t nb, nlbn, last;
 	int32_t *copy = NULL;	/* XXX ondisk32 */
-	long blkcount, rblkcount, factor;
-	int nblocks, blocksreleased = 0, real_released = 0;
+	daddr_t blkcount, rblkcount, factor;
+	int nblocks;
+	daddr_t blocksreleased = 0, real_released = 0;
 	int error = 0, allerror = 0;
 
 	ASSERT_SEGLOCK(fs);

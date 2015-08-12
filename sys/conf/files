@@ -334,6 +334,10 @@ attach	video at videobus
 #
 include "dev/dtv/files.dtv"
 
+# HDMI CEC
+#
+include "dev/hdmicec/files.hdmicec"
+
 # National Semiconductor LM7[89]
 #
 # (included here so files.i2c can define an attachment)

@@ -28,10 +28,10 @@
 #ifndef _SBIN_MOUNT_LFS_MOUNT_LFS_H_
 #define _SBIN_MOUNT_LFS_MOUNT_LFS_H_
 
-#include <ufs/ufs/ufsmount.h>
+#include <ufs/lfs/lfs.h>
 
 int	mount_lfs(int, char **);
-void	mount_lfs_parseargs(int, char **, struct ufs_args *, int *,
+void	mount_lfs_parseargs(int, char **, struct ulfs_args *, int *,
 			    char *, char *);
 
 int	lfs_cleaner_main(int, char **);

@@ -13,10 +13,9 @@
 #define	ufs_ls			lfsv2_ls
 #endif
 
-/* XXX wrong! but for now it won't build with ulfs2_dinode */
 #define ufs_dinode		ulfs1_dinode
 
-#define	fs_bsize		lfs_dlfs.dlfs_bsize
+#define	fs_bsize		lfs_dlfs_u.u_32.dlfs_bsize
 #define	IFILE_Vx		IFILE
 
 #ifdef LFS_IFILE_FRAG_ADDRESSING	/* XXX see sys/ufs/lfs/ -- not tested */

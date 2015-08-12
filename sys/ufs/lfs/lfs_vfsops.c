@@ -459,7 +459,7 @@ lfs_writerd(void *arg)
  			    sizeof(mp->mnt_stat.f_fstypename)) == 0) {
 				++lfsc;
  				fs = VFSTOULFS(mp)->um_lfs;
-				int32_t ooffset = 0;
+				daddr_t ooffset = 0;
 				fsflags = SEGM_SINGLE;
 
  				mutex_enter(&lfs_lock);
@@ -606,8 +606,7 @@ lfs_mountroot(void)
 	mountlist_append(mp);
 	ump = VFSTOULFS(mp);
 	fs = ump->um_lfs;
-	memset(fs->lfs_dlfs.dlfs_fsmnt, 0, sizeof(fs->lfs_dlfs.dlfs_fsmnt));
-	(void)copystr(mp->mnt_stat.f_mntonname, fs->lfs_dlfs.dlfs_fsmnt, sizeof(fs->lfs_dlfs.dlfs_fsmnt), 0);
+	lfs_sb_setfsmnt(fs, mp->mnt_stat.f_mntonname);
 	(void)lfs_statvfs(mp, &mp->mnt_stat);
 	vfs_unbusy(mp, false, NULL);
 	setrootfstime((time_t)lfs_sb_gettstamp(VFSTOULFS(mp)->um_lfs));
@@ -809,9 +808,7 @@ lfs_mount(struct mount *mp, const char *path, void *data, size_t *data_len)
 	error = set_statvfs_info(path, UIO_USERSPACE, args->fspec,
 	    UIO_USERSPACE, mp->mnt_op->vfs_name, mp, l);
 	if (error == 0)
-		(void)strncpy(fs->lfs_dlfs.dlfs_fsmnt,
-			      mp->mnt_stat.f_mntonname,
-			      sizeof(fs->lfs_dlfs.dlfs_fsmnt));
+		lfs_sb_setfsmnt(fs, mp->mnt_stat.f_mntonname);
 	return error;
 
 fail:
@@ -950,10 +947,11 @@ lfs_mountfs(struct vnode *devvp, struct mount *mp, struct lwp *l)
 
 	/* Allocate the mount structure, copy the superblock into it. */
 	fs = kmem_zalloc(sizeof(struct lfs), KM_SLEEP);
-	memcpy(&fs->lfs_dlfs, tdfs, sizeof(struct dlfs));
+	memcpy(&fs->lfs_dlfs_u.u_32, tdfs, sizeof(struct dlfs));
+	fs->lfs_is64 = false;
 
 	/* Compatibility */
-	if (fs->lfs_version < 2) {
+	if (lfs_sb_getversion(fs) < 2) {
 		lfs_sb_setsumsize(fs, LFS_V1_SUMMARY_SIZE);
 		lfs_sb_setibsize(fs, lfs_sb_getbsize(fs));
 		lfs_sb_sets0addr(fs, lfs_sb_getsboff(fs, 0));
@@ -1362,8 +1360,6 @@ lfs_statvfs(struct mount *mp, struct statvfs *sbp)
 
 	ump = VFSTOULFS(mp);
 	fs = ump->um_lfs;
-	if (fs->lfs_magic != LFS_MAGIC)
-		panic("lfs_statvfs: magic");
 
 	sbp->f_bsize = lfs_sb_getbsize(fs);
 	sbp->f_frsize = lfs_sb_getfsize(fs);
@@ -1371,6 +1367,14 @@ lfs_statvfs(struct mount *mp, struct statvfs *sbp)
 	sbp->f_blocks = LFS_EST_NONMETA(fs) - VTOI(fs->lfs_ivnode)->i_lfs_effnblks;
 
 	sbp->f_bfree = LFS_EST_BFREE(fs);
+	/*
+	 * XXX this should be lfs_sb_getsize (measured in frags)
+	 * rather than dsize (measured in diskblocks). However,
+	 * getsize needs a format version check (for version 1 it
+	 * needs to be blockstofrags'd) so for the moment I'm going to
+	 * leave this...  it won't fire wrongly as frags are at least
+	 * as big as diskblocks.
+	 */
 	KASSERT(sbp->f_bfree <= lfs_sb_getdsize(fs));
 #if 0
 	if (sbp->f_bfree < 0)
@@ -1383,6 +1387,7 @@ lfs_statvfs(struct mount *mp, struct statvfs *sbp)
 	else
 		sbp->f_bavail = 0;
 
+	/* XXX: huh? - dholland 20150728 */
 	sbp->f_files = lfs_sb_getbfree(fs) / lfs_btofsb(fs, lfs_sb_getibsize(fs))
 	    * LFS_INOPB(fs);
 	sbp->f_ffree = sbp->f_files - lfs_sb_getnfiles(fs);
@@ -1551,7 +1556,7 @@ lfs_loadvnode(struct mount *mp, struct vnode *vp,
 		/* XXX bounds-check this too */
 		LFS_IENTRY(ifp, fs, ino, bp);
 		daddr = ifp->if_daddr;
-		if (fs->lfs_version > 1) {
+		if (lfs_sb_getversion(fs) > 1) {
 			ts.tv_sec = ifp->if_atime_sec;
 			ts.tv_nsec = ifp->if_atime_nsec;
 		}
@@ -1583,7 +1588,7 @@ lfs_loadvnode(struct mount *mp, struct vnode *vp,
 	retries = 0;
 again:
 	error = bread(ump->um_devvp, LFS_FSBTODB(fs, daddr),
-		(fs->lfs_version == 1 ? lfs_sb_getbsize(fs) : lfs_sb_getibsize(fs)),
+		(lfs_sb_getversion(fs) == 1 ? lfs_sb_getbsize(fs) : lfs_sb_getibsize(fs)),
 		0, &bp);
 	if (error) {
 		lfs_deinit_vnode(ump, vp);
@@ -1642,7 +1647,7 @@ again:
 	brelse(bp, 0);
 
 out:	
-	if (fs->lfs_version > 1) {
+	if (lfs_sb_getversion(fs) > 1) {
 		ip->i_ffs1_atime = ts.tv_sec;
 		ip->i_ffs1_atimensec = ts.tv_nsec;
 	}
@@ -1821,9 +1826,9 @@ lfs_issequential_hole(const struct lfs *fs,
 	daddr1 = (daddr_t)((int32_t)daddr1); /* XXX ondisk32 */
 
 	KASSERT(daddr0 == UNWRITTEN ||
-	    (0 <= daddr0 && daddr0 <= LFS_MAX_DADDR));
+	    (0 <= daddr0 && daddr0 <= LFS_MAX_DADDR(fs)));
 	KASSERT(daddr1 == UNWRITTEN ||
-	    (0 <= daddr1 && daddr1 <= LFS_MAX_DADDR));
+	    (0 <= daddr1 && daddr1 <= LFS_MAX_DADDR(fs)));
 
 	/* NOTE: all we want to know here is 'hole or not'. */
 	/* NOTE: UNASSIGNED is converted to 0 by ulfs_bmaparray. */
@@ -2271,7 +2276,7 @@ lfs_resize_fs(struct lfs *fs, int newnsegs)
 	int i;
 
 	/* Only support v2 and up */
-	if (fs->lfs_version < 2)
+	if (lfs_sb_getversion(fs) < 2)
 		return EOPNOTSUPP;
 
 	/* If we're doing nothing, do it fast */

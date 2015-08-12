@@ -229,10 +229,11 @@ lfs_reserveavail(struct lfs *fs, struct vnode *vp,
 		mutex_exit(&lfs_lock);
 
 		if (!slept) {
-			DLOG((DLOG_AVAIL, "lfs_reserve: waiting for %ld (bfree = %d,"
-			      " est_bfree = %d)\n",
+			DLOG((DLOG_AVAIL, "lfs_reserve: waiting for %ld (bfree = %jd,"
+			      " est_bfree = %jd)\n",
 			      fsb + fs->lfs_ravail + fs->lfs_favail,
-			      lfs_sb_getbfree(fs), LFS_EST_BFREE(fs)));
+			      (intmax_t)lfs_sb_getbfree(fs),
+			      (intmax_t)LFS_EST_BFREE(fs)));
 		}
 		++slept;
 

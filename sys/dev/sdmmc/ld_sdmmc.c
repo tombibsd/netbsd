@@ -71,7 +71,9 @@ struct ld_sdmmc_softc {
 	int sc_hwunit;
 
 	struct sdmmc_function *sc_sf;
-	struct ld_sdmmc_task sc_task;
+#define LD_SDMMC_MAXQUEUECNT 4
+	struct ld_sdmmc_task sc_task[LD_SDMMC_MAXQUEUECNT];
+	int sc_nexttask;
 };
 
 static int ld_sdmmc_match(device_t, cfdata_t, void *);
@@ -115,6 +117,8 @@ ld_sdmmc_attach(device_t parent, device_t self, void *aux)
 	    sa->sf->cid.rev, sa->sf->cid.psn, sa->sf->cid.mdt);
 	aprint_naive("\n");
 
+	sc->sc_nexttask = 0;
+
 	sc->sc_hwunit = 0;	/* always 0? */
 	sc->sc_sf = sa->sf;
 
@@ -122,7 +126,7 @@ ld_sdmmc_attach(device_t parent, device_t self, void *aux)
 	ld->sc_secperunit = sc->sc_sf->csd.capacity;
 	ld->sc_secsize = SDMMC_SECTOR_SIZE;
 	ld->sc_maxxfer = MAXPHYS;
-	ld->sc_maxqueuecnt = 1;
+	ld->sc_maxqueuecnt = LD_SDMMC_MAXQUEUECNT;
 	ld->sc_dump = ld_sdmmc_dump;
 	ld->sc_start = ld_sdmmc_start;
 
@@ -145,8 +149,9 @@ ld_sdmmc_doattach(void *arg)
 	struct sdmmc_softc *ssc = device_private(device_parent(ld->sc_dv));
 
 	ldattach(ld);
-	aprint_normal_dev(ld->sc_dv, "%d-bit width, bus clock",
-	    sc->sc_sf->width);
+	aprint_normal_dev(ld->sc_dv, "%d-bit width,", sc->sc_sf->width);
+	if (ssc->sc_transfer_mode != NULL)
+		aprint_normal(" %s,", ssc->sc_transfer_mode);
 	if ((ssc->sc_busclk / 1000) != 0)
 		aprint_normal(" %u.%03u MHz\n",
 		    ssc->sc_busclk / 1000, ssc->sc_busclk % 1000);
@@ -174,7 +179,9 @@ static int
 ld_sdmmc_start(struct ld_softc *ld, struct buf *bp)
 {
 	struct ld_sdmmc_softc *sc = device_private(ld->sc_dv);
-	struct ld_sdmmc_task *task = &sc->sc_task;
+	struct ld_sdmmc_task *task = &sc->sc_task[sc->sc_nexttask];
+
+	sc->sc_nexttask = (sc->sc_nexttask + 1) % LD_SDMMC_MAXQUEUECNT;
 
 	task->task_sc = sc;
 	task->task_bp = bp;
@@ -191,7 +198,7 @@ ld_sdmmc_dobio(void *arg)
 	struct ld_sdmmc_task *task = (struct ld_sdmmc_task *)arg;
 	struct ld_sdmmc_softc *sc = task->task_sc;
 	struct buf *bp = task->task_bp;
-	int error, s;
+	int error;
 
 	/*
 	 * I/O operation
@@ -208,13 +215,10 @@ ld_sdmmc_dobio(void *arg)
 		    bp->b_rawblkno, sc->sc_sf->csd.capacity);
 		bp->b_error = EINVAL;
 		bp->b_resid = bp->b_bcount;
-		s = splbio();
 		lddone(&sc->sc_ld, bp);
-		splx(s);
 		return;
 	}
 
-	s = splbio();
 	if (bp->b_flags & B_READ)
 		error = sdmmc_mem_read_block(sc->sc_sf, bp->b_rawblkno,
 		    bp->b_data, bp->b_bcount);
@@ -231,7 +235,6 @@ ld_sdmmc_dobio(void *arg)
 	}
 
 	lddone(&sc->sc_ld, bp);
-	splx(s);
 }
 
 static int

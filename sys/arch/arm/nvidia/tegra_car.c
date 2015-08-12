@@ -685,6 +685,18 @@ tegra_car_periph_i2c_enable(u_int port, u_int rate)
 }
 
 void
+tegra_car_periph_cec_enable(void)
+{
+	bus_space_tag_t bst;
+	bus_space_handle_t bsh;
+
+	tegra_car_get_bs(&bst, &bsh);
+
+	bus_space_write_4(bst, bsh, CAR_CLK_ENB_W_SET_REG, CAR_DEV_W_CEC);
+	bus_space_write_4(bst, bsh, CAR_RST_DEV_W_CLR_REG, CAR_DEV_W_CEC);
+}
+
+void
 tegra_car_hdmi_enable(u_int rate)
 {
 	bus_space_tag_t bst;

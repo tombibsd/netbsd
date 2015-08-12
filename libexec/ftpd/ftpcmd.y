@@ -193,7 +193,7 @@ cmd
 	| PASS SP password CRLF
 		{
 			pass($3);
-			memset($3, 0, strlen($3));
+			explicit_memset($3, 0, strlen($3));
 			free($3);
 		}
 
