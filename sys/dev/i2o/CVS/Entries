@@ -4,10 +4,10 @@
 /files.i2o/1.10/Sat Dec  1 18:14:48 2007/-kk/
 /i2o.h/1.15/Mon Sep  8 23:36:54 2008/-kk/
 /i2odpt.h/1.5/Mon Sep  8 23:36:54 2008/-kk/
-/iop.c/1.86/Fri Oct  3 09:09:13 2014/-kk/
+/iop.c/1.87/Tue Aug 25 04:51:15 2015/-kk/
 /iopio.h/1.6/Mon Apr 28 20:23:48 2008/-kk/
 /iopreg.h/1.2/Mon Apr 28 20:23:48 2008/-kk/
-/iopsp.c/1.36/Sat Oct 27 17:18:17 2012/-kk/
+/iopsp.c/1.37/Tue Aug 25 04:51:15 2015/-kk/
 /iopspvar.h/1.9/Sat Oct 27 17:18:17 2012/-kk/
 /iopvar.h/1.24/Sat Oct 27 17:18:17 2012/-kk/
 /ld_iop.c/1.35/Wed Apr 22 07:36:50 2015/-kk/

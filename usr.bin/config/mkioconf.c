@@ -92,6 +92,8 @@ mkioconf(void)
 		return (1);
 	}
 
+	fprintf(fp, "#include \"ioconf.h\"\n");
+
 	emithdr(fp);
 	emitcfdrivers(fp);
 	emitexterns(fp);
@@ -476,10 +478,6 @@ emitpseudo(FILE *fp)
 	struct devbase *d;
 
 	fputs("\n/* pseudo-devices */\n", fp);
-	TAILQ_FOREACH(i, &allpseudo, i_next) {
-		fprintf(fp, "void %sattach(int);\n",
-		    i->i_base->d_name);
-	}
 	fputs("\nconst struct pdevinit pdevinit[] = {\n", fp);
 	TAILQ_FOREACH(i, &allpseudo, i_next) {
 		d = i->i_base;

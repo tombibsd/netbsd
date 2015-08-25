@@ -43,8 +43,8 @@ union dinode {
 	struct ufs1_dinode dp1;
 	struct ufs2_dinode dp2;
 #ifdef DUMP_LFS
-	struct ulfs1_dinode dlp1;
-	struct ulfs2_dinode dlp2;
+	struct lfs32_dinode dlp32;
+	struct lfs64_dinode dlp64;
 #endif
 };
 #define DIP(dp, field) \

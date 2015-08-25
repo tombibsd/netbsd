@@ -96,6 +96,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <opencrypto/cryptodev_internal.h>
 #include <opencrypto/xform.h>
 
+#include "ioconf.h"
+
 struct csession {
 	TAILQ_ENTRY(csession) next;
 	u_int64_t	sid;
@@ -2080,8 +2082,6 @@ cryptof_poll(struct file *fp, int events)
 /*
  * Pseudo-device initialization routine for /dev/crypto
  */
-void	cryptoattach(int);
-
 void
 cryptoattach(int num)
 {

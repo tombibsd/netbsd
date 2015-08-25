@@ -127,7 +127,7 @@ MAN+=	dbcool.4 g760a.4 lmenv.4 lmtemp.4 mcp980x.4 mpl115a.4 sdtemp.4 \
 	smscmon.4 spdmem.4 tps65217pmic.4
 
 # machine-independent SPI devices
-MAN +=	m25p.4 mcp23s17gpio.4 tm121temp.4
+MAN +=	m25p.4 mcp23s17gpio.4 mcp3kadc.4 tm121temp.4
 
 # machine-independent SD/MMC devices
 MAN +=	sbt.4 sdhc.4 sdmmc.4

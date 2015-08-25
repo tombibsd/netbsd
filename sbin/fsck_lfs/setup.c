@@ -174,6 +174,7 @@ setup(const char *dev)
 	int i, isdirty;
 	long sn, curseg;
 	SEGUSE *sup;
+	size_t sumstart;
 
 	havesb = 0;
 	doskipclean = skipclean;
@@ -261,28 +262,29 @@ setup(const char *dev)
 			      lfs_sb_getsumsize(fs),
 			      0, &bp);
 			sp = (SEGSUM *)bp->b_data;
-			if (sp->ss_sumsum != cksum(&sp->ss_datasum,
-						   lfs_sb_getsumsize(fs) -
-						   sizeof(sp->ss_sumsum))) {
+			sumstart = lfs_ss_getsumstart(fs);
+			if (lfs_ss_getsumsum(fs, sp) !=
+			    cksum((char *)sp + sumstart,
+				  lfs_sb_getsumsize(fs) - sumstart)) {
 				brelse(bp, 0);
 				if (debug)
 					printf("bad cksum at %jx\n",
 					       (uintmax_t)tdaddr);
 				break;
 			}
-			fp = (FINFO *)(sp + 1);
-			bc = howmany(sp->ss_ninos, LFS_INOPB(fs)) <<
+			fp = SEGSUM_FINFOBASE(fs, sp);
+			bc = howmany(lfs_ss_getninos(fs, sp), LFS_INOPB(fs)) <<
 				(lfs_sb_getversion(fs) > 1 ? lfs_sb_getffshift(fs) :
 						       lfs_sb_getbshift(fs));
-			for (i = 0; i < sp->ss_nfinfo; i++) {
-				bc += fp->fi_lastlength + ((fp->fi_nblocks - 1)
+			for (i = 0; i < lfs_ss_getnfinfo(fs, sp); i++) {
+				bc += lfs_fi_getlastlength(fs, fp) + ((lfs_fi_getnblocks(fs, fp) - 1)
 					<< lfs_sb_getbshift(fs));
-				fp = (FINFO *)(fp->fi_blocks + fp->fi_nblocks);
+				fp = NEXT_FINFO(fs, fp);
 			}
 
 			tdaddr += lfs_btofsb(fs, bc) + 1;
 			lfs_sb_setoffset(fs, tdaddr);
-			lfs_sb_setserial(fs, sp->ss_serial + 1);
+			lfs_sb_setserial(fs, lfs_ss_getserial(fs, sp) + 1);
 			brelse(bp, 0);
 		}
 
@@ -437,7 +439,7 @@ setup(const char *dev)
 
 	/* Initialize Ifile entry */
 	din_table[lfs_sb_getifile(fs)] = lfs_sb_getidaddr(fs);
-	seg_table[lfs_dtosn(fs, lfs_sb_getidaddr(fs))].su_nbytes += LFS_DINODE1_SIZE;
+	seg_table[lfs_dtosn(fs, lfs_sb_getidaddr(fs))].su_nbytes += DINOSIZE(fs);
 
 #ifndef VERBOSE_BLOCKMAP
 	bmapsize = roundup(howmany(maxfsblock, NBBY), sizeof(int16_t));

@@ -45,7 +45,7 @@ SECTIONS
   .sdata     :
   AT (LOADADDR(.data) + (ADDR(.sdata) - ADDR(.data)))
   {
-    *(.sdata) 
+    *(.sdata)
     *(.sdata.*)
   }
   _edata = .;
@@ -65,14 +65,14 @@ SECTIONS
   }
   .bss       :
   {
-   *(.dynbss)
-   *(.bss)
-   *(.bss.*)
-   *(COMMON)
-   /* Align here to ensure that the .bss section occupies space up to
-      _end.  Align after .bss to ensure correct alignment even if the
-      .bss section disappears because there are no input sections.  */
-   . = ALIGN(32 / 8);
+    *(.dynbss)
+    *(.bss)
+    *(.bss.*)
+    *(COMMON)
+    /* Align here to ensure that the .bss section occupies space up to
+       _end.  Align after .bss to ensure correct alignment even if the
+       .bss section disappears because there are no input sections.  */
+    . = ALIGN(32 / 8);
   }
   . = ALIGN(32 / 8);
   _end = .;

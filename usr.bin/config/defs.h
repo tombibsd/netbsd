@@ -107,7 +107,7 @@ extern const char *progname;
  * The next two lines define the current version of the config(1) binary,
  * and the minimum version of the configuration files it supports.
  */
-#define CONFIG_VERSION		20141030
+#define CONFIG_VERSION		20150820
 #define CONFIG_MINVERSION	0
 
 /*

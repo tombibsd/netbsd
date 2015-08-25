@@ -57,8 +57,6 @@ int lfs_match_indir(struct lfs *, struct ubuf *);
 int lfs_match_dindir(struct lfs *, struct ubuf *);
 int lfs_match_tindir(struct lfs *, struct ubuf *);
 
-void lfs_shellsort(struct ubuf **, int32_t *, int, int);
-
 int ulfs_getlbns(struct lfs *, struct uvnode *, daddr_t, struct indir *, int *);
 int ulfs_bmaparray(struct lfs *, struct uvnode *, daddr_t, daddr_t *, struct indir *, int *);
 

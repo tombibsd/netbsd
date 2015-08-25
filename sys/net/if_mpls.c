@@ -67,6 +67,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include "if_mpls.h"
 
+#include "ioconf.h"
+
 #define TRIM_LABEL do { \
 	m_adj(m, sizeof(union mpls_shim)); \
 	if (m->m_len < sizeof(union mpls_shim) && \
@@ -75,8 +77,6 @@ __KERNEL_RCSID(0, "$NetBSD$");
 	dst.smpls_addr.s_addr = ntohl(mtod(m, union mpls_shim *)->s_addr); \
 	} while (/* CONSTCOND */ 0)
 
-
-void ifmplsattach(int);
 
 static int mpls_clone_create(struct if_clone *, int);
 static int mpls_clone_destroy(struct ifnet *);

@@ -43,6 +43,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <netinet/accept_filter.h>
 
+#include "ioconf.h"
+
 MODULE(MODULE_CLASS_MISC, accf_httpready, NULL);
 
 /* check for GET/HEAD */
@@ -71,9 +73,6 @@ static struct accept_filter accf_http_filter = {
 #define ACCFCTL_PARSEVER	1	/* Parse HTTP version */
 
 static int parse_http_version = 1;
-
-/* XXX pseudo-device */
-void	accf_httpattach(int);
 
 void
 accf_httpattach(int junk)

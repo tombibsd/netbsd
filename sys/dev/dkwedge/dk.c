@@ -944,7 +944,7 @@ dkwedge_read(struct disk *pdk, struct vnode *vp, daddr_t blkno,
     void *tbuf, size_t len)
 {
 	buf_t *bp;
-	int error;
+	int error, isopen;
 
 	/*
 	 * The kernel cannot read from a character device vnode
@@ -964,6 +964,12 @@ dkwedge_read(struct disk *pdk, struct vnode *vp, daddr_t blkno,
 	bp->b_cylinder = 0;
 	bp->b_error = 0;
 
+	/*
+	 * XXX Only the last user of a block device can close it.
+	 * There is no reference counting in the driver.
+	 */
+	isopen = pdk->dk_bopenmask & (1 << DISKPART(bp->b_dev));
+
 	error = bdev_open(bp->b_dev, FREAD, S_IFBLK, curlwp);
 	if (error)
 		return error;
@@ -972,7 +978,8 @@ dkwedge_read(struct disk *pdk, struct vnode *vp, daddr_t blkno,
 	error = biowait(bp);
 	putiobuf(bp);
 
-	bdev_close(bp->b_dev, FREAD, S_IFBLK, curlwp);
+	if (!isopen)
+		bdev_close(bp->b_dev, FREAD, S_IFBLK, curlwp);
 
 	return error;
 }

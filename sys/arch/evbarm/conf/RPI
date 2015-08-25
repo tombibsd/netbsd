@@ -144,6 +144,10 @@ iic* at i2cbus?
 bcmspi* at obio?
 spi* at spibus?
 
+# MCP3x0x ADC
+# flags selects the actual chip, refer to mcp3kadc(4)
+#mcp3kadc0 at spi? slave 0 flags 0
+
 # PIFace or other boards using that chip (needs gpio)
 #mcp23s17gpio0 at spi? slave 0 flags 0
 #mcp23s17gpio1 at spi? slave 0 flags 1

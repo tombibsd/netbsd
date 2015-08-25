@@ -63,6 +63,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <dev/ir/irdaio.h>
 #include <dev/ir/irframevar.h>
 
+#include "ioconf.h"
+
 #ifdef IRFRAMET_DEBUG
 #define DPRINTF(x)	if (irframetdebug) printf x
 int irframetdebug = 0;
@@ -124,8 +126,6 @@ int	irframetioctl(struct tty *, u_long, void *, int, struct lwp *);
 int	irframetinput(int, struct tty *);
 int	irframetstart(struct tty *);
 
-/* pseudo device init */
-void	irframettyattach(int);
 
 /* irframe methods */
 static int	irframet_open(void *, int, int, struct lwp *);

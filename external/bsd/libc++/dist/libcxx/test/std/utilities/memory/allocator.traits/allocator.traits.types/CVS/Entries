@@ -1,0 +1,12 @@
+/const_pointer.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/const_void_pointer.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/difference_type.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/is_always_equal.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/pointer.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/propagate_on_container_copy_assignment.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/propagate_on_container_move_assignment.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/propagate_on_container_swap.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/rebind_alloc.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/size_type.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/void_pointer.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+D

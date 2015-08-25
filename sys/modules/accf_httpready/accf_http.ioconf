@@ -1,0 +1,7 @@
+#	$NetBSD$
+
+ioconf		accf_http
+
+include		"conf/files"
+
+pseudo-device   accf_http               # "httpready" accept filter

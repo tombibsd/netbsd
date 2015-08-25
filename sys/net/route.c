@@ -379,7 +379,6 @@ rtalloc1(const struct sockaddr *dst, int report)
 			}
 			KASSERT(newrt != NULL);
 			rt = newrt;
-			rt->rt_refcnt++;
 			if (rt->rt_flags & RTF_XRESOLVE) {
 				msgtype = RTM_RESOLVE;
 				goto miss;
@@ -1041,7 +1040,6 @@ rtinit(struct ifaddr *ifa, int cmd, int flags)
 	switch (cmd) {
 	case RTM_DELETE:
 		rt_newmsg(cmd, rt);
-		rtfree(rt);
 		break;
 	case RTM_LLINFO_UPD:
 		RT_DPRINTF("%s: updating%s\n", __func__,
@@ -1061,7 +1059,6 @@ rtinit(struct ifaddr *ifa, int cmd, int flags)
 		if (cmd == RTM_LLINFO_UPD && ifa->ifa_rtrequest != NULL)
 			ifa->ifa_rtrequest(RTM_LLINFO_UPD, rt, &info);
 		rt_newmsg(RTM_CHANGE, rt);
-		rtfree(rt);
 		break;
 	case RTM_ADD:
 		if (rt->rt_ifa != ifa) {
@@ -1077,9 +1074,9 @@ rtinit(struct ifaddr *ifa, int cmd, int flags)
 				ifa->ifa_rtrequest(RTM_ADD, rt, &info);
 		}
 		rt_newmsg(cmd, rt);
-		rtfree(rt);
 		break;
 	}
+	rtfree(rt);
 	return error;
 }
 

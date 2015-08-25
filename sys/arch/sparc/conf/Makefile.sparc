@@ -60,9 +60,9 @@ amd7930intr.o bsd_fdintr.o lock_stubs.o: assym.h
 ##
 TEXTADDR?=	F0004000
 EXTRA_LINKFLAGS=	-X
-KERN_LDSCRIPT?= kern.ldscript
+KERNLDSCRIPT?= ${SPARC}/conf/kern.ldscript
 LINKFORMAT=	-n
-LINKSCRIPT=	-T ${SPARC}/conf/${KERN_LDSCRIPT}
+LINKSCRIPT=	-T ${KERNLDSCRIPT}
 
 ##
 ## (6) port specific target dependencies

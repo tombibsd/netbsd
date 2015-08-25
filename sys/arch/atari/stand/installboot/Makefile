@@ -6,7 +6,7 @@ NOMAN=	# defined
 SRCS=	installboot.c disklabel.c
 BINDIR=	/usr/mdec
 .ifndef SMALLPROG
-CPPFLAGS+=	-DCHECK_OS_BOOTVERSION
+CPPFLAGS+=	-DCHECK_OS_BOOTVERSION -DNO_USAGE
 LDADD=	-lkvm
 .endif
 

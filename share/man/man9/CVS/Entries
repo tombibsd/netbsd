@@ -1,7 +1,7 @@
 /CTASSERT.9/1.2/Mon Apr  5 19:18:45 2010/-kk/
 /KASSERT.9/1.13/Tue Sep 27 00:36:51 2011/-kk/
 /LWP_CACHE_CREDS.9/1.2/Sun Dec  9 08:53:57 2007/-kk/
-/Makefile/1.389/Sun Aug  2 04:02:32 2015/-kk/
+/Makefile/1.391/Tue Aug 25 04:50:59 2015/-kk/
 /RUN_ONCE.9/1.8/Tue Jul  6 22:29:29 2010/-kk/
 /SET.9/1.3/Tue Mar 25 02:35:16 2014/-kk/
 /STACK.9/1.2/Fri Apr  8 07:55:04 2011/-kk/
@@ -100,6 +100,7 @@
 /in4_cksum.9/1.6/Wed Apr 30 13:10:58 2008/-kk/
 /in_getifa.9/1.8/Tue Mar 25 02:35:16 2014/-kk/
 /inittodr.9/1.13/Tue Feb 20 08:26:35 2007/-kk/
+/interrupt_distribute.9/1.1/Mon Aug 17 06:28:11 2015/-kk/
 /intro.9/1.16/Thu Apr  2 02:27:45 2015/-kk/
 /ioasic.9/1.12/Fri Jul  1 17:34:44 2011/-kk/
 /ioctl.9/1.31/Thu Oct 24 10:28:54 2013/-kk/
@@ -147,11 +148,10 @@
 /optstr.9/1.4/Wed Apr 30 13:10:58 2008/-kk/
 /panic.9/1.21/Tue Jun 12 21:06:43 2012/-kk/
 /pathbuf.9/1.2/Tue Nov 30 10:32:46 2010/-kk/
-/pci.9/1.38/Tue Dec  9 04:15:51 2014/-kk/
+/pci.9/1.41/Tue Aug 25 04:50:59 2015/-kk/
 /pci_configure_bus.9/1.16/Sat Jul 14 05:32:17 2012/-kk/
 /pci_intr.9/1.20/Wed Aug 12 04:13:44 2015/-kk/
-/pci_intr_distribute.9/1.2/Mon Apr 27 10:32:22 2015/-kk/
-/pci_msi.9/1.6/Sun Aug  2 04:02:33 2015/-kk/
+/pci_msi.9/1.7/Tue Aug 25 04:50:59 2015/-kk/
 /pckbport.9/1.5/Mon Mar  9 19:24:32 2009/-kk/
 /pcmcia.9/1.20/Mon May 30 01:48:40 2011/-kk/
 /pcq.9/1.7/Wed Apr 22 07:35:36 2015/-kk/
@@ -163,7 +163,7 @@
 /pmatch.9/1.3/Mon Oct 19 18:41:09 2009/-kk/
 /pmc.9/1.12/Wed Feb 22 19:04:38 2012/-kk/
 /pmf.9/1.22/Tue Mar 25 02:35:16 2014/-kk/
-/pool.9/1.44/Mon Nov 14 02:38:05 2011/-kk/
+/pool.9/1.45/Tue Aug 25 04:50:59 2015/-kk/
 /pool_cache.9/1.19/Tue Nov 15 00:32:34 2011/-kk/
 /powerhook_establish.9/1.11/Fri May 15 06:40:15 2009/-kk/
 /ppi.9/1.4/Mon Dec 26 19:48:12 2005/-kk/
@@ -224,7 +224,7 @@
 /usbdi.9/1.30/Thu Jul  2 04:13:42 2015/-kk/
 /userret.9/1.9/Wed Apr 30 13:10:59 2008/-kk/
 /uvm.9/1.110/Thu Apr  2 02:27:45 2015/-kk/
-/uvm_km.9/1.4/Mon Jan 12 06:47:46 2015/-kk/
+/uvm_km.9/1.5/Tue Aug 25 04:50:59 2015/-kk/
 /uvm_map.9/1.6/Fri Oct  3 09:57:31 2014/-kk/
 /vattr.9/1.15/Thu Dec  2 12:54:13 2010/-kk/
 /vcons.9/1.2/Mon Feb 13 19:57:58 2006/-kk/

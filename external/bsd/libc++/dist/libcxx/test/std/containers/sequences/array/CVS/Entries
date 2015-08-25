@@ -1,0 +1,17 @@
+/at.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/begin.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/contiguous.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/front_back.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/indexing.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/iterators.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/suppress_array_warnings.h/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/types.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/version.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+D/array.cons////
+D/array.data////
+D/array.fill////
+D/array.size////
+D/array.special////
+D/array.swap////
+D/array.tuple////
+D/array.zero////

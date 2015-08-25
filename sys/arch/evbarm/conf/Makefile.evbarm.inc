@@ -28,15 +28,21 @@ CPPFLAGS+=-DKERNEL_BASE_VOFFSET="(${KERNEL_BASE_VIRT}-${KERNEL_BASE_PHYS})"
 . endif
 .endif
 
-EXTRA_CLEAN+= ldscript tmp ${KERNELS:=.map}
+EXTRA_CLEAN+=	${KERNELS:=.map}
 
 .if defined(KERNEL_BASE_PHYS)
 LINKTEXT=
 KERNLDSCRIPT=	ldscript
-LINKSCRIPT=	-T ldscript
+LINKSCRIPT=	-T ${KERNLDSCRIPT}
+
+EXTRA_CLEAN+=	${KERNLDSCRIPT} tmp
 
 # generate ldscript from common template
-ldscript: ${THISARM}/conf/ldscript.evbarm ${THISARM}/conf/Makefile.evbarm.inc Makefile ${BOARDMKFRAG}
+${KERNLDSCRIPT}: \
+    ${THISARM}/conf/ldscript.evbarm \
+    ${THISARM}/conf/Makefile.evbarm.inc \
+    Makefile \
+    ${BOARDMKFRAG}
 	echo ${KERNELS}
 	${TOOL_SED} -e 's/@KERNEL_BASE_PHYS@/${KERNEL_BASE_PHYS}/' \
 	    -e 's/@KERNEL_BASE_VIRT@/${KERNEL_BASE_VIRT}/' \

@@ -48,6 +48,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/kauth.h>
 #include <sys/lwp.h>
 
+#include "ioconf.h"
+
 struct drvctl_event {
 	TAILQ_ENTRY(drvctl_event) dce_link;
 	prop_dictionary_t	dce_event;
@@ -79,8 +81,6 @@ const struct cdevsw drvctl_cdevsw = {
 	.d_discard = nodiscard,
 	.d_flag = D_OTHER
 };
-
-void drvctlattach(int);
 
 static int	drvctl_read(struct file *, off_t *, struct uio *,
 			    kauth_cred_t, int);
@@ -432,7 +432,7 @@ drvctl_close(struct file *fp)
 }
 
 void
-drvctlattach(int arg)
+drvctlattach(int arg __unused)
 {
 }
 

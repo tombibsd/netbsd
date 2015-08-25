@@ -645,7 +645,7 @@ ohci_init(ohci_softc_t *sc)
 	callout_init(&sc->sc_tmo_rhsc, CALLOUT_MPSAFE);
 
 	mutex_init(&sc->sc_lock, MUTEX_DEFAULT, IPL_SOFTUSB);
-	mutex_init(&sc->sc_intr_lock, MUTEX_DEFAULT, IPL_SCHED);
+	mutex_init(&sc->sc_intr_lock, MUTEX_DEFAULT, IPL_USB);
 	cv_init(&sc->sc_softwake_cv, "ohciab");
 
 	sc->sc_rhsc_si = softint_establish(SOFTINT_NET | SOFTINT_MPSAFE,

@@ -620,7 +620,8 @@ lfs_segunlock_relock(struct lfs *fs)
 
 	/* Tell cleaner */
 	LFS_CLEANERINFO(cip, fs, bp);
-	cip->flags |= LFS_CLEANER_MUST_CLEAN;
+	lfs_ci_setflags(fs, cip,
+			lfs_ci_getflags(fs, cip) | LFS_CLEANER_MUST_CLEAN);
 	LFS_SYNC_CLEANERINFO(cip, fs, bp, 1);
 
 	/* Save segment flags for later */
@@ -644,7 +645,8 @@ lfs_segunlock_relock(struct lfs *fs)
 
 	/* Cleaner can relax now */
 	LFS_CLEANERINFO(cip, fs, bp);
-	cip->flags &= ~LFS_CLEANER_MUST_CLEAN;
+	lfs_ci_setflags(fs, cip,
+			lfs_ci_getflags(fs, cip) & ~LFS_CLEANER_MUST_CLEAN);
 	LFS_SYNC_CLEANERINFO(cip, fs, bp, 1);
 
 	return;

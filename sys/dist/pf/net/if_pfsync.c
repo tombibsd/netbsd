@@ -85,6 +85,8 @@ extern int carp_suppress_preempt;
 
 #include <net/net_stats.h>
 
+#include "ioconf.h"
+
 percpu_t	*pfsyncstat_percpu;
 
 #define	PFSYNC_STATINC(x) _NET_STATINC(pfsyncstat_percpu, x)
@@ -106,7 +108,6 @@ extern int ifqmaxlen; /* XXX */
 
 struct pfsync_softc	*pfsyncif = NULL;
 
-void	pfsyncattach(int);
 int	pfsync_clone_create(struct if_clone *, int);
 int	pfsync_clone_destroy(struct ifnet *);
 void	pfsync_setmtu(struct pfsync_softc *, int);

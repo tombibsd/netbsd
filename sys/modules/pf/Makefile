@@ -5,7 +5,7 @@
 .PATH:	${S}/dist/pf/net ${S}/dist/pf/netinet
 
 KMOD=   pf
-
+IOCONF=	pf.ioconf
 SRCS=	if_compat.c
 SRCS+=	if_pflog.c
 SRCS+=	pf.c

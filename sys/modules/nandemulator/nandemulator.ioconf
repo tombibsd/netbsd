@@ -1,0 +1,7 @@
+#	$NetBSD$
+
+ioconf		nandemulator
+
+include		"conf/files"
+
+pseudo-device   nandemulator

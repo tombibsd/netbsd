@@ -1,0 +1,15 @@
+/clear.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/emplace.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/emplace_hint.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/erase_iter.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/erase_iter_iter.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/erase_key.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/insert_cv.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/insert_initializer_list.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/insert_iter_cv.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/insert_iter_iter.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/insert_iter_rv.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/insert_or_assign.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/insert_rv.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/try.emplace.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+D

@@ -1243,9 +1243,7 @@ reply:
 	if (op != ARPOP_REQUEST) {
 		if (op == ARPOP_REPLY)
 			ARP_STATINC(ARP_STAT_RCVREPLY);
-	out:
-		m_freem(m);
-		return;
+		goto out;
 	}
 	ARP_STATINC(ARP_STAT_RCVREQUEST);
 	if (in_hosteq(itaddr, myaddr)) {
@@ -1300,6 +1298,8 @@ reply:
 	ARP_STAT_PUTREF();
 	(*ifp->if_output)(ifp, m, &sa, NULL);
 	return;
+out:
+	m_freem(m);
 }
 
 /*

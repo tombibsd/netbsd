@@ -1536,10 +1536,10 @@ ttnread(struct tty *tp)
 }
 
 /*
- * Wait for output to drain.
+ * Wait for output to drain, or if this times out, flush it.
  */
-int
-ttywait(struct tty *tp)
+static int
+ttywait_timo(struct tty *tp, int timo)
 {
 	int	error;
 
@@ -1549,13 +1549,24 @@ ttywait(struct tty *tp)
 	while ((tp->t_outq.c_cc || ISSET(tp->t_state, TS_BUSY)) &&
 	    CONNECTED(tp) && tp->t_oproc) {
 		(*tp->t_oproc)(tp);
-		error = ttysleep(tp, &tp->t_outcv, true, 0);
-		if (error)
+		error = ttysleep(tp, &tp->t_outcv, true, timo);
+		if (error == EWOULDBLOCK) {
+			ttyflush(tp, FWRITE);
 			break;
+		}
 	}
 	mutex_spin_exit(&tty_lock);
 
 	return (error);
+}
+
+/*
+ * Wait for output to drain.
+ */
+int
+ttywait(struct tty *tp)
+{
+	return ttywait_timo(tp, 0);
 }
 
 /*
@@ -1566,7 +1577,8 @@ ttywflush(struct tty *tp)
 {
 	int	error;
 
-	if ((error = ttywait(tp)) == 0) {
+	error = ttywait_timo(tp, 5 * hz);
+	if (error == 0 || error == EWOULDBLOCK) {
 		mutex_spin_enter(&tty_lock);
 		ttyflush(tp, FREAD);
 		mutex_spin_exit(&tty_lock);

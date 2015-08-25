@@ -49,6 +49,7 @@
 
 #include "netbsd-dm.h"
 #include "dm.h"
+#include "ioconf.h"
 
 static dev_type_open(dmopen);
 static dev_type_close(dmclose);
@@ -59,7 +60,6 @@ static dev_type_strategy(dmstrategy);
 static dev_type_size(dmsize);
 
 /* attach and detach routines */
-void dmattach(int);
 #ifdef _MODULE
 static int dmdestroy(void);
 #endif

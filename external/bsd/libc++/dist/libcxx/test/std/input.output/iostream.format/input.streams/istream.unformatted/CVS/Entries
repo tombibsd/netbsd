@@ -1,0 +1,20 @@
+/get.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/get_chart.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/get_pointer_size.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/get_pointer_size_chart.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/get_streambuf.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/get_streambuf_chart.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/getline_pointer_size.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/getline_pointer_size_chart.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/ignore.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/ignore_0xff.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/peek.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/putback.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/read.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/readsome.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/seekg.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/seekg_off.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/sync.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/tellg.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/unget.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+D

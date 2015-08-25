@@ -114,6 +114,9 @@ struct salfs {
 #define STRUCT_LFS struct salfs
 #include <ufs/lfs/lfs_accessors.h>
 
+/* override this to avoid a mess with the dinode accessors */
+#define lfs_dino_getsize(fs, dp) ((dp)->di_size)
+
 typedef struct salfs FS;
 #define fs_magic	lfs_dlfs_u.u_32.dlfs_magic
 #define fs_maxsymlinklen lfs_dlfs_u.u_32.dlfs_maxsymlinklen
@@ -212,24 +215,27 @@ find_inode_sector(ino32_t inumber, struct open_file *f, daddr_t *isp)
 	daddr_t ifileent_blkno;
 	char *ent_in_buf;
 	size_t buf_after_ent;
+	size_t entsize;
 	int rc;
 
 	rc = read_inode(lfs_sb_getifile(fs), f);
 	if (rc)
 		return rc;
 
+	entsize = fs->lfs_is64 ? sizeof(IFILE64) :
+		(lfs_sb_getversion(fs) > 1 ? sizeof(IFILE32) : sizeof(IFILE_V1));
 	ifileent_blkno =
 	    (inumber / lfs_sb_getifpb(fs)) + lfs_sb_getcleansz(fs) + lfs_sb_getsegtabsz(fs);
 	fp->f_seekp = (off_t)ifileent_blkno * lfs_sb_getbsize(fs) +
-	    (inumber % lfs_sb_getifpb(fs)) * sizeof (IFILE_Vx);
+	    (inumber % lfs_sb_getifpb(fs)) * entsize;
 	rc = buf_read_file(f, &ent_in_buf, &buf_after_ent);
 	if (rc)
 		return rc;
 	/* make sure something's not badly wrong, but don't panic. */
-	if (buf_after_ent < sizeof (IFILE_Vx))
+	if (buf_after_ent < entsize)
 		return EINVAL;
 
-	*isp = FSBTODB(fs, ((IFILE_Vx *)ent_in_buf)->if_daddr);
+	*isp = FSBTODB(fs, lfs_if_getdaddr(fs, (IFILE *)ent_in_buf));
 	if (*isp == LFS_UNUSED_DADDR)	/* again, something badly wrong */
 		return EINVAL;
 	return 0;

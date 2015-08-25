@@ -65,6 +65,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <x68k/dev/opmvar.h>
 
+#include "ioconfig.h"
+
 /* In opm.c. */
 void opm_set_volume(int, int);
 void opm_set_key(int, int);
@@ -109,8 +111,6 @@ void opm_bell_on(void);
 void opm_bell_off(void);
 int opm_bell_setup(struct bell_info *);
 int bellmstohz(int);
-
-void bellattach(int);
 
 dev_type_open(bellopen);
 dev_type_close(bellclose);

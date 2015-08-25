@@ -46,8 +46,9 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <dev/nand/onfi.h>
 #include <dev/nand/nand_crc.h>
 
+#include "ioconf.h"
+
 extern struct cfdriver nandemulator_cd;
-void nandemulatorattach(int n);
 
 static int nandemulator_match(device_t, cfdata_t, void *);
 static void nandemulator_attach(device_t, device_t, void *);

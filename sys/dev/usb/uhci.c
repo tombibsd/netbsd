@@ -529,7 +529,7 @@ uhci_init(uhci_softc_t *sc)
 	callout_init(&sc->sc_poll_handle, CALLOUT_MPSAFE);
 
 	mutex_init(&sc->sc_lock, MUTEX_DEFAULT, IPL_SOFTUSB);
-	mutex_init(&sc->sc_intr_lock, MUTEX_DEFAULT, IPL_SCHED);
+	mutex_init(&sc->sc_intr_lock, MUTEX_DEFAULT, IPL_USB);
 	cv_init(&sc->sc_softwake_cv, "uhciab");
 
 	/* Set up the bus struct. */

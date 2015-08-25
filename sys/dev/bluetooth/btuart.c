@@ -81,7 +81,6 @@ struct btuart_softc {
 #define BTUART_RECV_SCO_DATA	5	/* sco packet data */
 #define BTUART_RECV_EVENT_DATA	6	/* event packet data */
 
-void btuartattach(int);
 static int btuart_match(device_t, cfdata_t, void *);
 static void btuart_attach(device_t, device_t, void *);
 static int btuart_detach(device_t, int);

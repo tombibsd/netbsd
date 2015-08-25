@@ -89,8 +89,8 @@ static char banner[MAXBANNER];
 #define PROTOMINOR 4
 
 
-/* how to use atomic ops on Linux? */
-#if defined(__linux__) || defined(__APPLE__) || defined(__CYGWIN__) || defined(__OpenBSD__)
+/* either no atomic ops, or we haven't figured out how to use them */
+#if defined(__linux__) || defined(__APPLE__) || defined(__CYGWIN__) || defined(__OpenBSD__) || defined(__GNU__) || defined(__GLIBC__)
 static pthread_mutex_t discomtx = PTHREAD_MUTEX_INITIALIZER;
 
 static void

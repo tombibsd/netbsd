@@ -1,0 +1,7 @@
+#	$NetBSD$
+
+ioconf		vcoda
+
+include		"conf/files"
+
+pseudo-device   vcoda

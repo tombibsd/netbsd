@@ -27,7 +27,7 @@ no pseudo-device vcoda
 # File system options
 #options 	QUOTA		# legacy UFS quotas
 #options 	QUOTA2		# new, in-filesystem UFS quotas
-#options 	FFS_EI		# FFS Endian Independent support
+options 	FFS_EI		# FFS Endian Independent support
 #options 	NFSSERVER
 options 	WAPBL		# File system journaling support
 #options 	FFS_NO_SNAPSHOT	# No FFS snapshot support
@@ -37,7 +37,7 @@ options 	WAPBL		# File system journaling support
 #options 	GATEWAY		# packet forwarding
 options 	INET		# IP + ICMP + TCP + UDP
 options 	INET6		# IPV6
-#options 	IPSEC		# IP security
+options 	IPSEC		# IP security
 #options 	IPSEC_DEBUG	# debug for IP security
 #options 	MROUTING	# IP multicast routing
 #options 	PIM		# Protocol Independent Multicast

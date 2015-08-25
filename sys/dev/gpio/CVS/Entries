@@ -1,4 +1,4 @@
-/files.gpio/1.12/Wed Jun  3 06:54:56 2015/-kk/
+/files.gpio/1.13/Tue Aug 25 04:51:15 2015/-kk/
 /gpio.c/1.57/Fri Oct  3 09:09:13 2014/-kk/
 /gpiobutton.c/1.2/Sat May 30 17:12:16 2015/-kk/
 /gpioiic.c/1.6/Sat Oct 27 17:18:16 2012/-kk/
@@ -6,6 +6,6 @@
 /gpioow.c/1.14/Wed Sep  7 07:43:05 2011/-kk/
 /gpiopwm.c/1.4/Sat Mar  1 06:04:40 2014/-kk/
 /gpiorfkill.c/1.1/Fri May 29 23:17:13 2015/-kk/
-/gpiosim.c/1.16/Sat Mar  1 06:04:40 2014/-kk/
+/gpiosim.c/1.18/Tue Aug 25 04:51:15 2015/-kk/
 /gpiovar.h/1.15/Sun Nov 13 13:20:02 2011/-kk/
 D

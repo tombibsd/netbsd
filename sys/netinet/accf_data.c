@@ -40,6 +40,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <netinet/accept_filter.h>
 
+#include "ioconf.h"
+
 MODULE(MODULE_CLASS_MISC, accf_dataready, NULL);
 
 /* accept filter that holds a socket until data arrives */
@@ -50,9 +52,6 @@ static struct accept_filter accf_data_filter = {
 	.accf_name = "dataready",
 	.accf_callback = sohasdata,
 };
-
-/* XXX pseudo-device */
-void	accf_dataattach(int);
 
 void
 accf_dataattach(int junk)

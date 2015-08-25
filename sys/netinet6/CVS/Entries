@@ -36,7 +36,7 @@
 /ipsec.h/1.54/Thu Mar 22 20:34:41 2012/-kk/
 /mld6.c/1.62/Mon Jan 26 07:10:31 2015/-kk/
 /mld6_var.h/1.10/Sat Nov 19 22:51:29 2011/-kk/
-/nd6.c/1.166/Wed Aug 12 04:14:35 2015/-kk/
+/nd6.c/1.168/Tue Aug 25 04:51:27 2015/-kk/
 /nd6.h/1.66/Sat Jul 25 01:52:33 2015/-kk/
 /nd6_nbr.c/1.109/Sat Jul 25 01:52:33 2015/-kk/
 /nd6_rtr.c/1.102/Wed Aug 12 04:14:35 2015/-kk/

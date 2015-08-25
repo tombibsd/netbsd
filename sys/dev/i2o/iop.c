@@ -2088,9 +2088,9 @@ iop_msg_unmap(struct iop_softc *sc, struct iop_msg *im)
 		/* Only the first DMA map is static. */
 		if (i != 0)
 			bus_dmamap_destroy(sc->sc_dmat, ix->ix_map);
-		if ((++ix)->ix_size == 0)
-			break;
 		if (++i >= IOP_MAX_MSG_XFERS)
+			break;
+		if ((++ix)->ix_size == 0)
 			break;
 	}
 }

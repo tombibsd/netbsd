@@ -21,7 +21,7 @@
 /awin_mmc.c/1.21/Wed Aug 12 04:13:48 2015/-kk/
 /awin_mp.c/1.1/Sun Nov 30 19:15:53 2014/-kk/
 /awin_nand.c/1.2/Sat Mar  1 06:04:22 2014/-kk/
-/awin_otg.c/1.5/Wed Oct 29 08:12:58 2014/-kk/
+/awin_otg.c/1.6/Tue Aug 25 04:51:01 2015/-kk/
 /awin_otgreg.h/1.4/Wed Oct 29 08:12:58 2014/-kk/
 /awin_p2wi.c/1.5/Thu Dec 11 09:09:33 2014/-kk/
 /awin_reg.h/1.79/Wed Aug 12 04:13:49 2015/-kk/

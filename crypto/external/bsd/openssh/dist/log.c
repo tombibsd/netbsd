@@ -1,5 +1,5 @@
 /*	$NetBSD$	*/
-/* $OpenBSD: log.c,v 1.45 2013/05/16 09:08:41 dtucker Exp $ */
+/* $OpenBSD: log.c,v 1.46 2015/07/08 19:04:21 markus Exp $ */
 /*
  * Author: Tatu Ylonen <ylo@cs.hut.fi>
  * Copyright (c) 1995 Tatu Ylonen <ylo@cs.hut.fi>, Espoo, Finland
@@ -50,7 +50,6 @@ __RCSID("$NetBSD$");
 #include <errno.h>
 #include <vis.h>
 
-#include "xmalloc.h"
 #include "log.h"
 
 static LogLevel log_level = SYSLOG_LEVEL_INFO;

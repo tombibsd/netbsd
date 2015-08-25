@@ -39,6 +39,7 @@
 #include "ixgbe_type.h"
 
 void ixgbe_dcb_get_rtrup2tc(struct ixgbe_hw *hw, u8 *map);
+
 s32 ixgbe_init_shared_code(struct ixgbe_hw *hw);
 
 extern s32 ixgbe_init_ops_82598(struct ixgbe_hw *hw);

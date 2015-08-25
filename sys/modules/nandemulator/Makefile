@@ -5,7 +5,7 @@
 .PATH:	${S}/dev/nand
 
 KMOD=   nandemulator
-#IOCONF=	nandemulator.ioconf
+IOCONF=	nandemulator.ioconf
 SRCS=	nandemulator.c
 
 .include <bsd.kmodule.mk>

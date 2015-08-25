@@ -103,7 +103,7 @@ delay(u_int arg)
 		if (ctrl & CORTEX_CNTOFL_C) {
 		  /* Reset overflow flag for cycle counter in overflow register */
 			armreg_pmovsr_write(CORTEX_CNTOFL_C);
-			delta += (last + (counts_per_wrap - cur));
+			delta += (cur + (counts_per_wrap - last));
 		} else {
 			delta += (cur - last);
 		}

@@ -19,11 +19,10 @@ SYSTEM_LD_TAIL_EXTRA+=; \
 
 KERNEL_BASE_VIRT=	$(LOADADDRESS)
 
-LINKSCRIPT=		-T ldscript
+KERNLDSCRIPT=		ldscript
+LINKSCRIPT=		-T ${KERNLDSCRIPT}
 
 EXTRA_CLEAN+=		netbsd.map assym.d ldscript tmp
-
-netbsd:	ldscript	# XXX
 
 # generate ldscript from common template
 ldscript: ${THISARM}/conf/ldscript.zaurus ${THISARM}/conf/Makefile.zaurus.inc Makefile

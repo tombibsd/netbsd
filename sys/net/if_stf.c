@@ -127,6 +127,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <net/if_gif.h>
 #endif
 
+#include "ioconf.h"
+
 #define IN6_IS_ADDR_6TO4(x)	(ntohs((x)->s6_addr16[0]) == 0x2002)
 #define GET_V4(x)	((const struct in_addr *)(&(x)->s6_addr16[1]))
 
@@ -165,8 +167,6 @@ static const struct protosw in_stf_protosw =
 	.pr_ctloutput	= rip_ctloutput,
 	.pr_usrreqs	= &rip_usrreqs,
 };
-
-void	stfattach(int);
 
 static int stf_encapcheck(struct mbuf *, int, int, void *);
 static struct in6_ifaddr *stf_getsrcifa6(struct ifnet *);

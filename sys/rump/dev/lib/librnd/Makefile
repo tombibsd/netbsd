@@ -4,7 +4,7 @@
 .PATH:	${.CURDIR}/../../../../dev
 
 LIB=	rumpdev_rnd
-
+IOCONF=	RND.ioconf
 SRCS=	rndpseudo.c
 
 SRCS+=	rnd_component.c

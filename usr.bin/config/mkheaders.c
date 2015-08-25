@@ -389,11 +389,19 @@ emitioconfh(void)
 	const char *tfname;
 	FILE *tfp;
 	struct devbase *d;
+	struct devi *i;
 
 	tfname = "tmp_ioconf.h";
 	if ((tfp = fopen(tfname, "w")) == NULL)
 		return (herr("open", tfname, NULL));
 
+        fputs("\n/* pseudo-devices */\n", tfp);
+        TAILQ_FOREACH(i, &allpseudo, i_next) {
+                fprintf(tfp, "void %sattach(int);\n",
+                    i->i_base->d_name);
+        }
+
+        fputs("\n/* driver structs */\n", tfp);
 	TAILQ_FOREACH(d, &allbases, d_next) {
 		if (!devbase_has_instances(d, WILD))
 			continue;

@@ -1,4 +1,4 @@
-/ChangeLog/1.1.1.3/Thu Jun 26 06:44:22 2014/-kk/
+/ChangeLog/1.1.1.4/Tue Aug 25 04:45:42 2015/-kk/
 /cris.cpu/1.1.1.1/Sat Sep 24 20:06:21 2011/-kk/
 /epiphany.cpu/1.1.1.1/Thu Oct 24 10:28:52 2013/-kk/
 /epiphany.opc/1.1.1.1/Thu Oct 24 10:28:52 2013/-kk/
@@ -35,6 +35,11 @@
 /mt.opc/1.1.1.2/Tue Oct 29 12:10:23 2013/-kk/
 /openrisc.cpu/1.1.1.1/Thu Oct 24 10:28:52 2013/-kk/
 /openrisc.opc/1.1.1.1/Thu Oct 24 10:28:52 2013/-kk/
+/or1k.cpu/1.1.1.1/Sat Aug 15 10:24:36 2015/-kk/
+/or1k.opc/1.1.1.1/Sat Aug 15 10:24:29 2015/-kk/
+/or1kcommon.cpu/1.1.1.1/Sat Aug 15 10:24:44 2015/-kk/
+/or1korbis.cpu/1.1.1.1/Sat Aug 15 10:24:36 2015/-kk/
+/or1korfpx.cpu/1.1.1.1/Sat Aug 15 10:24:07 2015/-kk/
 /sh.cpu/1.1.1.1/Sat Sep 24 20:06:39 2011/-kk/
 /sh.opc/1.1.1.1/Sat Sep 24 20:06:39 2011/-kk/
 /sh64-compact.cpu/1.1.1.1/Sat Sep 24 20:06:18 2011/-kk/

@@ -85,18 +85,21 @@ MALLOC_DECLARE(M_SEGMENT);
 #define LFS_IGNORE_LAZY_SYNC	9
 #define LFS_MAXID	 10
 
+/* not ours */
 struct fid;
 struct mount;
 struct nameidata;
 struct proc;
 struct statvfs;
 struct timeval;
-struct inode;
 struct uio;
 struct mbuf;
-struct ulfs1_dinode;
 struct buf;
 struct vnode;
+
+/* ours */
+struct inode;
+union lfs_dinode;
 struct dlfs;
 struct lfs;
 struct segment;
@@ -152,7 +155,7 @@ int lfs_reserve(struct lfs *, struct vnode *, struct vnode *, int);
 int lfs_bwrite_log(struct buf *, const char *, int);
 void lfs_dumplog(void);
 void lfs_dump_super(struct lfs *);
-void lfs_dump_dinode(struct ulfs1_dinode *);
+void lfs_dump_dinode(struct lfs *, union lfs_dinode *);
 void lfs_check_bpp(struct lfs *, struct segment *, char *, int);
 void lfs_check_segsum(struct lfs *, struct segment *, char *, int);
 void lfs_debug_log(int, const char *, ...);
@@ -162,7 +165,7 @@ void lfs_debug_log(int, const char *, ...);
 int lfs_update(struct vnode *, const struct timespec *, const struct timespec *,
     int);
 int lfs_truncate(struct vnode *, off_t, int, kauth_cred_t);
-struct ulfs1_dinode *lfs_ifind(struct lfs *, ino_t, struct buf *);
+union lfs_dinode *lfs_ifind(struct lfs *, ino_t, struct buf *);
 void lfs_finalize_ino_seguse(struct lfs *, struct inode *);
 void lfs_finalize_fs_seguse(struct lfs *);
 
@@ -211,11 +214,10 @@ void lfs_writer_leave(struct lfs *);
 void lfs_wakeup_cleaner(struct lfs *);
 
 /* lfs_syscalls.c */
-struct buf *lfs_fakebuf(struct lfs *, struct vnode *, int, size_t, void *);
 int lfs_do_segclean(struct lfs *, unsigned long);
 int lfs_segwait(fsid_t *, struct timeval *);
-int lfs_bmapv(struct proc *, fsid_t *, struct block_info *, int);
-int lfs_markv(struct proc *, fsid_t *, struct block_info *, int);
+int lfs_bmapv(struct lwp *, fsid_t *, struct block_info *, int);
+int lfs_markv(struct lwp *, fsid_t *, struct block_info *, int);
 
 /* lfs_vfsops.c */
 VFS_PROTOS(lfs);

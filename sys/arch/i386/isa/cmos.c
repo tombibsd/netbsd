@@ -79,6 +79,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <dev/ic/mc146818reg.h>
 #include <i386/isa/nvram.h>
 
+#include "ioconf.h"
+
 #define	CMOS_SUM	32
 #define	CMOS_BIOSSPEC	34	/* start of BIOS-specific configuration data */
 
@@ -87,7 +89,6 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #define	CMOS_SIZE	NVRAM_BIOSSPEC
 
-void cmosattach(int);
 dev_type_open(cmos_open);
 dev_type_read(cmos_read);
 dev_type_write(cmos_write);

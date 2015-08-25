@@ -1,0 +1,25 @@
+/assign.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/copy.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/ctor_default.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/ctor_func.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/ctor_init_func.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/ctor_iterator.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/ctor_param.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/eq.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/eval.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/eval_param.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/get_param.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/io.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/max.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/min.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/param_assign.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/param_copy.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/param_ctor_default.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/param_ctor_func.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/param_ctor_init_func.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/param_ctor_iterator.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/param_eq.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/param_types.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/set_param.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/types.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+D

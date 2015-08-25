@@ -47,6 +47,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <dev/biovar.h>
 #include <dev/sysmon/sysmonvar.h>
 
+#include "ioconf.h"
+
 struct bio_mapping {
 	LIST_ENTRY(bio_mapping) bm_link;
 	device_t bm_dev;
@@ -65,8 +67,6 @@ static int	bioopen(dev_t, int, int, struct lwp *);
 static int	bio_delegate_ioctl(void *, u_long, void *);
 static struct	bio_mapping *bio_lookup(char *);
 static int	bio_validate(void *);
-
-void	bioattach(int);
 
 const struct cdevsw bio_cdevsw = {
         .d_open = bioopen,

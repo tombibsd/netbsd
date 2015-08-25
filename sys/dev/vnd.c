@@ -127,6 +127,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <dev/dkvar.h>
 #include <dev/vndvar.h>
 
+#include "ioconf.h"
+
 #if defined(VNDDEBUG) && !defined(DEBUG)
 #define DEBUG
 #endif
@@ -156,8 +158,6 @@ struct vndxfer {
 
 #define	VND_MAXPENDING(vnd)	((vnd)->sc_maxactive * 4)
 
-/* called by main() at boot time */
-void	vndattach(int);
 
 static void	vndclear(struct vnd_softc *, int);
 static int	vnddoclear(struct vnd_softc *, int, int, bool);

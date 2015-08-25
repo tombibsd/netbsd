@@ -1408,7 +1408,7 @@ acpi_enter_sleep_state(int state)
 
 			(void)pmf_system_bus_resume(PMF_Q_NONE);
 			(void)AcpiLeaveSleepState(state);
-			(void)AcpiSetFirmwareWakingVector(0);
+			(void)AcpiSetFirmwareWakingVector(0, 0);
 			(void)pmf_system_resume(PMF_Q_NONE);
 		}
 

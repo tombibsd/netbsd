@@ -191,26 +191,26 @@ lfs_dump_super(struct lfs *lfsp)
 }
 
 void
-lfs_dump_dinode(struct ulfs1_dinode *dip)
+lfs_dump_dinode(struct lfs *fs, union lfs_dinode *dip)
 {
 	int i;
 
-	printf("%s%u\t%s%d\t%s%u\t%s%u\t%s%qu\t%s%d\n",
-	       "mode   ", dip->di_mode,
-	       "nlink  ", dip->di_nlink,
-	       "uid    ", dip->di_uid,
-	       "gid    ", dip->di_gid,
-	       "size   ", (long long)dip->di_size,
-	       "blocks ", dip->di_blocks);
-	printf("inum  %d\n", dip->di_inumber);
+	printf("%s%u\t%s%d\t%s%u\t%s%u\t%s%ju\t%s%ju\n",
+	       "mode   ", lfs_dino_getmode(fs, dip),
+	       "nlink  ", lfs_dino_getnlink(fs, dip),
+	       "uid    ", lfs_dino_getuid(fs, dip),
+	       "gid    ", lfs_dino_getgid(fs, dip),
+	       "size   ", (uintmax_t)lfs_dino_getsize(fs, dip),
+	       "blocks ", (uintmax_t)lfs_dino_getblocks(fs, dip));
+	printf("inum  %ju\n", (uintmax_t)lfs_dino_getinumber(fs, dip));
 	printf("Direct Addresses\n");
 	for (i = 0; i < ULFS_NDADDR; i++) {
-		printf("\t%x", dip->di_db[i]);
+		printf("\t%jx", (intmax_t)lfs_dino_getdb(fs, dip, i));
 		if ((i % 6) == 5)
 			printf("\n");
 	}
 	for (i = 0; i < ULFS_NIADDR; i++)
-		printf("\t%x", dip->di_ib[i]);
+		printf("\t%jx", (intmax_t)lfs_dino_getib(fs, dip, i));
 	printf("\n");
 }
 
@@ -225,9 +225,10 @@ lfs_check_segsum(struct lfs *fs, struct segment *sp, char *file, int line)
 	if ((actual = 1) == 1)
 		return; /* XXXX not checking this anymore, really */
 
-	if (sp->sum_bytes_left >= FINFOSIZE
-	   && sp->fip->fi_nblocks > 512) {
-		printf("%s:%d: fi_nblocks = %d\n",file,line,sp->fip->fi_nblocks);
+	if (sp->sum_bytes_left >= FINFOSIZE(fs)
+	   && lfs_fi_getnblocks(fs, sp->fip) > 512) {
+		printf("%s:%d: fi_nblocks = %d\n", file, line,
+		       lfs_fi_getnblocks(fs, sp->fip));
 #ifdef DDB
 		Debugger();
 #endif
@@ -241,9 +242,10 @@ lfs_check_segsum(struct lfs *fs, struct segment *sp, char *file, int line)
 
 	actual = lfs_sb_getsumsize(fs)
 		/* amount taken up by FINFOs */
-		- ((char *)&(sp->fip->fi_blocks[sp->fip->fi_nblocks]) - (char *)(sp->segsum))
+		- ((char *)NEXT_FINFO(fs, sp->fip) - (char *)(sp->segsum))
 			/* amount taken up by inode blocks */
-			- sizeof(int32_t)*((sp->ninodes+LFS_INOPB(fs)-1) / LFS_INOPB(fs));
+			/* XXX should this be INUMSIZE or BLKPTRSIZE? */
+			- LFS_INUMSIZE(fs)*((sp->ninodes+LFS_INOPB(fs)-1) / LFS_INOPB(fs));
 #if 0
 	if (actual - sp->sum_bytes_left < offset)
 	{

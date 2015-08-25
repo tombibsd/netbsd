@@ -1,0 +1,9 @@
+#	$NetBSD$
+
+ioconf		opencrypto
+
+include		"conf/files"
+
+pseudo-device   opencrypto
+pseudo-device   crypto
+pseudo-device   swcrypto

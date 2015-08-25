@@ -1,0 +1,7 @@
+#	$NetBSD$
+
+ioconf		tprof
+
+include		"conf/files"
+
+pseudo-device   tprof

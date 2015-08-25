@@ -872,7 +872,7 @@ xhci_init(struct xhci_softc *sc)
 	    xhci_op_read_4(sc, XHCI_USBCMD));
 
 	mutex_init(&sc->sc_lock, MUTEX_DEFAULT, IPL_SOFTUSB);
-	mutex_init(&sc->sc_intr_lock, MUTEX_DEFAULT, IPL_SCHED);
+	mutex_init(&sc->sc_intr_lock, MUTEX_DEFAULT, IPL_USB);
 	cv_init(&sc->sc_softwake_cv, "xhciab");
 
 	sc->sc_xferpool = pool_cache_init(sizeof(struct xhci_xfer), 0, 0, 0,

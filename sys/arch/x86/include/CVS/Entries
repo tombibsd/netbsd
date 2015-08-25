@@ -30,8 +30,8 @@
 /i8259.h/1.4/Thu Aug  7 16:30:32 2003/-kk/
 /ieee.h/1.11/Wed Sep 15 16:11:28 2010/-kk/
 /ieeefp.h/1.4/Sat Mar 26 19:52:20 2011/-kk/
-/intr.h/1.47/Fri May  1 11:31:52 2015/-kk/
-/intr_distribute.h/1.1/Mon Apr 27 06:42:52 2015/-kk/
+/intr.h/1.48/Tue Aug 25 04:51:13 2015/-kk/
+/intr_distribute.h/1.2/Tue Aug 25 04:51:13 2015/-kk/
 /intrdefs.h/1.20/Tue Jun  3 02:54:25 2014/-kk/
 /ipmivar.h/1.11/Sun Aug  1 08:16:14 2010/-kk/
 /isa_machdep.h/1.11/Fri Jul  1 18:22:39 2011/-kk/
@@ -47,7 +47,7 @@
 /mutex.h/1.6/Fri Apr 24 17:49:51 2009/-kk/
 /nmi.h/1.1/Tue Feb 24 06:03:54 2009/-kk/
 /pci_machdep.h/1.18/Fri May  1 11:31:52 2015/-kk/
-/pci_machdep_common.h/1.19/Sun Aug  2 04:02:45 2015/-kk/
+/pci_machdep_common.h/1.21/Tue Aug 25 04:51:13 2015/-kk/
 /pic.h/1.8/Fri May  1 11:31:52 2015/-kk/
 /pio.h/1.9/Sun May 22 16:01:43 2011/-kk/
 /pmap.h/1.56/Sun Apr 12 03:34:57 2015/-kk/
@@ -58,7 +58,7 @@
 /rtc.h/1.1/Tue Jun 16 21:05:34 2009/-kk/
 /rwlock.h/1.5/Mon Apr 28 20:23:40 2008/-kk/
 /smbiosvar.h/1.3/Wed Apr 16 16:06:51 2008/-kk/
-/specialreg.h/1.82/Wed May 13 03:33:01 2015/-kk/
+/specialreg.h/1.83/Tue Aug 25 04:51:13 2015/-kk/
 /sysarch.h/1.9/Wed Jul  7 01:14:53 2010/-kk/
 /tprof.h/1.2/Tue Feb 24 06:03:54 2009/-kk/
 /trap.h/1.2/Thu Aug  7 16:30:33 2003/-kk/

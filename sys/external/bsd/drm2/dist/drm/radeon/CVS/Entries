@@ -7,9 +7,9 @@
 /atom.c/1.2/Wed Jul 16 20:59:57 2014/-kk/
 /atom.h/1.2/Wed Jul 16 20:59:57 2014/-kk/
 /atombios.h/1.2/Fri Oct  3 09:26:11 2014/-kk/
-/atombios_crtc.c/1.3/Sun Apr 12 03:35:11 2015/-kk/
+/atombios_crtc.c/1.4/Tue Aug 25 04:51:23 2015/-kk/
 /atombios_dp.c/1.4/Fri Oct  3 09:57:52 2014/-kk/
-/atombios_encoders.c/1.2/Wed Jul 16 20:59:57 2014/-kk/
+/atombios_encoders.c/1.3/Tue Aug 25 04:51:23 2015/-kk/
 /atombios_i2c.c/1.2/Wed Jul 16 20:59:57 2014/-kk/
 /avivod.h/1.1.1.1/Wed Jul 16 19:35:27 2014/-kk/
 /btc_dpm.c/1.2/Wed Jul 16 20:59:57 2014/-kk/
@@ -113,7 +113,7 @@
 /radeon_irq_kms.c/1.2/Wed Jul 16 20:59:57 2014/-kk/
 /radeon_kms.c/1.2/Wed Jul 16 20:59:57 2014/-kk/
 /radeon_legacy_crtc.c/1.2/Sun Apr 12 03:35:11 2015/-kk/
-/radeon_legacy_encoders.c/1.1.1.1/Wed Jul 16 19:35:28 2014/-kk/
+/radeon_legacy_encoders.c/1.2/Tue Aug 25 04:51:23 2015/-kk/
 /radeon_legacy_tv.c/1.2/Wed Jul 16 20:59:57 2014/-kk/
 /radeon_mem.c/1.1.1.1/Wed Jul 16 19:35:28 2014/-kk/
 /radeon_mode.h/1.2/Wed Jul 16 20:59:57 2014/-kk/

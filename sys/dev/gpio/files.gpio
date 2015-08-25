@@ -8,7 +8,7 @@ file	dev/gpio/gpio.c				gpio	needs-flag
 
 # GPIO simulator
 defpseudodev	gpiosim: gpiobus
-file	dev/gpio/gpiosim.c			gpiosim
+file	dev/gpio/gpiosim.c			gpiosim	needs-count
 
 # I2C bus bit-banging
 device	gpioiic: i2cbus, i2c_bitbang

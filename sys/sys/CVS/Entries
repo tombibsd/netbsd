@@ -1,4 +1,4 @@
-/Makefile/1.156/Sun Aug  2 04:02:58 2015/-kk/
+/Makefile/1.157/Tue Aug 25 04:51:28 2015/-kk/
 /acct.h/1.27/Sun Jan 11 02:45:55 2009/-kk/
 /agpio.h/1.10/Tue Feb 15 08:57:01 2011/-kk/
 /aio.h/1.12/Sat Jan  7 19:48:19 2012/-kk/
@@ -54,7 +54,7 @@
 /dir.h/1.11/Sun Dec 11 12:25:20 2005/-kk/
 /dirent.h/1.29/Sat Mar 21 02:30:01 2015/-kk/
 /dirhash.h/1.6/Thu Oct 24 10:28:58 2013/-kk/
-/disk.h/1.64/Wed May 13 03:33:21 2015/-kk/
+/disk.h/1.65/Tue Aug 25 04:51:28 2015/-kk/
 /disklabel.h/1.118/Mon Jan 12 06:49:24 2015/-kk/
 /disklabel_acorn.h/1.6/Sun Dec 11 12:25:20 2005/-kk/
 /disklabel_gpt.h/1.12/Tue Dec 17 04:05:16 2013/-kk/
@@ -99,7 +99,9 @@
 /hash.h/1.8/Fri Oct  3 09:51:03 2014/-kk/
 /idle.h/1.4/Tue May 27 14:48:52 2008/-kk/
 /ieee754.h/1.15/Thu Feb 13 15:36:03 2014/-kk/
-/intr.h/1.18/Fri May  1 11:32:38 2015/-kk/
+/interrupt.h/1.2/Mon Aug 17 18:43:37 2015/-kk/
+/intr.h/1.19/Tue Aug 25 04:51:28 2015/-kk/
+/intrio.h/1.1/Mon Aug 17 06:16:03 2015/-kk/
 /inttypes.h/1.6/Thu Oct 24 10:28:58 2013/-kk/
 /ioccom.h/1.12/Thu Dec 11 09:09:55 2014/-kk/
 /ioctl.h/1.36/Fri Feb 13 22:41:04 2009/-kk/
@@ -108,7 +110,7 @@
 /ipc.h/1.36/Thu May 28 03:26:00 2015/-kk/
 /ipi.h/1.3/Mon Jan 26 07:10:31 2015/-kk/
 /joystick.h/1.2/Sat Dec  3 17:10:46 2005/-kk/
-/kauth.h/1.71/Thu Oct 24 10:28:58 2013/-kk/
+/kauth.h/1.72/Tue Aug 25 04:51:28 2015/-kk/
 /kcore.h/1.4/Tue Jan 18 08:17:39 2011/-kk/
 /kcpuset.h/1.11/Tue Jun  3 02:54:47 2014/-kk/
 /kern_ctf.h/1.1/Fri Mar 12 21:43:10 2010/-kk/
@@ -149,8 +151,8 @@
 /null.h/1.9/Tue Jul  6 11:56:20 2010/-kk/
 /once.h/1.5/Thu Oct  9 10:48:21 2008/-kk/
 /optstr.h/1.3/Mon Apr 28 20:24:11 2008/-kk/
-/param.h/1.482/Sat Jul 25 01:52:35 2015/-kk/
-/pax.h/1.14/Wed Aug 12 04:14:38 2015/-kk/
+/param.h/1.483/Tue Aug 25 04:51:28 2015/-kk/
+/pax.h/1.15/Tue Aug 25 04:51:28 2015/-kk/
 /pcq.h/1.2/Sat Jun 14 03:56:49 2014/-kk/
 /pcu.h/1.12/Tue Jun  3 02:54:47 2014/-kk/
 /percpu.h/1.3/Wed Apr  9 05:11:20 2008/-kk/

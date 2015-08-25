@@ -137,7 +137,7 @@ awin_otg_attach(device_t parent, device_t self, void *aux)
 	sc->sc_motg.sc_ep_max = 5;
 	sc->sc_motg.sc_ep_fifosize = 512;
 
-	sc->sc_ih = intr_establish(loc->loc_intr, IPL_SCHED, IST_LEVEL,
+	sc->sc_ih = intr_establish(loc->loc_intr, IPL_USB, IST_LEVEL,
 	    awin_otg_intr, sc);
 	if (sc->sc_ih == NULL) {
 		aprint_error_dev(self, "couldn't establish interrupt %d\n",

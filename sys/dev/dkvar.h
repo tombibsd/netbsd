@@ -44,6 +44,7 @@ struct dk_softc {
 #define DK_XNAME_SIZE 8
 	char			 sc_xname[DK_XNAME_SIZE]; /* external name */
 	struct disk		 sc_dkdev;	/* generic disk info */
+	kmutex_t		 sc_iolock;	/* protects buffer queue */
 	struct bufq_state	*sc_bufq;	/* buffer queue */
 	int			 sc_dtype;	/* disk type */
 };
@@ -85,6 +86,8 @@ int	dk_open(struct dk_softc *, dev_t,
 int	dk_close(struct dk_softc *, dev_t,
 		 int, int, struct lwp *);
 void	dk_strategy(struct dk_softc *, struct buf *);
+int	dk_discard(struct dk_softc *, dev_t, off_t, off_t);
+void	dk_start(struct dk_softc *, struct buf *);
 void	dk_done(struct dk_softc *, struct buf *);
 int	dk_size(struct dk_softc *, dev_t);
 int	dk_ioctl(struct dk_softc *, dev_t,

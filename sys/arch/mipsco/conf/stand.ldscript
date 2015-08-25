@@ -33,10 +33,10 @@ SECTIONS
   _fbss = .;
   .bss       :
   {
-   *(.bss)
-   *(COMMON)
-   *(.sbss)
-   *(.scommon)
+    *(.bss)
+    *(COMMON)
+    *(.sbss)
+    *(.scommon)
   }
   _end = . ;
   PROVIDE (end = .);

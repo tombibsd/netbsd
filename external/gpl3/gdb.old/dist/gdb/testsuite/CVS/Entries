@@ -1,0 +1,41 @@
+/ChangeLog/1.1.1.1/Sat Aug 15 09:28:28 2015/-kk/
+/Makefile.in/1.1.1.1/Sat Aug 15 09:28:28 2015/-kk/
+/README/1.1.1.1/Sat Aug 15 09:28:28 2015/-kk/
+/TODO/1.1.1.1/Sat Aug 15 09:28:28 2015/-kk/
+/aclocal.m4/1.1.1.1/Sat Aug 15 09:28:28 2015/-kk/
+/configure.ac/1.1.1.1/Sat Aug 15 09:28:28 2015/-kk/
+/configure/1.1.1.1/Sat Aug 15 09:28:28 2015/-kk/
+/dg-extract-results.sh/1.1.1.1/Sat Aug 15 09:28:28 2015/-kk/
+D/boards////
+D/config////
+D/gdb.ada////
+D/gdb.arch////
+D/gdb.asm////
+D/gdb.base////
+D/gdb.btrace////
+D/gdb.cell////
+D/gdb.cp////
+D/gdb.disasm////
+D/gdb.dwarf2////
+D/gdb.fortran////
+D/gdb.gdb////
+D/gdb.go////
+D/gdb.hp////
+D/gdb.java////
+D/gdb.linespec////
+D/gdb.mi////
+D/gdb.modula2////
+D/gdb.multi////
+D/gdb.objc////
+D/gdb.opencl////
+D/gdb.opt////
+D/gdb.pascal////
+D/gdb.perf////
+D/gdb.python////
+D/gdb.reverse////
+D/gdb.server////
+D/gdb.stabs////
+D/gdb.threads////
+D/gdb.trace////
+D/gdb.xml////
+D/lib////

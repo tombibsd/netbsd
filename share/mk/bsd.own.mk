@@ -111,7 +111,7 @@ HAVE_LIBGCC_EH?=	no
 HAVE_LIBGCC_EH?=	yes
 .endif
 
-HAVE_GDB?=	7
+HAVE_GDB?=	79
 
 .if (${MACHINE_ARCH} == "alpha") || \
     (${MACHINE_ARCH} == "hppa") || \

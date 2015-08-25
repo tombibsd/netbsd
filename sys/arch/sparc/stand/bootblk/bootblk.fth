@@ -581,7 +581,7 @@ create cur-blockno -1 l, -1 l,		\ Current disk block.
    ' dlfs_SIZEOF  to  fs-size 
    ' di1_size  to  di-size
    ' di1_mode  to  di-mode
-   ' ufs1_dinode_SIZEOF  to  /dino
+   ' lfs32_dinode_SIZEOF  to  /dino
    ' cgbase  to  cgstart
    ' di-db-v1@  to  di-db@
    ' di-ib-v1@  to  di-ib@
@@ -605,7 +605,7 @@ create cur-blockno -1 l, -1 l,		\ Current disk block.
    boot-debug?  if  ." LFS v2" cr  then
    init-lfs-common
    ' lfs_bsize  to  fs-bsize
-   ' ifile_SIZEOF  to  /ifile
+   ' ifile32_SIZEOF  to  /ifile
    ' if2_daddr  to  if_daddr
 ;   
 

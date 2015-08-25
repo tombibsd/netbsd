@@ -76,4 +76,3 @@ SECTIONS
   .debug_varnames  0 : { *(.debug_varnames) }
   /* These must appear regardless of  .  */
 }
-

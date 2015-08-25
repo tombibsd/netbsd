@@ -73,6 +73,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <net/pfvar.h>
 #include <net/if_pflog.h>
 
+#include "ioconf.h"
+
 #define PFLOGMTU	(32768 + MHLEN + MLEN)
 
 #ifdef PFLOGDEBUG
@@ -81,7 +83,6 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #define DPRINTF(x)
 #endif
 
-void	pflogattach(int);
 #ifdef _MODULE
 void	pflogdetach(void);
 #endif /* _MODULE */

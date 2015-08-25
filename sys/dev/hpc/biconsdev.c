@@ -83,8 +83,9 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <dev/hpc/bicons.h>
 #include <dev/hpc/biconsvar.h>
 
+#include "ioconf.h"
+
 struct tty biconsdev_tty[NBICONSDEV];
-void	biconsdevattach(int);
 static	void biconsdev_output(struct tty *);
 
 dev_type_open(biconsdevopen);

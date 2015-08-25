@@ -64,14 +64,13 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <dev/ata/ata_raidvar.h>
 
 #include "locators.h"
+#include "ioconf.h"
 
 #ifdef ATA_RAID_DEBUG
 #define	DPRINTF(x)	printf x
 #else
 #define	DPRINTF(x)	/* nothing */
 #endif
-
-void		ataraidattach(int);
 
 static int	ataraid_match(device_t, cfdata_t, void *);
 static void	ataraid_attach(device_t, device_t, void *);

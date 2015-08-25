@@ -44,6 +44,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/kauth.h>
 
 #include "filemon.h"
+#include "ioconf.h"
 
 MODULE(MODULE_CLASS_DRIVER, filemon, NULL);
 
@@ -336,8 +337,6 @@ filemon_load(void *dummy __unused)
 	/* Install the syscall wrappers. */
 	filemon_wrapper_install();
 }
-
-void filemonattach(int);
 
 /*
  * If this gets called we are linked into the kernel

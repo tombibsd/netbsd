@@ -58,6 +58,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <compat/sys/ttycom.h>
 #endif /* COMPAT_60 */
 
+#include "ioconf.h"
+
 #ifdef DEBUG_PTM
 #define DPRINTF(a)	printf a
 #else
@@ -88,8 +90,6 @@ static dev_t pty_getfree(void);
 static int pty_alloc_master(struct lwp *, int *, dev_t *, struct mount *);
 static int pty_alloc_slave(struct lwp *, int *, dev_t, struct mount *);
 static int pty_vn_open(struct vnode *, struct lwp *);
-
-void ptmattach(int);
 
 int
 pty_getmp(struct lwp *l, struct mount **mpp)

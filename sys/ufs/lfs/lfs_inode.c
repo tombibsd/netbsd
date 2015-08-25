@@ -97,11 +97,11 @@ static int lfs_blkfree (struct lfs *, struct inode *, daddr_t, size_t, long *, s
 static int lfs_vtruncbuf(struct vnode *, daddr_t, bool, int);
 
 /* Search a block for a specific dinode. */
-struct ulfs1_dinode *
+union lfs_dinode *
 lfs_ifind(struct lfs *fs, ino_t ino, struct buf *bp)
 {
-	struct ulfs1_dinode *dip = (struct ulfs1_dinode *)bp->b_data;
-	struct ulfs1_dinode *ldip, *fin;
+	union lfs_dinode *ldip;
+	unsigned num, i;
 
 	ASSERT_NO_SEGLOCK(fs);
 	/*
@@ -109,12 +109,14 @@ lfs_ifind(struct lfs *fs, ino_t ino, struct buf *bp)
 	 * inode will supercede earlier ones.  Though it is unlikely, it is
 	 * possible that the same inode will appear in the same inode block.
 	 */
-	fin = dip + LFS_INOPB(fs);
-	for (ldip = fin - 1; ldip >= dip; --ldip)
-		if (ldip->di_inumber == ino)
+	num = LFS_INOPB(fs);
+	for (i = num; i-- > 0; ) {
+		ldip = DINO_IN_BLOCK(fs, bp->b_data, i);
+		if (lfs_dino_getinumber(fs, ldip) == ino)
 			return (ldip);
+	}
 
-	printf("searched %d entries\n", (int)(fin - dip));
+	printf("searched %u entries for %ju\n", num, (uintmax_t)ino);
 	printf("offset is 0x%jx (seg %d)\n", (uintmax_t)lfs_sb_getoffset(fs),
 	       lfs_dtosn(fs, lfs_sb_getoffset(fs)));
 	printf("block is 0x%jx (seg %d)\n",

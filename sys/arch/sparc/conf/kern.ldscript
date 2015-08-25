@@ -95,9 +95,9 @@ SECTIONS
   .sbss      : { *(.sbss) *(.scommon) }
   .bss       :
   {
-   *(.dynbss)
-   *(.bss)
-   *(COMMON)
+    *(.dynbss)
+    *(.bss)
+    *(COMMON)
   }
   . = ALIGN(32 / 8);
   _end = . ;

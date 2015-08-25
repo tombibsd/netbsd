@@ -1,0 +1,7 @@
+#	$NetBSD$
+
+ioconf		net
+
+include		"conf/files"
+
+pseudo-device   carp

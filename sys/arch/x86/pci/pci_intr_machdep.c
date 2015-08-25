@@ -275,8 +275,8 @@ pci_intr_setattr(pci_chipset_tag_t pc, pci_intr_handle_t *ih,
 }
 
 void *
-pci_intr_establish(pci_chipset_tag_t pc, pci_intr_handle_t ih,
-    int level, int (*func)(void *), void *arg)
+pci_intr_establish_xname(pci_chipset_tag_t pc, pci_intr_handle_t ih,
+    int level, int (*func)(void *), void *arg, const char *xname)
 {
 	int pin, irq;
 	struct pic *pic;
@@ -295,9 +295,11 @@ pci_intr_establish(pci_chipset_tag_t pc, pci_intr_handle_t ih,
 
 	if (INT_VIA_MSI(ih)) {
 		if (MSI_INT_IS_MSIX(ih))
-			return x86_pci_msix_establish(pc, ih, level, func, arg);
+			return x86_pci_msix_establish(pc, ih, level, func, arg,
+			    xname);
 		else
-			return x86_pci_msi_establish(pc, ih, level, func, arg);
+			return x86_pci_msi_establish(pc, ih, level, func, arg,
+			    xname);
 	}
 
 	pic = &i8259_pic;
@@ -320,8 +322,16 @@ pci_intr_establish(pci_chipset_tag_t pc, pci_intr_handle_t ih,
 	}
 #endif
 
-	return intr_establish(irq, pic, pin, IST_LEVEL, level, func, arg,
-	    mpsafe);
+	return intr_establish_xname(irq, pic, pin, IST_LEVEL, level, func, arg,
+	    mpsafe, xname);
+}
+
+void *
+pci_intr_establish(pci_chipset_tag_t pc, pci_intr_handle_t ih,
+    int level, int (*func)(void *), void *arg)
+{
+
+	return pci_intr_establish_xname(pc, ih, level, func, arg, "unknown");
 }
 
 void
@@ -338,15 +348,6 @@ pci_intr_disestablish(pci_chipset_tag_t pc, void *cookie)
 
 	/* MSI/MSI-X processing is switched in intr_disestablish(). */
 	intr_disestablish(cookie);
-}
-
-int
-pci_intr_distribute(void *cookie, const kcpuset_t *newset, kcpuset_t *oldset)
-{
-
-	/* XXX Is pc_ov->ov_intr_distribute required? */
-
-	return intr_distribute(cookie, newset, oldset);
 }
 
 #if NIOAPIC > 0
@@ -490,7 +491,7 @@ pci_intr_alloc(const struct pci_attach_args *pa, pci_intr_handle_t **ihps,
 
 	/* try MSI-X */
 	if (msix_count == -1) /* use hardware max */
-		msix_count = pci_msix_count(pa);
+		msix_count = pci_msix_count(pa->pa_pc, pa->pa_tag);
 	if (msix_count > 0) {
 		error = pci_msix_alloc_exact(pa, ihps, msix_count);
 		if (error == 0) {
@@ -503,7 +504,7 @@ pci_intr_alloc(const struct pci_attach_args *pa, pci_intr_handle_t **ihps,
 
 	/* try MSI */
 	if (msi_count == -1) /* use hardware max */
-		msi_count = pci_msi_count(pa);
+		msi_count = pci_msi_count(pa->pa_pc, pa->pa_tag);
 	if (msi_count > 0) {
 		error = pci_msi_alloc_exact(pa, ihps, msi_count);
 		if (error == 0) {

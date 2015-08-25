@@ -33,6 +33,7 @@
 #define	_SYS_INTR_H_
 
 #define INTRIDBUF 64
+#define INTRDEVNAMEBUF 256
 
 #ifdef _KERNEL
 

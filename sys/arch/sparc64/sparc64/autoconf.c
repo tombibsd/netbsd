@@ -843,7 +843,8 @@ dev_path_drive_match(device_t dev, int ctrlnode, int target,
 			snprintf(buf, sizeof(buf), "%s@w%016" PRIx64 ",%d",
 			    name, wwn, lun);
 		else if (ide_node)
-			snprintf(buf, sizeof(buf), "%s@0", name);
+			snprintf(buf, sizeof(buf), "%s@0",
+			    device_is_a(dev, "cd") ? "cdrom" : "disk");
 		else
 			snprintf(buf, sizeof(buf), "%s@%d,%d",
 			    name, target, lun);

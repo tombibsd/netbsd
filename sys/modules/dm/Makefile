@@ -5,6 +5,7 @@
 .PATH:	${S}/dev/dm
 
 KMOD=	dm
+IOCONF=	dm.ioconf
 SRCS=	device-mapper.c dm_dev.c dm_ioctl.c dm_pdev.c dm_table.c dm_target.c \
         dm_target_linear.c dm_target_stripe.c
 

@@ -39,7 +39,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <dev/wsfont/wsfont.h>
 #include <dev/wscons/wsconsio.h> /* XXX */
 
-void wsfontattach(int);
+#include "ioconf.h"
 
 static int wsfont_isopen;
 

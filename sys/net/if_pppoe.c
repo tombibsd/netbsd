@@ -57,6 +57,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <net/bpf.h>
 
+#include "ioconf.h"
 
 #undef PPPOE_DEBUG		/* XXX - remove this or make it an option */
 /* #define PPPOE_DEBUG 1 */
@@ -162,7 +163,6 @@ static void pppoe_dispatch_disc_pkt(struct mbuf *, int);
 static void pppoe_data_input(struct mbuf *);
 
 /* management routines */
-void pppoeattach(int);
 static int pppoe_connect(struct pppoe_softc *);
 static int pppoe_disconnect(struct pppoe_softc *);
 static void pppoe_abort_connect(struct pppoe_softc *);

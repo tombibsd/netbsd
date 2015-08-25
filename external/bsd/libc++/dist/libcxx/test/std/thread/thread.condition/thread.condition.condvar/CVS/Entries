@@ -1,0 +1,14 @@
+/assign.fail.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/copy.fail.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/default.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/destructor.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/native_handle.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/notify_all.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/notify_one.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/wait.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/wait_for.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/wait_for_pred.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/wait_pred.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/wait_until.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/wait_until_pred.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+D

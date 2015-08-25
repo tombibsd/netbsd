@@ -300,7 +300,7 @@ acpi_md_sleep(int state)
 		return -1;
 	}
 
-	AcpiSetFirmwareWakingVector(acpi_wakeup_paddr);
+	AcpiSetFirmwareWakingVector(acpi_wakeup_paddr, acpi_wakeup_paddr);
 
 	s = splhigh();
 	fpusave_cpu(true);

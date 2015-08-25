@@ -55,6 +55,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <amiga/dev/viewvar.h>
 
 #include "view.h"
+#include "ioconf.h"
 
 static void view_display(struct view_softc *);
 static void view_remove(struct view_softc *);
@@ -62,8 +63,6 @@ static int view_setsize(struct view_softc *, struct view_size *);
 
 int view_get_colormap(struct view_softc *, colormap_t *);
 int view_set_colormap(struct view_softc *, colormap_t *);
-
-void viewattach(int);
 
 struct view_softc views[NVIEW];
 int view_inited;			/* also checked in ite_cc.c */

@@ -77,6 +77,8 @@ extern int coda_nc_initialized;    /* Set if cache has been initialized */
 #include <coda/coda_namecache.h>
 #include <coda/coda_io.h>
 
+#include "ioconf.h"
+
 #define CTL_C
 
 int coda_psdev_print_entry = 0;
@@ -91,8 +93,6 @@ int coda_pcatch = PCATCH;
 int coda_kernel_version = CODA_KERNEL_VERSION;
 
 #define ENTRY if(coda_psdev_print_entry) myprintf(("Entered %s\n",__func__))
-
-void vcodaattach(int n);
 
 dev_type_open(vc_nb_open);
 dev_type_close(vc_nb_close);

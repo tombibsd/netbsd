@@ -127,6 +127,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <miscfs/specfs/specdev.h> /* for v_rdev */
 
+#include "ioconf.h"
+
 #if defined(CCDDEBUG) && !defined(DEBUG)
 #define DEBUG
 #endif
@@ -160,7 +162,6 @@ static pool_cache_t ccd_cache;
 	(MAKEDISKDEV(major((dev)), ccdunit((dev)), RAW_PART))
 
 /* called by main() at boot time */
-void	ccdattach(int);
 void	ccddetach(void);
 
 /* called by biodone() at interrupt time */

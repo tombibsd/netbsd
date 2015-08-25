@@ -58,6 +58,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <dev/dmover/dmovervar.h>
 
+#include "ioconf.h"
+
 struct swdmover_function {
 	void	(*sdf_process)(struct dmover_request *);
 };
@@ -65,8 +67,6 @@ struct swdmover_function {
 static struct dmover_backend swdmover_backend;
 static struct lwp *swdmover_lwp;
 static int swdmover_cv;
-
-void	swdmoverattach(int);
 
 /*
  * swdmover_process:

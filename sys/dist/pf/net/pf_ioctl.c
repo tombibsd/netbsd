@@ -104,7 +104,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <altq/altq.h>
 #endif
 
-void			 pfattach(int);
+#include "ioconf.h"
+
 #ifdef _MODULE
 void			 pfdetach(void);
 #endif /* _MODULE */

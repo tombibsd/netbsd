@@ -81,6 +81,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <dev/dmover/dmovervar.h>
 #include <dev/dmover/dmover_io.h>
 
+#include "ioconf.h"
+
 struct dmio_usrreq_state {
 	union {
 		struct work u_work;
@@ -127,8 +129,6 @@ static void dmio_usrreq_fini1(struct work *wk, void *);
 
 struct pool dmio_state_pool;
 struct pool dmio_usrreq_state_pool;
-
-void	dmoverioattach(int);
 
 dev_type_open(dmoverioopen);
 

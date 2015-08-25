@@ -116,7 +116,7 @@ pass0(void)
 	plastino = 0;
 	lowfreeino = maxino;
 	LFS_CLEANERINFO(cip, fs, cbp);
-	freehd = ino = cip->free_head;
+	freehd = ino = lfs_ci_getfree_head(fs, cip);
 	brelse(cbp, 0);
 
 	while (ino) {
@@ -133,15 +133,15 @@ pass0(void)
 			if (preen || reply("FIX") == 1) {
 				/* plastino can't be zero */
 				LFS_IENTRY(ifp, fs, plastino, bp);
-				ifp->if_nextfree = 0;
+				lfs_if_setnextfree(fs, ifp, 0);
 				VOP_BWRITE(bp);
 			}
 			break;
 		}
 		visited[ino] = 1;
 		LFS_IENTRY(ifp, fs, ino, bp);
-		nextino = ifp->if_nextfree;
-		daddr = ifp->if_daddr;
+		nextino = lfs_if_getnextfree(fs, ifp);
+		daddr = lfs_if_getdaddr(fs, ifp);
 		brelse(bp, 0);
 		if (daddr) {
 			pwarn("INO %llu WITH DADDR 0x%llx ON FREE LIST\n",
@@ -152,7 +152,7 @@ pass0(void)
 					sbdirty();
 				} else {
 					LFS_IENTRY(ifp, fs, plastino, bp);
-					ifp->if_nextfree = nextino;
+					lfs_if_setnextfree(fs, ifp, nextino);
 					VOP_BWRITE(bp);
 				}
 				ino = nextino;
@@ -172,7 +172,7 @@ pass0(void)
 			continue;
 
 		LFS_IENTRY(ifp, fs, ino, bp);
-		if (ifp->if_daddr) {
+		if (lfs_if_getdaddr(fs, ifp)) {
 			brelse(bp, 0);
 			continue;
 		}
@@ -180,7 +180,7 @@ pass0(void)
 		    (unsigned long long)ino);
 		if (preen || reply("FIX") == 1) {
 			assert(ino != freehd);
-			ifp->if_nextfree = freehd;
+			lfs_if_setnextfree(fs, ifp, freehd);
 			VOP_BWRITE(bp);
 
 			freehd = ino;
@@ -194,9 +194,9 @@ pass0(void)
 	}
 
 	LFS_CLEANERINFO(cip, fs, cbp);
-	if (cip->free_head != freehd) {
+	if (lfs_ci_getfree_head(fs, cip) != freehd) {
 		/* They've already given us permission for this change */
-		cip->free_head = freehd;
+		lfs_ci_setfree_head(fs, cip, freehd);
 		writeit = 1;
 	}
 	if (freehd != lfs_sb_getfreehd(fs)) {
@@ -207,12 +207,12 @@ pass0(void)
 			sbdirty();
 		}
 	}
-	if (cip->free_tail != plastino) {
+	if (lfs_ci_getfree_tail(fs, cip) != plastino) {
 		pwarn("FREE LIST TAIL SHOULD BE %llu (WAS %llu)\n",
 		    (unsigned long long)plastino,
-		    (unsigned long long)cip->free_tail);
+		    (unsigned long long)lfs_ci_getfree_tail(fs, cip));
 		if (preen || reply("FIX")) {
-			cip->free_tail = plastino;
+			lfs_ci_setfree_tail(fs, cip, plastino);
 			writeit = 1;
 		}
 	}

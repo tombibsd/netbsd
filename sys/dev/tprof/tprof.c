@@ -45,6 +45,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <dev/tprof/tprof.h>
 #include <dev/tprof/tprof_ioctl.h>
 
+#include "ioconf.h"
+
 /*
  * locking order:
  *	tprof_reader_lock -> tprof_lock
@@ -501,8 +503,6 @@ tprof_backend_unregister(const char *name)
 }
 
 /* -------------------- cdevsw interfaces */
-
-void tprofattach(int);
 
 static int
 tprof_open(dev_t dev, int flags, int type, struct lwp *l)

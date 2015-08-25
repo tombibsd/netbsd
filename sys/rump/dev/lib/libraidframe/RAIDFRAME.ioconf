@@ -1,0 +1,8 @@
+#	$NetBSD$
+#
+
+ioconf raidframe
+
+include "conf/files"
+
+pseudo-device	raid

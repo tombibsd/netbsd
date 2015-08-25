@@ -163,7 +163,7 @@ s32 ixgbe_set_mac_type(struct ixgbe_hw *hw)
 			     "Unsupported device id: %x",
 			     hw->device_id);
 		break;
- 	}
+	}
 
 	DEBUGOUT2("ixgbe_set_mac_type found mac: %d, returns: %d\n",
 		  hw->mac.type, ret_val);

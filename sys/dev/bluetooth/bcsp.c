@@ -131,7 +131,6 @@ struct bcsp_softc {
 #define	BCSP_XMIT	(1 << 0)	/* transmit active */
 #define	BCSP_ENABLED	(1 << 1)	/* is enabled */
 
-void bcspattach(int);
 static int bcsp_match(device_t, cfdata_t, void *);
 static void bcsp_attach(device_t, device_t, void *);
 static int bcsp_detach(device_t, int);

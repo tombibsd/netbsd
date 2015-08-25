@@ -143,6 +143,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <netinet/ip_carp.h>
 #endif
 
+#include "ioconf.h"
+
 __CTASSERT(sizeof(struct ifbifconf) == sizeof(struct ifbaconf));
 __CTASSERT(offsetof(struct ifbifconf, ifbic_len) == offsetof(struct ifbaconf, ifbac_len));
 __CTASSERT(offsetof(struct ifbifconf, ifbic_buf) == offsetof(struct ifbaconf, ifbac_buf));
@@ -216,8 +218,6 @@ int	bridge_rtable_prune_period = BRIDGE_RTABLE_PRUNE_PERIOD;
 
 static struct pool bridge_rtnode_pool;
 static struct work bridge_rtage_wk;
-
-void	bridgeattach(int);
 
 static int	bridge_clone_create(struct if_clone *, int);
 static int	bridge_clone_destroy(struct ifnet *);

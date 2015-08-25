@@ -689,7 +689,11 @@ cemac_tick(void *arg)
 	struct ifnet * ifp = &sc->sc_ethercom.ec_if;
 	int s;
 
-	ifp->if_collisions += CEMAC_READ(ETH_SCOL) + CEMAC_READ(ETH_MCOL);
+	if (ISSET(sc->cemac_flags, CEMAC_FLAG_GEM))
+		ifp->if_collisions += CEMAC_READ(GEM_SCOL) + CEMAC_READ(GEM_MCOL);
+	else
+		ifp->if_collisions += CEMAC_READ(ETH_SCOL) + CEMAC_READ(ETH_MCOL);
+
 	/* These misses are ok, they will happen if the RAM/CPU can't keep up */
 	if (!ISSET(sc->cemac_flags, CEMAC_FLAG_GEM)) {
 		uint32_t misses = CEMAC_READ(ETH_DRFC);

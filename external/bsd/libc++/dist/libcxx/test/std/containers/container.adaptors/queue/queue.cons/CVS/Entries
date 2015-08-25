@@ -1,0 +1,10 @@
+/ctor_container.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/ctor_copy.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/ctor_default.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/ctor_move.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/ctor_rcontainer.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/default_noexcept.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/dtor_noexcept.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/move_assign_noexcept.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/move_noexcept.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+D

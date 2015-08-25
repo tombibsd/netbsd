@@ -218,7 +218,8 @@
 ./usr/include/c++/__std_stream			comp-cxx-include	libcxx
 ./usr/include/c++/__tree			comp-cxx-include	libcxx
 ./usr/include/c++/__tuple			comp-cxx-include	libcxx
-./usr/include/c++/__tuple_03			comp-cxx-include	libcxx
+./usr/include/c++/__tuple_03			comp-obsolete		obsolete
+./usr/include/c++/__undef___deallocate		comp-cxx-include	libcxx
 ./usr/include/c++/__undef_min_max		comp-cxx-include	libcxx
 ./usr/include/c++/algorithm			comp-cxx-include	libcxx
 ./usr/include/c++/array				comp-cxx-include	libcxx
@@ -258,9 +259,15 @@
 ./usr/include/c++/dynarray			comp-obsolete		obsolete
 ./usr/include/c++/exception			comp-cxx-include	libcxx
 ./usr/include/c++/experimental/__config		comp-cxx-include	libcxx
+./usr/include/c++/experimental/algorithm	comp-cxx-include	libcxx
+./usr/include/c++/experimental/chrono		comp-cxx-include	libcxx
 ./usr/include/c++/experimental/dynarray		comp-cxx-include	libcxx
 ./usr/include/c++/experimental/optional		comp-cxx-include	libcxx
+./usr/include/c++/experimental/ratio		comp-cxx-include	libcxx
 ./usr/include/c++/experimental/string_view	comp-cxx-include	libcxx
+./usr/include/c++/experimental/system_error	comp-cxx-include	libcxx
+./usr/include/c++/experimental/tuple		comp-cxx-include	libcxx
+./usr/include/c++/experimental/type_traits	comp-cxx-include	libcxx
 ./usr/include/c++/experimental/utility		comp-cxx-include	libcxx
 ./usr/include/c++/ext/__hash			comp-cxx-include	libcxx
 ./usr/include/c++/ext/hash_map			comp-cxx-include	libcxx
@@ -1938,6 +1945,7 @@
 ./usr/include/g++/vector			comp-cxx-include	gcc,cxx,libstdcxx
 ./usr/include/g++/vector.h			comp-obsolete		obsolete
 ./usr/include/gcc-4.5/mf-runtime.h		comp-gcc-include	obsolete
+./usr/include/gcc-4.5/omp.h			comp-gcc-include	obsolete
 ./usr/include/gcc-4.8/mf-runtime.h		comp-gcc-include	gcc
 ./usr/include/gcc-4.8/omp.h			comp-gcc-include	gcc
 ./usr/include/gelf.h				comp-c-include
@@ -2791,6 +2799,8 @@
 ./usr/include/sys/gpio.h			comp-c-include
 ./usr/include/sys/hash.h			comp-c-include
 ./usr/include/sys/ieee754.h			comp-c-include
+./usr/include/sys/intr.h			comp-c-include
+./usr/include/sys/intrio.h			comp-c-include
 ./usr/include/sys/inttypes.h			comp-c-include
 ./usr/include/sys/ioccom.h			comp-c-include
 ./usr/include/sys/ioctl.h			comp-c-include
@@ -9953,6 +9963,7 @@
 ./usr/share/man/cat9/in_getifa.0		comp-sys-catman		.cat
 ./usr/share/man/cat9/incore.0			comp-sys-catman		.cat
 ./usr/share/man/cat9/inittodr.0			comp-sys-catman		.cat
+./usr/share/man/cat9/interrupt_distribute.0	comp-sys-catman		.cat
 ./usr/share/man/cat9/intro.0			comp-sys-catman		.cat
 ./usr/share/man/cat9/ioasic.0			comp-sys-catman		.cat
 ./usr/share/man/cat9/ioasic_attach_devs.0	comp-sys-catman		.cat
@@ -10187,11 +10198,12 @@
 ./usr/share/man/cat9/pci_find_device.0		comp-sys-catman		.cat
 ./usr/share/man/cat9/pci_findvendor.0		comp-sys-catman		.cat
 ./usr/share/man/cat9/pci_get_capability.0	comp-sys-catman		.cat
+./usr/share/man/cat9/pci_get_ht_capability.0	comp-sys-catman		.cat
 ./usr/share/man/cat9/pci_get_powerstate.0	comp-sys-catman		.cat
 ./usr/share/man/cat9/pci_intr.0			comp-sys-catman		.cat
 ./usr/share/man/cat9/pci_intr_alloc.0		comp-sys-catman		.cat
 ./usr/share/man/cat9/pci_intr_disestablish.0	comp-sys-catman		.cat
-./usr/share/man/cat9/pci_intr_distribute.0	comp-sys-catman		.cat
+./usr/share/man/cat9/pci_intr_distribute.0	comp-obsolete		obsolete
 ./usr/share/man/cat9/pci_intr_establish.0	comp-sys-catman		.cat
 ./usr/share/man/cat9/pci_intr_evcnt.0		comp-sys-catman		.cat
 ./usr/share/man/cat9/pci_intr_map.0		comp-sys-catman		.cat
@@ -16767,6 +16779,7 @@
 ./usr/share/man/html9/in_getifa.html		comp-sys-htmlman	html
 ./usr/share/man/html9/incore.html		comp-sys-htmlman	html
 ./usr/share/man/html9/inittodr.html		comp-sys-htmlman	html
+./usr/share/man/html9/interrupt_distribute.html	comp-sys-htmlman	html
 ./usr/share/man/html9/intro.html		comp-sys-htmlman	html
 ./usr/share/man/html9/ioasic.html		comp-sys-htmlman	html
 ./usr/share/man/html9/ioasic_attach_devs.html	comp-sys-htmlman	html
@@ -16995,11 +17008,12 @@
 ./usr/share/man/html9/pci_find_device.html	comp-sys-htmlman	html
 ./usr/share/man/html9/pci_findvendor.html	comp-sys-htmlman	html
 ./usr/share/man/html9/pci_get_capability.html	comp-sys-htmlman	html
+./usr/share/man/html9/pci_get_ht_capability.html	comp-sys-htmlman	html
 ./usr/share/man/html9/pci_get_powerstate.html	comp-sys-htmlman	html
 ./usr/share/man/html9/pci_intr.html		comp-sys-htmlman	html
 ./usr/share/man/html9/pci_intr_alloc.html	comp-sys-htmlman	html
 ./usr/share/man/html9/pci_intr_disestablish.html	comp-sys-htmlman	html
-./usr/share/man/html9/pci_intr_distribute.html	comp-sys-htmlman	html
+./usr/share/man/html9/pci_intr_distribute.html	comp-obsolete		obsolete
 ./usr/share/man/html9/pci_intr_establish.html	comp-sys-htmlman	html
 ./usr/share/man/html9/pci_intr_evcnt.html	comp-sys-htmlman	html
 ./usr/share/man/html9/pci_intr_map.html		comp-sys-htmlman	html
@@ -23731,6 +23745,7 @@
 ./usr/share/man/man9/in_getifa.9		comp-sys-man		.man
 ./usr/share/man/man9/incore.9			comp-sys-man		.man
 ./usr/share/man/man9/inittodr.9			comp-sys-man		.man
+./usr/share/man/man9/interrupt_distribute.9	comp-sys-man		.man
 ./usr/share/man/man9/intro.9			comp-sys-man		.man
 ./usr/share/man/man9/ioasic.9			comp-sys-man		.man
 ./usr/share/man/man9/ioasic_attach_devs.9	comp-sys-man		.man
@@ -23965,11 +23980,12 @@
 ./usr/share/man/man9/pci_find_device.9		comp-sys-man		.man
 ./usr/share/man/man9/pci_findvendor.9		comp-sys-man		.man
 ./usr/share/man/man9/pci_get_capability.9	comp-sys-man		.man
+./usr/share/man/man9/pci_get_ht_capability.9	comp-sys-man		.man
 ./usr/share/man/man9/pci_get_powerstate.9	comp-sys-man		.man
 ./usr/share/man/man9/pci_intr.9			comp-sys-man		.man
 ./usr/share/man/man9/pci_intr_alloc.9		comp-sys-man		.man
 ./usr/share/man/man9/pci_intr_disestablish.9	comp-sys-man		.man
-./usr/share/man/man9/pci_intr_distribute.9	comp-sys-man		.man
+./usr/share/man/man9/pci_intr_distribute.9	comp-obsolete		obsolete
 ./usr/share/man/man9/pci_intr_establish.9	comp-sys-man		.man
 ./usr/share/man/man9/pci_intr_evcnt.9		comp-sys-man		.man
 ./usr/share/man/man9/pci_intr_map.9		comp-sys-man		.man

@@ -1,0 +1,7 @@
+#	$NetBSD$
+
+ioconf		accf_data
+
+include		"conf/files"
+
+pseudo-device   accf_data               # "dataready" accept filter

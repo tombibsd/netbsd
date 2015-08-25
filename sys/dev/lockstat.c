@@ -58,6 +58,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <machine/lock.h>
 
+#include "ioconf.h"
+
 #ifndef __HAVE_CPU_COUNTER
 #error CPU counters not available
 #endif
@@ -85,7 +87,6 @@ typedef struct lscpu {
 
 typedef struct lslist lslist_t;
 
-void	lockstatattach(int);
 void	lockstat_start(lsenable_t *);
 int	lockstat_alloc(lsenable_t *);
 void	lockstat_init_tables(lsenable_t *);

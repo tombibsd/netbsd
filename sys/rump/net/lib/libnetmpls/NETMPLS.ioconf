@@ -1,0 +1,7 @@
+#	$NetBSD$
+
+ioconf		netmpls
+
+include		"conf/files"
+
+pseudo-device   ifmpls

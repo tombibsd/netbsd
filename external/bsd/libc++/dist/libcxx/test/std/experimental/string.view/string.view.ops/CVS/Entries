@@ -1,0 +1,11 @@
+/basic_string.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/compare.pointer.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/compare.pointer_size.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/compare.size_size_sv.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/compare.size_size_sv_pointer_size.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/compare.size_size_sv_size_size.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/compare.sv.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/copy.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/substr.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/to_string.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+D

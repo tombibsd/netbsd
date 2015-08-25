@@ -127,7 +127,10 @@ doclock(void *noarg)
 
 		error = rumpuser_clock_sleep(RUMPUSER_CLOCK_ABSMONO,
 		    curclock.tv_sec, curclock.tv_nsec);
-		KASSERT(!error);
+		if (error) {
+			panic("rumpuser_clock_sleep failed with error %d",
+			    error);
+		}
 		timespecadd(&curclock, &thetick, &curclock);
 	}
 }

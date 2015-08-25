@@ -4,8 +4,8 @@
 /files.ofw/1.6/Wed Oct 17 19:56:39 2007/-kk/
 /files.powerpc/1.89/Fri Mar 14 04:28:17 2014/-kk/
 /files.rtas/1.1/Sun Jan 14 22:18:02 2007/-kk/
-/kern-mb.ldscript/1.1/Thu Mar 29 15:42:15 2012/-kk/
-/kern.ldscript/1.6/Fri Jan 31 08:48:39 2014/-kk/
-/kern64.ldscript/1.1/Sat Apr 19 12:46:04 2014/-kk/
+/kern-mb.ldscript/1.2/Tue Aug 25 04:51:10 2015/-kk/
+/kern.ldscript/1.7/Tue Aug 25 04:51:10 2015/-kk/
+/kern64.ldscript/1.2/Tue Aug 25 04:51:10 2015/-kk/
 /majors.powerpc/1.9/Fri May  1 11:31:37 2015/-kk/
 D

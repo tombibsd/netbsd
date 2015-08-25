@@ -145,6 +145,25 @@
 #ifndef _UFS_LFS_LFS_ACCESSORS_H_
 #define _UFS_LFS_LFS_ACCESSORS_H_
 
+#if !defined(_KERNEL) && !defined(_STANDALONE)
+#include <assert.h>
+#define KASSERT assert
+#endif
+
+/*
+ * STRUCT_LFS is used by the libsa code to get accessors that work
+ * with struct salfs instead of struct lfs, and by the cleaner to
+ * get accessors that work with struct clfs.
+ */
+
+#ifndef STRUCT_LFS
+#define STRUCT_LFS struct lfs
+#endif
+
+/*
+ * dinodes
+ */
+
 /*
  * Maximum length of a symlink that can be stored within the inode.
  */
@@ -154,6 +173,112 @@
 #define ULFS_MAXSYMLINKLEN(ip) \
 	((ip)->i_ump->um_fstype == ULFS1) ? \
 	ULFS1_MAXSYMLINKLEN : ULFS2_MAXSYMLINKLEN
+
+#define DINOSIZE(fs) ((fs)->lfs_is64 ? sizeof(struct lfs64_dinode) : sizeof(struct lfs32_dinode))
+
+#define DINO_IN_BLOCK(fs, base, ix) \
+	((union lfs_dinode *)((char *)(base) + DINOSIZE(fs) * (ix)))
+
+static __unused inline void
+lfs_copy_dinode(STRUCT_LFS *fs,
+    union lfs_dinode *dst, const union lfs_dinode *src)
+{
+	/*
+	 * We can do structure assignment of the structs, but not of
+	 * the whole union, as the union is the size of the (larger)
+	 * 64-bit struct and on a 32-bit fs the upper half of it might
+	 * be off the end of a buffer or otherwise invalid.
+	 */
+	if (fs->lfs_is64) {
+		dst->u_64 = src->u_64;
+	} else {
+		dst->u_32 = src->u_32;
+	}
+}
+
+#define LFS_DEF_DINO_ACCESSOR(type, type32, field) \
+	static __unused inline type				\
+	lfs_dino_get##field(STRUCT_LFS *fs, union lfs_dinode *dip) \
+	{							\
+		if (fs->lfs_is64) {				\
+			return dip->u_64.di_##field; 		\
+		} else {					\
+			return dip->u_32.di_##field; 		\
+		}						\
+	}							\
+	static __unused inline void				\
+	lfs_dino_set##field(STRUCT_LFS *fs, union lfs_dinode *dip, type val) \
+	{							\
+		if (fs->lfs_is64) {				\
+			type *p = &dip->u_64.di_##field;	\
+			(void)p;				\
+			dip->u_64.di_##field = val;		\
+		} else {					\
+			type32 *p = &dip->u_32.di_##field;	\
+			(void)p;				\
+			dip->u_32.di_##field = val;		\
+		}						\
+	}							\
+
+LFS_DEF_DINO_ACCESSOR(uint16_t, uint16_t, mode);
+LFS_DEF_DINO_ACCESSOR(int16_t, int16_t, nlink);
+LFS_DEF_DINO_ACCESSOR(uint64_t, uint32_t, inumber);
+LFS_DEF_DINO_ACCESSOR(uint64_t, uint64_t, size);
+LFS_DEF_DINO_ACCESSOR(int64_t, int32_t, atime);
+LFS_DEF_DINO_ACCESSOR(int32_t, int32_t, atimensec);
+LFS_DEF_DINO_ACCESSOR(int64_t, int32_t, mtime);
+LFS_DEF_DINO_ACCESSOR(int32_t, int32_t, mtimensec);
+LFS_DEF_DINO_ACCESSOR(int64_t, int32_t, ctime);
+LFS_DEF_DINO_ACCESSOR(int32_t, int32_t, ctimensec);
+LFS_DEF_DINO_ACCESSOR(uint32_t, uint32_t, flags);
+LFS_DEF_DINO_ACCESSOR(uint64_t, uint32_t, blocks);
+LFS_DEF_DINO_ACCESSOR(int32_t, int32_t, gen);
+LFS_DEF_DINO_ACCESSOR(uint32_t, uint32_t, uid);
+LFS_DEF_DINO_ACCESSOR(uint32_t, uint32_t, gid);
+
+static __unused inline daddr_t
+lfs_dino_getdb(STRUCT_LFS *fs, union lfs_dinode *dip, unsigned ix)
+{
+	KASSERT(ix < ULFS_NDADDR);
+	if (fs->lfs_is64) {
+		return dip->u_64.di_db[ix];
+	} else {
+		return dip->u_32.di_db[ix];
+	}
+}
+
+static __unused inline daddr_t
+lfs_dino_getib(STRUCT_LFS *fs, union lfs_dinode *dip, unsigned ix)
+{
+	KASSERT(ix < ULFS_NIADDR);
+	if (fs->lfs_is64) {
+		return dip->u_64.di_ib[ix];
+	} else {
+		return dip->u_32.di_ib[ix];
+	}
+}
+
+static __unused inline void
+lfs_dino_setdb(STRUCT_LFS *fs, union lfs_dinode *dip, unsigned ix, daddr_t val)
+{
+	KASSERT(ix < ULFS_NDADDR);
+	if (fs->lfs_is64) {
+		dip->u_64.di_db[ix] = val;
+	} else {
+		dip->u_32.di_db[ix] = val;
+	}
+}
+
+static __unused inline void
+lfs_dino_setib(STRUCT_LFS *fs, union lfs_dinode *dip, unsigned ix, daddr_t val)
+{
+	KASSERT(ix < ULFS_NIADDR);
+	if (fs->lfs_is64) {
+		dip->u_64.di_ib[ix] = val;
+	} else {
+		dip->u_32.di_ib[ix] = val;
+	}
+}
 
 /*
  * "struct buf" associated definitions
@@ -262,6 +387,85 @@
 } while (0)
 
 /*
+ * FINFO (file info) entries.
+ */
+
+/* Size of an on-disk block pointer, e.g. in an indirect block. */
+/* XXX: move to a more suitable location in this file */
+#define LFS_BLKPTRSIZE(fs) ((fs)->lfs_is64 ? sizeof(int64_t) : sizeof(int32_t))
+
+/* Size of an on-disk inode number. */
+/* XXX: move to a more suitable location in this file */
+#define LFS_INUMSIZE(fs) ((fs)->lfs_is64 ? sizeof(int64_t) : sizeof(int32_t))
+
+/* size of a FINFO, without the block pointers */
+#define	FINFOSIZE(fs)	((fs)->lfs_is64 ? sizeof(FINFO64) : sizeof(FINFO32))
+
+/* Full size of the provided FINFO record, including its block pointers. */
+#define FINFO_FULLSIZE(fs, fip) \
+	(FINFOSIZE(fs) + lfs_fi_getnblocks(fs, fip) * LFS_BLKPTRSIZE(fs))
+
+#define NEXT_FINFO(fs, fip) \
+	((FINFO *)((char *)(fip) + FINFO_FULLSIZE(fs, fip)))
+
+#define LFS_DEF_FI_ACCESSOR(type, type32, field) \
+	static __unused inline type				\
+	lfs_fi_get##field(STRUCT_LFS *fs, FINFO *fip)		\
+	{							\
+		if (fs->lfs_is64) {				\
+			return fip->u_64.fi_##field; 		\
+		} else {					\
+			return fip->u_32.fi_##field; 		\
+		}						\
+	}							\
+	static __unused inline void				\
+	lfs_fi_set##field(STRUCT_LFS *fs, FINFO *fip, type val) \
+	{							\
+		if (fs->lfs_is64) {				\
+			type *p = &fip->u_64.fi_##field;	\
+			(void)p;				\
+			fip->u_64.fi_##field = val;		\
+		} else {					\
+			type32 *p = &fip->u_32.fi_##field;	\
+			(void)p;				\
+			fip->u_32.fi_##field = val;		\
+		}						\
+	}							\
+
+LFS_DEF_FI_ACCESSOR(uint32_t, uint32_t, nblocks);
+LFS_DEF_FI_ACCESSOR(uint32_t, uint32_t, version);
+LFS_DEF_FI_ACCESSOR(uint64_t, uint32_t, ino);
+LFS_DEF_FI_ACCESSOR(uint32_t, uint32_t, lastlength);
+
+static __unused inline daddr_t
+lfs_fi_getblock(STRUCT_LFS *fs, FINFO *fip, unsigned index)
+{
+	void *firstblock;
+
+	firstblock = (char *)fip + FINFOSIZE(fs);
+	KASSERT(index < lfs_fi_getnblocks(fs, fip));
+	if (fs->lfs_is64) {
+		return ((int64_t *)firstblock)[index];
+	} else {
+		return ((int32_t *)firstblock)[index];
+	}
+}
+
+static __unused inline void
+lfs_fi_setblock(STRUCT_LFS *fs, FINFO *fip, unsigned index, daddr_t blk)
+{
+	void *firstblock;
+
+	firstblock = (char *)fip + FINFOSIZE(fs);
+	KASSERT(index < lfs_fi_getnblocks(fs, fip));
+	if (fs->lfs_is64) {
+		((int64_t *)firstblock)[index] = blk;
+	} else {
+		((int32_t *)firstblock)[index] = blk;
+	}
+}
+
+/*
  * Index file inode entries.
  */
 
@@ -278,13 +482,48 @@
 	(IN) / lfs_sb_getifpb(F) + lfs_sb_getcleansz(F) + lfs_sb_getsegtabsz(F), \
 	lfs_sb_getbsize(F), 0, &(BP))) != 0)				\
 		panic("lfs: ifile ino %d read %d", (int)(IN), _e);	\
-	if (lfs_sb_getversion(F) == 1)					\
+	if ((F)->lfs_is64) {						\
+		(IP) = (IFILE *)((IFILE64 *)(BP)->b_data +		\
+				 (IN) % lfs_sb_getifpb(F));		\
+	} else if (lfs_sb_getversion(F) > 1) {				\
+		(IP) = (IFILE *)((IFILE32 *)(BP)->b_data +		\
+				(IN) % lfs_sb_getifpb(F)); 		\
+	} else {							\
 		(IP) = (IFILE *)((IFILE_V1 *)(BP)->b_data +		\
 				 (IN) % lfs_sb_getifpb(F));		\
-	else								\
-		(IP) = (IFILE *)(BP)->b_data + (IN) % lfs_sb_getifpb(F); \
+	}								\
 	UNSHARE_IFLOCK(F);						\
 } while (0)
+
+#define LFS_DEF_IF_ACCESSOR(type, type32, field) \
+	static __unused inline type				\
+	lfs_if_get##field(STRUCT_LFS *fs, IFILE *ifp)		\
+	{							\
+		if (fs->lfs_is64) {				\
+			return ifp->u_64.if_##field; 		\
+		} else {					\
+			return ifp->u_32.if_##field; 		\
+		}						\
+	}							\
+	static __unused inline void				\
+	lfs_if_set##field(STRUCT_LFS *fs, IFILE *ifp, type val) \
+	{							\
+		if (fs->lfs_is64) {				\
+			type *p = &ifp->u_64.if_##field;	\
+			(void)p;				\
+			ifp->u_64.if_##field = val;		\
+		} else {					\
+			type32 *p = &ifp->u_32.if_##field;	\
+			(void)p;				\
+			ifp->u_32.if_##field = val;		\
+		}						\
+	}							\
+
+LFS_DEF_IF_ACCESSOR(u_int32_t, u_int32_t, version);
+LFS_DEF_IF_ACCESSOR(int64_t, int32_t, daddr);
+LFS_DEF_IF_ACCESSOR(u_int64_t, u_int32_t, nextfree);
+LFS_DEF_IF_ACCESSOR(u_int32_t, u_int32_t, atime_sec);
+LFS_DEF_IF_ACCESSOR(u_int32_t, u_int32_t, atime_nsec);
 
 /*
  * Cleaner information structure.  This resides in the ifile and is used
@@ -292,7 +531,54 @@
  */
 
 #define	CLEANSIZE_SU(fs)						\
-	((sizeof(CLEANERINFO) + lfs_sb_getbsize(fs) - 1) >> lfs_sb_getbshift(fs))
+	((((fs)->lfs_is64 ? sizeof(CLEANERINFO64) : sizeof(CLEANERINFO32)) + \
+		lfs_sb_getbsize(fs) - 1) >> lfs_sb_getbshift(fs))
+
+#define LFS_DEF_CI_ACCESSOR(type, type32, field) \
+	static __unused inline type				\
+	lfs_ci_get##field(STRUCT_LFS *fs, CLEANERINFO *cip)	\
+	{							\
+		if (fs->lfs_is64) {				\
+			return cip->u_64.field; 		\
+		} else {					\
+			return cip->u_32.field; 		\
+		}						\
+	}							\
+	static __unused inline void				\
+	lfs_ci_set##field(STRUCT_LFS *fs, CLEANERINFO *cip, type val) \
+	{							\
+		if (fs->lfs_is64) {				\
+			type *p = &cip->u_64.field;		\
+			(void)p;				\
+			cip->u_64.field = val;			\
+		} else {					\
+			type32 *p = &cip->u_32.field;		\
+			(void)p;				\
+			cip->u_32.field = val;			\
+		}						\
+	}							\
+
+LFS_DEF_CI_ACCESSOR(u_int32_t, u_int32_t, clean);
+LFS_DEF_CI_ACCESSOR(u_int32_t, u_int32_t, dirty);
+LFS_DEF_CI_ACCESSOR(int64_t, int32_t, bfree);
+LFS_DEF_CI_ACCESSOR(int64_t, int32_t, avail);
+LFS_DEF_CI_ACCESSOR(u_int64_t, u_int32_t, free_head);
+LFS_DEF_CI_ACCESSOR(u_int64_t, u_int32_t, free_tail);
+LFS_DEF_CI_ACCESSOR(u_int32_t, u_int32_t, flags);
+
+static __unused inline void
+lfs_ci_shiftcleantodirty(STRUCT_LFS *fs, CLEANERINFO *cip, unsigned num)
+{
+	lfs_ci_setclean(fs, cip, lfs_ci_getclean(fs, cip) - num);
+	lfs_ci_setdirty(fs, cip, lfs_ci_getdirty(fs, cip) + num);
+}
+
+static __unused inline void
+lfs_ci_shiftdirtytoclean(STRUCT_LFS *fs, CLEANERINFO *cip, unsigned num)
+{
+	lfs_ci_setdirty(fs, cip, lfs_ci_getdirty(fs, cip) - num);
+	lfs_ci_setclean(fs, cip, lfs_ci_getclean(fs, cip) + num);
+}
 
 /* Read in the block with the cleaner info from the ifile. */
 #define LFS_CLEANERINFO(CP, F, BP) do {					\
@@ -310,12 +596,12 @@
  */
 #define LFS_SYNC_CLEANERINFO(cip, fs, bp, w) do {		 	\
     mutex_enter(&lfs_lock);						\
-    if ((w) || (cip)->bfree != lfs_sb_getbfree(fs) ||		 	\
-	(cip)->avail != lfs_sb_getavail(fs) - fs->lfs_ravail -	 	\
+    if ((w) || lfs_ci_getbfree(fs, cip) != lfs_sb_getbfree(fs) ||	\
+	lfs_ci_getavail(fs, cip) != lfs_sb_getavail(fs) - fs->lfs_ravail - \
 	fs->lfs_favail) {	 					\
-	(cip)->bfree = lfs_sb_getbfree(fs);			 	\
-	(cip)->avail = lfs_sb_getavail(fs) - fs->lfs_ravail -		\
-		fs->lfs_favail;					 	\
+	lfs_ci_setbfree(fs, cip, lfs_sb_getbfree(fs));		 	\
+	lfs_ci_setavail(fs, cip, lfs_sb_getavail(fs) - fs->lfs_ravail -	\
+		fs->lfs_favail);				 	\
 	if (((bp)->b_flags & B_GATHERED) == 0) {		 	\
 		fs->lfs_flags |= LFS_IFDIRTY;				\
 	}								\
@@ -334,7 +620,7 @@
 #define LFS_GET_HEADFREE(FS, CIP, BP, FREEP) do {			\
 	if (lfs_sb_getversion(FS) > 1) {				\
 		LFS_CLEANERINFO((CIP), (FS), (BP));			\
-		lfs_sb_setfreehd(FS, (CIP)->free_head);			\
+		lfs_sb_setfreehd(FS, lfs_ci_getfree_head(FS, CIP));	\
 		brelse(BP, 0);						\
 	}								\
 	*(FREEP) = lfs_sb_getfreehd(FS);				\
@@ -344,7 +630,7 @@
 	lfs_sb_setfreehd(FS, VAL);					\
 	if (lfs_sb_getversion(FS) > 1) {				\
 		LFS_CLEANERINFO((CIP), (FS), (BP));			\
-		(CIP)->free_head = (VAL);				\
+		lfs_ci_setfree_head(FS, CIP, VAL);			\
 		LFS_BWRITE_LOG(BP);					\
 		mutex_enter(&lfs_lock);					\
 		(FS)->lfs_flags |= LFS_IFDIRTY;				\
@@ -354,13 +640,13 @@
 
 #define LFS_GET_TAILFREE(FS, CIP, BP, FREEP) do {			\
 	LFS_CLEANERINFO((CIP), (FS), (BP));				\
-	*(FREEP) = (CIP)->free_tail;					\
+	*(FREEP) = lfs_ci_getfree_tail(FS, CIP);			\
 	brelse(BP, 0);							\
 } while (0)
 
 #define LFS_PUT_TAILFREE(FS, CIP, BP, VAL) do {				\
 	LFS_CLEANERINFO((CIP), (FS), (BP));				\
-	(CIP)->free_tail = (VAL);					\
+	lfs_ci_setfree_tail(FS, CIP, VAL);				\
 	LFS_BWRITE_LOG(BP);						\
 	mutex_enter(&lfs_lock);						\
 	(FS)->lfs_flags |= LFS_IFDIRTY;					\
@@ -371,7 +657,100 @@
  * On-disk segment summary information
  */
 
-#define SEGSUM_SIZE(fs) (lfs_sb_getversion(fs) == 1 ? sizeof(SEGSUM_V1) : sizeof(SEGSUM))
+#define SEGSUM_SIZE(fs) \
+	(fs->lfs_is64 ? sizeof(SEGSUM64) : \
+	 lfs_sb_getversion(fs) > 1 ? sizeof(SEGSUM32) : sizeof(SEGSUM_V1))
+
+/*
+ * The SEGSUM structure is followed by FINFO structures. Get the pointer
+ * to the first FINFO.
+ *
+ * XXX this can't be a macro yet; this file needs to be resorted.
+ */
+#if 0
+static __unused inline FINFO *
+segsum_finfobase(STRUCT_LFS *fs, SEGSUM *ssp)
+{
+	return (FINFO *)((char *)ssp + SEGSUM_SIZE(fs));
+}
+#else
+#define SEGSUM_FINFOBASE(fs, ssp) \
+	((FINFO *)((char *)(ssp) + SEGSUM_SIZE(fs)));
+#endif
+
+#define LFS_DEF_SS_ACCESSOR(type, type32, field) \
+	static __unused inline type				\
+	lfs_ss_get##field(STRUCT_LFS *fs, SEGSUM *ssp)		\
+	{							\
+		if (fs->lfs_is64) {				\
+			return ssp->u_64.ss_##field; 		\
+		} else {					\
+			return ssp->u_32.ss_##field; 		\
+		}						\
+	}							\
+	static __unused inline void				\
+	lfs_ss_set##field(STRUCT_LFS *fs, SEGSUM *ssp, type val) \
+	{							\
+		if (fs->lfs_is64) {				\
+			type *p = &ssp->u_64.ss_##field;	\
+			(void)p;				\
+			ssp->u_64.ss_##field = val;		\
+		} else {					\
+			type32 *p = &ssp->u_32.ss_##field;	\
+			(void)p;				\
+			ssp->u_32.ss_##field = val;		\
+		}						\
+	}							\
+
+LFS_DEF_SS_ACCESSOR(uint32_t, uint32_t, sumsum);
+LFS_DEF_SS_ACCESSOR(uint32_t, uint32_t, datasum);
+LFS_DEF_SS_ACCESSOR(uint32_t, uint32_t, magic);
+LFS_DEF_SS_ACCESSOR(uint32_t, uint32_t, ident);
+LFS_DEF_SS_ACCESSOR(int64_t, int32_t, next);
+LFS_DEF_SS_ACCESSOR(uint16_t, uint16_t, nfinfo);
+LFS_DEF_SS_ACCESSOR(uint16_t, uint16_t, ninos);
+LFS_DEF_SS_ACCESSOR(uint16_t, uint16_t, flags);
+LFS_DEF_SS_ACCESSOR(uint64_t, uint32_t, reclino);
+LFS_DEF_SS_ACCESSOR(uint64_t, uint64_t, serial);
+LFS_DEF_SS_ACCESSOR(uint64_t, uint64_t, create);
+
+static __unused inline size_t
+lfs_ss_getsumstart(STRUCT_LFS *fs)
+{
+	/* These are actually all the same. */
+	if (fs->lfs_is64) {
+		return offsetof(SEGSUM64, ss_datasum);
+	} else /* if (lfs_sb_getversion(fs) > 1) */ {
+		return offsetof(SEGSUM32, ss_datasum);
+	} /* else {
+		return offsetof(SEGSUM_V1, ss_datasum);
+	} */
+	/*
+	 * XXX ^^^ until this file is resorted lfs_sb_getversion isn't
+	 * defined yet.
+	 */
+}
+
+static __unused inline uint32_t
+lfs_ss_getocreate(STRUCT_LFS *fs, SEGSUM *ssp)
+{
+	KASSERT(fs->lfs_is64 == 0);
+	/* XXX need to resort this file before we can do this */
+	//KASSERT(lfs_sb_getversion(fs) == 1);
+	
+	return ssp->u_v1.ss_create;
+}
+
+static __unused inline void
+lfs_ss_setocreate(STRUCT_LFS *fs, SEGSUM *ssp, uint32_t val)
+{
+	KASSERT(fs->lfs_is64 == 0);
+	/* XXX need to resort this file before we can do this */
+	//KASSERT(lfs_sb_getversion(fs) == 1);
+	
+	ssp->u_v1.ss_create = val;
+}
+
 
 /*
  * Super block.
@@ -379,14 +758,7 @@
 
 /*
  * Generate accessors for the on-disk superblock fields with cpp.
- *
- * STRUCT_LFS is used by the libsa code to get accessors that work
- * with struct salfs instead of struct lfs.
  */
-
-#ifndef STRUCT_LFS
-#define STRUCT_LFS struct lfs
-#endif
 
 #define LFS_DEF_SB_ACCESSOR_FULL(type, type32, field) \
 	static __unused inline type				\
@@ -632,9 +1004,9 @@ lfs_btofsb(STRUCT_LFS *fs, uint64_t b)
 #define lfs_blknum(fs, fsb)	/* calculates rounddown(fsb, fs->lfs_frag) */ \
 	((fsb) &~ ((fs)->lfs_frag - 1))
 #define lfs_dblksize(fs, dp, lbn) \
-	(((lbn) >= ULFS_NDADDR || (dp)->di_size >= ((lbn) + 1) << lfs_sb_getbshift(fs)) \
+	(((lbn) >= ULFS_NDADDR || lfs_dino_getsize(fs, dp) >= ((lbn) + 1) << lfs_sb_getbshift(fs)) \
 	    ? lfs_sb_getbsize(fs) \
-	    : (lfs_fragroundup(fs, lfs_blkoff(fs, (dp)->di_size))))
+	    : (lfs_fragroundup(fs, lfs_blkoff(fs, lfs_dino_getsize(fs, dp)))))
 
 #define	lfs_segsize(fs)	(lfs_sb_getversion(fs) == 1 ?	     		\
 			   lfs_lblktosize((fs), lfs_sb_getssize(fs)) :	\
@@ -658,6 +1030,88 @@ lfs_blksize(STRUCT_LFS *fs, struct inode *ip, uint64_t lbn)
 	}
 }
 #endif
+
+/*
+ * union lfs_blocks
+ */
+
+static __unused inline void
+lfs_blocks_fromvoid(STRUCT_LFS *fs, union lfs_blocks *bp, void *p)
+{
+	if (fs->lfs_is64) {
+		bp->b64 = p;
+	} else {
+		bp->b32 = p;
+	}
+}
+
+static __unused inline void
+lfs_blocks_fromfinfo(STRUCT_LFS *fs, union lfs_blocks *bp, FINFO *fip)
+{
+	void *firstblock;
+
+	firstblock = (char *)fip + FINFOSIZE(fs);
+	if (fs->lfs_is64) {
+		bp->b64 = (int64_t *)firstblock;
+	}  else {
+		bp->b32 = (int32_t *)firstblock;
+	}
+}
+
+static __unused inline daddr_t
+lfs_blocks_get(STRUCT_LFS *fs, union lfs_blocks *bp, unsigned index)
+{
+	if (fs->lfs_is64) {
+		return bp->b64[index];
+	} else {
+		return bp->b32[index];
+	}
+}
+
+static __unused inline void
+lfs_blocks_set(STRUCT_LFS *fs, union lfs_blocks *bp, unsigned index, daddr_t val)
+{
+	if (fs->lfs_is64) {
+		bp->b64[index] = val;
+	} else {
+		bp->b32[index] = val;
+	}
+}
+
+static __unused inline void
+lfs_blocks_inc(STRUCT_LFS *fs, union lfs_blocks *bp)
+{
+	if (fs->lfs_is64) {
+		bp->b64++;
+	} else {
+		bp->b32++;
+	}
+}
+
+static __unused inline int
+lfs_blocks_eq(STRUCT_LFS *fs, union lfs_blocks *bp1, union lfs_blocks *bp2)
+{
+	if (fs->lfs_is64) {
+		return bp1->b64 == bp2->b64;
+	} else {
+		return bp1->b32 == bp2->b32;
+	}
+}
+
+static __unused inline int
+lfs_blocks_sub(STRUCT_LFS *fs, union lfs_blocks *bp1, union lfs_blocks *bp2)
+{
+	/* (remember that the pointers are typed) */
+	if (fs->lfs_is64) {
+		return bp1->b64 - bp2->b64;
+	} else {
+		return bp1->b32 - bp2->b32;
+	}
+}
+
+/*
+ * struct segment
+ */
 
 
 /*

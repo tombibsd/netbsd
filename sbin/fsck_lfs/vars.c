@@ -77,6 +77,4 @@ int lfmode;			/* lost & found directory creation mode */
 daddr_t n_blks;			/* number of blocks in use */
 ino_t n_files;			/* number of files in use */
 
-struct ulfs1_dinode zino;
-
 int no_roll_forward = 0;	/* don't roll forward */

@@ -11,9 +11,11 @@ SUBDIR+=	${EXTERNAL_GCC_SUBDIR}
 .endif
 
 .if ${MKGDB} != "no"
-.if ${HAVE_GDB} == "7"
+.	if ${HAVE_GDB} == "79"
 SUBDIR+=        gdb
-.endif
+.	elif ${HAVE_GDB} == "7"
+SUBDIR+=        gdb.old
+.	endif
 .endif
 
 .include <bsd.subdir.mk>

@@ -8,6 +8,7 @@ CPPFLAGS+= -DVND_COMPRESSION -DCOMPAT_30 -DCOMPAT_50
 
 
 KMOD=	vnd
+IOCONF=	vnd.ioconf
 SRCS=	vnd.c
 
 .include <bsd.kmodule.mk>

@@ -1,0 +1,8 @@
+#	$NetBSD$
+#
+
+ioconf netsmb
+
+include "conf/files"
+
+pseudo-device	nsmb

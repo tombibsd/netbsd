@@ -39,7 +39,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include "rump_dev_private.h"
 #include "rump_vfs_private.h"
 
-void nsmbattach(int); /* XXX */
+#include "ioconf.h"
 
 RUMP_COMPONENT(RUMP_COMPONENT_DEV)
 {

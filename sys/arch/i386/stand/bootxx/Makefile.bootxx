@@ -120,7 +120,7 @@ LIBLIST= ${LIBI386} ${LIBSA} ${LIBKERN} ${LIBI386} ${LIBSA}
 
 CLEANFILES+= ${PROG}.sym ${PROG}.map
 
-${PROG}: ${OBJS} ${LIBLIST}
+${PROG}: ${OBJS} ${LIBLIST} ${LDSCRIPT}
 	${_MKTARGET_LINK}
 	${CC} -o ${PROG}.sym ${LDFLAGS} -Wl,-Ttext,${PRIMARY_LOAD_ADDRESS} \
 		-T ${LDSCRIPT} -Wl,-Map,${PROG}.map -Wl,-cref ${OBJS} ${LIBLIST}

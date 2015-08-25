@@ -109,6 +109,8 @@
 #define	GEM_SA3H	0x009C
 #define	GEM_SA4L	0x0090
 #define	GEM_SA4H	0x0094
+#define	GEM_SCOL	0x0138
+#define	GEM_MCOL	0x013C
 #define	GEM_DCFG2	0x0284
 #define	GEM_DCFG3	0x0288
 #define	GEM_DCFG4	0x028C

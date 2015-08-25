@@ -1,12 +1,12 @@
 #	$NetBSD$
 #
 
+IOCONF=KERN.ioconf
 .include "${RUMPTOP}/Makefile.rump"
 
 .include <bsd.own.mk>
 
 LIB=		rump
-
 MAN=		rump.3 rump_lwproc.3
 
 .PATH:	${RUMPTOP}/librump/rumpkern				\

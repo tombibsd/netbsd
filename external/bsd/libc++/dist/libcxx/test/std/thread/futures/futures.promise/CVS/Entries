@@ -1,0 +1,21 @@
+/alloc_ctor.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/copy_assign.fail.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/copy_ctor.fail.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/default.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/dtor.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/get_future.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/move_assign.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/move_ctor.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/set_exception.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/set_exception_at_thread_exit.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/set_lvalue.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/set_lvalue_at_thread_exit.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/set_rvalue.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/set_rvalue_at_thread_exit.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/set_value_at_thread_exit_const.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/set_value_at_thread_exit_void.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/set_value_const.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/set_value_void.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/swap.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/uses_allocator.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+D

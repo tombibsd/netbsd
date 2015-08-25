@@ -1,5 +1,5 @@
 /Makefile.inc/1.6/Wed Apr 22 15:23:01 2009/-kk/
-/Makefile/1.270/Thu Apr  2 02:25:32 2015/-kk/
+/Makefile/1.271/Tue Aug 25 04:51:34 2015/-kk/
 D/ac////
 D/accton////
 D/acpitools////
@@ -43,6 +43,7 @@ D/ifmcstat////
 D/ifwatchd////
 D/inetd////
 D/installboot////
+D/intrctl////
 D/iopctl////
 D/iostat////
 D/ipwctl////

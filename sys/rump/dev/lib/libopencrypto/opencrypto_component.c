@@ -38,8 +38,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include "rump_dev_private.h"
 #include "rump_vfs_private.h"
 
-void cryptoattach(int);
-void swcryptoattach(int);
+#include "ioconf.h"
+
 void crypto_init(void);
 
 RUMP_COMPONENT(RUMP_COMPONENT_DEV)

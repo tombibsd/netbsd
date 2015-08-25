@@ -148,6 +148,10 @@
 #ifndef _UFS_LFS_LFS_H_
 #define _UFS_LFS_LFS_H_
 
+#if !defined(_KERNEL) && !defined(_STANDALONE)
+#include <stddef.h> /* for offsetof */
+#endif
+
 #include <sys/rwlock.h>
 #include <sys/mutex.h>
 #include <sys/queue.h>
@@ -349,7 +353,7 @@ struct lfs_odirtemplate {
  * are defined by types with precise widths.
  */
 
-struct ulfs1_dinode {
+struct lfs32_dinode {
 	u_int16_t	di_mode;	/*   0: IFMT, permissions; see below. */
 	int16_t		di_nlink;	/*   2: File link count. */
 	u_int32_t	di_inumber;	/*   4: Inode number. */
@@ -370,7 +374,7 @@ struct ulfs1_dinode {
 	u_int64_t	di_modrev;	/* 120: i_modrev for NFSv4 */
 };
 
-struct ulfs2_dinode {
+struct lfs64_dinode {
 	u_int16_t	di_mode;	/*   0: IFMT, permissions; see below. */
 	int16_t		di_nlink;	/*   2: File link count. */
 	u_int32_t	di_uid;		/*   4: File owner. */
@@ -394,8 +398,13 @@ struct ulfs2_dinode {
 	int64_t		di_db[ULFS_NDADDR]; /* 112: Direct disk blocks. */
 	int64_t		di_ib[ULFS_NIADDR]; /* 208: Indirect disk blocks. */
 	u_int64_t	di_modrev;	/* 232: i_modrev for NFSv4 */
-	u_int32_t	di_inumber;	/* 240: Inode number */
-	u_int32_t	di_spare[3];	/* 244: Reserved; currently unused */
+	u_int64_t	di_inumber;	/* 240: Inode number */
+	u_int64_t	di_spare[1];	/* 244: Reserved; currently unused */
+};
+
+union lfs_dinode {
+	struct lfs64_dinode u_64;
+	struct lfs32_dinode u_32;
 };
 
 /*
@@ -408,8 +417,8 @@ struct ulfs2_dinode {
 #define	di_rdev		di_db[0]
 
 /* Size of the on-disk inode. */
-#define	LFS_DINODE1_SIZE	(sizeof(struct ulfs1_dinode))	/* 128 */
-#define	LFS_DINODE2_SIZE	(sizeof(struct ulfs2_dinode))
+//#define	LFS_DINODE1_SIZE	(sizeof(struct ulfs1_dinode))	/* 128 */
+//#define	LFS_DINODE2_SIZE	(sizeof(struct ulfs2_dinode))
 
 /* File types, found in the upper bits of di_mode. */
 #define	LFS_IFMT	0170000		/* Mask of file type. */
@@ -471,27 +480,57 @@ struct segusage_v1 {
 
 /*
  * On-disk file information.  One per file with data blocks in the segment.
+ *
+ * The FINFO structure is a header; it is followed by fi_nblocks block
+ * pointers, which are logical block numbers of the file. (These are the
+ * blocks of the file present in this segment.)
  */
-typedef struct finfo FINFO;
-struct finfo {
+
+typedef struct finfo64 FINFO64;
+struct finfo64 {
+	u_int32_t fi_nblocks;		/* number of blocks */
+	u_int32_t fi_version;		/* version number */
+	u_int64_t fi_ino;		/* inode number */
+	u_int32_t fi_lastlength;	/* length of last block in array */
+	u_int32_t fi_pad;		/* unused */
+};
+
+typedef struct finfo32 FINFO32;
+struct finfo32 {
 	u_int32_t fi_nblocks;		/* number of blocks */
 	u_int32_t fi_version;		/* version number */
 	u_int32_t fi_ino;		/* inode number */
 	u_int32_t fi_lastlength;	/* length of last block in array */
-	int32_t	  fi_blocks[1];		/* array of logical block numbers */
 };
-/* sizeof FINFO except fi_blocks */
-#define	FINFOSIZE	(sizeof(FINFO) - sizeof(int32_t))
+
+typedef union finfo {
+	struct finfo64 u_64;
+	struct finfo32 u_32;
+} FINFO;
 
 /*
  * Index file inode entries.
  */
-typedef struct ifile IFILE;
-struct ifile {
-	u_int32_t if_version;		/* inode version number */
+
+/* magic value for daddrs */
 #define	LFS_UNUSED_DADDR	0	/* out-of-band daddr */
-	int32_t	  if_daddr;		/* inode disk address */
+/* magic value for if_nextfree */
 #define LFS_ORPHAN_NEXTFREE	(~(u_int32_t)0) /* indicate orphaned file */
+
+typedef struct ifile64 IFILE64;
+struct ifile64 {
+	u_int32_t if_version;		/* inode version number */
+	u_int32_t if_pad;		/* 64-bit alignment padding */
+	int64_t	  if_daddr;		/* inode disk address */
+	u_int64_t if_nextfree;		/* next-unallocated inode */
+	u_int32_t if_atime_sec;		/* Last access time, seconds */
+	u_int32_t if_atime_nsec;	/* and nanoseconds */
+};
+
+typedef struct ifile32 IFILE32;
+struct ifile32 {
+	u_int32_t if_version;		/* inode version number */
+	int32_t	  if_daddr;		/* inode disk address */
 	u_int32_t if_nextfree;		/* next-unallocated inode */
 	u_int32_t if_atime_sec;		/* Last access time, seconds */
 	u_int32_t if_atime_nsec;	/* and nanoseconds */
@@ -503,58 +542,92 @@ struct ifile_v1 {
 	int32_t	  if_daddr;		/* inode disk address */
 	u_int32_t if_nextfree;		/* next-unallocated inode */
 #if LFS_ATIME_IFILE
+#error "this cannot work"
 	struct timespec if_atime;	/* Last access time */
 #endif
 };
 
 /*
+ * Note: struct ifile_v1 is often handled by accessing the first three
+ * fields of struct ifile32. (XXX: Blah.  This should be cleaned up as
+ * it may in some cases violate the strict-aliasing rules.)
+ */
+typedef union ifile {
+	struct ifile64 u_64;
+	struct ifile32 u_32;
+	struct ifile_v1 u_v1;
+} IFILE;
+
+/*
  * Cleaner information structure.  This resides in the ifile and is used
  * to pass information from the kernel to the cleaner.
  */
-typedef struct _cleanerinfo {
-	u_int32_t clean;		/* number of clean segments */
-	u_int32_t dirty;		/* number of dirty segments */
-	/* XXX64 bfree and avail must -> 64 */
-	int32_t   bfree;		/* disk blocks free */
-	int32_t	  avail;		/* disk blocks available */
-	u_int32_t free_head;		/* head of the inode free list */
-	u_int32_t free_tail;		/* tail of the inode free list */
+
+/* flags for ->flags */
 #define LFS_CLEANER_MUST_CLEAN	0x01
-	u_int32_t flags;		/* status word from the kernel */
+
+typedef struct _cleanerinfo32 {
+	u_int32_t clean;		/* 0: number of clean segments */
+	u_int32_t dirty;		/* 4: number of dirty segments */
+	int32_t   bfree;		/* 8: disk blocks free */
+	int32_t	  avail;		/* 12: disk blocks available */
+	u_int32_t free_head;		/* 16: head of the inode free list */
+	u_int32_t free_tail;		/* 20: tail of the inode free list */
+	u_int32_t flags;		/* 24: status word from the kernel */
+} CLEANERINFO32;
+
+typedef struct _cleanerinfo64 {
+	u_int32_t clean;		/* 0: number of clean segments */
+	u_int32_t dirty;		/* 4: number of dirty segments */
+	int64_t   bfree;		/* 8: disk blocks free */
+	int64_t	  avail;		/* 16: disk blocks available */
+	u_int64_t free_head;		/* 24: head of the inode free list */
+	u_int64_t free_tail;		/* 32: tail of the inode free list */
+	u_int32_t flags;		/* 40: status word from the kernel */
+	u_int32_t pad;			/* 44: must be 64-bit aligned */
+} CLEANERINFO64;
+
+/* this must not go to disk directly of course */
+typedef union _cleanerinfo {
+	CLEANERINFO32 u_32;
+	CLEANERINFO64 u_64;
 } CLEANERINFO;
 
 /*
  * On-disk segment summary information
  */
-typedef struct segsum_v1 SEGSUM_V1;
-struct segsum_v1 {
-	u_int32_t ss_sumsum;		/* 0: check sum of summary block */
-	u_int32_t ss_datasum;		/* 4: check sum of data */
-	u_int32_t ss_magic;		/* 8: segment summary magic number */
-#define SS_MAGIC	0x061561
-	int32_t	  ss_next;		/* 12: next segment */
-	u_int32_t ss_create;		/* 16: creation time stamp */
-	u_int16_t ss_nfinfo;		/* 20: number of file info structures */
-	u_int16_t ss_ninos;		/* 22: number of inodes in summary */
 
+/* magic value for ss_magic */
+#define SS_MAGIC	0x061561
+
+/* flags for ss_flags */
 #define	SS_DIROP	0x01		/* segment begins a dirop */
 #define	SS_CONT		0x02		/* more partials to finish this write*/
 #define	SS_CLEAN	0x04		/* written by the cleaner */
 #define	SS_RFW		0x08		/* written by the roll-forward agent */
 #define	SS_RECLAIM	0x10		/* written by the roll-forward agent */
+
+typedef struct segsum_v1 SEGSUM_V1;
+struct segsum_v1 {
+	u_int32_t ss_sumsum;		/* 0: check sum of summary block */
+	u_int32_t ss_datasum;		/* 4: check sum of data */
+	u_int32_t ss_magic;		/* 8: segment summary magic number */
+	int32_t	  ss_next;		/* 12: next segment */
+	u_int32_t ss_create;		/* 16: creation time stamp */
+	u_int16_t ss_nfinfo;		/* 20: number of file info structures */
+	u_int16_t ss_ninos;		/* 22: number of inodes in summary */
 	u_int16_t ss_flags;		/* 24: used for directory operations */
 	u_int16_t ss_pad;		/* 26: extra space */
 	/* FINFO's and inode daddr's... */
 };
 
-typedef struct segsum SEGSUM;
-struct segsum {
+typedef struct segsum32 SEGSUM32;
+struct segsum32 {
 	u_int32_t ss_sumsum;		/* 0: check sum of summary block */
 	u_int32_t ss_datasum;		/* 4: check sum of data */
 	u_int32_t ss_magic;		/* 8: segment summary magic number */
 	int32_t	  ss_next;		/* 12: next segment (disk address) */
 	u_int32_t ss_ident;		/* 16: roll-forward fsid */
-#define ss_ocreate ss_ident /* ident is where create was in v1 */
 	u_int16_t ss_nfinfo;		/* 20: number of file info structures */
 	u_int16_t ss_ninos;		/* 22: number of inodes in summary */
 	u_int16_t ss_flags;		/* 24: used for directory operations */
@@ -563,6 +636,30 @@ struct segsum {
 	u_int64_t ss_serial;		/* 32: serial number */
 	u_int64_t ss_create;		/* 40: time stamp */
 	/* FINFO's and inode daddr's... */
+};
+
+typedef struct segsum64 SEGSUM64;
+struct segsum64 {
+	u_int32_t ss_sumsum;		/* 0: check sum of summary block */
+	u_int32_t ss_datasum;		/* 4: check sum of data */
+	u_int32_t ss_magic;		/* 8: segment summary magic number */
+	u_int32_t ss_ident;		/* 12: roll-forward fsid */
+	int64_t	  ss_next;		/* 16: next segment (disk address) */
+	u_int16_t ss_nfinfo;		/* 24: number of file info structures */
+	u_int16_t ss_ninos;		/* 26: number of inodes in summary */
+	u_int16_t ss_flags;		/* 28: used for directory operations */
+	u_int8_t  ss_pad[2];		/* 30: extra space */
+	u_int64_t ss_reclino;           /* 32: inode being reclaimed */
+	u_int64_t ss_serial;		/* 40: serial number */
+	u_int64_t ss_create;		/* 48: time stamp */
+	/* FINFO's and inode daddr's... */
+};
+
+typedef union segsum SEGSUM;
+union segsum {
+	struct segsum64 u_64;
+	struct segsum32 u_32;
+	struct segsum_v1 u_v1;
 };
 
 
@@ -867,6 +964,17 @@ struct lfs {
  * about inodes and data blocks.
  */
 typedef struct block_info {
+	u_int64_t bi_inode;		/* inode # */
+	int64_t	bi_lbn;			/* logical block w/in file */
+	int64_t	bi_daddr;		/* disk address of block */
+	u_int64_t bi_segcreate;		/* origin segment create time */
+	int	bi_version;		/* file version number */
+	int	bi_size;		/* size of the block (if fragment) */
+	void	*bi_bp;			/* data buffer */
+} BLOCK_INFO;
+
+/* Compatibility for 7.0 binaries */
+typedef struct block_info_70 {
 	u_int32_t bi_inode;		/* inode # */
 	int32_t	bi_lbn;			/* logical block w/in file */
 	int32_t	bi_daddr;		/* disk address of block */
@@ -874,7 +982,7 @@ typedef struct block_info {
 	int	bi_version;		/* file version number */
 	void	*bi_bp;			/* data buffer */
 	int	bi_size;		/* size of the block (if fragment) */
-} BLOCK_INFO;
+} BLOCK_INFO_70;
 
 /* Compatibility for 1.5 binaries */
 typedef struct block_info_15 {
@@ -887,6 +995,16 @@ typedef struct block_info_15 {
 	int	bi_size;		/* size of the block (if fragment) */
 } BLOCK_INFO_15;
 
+/*
+ * 32/64-bit-clean pointer to block pointers. This points into
+ * already-existing storage; it is mostly used to access the block
+ * pointers following a FINFO.
+ */
+union lfs_blocks {
+	int64_t *b64;
+	int32_t *b32;
+};
+
 /* In-memory description of a segment about to be written. */
 struct segment {
 	struct lfs	 *fs;		/* file system pointer */
@@ -894,15 +1012,15 @@ struct segment {
 	struct buf	**cbpp;		/* pointer to next available bp */
 	struct buf	**start_bpp;	/* pointer to first bp in this set */
 	struct buf	 *ibp;		/* buffer pointer to inode page */
-	struct ulfs1_dinode    *idp;          /* pointer to ifile dinode */
-	struct finfo	 *fip;		/* current fileinfo pointer */
+	union lfs_dinode *idp;          /* pointer to ifile dinode */
+	FINFO *fip;			/* current fileinfo pointer */
 	struct vnode	 *vp;		/* vnode being gathered */
 	void	 *segsum;		/* segment summary info */
 	u_int32_t ninodes;		/* number of inodes in this segment */
 	int32_t seg_bytes_left;		/* bytes left in segment */
 	int32_t sum_bytes_left;		/* bytes left in summary block */
 	u_int32_t seg_number;		/* number of this segment */
-	int32_t *start_lbp;		/* beginning lbn for this set */
+	union lfs_blocks start_lbp;	/* beginning lbn for this set */
 
 #define SEGM_CKP	0x0001		/* doing a checkpoint */
 #define SEGM_CLEAN	0x0002		/* cleaner call; don't sort */
@@ -941,13 +1059,13 @@ struct lfs_stats {	/* Must match sysctl list in lfs_vfsops.h ! */
 /* Fcntls to take the place of the lfs syscalls */
 struct lfs_fcntl_markv {
 	BLOCK_INFO *blkiov;	/* blocks to relocate */
-	int blkcnt;		/* number of blocks */
+	int blkcnt;		/* number of blocks (limited to 65536) */
 };
 
 #define LFCNSEGWAITALL	_FCNR_FSPRIV('L', 14, struct timeval)
 #define LFCNSEGWAIT	_FCNR_FSPRIV('L', 15, struct timeval)
-#define LFCNBMAPV	_FCNRW_FSPRIV('L', 2, struct lfs_fcntl_markv)
-#define LFCNMARKV	_FCNRW_FSPRIV('L', 3, struct lfs_fcntl_markv)
+#define LFCNBMAPV	_FCNRW_FSPRIV('L', 16, struct lfs_fcntl_markv)
+#define LFCNMARKV	_FCNRW_FSPRIV('L', 17, struct lfs_fcntl_markv)
 #define LFCNRECLAIM	 _FCNO_FSPRIV('L', 4)
 
 struct lfs_fhandle {

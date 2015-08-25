@@ -99,6 +99,7 @@ SRCS+= \
 	adwalk.c \
 	ahids.c \
 	ahpredef.c \
+	ahtable.c \
 	ahuuids.c \
 	cmfsize.c \
 	dmextern.c \
@@ -117,7 +118,6 @@ SRCS+= \
 	dmcstyle.c \
 	dmdeferred.c \
 	dmnames.c \
-	dmobject.c \
 	dmopcode.c \
 	dmresrc.c \
 	dmresrcl.c \
@@ -218,6 +218,7 @@ SRCS+= \
 	utmath.c \
 	utmisc.c \
 	utmutex.c \
+	utnonansi.c \
 	utobject.c \
 	utosi.c \
 	utownerid.c \

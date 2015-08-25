@@ -114,6 +114,9 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <compat/sys/socket.h>
 #include <compat/sys/sockio.h>
+
+#include "ioconf.h"
+
 /*
  * It is not easy to calculate the right value for a GRE MTU.
  * We leave this task to the admin and use the same default that
@@ -1424,8 +1427,6 @@ out:
 	splx(s);
 	return error;
 }
-
-void	greattach(int);
 
 /* ARGSUSED */
 void

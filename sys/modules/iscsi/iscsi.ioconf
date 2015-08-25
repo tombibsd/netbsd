@@ -1,0 +1,7 @@
+#	$NetBSD$
+
+ioconf		iscsi
+
+include		"conf/files"
+
+pseudo-device   iscsi

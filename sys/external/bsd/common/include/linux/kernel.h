@@ -41,7 +41,7 @@
 
 #define	oops_in_progress	(panicstr != NULL)
 
-#define	IS_ENABLED(option)	0 /* XXX Hmm...  */
+#define	IS_ENABLED(option)	(option)
 
 #define	__printf	__printflike
 #define	__user

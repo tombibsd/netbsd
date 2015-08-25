@@ -40,7 +40,7 @@ options 	MEMORY_DISK_RBFLAGS=RB_SINGLE	# boot in single-user mode
 #options 	DDB
 #options 	DDB_HISTORY_SIZE=512	# enable history editing in DDB
 #options 	KTRACE
-#options 	DIAGNOSTIC,DEBUG,KMEMSTATS,PMAPDEBUG,TRAPDEBUG
+#options 	DIAGNOSTIC,DEBUG,PMAPDEBUG,TRAPDEBUG
 
 #options 	SCSIVERBOSE		# Verbose SCSI errors
 

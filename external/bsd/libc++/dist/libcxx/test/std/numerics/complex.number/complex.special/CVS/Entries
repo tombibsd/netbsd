@@ -1,0 +1,13 @@
+/double_float_explicit.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/double_float_implicit.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/double_long_double_explicit.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/double_long_double_implicit.fail.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/float_double_explicit.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/float_double_implicit.fail.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/float_long_double_explicit.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/float_long_double_implicit.fail.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/long_double_double_explicit.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/long_double_double_implicit.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/long_double_float_explicit.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/long_double_float_implicit.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+D

@@ -693,7 +693,6 @@ getsiocsr(struct sioreg *sio)
 
 /*---------------------  console interface ----------------------*/
 
-void syscnattach(int);
 int  syscngetc(dev_t);
 void syscnputc(dev_t, int);
 

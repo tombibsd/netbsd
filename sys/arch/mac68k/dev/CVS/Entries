@@ -11,7 +11,7 @@
 /akbdvar.h/1.10/Sat Oct 27 17:17:59 2012/-kk/
 /ams.c/1.22/Thu Oct 24 10:28:57 2013/-kk/
 /amsvar.h/1.9/Sat Oct 27 17:17:59 2012/-kk/
-/grf_compat.c/1.27/Sat Dec 27 03:35:35 2014/-kk/
+/grf_compat.c/1.28/Tue Aug 25 04:51:07 2015/-kk/
 /grf_subr.c/1.21/Sat Oct 27 17:17:59 2012/-kk/
 /grfvar.h/1.31/Sat Oct 27 17:17:59 2012/-kk/
 /if_ae.c/1.80/Tue Jan 19 22:06:20 2010/-kk/
@@ -22,7 +22,7 @@
 /if_mcvar.h/1.16/Sat Oct 27 17:17:59 2012/-kk/
 /if_sn.c/1.47/Wed Oct 17 19:55:13 2007/-kk/
 /if_snvar.h/1.21/Wed Oct 17 19:55:13 2007/-kk/
-/ite_compat.c/1.12/Fri Oct  3 09:09:02 2014/-kk/
+/ite_compat.c/1.13/Tue Aug 25 04:51:07 2015/-kk/
 /mac68k5380.c/1.49/Tue Oct 29 08:21:39 2013/-kk/
 /maccons.c/1.9/Wed Oct 17 19:55:13 2007/-kk/
 /macfb.c/1.20/Sat Oct 27 17:17:59 2012/-kk/

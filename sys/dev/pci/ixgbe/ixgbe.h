@@ -107,6 +107,7 @@
 #include <sys/endian.h>
 #include <sys/workqueue.h>
 #include <sys/cpu.h>
+#include <sys/interrupt.h>
 
 #include "ixgbe_netbsd.h"
 #include "ixgbe_api.h"

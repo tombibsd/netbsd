@@ -72,14 +72,14 @@ lfs_itimes(struct inode *ip, const struct timespec *acc,
 #endif
 		ip->i_ffs1_atime = acc->tv_sec;
 		ip->i_ffs1_atimensec = acc->tv_nsec;
-		if (lfs_sb_getversion(ip->i_lfs) > 1) {
+		if (ip->i_lfs->lfs_is64 || lfs_sb_getversion(ip->i_lfs) > 1) {
 			struct lfs *fs = ip->i_lfs;
 			struct buf *ibp;
 			IFILE *ifp;
 
 			LFS_IENTRY(ifp, ip->i_lfs, ip->i_number, ibp);
-			ifp->if_atime_sec = acc->tv_sec;
-			ifp->if_atime_nsec = acc->tv_nsec;
+			lfs_if_setatime_sec(fs, ifp, acc->tv_sec);
+			lfs_if_setatime_nsec(fs, ifp, acc->tv_nsec);
 			LFS_BWRITE_LOG(ibp);
 			mutex_enter(&lfs_lock);
 			fs->lfs_flags |= LFS_IFDIRTY;

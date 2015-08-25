@@ -105,6 +105,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/time.h>
 #include <net/bpf.h>
 
+#include "ioconf.h"
+
 /*
  * SLMAX is a hard limit on input packet size.  To simplify the code
  * and improve performance, we require that packets fit in an mbuf
@@ -211,10 +213,8 @@ static struct linesw slip_disc = {
 	.l_poll = ttyerrpoll
 };
 
-void	slattach(void);
-
 void
-slattach(void)
+slattach(int n __unused)
 {
 
 	if (ttyldisc_attach(&slip_disc) != 0)

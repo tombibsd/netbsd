@@ -52,6 +52,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <xen/xenio3.h>
 #include <xen/xen.h>
 
+#include "ioconf.h"
+
 /*
  * Interface between the event channel and userland.
  * Each process with a xenevt device instance open can regiter events it
@@ -62,7 +64,6 @@ __KERNEL_RCSID(0, "$NetBSD$");
  * Processes get a device instance by opening a cloning device.
  */
 
-void		xenevtattach(int);
 static int	xenevt_fread(struct file *, off_t *, struct uio *,
     kauth_cred_t, int);
 static int	xenevt_fwrite(struct file *, off_t *, struct uio *,

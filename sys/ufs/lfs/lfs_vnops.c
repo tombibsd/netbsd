@@ -1357,7 +1357,7 @@ lfs_reclaim(void *v)
 	}
 	mutex_exit(&lfs_lock);
 
-	pool_put(&lfs_dinode_pool, ip->i_din.ffs1_din);
+	pool_put(&lfs_dinode_pool, ip->i_din);
 	lfs_deregister_all(vp);
 	pool_put(&lfs_inoext_pool, ip->inode_ext.lfs);
 	ip->inode_ext.lfs = NULL;
@@ -1504,8 +1504,9 @@ lfs_flush_dirops(struct lfs *fs)
 {
 	struct inode *ip, *nip;
 	struct vnode *vp;
-	extern int lfs_dostats;
+	extern int lfs_dostats; /* XXX this does not belong here */
 	struct segment *sp;
+	SEGSUM *ssp;
 	int flags = 0;
 	int error = 0;
 
@@ -1605,7 +1606,8 @@ lfs_flush_dirops(struct lfs *fs)
 	}
 	mutex_exit(&lfs_lock);
 	/* We've written all the dirops there are */
-	((SEGSUM *)(sp->segsum))->ss_flags &= ~(SS_CONT);
+	ssp = (SEGSUM *)sp->segsum;
+	lfs_ss_setflags(fs, ssp, lfs_ss_getflags(fs, ssp) & ~(SS_CONT));
 	lfs_finalize_fs_seguse(fs);
 	(void) lfs_writeseg(fs, sp);
 	lfs_segunlock(fs);
@@ -1721,6 +1723,33 @@ lfs_flush_pchain(struct lfs *fs)
 }
 
 /*
+ * Conversion for compat.
+ */
+static void
+block_info_from_70(BLOCK_INFO *bi, const BLOCK_INFO_70 *bi70)
+{
+	bi->bi_inode = bi70->bi_inode;
+	bi->bi_lbn = bi70->bi_lbn;
+	bi->bi_daddr = bi70->bi_daddr;
+	bi->bi_segcreate = bi70->bi_segcreate;
+	bi->bi_version = bi70->bi_version;
+	bi->bi_bp = bi70->bi_bp;
+	bi->bi_size = bi70->bi_size;
+}
+
+static void
+block_info_to_70(BLOCK_INFO_70 *bi70, const BLOCK_INFO *bi)
+{
+	bi70->bi_inode = bi->bi_inode;
+	bi70->bi_lbn = bi->bi_lbn;
+	bi70->bi_daddr = bi->bi_daddr;
+	bi70->bi_segcreate = bi->bi_segcreate;
+	bi70->bi_version = bi->bi_version;
+	bi70->bi_bp = bi->bi_bp;
+	bi70->bi_size = bi->bi_size;
+}
+
+/*
  * Provide a fcntl interface to sys_lfs_{segwait,bmapv,markv}.
  */
 int
@@ -1736,11 +1765,13 @@ lfs_fcntl(void *v)
 	struct timeval tv;
 	struct timeval *tvp;
 	BLOCK_INFO *blkiov;
+	BLOCK_INFO_70 *blkiov70;
 	CLEANERINFO *cip;
 	SEGUSE *sup;
-	int blkcnt, error;
+	int blkcnt, i, error;
 	size_t fh_size;
 	struct lfs_fcntl_markv blkvp;
+	struct lfs_fcntl_markv_70 blkvp70;
 	struct lwp *l;
 	fsid_t *fsidp;
 	struct lfs *fs;
@@ -1775,7 +1806,7 @@ lfs_fcntl(void *v)
 	    case LFCNSEGWAITALL_COMPAT_50:
 	    case LFCNSEGWAITALL_COMPAT:
 		fsidp = NULL;
-		/* FALLSTHROUGH */
+		/* FALLTHROUGH */
 	    case LFCNSEGWAIT_COMPAT_50:
 	    case LFCNSEGWAIT_COMPAT:
 		{
@@ -1787,7 +1818,7 @@ lfs_fcntl(void *v)
 		goto segwait_common;
 	    case LFCNSEGWAITALL:
 		fsidp = NULL;
-		/* FALLSTHROUGH */
+		/* FALLTHROUGH */
 	    case LFCNSEGWAIT:
 		tvp = (struct timeval *)ap->a_data;
 segwait_common:
@@ -1801,6 +1832,50 @@ segwait_common:
 		if (--fs->lfs_sleepers == 0)
 			wakeup(&fs->lfs_sleepers);
 		mutex_exit(&lfs_lock);
+		return error;
+
+	    case LFCNBMAPV_COMPAT_70:
+	    case LFCNMARKV_COMPAT_70:
+		blkvp70 = *(struct lfs_fcntl_markv_70 *)ap->a_data;
+
+		blkcnt = blkvp70.blkcnt;
+		if ((u_int) blkcnt > LFS_MARKV_MAXBLKCNT)
+			return (EINVAL);
+		blkiov = lfs_malloc(fs, blkcnt * sizeof(BLOCK_INFO), LFS_NB_BLKIOV);
+		blkiov70 = lfs_malloc(fs, sizeof(BLOCK_INFO_70), LFS_NB_BLKIOV);
+		for (i = 0; i < blkcnt; i++) {
+			error = copyin(&blkvp70.blkiov[i], blkiov70,
+				       sizeof(*blkiov70));
+			if (error) {
+				lfs_free(fs, blkiov70, LFS_NB_BLKIOV);
+				lfs_free(fs, blkiov, LFS_NB_BLKIOV);
+				return error;
+			}
+			block_info_from_70(&blkiov[i], blkiov70);
+		}
+
+		mutex_enter(&lfs_lock);
+		++fs->lfs_sleepers;
+		mutex_exit(&lfs_lock);
+		if (ap->a_command == LFCNBMAPV)
+			error = lfs_bmapv(l, fsidp, blkiov, blkcnt);
+		else /* LFCNMARKV */
+			error = lfs_markv(l, fsidp, blkiov, blkcnt);
+		if (error == 0) {
+			for (i = 0; i < blkcnt; i++) {
+				block_info_to_70(blkiov70, &blkiov[i]);
+				error = copyout(blkiov70, &blkvp70.blkiov[i],
+						sizeof(*blkiov70));
+				if (error) {
+					break;
+				}
+			}
+		}
+		mutex_enter(&lfs_lock);
+		if (--fs->lfs_sleepers == 0)
+			wakeup(&fs->lfs_sleepers);
+		mutex_exit(&lfs_lock);
+		lfs_free(fs, blkiov, LFS_NB_BLKIOV);
 		return error;
 
 	    case LFCNBMAPV:
@@ -1821,9 +1896,9 @@ segwait_common:
 		++fs->lfs_sleepers;
 		mutex_exit(&lfs_lock);
 		if (ap->a_command == LFCNBMAPV)
-			error = lfs_bmapv(l->l_proc, fsidp, blkiov, blkcnt);
+			error = lfs_bmapv(l, fsidp, blkiov, blkcnt);
 		else /* LFCNMARKV */
-			error = lfs_markv(l->l_proc, fsidp, blkiov, blkcnt);
+			error = lfs_markv(l, fsidp, blkiov, blkcnt);
 		if (error == 0)
 			error = copyout(blkiov, blkvp.blkiov,
 					blkcnt * sizeof(BLOCK_INFO));
@@ -1844,7 +1919,7 @@ segwait_common:
 		lfs_seglock(fs, SEGM_FORCE_CKP | SEGM_CKP);
 		lfs_flush_dirops(fs);
 		LFS_CLEANERINFO(cip, fs, bp);
-		oclean = cip->clean;
+		oclean = lfs_ci_getclean(fs, cip);
 		LFS_SYNC_CLEANERINFO(cip, fs, bp, 1);
 		lfs_segwrite(ap->a_vp->v_mount, SEGM_FORCE_CKP);
 		fs->lfs_sp->seg_flags |= SEGM_PROT;
@@ -1855,7 +1930,8 @@ segwait_common:
 		LFS_CLEANERINFO(cip, fs, bp);
 		DLOG((DLOG_CLEAN, "lfs_fcntl: reclaim wrote %" PRId64
 		      " blocks, cleaned %" PRId32 " segments (activesb %d)\n",
-		      lfs_sb_getoffset(fs) - off, cip->clean - oclean,
+		      lfs_sb_getoffset(fs) - off,
+		      lfs_ci_getclean(fs, cip) - oclean,
 		      fs->lfs_activesb));
 		LFS_SYNC_CLEANERINFO(cip, fs, bp, 0);
 #else
@@ -2026,10 +2102,13 @@ lfs_dump_vop(void *v)
 		int a_flags;
 	} */ *ap = v;
 
+	struct inode *ip = VTOI(ap->a_vp);
+	struct lfs *fs = ip->i_lfs;
+
 #ifdef DDB
 	vfs_vnode_print(ap->a_vp, 0, printf);
 #endif
-	lfs_dump_dinode(VTOI(ap->a_vp)->i_din.ffs1_din);
+	lfs_dump_dinode(fs, ip->i_din);
 }
 #endif
 

@@ -250,7 +250,7 @@
 ./usr/libdata/debug/usr/lib/libskey.so.2.0.debug		comp-sys-debug	debug,compatfile,skey
 ./usr/libdata/debug/usr/lib/libsl.so.5.0.debug			comp-krb5-debug	debug,compatfile,kerberos
 ./usr/libdata/debug/usr/lib/libsqlite3.so.1.2.debug		comp-sys-debug	debug,compatfile
-./usr/libdata/debug/usr/lib/libssh.so.25.0.debug		comp-secsh-debug	debug,compatfile,crypto
+./usr/libdata/debug/usr/lib/libssh.so.26.0.debug		comp-secsh-debug	debug,compatfile,crypto
 ./usr/libdata/debug/usr/lib/libssl.so.10.5.debug		comp-crypto-debug	debug,compatfile,crypto
 ./usr/libdata/debug/usr/lib/libstdc++.so.7.3.debug		comp-sys-debug	debug,compatfile,gcc,cxx,libstdcxx
 ./usr/libdata/debug/usr/lib/libterminfo.so.1.0.debug		comp-sys-debug	debug,compatfile

@@ -1,0 +1,23 @@
+/emplace.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/emplace_back.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/emplace_front.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/erase_iter.invalidation.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/erase_iter.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/erase_iter_iter.invalidation.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/erase_iter_iter.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/insert_iter_initializer_list.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/insert_iter_iter.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/insert_rvalue.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/insert_size_value.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/insert_value.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/pop_back.invalidation.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/pop_back.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/pop_front.invalidation.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/pop_front.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/push_back.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/push_back_exception_safety.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/push_back_rvalue.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/push_front.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/push_front_exception_safety.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/push_front_rvalue.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+D

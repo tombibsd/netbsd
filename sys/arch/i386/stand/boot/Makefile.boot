@@ -132,7 +132,7 @@ vers.c: ${VERSIONFILE} ${SOURCES} ${LIBLIST} ${.CURDIR}/../Makefile.boot
 # Anything that calls 'real_to_prot' must have a %pc < 0x10000.
 # We link the program, find the callers (all in libi386), then
 # explicitly pull in the required objects before any other library code.
-${PROG}: ${OBJS} ${LIBLIST} ${.CURDIR}/../Makefile.boot
+${PROG}: ${OBJS} ${LIBLIST} ${LDSCRIPT} ${.CURDIR}/../Makefile.boot
 	${_MKTARGET_LINK}
 	bb="$$( ${CC} -o ${PROG}.sym ${LDFLAGS} -Wl,-Ttext,0 -Wl,-cref \
 	    ${OBJS} ${LIBLIST} | ( \

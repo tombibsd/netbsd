@@ -1,5 +1,5 @@
 /*	$NetBSD$	*/
-/* $OpenBSD: auth2-chall.c,v 1.42 2015/01/19 20:07:45 markus Exp $ */
+/* $OpenBSD: auth2-chall.c,v 1.43 2015/07/18 07:57:14 djm Exp $ */
 /*
  * Copyright (c) 2001 Markus Friedl.  All rights reserved.
  * Copyright (c) 2001 Per Allansson.  All rights reserved.

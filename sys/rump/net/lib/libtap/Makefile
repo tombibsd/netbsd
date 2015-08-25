@@ -4,7 +4,7 @@
 .PATH:	${.CURDIR}/../../../../net
 
 LIB=	rumpnet_tap
-
+IOCONF=	TAP.ioconf
 SRCS=	if_tap.c
 
 SRCS+=	tap_component.c

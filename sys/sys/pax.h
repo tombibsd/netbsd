@@ -51,8 +51,6 @@ struct vmspace;
 
 void pax_init(void);
 void pax_setup_elf_flags(struct lwp *, uint32_t);
-void pax_adjust(struct lwp *, uint32_t);
-
 void pax_mprotect(struct lwp *, vm_prot_t *, vm_prot_t *);
 int pax_segvguard(struct lwp *, struct vnode *, const char *, bool);
 

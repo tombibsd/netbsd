@@ -959,6 +959,7 @@ nd6_lookup1(const struct in6_addr *addr6, int create, struct ifnet *ifp,
 			    ip6_sprintf(addr6),
 			    ifp ? if_name(ifp) : "unspec"));
 		}
+		rtfree(rt);
 		return NULL;
 	}
 	return rt;
@@ -2247,9 +2248,6 @@ nd6_output(struct ifnet *ifp, struct ifnet *origifp, struct mbuf *m0,
 		 * it is tolerable, because this should be a rare case.
 		 */
 		if (nd6_is_addr_neighbor(dst, ifp)) {
-			if (rt != NULL && rt != rt00)
-				rtfree(rt);
-
 			RTFREE_IF_NEEDED(rt);
 			rt = nd6_lookup(&dst->sin6_addr, 1, ifp);
 			if (rt != NULL)

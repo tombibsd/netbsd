@@ -370,7 +370,7 @@ ehci_init(ehci_softc_t *sc)
 #endif
 
 	mutex_init(&sc->sc_lock, MUTEX_DEFAULT, IPL_SOFTUSB);
-	mutex_init(&sc->sc_intr_lock, MUTEX_DEFAULT, IPL_SCHED);
+	mutex_init(&sc->sc_intr_lock, MUTEX_DEFAULT, IPL_USB);
 	cv_init(&sc->sc_softwake_cv, "ehciab");
 	cv_init(&sc->sc_doorbell, "ehcidi");
 

@@ -601,7 +601,7 @@ lfs_flush(struct lfs *fs, int flags, int only_onefs)
 }
 
 #define INOCOUNT(fs) howmany(lfs_sb_getuinodes(fs), LFS_INOPB(fs))
-#define INOBYTES(fs) (lfs_sb_getuinodes(fs) * sizeof (struct ulfs1_dinode))
+#define INOBYTES(fs) (lfs_sb_getuinodes(fs) * DINOSIZE(fs))
 
 /*
  * make sure that we don't have too many locked buffers.

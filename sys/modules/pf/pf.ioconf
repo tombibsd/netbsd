@@ -1,0 +1,8 @@
+#	$NetBSD$
+
+ioconf		pf
+
+include		"conf/files"
+
+pseudo-device   pf
+pseudo-device   pflog

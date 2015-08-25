@@ -77,8 +77,8 @@ lock_stubs.o: ${I386}/i386/lock_stubs.S assym.h
 ##
 TEXTADDR?=	c0100000
 LINKFLAGS_NORMAL=	-X
-KERN_LDSCRIPT?=	kern.ldscript
-LINKSCRIPT=	-T ${I386}/conf/${KERN_LDSCRIPT}
+KERNLDSCRIPT?=	${I386}/conf/kern.ldscript
+LINKSCRIPT=	-T ${KERNLDSCRIPT}
 
 ##
 ## (6) port specific target dependencies

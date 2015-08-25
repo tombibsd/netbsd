@@ -1,6 +1,6 @@
 /Makefile/1.2/Tue Nov 26 23:30:30 2002/-kk/
 /dmover_backend.c/1.9/Sat May 14 18:24:47 2011/-kk/
-/dmover_io.c/1.43/Fri Oct  3 09:09:13 2014/-kk/
+/dmover_io.c/1.44/Tue Aug 25 04:51:15 2015/-kk/
 /dmover_io.h/1.3/Sun Dec 11 12:21:20 2005/-kk/
 /dmover_process.c/1.5/Sat May 14 14:49:19 2011/-kk/
 /dmover_request.c/1.8/Sat May 14 18:24:47 2011/-kk/
@@ -8,5 +8,5 @@
 /dmover_util.c/1.5/Sun Dec 11 12:21:20 2005/-kk/
 /dmovervar.h/1.10/Sat Dec 24 20:27:29 2005/-kk/
 /files.dmover/1.1/Fri Aug  2 00:30:40 2002/-kk/
-/swdmover.c/1.12/Fri Jan  4 21:17:53 2008/-kk/
+/swdmover.c/1.13/Tue Aug 25 04:51:15 2015/-kk/
 D

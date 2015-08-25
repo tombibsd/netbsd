@@ -1,12 +1,12 @@
-/osbsdtbl.c/1.1.1.1/Mon Apr 13 17:21:06 2015/-kk/
-/osefitbl.c/1.1.1.2/Wed Apr 22 07:37:10 2015/-kk/
-/osefixf.c/1.1.1.2/Wed Apr 22 07:37:10 2015/-kk/
+/osbsdtbl.c/1.1.1.2/Tue Aug 25 04:51:21 2015/-kk/
+/osefitbl.c/1.1.1.3/Tue Aug 25 04:51:21 2015/-kk/
+/osefixf.c/1.1.1.3/Tue Aug 25 04:51:21 2015/-kk/
 /oslibcfs.c/1.1.1.2/Wed Apr 22 07:37:10 2015/-kk/
-/oslinuxtbl.c/1.4/Wed Apr 22 07:37:11 2015/-kk/
+/oslinuxtbl.c/1.5/Tue Aug 25 04:51:21 2015/-kk/
 /osunixdir.c/1.1.1.5/Wed Apr 22 07:37:11 2015/-kk/
-/osunixmap.c/1.1.1.3/Wed Apr 22 07:37:11 2015/-kk/
+/osunixmap.c/1.1.1.4/Tue Aug 25 04:51:21 2015/-kk/
 /osunixxf.c/1.1.1.6/Wed Apr 22 07:37:11 2015/-kk/
 /oswindir.c/1.1.1.5/Wed Apr 22 07:37:11 2015/-kk/
-/oswintbl.c/1.1.1.5/Wed Apr 22 07:37:11 2015/-kk/
+/oswintbl.c/1.1.1.6/Tue Aug 25 04:51:21 2015/-kk/
 /oswinxf.c/1.1.1.6/Wed Apr 22 07:37:11 2015/-kk/
 D

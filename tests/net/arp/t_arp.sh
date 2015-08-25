@@ -140,8 +140,7 @@ test_cache_expiration()
 	$DEBUG && rump.arp -n -a
 	atf_check -s exit:0 -o ignore rump.arp -n $IP4SRC
 	# Should be expired
-	#atf_check -s not-exit:0 -e ignore rump.arp -n $IP4DST
-	atf_check -s exit:0 -o match:'incomplete' rump.arp -n $IP4DST
+	atf_check -s not-exit:0 -e ignore rump.arp -n $IP4DST
 }
 
 cache_expiration_5s_body()
@@ -227,7 +226,7 @@ command_body()
 	# Hm? the cache doesn't expire...
 	atf_check -s exit:0 sleep $(($arp_keep + $arp_prune + $bonus))
 	$DEBUG && rump.arp -n -a
-	#atf_check -s exit:0 -o match:'incomplete' rump.arp -n 10.0.1.10
+	#atf_check -s not-exit:0 -e ignore rump.arp -n 10.0.1.10
 
 	return 0
 }

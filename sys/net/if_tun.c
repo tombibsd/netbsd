@@ -58,11 +58,12 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <net/if_tun.h>
 
+#include "ioconf.h"
+
 #define TUNDEBUG	if (tundebug) printf
 int	tundebug = 0;
 
 extern int ifqmaxlen;
-void	tunattach(int);
 
 static LIST_HEAD(, tun_softc) tun_softc_list;
 static LIST_HEAD(, tun_softc) tunz_softc_list;

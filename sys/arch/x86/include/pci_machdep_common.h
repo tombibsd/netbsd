@@ -118,7 +118,6 @@ const struct evcnt *pci_intr_evcnt(pci_chipset_tag_t, pci_intr_handle_t);
 void		*pci_intr_establish(pci_chipset_tag_t, pci_intr_handle_t,
 		    int, int (*)(void *), void *);
 void		pci_intr_disestablish(pci_chipset_tag_t, void *);
-int		pci_intr_distribute(void *, const kcpuset_t *, kcpuset_t *);
 
 typedef enum {
 	PCI_INTR_TYPE_INTX = 0,
@@ -145,14 +144,12 @@ int		pci_intr_alloc(const struct pci_attach_args *,
 		    pci_intr_handle_t **, int *, pci_intr_type_t);
 
 /* experimental MSI support */
-int		pci_msi_count(const struct pci_attach_args *);
 int		pci_msi_alloc(const struct pci_attach_args *,
 		    pci_intr_handle_t **, int *);
 int		pci_msi_alloc_exact(const struct pci_attach_args *,
 		    pci_intr_handle_t **, int);
 
 /* experimental MSI-X support */
-int		pci_msix_count(const struct pci_attach_args *);
 int		pci_msix_alloc(const struct pci_attach_args *,
 		    pci_intr_handle_t **, int *);
 int		pci_msix_alloc_exact(const struct pci_attach_args *,

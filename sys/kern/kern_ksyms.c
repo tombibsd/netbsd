@@ -95,6 +95,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #endif
 
 #include "ksyms.h"
+#include "ioconf.h"
 
 #define KSYMS_MAX_ID	65536
 #ifdef KDTRACE_HOOKS
@@ -110,7 +111,6 @@ static bool ksyms_loaded;
 static kmutex_t ksyms_lock __cacheline_aligned;
 static struct ksyms_symtab kernel_symtab;
 
-void ksymsattach(int);
 static void ksyms_hdr_init(void *);
 static void ksyms_sizes_calc(void);
 

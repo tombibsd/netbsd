@@ -124,7 +124,14 @@ cache_expiration_body()
 	$DEBUG && rump.ndp -n -a
 	atf_check -s exit:0 -o match:'permanent' rump.ndp -n $IP6SRC
 	# Expired but remains until GC sweaps it (1 day)
-	atf_check -s exit:0 -o match:'23h59m' rump.ndp -n $IP6DST
+	atf_check -s exit:0 -o match:'(1d0h0m|23h59m)' rump.ndp -n $IP6DST
+}
+
+ifdown_dst_server()
+{
+	export RUMP_SERVER=$SOCKDST
+	atf_check -s exit:0 rump.ifconfig shmif0 down
+	export RUMP_SERVER=$SOCKSRC
 }
 
 command_body()
@@ -169,6 +176,9 @@ command_body()
 	# Test ndp -a
 	atf_check -s exit:0 -o match:'fc00::11' rump.ndp -n -a
 	atf_check -s exit:0 -o match:'fc00::12' rump.ndp -n -a
+
+	# Ensure no packet upsets the src server
+	ifdown_dst_server
 
 	# Flush all entries (-c)
 	$DEBUG && rump.ndp -n -a

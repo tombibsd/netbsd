@@ -79,10 +79,10 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <netinet/ip_encap.h>
 #include <net/if_gif.h>
 
-
 #include <net/net_osdep.h>
 
-void	gifattach(int);
+#include "ioconf.h"
+
 static void	gifintr(void *);
 
 /*

@@ -53,7 +53,9 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <atari/dev/grfabs_reg.h>
 #include <atari/dev/viewioctl.h>
 #include <atari/dev/viewvar.h>
+
 #include "view.h"
+#include "ioconf.h"
 
 static void view_display(struct view_softc *);
 static void view_remove(struct view_softc *);
@@ -93,8 +95,6 @@ const struct cdevsw view_cdevsw = {
 /* 
  *  functions for probeing.
  */
-void	viewattach(int);
-
 void
 viewattach(int cnt)
 {

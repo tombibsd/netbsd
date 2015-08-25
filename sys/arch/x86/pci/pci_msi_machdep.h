@@ -34,13 +34,13 @@ const char	*x86_pci_msi_string(pci_chipset_tag_t, pci_intr_handle_t,
 void		x86_pci_msi_release(pci_chipset_tag_t, pci_intr_handle_t *,
 		    int);
 void		*x86_pci_msi_establish(pci_chipset_tag_t, pci_intr_handle_t,
-		    int, int (*)(void *), void *);
+		    int, int (*)(void *), void *, const char *);
 void		x86_pci_msi_disestablish(pci_chipset_tag_t, void *);
 
 void		x86_pci_msix_release(pci_chipset_tag_t, pci_intr_handle_t *,
 		    int);
 void		*x86_pci_msix_establish(pci_chipset_tag_t, pci_intr_handle_t,
-		    int, int (*)(void *), void *);
+		    int, int (*)(void *), void *, const char *xname);
 void		x86_pci_msix_disestablish(pci_chipset_tag_t, void *);
 
 #endif /* _X86_PCI_PCI_MSI_MACHDEP_H_ */

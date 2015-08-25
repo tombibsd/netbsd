@@ -50,7 +50,7 @@ __weak_alias(reallocarr, _reallocarr)
 #endif
 #endif
 
-#define SQRT_SIZE_MAX (1UL << (sizeof(size_t) << 2))
+#define SQRT_SIZE_MAX (((size_t)1) << (sizeof(size_t) * CHAR_BIT / 2))
 
 #if !HAVE_REALLOCARR
 int
@@ -70,14 +70,20 @@ reallocarr(void *ptr, size_t number, size_t size)
 		return 0;
 	}
 
-	if ((number >= SQRT_SIZE_MAX || size >= SQRT_SIZE_MAX) &&
-	    number > SIZE_MAX / size) {
+	/*
+	 * Try to avoid division here.
+	 *
+	 * It isn't possible to overflow during multiplication if neither
+	 * operand uses any of the most significant half of the bits.
+	 */
+	if (__predict_false((number|size) >= SQRT_SIZE_MAX &&
+	                    number > SIZE_MAX / size)) {
 		errno = saved_errno;
 		return EOVERFLOW;
 	}
 
 	nptr = realloc(optr, number * size);
-	if (nptr == NULL) {
+	if (__predict_false(nptr == NULL)) {
 		result = errno;
 	} else {
 		result = 0;

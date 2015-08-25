@@ -75,6 +75,7 @@
 #include <sys/proc.h>
 #include <sys/sysctl.h>
 #include <sys/endian.h>
+#include <sys/interrupt.h>
 
 #include "ixgbe_netbsd.h"
 #include "ixgbe_api.h"

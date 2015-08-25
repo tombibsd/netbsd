@@ -46,6 +46,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <opencrypto/cryptosoft_xform.c>
 
+#include "ioconf.h"
+
 union authctx {
 	MD5_CTX md5ctx;
 	SHA1_CTX sha1ctx;
@@ -1317,7 +1319,6 @@ swcr_init(void)
 /*
  * Pseudo-device init routine for software crypto.
  */
-void	swcryptoattach(int);
 
 void
 swcryptoattach(int num)

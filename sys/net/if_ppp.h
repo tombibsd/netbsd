@@ -172,8 +172,6 @@ struct ppp_rawin {
 #endif
 
 #if defined(_KERNEL) || defined(KERNEL)
-void	pppattach(void);
-
 struct compressor;
 int	ppp_register_compressor(struct compressor *, size_t);
 int	ppp_unregister_compressor(struct compressor *, size_t);

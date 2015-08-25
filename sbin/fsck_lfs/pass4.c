@@ -82,7 +82,7 @@ pass4(void)
 {
 	ino_t inumber;
 	struct zlncnt *zlnp;
-	struct ulfs1_dinode *dp;
+	union lfs_dinode *dp;
 	struct inodesc idesc;
 	int n;
 
@@ -119,7 +119,7 @@ pass4(void)
 			if (check_orphan(&idesc))
 				break;
 			dp = ginode(inumber);
-			if (dp->di_size == 0) {
+			if (lfs_dino_getsize(fs, dp) == 0) {
 				const char * msg = (lncntp[inumber] ?
 					"ZERO LENGTH" : "UNREF ZERO LENGTH");
 				clri(&idesc, msg, 1);

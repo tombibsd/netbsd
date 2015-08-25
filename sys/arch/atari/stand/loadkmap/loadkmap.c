@@ -11,8 +11,8 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-int load_kmap(const char *, int);
-int dump_kmap(void); 
+static int load_kmap(const char *, int);
+static int dump_kmap(void); 
 
 int
 main(int argc, char *argv[])
@@ -41,7 +41,7 @@ main(int argc, char *argv[])
 }
 
 
-int
+static int
 load_kmap(const char *file, int set_sysmap)
 {
 	int	fd;
@@ -66,7 +66,7 @@ load_kmap(const char *file, int set_sysmap)
 	return 1;
 }
 
-int
+static int
 dump_kmap(void)
 {
 	char buf[sizeof (struct kbdmap)];

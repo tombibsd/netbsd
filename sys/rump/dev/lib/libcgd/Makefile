@@ -4,7 +4,7 @@
 .PATH:	${.CURDIR}/../../../../dev
 
 LIB=	rumpdev_cgd
-
+IOCONF=	CGD.ioconf
 SRCS=   cgd.c cgd_crypto.c
 
 SRCS+=	cgd_component.c

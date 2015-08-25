@@ -1,0 +1,19 @@
+/clear.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/emplace.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/emplace_hint.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/erase_const_iter.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/erase_iter_db1.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/erase_iter_db2.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/erase_iter_iter_db1.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/erase_iter_iter_db2.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/erase_iter_iter_db3.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/erase_iter_iter_db4.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/erase_key.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/erase_range.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/insert_const_lvalue.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/insert_hint_const_lvalue.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/insert_hint_rvalue.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/insert_init.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/insert_range.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/insert_rvalue.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+D

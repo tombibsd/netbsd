@@ -82,13 +82,13 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <net/net_osdep.h>
 
+#include "ioconf.h"
+
 static int	faithioctl(struct ifnet *, u_long, void *);
 static int	faithoutput(struct ifnet *, struct mbuf *,
 		            const struct sockaddr *, struct rtentry *);
 static void	faithrtrequest(int, struct rtentry *,
 		               const struct rt_addrinfo *);
-
-void	faithattach(int);
 
 static int	faith_clone_create(struct if_clone *, int);
 static int	faith_clone_destroy(struct ifnet *);

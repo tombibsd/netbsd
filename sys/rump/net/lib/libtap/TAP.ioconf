@@ -1,0 +1,7 @@
+#	$NetBSD$
+
+ioconf		tap
+
+include		"conf/files"
+
+pseudo-device   tap

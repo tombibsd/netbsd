@@ -51,8 +51,8 @@ SECTIONS
   .sbss      : { *(.sbss) *(.scommon) }
   .bss       :
   {
-   *(.bss)
-   *(COMMON)
+    *(.bss)
+    *(COMMON)
   }
   _end = . ;
   PROVIDE (end = .);

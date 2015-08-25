@@ -134,13 +134,13 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <compat/sys/sockio.h>
 
+#include "ioconf.h"
+
 struct etherip_softc_list etherip_softc_list;
 
 static int etherip_node;
 static int etherip_sysctl_handler(SYSCTLFN_PROTO);
 SYSCTL_SETUP_PROTO(sysctl_etherip_setup);
-
-void etheripattach(int);
 
 static int  etherip_match(device_t, cfdata_t, void *);
 static void etherip_attach(device_t, device_t, void *);

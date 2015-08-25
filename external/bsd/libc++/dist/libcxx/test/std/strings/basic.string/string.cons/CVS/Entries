@@ -1,0 +1,21 @@
+/alloc.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/char_assignment.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/copy.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/copy_alloc.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/copy_assignment.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/default_noexcept.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/dtor_noexcept.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/initializer_list.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/initializer_list_assignment.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/iter_alloc.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/move.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/move_alloc.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/move_assign_noexcept.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/move_assignment.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/move_noexcept.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/pointer_alloc.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/pointer_assignment.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/pointer_size_alloc.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/size_char_alloc.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/substr.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+D

@@ -53,6 +53,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <machine/cpu.h>
 #include <machine/iteioctl.h>
 
+#include "ioconf.h"
+
 dev_type_open(iteopen);
 dev_type_close(iteclose);
 dev_type_read(iteread);
@@ -80,8 +82,6 @@ const struct cdevsw ite_cdevsw = {
 #if NWSDISPLAY > 0
 extern const struct cdevsw wsdisplay_cdevsw;
 #endif
-
-void		iteattach(int);
 
 static int	ite_initted = 0;
 static int	ite_bell_freq = 1880;

@@ -65,7 +65,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <uvm/uvm.h>
 
-void fssattach(int);
+#include "ioconf.h"
 
 dev_type_open(fss_open);
 dev_type_close(fss_close);

@@ -54,12 +54,12 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include "npf_impl.h"
 #include "npf_conn.h"
 
+#include "ioconf.h"
+
 /*
  * Module and device structures.
  */
 MODULE(MODULE_CLASS_DRIVER, npf, NULL);
-
-void		npfattach(int);
 
 static int	npf_fini(void);
 static int	npf_dev_open(dev_t, int, int, lwp_t *);

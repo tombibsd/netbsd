@@ -100,6 +100,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <netinet/ip_carp.h>
 
+#include "ioconf.h"
+
 struct carp_mc_entry {
 	LIST_ENTRY(carp_mc_entry)	mc_entries;
 	union {
@@ -193,7 +195,6 @@ static int	carp_hmac_verify(struct carp_softc *, u_int32_t *,
 static void	carp_setroute(struct carp_softc *, int);
 static void	carp_proto_input_c(struct mbuf *, struct carp_header *,
 		    sa_family_t);
-void	carpattach(int);
 static void	carpdetach(struct carp_softc *);
 static int	carp_prepare_ad(struct mbuf *, struct carp_softc *,
 		    struct carp_header *);

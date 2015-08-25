@@ -1,0 +1,7 @@
+#	$NetBSD$
+
+ioconf		kern
+
+include		"conf/files"
+
+pseudo-device   ksyms

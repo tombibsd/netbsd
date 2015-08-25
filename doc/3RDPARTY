@@ -40,7 +40,7 @@
 #
 
 Package:	acpica
-Version:	20150410
+Version:	20150717
 Current Vers:	20150717
 Maintainer:	Intel
 Archive Site:	http://www.acpica.org/downloads/
@@ -450,8 +450,8 @@ Before importing a new version of external/gpl3/gcc:
 	- update tools/gcc/gcc-version.mk
 
 Package:	gdb
-Version:	7.7.1
-Current Vers:	7.9
+Version:	7.9.1
+Current Vers:	7.9.1
 Maintainer:	FSF
 Archive Site:	ftp://ftp.gnu.org/gnu/gdb/
 Home Page:	http://www.gnu.org/software/gdb/
@@ -997,8 +997,8 @@ Notes:
 Patch applied after OpenSSH import.
 
 Package:	OpenSSH
-Version:	6.9
-Current Vers:	6.9 / portable 6.9p1
+Version:	7.0
+Current Vers:	7.0 / portable 7.0p1
 Maintainer:	OpenSSH
 Archive Site:	http://www.openssh.com/ftp.html
 Home Page:	http://www.openssh.com/portable.html
@@ -1338,8 +1338,8 @@ Notes:
 Added changes from a5 -> a12 manually.
 
 Package:	tz
-Version:	tzcode2015d / tzdata2015e
-Current Vers:	tzcode2015e / tzdata2015e
+Version:	tzcode2015f / tzdata2015f
+Current Vers:	tzcode2015f / tzdata2015f
 Maintainer:	Paul Eggert <eggert@cs.ucla.edu>
 Archive Site:	ftp://ftp.iana.org/tz/releases/
 Archive Site:	ftp://munnari.oz.au/pub/oldtz/

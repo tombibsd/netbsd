@@ -243,6 +243,13 @@ SYSTEM_LD?=	@${_MKSHMSG} "   link  ${.CURDIR:T}/${.TARGET}"; \
 		${LD} -Map $@.map --cref ${LINKFLAGS} -o $@ '$${SYSTEM_OBJ}' '$${EXTRA_OBJ}' vers.o; \
 		${LD} -Map $@.map --cref ${LINKFLAGS} -o $@ ${SYSTEM_OBJ} ${EXTRA_OBJ} vers.o
 
+# Give MD generated ldscript dependency on ${SYSTEM_OBJ}
+.if defined(KERNLDSCRIPT)
+.if target(${KERNLDSCRIPT})
+${KERNLDSCRIPT}: ${SYSTEM_OBJ}
+.endif
+.endif
+
 TEXTADDR?=	${LOADADDRESS}			# backwards compatibility
 LINKTEXT?=	${TEXTADDR:C/.+/-Ttext &/}
 LINKDATA?=	${DATAADDR:C/.+/-Tdata &/}

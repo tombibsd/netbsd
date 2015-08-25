@@ -250,18 +250,74 @@ update_meta(struct lfs *fs, ino_t ino, int vers, daddr_t lbn,
 	return 0;
 }
 
+/*
+ * Copy some the fields of the dinode as needed by update_inoblk().
+ */
+static void
+update_inoblk_copy_dinode(struct lfs *fs,
+    union lfs_dinode *dstu, const union lfs_dinode *srcu)
+{
+	if (fs->lfs_is64) {
+		struct lfs64_dinode *dst = &dstu->u_64;
+		const struct lfs64_dinode *src = &srcu->u_64;
+		unsigned i;
+
+		/*
+		 * Copy everything but the block pointers and di_blocks.
+		 * XXX what about di_extb?
+		 */
+		dst->di_mode = src->di_mode;
+		dst->di_nlink = src->di_nlink;
+		dst->di_uid = src->di_uid;
+		dst->di_gid = src->di_gid;
+		dst->di_blksize = src->di_blksize;
+		dst->di_size = src->di_size;
+		dst->di_atime = src->di_atime;
+		dst->di_mtime = src->di_mtime;
+		dst->di_ctime = src->di_ctime;
+		dst->di_birthtime = src->di_birthtime;
+		dst->di_mtimensec = src->di_mtimensec;
+		dst->di_atimensec = src->di_atimensec;
+		dst->di_ctimensec = src->di_ctimensec;
+		dst->di_birthnsec = src->di_birthnsec;
+		dst->di_gen = src->di_gen;
+		dst->di_kernflags = src->di_kernflags;
+		dst->di_flags = src->di_flags;
+		dst->di_extsize = src->di_extsize;
+		dst->di_modrev = src->di_modrev;
+		dst->di_inumber = src->di_inumber;
+		for (i = 0; i < __arraycount(src->di_spare); i++) {
+			dst->di_spare[i] = src->di_spare[i];
+		}
+	} else {
+		struct lfs32_dinode *dst = &dstu->u_32;
+		const struct lfs32_dinode *src = &srcu->u_32;
+
+		/* Get mode, link count, size, and times */
+		memcpy(dst, src, offsetof(struct lfs32_dinode, di_db[0]));
+
+		/* Then the rest, except di_blocks */
+		dst->di_flags = src->di_flags;
+		dst->di_gen = src->di_gen;
+		dst->di_uid = src->di_uid;
+		dst->di_gid = src->di_gid;
+		dst->di_modrev = src->di_modrev;
+	}
+}
+
 static int
 update_inoblk(struct lfs *fs, daddr_t offset, kauth_cred_t cred,
 	      struct lwp *l)
 {
 	struct vnode *devvp, *vp;
 	struct inode *ip;
-	struct ulfs1_dinode *dip;
+	union lfs_dinode *dip;
 	struct buf *dbp, *ibp;
 	int error;
 	daddr_t daddr;
 	IFILE *ifp;
 	SEGUSE *sup;
+	unsigned i, num;
 
 	devvp = VTOI(fs->lfs_ivnode)->i_devvp;
 
@@ -275,10 +331,12 @@ update_inoblk(struct lfs *fs, daddr_t offset, kauth_cred_t cred,
 		DLOG((DLOG_RF, "update_inoblk: bread returned %d\n", error));
 		return error;
 	}
-	dip = ((struct ulfs1_dinode *)(dbp->b_data)) + LFS_INOPB(fs);
-	while (--dip >= (struct ulfs1_dinode *)dbp->b_data) {
-		if (dip->di_inumber > LFS_IFILE_INUM) {
-			error = lfs_rf_valloc(fs, dip->di_inumber, dip->di_gen,
+	num = LFS_INOPB(fs);
+	for (i = num; i-- > 0; ) {
+		dip = DINO_IN_BLOCK(fs, dbp->b_data, i);
+		if (lfs_dino_getinumber(fs, dip) > LFS_IFILE_INUM) {
+			error = lfs_rf_valloc(fs, lfs_dino_getinumber(fs, dip),
+					      lfs_dino_getgen(fs, dip),
 					      l, &vp);
 			if (error) {
 				DLOG((DLOG_RF, "update_inoblk: lfs_rf_valloc"
@@ -286,21 +344,19 @@ update_inoblk(struct lfs *fs, daddr_t offset, kauth_cred_t cred,
 				continue;
 			}
 			ip = VTOI(vp);
-			if (dip->di_size != ip->i_size)
-				lfs_truncate(vp, dip->di_size, 0, NOCRED);
-			/* Get mode, link count, size, and times */
-			memcpy(ip->i_din.ffs1_din, dip,
-			       offsetof(struct ulfs1_dinode, di_db[0]));
+			if (lfs_dino_getsize(fs, dip) != ip->i_size)
+				lfs_truncate(vp, lfs_dino_getsize(fs, dip), 0,
+					     NOCRED);
+			update_inoblk_copy_dinode(fs, ip->i_din, dip);
 
-			/* Then the rest, except di_blocks */
-			ip->i_flags = ip->i_ffs1_flags = dip->di_flags;
-			ip->i_gen = ip->i_ffs1_gen = dip->di_gen;
-			ip->i_uid = ip->i_ffs1_uid = dip->di_uid;
-			ip->i_gid = ip->i_ffs1_gid = dip->di_gid;
+			ip->i_flags = lfs_dino_getflags(fs, dip);
+			ip->i_gen = lfs_dino_getgen(fs, dip);
+			ip->i_uid = lfs_dino_getuid(fs, dip);
+			ip->i_gid = lfs_dino_getgid(fs, dip);
 
-			ip->i_mode = ip->i_ffs1_mode;
-			ip->i_nlink = ip->i_ffs1_nlink;
-			ip->i_size = ip->i_ffs1_size;
+			ip->i_mode = lfs_dino_getmode(fs, dip);
+			ip->i_nlink = lfs_dino_getnlink(fs, dip);
+			ip->i_size = lfs_dino_getsize(fs, dip);
 
 			LFS_SET_UINO(ip, IN_CHANGE | IN_UPDATE);
 
@@ -310,23 +366,23 @@ update_inoblk(struct lfs *fs, daddr_t offset, kauth_cred_t cred,
 			vput(vp);
 
 			/* Record change in location */
-			LFS_IENTRY(ifp, fs, dip->di_inumber, ibp);
-			daddr = ifp->if_daddr;
-			ifp->if_daddr = LFS_DBTOFSB(fs, dbp->b_blkno);
+			LFS_IENTRY(ifp, fs, lfs_dino_getinumber(fs, dip), ibp);
+			daddr = lfs_if_getdaddr(fs, ifp);
+			lfs_if_setdaddr(fs, ifp, LFS_DBTOFSB(fs, dbp->b_blkno));
 			error = LFS_BWRITE_LOG(ibp); /* Ifile */
 			/* And do segment accounting */
 			if (lfs_dtosn(fs, daddr) != lfs_dtosn(fs, LFS_DBTOFSB(fs, dbp->b_blkno))) {
 				if (daddr > 0) {
 					LFS_SEGENTRY(sup, fs, lfs_dtosn(fs, daddr),
 						     ibp);
-					sup->su_nbytes -= sizeof (struct ulfs1_dinode);
+					sup->su_nbytes -= DINOSIZE(fs);
 					LFS_WRITESEGENTRY(sup, fs,
 							  lfs_dtosn(fs, daddr),
 							  ibp);
 				}
 				LFS_SEGENTRY(sup, fs, lfs_dtosn(fs, LFS_DBTOFSB(fs, dbp->b_blkno)),
 					     ibp);
-				sup->su_nbytes += sizeof (struct ulfs1_dinode);
+				sup->su_nbytes += DINOSIZE(fs);
 				LFS_WRITESEGENTRY(sup, fs,
 						  lfs_dtosn(fs, LFS_DBTOFSB(fs, dbp->b_blkno)),
 						  ibp);
@@ -355,6 +411,7 @@ check_segsum(struct lfs *fs, daddr_t offset, u_int64_t nextserial,
 	FINFO *fip;
 	SEGUSE *sup;
 	size_t size;
+	uint32_t datasum, foundsum;
 
 	devvp = VTOI(fs->lfs_ivnode)->i_devvp;
 	/*
@@ -377,57 +434,60 @@ check_segsum(struct lfs *fs, daddr_t offset, u_int64_t nextserial,
 	/* Check summary checksum */
 	ssp = (SEGSUM *)bp->b_data;
 	if (flags & CHECK_CKSUM) {
-		if (ssp->ss_sumsum != cksum(&ssp->ss_datasum,
-					   lfs_sb_getsumsize(fs) -
-					   sizeof(ssp->ss_sumsum))) {
+		size_t sumstart;
+
+		sumstart = lfs_ss_getsumstart(fs);
+		if (lfs_ss_getsumsum(fs, ssp) !=
+		    cksum((char *)ssp + sumstart,
+			  lfs_sb_getsumsize(fs) - sumstart)) {
 			DLOG((DLOG_RF, "Sumsum error at 0x%" PRIx64 "\n", offset));
 			offset = -1;
 			goto err1;
 		}
-		if (ssp->ss_nfinfo == 0 && ssp->ss_ninos == 0) {
+		if (lfs_ss_getnfinfo(fs, ssp) == 0 &&
+		    lfs_ss_getninos(fs, ssp) == 0) {
 			DLOG((DLOG_RF, "Empty pseg at 0x%" PRIx64 "\n", offset));
 			offset = -1;
 			goto err1;
 		}
-		if (ssp->ss_create < lfs_sb_gettstamp(fs)) {
+		if (lfs_ss_getcreate(fs, ssp) < lfs_sb_gettstamp(fs)) {
 			DLOG((DLOG_RF, "Old data at 0x%" PRIx64 "\n", offset));
 			offset = -1;
 			goto err1;
 		}
 	}
 	if (lfs_sb_getversion(fs) > 1) {
-		if (ssp->ss_serial != nextserial) {
+		if (lfs_ss_getserial(fs, ssp) != nextserial) {
 			DLOG((DLOG_RF, "Unexpected serial number at 0x%" PRIx64
 			      "\n", offset));
 			offset = -1;
 			goto err1;
 		}
-		if (ssp->ss_ident != lfs_sb_getident(fs)) {
+		if (lfs_ss_getident(fs, ssp) != lfs_sb_getident(fs)) {
 			DLOG((DLOG_RF, "Incorrect fsid (0x%x vs 0x%x) at 0x%"
-			      PRIx64 "\n", ssp->ss_ident, lfs_sb_getident(fs), offset));
+			      PRIx64 "\n", lfs_ss_getident(fs, ssp),
+			      lfs_sb_getident(fs), offset));
 			offset = -1;
 			goto err1;
 		}
 	}
 	if (pseg_flags)
-		*pseg_flags = ssp->ss_flags;
+		*pseg_flags = lfs_ss_getflags(fs, ssp);
 	oldoffset = offset;
 	offset += lfs_btofsb(fs, lfs_sb_getsumsize(fs));
 
-	ninos = howmany(ssp->ss_ninos, LFS_INOPB(fs));
+	ninos = howmany(lfs_ss_getninos(fs, ssp), LFS_INOPB(fs));
 	/* XXX ondisk32 */
 	iaddr = (int32_t *)((char*)bp->b_data + lfs_sb_getsumsize(fs) - sizeof(int32_t));
 	if (flags & CHECK_CKSUM) {
 		/* Count blocks */
 		nblocks = 0;
-		fip = (FINFO *)((char*)bp->b_data + SEGSUM_SIZE(fs));
-		for (i = 0; i < ssp->ss_nfinfo; ++i) {
-			nblocks += fip->fi_nblocks;
-			if (fip->fi_nblocks <= 0)
+		fip = SEGSUM_FINFOBASE(fs, (SEGSUM *)bp->b_data);
+		for (i = 0; i < lfs_ss_getnfinfo(fs, ssp); ++i) {
+			nblocks += lfs_fi_getnblocks(fs, fip);
+			if (lfs_fi_getnblocks(fs, fip) <= 0)
 				break;
-			/* XXX ondisk32 */
-			fip = (FINFO *)(((char *)fip) + FINFOSIZE +
-					(fip->fi_nblocks * sizeof(int32_t)));
+			fip = NEXT_FINFO(fs, fip);
 		}
 		nblocks += ninos;
 		/* Create the sum array */
@@ -436,8 +496,8 @@ check_segsum(struct lfs *fs, daddr_t offset, u_int64_t nextserial,
 	}
 
 	/* Handle individual blocks */
-	fip = (FINFO *)((char*)bp->b_data + SEGSUM_SIZE(fs));
-	for (i = 0; i < ssp->ss_nfinfo || ninos; ++i) {
+	fip = SEGSUM_FINFOBASE(fs, (SEGSUM *)bp->b_data);
+	for (i = 0; i < lfs_ss_getnfinfo(fs, ssp) || ninos; ++i) {
 		/* Inode block? */
 		if (ninos && *iaddr == offset) {
 			if (flags & CHECK_CKSUM) {
@@ -448,6 +508,7 @@ check_segsum(struct lfs *fs, daddr_t offset, u_int64_t nextserial,
 					offset = -1;
 					goto err2;
 				}
+				/* XXX this can't be right, on-disk u_long? */
 				(*dp++) = ((u_long *)(dbp->b_data))[0];
 				brelse(dbp, BC_AGE);
 			}
@@ -465,9 +526,9 @@ check_segsum(struct lfs *fs, daddr_t offset, u_int64_t nextserial,
 			continue;
 		}
 		size = lfs_sb_getbsize(fs);
-		for (j = 0; j < fip->fi_nblocks; ++j) {
-			if (j == fip->fi_nblocks - 1)
-				size = fip->fi_lastlength;
+		for (j = 0; j < lfs_fi_getnblocks(fs, fip); ++j) {
+			if (j == lfs_fi_getnblocks(fs, fip) - 1)
+				size = lfs_fi_getlastlength(fs, fip);
 			if (flags & CHECK_CKSUM) {
 				error = bread(devvp, LFS_FSBTODB(fs, offset), size,
 				    0, &dbp);
@@ -480,25 +541,24 @@ check_segsum(struct lfs *fs, daddr_t offset, u_int64_t nextserial,
 			}
 			/* Account for and update any direct blocks */
 			if ((flags & CHECK_UPDATE) &&
-			   fip->fi_ino > LFS_IFILE_INUM &&
-			   fip->fi_blocks[j] >= 0) {
-				update_meta(fs, fip->fi_ino, fip->fi_version,
-					    fip->fi_blocks[j], offset, size, l);
+			   lfs_fi_getino(fs, fip) > LFS_IFILE_INUM &&
+			   lfs_fi_getblock(fs, fip, j) >= 0) {
+				update_meta(fs, lfs_fi_getino(fs, fip),
+					    lfs_fi_getversion(fs, fip),
+					    lfs_fi_getblock(fs, fip, j),
+					    offset, size, l);
 			}
 			offset += lfs_btofsb(fs, size);
 		}
-		/* XXX ondisk32 */
-		fip = (FINFO *)(((char *)fip) + FINFOSIZE
-				+ fip->fi_nblocks * sizeof(int32_t));
+		fip = NEXT_FINFO(fs, fip);
 	}
 	/* Checksum the array, compare */
-	if ((flags & CHECK_CKSUM) &&
-	   ssp->ss_datasum != cksum(datap, nblocks * sizeof(u_long)))
-	{
+	datasum = lfs_ss_getdatasum(fs, ssp);
+	foundsum = cksum(datap, nblocks * sizeof(u_long));
+	if ((flags & CHECK_CKSUM) && datasum != foundsum) {
 		DLOG((DLOG_RF, "Datasum error at 0x%" PRIx64
 		      " (wanted %x got %x)\n",
-		      offset, ssp->ss_datasum, cksum(datap, nblocks *
-						     sizeof(u_long))));
+		      offset, datasum, foundsum));
 		offset = -1;
 		goto err2;
 	}
@@ -506,11 +566,11 @@ check_segsum(struct lfs *fs, daddr_t offset, u_int64_t nextserial,
 	/* If we're at the end of the segment, move to the next */
 	if (lfs_dtosn(fs, offset + lfs_btofsb(fs, lfs_sb_getsumsize(fs) + lfs_sb_getbsize(fs))) !=
 	   lfs_dtosn(fs, offset)) {
-		if (lfs_dtosn(fs, offset) == lfs_dtosn(fs, ssp->ss_next)) {
+		if (lfs_dtosn(fs, offset) == lfs_dtosn(fs, lfs_ss_getnext(fs, ssp))) {
 			offset = -1;
 			goto err2;
 		}
-		offset = ssp->ss_next;
+		offset = lfs_ss_getnext(fs, ssp);
 		DLOG((DLOG_RF, "LFS roll forward: moving to offset 0x%" PRIx64
 		       " -> segment %d\n", offset, lfs_dtosn(fs,offset)));
 	}

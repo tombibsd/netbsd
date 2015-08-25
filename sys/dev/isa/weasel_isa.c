@@ -56,13 +56,13 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <dev/sysmon/sysmonvar.h>
 
+#include "ioconf.h"
+
 int	weasel_isa_wdog_setmode(struct sysmon_wdog *);
 int	weasel_isa_wdog_tickle(struct sysmon_wdog *);
 int	weasel_isa_wdog_arm_disarm(struct weasel_handle *, u_int8_t);
 int	weasel_isa_wdog_query_state(struct weasel_handle *);
 
-
-void	pcweaselattach(int);
 
 /* ARGSUSED */
 void

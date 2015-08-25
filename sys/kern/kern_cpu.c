@@ -83,6 +83,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <uvm/uvm_extern.h>
 
+#include "ioconf.h"
+
 /*
  * If the port has stated that cpu_data is the first thing in cpu_info,
  * verify that the claim is true. This will prevent them from getting out
@@ -93,8 +95,6 @@ CTASSERT(offsetof(struct cpu_info, ci_data) == 0);
 #else
 CTASSERT(offsetof(struct cpu_info, ci_data) != 0);
 #endif
-
-void	cpuctlattach(int);
 
 static void	cpu_xc_online(struct cpu_info *);
 static void	cpu_xc_offline(struct cpu_info *);
@@ -204,7 +204,7 @@ mi_cpu_attach(struct cpu_info *ci)
 }
 
 void
-cpuctlattach(int dummy)
+cpuctlattach(int dummy __unused)
 {
 
 	KASSERT(cpu_infos != NULL);

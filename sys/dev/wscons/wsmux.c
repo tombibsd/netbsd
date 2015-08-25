@@ -70,6 +70,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <dev/wscons/wscons_callbacks.h>
 #include <dev/wscons/wsmuxvar.h>
 
+#include "ioconf.h"
+
 #ifdef WSMUX_DEBUG
 #define DPRINTF(x)	if (wsmuxdebug) printf x
 #define DPRINTFN(n,x)	if (wsmuxdebug > (n)) printf x
@@ -110,8 +112,6 @@ static int wsmux_do_displayioctl(device_t dev, u_long cmd,
 static int wsmux_do_ioctl(device_t, u_long, void *,int,struct lwp *);
 
 static int wsmux_add_mux(int, struct wsmux_softc *);
-
-void wsmuxattach(int);
 
 #define WSMUXDEV(n) ((n) & 0x7f)
 #define WSMUXCTL(n) ((n) & 0x80)

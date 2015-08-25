@@ -13,4 +13,4 @@ CWARNFLAGS.clang+=	-Wno-unused-value -Wno-conversion \
 			-Wno-tautological-compare -Wno-format-extra-args \
 			-Wno-string-plus-int
 
-DIST=		${NETBSDSRCDIR}/external/gpl3/gdb/dist
+DIST:=		${.PARSEDIR}/dist

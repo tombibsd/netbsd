@@ -63,7 +63,7 @@
 #include "rumpuser_config.h"
 #endif
 
-#ifdef __linux__
+#if defined(__linux__) || defined(__GNU__) || defined(__GLIBC__)
 #define _GNU_SOURCE
 #endif
 

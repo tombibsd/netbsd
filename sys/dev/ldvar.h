@@ -40,6 +40,7 @@
 struct ld_softc {
 	struct dk_softc	sc_dksc;
 	kmutex_t	sc_mutex;
+	kcondvar_t	sc_drain;
 	krndsource_t	sc_rnd_source;
 
 	int		sc_queuecnt;	/* current h/w queue depth */
@@ -61,6 +62,7 @@ struct ld_softc {
 	int		(*sc_dump)(struct ld_softc *, void *, int, int);
 	int		(*sc_flush)(struct ld_softc *, int);
 	int		(*sc_start)(struct ld_softc *, struct buf *);
+	int		(*sc_discard)(struct ld_softc *, off_t, off_t);
 };
 
 /* sc_flags */

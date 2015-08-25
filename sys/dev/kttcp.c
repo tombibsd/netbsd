@@ -63,14 +63,14 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <dev/kttcpio.h>
 
+#include "ioconf.h"
+
 static int kttcp_send(struct lwp *l, struct kttcp_io_args *);
 static int kttcp_recv(struct lwp *l, struct kttcp_io_args *);
 static int kttcp_sosend(struct socket *, unsigned long long,
 			unsigned long long *, struct lwp *, int);
 static int kttcp_soreceive(struct socket *, unsigned long long,
 			   unsigned long long *, struct lwp *, int *);
-
-void	kttcpattach(int);
 
 dev_type_ioctl(kttcpioctl);
 

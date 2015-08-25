@@ -156,12 +156,11 @@ rumpuser_clock_sleep(int enum_rumpclock, int64_t sec, long nsec)
 					tsr.tv_nsec += 1000*1000*1000;
 				}
 				rv = nanosleep(&tsr, NULL);
+				if (rv == -1)
+					rv = errno;
 			}
 #endif
-		} while (rv == -1 && errno == EINTR);
-		if (rv == -1) {
-			rv = errno;
-		}
+		} while (rv == EINTR);
 		break;
 	default:
 		abort();

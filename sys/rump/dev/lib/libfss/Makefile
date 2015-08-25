@@ -4,7 +4,7 @@
 .PATH:	${.CURDIR}/../../../../dev
 
 LIB=	rumpdev_fss
-
+IOCONF=	FSS.ioconf
 SRCS=   fss.c
 
 SRCS+=	fss_component.c

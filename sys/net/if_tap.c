@@ -71,6 +71,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <compat/sys/sockio.h>
 
+#include "ioconf.h"
+
 #if defined(COMPAT_40) || defined(MODULAR)
 /*
  * sysctl node management
@@ -118,8 +120,6 @@ struct tap_softc {
 };
 
 /* autoconf(9) glue */
-
-void	tapattach(int);
 
 static int	tap_match(device_t, cfdata_t, void *);
 static void	tap_attach(device_t, device_t, void *);

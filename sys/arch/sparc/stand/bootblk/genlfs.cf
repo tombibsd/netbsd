@@ -65,14 +65,14 @@ member 	if1_daddr	if_daddr
 #
 # LFS v2 ifile
 #
-struct	ifile
+struct	ifile32
 member	if2_version	if_version
 member 	if2_daddr	if_daddr
 
 #
-# LFS v1 dinode
+# LFS v1/v2 dinode
 #
-struct  ulfs1_dinode
+struct  lfs32_dinode
 member	di_inumber	di_inumber
 
 define	lfs_magic_value		LFS_MAGIC

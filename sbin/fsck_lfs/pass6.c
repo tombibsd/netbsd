@@ -210,6 +210,7 @@ static void
 remove_ino(struct uvnode *vp, ino_t ino)
 {
 	IFILE *ifp;
+	ino_t nextfree;
 	SEGUSE *sup;
 	CLEANERINFO *cip;
 	struct ubuf *bp, *sbp, *cbp;
@@ -220,11 +221,12 @@ remove_ino(struct uvnode *vp, ino_t ino)
 		pwarn("remove ino %d\n", (int)ino);
 
 	LFS_IENTRY(ifp, fs, ino, bp);
-	daddr = ifp->if_daddr;
+	daddr = lfs_if_getdaddr(fs, ifp);
 	if (daddr > 0) {
-		ifp->if_daddr = 0x0;
+		lfs_if_setdaddr(fs, ifp, 0);
 
-		LFS_GET_HEADFREE(fs, cip, cbp, &(ifp->if_nextfree));
+		LFS_GET_HEADFREE(fs, cip, cbp, &nextfree);
+		lfs_if_setnextfree(fs, ifp, nextfree);
 		VOP_BWRITE(bp);
 		LFS_PUT_HEADFREE(fs, cip, cbp, ino);
 		sbdirty();
@@ -233,9 +235,9 @@ remove_ino(struct uvnode *vp, ino_t ino)
 			vp = lfs_raw_vget(fs, ino, fs->lfs_ivnode->v_fd, daddr);
 
 		LFS_SEGENTRY(sup, fs, lfs_dtosn(fs, daddr), sbp);
-		sup->su_nbytes -= LFS_DINODE1_SIZE;
+		sup->su_nbytes -= DINOSIZE(fs);
 		VOP_BWRITE(sbp);
-		seg_table[lfs_dtosn(fs, daddr)].su_nbytes -= LFS_DINODE1_SIZE;
+		seg_table[lfs_dtosn(fs, daddr)].su_nbytes -= DINOSIZE(fs);
 	} else
 		brelse(bp, 0);
 
@@ -260,18 +262,18 @@ pass6harvest(ulfs_daddr_t daddr, FINFO *fip)
 	int i;
 	size_t size;
 
-	vp = vget(fs, fip->fi_ino);
+	vp = vget(fs, lfs_fi_getino(fs, fip));
 	if (vp && vp != fs->lfs_ivnode &&
-	    VTOI(vp)->i_ffs1_gen == fip->fi_version) {
-		for (i = 0; i < fip->fi_nblocks; i++) {
-			size = (i == fip->fi_nblocks - 1 ?
-				fip->fi_lastlength : lfs_sb_getbsize(fs));
+	    VTOI(vp)->i_ffs1_gen == lfs_fi_getversion(fs, fip)) {
+		for (i = 0; i < lfs_fi_getnblocks(fs, fip); i++) {
+			size = (i == lfs_fi_getnblocks(fs, fip) - 1 ?
+				lfs_fi_getlastlength(fs, fip) : lfs_sb_getbsize(fs));
 			if (debug)
-				pwarn("ino %lld lbn %lld -> 0x%lx\n",
-					(long long)fip->fi_ino,
-					(long long)fip->fi_blocks[i],
-					(long)daddr);
-			rfw_update_single(vp, fip->fi_blocks[i], daddr, size);
+				pwarn("ino %ju lbn %jd -> 0x%jx\n",
+					(uintmax_t)lfs_fi_getino(fs, fip),
+					(intmax_t)lfs_fi_getblock(fs, fip, i),
+					(intmax_t)daddr);
+			rfw_update_single(vp, lfs_fi_getblock(fs, fip, i), daddr, size);
 			daddr += lfs_btofsb(fs, size);
 		}
 	}
@@ -327,7 +329,7 @@ pass6check(struct inodesc * idesc)
 }
 
 static void
-account_indir(struct uvnode *vp, struct ulfs1_dinode *dp, daddr_t ilbn, daddr_t daddr, int lvl)
+account_indir(struct uvnode *vp, union lfs_dinode *dp, daddr_t ilbn, daddr_t daddr, int lvl)
 {
 	struct ubuf *bp;
 	int32_t *dap, *odap, *buf, *obuf;
@@ -374,21 +376,21 @@ account_indir(struct uvnode *vp, struct ulfs1_dinode *dp, daddr_t ilbn, daddr_t 
  * Account block changes between new found inode and existing inode.
  */
 static void
-account_block_changes(struct ulfs1_dinode *dp)
+account_block_changes(union lfs_dinode *dp)
 {
 	int i;
 	daddr_t lbn, off, odaddr;
 	struct uvnode *vp;
 	struct inode *ip;
 
-	vp = vget(fs, dp->di_inumber);
+	vp = vget(fs, lfs_dino_getinumber(fs, dp));
 	ip = (vp ? VTOI(vp) : NULL);
 
 	/* Check direct block holdings between existing and new */
 	for (i = 0; i < ULFS_NDADDR; i++) {
 		odaddr = (ip ? ip->i_ffs1_db[i] : 0x0);
-		if (dp->di_db[i] > 0 && dp->di_db[i] != odaddr)
-			rfw_update_single(vp, i, dp->di_db[i],
+		if (lfs_dino_getdb(fs, dp, i) > 0 && lfs_dino_getdb(fs, dp, i) != odaddr)
+			rfw_update_single(vp, i, lfs_dino_getdb(fs, dp, i),
 					  lfs_dblksize(fs, dp, i));
 	}
 
@@ -396,10 +398,10 @@ account_block_changes(struct ulfs1_dinode *dp)
 	off = 0;
 	for (i = 0; i < ULFS_NIADDR; i++) {
 		odaddr = (ip ? ip->i_ffs1_ib[i] : 0x0);
-		if (dp->di_ib[i] > 0 && dp->di_ib[i] != odaddr) {
+		if (lfs_dino_getib(fs, dp, i) > 0 && lfs_dino_getib(fs, dp, i) != odaddr) {
 			lbn = -(ULFS_NDADDR + off + i);
-			rfw_update_single(vp, i, dp->di_ib[i], lfs_sb_getbsize(fs));
-			account_indir(vp, dp, lbn, dp->di_ib[i], i);
+			rfw_update_single(vp, i, lfs_dino_getib(fs, dp, i), lfs_sb_getbsize(fs));
+			account_indir(vp, dp, lbn, lfs_dino_getib(fs, dp, i), i);
 		}
 		if (off == 0)
 			off = LFS_NINDIR(fs);
@@ -416,14 +418,14 @@ account_block_changes(struct ulfs1_dinode *dp)
  * free list accounting is done.
  */
 static void
-readdress_inode(struct ulfs1_dinode *dp, ulfs_daddr_t daddr)
+readdress_inode(union lfs_dinode *dp, ulfs_daddr_t daddr)
 {
 	IFILE *ifp;
 	SEGUSE *sup;
 	struct ubuf *bp;
 	int sn;
 	ulfs_daddr_t odaddr;
-	ino_t thisino = dp->di_inumber;
+	ino_t thisino = lfs_dino_getinumber(fs, dp);
 	struct uvnode *vp;
 
 	/* Recursively check all block holdings, account changes */
@@ -431,34 +433,35 @@ readdress_inode(struct ulfs1_dinode *dp, ulfs_daddr_t daddr)
 
 	/* Move ifile pointer to this location */
 	LFS_IENTRY(ifp, fs, thisino, bp);
-	odaddr = ifp->if_daddr;
+	odaddr = lfs_if_getdaddr(fs, ifp);
 	assert(odaddr != 0);
-	ifp->if_daddr = daddr;
+	lfs_if_setdaddr(fs, ifp, daddr);
 	VOP_BWRITE(bp);
 
 	if (debug)
-		pwarn("readdress ino %d from 0x%x to 0x%x mode %o nlink %d\n",
-			(int)dp->di_inumber,
+		pwarn("readdress ino %ju from 0x%x to 0x%x mode %o nlink %d\n",
+			(uintmax_t)lfs_dino_getinumber(fs, dp),
 			(unsigned)odaddr,
 			(unsigned)daddr,
-			(int)dp->di_mode, (int)dp->di_nlink);
+			(int)lfs_dino_getmode(fs, dp),
+			(int)lfs_dino_getnlink(fs, dp));
 
 	/* Copy over preexisting in-core inode, if any */
 	vp = vget(fs, thisino);
-	memcpy(VTOI(vp)->i_din.ffs1_din, dp, sizeof(*dp));
+	lfs_copy_dinode(fs, VTOI(vp)->i_din, dp);
 
 	/* Finally account the inode itself */
 	sn = lfs_dtosn(fs, odaddr);
 	LFS_SEGENTRY(sup, fs, sn, bp);
-	sup->su_nbytes -= LFS_DINODE1_SIZE;
+	sup->su_nbytes -= DINOSIZE(fs);
 	VOP_BWRITE(bp);
-	seg_table[sn].su_nbytes -= LFS_DINODE1_SIZE;
+	seg_table[sn].su_nbytes -= DINOSIZE(fs);
 
 	sn = lfs_dtosn(fs, daddr);
 	LFS_SEGENTRY(sup, fs, sn, bp);
-	sup->su_nbytes += LFS_DINODE1_SIZE;
+	sup->su_nbytes += DINOSIZE(fs);
 	VOP_BWRITE(bp);
-	seg_table[sn].su_nbytes += LFS_DINODE1_SIZE;
+	seg_table[sn].su_nbytes += DINOSIZE(fs);
 }
 
 /*
@@ -481,13 +484,13 @@ alloc_inode(ino_t thisino, ulfs_daddr_t daddr)
 	}
 
 	LFS_IENTRY(ifp, fs, thisino, bp);
-	if (ifp->if_daddr != 0) {
+	if (lfs_if_getdaddr(fs, ifp) != 0) {
 		pwarn("allocated inode %lld already allocated\n",
 			(long long)thisino);
 	}
-	nextfree = ifp->if_nextfree;
-	ifp->if_nextfree = 0;
-	ifp->if_daddr = daddr;
+	nextfree = lfs_if_getnextfree(fs, ifp);
+	lfs_if_setnextfree(fs, ifp, 0);
+	lfs_if_setdaddr(fs, ifp, daddr);
 	VOP_BWRITE(bp);
 
 	LFS_GET_HEADFREE(fs, cip, cbp, &oldhead);
@@ -502,24 +505,24 @@ alloc_inode(ino_t thisino, ulfs_daddr_t daddr)
 		ino = oldhead;
 		while (ino) {
 			LFS_IENTRY(ifp, fs, ino, bp);
-			assert(ifp->if_nextfree != ino);
-			if (ifp->if_nextfree == thisino) {
-				ifp->if_nextfree = nextfree;
+			assert(lfs_if_getnextfree(fs, ifp) != ino);
+			if (lfs_if_getnextfree(fs, ifp) == thisino) {
+				lfs_if_setnextfree(fs, ifp, nextfree);
 				VOP_BWRITE(bp);
 				if (nextfree == 0)
 					LFS_PUT_TAILFREE(fs, cip, cbp, ino);
 				break;
 			} else
-				ino = ifp->if_nextfree;
+				ino = lfs_if_getnextfree(fs, ifp);
 			brelse(bp, 0);
 		}
 	}
 	
 	/* Account for new location */
 	LFS_SEGENTRY(sup, fs, lfs_dtosn(fs, daddr), bp);
-	sup->su_nbytes += LFS_DINODE1_SIZE;
+	sup->su_nbytes += DINOSIZE(fs);
 	VOP_BWRITE(bp);
-	seg_table[lfs_dtosn(fs, daddr)].su_nbytes += LFS_DINODE1_SIZE;
+	seg_table[lfs_dtosn(fs, daddr)].su_nbytes += DINOSIZE(fs);
 }
 
 /*
@@ -548,9 +551,10 @@ pass6(void)
 	SEGUSE *sup;
 	SEGSUM *sp;
 	struct ubuf *bp, *ibp, *sbp, *cbp;
-	struct ulfs1_dinode *dp;
+	union lfs_dinode *dp;
 	struct inodesc idesc;
 	int i, j, bc, hassuper;
+	unsigned k;
 	int nnewfiles, ndelfiles, nmvfiles;
 	int sn, curseg;
 	char *ibbuf;
@@ -616,8 +620,8 @@ pass6(void)
 		sp = (SEGSUM *)bp->b_data;
 		if (debug)
 			pwarn("sum at 0x%x: ninos=%d nfinfo=%d\n",
-				(unsigned)daddr, (int)sp->ss_ninos,
-				(int)sp->ss_nfinfo);
+				(unsigned)daddr, (int)lfs_ss_getninos(fs, sp),
+				(int)lfs_ss_getnfinfo(fs, sp));
 
 		/* We have verified that this is a good summary. */
 		LFS_SEGENTRY(sup, fs, lfs_dtosn(fs, daddr), sbp);
@@ -634,16 +638,16 @@ pass6(void)
 		}
 
 		/* Find inodes, look at generation number. */
-		if (sp->ss_ninos) {
+		if (lfs_ss_getninos(fs, sp)) {
 			LFS_SEGENTRY(sup, fs, lfs_dtosn(fs, daddr), sbp);
-			sup->su_ninos += howmany(sp->ss_ninos, LFS_INOPB(fs));
+			sup->su_ninos += howmany(lfs_ss_getninos(fs, sp), LFS_INOPB(fs));
 			VOP_BWRITE(sbp);
-			lfs_sb_adddmeta(fs, lfs_btofsb(fs, howmany(sp->ss_ninos,
+			lfs_sb_adddmeta(fs, lfs_btofsb(fs, howmany(lfs_ss_getninos(fs, sp),
 							    LFS_INOPB(fs)) *
 						lfs_sb_getibsize(fs)));
 		}
 		idaddrp = ((ulfs_daddr_t *)((char *)bp->b_data + lfs_sb_getsumsize(fs)));
-		for (i = 0; i < howmany(sp->ss_ninos, LFS_INOPB(fs)); i++) {
+		for (i = 0; i < howmany(lfs_ss_getninos(fs, sp), LFS_INOPB(fs)); i++) {
 			ino_t *inums;
 			
 			inums = ecalloc(LFS_INOPB(fs) + 1, sizeof(*inums));
@@ -656,17 +660,16 @@ pass6(void)
 			brelse(ibp, 0);
 
 			j = 0;
-			for (dp = (struct ulfs1_dinode *)ibbuf;
-			     dp < (struct ulfs1_dinode *)ibbuf + LFS_INOPB(fs);
-			     ++dp) {
-				if (dp->di_inumber == 0 ||
-				    dp->di_inumber == lfs_sb_getifile(fs))
+			for (k = 0; k < LFS_INOPB(fs); k++) {
+				dp = DINO_IN_BLOCK(fs, ibbuf, k);
+				if (lfs_dino_getinumber(fs, dp) == 0 ||
+				    lfs_dino_getinumber(fs, dp) == lfs_sb_getifile(fs))
 					continue;
 				/* Basic sanity checks */
-				if (dp->di_nlink < 0 
+				if (lfs_dino_getnlink(fs, dp) < 0 
 #if 0
-				    || dp->di_u.inumber < 0
-				    || dp->di_size < 0
+				    || lfs_dino_getinumber(fs, dp) < 0
+				    || lfs_dino_getsize(fs, dp) < 0
 #endif
 				) {
 					pwarn("BAD INODE AT 0x%" PRIx32 "\n",
@@ -676,15 +679,15 @@ pass6(void)
 					goto out;
 				}
 
-				vp = vget(fs, dp->di_inumber);
+				vp = vget(fs, lfs_dino_getinumber(fs, dp));
 
 				/*
 				 * Four cases:
 				 * (1) Invalid inode (nlink == 0).
 				 *     If currently allocated, remove.
 				 */
-				if (dp->di_nlink == 0) {
-					remove_ino(vp, dp->di_inumber);
+				if (lfs_dino_getnlink(fs, dp) == 0) {
+					remove_ino(vp, lfs_dino_getinumber(fs, dp));
 					++ndelfiles;
 					continue;
 				}
@@ -695,10 +698,10 @@ pass6(void)
 				 *     loop.
 				 */
 				if (vp == NULL) {
-					if (!(sp->ss_flags & SS_DIROP))
+					if (!(lfs_ss_getflags(fs, sp) & SS_DIROP))
 						pfatal("NEW FILE IN NON-DIROP PARTIAL SEGMENT");
 					else {
-						inums[j++] = dp->di_inumber;
+						inums[j++] = lfs_dino_getinumber(fs, dp);
 						nnewfiles++;
 					}
 					continue;
@@ -708,12 +711,16 @@ pass6(void)
 				 *     allocated inode.  Delete old file
 				 *     and proceed as in (2).
 				 */
-				if (vp && VTOI(vp)->i_ffs1_gen < dp->di_gen) {
-					remove_ino(vp, dp->di_inumber);
-					if (!(sp->ss_flags & SS_DIROP))
+				if (vp && (
+					fs->lfs_is64 ?
+					VTOI(vp)->i_ffs2_gen :
+					VTOI(vp)->i_ffs1_gen
+				    ) < lfs_dino_getgen(fs, dp)) {
+					remove_ino(vp, lfs_dino_getinumber(fs, dp));
+					if (!(lfs_ss_getflags(fs, sp) & SS_DIROP))
 						pfatal("NEW FILE VERSION IN NON-DIROP PARTIAL SEGMENT");
 					else {
-						inums[j++] = dp->di_inumber;
+						inums[j++] = lfs_dino_getinumber(fs, dp);
 						ndelfiles++;
 						nnewfiles++;
 					}
@@ -726,24 +733,28 @@ pass6(void)
 				 *     only.  We'll pick up any new
 				 *     blocks when we do the block pass.
 				 */
-				if (vp && VTOI(vp)->i_ffs1_gen == dp->di_gen) {
+				if (vp && (
+					fs->lfs_is64 ?
+					VTOI(vp)->i_ffs2_gen :
+					VTOI(vp)->i_ffs1_gen
+				    ) == lfs_dino_getgen(fs, dp)) {
 					nmvfiles++;
 					readdress_inode(dp, ibdaddr);
 
 					/* Update with new info */
-					VTOD(vp)->di_mode = dp->di_mode;
-					VTOD(vp)->di_nlink = dp->di_nlink;
+					lfs_dino_setmode(fs, VTOD(vp), lfs_dino_getmode(fs, dp));
+					lfs_dino_setnlink(fs, VTOD(vp), lfs_dino_getmode(fs, dp));
 					/* XXX size is important */
-					VTOD(vp)->di_size = dp->di_size;
-					VTOD(vp)->di_atime = dp->di_atime;
-					VTOD(vp)->di_atimensec = dp->di_atimensec;
-					VTOD(vp)->di_mtime = dp->di_mtime;
-					VTOD(vp)->di_mtimensec = dp->di_mtimensec;
-					VTOD(vp)->di_ctime = dp->di_ctime;
-					VTOD(vp)->di_ctimensec = dp->di_ctimensec;
-					VTOD(vp)->di_flags = dp->di_flags;
-					VTOD(vp)->di_uid = dp->di_uid;
-					VTOD(vp)->di_gid = dp->di_gid;
+					lfs_dino_setsize(fs, VTOD(vp), lfs_dino_getsize(fs, dp));
+					lfs_dino_setatime(fs, VTOD(vp), lfs_dino_getatime(fs, dp));
+					lfs_dino_setatimensec(fs, VTOD(vp), lfs_dino_getatimensec(fs, dp));
+					lfs_dino_setmtime(fs, VTOD(vp), lfs_dino_getmtime(fs, dp));
+					lfs_dino_setmtimensec(fs, VTOD(vp), lfs_dino_getmtimensec(fs, dp));
+					lfs_dino_setctime(fs, VTOD(vp), lfs_dino_getctime(fs, dp));
+					lfs_dino_setctimensec(fs, VTOD(vp), lfs_dino_getctimensec(fs, dp));
+					lfs_dino_setflags(fs, VTOD(vp), lfs_dino_getflags(fs, dp));
+					lfs_dino_setuid(fs, VTOD(vp), lfs_dino_getuid(fs, dp));
+					lfs_dino_setgid(fs, VTOD(vp), lfs_dino_getgid(fs, dp));
 					inodirty(VTOI(vp));
 				}
 			}
@@ -754,10 +765,15 @@ pass6(void)
 				/* We'll get the blocks later */
 				if (debug)
 					pwarn("alloc ino %d nlink %d\n",
-						(int)inums[j], VTOD(vp)->di_nlink);
-				memset(VTOD(vp)->di_db, 0, (ULFS_NDADDR + ULFS_NIADDR) *
-				       sizeof(ulfs_daddr_t));
-				VTOD(vp)->di_blocks = 0;
+						(int)inums[j], lfs_dino_getnlink(fs, VTOD(vp)));
+
+				for (k=0; k<ULFS_NDADDR; k++) {
+					lfs_dino_setdb(fs, VTOD(vp), k, 0);
+				}
+				for (k=0; k<ULFS_NIADDR; k++) {
+					lfs_dino_setib(fs, VTOD(vp), k, 0);
+				}
+				lfs_dino_setblocks(fs, VTOD(vp), 0);
 
 				vp->v_uflag |= VU_DIROP;
 				inodirty(VTOI(vp));
@@ -768,21 +784,21 @@ pass6(void)
 		bc = check_summary(fs, sp, daddr, debug, devvp, NULL);
 		if (bc == 0) {
 			pwarn("unexpected bad seg ptr at 0x%x with serial=%d\n",
-				(int)daddr, (int)sp->ss_serial);
+				(int)daddr, (int)lfs_ss_getserial(fs, sp));
 			brelse(bp, 0);
 			break;
 		} else {
 			if (debug)
 				pwarn("good seg ptr at 0x%x with serial=%d\n",
-					(int)daddr, (int)sp->ss_serial);
-			lastserial = sp->ss_serial;
+					(int)daddr, (int)lfs_ss_getserial(fs, sp));
+			lastserial = lfs_ss_getserial(fs, sp);
 		}
 		odaddr = daddr;
 		daddr += lfs_btofsb(fs, lfs_sb_getsumsize(fs) + bc);
 		if (lfs_dtosn(fs, odaddr) != lfs_dtosn(fs, daddr) ||
 		    lfs_dtosn(fs, daddr) != lfs_dtosn(fs, daddr +
 			lfs_btofsb(fs, lfs_sb_getsumsize(fs) + lfs_sb_getbsize(fs)) - 1)) {
-			daddr = ((SEGSUM *)bp->b_data)->ss_next;
+			daddr = lfs_ss_getnext(fs, sp);
 		}
 		brelse(bp, 0);
 	}
@@ -843,7 +859,7 @@ pass6(void)
 		bc = check_summary(fs, sp, daddr, debug, devvp, pass6harvest);
 		if (bc == 0) {
 			pwarn("unexpected bad seg ptr [2] at 0x%x with serial=%d\n",
-				(int)daddr, (int)sp->ss_serial);
+				(int)daddr, (int)lfs_ss_getserial(fs, sp));
 			brelse(bp, 0);
 			break;
 		}
@@ -854,7 +870,7 @@ pass6(void)
 		    lfs_dtosn(fs, daddr) != lfs_dtosn(fs, daddr +
 			lfs_btofsb(fs, lfs_sb_getsumsize(fs) + lfs_sb_getbsize(fs)) - 1)) {
 			lfs_sb_subavail(fs, lfs_sntod(fs, lfs_dtosn(fs, daddr) + 1) - daddr);
-			daddr = ((SEGSUM *)bp->b_data)->ss_next;
+			daddr = lfs_ss_getnext(fs, sp);
 		}
 		LFS_CLEANERINFO(cip, fs, cbp);
 		LFS_SYNC_CLEANERINFO(cip, fs, cbp, 0);

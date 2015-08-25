@@ -1667,15 +1667,35 @@ acpi_handle_srat(ACPI_TABLE_HEADER *sdp)
 static void
 acpi_handle_tcpa(ACPI_TABLE_HEADER *sdp)
 {
-	ACPI_TABLE_TCPA *tcpa;
+	ACPI_TABLE_TCPA_HDR *tcpah;
+	ACPI_TABLE_TCPA_CLIENT *tcpac;
+	ACPI_TABLE_TCPA_SERVER *tcpas;
 
 	printf(BEGIN_COMMENT);
 	acpi_print_sdt(sdp);
-	tcpa = (ACPI_TABLE_TCPA *)sdp;
+	tcpah = (void *)sdp;
+	switch (tcpah->PlatformClass) {
+	case ACPI_TCPA_CLIENT_TABLE:
+		tcpac = (void *)((char *)sdp + sizeof(*tcpah));
+		printf("\tMinimum Length of Event Log Area=%"PRIu32"\n",
+		    tcpac->MinimumLogLength);
+		printf("\tPhysical Address of Log Area=0x%08"PRIx64"\n",
+		    tcpac->LogAddress);
+		break;
 
-	printf("\tMaximum Length of Event Log Area=%d\n", tcpa->MaxLogLength);
-	printf("\tPhysical Address of Log Area=0x%08"PRIx64"\n",
-	    tcpa->LogAddress);
+	case ACPI_TCPA_SERVER_TABLE:
+		tcpas = (void *)((char *)sdp + sizeof(*tcpah));
+		printf("\tMinimum Length of Event Log Area=%"PRIu64"\n",
+		    tcpas->MinimumLogLength);
+		printf("\tPhysical Address of Log Area=0x%08"PRIx64"\n",
+		    tcpas->LogAddress);
+		break;
+
+	default:
+		printf ("\tUnknown TCPA Platform Class 0x%X\n",
+		    tcpah->PlatformClass);
+		break;
+	}
 
 	printf(END_COMMENT);
 }

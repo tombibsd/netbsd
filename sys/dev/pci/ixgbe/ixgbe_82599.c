@@ -793,8 +793,8 @@ s32 ixgbe_setup_mac_link_multispeed_fiber(struct ixgbe_hw *hw,
 			msec_delay(100);
 
 			/* If we have link, just jump out */
-			status = ixgbe_check_link(hw, &link_speed,
-						  &link_up, FALSE);
+			status = ixgbe_check_link(hw, &link_speed, &link_up,
+			    FALSE);
 			if (status != IXGBE_SUCCESS)
 				return status;
 

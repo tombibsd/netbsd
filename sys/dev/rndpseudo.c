@@ -65,6 +65,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <dev/rnd_private.h>
 
+#include "ioconf.h"
+
 #if defined(__HAVE_CPU_COUNTER)
 #include <machine/cpu_counter.h>
 #endif
@@ -104,8 +106,6 @@ static pool_cache_t rnd_ctx_cache __read_mostly;
  */
 static percpu_t *percpu_urandom_cprng __read_mostly;
 
-/* Used by ioconf.c to attach the rnd pseudo-device.  */
-void	rndattach(int);
 
 dev_type_open(rndopen);
 
@@ -175,6 +175,7 @@ rndpseudo_counter(void)
 }
 
 /*
+ * Used by ioconf.c to attach the rnd pseudo-device.
  * `Attach' the random device.  We use the timing of this event as
  * another potential source of initial entropy.
  */

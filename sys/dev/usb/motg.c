@@ -444,7 +444,7 @@ motg_init(struct motg_softc *sc)
 	    "motgxfer", NULL, IPL_USB, NULL, NULL, NULL);
 
 	mutex_init(&sc->sc_lock, MUTEX_DEFAULT, IPL_SOFTUSB);
-	mutex_init(&sc->sc_intr_lock, MUTEX_DEFAULT, IPL_SCHED);
+	mutex_init(&sc->sc_intr_lock, MUTEX_DEFAULT, IPL_USB);
 
 	/* Set up the bus struct. */
 	sc->sc_bus.methods = &motg_bus_methods;

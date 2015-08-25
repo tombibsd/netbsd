@@ -37,9 +37,9 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include "rump_dev_private.h"
 #include "rump_vfs_private.h"
 
-CFDRIVER_DECL(raid, DV_DISK, NULL);
+#include "ioconf.h"
 
-void raidattach(int);
+CFDRIVER_DECL(raid, DV_DISK, NULL);
 
 RUMP_COMPONENT(RUMP_COMPONENT_DEV)
 {

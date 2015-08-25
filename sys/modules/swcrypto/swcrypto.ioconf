@@ -1,0 +1,7 @@
+#	$NetBSD$
+
+ioconf		swcrypto
+
+include		"conf/files"
+
+pseudo-device   swcrypto

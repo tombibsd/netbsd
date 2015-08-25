@@ -26,6 +26,10 @@ makeoptions 	drmkms 	"CWARNFLAGS.drm_edid.c"+="-Wno-shadow"
 # XXX Should probably be in a header file.  opt_drmkms.h?
 makeoptions	drmkms	CPPFLAGS+="-D__KERNEL__"
 
+makeoptions	drmkms	CPPFLAGS+="-DCONFIG_FB=0"
+makeoptions	drmkms	CPPFLAGS+="-DCONFIG_BACKLIGHT_CLASS_DEVICE=0"
+makeoptions	drmkms	CPPFLAGS+="-DCONFIG_BACKLIGHT_CLASS_DEVICE_MODULE=0"
+
 file	external/bsd/drm2/dist/drm/drm_auth.c		drmkms
 file	external/bsd/drm2/dist/drm/drm_buffer.c		drmkms
 file	external/bsd/drm2/dist/drm/drm_bufs.c		drmkms

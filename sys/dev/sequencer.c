@@ -85,6 +85,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <dev/midivar.h>
 #include <dev/sequencervar.h>
 
+#include "ioconf.h"
+
 #define ADDTIMEVAL(a, b) ( \
 	(a)->tv_sec += (b)->tv_sec, \
 	(a)->tv_usec += (b)->tv_usec, \
@@ -117,7 +119,6 @@ typedef union sequencer_pcqitem {
 	char	qi_msg[4];
 } sequencer_pcqitem_t;
 
-void sequencerattach(int);
 static void seq_reset(struct sequencer_softc *);
 static int seq_do_command(struct sequencer_softc *, seq_event_t *);
 static int seq_do_chnvoice(struct sequencer_softc *, seq_event_t *);

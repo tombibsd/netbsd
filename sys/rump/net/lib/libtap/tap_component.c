@@ -36,9 +36,9 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include "rump_net_private.h"
 #include "rump_vfs_private.h"
 
-CFDRIVER_DECL(tap, DV_IFNET, NULL);
+#include "ioconf.h"
 
-void tapattach(int);
+CFDRIVER_DECL(tap, DV_IFNET, NULL);
 
 RUMP_COMPONENT(RUMP_COMPONENT_NET_IF)
 {

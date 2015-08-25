@@ -1,0 +1,25 @@
+/clear.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/count.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/emplace.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/emplace_hint.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/empty.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/equal_range.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/erase_iter.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/erase_iter_iter.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/erase_key.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/find.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/insert_cv.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/insert_initializer_list.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/insert_iter_cv.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/insert_iter_iter.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/insert_iter_rv.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/insert_rv.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/iterator.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/lower_bound.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/max_size.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/scary.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/size.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/types.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+/upper_bound.pass.cpp/1.1.1.1/Thu Aug 20 09:31:52 2015/-kk/
+D/multiset.cons////
+D/multiset.special////

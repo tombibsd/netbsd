@@ -1,5 +1,5 @@
 /*	$NetBSD$	*/
-/* $OpenBSD: ssh-agent.c,v 1.203 2015/05/15 05:44:21 dtucker Exp $ */
+/* $OpenBSD: ssh-agent.c,v 1.204 2015/07/08 20:24:02 markus Exp $ */
 /*
  * Author: Tatu Ylonen <ylo@cs.hut.fi>
  * Copyright (c) 1995 Tatu Ylonen <ylo@cs.hut.fi>, Espoo, Finland
@@ -61,9 +61,6 @@ __RCSID("$NetBSD$");
 #include <time.h>
 #include <unistd.h>
 #include <util.h>
-
-#include "key.h"	/* XXX for typedef */
-#include "buffer.h"	/* XXX for typedef */
 
 #include "xmalloc.h"
 #include "ssh.h"

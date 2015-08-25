@@ -68,6 +68,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <netsmb/smb_dev.h>
 #include <netsmb/smb_rq.h>
 
+#include "ioconf.h"
+
 static struct smb_dev **smb_devtbl; /* indexed by minor */
 #define SMB_GETDEV(dev) (smb_devtbl[minor(dev)])
 #define NSMB_DEFNUM	4
@@ -100,7 +102,6 @@ const struct cdevsw nsmb_cdevsw = {
 };
 
 
-void nsmbattach(int);
 static bool nsmb_inited = false;
 
 void

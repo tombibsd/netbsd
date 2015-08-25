@@ -1391,6 +1391,7 @@
 ./usr/share/man/cat4/mcclock.0			man-sys-catman		.cat
 ./usr/share/man/cat4/mcd.0			man-sys-catman		.cat
 ./usr/share/man/cat4/mcp23s17gpio.0		man-sys-catman		.cat
+./usr/share/man/cat4/mcp3kadc.0			man-sys-catman		.cat
 ./usr/share/man/cat4/mcp980x.0			man-sys-catman		.cat
 ./usr/share/man/cat4/md.0			man-sys-catman		.cat
 ./usr/share/man/cat4/mfb.0			man-sys-catman		.cat
@@ -2544,6 +2545,7 @@
 ./usr/share/man/cat8/inetd.0			man-netutil-catman	.cat
 ./usr/share/man/cat8/init.0			man-sysutil-catman	.cat
 ./usr/share/man/cat8/installboot.0		man-sysutil-catman	.cat
+./usr/share/man/cat8/intrctl.0			man-sysutil-catman	.cat
 ./usr/share/man/cat8/intro.0			man-sys-catman		.cat
 ./usr/share/man/cat8/iopctl.0			man-sysutil-catman	.cat
 ./usr/share/man/cat8/iostat.0			man-sysutil-catman	.cat
@@ -4414,6 +4416,7 @@
 ./usr/share/man/html4/mcclock.html		man-sys-htmlman		html
 ./usr/share/man/html4/mcd.html			man-sys-htmlman		html
 ./usr/share/man/html4/mcp23s17gpio.html		man-sys-htmlman		html
+./usr/share/man/html4/mcp3kadc.html		man-sys-htmlman		html
 ./usr/share/man/html4/mcp980x.html		man-sys-htmlman		html
 ./usr/share/man/html4/md.html			man-sys-htmlman		html
 ./usr/share/man/html4/mfb.html			man-sys-htmlman		html
@@ -5419,6 +5422,7 @@
 ./usr/share/man/html8/inetd.html		man-netutil-htmlman	html
 ./usr/share/man/html8/init.html			man-sysutil-htmlman	html
 ./usr/share/man/html8/installboot.html		man-sysutil-htmlman	html
+./usr/share/man/html8/intrctl.html		man-sysutil-htmlman	html
 ./usr/share/man/html8/intro.html		man-sys-htmlman		html
 ./usr/share/man/html8/iopctl.html		man-sysutil-htmlman	html
 ./usr/share/man/html8/iostat.html		man-sysutil-htmlman	html
@@ -7287,6 +7291,7 @@
 ./usr/share/man/man4/mcclock.4			man-sys-man		.man
 ./usr/share/man/man4/mcd.4			man-sys-man		.man
 ./usr/share/man/man4/mcp23s17gpio.4		man-sys-man		.man
+./usr/share/man/man4/mcp3kadc.4			man-sys-man		.man
 ./usr/share/man/man4/mcp980x.4			man-sys-man		.man
 ./usr/share/man/man4/md.4			man-sys-man		.man
 ./usr/share/man/man4/mfb.4			man-sys-man		.man
@@ -8440,6 +8445,7 @@
 ./usr/share/man/man8/inetd.8			man-netutil-man		.man
 ./usr/share/man/man8/init.8			man-sysutil-man		.man
 ./usr/share/man/man8/installboot.8		man-sysutil-man		.man
+./usr/share/man/man8/intrctl.8			man-sysutil-man		.man
 ./usr/share/man/man8/intro.8			man-sys-man		.man
 ./usr/share/man/man8/iopctl.8			man-sysutil-man		.man
 ./usr/share/man/man8/iostat.8			man-sysutil-man		.man

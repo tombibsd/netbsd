@@ -4,7 +4,7 @@
 .PATH:	${.CURDIR}/../../../../opencrypto
 
 LIB=	rumpdev_opencrypto
-
+IOCONF=	OPENCRYPTO.ioconf
 SRCS=	opencrypto_component.c
 
 # Sources for crypto framework

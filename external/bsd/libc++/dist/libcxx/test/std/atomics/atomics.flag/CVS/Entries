@@ -1,0 +1,13 @@
+/atomic_flag_clear.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/atomic_flag_clear_explicit.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/atomic_flag_test_and_set.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/atomic_flag_test_and_set_explicit.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/clear.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/copy_assign.fail.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/copy_ctor.fail.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/copy_volatile_assign.fail.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/default.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/init.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/init03.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+/test_and_set.pass.cpp/1.1.1.1/Thu Aug 20 09:31:51 2015/-kk/
+D

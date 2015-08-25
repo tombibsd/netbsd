@@ -122,7 +122,6 @@ options 	MEMORY_DISK_RBFLAGS=RB_SINGLE	# boot in single-user mode
 # Miscellaneous kernel options
 #options 	KTRACE		# system call tracing, a la ktrace(1)
 #options 	IRQSTATS	# manage IRQ statistics
-#options 	KMEMSTATS	# kernel memory statistics
 #options 	SCSIVERBOSE	# Verbose SCSI errors
 options 	USERCONF	# userconf(4) support
 options		PIPE_SOCKETPAIR		# smaller, but slower pipe(2)

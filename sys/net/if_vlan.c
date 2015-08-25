@@ -111,6 +111,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <netinet6/in6_ifattach.h>
 #endif
 
+#include "ioconf.h"
+
 struct vlan_mc_entry {
 	LIST_ENTRY(vlan_mc_entry)	mc_entries;
 	/*
@@ -178,8 +180,6 @@ static int	vlan_config(struct ifvlan *, struct ifnet *);
 static int	vlan_ioctl(struct ifnet *, u_long, void *);
 static void	vlan_start(struct ifnet *);
 static void	vlan_unconfig(struct ifnet *);
-
-void		vlanattach(int);
 
 /* XXX This should be a hash table with the tag as the basis of the key. */
 static LIST_HEAD(, ifvlan) ifv_list;

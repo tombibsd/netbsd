@@ -32,7 +32,7 @@
 /pcf8591_envctrl.c/1.6/Sun Mar 18 05:26:58 2012/-kk/
 /pcfiic_ebus.c/1.4/Thu Oct 24 10:28:57 2013/-kk/
 /pci_machdep.c/1.77/Fri Apr 11 02:03:39 2014/-kk/
-/pckbc_ebus.c/1.1/Tue Oct  9 20:55:04 2012/-kk/
+/pckbc_ebus.c/1.2/Tue Aug 25 04:51:11 2015/-kk/
 /pcons.c/1.34/Fri Oct  3 09:09:07 2014/-kk/
 /pld_wdog.c/1.11/Sat Oct 27 17:18:12 2012/-kk/
 /power.c/1.12/Fri Jun  3 03:20:39 2011/-kk/

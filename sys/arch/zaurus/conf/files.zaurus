@@ -39,11 +39,6 @@ file	dev/kloader.c				kloader
 file	arch/zaurus/zaurus/kloader_machdep.c	kloader
 file	arch/zaurus/zaurus/kloader_zaurus.S	kloader
 
-# ARM FPE
-file	arch/arm32/fpe-arm/armfpe_glue.S	armfpe
-file	arch/arm32/fpe-arm/armfpe_init.c	armfpe
-file	arch/arm32/fpe-arm/armfpe.s		armfpe
-
 # Include Intel XScale PXA2x0 config definitions.
 include "arch/arm/xscale/files.pxa2x0"
 

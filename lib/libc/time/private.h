@@ -31,12 +31,8 @@
 
 /*
 ** Defaults for preprocessor symbols.
-** You can override these in your C compiler options, e.g. '-DHAVE_ADJTIME=0'.
+** You can override these in your C compiler options, e.g. '-DHAVE_GETTEXT=1'.
 */
-
-#ifndef HAVE_ADJTIME
-#define HAVE_ADJTIME		1
-#endif /* !defined HAVE_ADJTIME */
 
 #ifndef HAVE_GETTEXT
 #define HAVE_GETTEXT		0
@@ -49,10 +45,6 @@
 #ifndef HAVE_LINK
 #define HAVE_LINK		1
 #endif /* !defined HAVE_LINK */
-
-#ifndef HAVE_SETTIMEOFDAY
-#define HAVE_SETTIMEOFDAY	3
-#endif /* !defined HAVE_SETTIMEOFDAY */
 
 #ifndef HAVE_STRDUP
 #define HAVE_STRDUP 1
@@ -75,7 +67,7 @@
 #endif /* !defined HAVE_UNISTD_H */
 
 #ifndef HAVE_UTMPX_H
-#define HAVE_UTMPX_H		0
+#define HAVE_UTMPX_H		1
 #endif /* !defined HAVE_UTMPX_H */
 
 #ifndef NETBSD_INSPIRED
@@ -211,7 +203,7 @@ typedef long long	int_fast64_t;
 #  define INT_FAST64_MIN LLONG_MIN
 #  define INT_FAST64_MAX LLONG_MAX
 # else
-#  if (LONG_MAX >> 31) < 0xffffffff
+#  if LONG_MAX >> 31 < 0xffffffff
 Please use a compiler that supports a 64-bit integer type (or wider);
 you may need to compile with "-DHAVE_STDINT_H".
 #  endif
@@ -260,6 +252,18 @@ typedef long intmax_t;
 #  define PRIdMAX "lld"
 # else
 #  define PRIdMAX "ld"
+# endif
+#endif
+
+#ifndef UINT_FAST64_MAX
+# if defined ULLONG_MAX || defined __LONG_LONG_MAX__
+typedef unsigned long long uint_fast64_t;
+# else
+#  if ULONG_MAX >> 31 >> 1 < 0xffffffff
+Please use a compiler that supports a 64-bit integer type (or wider);
+you may need to compile with "-DHAVE_STDINT_H".
+#  endif
+typedef unsigned long	uint_fast64_t;
 # endif
 #endif
 

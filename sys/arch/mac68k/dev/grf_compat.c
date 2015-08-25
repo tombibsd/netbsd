@@ -57,6 +57,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <uvm/uvm_extern.h>
 
+#include "ioconf.h"
+
 dev_type_open(grfopen);
 dev_type_close(grfclose);
 dev_type_ioctl(grfioctl);
@@ -79,7 +81,6 @@ const struct cdevsw grf_cdevsw = {
 
 void	grf_scinit(struct grf_softc *, const char *, int);
 void	grf_init(int);
-void	grfattach(int);
 int	grfmap(dev_t, struct macfb_softc *, void **, struct proc *);
 int	grfunmap(dev_t, struct macfb_softc *, void *, struct proc *);
 

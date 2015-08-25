@@ -60,7 +60,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <net/agr/if_agrsubr.h>
 #include <net/agr/if_agrethervar.h>
 
-void agrattach(int);
+#include "ioconf.h"
 
 static int agr_clone_create(struct if_clone *, int);
 static int agr_clone_destroy(struct ifnet *);

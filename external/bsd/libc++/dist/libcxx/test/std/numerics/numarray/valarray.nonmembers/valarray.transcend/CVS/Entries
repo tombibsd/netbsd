@@ -1,0 +1,21 @@
+/abs_valarray.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/acos_valarray.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/asin_valarray.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/atan2_valarray_valarray.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/atan2_valarray_value.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/atan2_value_valarray.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/atan_valarray.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/cos_valarray.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/cosh_valarray.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/exp_valarray.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/log10_valarray.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/log_valarray.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/pow_valarray_valarray.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/pow_valarray_value.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/pow_value_valarray.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/sin_valarray.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/sinh_valarray.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/sqrt_valarray.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/tan_valarray.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+/tanh_valarray.pass.cpp/1.1.1.1/Thu Aug 20 09:31:53 2015/-kk/
+D

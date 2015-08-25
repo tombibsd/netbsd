@@ -165,6 +165,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <net/ppp-comp.h>
 #endif
 
+#include "ioconf.h"
+
 static int	pppsioctl(struct ifnet *, u_long, void *);
 static void	ppp_requeue(struct ppp_softc *);
 static void	ppp_ccp(struct ppp_softc *, struct mbuf *m, int rcvd);
@@ -224,7 +226,7 @@ static void ppp_compressor_rele(struct compressor *);
  * Called from boot code to establish ppp interfaces.
  */
 void
-pppattach(void)
+pppattach(int n __unused)
 {
 	extern struct linesw ppp_disc;
 

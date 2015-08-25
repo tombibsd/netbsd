@@ -743,8 +743,12 @@ lfs_putpages(void *v)
 	 * Ensure that the partial segment is marked SS_DIROP if this
 	 * vnode is a DIROP.
 	 */
-	if (!seglocked && vp->v_uflag & VU_DIROP)
-		((SEGSUM *)(sp->segsum))->ss_flags |= (SS_DIROP|SS_CONT);
+	if (!seglocked && vp->v_uflag & VU_DIROP) {
+		SEGSUM *ssp = sp->segsum;
+
+		lfs_ss_setflags(fs, ssp,
+				lfs_ss_getflags(fs, ssp) | (SS_DIROP|SS_CONT));
+	}
 
 	/*
 	 * Loop over genfs_putpages until all pages are gathered.

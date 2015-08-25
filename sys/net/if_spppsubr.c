@@ -442,13 +442,6 @@ static const struct cp *cps[IDX_COUNT] = {
 };
 
 
-void spppattach(int);
-void
-/*ARGSUSED*/
-spppattach(int count)
-{
-}
-
 /*
  * Exported functions, comprising our interface to the lower layer.
  */

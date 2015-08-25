@@ -13,7 +13,7 @@
 /auvitek_video.c/1.6/Sun Oct  2 19:15:40 2011/-kk/
 /auvitekreg.h/1.1/Mon Dec 27 15:42:11 2010/-kk/
 /auvitekvar.h/1.8/Fri Oct  3 09:26:03 2014/-kk/
-/ehci.c/1.242/Sat Jul 25 01:52:22 2015/-kk/
+/ehci.c/1.243/Tue Aug 25 04:51:20 2015/-kk/
 /ehcireg.h/1.34/Sun Nov  4 12:01:55 2012/-kk/
 /ehcivar.h/1.42/Thu Oct 24 10:28:58 2013/-kk/
 /emdtv.c/1.10/Sun Apr 12 03:35:08 2015/-kk/
@@ -79,10 +79,10 @@
 /irmce.c/1.1/Tue Jul 19 12:23:04 2011/-kk/
 /kue_fw.h/1.5/Mon Aug 16 09:52:11 2010/-kk/
 /moscom.c/1.8/Sun Sep 23 01:08:17 2012/-kk/
-/motg.c/1.12/Fri Oct  3 09:57:51 2014/-kk/
+/motg.c/1.13/Tue Aug 25 04:51:20 2015/-kk/
 /motgreg.h/1.3/Fri Oct  3 09:57:51 2014/-kk/
 /motgvar.h/1.4/Fri Oct  3 09:57:51 2014/-kk/
-/ohci.c/1.255/Thu Apr  2 02:28:04 2015/-kk/
+/ohci.c/1.256/Tue Aug 25 04:51:20 2015/-kk/
 /ohcireg.h/1.25/Thu Apr  2 02:28:04 2015/-kk/
 /ohcivar.h/1.55/Thu Feb 13 15:22:32 2014/-kk/
 /pseye.c/1.21/Tue May 24 16:42:31 2011/-kk/
@@ -112,7 +112,7 @@
 /ugen.c/1.126/Fri Oct  3 09:57:51 2014/-kk/
 /ugensa.c/1.31/Thu Oct 24 10:28:58 2013/-kk/
 /ugraphire_rdesc.h/1.9/Fri Dec 23 00:51:46 2011/-kk/
-/uhci.c/1.265/Sat Mar 21 02:37:52 2015/-kk/
+/uhci.c/1.266/Tue Aug 25 04:51:20 2015/-kk/
 /uhcireg.h/1.19/Mon Apr 28 20:23:59 2008/-kk/
 /uhcivar.h/1.52/Thu Oct 24 10:28:58 2013/-kk/
 /uhid.c/1.94/Sat Mar 21 02:47:18 2015/-kk/
@@ -195,7 +195,7 @@
 /uyap_firmware.h/1.7/Tue Aug 18 11:08:37 2009/-kk/
 /uyurex.c/1.10/Sat Mar 21 02:37:52 2015/-kk/
 /x1input_rdesc.h/1.1/Sun Feb  8 19:22:45 2015/-kk/
-/xhci.c/1.28/Tue Dec  9 04:34:59 2014/-kk/
+/xhci.c/1.29/Tue Aug 25 04:51:20 2015/-kk/
 /xhcireg.h/1.3/Thu Apr  2 02:28:04 2015/-kk/
 /xhcivar.h/1.4/Fri Mar 14 04:28:21 2014/-kk/
 /xinput_rdesc.h/1.1/Sat Jul 30 12:15:44 2011/-kk/
