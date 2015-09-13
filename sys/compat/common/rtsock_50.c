@@ -63,7 +63,9 @@
 #include <sys/cdefs.h>
 __KERNEL_RCSID(0, "$NetBSD$");
 
+#ifdef _KERNEL_OPT
 #include "opt_compat_netbsd.h"
+#endif
 
 #if defined(COMPAT_14) && !defined(COMPAT_50)
 #define	COMPAT_50	1	/* 1.4 needs 5.0 */

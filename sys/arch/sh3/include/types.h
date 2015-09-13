@@ -64,7 +64,7 @@ typedef unsigned long	vsize_t;
 typedef int		register_t;
 #define	PRIxREGISTER	"x"
 
-typedef	volatile unsigned char __cpu_simple_lock_t;
+typedef	unsigned char __cpu_simple_lock_nv_t;
 
 #define	__SIMPLELOCK_LOCKED	0x80
 #define	__SIMPLELOCK_UNLOCKED	0

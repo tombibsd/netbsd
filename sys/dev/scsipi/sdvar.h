@@ -49,7 +49,9 @@
 #ifndef _DEV_SCSIPI_SDVAR_H_
 #define _DEV_SCSIPI_SDVAR_H_
 
+#ifdef _KERNEL_OPT
 #include "opt_scsi.h"
+#endif
 
 #include <sys/rndsource.h>
 

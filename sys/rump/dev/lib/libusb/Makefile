@@ -17,7 +17,5 @@ SRCS=	dummy.c
 
 #CPPFLAGS+= -DUHUB_DEBUG
 
-CPPFLAGS+=	-I${.CURDIR}/opt
-
 .include <bsd.lib.mk>
 .include <bsd.klinks.mk>

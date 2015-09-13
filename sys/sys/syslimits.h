@@ -36,6 +36,10 @@
 
 #include <sys/featuretest.h>
 
+#if defined(_KERNEL_OPT)
+#include "opt_syslimits.h"
+#endif
+
 #if defined(_POSIX_C_SOURCE) || defined(_XOPEN_SOURCE) || \
     defined(_NETBSD_SOURCE)
 #define	ARG_MAX		 (256 * 1024)	/* max bytes for an exec function */

@@ -43,8 +43,10 @@ __KERNEL_RCSID(0, "$NetBSD$");
  * IEEE 802.11 ioctl support (FreeBSD-specific)
  */
 
+#ifdef _KERNEL_OPT
 #include "opt_inet.h"
 #include "opt_compat_netbsd.h"
+#endif
 
 #include <sys/endian.h>
 #include <sys/param.h>

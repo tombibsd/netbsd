@@ -77,6 +77,7 @@
 __KERNEL_RCSID(0, "$NetBSD$");
 
 #include "opt_adb.h"
+#include "opt_copy_symtab.h"
 #include "opt_ddb.h"
 #include "opt_ddbparam.h"
 #include "opt_kgdb.h"
@@ -961,7 +962,7 @@ getenvvars(u_long flag, char *buf)
 	 * Get end of symbols for kernel debugging
 	 */
 	esym = (int *)getenv("END_SYM");
-#ifndef COPY_SYMTAB
+#ifndef makeoptions_COPY_SYMTAB
 	if (esym == (int *)0)
 #endif
 		esym = (int *)&end;

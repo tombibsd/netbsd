@@ -147,9 +147,10 @@ emithdr(FILE *ofp)
 
 	autogen_comment(ofp, "ioconf.c");
 
-	(void)snprintf(ifnbuf, sizeof(ifnbuf), "arch/%s/conf/ioconf.incl.%s",
+	(void)snprintf(ifnbuf, sizeof(ifnbuf), "%s/arch/%s/conf/ioconf.incl.%s",
+	    srcdir,
 	    machine ? machine : "(null)", machine ? machine : "(null)");
-	ifn = sourcepath(ifnbuf);
+	ifn = ifnbuf;
 	if ((ifp = fopen(ifn, "r")) != NULL) {
 		while ((n = fread(buf, 1, sizeof(buf), ifp)) > 0)
 			(void)fwrite(buf, 1, n, ofp);
@@ -162,7 +163,6 @@ emithdr(FILE *ofp)
 			"#include <sys/device.h>\n"
 			"#include <sys/mount.h>\n", ofp);
 	}
-	free(ifn);
 }
 
 /*

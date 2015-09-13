@@ -50,6 +50,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <luna68k/dev/omkbdmap.h>
 #include <luna68k/dev/sioreg.h>
 #include <luna68k/dev/siovar.h>
+#include <luna68k/dev/syscn.h>
 
 #include "ioconf.h"
 
@@ -127,9 +128,6 @@ static void wsattach(device_t, device_t, void *);
 
 CFATTACH_DECL_NEW(ws, sizeof(struct ws_softc),
     wsmatch, wsattach, NULL, NULL);
-
-extern int  syscngetc(dev_t);
-extern void syscnputc(dev_t, int);
 
 static int
 wsmatch(device_t parent, cfdata_t cf, void *aux)

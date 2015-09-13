@@ -325,6 +325,16 @@ void		usb_needs_explore(usbd_device_handle);
 void		usb_needs_reattach(usbd_device_handle);
 void		usb_schedsoftintr(struct usbd_bus *);
 
+static inline int
+usbd_xfer_isread(struct usbd_xfer *xfer)
+{
+	if (xfer->rqflags & URQ_REQUEST)
+		return xfer->request.bmRequestType & UT_READ;
+
+	return xfer->pipe->endpoint->edesc->bEndpointAddress &
+	    UE_DIR_IN;
+}
+
 /*
  * These macros reflect the current locking scheme.  They might change.
  */

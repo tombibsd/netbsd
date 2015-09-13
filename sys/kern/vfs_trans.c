@@ -36,7 +36,9 @@ __KERNEL_RCSID(0, "$NetBSD$");
  * File system transaction operations.
  */
 
+#ifdef _KERNEL_OPT
 #include "opt_ddb.h"
+#endif
 
 #include <sys/param.h>
 #include <sys/systm.h>

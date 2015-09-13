@@ -71,9 +71,9 @@ typedef unsigned short	tlb_asid_t;
  * to user-space, we don't want ABI breakage there.
  */
 #if defined(_KERNEL)
-typedef volatile unsigned char	__cpu_simple_lock_t;
+typedef unsigned char	__cpu_simple_lock_nv_t;
 #else
-typedef	volatile int		__cpu_simple_lock_t;
+typedef	int		__cpu_simple_lock_nv_t;
 #endif /* _KERNEL */
 
 #define	__SIMPLELOCK_LOCKED	1

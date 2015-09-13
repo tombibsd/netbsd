@@ -96,7 +96,7 @@
 /tlog.h/1.4/Fri Feb 13 11:36:14 2004/-kk/
 /trap.h/1.7/Wed Feb 26 21:29:03 2003/-kk/
 /tss.h/1.10/Sat Jan  5 21:45:00 2008/-kk/
-/types.h/1.81/Fri May  1 11:30:53 2015/-kk/
+/types.h/1.83/Sun Sep 13 01:06:05 2015/-kk/
 /userret.h/1.11/Mon Apr 28 20:23:24 2008/-kk/
 /vm86.h/1.19/Sat Nov 21 03:11:01 2009/-kk/
 /vmparam.h/1.81/Fri Oct  3 09:09:01 2014/-kk/

@@ -1,5 +1,5 @@
 # $NetBSD$
 
-SUBDIR+=	urtwn
+SUBDIR+=	rtwn urtwn
 
 .include <bsd.subdir.mk>

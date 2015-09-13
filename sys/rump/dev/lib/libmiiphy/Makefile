@@ -16,7 +16,7 @@ SRCS+= acphy.c amhphy.c atphy.c bmtphy.c brgphy.c ciphy.c dmphy.c etphy.c \
     inphy.c iophy.c lxtphy.c makphy.c nsphy.c nsphyter.c pnaphy.c \
     qsphy.c rdcphy.c rgephy.c rlphy.c sqphy.c tlphy.c tqphy.c urlphy.c
 
-CPPFLAGS+= -I${RUMPTOP}/librump/rumpkern -I${.CURDIR}/opt
+CPPFLAGS+= -I${RUMPTOP}/librump/rumpkern
    
 .include "${RUMPTOP}/Makefile.rump"
 .include <bsd.lib.mk>

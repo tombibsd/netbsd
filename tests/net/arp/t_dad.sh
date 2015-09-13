@@ -124,6 +124,8 @@ dad_basic_body()
 
 	# Waiting for DAD complete
 	atf_check -s exit:0 rump.ifconfig -w 10
+	# Give a chance to send a DAD announce packet
+	atf_check -s exit:0 sleep 1
 	extract_new_packets > ./out
 	$DEBUG && cat ./out
 
@@ -139,7 +141,8 @@ dad_basic_body()
 	atf_check -s exit:0 rump.ifconfig shmif0 inet 10.0.0.3/24 alias
 
 	# The new address starts with tentative state
-	atf_check -s exit:0 -x "rump.ifconfig shmif0 |grep 10.0.0.3 |grep -q tentative"
+	# XXX we have no stable way to check this, so skip for now
+	#atf_check -s exit:0 -x "rump.ifconfig shmif0 |grep 10.0.0.3 |grep -q tentative"
 
 	# Check DAD probe packets
 	atf_check -s exit:0 sleep 2
@@ -150,6 +153,8 @@ dad_basic_body()
 
 	# Waiting for DAD complete
 	atf_check -s exit:0 rump.ifconfig -w 10
+	# Give a chance to send a DAD announce packet
+	atf_check -s exit:0 sleep 1
 	extract_new_packets > ./out
 	$DEBUG && cat ./out
 

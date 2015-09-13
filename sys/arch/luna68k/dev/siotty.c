@@ -53,6 +53,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <luna68k/dev/sioreg.h>
 #include <luna68k/dev/siovar.h>
+#include <luna68k/dev/syscn.h>
 
 #include "ioconf.h"
 
@@ -693,9 +694,6 @@ getsiocsr(struct sioreg *sio)
 
 /*---------------------  console interface ----------------------*/
 
-int  syscngetc(dev_t);
-void syscnputc(dev_t, int);
-
 struct consdev syscons = {
 	NULL,
 	NULL,
@@ -710,7 +708,7 @@ struct consdev syscons = {
 };
 
 /* EXPORT */ void
-syscnattach(int channel)
+syscninit(int channel)
 {
 /*
  * Channel A is immediately initialized with 9600N1 right after cold

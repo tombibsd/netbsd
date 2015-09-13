@@ -94,8 +94,7 @@ mkmakefile(void)
 	FILE *ifp, *ofp;
 	int lineno;
 	void (*fn)(FILE *);
-	char *ifname;
-	char line[BUFSIZ], buf[200];
+	char line[BUFSIZ], ifname[200];
 
 	/*
 	 * Check if conf/Makefile.kern.inc defines "build_kernel".
@@ -104,8 +103,8 @@ mkmakefile(void)
 	 * unfortunately the "build_kernel" change done around 2014 Aug didn't
 	 * bump that version.  Thus this hack.)
 	 */
-	(void)snprintf(buf, sizeof(buf), "conf/Makefile.kern.inc");
-	ifname = sourcepath(buf);
+	(void)snprintf(ifname, sizeof(ifname), "%s/conf/Makefile.kern.inc",
+	    srcdir);
 	if ((ifp = fopen(ifname, "r")) == NULL) {
 		warn("cannot read %s", ifname);
 		goto bad2;
@@ -121,17 +120,15 @@ mkmakefile(void)
 	/*
 	 * Try a makefile for the port first.
 	 */
-	(void)snprintf(buf, sizeof(buf), "arch/%s/conf/Makefile.%s",
-	    machine, machine);
-	ifname = sourcepath(buf);
+	(void)snprintf(ifname, sizeof(ifname), "%s/arch/%s/conf/Makefile.%s",
+	    srcdir, machine, machine);
 	if ((ifp = fopen(ifname, "r")) == NULL) {
 		/*
 		 * Try a makefile for the architecture second.
 		 */
-		(void)snprintf(buf, sizeof(buf), "arch/%s/conf/Makefile.%s",
-		    machinearch, machinearch);
-		free(ifname);
-		ifname = sourcepath(buf);
+		(void)snprintf(ifname, sizeof(ifname),
+		    "%s/arch/%s/conf/Makefile.%s",
+		    srcdir, machinearch, machinearch);
 		ifp = fopen(ifname, "r");
 	}
 	if (ifp == NULL) {
@@ -205,7 +202,6 @@ mkmakefile(void)
 		warn("error renaming Makefile");
 		goto bad2;
 	}
-	free(ifname);
 	return (0);
 
  wrerror:
@@ -217,7 +213,6 @@ mkmakefile(void)
 	(void)fclose(ifp);
 	/* (void)unlink("Makefile.tmp"); */
  bad2:
-	free(ifname);
 	return (1);
 }
 
@@ -327,7 +322,6 @@ emitdefs(FILE *fp)
 		    s ? "\"" : "");
 	}
 	putc('\n', fp);
-	fprintf(fp, "PARAM=-DMAXUSERS=%d\n", maxusers);
 	fprintf(fp, "MACHINE=%s\n", machine);
 
 	const char *subdir = "";
@@ -530,6 +524,7 @@ emitfiles(FILE *fp, int suffix, int upper_suffix)
 		fprintf(fp, "\t%s%s%s%s \\\n",
 		    prologue, prefix, sep, fpath);
 	}
+
  	/*
  	 * The allfiles list does not include the configuration-specific
  	 * C source files.  These files should be eliminated someday, but
@@ -559,6 +554,8 @@ emitrules(FILE *fp)
 
 		if ((fi->fi_flags & FI_SEL) == 0)
 			continue;
+		if (fi->fi_mkrule == NULL)
+			continue;
 		fpath = srcpath(fi);
 		prologue = prefix = sep = "";
 		if (*fpath != '/') {
@@ -572,11 +569,7 @@ emitrules(FILE *fp)
 		}
 		fprintf(fp, "%s.o: %s%s%s%s\n", fi->fi_base,
 		    prologue, prefix, sep, fpath);
-		if (fi->fi_mkrule != NULL) {
-			fprintf(fp, "\t%s\n\n", fi->fi_mkrule);
-		} else {
-			fprintf(fp, "\t${NORMAL_%c}\n\n", toupper(fi->fi_suffix));
-		}
+		fprintf(fp, "\t%s\n\n", fi->fi_mkrule);
 	}
 }
 
@@ -621,8 +614,6 @@ emitload(FILE *fp)
 		fprintf(fp, "KERNELS+=%s\n", cf->cf_name);
 		fprintf(fp, "%s: ${SYSTEM_DEP} swap%s.o vers.o build_kernel\n",
 		    cf->cf_name, cf->cf_name);
-		fprintf(fp, "swap%s.o: swap%s.c\n"
-		    "\t${NORMAL_C}\n\n", cf->cf_name, cf->cf_name);
 	}
 	fputs("\n", fp);
 }

@@ -135,6 +135,8 @@ static struct dwc2_core_params octeon_dwc2_params = {
 	.reload_ctl			= 0,
 	.ahbcfg				= 0,	/* XXX */
 	.uframe_sched			= 1,
+	.external_id_pin_ctl		= -1,
+	.hibernation			= -1,
 };
 
 CFATTACH_DECL_NEW(octeon_dwctwo, sizeof(struct octeon_dwc2_softc),

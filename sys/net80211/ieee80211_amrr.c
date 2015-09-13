@@ -21,17 +21,21 @@
 #include <sys/cdefs.h>
 __KERNEL_RCSID(0, "$NetBSD$");
 
+#ifdef _KERNEL_OPT
+#include "opt_inet.h"
+#endif
+
 #include <sys/param.h>
 #include <sys/kernel.h>
 #include <sys/socket.h>
 #include <sys/sysctl.h>
 
 #include <net/if.h>
+#include <net/if_ether.h>
 #include <net/if_media.h>
 
 #ifdef INET
 #include <netinet/in.h>
-#include <netinet/if_ether.h>
 #endif
 
 #include <net80211/ieee80211.h>

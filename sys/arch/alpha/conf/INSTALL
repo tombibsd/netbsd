@@ -39,6 +39,7 @@ options 	API_UP1000	# EV6:		Alpha Processor, Inc. UP1000
 
 # Diagnostic/debugging support options
 options 	DDB			# kernel debugger
+pseudo-device	ksyms
 #makeoptions	DEBUG="-g"
 
 # File systems

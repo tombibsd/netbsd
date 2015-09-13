@@ -37,7 +37,7 @@ SRCS+=
 # bpf stubs, required for all kernels
 SRCS+=	bpf_stub.c
 
-CPPFLAGS+=	-I${RUMPTOP}/librump/rumpkern -I${RUMPTOP}/librump/rumpnet/opt
+CPPFLAGS+=	-I${RUMPTOP}/librump/rumpkern
 
 .include "${RUMPTOP}/Makefile.rump"
 

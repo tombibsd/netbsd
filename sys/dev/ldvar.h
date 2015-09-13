@@ -41,7 +41,6 @@ struct ld_softc {
 	struct dk_softc	sc_dksc;
 	kmutex_t	sc_mutex;
 	kcondvar_t	sc_drain;
-	krndsource_t	sc_rnd_source;
 
 	int		sc_queuecnt;	/* current h/w queue depth */
 	int		sc_ncylinders;	/* # cylinders */

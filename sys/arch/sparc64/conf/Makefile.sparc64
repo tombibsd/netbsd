@@ -108,7 +108,6 @@ dependkernlib:	assym.h
 ## (5) link settings
 ##
 TEXTADDR?=	01000000
-LINKSCRIPT=	-T ${KERNLDSCRIPT}
 .if ${LP64} == "yes"
 KERNLDSCRIPT?= ${SPARC64}/conf/kern.ldscript
 .else

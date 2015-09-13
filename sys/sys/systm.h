@@ -164,6 +164,7 @@ extern void (*v_putc)(int); /* Virtual console putc routine */
  */
 void	voidop(void);
 int	nullop(void *);
+void*	nullret(void);
 int	enodev(void);
 int	enosys(void);
 int	enoioctl(void);

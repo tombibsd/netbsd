@@ -41,7 +41,5 @@ SECTIONS
   /DISCARD/ : {
     *(.eh_frame_hdr)
     *(.eh_frame)
-    *(.rel.eh_frame)
-    *(.rela.eh_frame)
   }
 }

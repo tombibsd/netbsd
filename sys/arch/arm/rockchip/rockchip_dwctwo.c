@@ -84,6 +84,8 @@ static struct dwc2_core_params rkdwc2_params = {
 	.reload_ctl			= 0,	/* 0 - No (default for core < 2.92a) */
 	.ahbcfg				= 0x7,	/* INCR16 */
 	.uframe_sched			= 1,	/* True to enable microframe scheduler */
+	.external_id_pin_ctl		= -1,
+	.hibernation			= -1,
 };
 
 static int rkdwc2_match(device_t, struct cfdata *, void *);

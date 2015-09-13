@@ -4,4 +4,4 @@
 # pages.
 #
 
-makeoptions 	KERN_LDSCRIPT="kern.ldscript.4MB"
+makeoptions 	KERNLDSCRIPT="kern.ldscript.4MB"

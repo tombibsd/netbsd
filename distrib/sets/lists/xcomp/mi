@@ -9376,3 +9376,4 @@
 ./usr/libdata/lint/llib-lxkbfile.ln			-unknown-	lint,xorg
 ./usr/libdata/lint/llib-lxkbui.ln			-unknown-	lint,x11
 ./usr/libdata/lint/llib-lxkbui.ln			-unknown-	lint,xorg
+./var/db/obsolete/xcomp					xbase-sys-root	xorg

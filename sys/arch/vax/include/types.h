@@ -64,7 +64,7 @@ typedef int		register_t;
 /*
  * BBCCI/BBSSI can operate on bytes so let's save some space.
  */
-typedef volatile char	__cpu_simple_lock_t;
+typedef char	__cpu_simple_lock_nv_t;
 
 #define __SIMPLELOCK_LOCKED	1
 #define __SIMPLELOCK_UNLOCKED	0

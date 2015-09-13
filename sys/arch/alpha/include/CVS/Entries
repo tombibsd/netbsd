@@ -68,7 +68,7 @@
 /signal.h/1.16/Mon Feb  6 02:14:13 2012/-kk/
 /sysarch.h/1.20/Mon Feb  6 02:14:13 2012/-kk/
 /tc_machdep.h/1.6/Tue Nov 12 02:18:33 2013/-kk/
-/types.h/1.50/Mon Jan 12 06:47:51 2015/-kk/
+/types.h/1.51/Sun Sep 13 01:05:26 2015/-kk/
 /userret.h/1.10/Mon Feb  6 02:14:13 2012/-kk/
 /vmparam.h/1.38/Mon Dec 10 16:12:19 2012/-kk/
 /vuid_event.h/1.6/Mon Aug 28 16:41:04 2006/-kk/

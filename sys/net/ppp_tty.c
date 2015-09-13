@@ -97,7 +97,9 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include "ppp.h"
 
+#ifdef _KERNEL_OPT
 #include "opt_ppp.h"
+#endif
 #define VJC
 #define PPP_COMPRESS
 

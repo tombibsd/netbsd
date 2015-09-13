@@ -84,6 +84,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <machine/pte.h>
 #include <machine/kcore.h>	/* XXX should be pulled in by sys/kcore.h */
 
+#include <luna68k/dev/syscn.h>
+
 #include <dev/cons.h>
 #include <dev/mm.h>
 
@@ -137,7 +139,6 @@ int	sysconsole;	/* console: 0 for ttya, 1 for video */
 extern struct consdev syscons;
 extern void omfb_cnattach(void);
 extern void ws_cnattach(void);
-extern void syscnattach(int);
 
 /*
  * On the 68020/68030, the value of delay_divisor is roughly
@@ -248,7 +249,7 @@ consinit(void)
 {
 
 	if (sysconsole == 0)
-		syscnattach(0);
+		syscninit(0);
 	else {
 		omfb_cnattach();
 		ws_cnattach();

@@ -85,6 +85,8 @@ static struct dwc2_core_params amlogic_dwctwo_params = {
 	.reload_ctl			= -1,	/* 0 - No (default for core < 2.92a) */
 	.ahbcfg				= 0x3,	/* INCR4 */
 	.uframe_sched			= 1,	/* True to enable microframe scheduler */
+	.external_id_pin_ctl		= -1,
+	.hibernation			= -1,
 };
 
 static int amlogic_dwctwo_match(device_t, struct cfdata *, void *);

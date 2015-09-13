@@ -306,8 +306,8 @@ Notes:
 Use the dhcp2netbsd script.
 
 Package:	dhcpcd
-Version:	6.9.1
-Current Vers:	6.9.1
+Version:	6.9.2
+Current Vers:	6.9.2
 Maintainer:	roy
 Archive Site:	ftp://roy.marples.name/pub/dhcpcd/
 Home Page:	http://roy.marples.name/projects/dhcpcd/
@@ -451,7 +451,7 @@ Before importing a new version of external/gpl3/gcc:
 
 Package:	gdb
 Version:	7.9.1
-Current Vers:	7.9.1
+Current Vers:	7.10
 Maintainer:	FSF
 Archive Site:	ftp://ftp.gnu.org/gnu/gdb/
 Home Page:	http://www.gnu.org/software/gdb/
@@ -997,8 +997,8 @@ Notes:
 Patch applied after OpenSSH import.
 
 Package:	OpenSSH
-Version:	7.0
-Current Vers:	7.0 / portable 7.0p1
+Version:	7.1
+Current Vers:	7.1 / portable 7.1p1
 Maintainer:	OpenSSH
 Archive Site:	http://www.openssh.com/ftp.html
 Home Page:	http://www.openssh.com/portable.html

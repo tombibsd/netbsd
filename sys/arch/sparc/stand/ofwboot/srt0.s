@@ -136,7 +136,6 @@ _C_LABEL(syncicache):
  */
 	.align 8
 	.globl	_C_LABEL(openfirmware)
-	.proc 1
 	FTYPE(openfirmware)
 _C_LABEL(openfirmware):
 	andcc	%sp, 1, %g0

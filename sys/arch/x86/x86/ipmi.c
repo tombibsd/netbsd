@@ -1303,7 +1303,7 @@ signextend(unsigned long val, int bits)
 
 /* fixpoint arithmetic */
 #define FIX2INT(x)   ((int64_t)((x) >> 32))
-#define INT2FIX(x)   ((int64_t)((int64_t)(x) << 32))
+#define INT2FIX(x)   ((int64_t)((uint64_t)(x) << 32))
 
 #define FIX2            0x0000000200000000ll /* 2.0 */
 #define FIX3            0x0000000300000000ll /* 3.0 */

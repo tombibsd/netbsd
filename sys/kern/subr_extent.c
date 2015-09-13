@@ -37,7 +37,9 @@
 __KERNEL_RCSID(0, "$NetBSD$");
 
 #ifdef _KERNEL
+#ifdef _KERNEL_OPT
 #include "opt_lockdebug.h"
+#endif
 
 #include <sys/param.h>
 #include <sys/extent.h>

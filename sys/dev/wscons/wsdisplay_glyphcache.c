@@ -31,13 +31,16 @@
  * the most commonly used glyphs ) but the API should at least not prevent
  * more sophisticated caching algorithms
  */
+
+#ifdef _KERNEL_OPT
+#include "opt_glyphcache.h"
+#endif
  
 #include <sys/systm.h>
 #include <sys/atomic.h>
 #include <sys/errno.h>
 #include <sys/kmem.h>
 #include <dev/wscons/wsdisplay_glyphcachevar.h>
-#include "opt_glyphcache.h"
 
 #ifdef GLYPHCACHE_DEBUG
 #define DPRINTF aprint_normal

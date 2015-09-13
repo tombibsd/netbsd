@@ -724,8 +724,10 @@ esh_fpopen(dev_t dev, int oflags, int devtype,
 
 	if ((sc->sc_flags & ESH_FL_INITIALIZED) == 0) {
 		eshinit(sc);
-		if ((sc->sc_flags & ESH_FL_INITIALIZED) == 0)
+		if ((sc->sc_flags & ESH_FL_INITIALIZED) == 0) {
+			splx(s);
 			return EIO;
+		}
 	}
 
 	if ((sc->sc_flags & ESH_FL_RUNCODE_UP) == 0) {
@@ -867,7 +869,6 @@ esh_fpopen(dev_t dev, int oflags, int devtype,
 		error = tsleep((void *) &recv->ec_ulp, PCATCH | PRIBIO,
 			       "eshfpopen", 0);
 		if (error != 0 || recv->ec_index == -1) {
-			splx(s);
 			goto bad_fp_ring_create;
 		}
 	}

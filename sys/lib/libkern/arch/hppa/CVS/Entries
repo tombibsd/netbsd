@@ -1,5 +1,5 @@
 /Makefile.inc/1.12/Tue Mar 25 02:35:43 2014/-kk/
-/bcopy.S/1.14/Mon Jan 31 12:10:58 2011/-kk/
+/bcopy.S/1.15/Sun Sep 13 01:07:36 2015/-kk/
 /memcpy.S/1.1/Thu Jun  6 20:03:38 2002/-kk/
 /memmove.S/1.1/Thu Jun  6 20:03:38 2002/-kk/
 /milli.S/1.1/Thu Jun  6 20:03:39 2002/-kk/

@@ -63,6 +63,7 @@
 #include <sys/cdefs.h>
 __KERNEL_RCSID(0, "$NetBSD$");
 
+#ifdef _KERNEL_OPT
 #include "opt_inet.h"
 #include "opt_atalk.h"
 #include "opt_mbuftrace.h"
@@ -70,6 +71,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include "opt_gateway.h"
 #include "opt_pppoe.h"
 #include "opt_net_mpsafe.h"
+#endif
+
 #include "vlan.h"
 #include "pppoe.h"
 #include "bridge.h"
@@ -240,7 +243,7 @@ ether_output(struct ifnet * const ifp0, struct mbuf * const m0,
 		else if (m->m_flags & M_MCAST)
 			ETHER_MAP_IP_MULTICAST(&satocsin(dst)->sin_addr, edst);
 		else if (!arpresolve(ifp, rt, m, dst, edst))
-			return (0);	/* if not yet resolved */
+			return 0;	/* if not yet resolved */
 		/* If broadcasting on a simplex interface, loopback a copy */
 		if ((m->m_flags & M_BCAST) && (ifp->if_flags & IFF_SIMPLEX))
 			mcopy = m_copy(m, 0, (int)M_COPYALL);

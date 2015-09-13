@@ -106,9 +106,11 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include "ppp.h"
 
+#ifdef _KERNEL_OPT
 #include "opt_inet.h"
 #include "opt_gateway.h"
 #include "opt_ppp.h"
+#endif
 
 #ifdef INET
 #define VJC

@@ -43,7 +43,9 @@ __KERNEL_RCSID(0, "$NetBSD$");
  * IEEE 802.11 generic handler
  */
 
+#ifdef _KERNEL_OPT
 #include "opt_inet.h"
+#endif
 
 #include <sys/param.h>
 #include <sys/systm.h> 

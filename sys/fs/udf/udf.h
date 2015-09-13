@@ -339,12 +339,11 @@ struct udf_mount {
 	uint8_t			 metadata_flags;
 
 	/* rb tree for lookup icb to udf_node and sorted list for sync */
-	kmutex_t	ihash_lock;
 	struct rb_tree	udf_node_tree;
 
 	/* syncing */
 	int		syncing;			/* are we syncing?   */
-	kcondvar_t 	dirtynodes_cv;			/* sleeping on sync  */
+	kmutex_t	sync_lock;			/* serialize syncing */
 
 	/* late allocation */
 	int32_t			 uncommitted_lbs[UDF_PARTITIONS];

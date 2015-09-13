@@ -217,10 +217,12 @@ arcppopen(dev_t dev, int flag, int mode, struct lwp *l)
 	error = tsleep((void *)sc, ARCPPPRI | PCATCH, "arcppopen", TIMEOUT);
 	if (error == EWOULDBLOCK) {
 		sc->sc_state = 0;
+		splx(s);
 		return EBUSY;
 	}
 	if (error) {
 		sc->sc_state = 0;
+		splx(s);
 		return error;
 	}
 

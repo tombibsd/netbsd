@@ -49,8 +49,6 @@ SECTIONS
 		. = ALIGN(4096);
 		edata = ABSOLUTE(.);
 	} = 0
-	.ctors	: { *(.ctors) }
-	.dtors	: { *(.dtors) }
 
 	__bss_start = ABSOLUTE(.);
 	/* .sbss	: { *(.sbss) *(.scommon) } */

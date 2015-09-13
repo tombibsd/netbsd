@@ -588,27 +588,26 @@ bread(daddr_t blk, char *buffer, int cnt, const char *file)
 static int
 openpartition(const char *name, int flags, char *device, size_t devicelen)
 {
-	char		rawspec[MAXPATHLEN], xbuf[MAXPATHLEN], *p;
+	char		specname[MAXPATHLEN];
+	char		rawname[MAXPATHLEN];
+	const char	*special, *raw;
 	struct fstab	*fs;
 	int		fd, oerrno;
 
 	fs = getfsfile(name);
-	if (fs) {
-		const char *fsspec;
-		fsspec = getfsspecname(xbuf, sizeof(xbuf), fs->fs_spec);
-		if (fsspec == NULL)
-			err(4, "%s", xbuf);
-		if ((p = strrchr(fsspec, '/')) != NULL) {
-			snprintf(rawspec, sizeof(rawspec), "%.*s/r%s",
-			    (int)(p - fsspec), fsspec, p + 1);
-			name = rawspec;
-		} else
-			name = fsspec;
-	}
-	fd = opendisk(name, flags, device, devicelen, 0);
+	special = fs ? fs->fs_spec : name;
+
+	raw = getfsspecname(specname, sizeof(specname), special);
+	if (raw == NULL)
+		err(1, "%s: %s", name, specname);
+	special = getdiskrawname(rawname, sizeof(rawname), raw); 
+	if (special == NULL)
+		special = raw;
+
+	fd = opendisk(special, flags, device, devicelen, 0);
 	if (fd == -1 && errno == ENOENT) {
 		oerrno = errno;
-		strlcpy(device, name, devicelen);
+		strlcpy(device, special, devicelen);
 		errno = oerrno;
 	}
 	return (fd);

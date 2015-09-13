@@ -90,9 +90,9 @@
  *	@(#)route.c	8.3 (Berkeley) 1/9/95
  */
 
-#ifdef _KERNEL
+#if defined(_KERNEL) && defined(_KERNEL_OPT)
 #include "opt_route.h"
-#endif /* _KERNEL */
+#endif /* _KERNEL && _KERNEL_OPT */
 
 #include <sys/cdefs.h>
 __KERNEL_RCSID(0, "$NetBSD$");

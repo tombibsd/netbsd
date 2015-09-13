@@ -61,9 +61,6 @@ locore.o: ${A64}/aarch64/locore.S assym.h
 KERNLDSCRIPT?=	${A64}/conf/kern.ldscript
 LOADADDRESS?=	0xFFFFFFFF00000000
 LINKFLAGS_NORMAL=	-X
-.if "${KERNLDSCRIPT}" != ""
-LINKSCRIPT=	-T ${KERNLDSCRIPT}
-.endif
 
 # Strip AArch64 mapping symbols from the kernel image, as they interfere
 # with ddb. Do it differently if 'makeoptions DEBUG="-g"' was specified.

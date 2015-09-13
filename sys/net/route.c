@@ -90,8 +90,10 @@
  *	@(#)route.c	8.3 (Berkeley) 1/9/95
  */
 
+#ifdef _KERNEL_OPT
 #include "opt_inet.h"
 #include "opt_route.h"
+#endif
 
 #include <sys/cdefs.h>
 __KERNEL_RCSID(0, "$NetBSD$");
@@ -1268,6 +1270,7 @@ rt_timer_queue_remove_all(struct rttimer_queue *rtq, int destroy)
 		TAILQ_REMOVE(&rtq->rtq_head, r, rtt_next);
 		if (destroy)
 			RTTIMER_CALLOUT(r);
+		rtfree(r->rtt_rt);
 		/* we are already at splsoftnet */
 		pool_put(&rttimer_pool, r);
 		if (rtq->rtq_count > 0)
@@ -1311,6 +1314,7 @@ rt_timer_remove_all(struct rtentry *rt, int destroy)
 			r->rtt_queue->rtq_count--;
 		else
 			printf("rt_timer_remove_all: rtq_count reached 0\n");
+		rtfree(r->rtt_rt);
 		/* we are already at splsoftnet */
 		pool_put(&rttimer_pool, r);
 	}
@@ -1339,6 +1343,7 @@ rt_timer_add(struct rtentry *rt,
 			r->rtt_queue->rtq_count--;
 		else
 			printf("rt_timer_add: rtq_count reached 0\n");
+		rtfree(r->rtt_rt);
 	} else {
 		s = splsoftnet();
 		r = pool_get(&rttimer_pool, PR_NOWAIT);
@@ -1349,6 +1354,7 @@ rt_timer_add(struct rtentry *rt,
 
 	memset(r, 0, sizeof(*r));
 
+	rt->rt_refcnt++;
 	r->rtt_rt = rt;
 	r->rtt_time = time_uptime;
 	r->rtt_func = func;
@@ -1375,6 +1381,7 @@ rt_timer_timer(void *arg)
 			LIST_REMOVE(r, rtt_link);
 			TAILQ_REMOVE(&rtq->rtq_head, r, rtt_next);
 			RTTIMER_CALLOUT(r);
+			rtfree(r->rtt_rt);
 			pool_put(&rttimer_pool, r);
 			if (rtq->rtq_count > 0)
 				rtq->rtq_count--;

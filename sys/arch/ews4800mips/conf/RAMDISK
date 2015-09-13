@@ -84,5 +84,6 @@ no pseudo-device	agr
 no pseudo-device	accf_data
 no pseudo-device	accf_http
 no pseudo-device	clockctl
-no pseudo-device	ksyms
+# GENERIC has DDB, needs ksyms
+#no pseudo-device	ksyms
 no pseudo-device	wsmux

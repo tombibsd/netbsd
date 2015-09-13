@@ -61,7 +61,10 @@
  */
 
 #include <sys/kobj_impl.h>
+
+#ifdef _KERNEL_OPT
 #include "opt_modular.h"
+#endif
 
 #ifdef MODULAR
 

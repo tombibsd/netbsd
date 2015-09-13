@@ -1084,11 +1084,8 @@ udf_reserve_space(struct udf_mount *ump, struct udf_node *udf_node,
 		DPRINTF(RESERVE, ("udf_reserve_space: issuing sync\n"));
 		mutex_exit(&ump->allocate_mutex);
 		udf_do_sync(ump, FSCRED, 0);
-		mutex_enter(&mntvnode_lock);
 		/* 1/8 second wait */
-		cv_timedwait(&ump->dirtynodes_cv, &mntvnode_lock,
-			hz/8);
-		mutex_exit(&mntvnode_lock);
+		kpause("udfsync2", false, hz/8, NULL);
 		mutex_enter(&ump->allocate_mutex);
 	}
 

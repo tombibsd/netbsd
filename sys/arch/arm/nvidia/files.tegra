@@ -132,4 +132,6 @@ defflag	opt_tegra.h			SOC_TEGRAK1
 defflag	opt_tegra.h			SOC_TEGRA124: SOC_TEGRAK1
 
 # Board parameters
-defflag	opt_tegra.h			BOARD_JETSONTK1
+defflag opt_tegra.h			TEGRA_UBOOT
+defflag	opt_tegra.h			BOARD_JETSONTK1: TEGRA_UBOOT
+defflag opt_tegra.h			BOARD_NYAN_BIG

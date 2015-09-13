@@ -26,6 +26,7 @@ options 	KLOADER_KERNEL_PATH="\"/netbsd\""
 options		KLOADER_DEBUG
 
 options 	DDB			# in-kernel debugger
+pseudo-device	ksyms
 #options 	DIAGNOSTIC		# extra kernel debugging checks
 options 	DEBUG			# extra kernel debugging support
 options 	KTRACE			# system call tracing support

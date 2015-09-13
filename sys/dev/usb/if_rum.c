@@ -266,7 +266,7 @@ rum_attachhook(void *xsc)
 	int error;
 
 	if ((error = firmware_open("rum", name, &fwh)) != 0) {
-		printf("%s: failed loadfirmware of file %s (error %d)\n",
+		printf("%s: failed firmware_open of file %s (error %d)\n",
 		    device_xname(sc->sc_dev), name, error);
 		return error;
 	}

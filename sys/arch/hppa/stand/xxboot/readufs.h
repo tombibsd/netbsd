@@ -24,7 +24,6 @@ union ufs_dinode {
 #endif
 #ifdef USE_LFS
 	struct lfs32_dinode dil32;
-	struct lfs64_dinode dil64;
 #endif
 };
 

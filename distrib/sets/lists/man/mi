@@ -1392,6 +1392,7 @@
 ./usr/share/man/cat4/mcd.0			man-sys-catman		.cat
 ./usr/share/man/cat4/mcp23s17gpio.0		man-sys-catman		.cat
 ./usr/share/man/cat4/mcp3kadc.0			man-sys-catman		.cat
+./usr/share/man/cat4/mcp48x1dac.0		man-sys-catman		.cat
 ./usr/share/man/cat4/mcp980x.0			man-sys-catman		.cat
 ./usr/share/man/cat4/md.0			man-sys-catman		.cat
 ./usr/share/man/cat4/mfb.0			man-sys-catman		.cat
@@ -1582,6 +1583,7 @@
 ./usr/share/man/cat4/rtpphy.0			man-obsolete		obsolete
 ./usr/share/man/cat4/rtsx.0			man-sys-catman		.cat
 ./usr/share/man/cat4/rtw.0			man-sys-catman		.cat
+./usr/share/man/cat4/rtwn.0			man-sys-catman		.cat
 ./usr/share/man/cat4/rum.0			man-sys-catman		.cat
 ./usr/share/man/cat4/rumpfs.0			man-sys-catman		.cat,rump
 ./usr/share/man/cat4/run.0			man-sys-catman		.cat
@@ -4417,6 +4419,7 @@
 ./usr/share/man/html4/mcd.html			man-sys-htmlman		html
 ./usr/share/man/html4/mcp23s17gpio.html		man-sys-htmlman		html
 ./usr/share/man/html4/mcp3kadc.html		man-sys-htmlman		html
+./usr/share/man/html4/mcp48x1dac.html		man-sys-htmlman		html
 ./usr/share/man/html4/mcp980x.html		man-sys-htmlman		html
 ./usr/share/man/html4/md.html			man-sys-htmlman		html
 ./usr/share/man/html4/mfb.html			man-sys-htmlman		html
@@ -4579,6 +4582,7 @@
 ./usr/share/man/html4/rtk.html			man-sys-htmlman		html
 ./usr/share/man/html4/rtsx.html			man-sys-htmlman		html
 ./usr/share/man/html4/rtw.html			man-sys-htmlman		html
+./usr/share/man/html4/rtwn.html			man-sys-htmlman		html
 ./usr/share/man/html4/rum.html			man-sys-htmlman		html
 ./usr/share/man/html4/rumpfs.html			man-sys-htmlman		html,rump
 ./usr/share/man/html4/run.html			man-sys-htmlman		html
@@ -7292,6 +7296,7 @@
 ./usr/share/man/man4/mcd.4			man-sys-man		.man
 ./usr/share/man/man4/mcp23s17gpio.4		man-sys-man		.man
 ./usr/share/man/man4/mcp3kadc.4			man-sys-man		.man
+./usr/share/man/man4/mcp48x1dac.4		man-sys-man		.man
 ./usr/share/man/man4/mcp980x.4			man-sys-man		.man
 ./usr/share/man/man4/md.4			man-sys-man		.man
 ./usr/share/man/man4/mfb.4			man-sys-man		.man
@@ -7482,6 +7487,7 @@
 ./usr/share/man/man4/rtpphy.4			man-obsolete		obsolete
 ./usr/share/man/man4/rtsx.4			man-sys-man		.man
 ./usr/share/man/man4/rtw.4			man-sys-man		.man
+./usr/share/man/man4/rtwn.4			man-sys-man		.man
 ./usr/share/man/man4/rum.4			man-sys-man		.man
 ./usr/share/man/man4/rumpfs.4			man-sys-man		.man,rump
 ./usr/share/man/man4/run.4			man-sys-man		.man
@@ -9082,3 +9088,4 @@
 ./usr/share/man/man9lua/pmf.9lua		man-sys-man		.man
 ./usr/share/man/man9lua/systm.9lua		man-sys-man		.man
 ./usr/share/man/style.css			man-mdocml-htmlman	html
+./var/db/obsolete/man				base-sys-root

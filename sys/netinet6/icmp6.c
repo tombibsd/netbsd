@@ -64,8 +64,10 @@
 #include <sys/cdefs.h>
 __KERNEL_RCSID(0, "$NetBSD$");
 
+#ifdef _KERNEL_OPT
 #include "opt_inet.h"
 #include "opt_ipsec.h"
+#endif
 
 #include <sys/param.h>
 #include <sys/systm.h>
@@ -2712,12 +2714,14 @@ icmp6_mtudisc_clone(struct sockaddr *dst)
 static void
 icmp6_mtudisc_timeout(struct rtentry *rt, struct rttimer *r)
 {
-	if (rt == NULL)
-		panic("icmp6_mtudisc_timeout: bad route to timeout");
+
+	KASSERT(rt != NULL);
+	rt_assert_referenced(rt);
+
 	if ((rt->rt_flags & (RTF_DYNAMIC | RTF_HOST)) ==
 	    (RTF_DYNAMIC | RTF_HOST)) {
 		rtrequest((int) RTM_DELETE, rt_getkey(rt),
-		    rt->rt_gateway, rt_mask(rt), rt->rt_flags, 0);
+		    rt->rt_gateway, rt_mask(rt), rt->rt_flags, NULL);
 	} else {
 		if (!(rt->rt_rmx.rmx_locks & RTV_MTU))
 			rt->rt_rmx.rmx_mtu = 0;
@@ -2727,12 +2731,14 @@ icmp6_mtudisc_timeout(struct rtentry *rt, struct rttimer *r)
 static void
 icmp6_redirect_timeout(struct rtentry *rt, struct rttimer *r)
 {
-	if (rt == NULL)
-		panic("icmp6_redirect_timeout: bad route to timeout");
+
+	KASSERT(rt != NULL);
+	rt_assert_referenced(rt);
+
 	if ((rt->rt_flags & (RTF_GATEWAY | RTF_DYNAMIC | RTF_HOST)) ==
 	    (RTF_GATEWAY | RTF_DYNAMIC | RTF_HOST)) {
 		rtrequest((int) RTM_DELETE, rt_getkey(rt),
-		    rt->rt_gateway, rt_mask(rt), rt->rt_flags, 0);
+		    rt->rt_gateway, rt_mask(rt), rt->rt_flags, NULL);
 	}
 }
 

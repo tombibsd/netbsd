@@ -66,7 +66,7 @@ typedef struct label_t {	/* Used by setjmp & longjmp */
 } label_t;
 #endif
          
-typedef	volatile unsigned int	__cpu_simple_lock_t;
+typedef	unsigned int	__cpu_simple_lock_nv_t;
 
 #define __SIMPLELOCK_LOCKED	1
 #define __SIMPLELOCK_UNLOCKED	0

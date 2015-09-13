@@ -34,7 +34,7 @@
  *	@(#)trap.h	8.3 (Berkeley) 6/5/95
  */
 
-extern int pendingsigs;
+extern volatile int pendingsigs;
 
 void clear_traps(int);
 sig_t setsignal(int, int);
@@ -43,3 +43,4 @@ void onsig(int);
 void dotrap(void);
 void setinteractive(int);
 void exitshell(int) __dead;
+int lastsig(void);

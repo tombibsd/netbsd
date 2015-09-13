@@ -36,7 +36,9 @@
 #error This file should NOT be included anywhere else than kernel
 #endif
 
+#ifdef _KERNEL_OPT
 #include "opt_mbuftrace.h"
+#endif
 
 #include "netmpls/mpls.h"
 

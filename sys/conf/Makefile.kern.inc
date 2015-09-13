@@ -62,13 +62,11 @@ S!=	cd ../../../..; pwd
 ##
 INCLUDES?=	-I. ${EXTRA_INCLUDES} -I${S}/../common/include -I$S/arch \
 		-I$S -nostdinc
-CPPFLAGS+=	${INCLUDES} ${IDENT} ${PARAM} -D_KERNEL -D_KERNEL_OPT
+CPPFLAGS+=	${INCLUDES} ${IDENT} -D_KERNEL -D_KERNEL_OPT
 CPPFLAGS+=	-std=gnu99
 DEFCOPTS?=	-O2
 COPTS?=		${DEFCOPTS}
 DBG=		# might contain unwanted -Ofoo
-DEFWARNINGS?=	yes
-.if (${DEFWARNINGS} == "yes")
 CWARNFLAGS+=	-Wall -Wno-main -Wno-format-zero-length -Wpointer-arith
 CWARNFLAGS+=	-Wmissing-prototypes -Wstrict-prototypes
 CWARNFLAGS+=	-Wold-style-definition
@@ -87,7 +85,6 @@ CWARNFLAGS+=	-Wold-style-definition
 # Add -Wno-sign-compare.  -Wsign-compare is included in -Wall as of GCC 3.3,
 # but our sources aren't up for it yet.
 CWARNFLAGS+=	-Wno-sign-compare
-.endif
 
 CWARNFLAGS.clang+=	-Wno-unknown-pragmas -Wno-conversion \
 			-Wno-self-assign
@@ -144,24 +141,46 @@ COMPILE_CTFCONVERT=	${_MKSHNOECHO}
 # NOPROF and SUFFIX is the file suffix, capitalized (e.g. C for a .c file).
 NORMAL_C?=	@${_MKSHMSG} "compile  ${.CURDIR:T}/${.TARGET}" && \
 		${_MKSHECHO}\
-		${CC} ${COPTS.${<:T}} ${CFLAGS} ${CPPFLAGS} ${PROF} -c $< && \
-		${CC} ${COPTS.${<:T}} ${CFLAGS} ${CPPFLAGS} ${PROF} -c $< && \
+		${CC} ${COPTS.${<:T}} ${CFLAGS} ${CPPFLAGS} ${PROF} -c $< -o $@ && \
+		${CC} ${COPTS.${<:T}} ${CFLAGS} ${CPPFLAGS} ${PROF} -c $< -o $@ && \
 		${COMPILE_CTFCONVERT}
 NOPROF_C?=	@${_MKSHMSG} "compile  ${.CURDIR:T}/${.TARGET}" && \
 		${_MKSHECHO}\
-		${CC} ${COPTS.${<:T}} ${CFLAGS} ${CPPFLAGS} -c $< && \
-		${CC} ${COPTS.${<:T}} ${CFLAGS} ${CPPFLAGS} -c $< && \
+		${CC} ${COPTS.${<:T}} ${CFLAGS} ${CPPFLAGS} -c $< -o $@ && \
+		${CC} ${COPTS.${<:T}} ${CFLAGS} ${CPPFLAGS} -c $< -o $@ && \
 		${COMPILE_CTFCONVERT}
 NORMAL_S?=	@${_MKSHMSG} "compile  ${.CURDIR:T}/${.TARGET}" && \
 		${_MKSHECHO}\
-		${CC} ${AFLAGS} ${AFLAGS.${<:T}} ${CPPFLAGS} -c $< && \
-		${CC} ${AFLAGS} ${AFLAGS.${<:T}} ${CPPFLAGS} -c $<
+		${CC} ${AFLAGS} ${AFLAGS.${<:T}} ${CPPFLAGS} -c $< -o $@ && \
+		${CC} ${AFLAGS} ${AFLAGS.${<:T}} ${CPPFLAGS} -c $< -o $@
  
 # link rules: 
 LINK_O?=	@${_MKSHMSG} "   link  ${.CURDIR:T}/${.TARGET}" && \
 		${_MKSHECHO}\
 		${LD} -r ${LINKFORMAT} -Map=${.TARGET}.map -o ${.TARGET} ${.ALLSRC} && \
 		${LD} -r ${LINKFORMAT} -Map=${.TARGET}.map -o ${.TARGET} ${.ALLSRC}
+
+.for _s in ${CFILES}
+.if !commands(${_s:T:R}.o)
+${_s:T:R}.o: ${_s}
+	${NORMAL_C}
+.endif
+.endfor
+
+.for _s in ${SFILES}
+.if !commands(${_s:T:R}.o)
+${_s:T:R}.o: ${_s}
+	${NORMAL_S}
+.endif
+.endfor
+
+.SUFFIXES: .c .o
+.c.o:
+	${NORMAL_C}
+
+.SUFFIXES: .S .o
+.S.o:
+	${NORMAL_S}
 
 ##
 ## (3) libkern and compat
@@ -196,6 +215,7 @@ SYSLIBCOMPATLN?=	${COMPATLIBLN}
 ## Each port should have a corresponding section with settings for
 ## MD_CFILES, MD_SFILES, and MD_OBJS, along with build rules for same.
 ##
+
 MI_CFILES=devsw.c ioconf.c param.c
 # the need for a MI_SFILES variable is dubitable at best
 MI_OBJS=${MI_CFILES:S/.c/.o/}
@@ -204,13 +224,6 @@ param.c: $S/conf/param.c
 	${_MKTARGET_CREATE}
 	rm -f param.c
 	cp $S/conf/param.c .
-
-param.o: Makefile
-
-.for _cfile in ${MI_CFILES}
-${_cfile:T:R}.o: ${_cfile}
-	${NORMAL_C}
-.endfor
 
 ##
 ## (5) link settings
@@ -229,25 +242,37 @@ SYSTEM_OBJ?=	${MD_OBJS} ${MI_OBJS} ${OBJS} ${SYSLIBCOMPAT} ${LIBKERN}
 SYSTEM_OBJ?=	${MD_OBJS} ${MI_OBJS} ${OBJS:O} ${SYSLIBCOMPAT} ${LIBKERN}
 .endif
 SYSTEM_DEP+=	Makefile ${SYSTEM_OBJ} .gdbinit
-.if defined(KERNLDSCRIPT)
-SYSTEM_DEP+=	${KERNLDSCRIPT}
-.endif
 .if defined(CTFMERGE)
 SYSTEM_CTFMERGE= ${CTFMERGE} ${CTFMFLAGS} -o ${.TARGET} ${SYSTEM_OBJ} ${EXTRA_OBJ} vers.o
 .else
 SYSTEM_CTFMERGE= ${_MKSHECHO}
 .endif
 SYSTEM_LD_HEAD?=@rm -f $@
-SYSTEM_LD?=	@${_MKSHMSG} "   link  ${.CURDIR:T}/${.TARGET}"; \
+SYSTEM_LD?=	@do_system_ld() { \
+		target=$$1; shift; \
+		${_MKSHMSG} "   link  ${.CURDIR:T}/${.TARGET}"; \
 		${_MKSHECHO}\
-		${LD} -Map $@.map --cref ${LINKFLAGS} -o $@ '$${SYSTEM_OBJ}' '$${EXTRA_OBJ}' vers.o; \
-		${LD} -Map $@.map --cref ${LINKFLAGS} -o $@ ${SYSTEM_OBJ} ${EXTRA_OBJ} vers.o
+		${LD} -Map $${target}.map --cref ${LINKFLAGS} -o $${target} '$${SYSTEM_OBJ}' '$${EXTRA_OBJ}' vers.o $$@; \
+		${LD} -Map $${target}.map --cref ${LINKFLAGS} -o $${target} ${SYSTEM_OBJ} ${EXTRA_OBJ} vers.o $$@; \
+		}; \
+		do_system_ld
 
 # Give MD generated ldscript dependency on ${SYSTEM_OBJ}
 .if defined(KERNLDSCRIPT)
 .if target(${KERNLDSCRIPT})
 ${KERNLDSCRIPT}: ${SYSTEM_OBJ}
 .endif
+.endif
+
+.if defined(KERNLDSCRIPT)
+.for k in ${KERNELS}
+EXTRA_CLEAN+=	${k}.ldscript
+${k}: ${k}.ldscript
+${k}.ldscript: ${KERNLDSCRIPT} assym.h
+	${_MKTARGET_CREATE}
+	${CPP} -I. ${KERNLDSCRIPT} | grep -v '^#' | grep -v '^$$' >$@
+.endfor
+LINKSCRIPT=	-T ${.TARGET}.ldscript
 .endif
 
 TEXTADDR?=	${LOADADDRESS}			# backwards compatibility
@@ -295,15 +320,22 @@ SYSTEM_LD_TAIL_STAGE2+=	${SYSTEM_LD_TAIL_EXTRA}
 ##
 ## (6) port independent targets and dependencies: assym.h, vers.o
 ##
-.if !target(assym.h)
-assym.h: ${GENASSYM_CONF} ${GENASSYM_EXTRAS}
+
+.SUFFIXES: .genassym .assym.h
+.genassym.assym.h:
 	${_MKTARGET_CREATE}
-	cat ${GENASSYM_CONF} ${GENASSYM_EXTRAS} | \
+	cat $< | \
+	    ${GENASSYM} -- ${CC} ${CFLAGS:N-Wa,*} ${CPPFLAGS} ${PROF} \
+	    ${GENASSYM_CPPFLAGS} > $@.tmp && \
+	mv -f $@.tmp $@
+
+assym.h: ${GENASSYM_CONF} ${GENASSYM_EXTRAS} $S/conf/genassym.cf
+	${_MKTARGET_CREATE}
+	cat ${GENASSYM_CONF} ${GENASSYM_EXTRAS} $S/conf/genassym.cf | \
 	    ${GENASSYM} -- ${CC} ${CFLAGS:N-Wa,*} ${CPPFLAGS} ${PROF} \
 	    ${GENASSYM_CPPFLAGS} > assym.h.tmp && \
 	mv -f assym.h.tmp assym.h
 ${MD_SFILES:C/\.[Ss]/.o/} ${SFILES:C/\.[Ss]/.o/}: assym.h
-.endif
 
 MKREPRO?=no
 
@@ -315,7 +347,7 @@ _NVFLAGS=${NVFLAGS}
 
 .if !target(vers.o)
 newvers: vers.o
-vers.o: ${SYSTEM_DEP} ${SYSTEM_SWAP_DEP} $S/conf/newvers.sh \
+vers.o: ${SYSTEM_OBJ} Makefile $S/conf/newvers.sh \
 		$S/conf/osrelease.sh ${_NETBSD_VERSION_DEPENDS}
 	${_MKMSG_CREATE} vers.c
 	${HOST_SH} $S/conf/newvers.sh ${_NVFLAGS}
@@ -323,34 +355,6 @@ vers.o: ${SYSTEM_DEP} ${SYSTEM_SWAP_DEP} $S/conf/newvers.sh \
 	${CC} ${CFLAGS} ${CPPFLAGS} ${PROF} -c vers.c
 	${COMPILE_CTFCONVERT}
 .endif
-
-# Option for embedding a splashscreen image.
-.if defined(SPLASHSCREEN_IMAGE) 
-.include "${S}/dev/splash/splash.mk"
-init_main.o: splash_image.o
-.endif
-
-.if defined(MEMORY_DISK_IMAGE)
-md_root_image.h: ${MEMORY_DISK_IMAGE}
-	${_MKTARGET_CREATE}
-	${TOOL_HEXDUMP} -v -e '"\t" 8/1 "0x%02x, " "\n"' ${.ALLSRC} > ${.TARGET}
-
-# XXX This is only needed when building md_root.o
-CPPFLAGS+=	-DMEMORY_DISK_IMAGE
-md_root.o: md_root_image.h
-.endif
-
-# depend on MEMORY_DISK_IMAGE configuration
-md_root.o: Makefile
-
-# depend on root or device configuration
-autoconf.o conf.o: Makefile
-
-# depend on network or filesystem configuration
-uipc_proto.o vfs_conf.o: Makefile
-
-# depend on maxusers and CPU configuration
-assym.h machdep.o: Makefile
 
 ##
 ## (7) misc targets: install, clean(dir), depend(all), lint, links, tags,
@@ -360,6 +364,11 @@ assym.h machdep.o: Makefile
 ## EXTRA_CLEAN.  Some ports may want different settings for
 ## KERNLINTFLAGS, MKDEP_CFLAGS, or MKDEP_AFLAGS.
 ##
+
+##
+## clean
+##
+
 .if !target(__CLEANKERNEL)
 __CLEANKERNEL: .USE
 	${_MKMSG} "${.TARGET}ing the kernel objects"
@@ -384,6 +393,10 @@ clean: __CLEANKERNEL
 depend: .depend
 dependall: depend .WAIT all
 
+##
+## depend
+##
+
 .if !target(.depend)
 MKDEP_AFLAGS?=	${AFLAGS}
 MKDEP_CFLAGS?=	${CFLAGS}
@@ -391,6 +404,12 @@ SSRCS=${MD_SFILES} ${SFILES}
 CSRCS=${MD_CFILES} ${MI_CFILES} ${CFILES}
 SRCS=${SSRCS} ${CSRCS}
 DEPS=	${SRCS:T:u:R:S/$/.d/g}
+
+.SUFFIXES: .S .d
+.S.d:
+	${_MKTARGET_CREATE}
+	${MKDEP} -f ${.TARGET} -- ${MKDEP_AFLAGS} \
+	    ${CPPFLAGS} ${CPPFLAGS.${_s:T}} $<
 
 .for _s in ${SSRCS}
 .if !target(${_s:T:R}.d)
@@ -400,6 +419,13 @@ ${_s:T:R}.d: ${_s} assym.h
 	    ${CPPFLAGS} ${CPPFLAGS.${_s:T}} ${_s}
 .endif
 .endfor
+
+.SUFFIXES: .c .d
+.c.d:
+	${_MKTARGET_CREATE}
+	${MKDEP} -f ${.TARGET} -- ${MKDEP_CFLAGS} \
+	    ${CPPFLAGS} ${CPPFLAGS.${_s:T}} $<
+
 .for _s in ${CSRCS}
 .if !target(${_s:T:R}.d)
 ${_s:T:R}.d: ${_s}
@@ -424,38 +450,9 @@ DEPS+=	assym.d
 	echo "${.ALLSRC}" | ${MKDEP} -D
 .endif
 
-.if !target(lint)
-ALLSFILES?=	${MD_SFILES} ${SFILES}
-LINTSTUBS?=	${ALLSFILES:T:R:C/^.*$/LintStub_&.c/g}
-KERNLINTFLAGS?=	-bcehnxzFS
-NORMAL_LN?=	${LINT} ${KERNLINTFLAGS} ${CPPFLAGS:M-[IDU]*} -i $<
-
-_lsrc=${CFILES} ${LINTSTUBS} ${MI_CFILES} ${MD_CFILES}
-LOBJS?= ${_lsrc:T:S/.c$/.ln/g} ${LIBKERNLN} ${SYSLIBCOMPATLN}
-
-.for _sfile in ${ALLSFILES}
-LintStub_${_sfile:T:R}.c: ${_sfile} assym.h
-	${_MKTARGET_COMPILE}
-	${CC} -E -C ${AFLAGS} ${CPPFLAGS} ${_sfile} | \
-	      ${TOOL_AWK} -f $S/kern/genlintstub.awk >${.TARGET}
-.endfor
-
-.for _cfile in ${CFILES} ${LINTSTUBS} ${MI_CFILES} ${MD_CFILES}
-${_cfile:T:R}.ln: ${_cfile}
-	${_MKTARGET_COMPILE}
-	${NORMAL_LN}
-.endfor
-
-lint: ${LOBJS}
-	${LINT} ${KERNLINTFLAGS} ${CPPFLAGS:M-[IDU]*} ${LOBJS}
-.endif
-
-# Attempt to do a syntax-only compile of the entire kernel as one entity.
-# Alas, bugs in the GCC C frontend prevent this from completely effective
-# but information can be gleaned from the output.
-syntax-only: ${CFILES} ${MD_CFILES}
-	${CC} -fsyntax-only -combine ${CFLAGS} ${CPPFLAGS} \
-		${CFILES} ${MD_CFILES}
+##
+## install
+##
 
 # List of kernel images that will be installed into the root file system.
 # Some platforms may need to install more than one (e.g. a netbsd.aout file
@@ -478,69 +475,15 @@ install-kernel-${MACHINE_NAME}:
 .endif
 .endif
 
-.if !target(tags)
-tags:
-	@echo "see $S/kern/Makefile for tags"
-.endif
+.include "${S}/conf/splash.mk"
+.include "${S}/conf/mdroot.mk"
+.include "${S}/conf/lint.mk"
+.include "${S}/conf/cscope.mk"
+.include "${S}/conf/gdbinit.mk"
 
-EXTRA_CLEAN+= cscope.out cscope.tmp
-.if !target(cscope.out)
-cscope.out: Makefile depend
-	${_MKTARGET_CREATE}
-	@${TOOL_SED} 's/[^:]*://;s/^ *//;s/ *\\ *$$//;' lib/kern/.depend \
-	    | tr -s ' ' '\n' \
-	    | ${TOOL_SED} ';s|^../../||;' \
-	    > cscope.tmp
-	@${TOOL_SED} 's/[^:]*://;s/^ *//;s/ *\\ *$$//;' lib/compat/.depend \
-	    | tr -s ' ' '\n' \
-	    | ${TOOL_SED} 's|^../../||;' \
-	    >> cscope.tmp
-	@echo ${SRCS} | cat - cscope.tmp | tr -s ' ' '\n' | sort -u | \
-	    ${CSCOPE} -k -i - -b `echo ${INCLUDES} | ${TOOL_SED} s/-nostdinc//`
-#	cscope doesn't write cscope.out if it's uptodate, so ensure
-#	make doesn't keep calling cscope when not needed.
-	@rm -f cscope.tmp; touch cscope.out
-.endif
-
-.if !target(cscope)
-cscope: cscope.out
-	@${CSCOPE} -d
-.endif
-
-EXTRA_CLEAN+= ID
-.if !target(mkid)
-.PHONY: mkid
-mkid: ID
-
-ID: Makefile depend
-	${_MKTARGET_CREATE}
-	@${MKID} \
-	    `${TOOL_SED} 's/[^:]*://;s/^ *//;s/ *\\\\ *$$//;' \
-			lib/kern/.depend lib/compat/.depend \
-		    | tr ' ' '\n' \
-		    | ${TOOL_SED} "s|^../../||" \
-		    | sort -u` \
-	    `${TOOL_SED} 's/[^:]*://;s/^ *//;s/ *\\\\ *$$//;' \
-			.depend \
-		    | tr ' ' '\n' \
-		    | sort -u`
-
-.endif
-
-.include "${S}/gdbscripts/Makefile.inc"
-
-EXTRA_CLEAN+= .gdbinit
-.gdbinit: Makefile ${S}/gdbscripts/Makefile.inc
-	${_MKTARGET_CREATE}
-	rm -f .gdbinit
-.for __gdbinit in ${SYS_GDBINIT}
-	echo "source ${S}/gdbscripts/${__gdbinit}" >> .gdbinit
-.endfor
-.if defined(GDBINIT) && !empty(GDBINIT)
-.for __gdbinit in ${GDBINIT}
-	echo "source ${__gdbinit}" >> .gdbinit
-.endfor
-.endif
+##
+## the kernel
+##
 
 # The following files use alloca(3) or variable array allocations.
 # Their full name is noted as documentation.
@@ -558,32 +501,26 @@ CFLAGS+=	${COPTS.${.IMPSRC:T}} ${CPUFLAGS.${.IMPSRC:T}}
 CPPFLAGS+=	${CPPFLAGS.${.IMPSRC:T}}
 CWARNFLAGS+=	${CWARNFLAGS.${.IMPSRC:T}}
 
-locore.o machdep.o kern_ksyms.o: Makefile
-
-.if defined(COPY_SYMTAB)
-CPPFLAGS.locore.S+=		-DCOPY_SYMTAB
-CPPFLAGS.machdep.c+=		-DCOPY_SYMTAB
-CPPFLAGS.kern_ksyms.c+=		-DCOPY_SYMTAB
-CPPFLAGS.kern_ksyms_buf.c+=	-DCOPY_SYMTAB
-.endif
-
 .if !defined(COPY_SYMTAB)
 build_kernel: .USE
 	${SYSTEM_LD_HEAD}
-	${SYSTEM_LD} swap${.TARGET}.o
+	${SYSTEM_LD} ${.TARGET} swap${.TARGET}.o
 	${SYSTEM_LD_TAIL_STAGE2}
 .else
+.for k in ${KERNELS}
+${k}: $S/kern/kern_ksyms_buf.c
+.endfor
 build_kernel: .USE
 	${CC} ${CFLAGS} ${CPPFLAGS} -DCOPY_SYMTAB \
 	    -c $S/kern/kern_ksyms_buf.c -o kern_ksyms_buf.o
 	${SYSTEM_LD_HEAD}
-	${SYSTEM_LD} swap${.TARGET}.o kern_ksyms_buf.o
+	${SYSTEM_LD} ${.TARGET} swap${.TARGET}.o kern_ksyms_buf.o
 	${SYSTEM_LD_TAIL_STAGE1}
 	${CC} ${CFLAGS} ${CPPFLAGS} -DCOPY_SYMTAB \
 	    -DSYMTAB_SPACE=$$(${DBSYM} -P ${.TARGET}${TARGETSFX}) \
 	    -c $S/kern/kern_ksyms_buf.c -o kern_ksyms_buf_real.o
 	${SYSTEM_LD_HEAD}
-	${SYSTEM_LD} swap${.TARGET}.o kern_ksyms_buf_real.o
+	${SYSTEM_LD} ${.TARGET} swap${.TARGET}.o kern_ksyms_buf_real.o
 	${SYSTEM_LD_TAIL_STAGE2}
 .endif
 

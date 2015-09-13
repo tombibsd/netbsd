@@ -74,7 +74,7 @@
 /signal.h/1.15/Tue Jan 13 23:56:13 2009/-kk/
 /tc_machdep.h/1.3/Tue Mar 11 05:34:02 2008/-kk/
 /trap.h/1.24/Sun Jul  3 02:18:20 2011/-kk/
-/types.h/1.47/Thu Oct 24 10:28:57 2013/-kk/
+/types.h/1.48/Sun Sep 13 01:06:47 2015/-kk/
 /userret.h/1.14/Fri May 25 12:32:48 2012/-kk/
 /uvax.h/1.7/Sat Sep 28 09:53:07 2002/-kk/
 /vaxfp.h/1.8/Tue Aug  5 16:47:42 2008/-kk/

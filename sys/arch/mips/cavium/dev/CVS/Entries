@@ -9,7 +9,7 @@
 /octeon_cop2reg.h/1.1/Wed Apr 29 08:32:01 2015/-kk/
 /octeon_cop2var.h/1.1/Wed Apr 29 08:32:01 2015/-kk/
 /octeon_corereg.h/1.2/Thu Jun 18 03:42:19 2015/-kk/
-/octeon_dwctwo.c/1.5/Sun Aug  2 04:02:40 2015/-kk/
+/octeon_dwctwo.c/1.6/Sun Sep 13 01:06:15 2015/-kk/
 /octeon_fau.c/1.1/Wed Apr 29 08:32:01 2015/-kk/
 /octeon_faureg.h/1.1/Wed Apr 29 08:32:01 2015/-kk/
 /octeon_fauvar.h/1.1/Wed Apr 29 08:32:01 2015/-kk/

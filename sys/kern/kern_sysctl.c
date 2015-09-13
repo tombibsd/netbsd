@@ -70,7 +70,10 @@
 #include <sys/cdefs.h>
 __KERNEL_RCSID(0, "$NetBSD$");
 
+#ifdef _KERNEL_OPT
 #include "opt_defcorename.h"
+#endif
+
 #include "ksyms.h"
 
 #include <sys/param.h>

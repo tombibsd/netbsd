@@ -33,7 +33,6 @@ EXTRA_CLEAN+=	${KERNELS:=.map}
 .if defined(KERNEL_BASE_PHYS)
 LINKTEXT=
 KERNLDSCRIPT=	ldscript
-LINKSCRIPT=	-T ${KERNLDSCRIPT}
 
 EXTRA_CLEAN+=	${KERNLDSCRIPT} tmp
 
@@ -43,7 +42,7 @@ ${KERNLDSCRIPT}: \
     ${THISARM}/conf/Makefile.evbarm.inc \
     Makefile \
     ${BOARDMKFRAG}
-	echo ${KERNELS}
+	${_MKTARGET_CREATE}
 	${TOOL_SED} -e 's/@KERNEL_BASE_PHYS@/${KERNEL_BASE_PHYS}/' \
 	    -e 's/@KERNEL_BASE_VIRT@/${KERNEL_BASE_VIRT}/' \
 	    ${THISARM}/conf/ldscript.evbarm > tmp && mv tmp $@

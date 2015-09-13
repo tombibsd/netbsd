@@ -13,7 +13,7 @@
 /auvitek_video.c/1.6/Sun Oct  2 19:15:40 2011/-kk/
 /auvitekreg.h/1.1/Mon Dec 27 15:42:11 2010/-kk/
 /auvitekvar.h/1.8/Fri Oct  3 09:26:03 2014/-kk/
-/ehci.c/1.243/Tue Aug 25 04:51:20 2015/-kk/
+/ehci.c/1.244/Sun Sep 13 01:07:15 2015/-kk/
 /ehcireg.h/1.34/Sun Nov  4 12:01:55 2012/-kk/
 /ehcivar.h/1.42/Thu Oct 24 10:28:58 2013/-kk/
 /emdtv.c/1.10/Sun Apr 12 03:35:08 2015/-kk/
@@ -48,7 +48,7 @@
 /if_otus.c/1.25/Thu Oct 24 10:28:58 2013/-kk/
 /if_otusreg.h/1.4/Thu Oct 24 10:28:58 2013/-kk/
 /if_otusvar.h/1.7/Thu Oct 24 10:28:58 2013/-kk/
-/if_rum.c/1.50/Sun Apr 12 03:35:09 2015/-kk/
+/if_rum.c/1.51/Sun Sep 13 01:07:15 2015/-kk/
 /if_rumreg.h/1.4/Mon Feb 21 23:50:42 2011/-kk/
 /if_rumvar.h/1.9/Mon Feb 21 23:50:42 2011/-kk/
 /if_run.c/1.11/Sat Mar 21 02:47:18 2015/-kk/
@@ -165,14 +165,14 @@
 /usb_verbose.h/1.4/Fri Oct  3 10:05:17 2014/-kk/
 /usbcdc.h/1.11/Mon Apr 28 20:24:00 2008/-kk/
 /usbdevices.config/1.24/Tue Mar 25 02:35:40 2014/-kk/
-/usbdevs.h/1.690/Sat Jul 25 01:30:42 2015/-kk/
-/usbdevs/1.698/Sat Jul 25 01:30:42 2015/-kk/
-/usbdevs_data.h/1.691/Sat Jul 25 01:30:42 2015/-kk/
-/usbdi.c/1.163/Mon Feb 16 03:14:26 2015/-kk/
+/usbdevs.h/1.691/Sun Sep 13 01:07:16 2015/-kk/
+/usbdevs/1.699/Sun Sep 13 01:07:16 2015/-kk/
+/usbdevs_data.h/1.692/Sun Sep 13 01:07:16 2015/-kk/
+/usbdi.c/1.164/Sun Sep 13 01:07:16 2015/-kk/
 /usbdi.h/1.90/Sun Jul 20 13:58:50 2014/-kk/
 /usbdi_util.c/1.64/Thu Apr  2 02:28:04 2015/-kk/
 /usbdi_util.h/1.46/Thu Apr  2 02:28:04 2015/-kk/
-/usbdivar.h/1.109/Fri Oct  3 09:50:56 2014/-kk/
+/usbdivar.h/1.110/Sun Sep 13 01:07:16 2015/-kk/
 /usbhid.h/1.14/Tue Jan 17 03:49:20 2012/-kk/
 /usbhist.h/1.2/Wed Jun  3 06:55:03 2015/-kk/
 /usbroothub_subr.c/1.1/Sun Feb  3 10:57:13 2008/-kk/

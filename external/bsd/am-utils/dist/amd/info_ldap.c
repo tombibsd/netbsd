@@ -448,7 +448,7 @@ get_ldap_timestamp(ALD *a, char *map, time_t *ts)
 	   vals[0], map);
       err = ENOENT;
     }
-    if (!*ts > 0) {
+    if (*ts <= 0) {
       plog(XLOG_USER, "Nonpositive timestamp %ld for map %s\n",
 	   (u_long) *ts, map);
       err = ENOENT;

@@ -1512,7 +1512,6 @@ bridge_enqueue(struct bridge_softc *sc, struct ifnet *dst_ifp, struct mbuf *m,
 #endif /* ALTQ */
 
 	len = m->m_pkthdr.len;
-	m->m_flags |= M_PROTO1;
 	mflags = m->m_flags;
 
 	IFQ_ENQUEUE(&dst_ifp->if_snd, m, &pktattr, error);

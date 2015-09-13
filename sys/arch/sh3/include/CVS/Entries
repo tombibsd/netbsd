@@ -66,7 +66,7 @@
 /sh_opcode.h/1.3/Sun Apr 28 17:10:36 2002/-kk/
 /signal.h/1.13/Wed Nov 19 18:36:00 2008/-kk/
 /tmureg.h/1.11/Sat Mar  4 01:55:03 2006/-kk/
-/types.h/1.34/Sun Jul 17 23:48:35 2011/-kk/
+/types.h/1.35/Sun Sep 13 01:06:36 2015/-kk/
 /ubcreg.h/1.5/Fri Jun  6 03:17:28 2008/-kk/
 /userret.h/1.13/Sun Jul  8 20:14:11 2012/-kk/
 /vmparam.h/1.21/Sun Nov 14 13:33:22 2010/-kk/

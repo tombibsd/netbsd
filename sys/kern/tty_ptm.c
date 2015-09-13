@@ -29,8 +29,10 @@
 #include <sys/cdefs.h>
 __KERNEL_RCSID(0, "$NetBSD$");
 
+#ifdef _KERNEL_OPT
 #include "opt_compat_netbsd.h"
 #include "opt_ptm.h"
+#endif
 
 /* pty multiplexor driver /dev/ptm{,x} */
 

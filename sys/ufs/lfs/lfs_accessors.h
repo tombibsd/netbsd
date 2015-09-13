@@ -494,6 +494,15 @@ lfs_fi_setblock(STRUCT_LFS *fs, FINFO *fip, unsigned index, daddr_t blk)
 	}								\
 	UNSHARE_IFLOCK(F);						\
 } while (0)
+#define LFS_IENTRY_NEXT(IP, F) do { \
+	if ((F)->lfs_is64) {						\
+		(IP) = (IFILE *)((IFILE64 *)(IP) + 1);			\
+	} else if (lfs_sb_getversion(F) > 1) {				\
+		(IP) = (IFILE *)((IFILE32 *)(IP) + 1);			\
+	} else {							\
+		(IP) = (IFILE *)((IFILE_V1 *)(IP) + 1);			\
+	}								\
+} while (0)
 
 #define LFS_DEF_IF_ACCESSOR(type, type32, field) \
 	static __unused inline type				\

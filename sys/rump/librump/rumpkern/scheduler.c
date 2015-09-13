@@ -72,7 +72,7 @@ static struct rumpcpu {
 struct cpu_info *rump_cpu = &rump_cpus[0];
 kcpuset_t *kcpuset_attached = NULL;
 kcpuset_t *kcpuset_running = NULL;
-int ncpu;
+int ncpu, ncpuonline;
 
 #define RCPULWP_BUSY	((void *)-1)
 #define RCPULWP_WANTED	((void *)-2)

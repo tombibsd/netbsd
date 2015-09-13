@@ -67,10 +67,12 @@
 #include <sys/cdefs.h>
 __KERNEL_RCSID(0, "$NetBSD$");
 
+#ifdef _KERNEL_OPT
 #include "opt_inet.h"
 #include "opt_compat_netbsd.h"
 #include "opt_ipsec.h"
 #include "opt_mrouting.h"
+#endif
 
 #include <sys/param.h>
 #include <sys/sysctl.h>

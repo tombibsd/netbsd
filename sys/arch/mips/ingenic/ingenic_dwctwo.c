@@ -87,6 +87,8 @@ static struct dwc2_core_params ingenic_dwc2_params = {
 	.reload_ctl			= -1,
 	.ahbcfg				= -1,
 	.uframe_sched			= 0,
+	.external_id_pin_ctl		= -1,
+	.hibernation			= -1,
 };
 
 static int ingenic_dwc2_match(device_t, struct cfdata *, void *);

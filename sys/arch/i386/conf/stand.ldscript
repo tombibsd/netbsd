@@ -1,8 +1,5 @@
 /*	$NetBSD$	*/
 
-OUTPUT_FORMAT("elf32-i386", "elf32-i386",
-	      "elf32-i386")
-OUTPUT_ARCH(i386)
 ENTRY(_start)
 SECTIONS
 {
@@ -51,8 +48,6 @@ SECTIONS
   /DISCARD/ : {
     *(.eh_frame_hdr)
     *(.eh_frame)
-    *(.rel.eh_frame)
-    *(.rela.eh_frame)
     *(.note.netbsd.ident)
   }
 }

@@ -39,11 +39,13 @@
 #include <sys/cdefs.h>
 __KERNEL_RCSID(0, "$NetBSD$");
 
+#ifdef _KERNEL_OPT
 #include "opt_hz.h"
 #include "opt_rtc_offset.h"
 #include "opt_sysv.h"
 #include "opt_sysvparam.h"
 #include "opt_multiprocessor.h"
+#endif
 
 #include <sys/param.h>
 #include <sys/systm.h>

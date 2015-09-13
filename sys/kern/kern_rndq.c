@@ -1493,7 +1493,7 @@ rnd_system_ioctl(struct file *fp, u_long cmd, void *addr)
 		 */
 		kr = LIST_FIRST(&rnd_global.sources);
 		start = rset->start;
-		while (kr != NULL && start > 1) {
+		while (kr != NULL && start > 0) {
 			kr = LIST_NEXT(kr, list);
 			start--;
 		}

@@ -429,6 +429,18 @@ main(int argc, char **argv)
 		stop();
 
 	/*
+	 * Copy maxusers to param.
+	 */
+	yyfile = "fixmaxusers";
+	fixmaxusers();
+
+	/*
+	 * Copy makeoptions to params
+	 */
+	yyfile = "fixmkoption";
+	fixmkoption();
+
+	/*
 	 * If working on an ioconf-only config, process here and exit
 	 */
 	if (ioconfname) {
@@ -616,30 +628,26 @@ mksymlinks(void)
 	const char *q;
 	struct nvlist *nv;
 
-	snprintf(buf, sizeof(buf), "arch/%s/include", machine);
-	p = sourcepath(buf);
+	p = buf;
+
+	snprintf(buf, sizeof(buf), "%s/arch/%s/include", srcdir, machine);
 	ret = recreate(p, "machine");
 	ret = recreate(p, machine);
-	free(p);
 
 	if (machinearch != NULL) {
-		snprintf(buf, sizeof(buf), "arch/%s/include", machinearch);
-		p = sourcepath(buf);
+		snprintf(buf, sizeof(buf), "%s/arch/%s/include", srcdir, machinearch);
 		q = machinearch;
 	} else {
-		p = estrdup("machine");
+		snprintf(buf, sizeof(buf), "machine");
 		q = machine;
 	}
 
 	ret = recreate(p, q);
-	free(p);
 
 	for (nv = machinesubarches; nv != NULL; nv = nv->nv_next) {
 		q = nv->nv_name;
-		snprintf(buf, sizeof(buf), "arch/%s/include", q);
-		p = sourcepath(buf);
+		snprintf(buf, sizeof(buf), "%s/arch/%s/include", srcdir, q);
 		ret = recreate(p, q);
-		free(p);
 	}
 
 	return (ret);
@@ -1099,6 +1107,37 @@ appendcondmkoption(struct condexpr *cond, const char *name, const char *value)
 	nv = newnv(name, value, cond, 0, NULL);
 	*nextcndmkopt = nv;
 	nextcndmkopt = &nv->nv_next;
+}
+
+/*
+ * Copy maxusers to param "MAXUSERS".
+ */
+void
+fixmaxusers(void)
+{
+	char str[32];
+
+	snprintf(str, sizeof(str), "%d", maxusers);
+	addoption(intern("MAXUSERS"), intern(str));
+}
+
+/*
+ * Copy makeoptions to params with "makeoptions_" prefix.
+ */
+void
+fixmkoption(void)
+{
+	struct nvlist *nv;
+	char buf[100];
+	const char *name;
+
+	for (nv = mkoptions; nv != NULL; nv = nv->nv_next) {
+		snprintf(buf, sizeof(buf), "makeoptions_%s", nv->nv_name);
+		name = intern(buf);
+		if (!DEFINED_OPTION(name) || !OPT_DEFPARAM(name))
+			continue;
+		addoption(name, intern(nv->nv_str));
+	}
 }
 
 /*

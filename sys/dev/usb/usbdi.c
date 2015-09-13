@@ -65,16 +65,6 @@ Static void usbd_start_next(usbd_pipe_handle);
 Static usbd_status usbd_open_pipe_ival
 	(usbd_interface_handle, u_int8_t, u_int8_t, usbd_pipe_handle *, int);
 
-static inline int
-usbd_xfer_isread(usbd_xfer_handle xfer)
-{
-	if (xfer->rqflags & URQ_REQUEST)
-		return (xfer->request.bmRequestType & UT_READ);
-	else
-		return (xfer->pipe->endpoint->edesc->bEndpointAddress &
-			UE_DIR_IN);
-}
-
 #if defined(USB_DEBUG)
 void
 usbd_dump_iface(struct usbd_interface *iface)

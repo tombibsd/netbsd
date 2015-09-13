@@ -71,7 +71,7 @@
 #include <sys/cdefs.h>
 __KERNEL_RCSID(0, "$NetBSD$");
 
-#ifndef _LKM
+#ifdef _KERNEL_OPT
 #include "opt_compat_netbsd.h"
 #endif
 

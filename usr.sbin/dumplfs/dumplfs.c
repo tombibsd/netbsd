@@ -371,7 +371,7 @@ dump_ifile(int fd, struct lfs *lfsp, int do_ientries, int do_segentries, daddr_t
 			inum = dump_ipage_ifile(lfsp, inum, ipage, lfs_sb_getifpb(lfsp));
 	}
 
-	if (nblocks <= lfs_sb_getnindir(lfsp) * lfs_sb_getifpb(lfsp))
+	if (nblocks <= ULFS_NDADDR + lfs_sb_getnindir(lfsp))
 		goto e1;
 
 	/* Get the double indirect block */

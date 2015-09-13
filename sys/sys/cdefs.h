@@ -36,6 +36,10 @@
 #ifndef	_SYS_CDEFS_H_
 #define	_SYS_CDEFS_H_
 
+#ifdef _KERNEL_OPT
+#include "opt_diagnostic.h"
+#endif
+
 /*
  * Macro to test if we're using a GNU C compiler of a specific vintage
  * or later, for e.g. features that appeared in a particular version

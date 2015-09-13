@@ -190,7 +190,7 @@ _start(struct rpb *prpb)
 #if VAX49 || VAXANY
 	case VAX_BTYP_49:
 		dep_call = &ka49_calls;
-		cpu_setmodel("%s 4000/90", mv);
+		cpu_setmodel("%s 4000/{90,90A,96}", mv);
 		mv = NULL;
 		break;
 #endif

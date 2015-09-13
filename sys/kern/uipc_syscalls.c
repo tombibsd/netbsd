@@ -63,7 +63,9 @@
 #include <sys/cdefs.h>
 __KERNEL_RCSID(0, "$NetBSD$");
 
+#ifdef _KERNEL_OPT
 #include "opt_pipe.h"
+#endif
 
 #include <sys/param.h>
 #include <sys/systm.h>

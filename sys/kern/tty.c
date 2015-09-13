@@ -65,7 +65,9 @@
 #include <sys/cdefs.h>
 __KERNEL_RCSID(0, "$NetBSD$");
 
+#ifdef _KERNEL_OPT
 #include "opt_compat_netbsd.h"
+#endif
 
 #define TTY_ALLOW_PRIVATE
 
@@ -1550,10 +1552,10 @@ ttywait_timo(struct tty *tp, int timo)
 	    CONNECTED(tp) && tp->t_oproc) {
 		(*tp->t_oproc)(tp);
 		error = ttysleep(tp, &tp->t_outcv, true, timo);
-		if (error == EWOULDBLOCK) {
+		if (error == EWOULDBLOCK)
 			ttyflush(tp, FWRITE);
+		if (error)
 			break;
-		}
 	}
 	mutex_spin_exit(&tty_lock);
 

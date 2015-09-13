@@ -29,6 +29,10 @@
 #include <sys/cdefs.h>
 __KERNEL_RCSID(0, "$NetBSD$");
 
+/*
+ * adapted from Jared McNeill's amlogic_rng.c
+ */
+
 #include <sys/param.h>
 #include <sys/systm.h>
 #include <sys/device.h>

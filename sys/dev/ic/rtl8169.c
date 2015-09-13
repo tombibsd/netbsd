@@ -602,6 +602,8 @@ re_attach(struct rtk_softc *sc)
 			sc->sc_quirk |= RTKQ_NOJUMBO;
 			break;
 		case RTK_HWREV_8168E:
+		case RTK_HWREV_8168H:
+		case RTK_HWREV_8168H_SPIN1:
 			sc->sc_quirk |= RTKQ_DESCV2 | RTKQ_NOEECMD |
 			    RTKQ_MACSTAT | RTKQ_CMDSTOP | RTKQ_PHYWAKE_PM |
 			    RTKQ_NOJUMBO;

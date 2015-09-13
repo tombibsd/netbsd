@@ -38,6 +38,7 @@
 
 #if defined(SPCOPY) && !defined(_STANDALONE)
 
+#include "opt_diagnostic.h"
 #include "opt_multiprocessor.h"
 
 #include <machine/cpu.h>

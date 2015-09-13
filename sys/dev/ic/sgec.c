@@ -332,7 +332,7 @@ zestart(struct ifnet *ifp)
 	int nexttx, starttx;
 	int len, i, totlen, error;
 	int old_inq = sc->sc_inq;
-	uint16_t orword, tdr;
+	uint16_t orword, tdr = 0;
 	bus_dmamap_t map;
 
 	while (sc->sc_inq < (TXDESCS - 1)) {

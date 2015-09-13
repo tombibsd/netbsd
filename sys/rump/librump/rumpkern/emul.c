@@ -392,3 +392,10 @@ cpu_reboot(int howto, char *bootstr)
 	rump_sysproxy_fini(finiarg);
 	rumpuser_exit(ruhow);
 }
+
+const char *
+cpu_getmodel(void)
+{
+
+	return "rumpcore (virtual)";
+}

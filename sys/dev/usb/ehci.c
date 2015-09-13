@@ -57,7 +57,10 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include "ohci.h"
 #include "uhci.h"
+
+#ifdef _KERNEL_OPT
 #include "opt_usb.h"
+#endif
 
 #include <sys/param.h>
 

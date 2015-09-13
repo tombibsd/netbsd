@@ -68,9 +68,9 @@ typedef	unsigned long		psize_t;
 /*
  * Semaphores must be aligned on 16-byte boundaries on the PA-RISC.
  */
-typedef volatile struct {
+typedef struct {
 	volatile unsigned long csl_lock[4];
-} __cpu_simple_lock_t;
+} __cpu_simple_lock_nv_t;
 
 
 #define __SIMPLELOCK_LOCKED	{ { 0, 0, 0, 0} }

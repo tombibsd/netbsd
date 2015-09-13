@@ -586,7 +586,7 @@ lfs_order_freelist(struct lfs *fs)
 		if (ino % lfs_sb_getifpb(fs) == 0)
 			LFS_IENTRY(ifp, fs, ino, bp);
 		else
-			++ifp;
+			LFS_IENTRY_NEXT(ifp, fs);
 
 		/* Don't put zero or ifile on the free list */
 		if (ino == LFS_UNUSED_INUM || ino == LFS_IFILE_INUM)

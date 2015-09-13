@@ -7,7 +7,7 @@
 /rockchip_dma.c/1.1/Fri Dec 26 16:53:33 2014/-kk/
 /rockchip_dwcmmc.c/1.5/Mon Jan 12 06:47:54 2015/-kk/
 /rockchip_dwctmr.c/1.1/Sat Jan 17 17:21:55 2015/-kk/
-/rockchip_dwctwo.c/1.4/Sun Aug  2 04:02:34 2015/-kk/
+/rockchip_dwctwo.c/1.5/Sun Sep 13 01:05:37 2015/-kk/
 /rockchip_emac.c/1.12/Sat Mar 21 02:29:38 2015/-kk/
 /rockchip_emacreg.h/1.1/Sun Jan  4 03:53:02 2015/-kk/
 /rockchip_i2c.c/1.6/Mon Jan 26 07:10:14 2015/-kk/

@@ -12,7 +12,7 @@
 /db_interface.c/1.24/Thu Aug 11 19:52:52 2011/-kk/
 /db_machdep.c/1.4/Wed Oct  3 17:43:22 2012/-kk/
 /gdt.c/1.25/Thu Oct 24 10:28:57 2013/-kk/
-/genassym.cf/1.57/Sat Jul 25 01:51:50 2015/-kk/
+/genassym.cf/1.59/Sun Sep 13 01:05:27 2015/-kk/
 /kgdb_machdep.c/1.9/Sun Aug  2 04:02:33 2015/-kk/
 /kobj_machdep.c/1.5/Mon Dec  8 08:41:36 2008/-kk/
 /linux32_sigcode.S/1.2/Mon Aug  1 22:21:01 2011/-kk/
@@ -20,7 +20,7 @@
 /linux_sigcode.S/1.2/Sun Dec 11 12:16:21 2005/-kk/
 /linux_syscall.c/1.32/Sat Mar 21 02:37:31 2015/-kk/
 /lock_stubs.S/1.25/Thu Oct 24 10:28:57 2013/-kk/
-/locore.S/1.77/Fri Oct  3 09:35:59 2014/-kk/
+/locore.S/1.78/Sun Sep 13 01:05:27 2015/-kk/
 /machdep.c/1.213/Sat Jul 25 01:51:50 2015/-kk/
 /mainbus.c/1.36/Wed Aug 12 04:13:47 2015/-kk/
 /mptramp.S/1.17/Fri Jan 31 08:48:34 2014/-kk/

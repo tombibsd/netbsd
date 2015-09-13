@@ -17,7 +17,7 @@
 /freebsd_sigcode.S/1.5/Mon Apr 28 20:23:24 2008/-kk/
 /freebsd_syscall.c/1.40/Sat Mar 21 02:37:37 2015/-kk/
 /gdt.c/1.53/Fri Feb 24 08:06:07 2012/-kk/
-/genassym.cf/1.97/Thu Feb 27 08:55:46 2014/-kk/
+/genassym.cf/1.99/Sun Sep 13 01:06:05 2015/-kk/
 /i386_trap.S/1.5/Thu Feb 27 08:55:46 2014/-kk/
 /i386_trap_ipkdb.S/1.2/Tue Dec 17 04:05:02 2013/-kk/
 /i386func.S/1.17/Wed Aug 29 22:43:35 2012/-kk/
@@ -30,7 +30,7 @@
 /linux_sigcode.S/1.8/Mon Apr 28 20:23:24 2008/-kk/
 /linux_syscall.c/1.52/Sat Mar 21 02:37:37 2015/-kk/
 /lock_stubs.S/1.26/Fri Jan 31 08:48:36 2014/-kk/
-/locore.S/1.113/Fri Oct  3 09:36:08 2014/-kk/
+/locore.S/1.114/Sun Sep 13 01:06:05 2015/-kk/
 /longrun.c/1.4/Sun Oct 23 13:02:32 2011/-kk/
 /machdep.c/1.754/Fri May  1 11:30:53 2015/-kk/
 /mainbus.c/1.101/Wed Aug 12 04:13:59 2015/-kk/

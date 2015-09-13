@@ -33,7 +33,9 @@
 #include <sys/cdefs.h>
 __KERNEL_RCSID(0, "$NetBSD$");
 
+#ifdef _KERNEL_OPT
 #include "opt_net_mpsafe.h"
+#endif
 
 #include "bridge.h"
 #include "carp.h"
@@ -2125,7 +2127,7 @@ nd6_slowtimo(void *ignored_arg)
 
 	mutex_enter(softnet_lock);
 	KERNEL_LOCK(1, NULL);
-      	callout_reset(&nd6_slowtimo_ch, ND6_SLOWTIMER_INTERVAL * hz,
+	callout_reset(&nd6_slowtimo_ch, ND6_SLOWTIMER_INTERVAL * hz,
 	    nd6_slowtimo, NULL);
 	IFNET_FOREACH(ifp) {
 		nd6if = ND_IFINFO(ifp);

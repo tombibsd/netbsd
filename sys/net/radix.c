@@ -43,7 +43,9 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/queue.h>
 #include <sys/kmem.h>
 #ifdef	_KERNEL
+#ifdef _KERNEL_OPT
 #include "opt_inet.h"
+#endif
 
 #include <sys/systm.h>
 #include <sys/malloc.h>

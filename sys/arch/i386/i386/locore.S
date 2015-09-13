@@ -132,6 +132,7 @@
 __KERNEL_RCSID(0, "$NetBSD$");
 
 #include "opt_compat_oldboot.h"
+#include "opt_copy_symtab.h"
 #include "opt_ddb.h"
 #include "opt_modular.h"
 #include "opt_multiboot.h"
@@ -184,7 +185,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 	.ascii	",PAE=yes[extended-cr3]"
 #endif
 	.ascii	",LOADER=generic"
-#if (NKSYMS || defined(DDB) || defined(MODULAR)) && !defined(COPY_SYMTAB)
+#if (NKSYMS || defined(DDB) || defined(MODULAR)) && !defined(makeoptions_COPY_SYMTAB)
 	.ascii	",BSD_SYMTAB=yes"
 #endif
 	.byte	0
@@ -544,7 +545,7 @@ try586:	/* Use the `cpuid' instruction. */
 	/* Find end of kernel image. */
 	movl	$RELOC(end),%edi
 
-#if (NKSYMS || defined(DDB) || defined(MODULAR)) && !defined(COPY_SYMTAB)
+#if (NKSYMS || defined(DDB) || defined(MODULAR)) && !defined(makeoptions_COPY_SYMTAB)
 	/* Save the symbols (if loaded). */
 	movl	RELOC(esym),%eax
 	testl	%eax,%eax

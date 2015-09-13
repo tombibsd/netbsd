@@ -65,7 +65,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <x68k/dev/opmvar.h>
 
-#include "ioconfig.h"
+#include "ioconf.h"
 
 /* In opm.c. */
 void opm_set_volume(int, int);

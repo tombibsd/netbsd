@@ -107,7 +107,7 @@ typedef paddr_t			psize_t;
 #define	PRIxPSIZE		PRIxPADDR
 #endif
 
-typedef	volatile unsigned char		__cpu_simple_lock_t;
+typedef	unsigned char		__cpu_simple_lock_nv_t;
 
 /* __cpu_simple_lock_t used to be a full word. */
 #define	__CPU_SIMPLE_LOCK_PAD

@@ -22,7 +22,7 @@ SRCS+=	rumpdev_bus_dma.c
 
 SRCS+=	pci_at_mainbus.c
 
-CPPFLAGS+= -I${.CURDIR}/opt -I${RUMPTOP}/librump/rumpkern
+CPPFLAGS+= -I${RUMPTOP}/librump/rumpkern
 CPPFLAGS+= -I${RUMPTOP}/librump/rumpvfs
 
 .if ${RUMP_PCI_IOSPACE:Uno} == "yes"

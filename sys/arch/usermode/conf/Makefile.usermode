@@ -69,13 +69,16 @@ TEXTADDR?=	  %TEXTADDR%
 
 LINKFLAGS_NORMAL=	-X
 KERNLDSCRIPT?=	${USERMODE}/conf/kern.ldscript
-#LINKSCRIPT=	-T ${KERNLDSCRIPT}
 
-SYSTEM_LD=	@${_MKSHMSG} "   link  ${.CURDIR:T}/${.TARGET}"; \
+SYSTEM_LD=	@do_system_ld() { \
+		target=$$1; shift; \
+		${_MKSHMSG} "   link  ${.CURDIR:T}/${.TARGET}"; \
 		${_MKSHECHO}\
-		${CC} -static ${COPTS} -Wl,-Map,$@.map -o $@ ${LINKFORMAT} -Ttext ${TEXTADDR} '$${SYSTEM_OBJ}' '$${EXTRA_OBJ}' vers.o ${USERMODE_LIBS}; \
+		${CC} -static ${COPTS} -Wl,-Map,$${target}.map -o $${target} ${LINKFORMAT} -Ttext ${TEXTADDR} '$${SYSTEM_OBJ}' '$${EXTRA_OBJ}' vers.o ${USERMODE_LIBS} $$@; \
 		${SYSTEM_LD_FIX} \
-		${CC} -static ${COPTS} -Wl,-Map,$@.map -o $@ ${LINKFORMAT} -Ttext ${TEXTADDR} ${SYSTEM_OBJ} ${EXTRA_OBJ} vers.o ${USERMODE_LIBS}
+		${CC} -static ${COPTS} -Wl,-Map,$${target}.map -o $${target} ${LINKFORMAT} -Ttext ${TEXTADDR} ${SYSTEM_OBJ} ${EXTRA_OBJ} vers.o ${USERMODE_LIBS} $$@; \
+		}; \
+		do_system_ld
 NVFLAGS=	-n
 
 ##

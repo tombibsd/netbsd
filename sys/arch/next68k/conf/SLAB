@@ -28,6 +28,7 @@ options 	DIAGNOSTIC	# extra kernel sanity checking
 # Which kernel debugger?  Uncomment either this:
 options 	DDB
 options 	DDB_HISTORY_SIZE=100	# enable history editing in DDB
+pseudo-device	ksyms
 
 # ... or these for KGDB (gdb remote target)
 makeoptions	DEBUG="-g"		# debugging symbols for gdb

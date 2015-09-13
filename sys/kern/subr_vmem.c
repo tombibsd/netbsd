@@ -48,9 +48,9 @@
 #include <sys/cdefs.h>
 __KERNEL_RCSID(0, "$NetBSD$");
 
-#if defined(_KERNEL)
+#if defined(_KERNEL) && defined(_KERNEL_OPT)
 #include "opt_ddb.h"
-#endif /* defined(_KERNEL) */
+#endif /* defined(_KERNEL) && defined(_KERNEL_OPT) */
 
 #include <sys/param.h>
 #include <sys/hash.h>

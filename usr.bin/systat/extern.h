@@ -93,6 +93,7 @@ void	 disks_remove(char *);
 void	 disks_drives(char *);
 void	 display(int);
 void	 error(const char *, ...) __printflike(1, 2);
+void	 clearerror(void);
 void	 fetchbufcache(void);
 void	 fetchdf(void);
 void	 fetchicmp(void);

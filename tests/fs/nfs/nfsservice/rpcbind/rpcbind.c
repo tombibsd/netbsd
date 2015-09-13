@@ -199,12 +199,14 @@ rpcbind_main(void *arg)
 	if (runasdaemon) {
 		struct passwd *p;
 
-		if((p = getpwnam(RUN_AS)) == NULL) {
-			syslog(LOG_ERR, "cannot get uid of daemon: %m");
+		if ((p = getpwnam(RUN_AS)) == NULL) {
+			syslog(LOG_ERR, "cannot get uid of daemon (%s)",
+			    strerror(errno));
 			exit(1);
 		}
 		if (setuid(p->pw_uid) == -1) {
-			syslog(LOG_ERR, "setuid to daemon failed: %m");
+			syslog(LOG_ERR, "setuid to daemon failed: (%s)",
+			    strerror(errno));
 			exit(1);
 		}
 	}

@@ -114,3 +114,4 @@
 ./etc/rc.d/xdm						etc-x11-rc	xorg
 ./etc/rc.d/xfs						etc-x11-rc	x11
 ./etc/rc.d/xfs						etc-x11-rc	xorg
+./var/db/obsolete/xetc					xbase-sys-root	xorg

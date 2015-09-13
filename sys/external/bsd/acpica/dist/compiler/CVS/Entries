@@ -27,7 +27,7 @@
 /aslmethod.c/1.1.1.4/Tue Aug 25 04:51:21 2015/-kk/
 /aslnamesp.c/1.1.1.4/Tue Aug 25 04:51:21 2015/-kk/
 /asloffset.c/1.1.1.4/Tue Aug 25 04:51:21 2015/-kk/
-/aslopcodes.c/1.3/Tue Aug 25 04:51:21 2015/-kk/
+/aslopcodes.c/1.4/Sun Sep 13 01:07:17 2015/-kk/
 /asloperands.c/1.1.1.6/Tue Aug 25 04:51:21 2015/-kk/
 /aslopt.c/1.1.1.6/Tue Aug 25 04:51:21 2015/-kk/
 /asloptions.c/1.1.1.4/Tue Aug 25 04:51:21 2015/-kk/
@@ -67,7 +67,7 @@
 /dtparser.l/1.1.1.4/Wed Apr 22 07:37:05 2015/-kk/
 /dtparser.y/1.5/Tue Aug 25 04:51:21 2015/-kk/
 /dtsubtable.c/1.5/Tue Aug 25 04:51:21 2015/-kk/
-/dttable.c/1.5/Tue Aug 25 04:51:21 2015/-kk/
+/dttable.c/1.6/Sun Sep 13 01:07:17 2015/-kk/
 /dttemplate.c/1.1.1.6/Tue Aug 25 04:51:21 2015/-kk/
 /dttemplate.h/1.1.1.6/Tue Aug 25 04:51:21 2015/-kk/
 /dtutils.c/1.5/Tue Aug 25 04:51:21 2015/-kk/

@@ -404,7 +404,6 @@ daic_download(void *token, int count, struct isdn_dr_prot *data)
 		    	tsleep(sc, 0, "daic download", 1);
 		    }
 	    	    if (bus_space_read_1(sc->sc_iot, sc->sc_ioh, DAIC_BOOT_CTRL+off) != 0) {
-	    	    	splx(x);
 	    	    	aprint_error_dev(sc->sc_dev, "download of microcode failed\n");
 	    	    	return EIO;
 	    	    }

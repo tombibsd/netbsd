@@ -94,9 +94,11 @@ keyboard(void)
 				    case '\n':
 				    case '\r':
 				    case ' ':
+					clearerror();
 					display(0);
 					break;
 				    case CTRL('l'):
+					clearerror();
 					wrefresh(curscr);
 					break;
 				    case CTRL('g'):

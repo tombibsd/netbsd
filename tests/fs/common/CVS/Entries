@@ -1,7 +1,7 @@
 /Makefile/1.12/Fri Mar 14 04:28:30 2014/-kk/
 /fstest_ext2fs.c/1.2/Fri Jul 30 16:15:05 2010/-kk/
 /fstest_ffs.c/1.6/Sun Aug  5 02:03:05 2012/-kk/
-/fstest_lfs.c/1.4/Fri Jul 30 16:15:05 2010/-kk/
+/fstest_lfs.c/1.5/Sun Sep 13 01:08:04 2015/-kk/
 /fstest_msdosfs.c/1.3/Mon Mar 26 15:10:26 2012/-kk/
 /fstest_nfs.c/1.9/Mon Feb 28 21:08:46 2011/-kk/
 /fstest_puffs.c/1.11/Thu Oct 24 10:28:58 2013/-kk/
@@ -11,6 +11,6 @@
 /fstest_udf.c/1.4/Thu Oct 24 10:28:58 2013/-kk/
 /fstest_v7fs.c/1.1/Thu Aug 11 10:52:12 2011/-kk/
 /fstest_zfs.c/1.1/Mon Aug 20 16:37:35 2012/-kk/
-/h_fsmacros.h/1.39/Thu Apr  2 02:28:10 2015/-kk/
+/h_fsmacros.h/1.40/Sun Sep 13 01:08:04 2015/-kk/
 /snapshot.c/1.7/Thu Oct 24 10:28:58 2013/-kk/
 D

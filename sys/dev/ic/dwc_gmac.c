@@ -917,7 +917,7 @@ dwc_gmac_queue(struct dwc_gmac_softc *sc, struct mbuf *m0)
 	data->td_active = map;
 
 	bus_dmamap_sync(sc->sc_dmat, map, 0, map->dm_mapsize,
-	    BUS_DMASYNC_PREREAD|BUS_DMASYNC_PREWRITE);
+	    BUS_DMASYNC_PREWRITE);
 
 	/* Pass first to device */
 	sc->sc_txq.t_desc[first].ddesc_status =

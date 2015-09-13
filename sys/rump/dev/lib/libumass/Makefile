@@ -14,7 +14,5 @@ SRCS+=	umass_component.c
 SRCS=	dummy.c
 .endif
 
-CPPFLAGS+=	-I${.CURDIR}/../libscsipi/opt# -I${RUMPTOP}/librump/rumpvfs
-
 .include <bsd.lib.mk>
 .include <bsd.klinks.mk>

@@ -77,7 +77,8 @@ COPTS.intel_display.c+=	-Wno-shadow -Wno-conversion
 COPTS.intel_panel.c+=	-Wno-shadow
 COPTS.intel_pm.c+=	-Wno-shadow
 
-CPPFLAGS+=		-DCONFIG_DRM_I915_FBDEV
+CPPFLAGS+=		-DCONFIG_DRM_I915_FBDEV=1
+CPPFLAGS+=		-DCONFIG_DRM_I915_PRELIMINARY_HW_SUPPORT=0
 
 CPPFLAGS+=		-DNACPICA=1
 CPPFLAGS+=		-DNVGA=1

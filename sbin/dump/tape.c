@@ -333,7 +333,7 @@ flushtape(void)
 			if (spcl.c_addr[i] != 0)
 				blks++;
 	}
-	slp->count = lastspclrec + blks + 1 - iswap32(spcl.c_tapea);
+	slp->count = lastspclrec + blks + 1 - iswap64(spcl.c_tapea);
 	slp->tapea = iswap64(spcl.c_tapea);
 	slp->firstrec = lastfirstrec + ntrec;
 	slp->inode = curino;
@@ -457,7 +457,8 @@ rollforward(void)
 {
 	struct req *p, *q, *prev;
 	struct slave *tslp;
-	int i, size, savedtapea, got;
+	int i, size, got;
+	int64_t savedtapea;
 	union u_spcl *ntb, *otb;
 	tslp = &slaves[SLAVES];
 	ntb = (union u_spcl *)tslp->tblock[1];
@@ -498,10 +499,10 @@ rollforward(void)
 			q->count = 1;
 			trecno = 0;
 			nextblock = tslp->tblock;
-			savedtapea = iswap32(spcl.c_tapea);
-			spcl.c_tapea = iswap32(slp->tapea);
+			savedtapea = iswap64(spcl.c_tapea);
+			spcl.c_tapea = iswap64(slp->tapea);
 			startnewtape(0);
-			spcl.c_tapea = iswap32(savedtapea);
+			spcl.c_tapea = iswap64(savedtapea);
 			lastspclrec = savedtapea - 1;
 		}
 		size = (char *)ntb - (char *)q;
@@ -579,7 +580,7 @@ startnewtape(int top)
 
 	interrupt_save = signal(SIGINT, SIG_IGN);
 	parentpid = getpid();
-	tapea_volume = iswap32(spcl.c_tapea);
+	tapea_volume = iswap64(spcl.c_tapea);
 	(void)time(&tstart_volume);
 
 restore_check_point:

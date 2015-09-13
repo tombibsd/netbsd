@@ -77,8 +77,8 @@ __RCSID("$NetBSD$");
 
 char *trap[NSIG+1];		/* trap handler commands */
 MKINIT char sigmode[NSIG];	/* current value of signal */
-volatile char gotsig[NSIG];	/* indicates specified signal received */
-int pendingsigs;		/* indicates some signal received */
+static volatile char gotsig[NSIG];/* indicates specified signal received */
+volatile int pendingsigs;	/* indicates some signal received */
 
 static int getsigaction(int, sig_t *);
 
@@ -421,7 +421,16 @@ done:
 	pendingsigs = 0;
 }
 
+int
+lastsig(void)
+{
+	int i;
 
+	for (i = NSIG; i > 0; i--)
+		if (gotsig[i - 1])
+			return i;
+	return SIGINT;	/* XXX */
+}
 
 /*
  * Controls whether the shell is interactive or not.

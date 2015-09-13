@@ -98,6 +98,19 @@ initcache(int cachesize, int readblksize)
 	size_t len;
 	size_t sharedSize;
 
+	if (readblksize == -1) { /* use kern.maxphys */
+		int kern_maxphys;
+		int mib[2] = { CTL_KERN, KERN_MAXPHYS };
+
+		len = sizeof(kern_maxphys);
+		if (sysctl(mib, 2, &kern_maxphys, &len, NULL, 0) < 0) {
+			msg("sysctl(kern.maxphys) failed: %s\n",
+			    strerror(errno));
+			return;
+		}
+		readblksize = kern_maxphys;
+	}
+
 	/* Convert read block size in terms of filesystem block size */
 	nblksread = howmany(readblksize, ufsib->ufs_bsize);
 

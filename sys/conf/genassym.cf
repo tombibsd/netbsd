@@ -1,0 +1,3 @@
+#	$NetBSD$
+
+define	COHERENCY_UNIT		COHERENCY_UNIT

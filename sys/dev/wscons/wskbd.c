@@ -107,9 +107,11 @@
 #include <sys/cdefs.h>
 __KERNEL_RCSID(0, "$NetBSD$");
 
+#ifdef _KERNEL_OPT
 #include "opt_ddb.h"
 #include "opt_kgdb.h"
 #include "opt_wsdisplay_compat.h"
+#endif
 
 #include "wsdisplay.h"
 #include "wskbd.h"

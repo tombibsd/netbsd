@@ -348,6 +348,7 @@
 ./var/crash/minfree				etc-sys-root
 ./var/cron/tabs/root				etc-cron-root
 ./var/db/locate.database			etc-sys-root
+./var/db/obsolete/etc				base-sys-root
 ./var/games/atc_score				etc-games-scores
 ./var/games/battlestar.log			etc-games-scores
 ./var/games/cfscores				etc-games-scores

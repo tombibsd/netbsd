@@ -885,7 +885,8 @@ rcinit(void)
 
 	host_fork = dlsym(RTLD_NEXT, "fork");
 	host_daemon = dlsym(RTLD_NEXT, "daemon");
-	host_mmap = dlsym(RTLD_NEXT, "mmap");
+	if (host_mmap == NULL)
+		host_mmap = dlsym(RTLD_NEXT, "mmap");
 
 	/*
 	 * In theory cannot print anything during lookups because
@@ -2232,6 +2233,9 @@ mmap(void *addr, size_t len, int prot, int flags, int fd, off_t offset)
 	if (flags & MAP_FILE && fd_isrump(fd)) {
 		errno = ENOSYS;
 		return MAP_FAILED;
+	}
+	if (__predict_false(host_mmap == NULL)) {
+		host_mmap = rumphijack_dlsym(RTLD_NEXT, "mmap");
 	}
 	return host_mmap(addr, len, prot, flags, fd, offset);
 }

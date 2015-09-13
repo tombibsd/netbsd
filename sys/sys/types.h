@@ -199,6 +199,8 @@ typedef	unsigned long	cpuid_t;
 
 typedef	int		psetid_t;
 
+typedef volatile __cpu_simple_lock_nv_t __cpu_simple_lock_t;
+
 #if defined(_KERNEL) || defined(_STANDALONE)
 
 #include <sys/stdbool.h>

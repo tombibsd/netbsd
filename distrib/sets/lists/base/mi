@@ -201,6 +201,11 @@
 ./libdata/firmware/if_otus/otus-init		base-firmware-root
 ./libdata/firmware/if_otus/otus-license		base-firmware-root
 ./libdata/firmware/if_otus/otus-main		base-firmware-root
+./libdata/firmware/if_rtwn			base-firmware-root
+./libdata/firmware/if_rtwn/Realtek-Firmware-License.txt	base-firmware-root
+./libdata/firmware/if_rtwn/rtl8192cfw.bin	base-firmware-root
+./libdata/firmware/if_rtwn/rtl8192cfwU.bin	base-firmware-root
+./libdata/firmware/if_rtwn/rtl8192cfwU_B.bin	base-firmware-root
 ./libdata/firmware/if_urtwn			base-firmware-root
 ./libdata/firmware/if_urtwn/Realtek-Firmware-License.txt	base-firmware-root
 ./libdata/firmware/if_urtwn/rtl8188eufw.bin	base-firmware-root
@@ -398,7 +403,7 @@
 ./libexec/dhcpcd-hooks				base-dhcpcd-root
 ./libexec/dhcpcd-hooks/01-test			base-dhcpcd-root
 ./libexec/dhcpcd-hooks/02-dump			base-dhcpcd-root
-./libexec/dhcpcd-hooks/10-mtu			base-dhcpcd-root
+./libexec/dhcpcd-hooks/10-mtu			base-obsolete      obsolete
 ./libexec/dhcpcd-hooks/10-resolv.conf		base-obsolete			obsolete
 ./libexec/dhcpcd-hooks/10-wpa_supplicant	base-dhcpcd-root
 ./libexec/dhcpcd-hooks/14-lookup-hostname	base-obsolete			obsolete
@@ -5887,14 +5892,6 @@
 ./var/db/ns					base-sys-root
 ./var/db/obsolete				base-sys-root
 ./var/db/obsolete/base				base-sys-root
-./var/db/obsolete/comp				base-sys-root
-./var/db/obsolete/debug				base-sys-root		debug
-./var/db/obsolete/etc				base-sys-root
-./var/db/obsolete/games				base-sys-root
-./var/db/obsolete/man				base-sys-root
-./var/db/obsolete/misc				base-sys-root
-./var/db/obsolete/tests				base-sys-root		atf
-./var/db/obsolete/text				base-sys-root
 ./var/db/postfix				base-postfix-root
 ./var/db/xdm					base-sys-root
 ./var/db/xkb					base-sys-root

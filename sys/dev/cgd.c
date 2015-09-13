@@ -563,6 +563,11 @@ cgdioctl(dev_t dev, u_long cmd, void *data, int flag, struct lwp *l)
 		 * We pass this call down to the underlying disk.
 		 */
 		return VOP_IOCTL(cs->sc_tvn, cmd, data, flag, l->l_cred);
+	case DIOCGSTRATEGY:
+	case DIOCSSTRATEGY:
+		if (!DK_ATTACHED(dksc))
+			return ENOENT;
+		/*FALLTHROUGH*/
 	default:
 		return dk_ioctl(dksc, dev, cmd, data, flag, l);
 	case CGDIOCGET:
@@ -717,7 +722,6 @@ bail:
 static int
 cgd_ioctl_clr(struct cgd_softc *cs, struct lwp *l)
 {
-	int	s;
 	struct	dk_softc *dksc = &cs->sc_dksc;
 
 	if (!DK_ATTACHED(dksc))
@@ -727,9 +731,7 @@ cgd_ioctl_clr(struct cgd_softc *cs, struct lwp *l)
 	dkwedge_delall(&dksc->sc_dkdev);
 
 	/* Kill off any queued buffers. */
-	s = splbio();
-	bufq_drain(dksc->sc_bufq);
-	splx(s);
+	dk_drain(dksc);
 	bufq_free(dksc->sc_bufq);
 
 	(void)vn_close(cs->sc_tvn, FREAD|FWRITE, l->l_cred);

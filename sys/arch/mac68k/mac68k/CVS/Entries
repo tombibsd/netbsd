@@ -10,7 +10,7 @@
 /iop.c/1.11/Mon Mar 12 18:18:25 2007/-kk/
 /locore.s/1.170/Tue Mar 25 02:35:27 2014/-kk/
 /macglobals.s/1.4/Tue Sep 16 16:13:47 1997/-kk/
-/machdep.c/1.348/Fri Oct  3 09:36:09 2014/-kk/
+/machdep.c/1.349/Sun Sep 13 01:06:13 2015/-kk/
 /macrom.c/1.73/Wed Oct 29 08:13:08 2014/-kk/
 /macrom.h/1.19/Sun Nov  1 01:51:35 2009/-kk/
 /macromasm.s/1.22/Sun Nov  1 01:51:35 2009/-kk/

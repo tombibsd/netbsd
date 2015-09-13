@@ -383,6 +383,13 @@ error(const char *fmt, ...)
 }
 
 void
+clearerror(void)
+{
+
+	error("%s", "");
+}
+
+void
 nlisterr(struct nlist name_list[])
 {
 	int i, n;

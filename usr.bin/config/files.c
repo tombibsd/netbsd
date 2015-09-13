@@ -106,6 +106,10 @@ addfile(const char *path, struct condexpr *optx, u_char flags, const char *rule)
 		    path);
 		goto bad;
 	}
+	if (*path == '/') {
+		cfgerror("path must be relative");
+		goto bad;
+	}
 
 	/* find last part of pathname, and same without trailing suffix */
 	tail = strrchr(path, '/');

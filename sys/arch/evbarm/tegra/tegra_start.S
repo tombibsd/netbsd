@@ -92,6 +92,7 @@ _C_LABEL(tegra_start):
 	/* Move into supervisor mode and disable IRQs/FIQs. */
 	cpsid	if, #PSR_SVC32_MODE
 
+#ifdef TEGRA_UBOOT
 	/*
 	 * Save any arguments passed to us.
 	 */
@@ -116,6 +117,7 @@ _C_LABEL(tegra_start):
 	teq	r0, #0
 	bne	2b
 1:
+#endif
 
 	/*
 	 * Turn on the SMP bit

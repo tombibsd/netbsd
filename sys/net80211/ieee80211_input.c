@@ -39,7 +39,9 @@ __FBSDID("$FreeBSD: src/sys/net80211/ieee80211_input.c,v 1.81 2005/08/10 16:22:2
 __KERNEL_RCSID(0, "$NetBSD$");
 #endif
 
+#ifdef _KERNEL_OPT
 #include "opt_inet.h"
+#endif
 
 #ifdef __NetBSD__
 #endif /* __NetBSD__ */

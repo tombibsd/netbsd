@@ -74,6 +74,7 @@ static int dk_subr_modcmd(modcmd_t, void *);
 
 static void	dk_makedisklabel(struct dk_softc *);
 static int	dk_translate(struct dk_softc *, struct buf *);
+static void	dk_done1(struct dk_softc *, struct buf *, bool);
 
 void
 dk_init(struct dk_softc *dksc, device_t dev, int dtype)
@@ -95,11 +96,18 @@ dk_attach(struct dk_softc *dksc)
 #ifdef DIAGNOSTIC
 	dksc->sc_flags |= DKF_WARNLABEL | DKF_LABELSANITY;
 #endif
+
+	/* Attach the device into the rnd source list. */
+	rnd_attach_source(&dksc->sc_rnd_source, dksc->sc_xname,
+	    RND_TYPE_DISK, RND_FLAG_DEFAULT);
 }
 
 void
 dk_detach(struct dk_softc *dksc)
 {
+	/* Unhook the entropy source. */
+	rnd_detach_source(&dksc->sc_rnd_source);
+
 	dksc->sc_flags &= ~DKF_INITED;
 	mutex_destroy(&dksc->sc_iolock);
 }
@@ -294,41 +302,61 @@ dk_start(struct dk_softc *dksc, struct buf *bp)
 {
 	const struct dkdriver *dkd = dksc->sc_dkdev.dk_driver;
 	int error;
-	struct buf *qbp __diagused;
 
 	mutex_enter(&dksc->sc_iolock);
 
 	if (bp != NULL)
 		bufq_put(dksc->sc_bufq, bp);
 
-	while ((bp = bufq_peek(dksc->sc_bufq)) != NULL) {
+	if (dksc->sc_busy)
+		goto done;
+	dksc->sc_busy = true;
+
+	/*
+	 * Peeking at the buffer queue and committing the operation
+	 * only after success isn't atomic.
+	 *
+	 * So when a diskstart fails, the buffer is saved
+	 * and tried again before the next buffer is fetched.
+	 * dk_drain() handles flushing of a saved buffer.
+	 *
+	 * This keeps order of I/O operations, unlike bufq_put.
+	 */
+
+	bp = dksc->sc_deferred;
+	dksc->sc_deferred = NULL;
+
+	if (bp == NULL)
+		bp = bufq_get(dksc->sc_bufq);
+
+	while (bp != NULL) {
 
 		disk_busy(&dksc->sc_dkdev);
+		mutex_exit(&dksc->sc_iolock);
 		error = dkd->d_diskstart(dksc->sc_dev, bp);
+		mutex_enter(&dksc->sc_iolock);
 		if (error == EAGAIN) {
+			dksc->sc_deferred = bp;
 			disk_unbusy(&dksc->sc_dkdev, 0, (bp->b_flags & B_READ));
 			break;
 		}
 
-#ifdef DIAGNOSTIC
-		qbp = bufq_get(dksc->sc_bufq);
-		KASSERT(bp == qbp);
-#else
-		(void) bufq_get(dksc->sc_bufq);
-#endif
-
 		if (error != 0) {
 			bp->b_error = error;
 			bp->b_resid = bp->b_bcount;
-			dk_done(dksc, bp);
+			dk_done1(dksc, bp, false);
 		}
+
+		bp = bufq_get(dksc->sc_bufq);
 	}
 
+	dksc->sc_busy = false;
+done:
 	mutex_exit(&dksc->sc_iolock);
 }
 
-void
-dk_done(struct dk_softc *dksc, struct buf *bp)
+static void
+dk_done1(struct dk_softc *dksc, struct buf *bp, bool lock)
 {
 	struct disk *dk = &dksc->sc_dkdev;
 
@@ -340,15 +368,37 @@ dk_done(struct dk_softc *dksc, struct buf *bp)
 		printf("\n");
 	}
 
-	mutex_enter(&dksc->sc_iolock);
+	if (lock)
+		mutex_enter(&dksc->sc_iolock);
 	disk_unbusy(dk, bp->b_bcount - bp->b_resid, (bp->b_flags & B_READ));
-	mutex_exit(&dksc->sc_iolock);
+	if (lock)
+		mutex_exit(&dksc->sc_iolock);
 
-#ifdef notyet
-	rnd_add_uint(&dksc->sc_rnd_source, bp->b_rawblkno);
-#endif
+	rnd_add_uint32(&dksc->sc_rnd_source, bp->b_rawblkno);
 
 	biodone(bp);
+}
+
+void
+dk_done(struct dk_softc *dksc, struct buf *bp)
+{
+	dk_done1(dksc, bp, true);
+}
+
+void
+dk_drain(struct dk_softc *dksc)
+{
+	struct buf *bp;
+
+	mutex_enter(&dksc->sc_iolock);
+	bp = dksc->sc_deferred;
+	if (bp != NULL) {
+		bp->b_error = EIO;
+		bp->b_resid = bp->b_bcount;
+		biodone(bp); 
+	}
+	bufq_drain(dksc->sc_bufq);
+	mutex_exit(&dksc->sc_iolock);
 }
 
 int

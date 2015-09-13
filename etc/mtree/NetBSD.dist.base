@@ -71,6 +71,7 @@
 ./libdata/firmware/if_iwm
 ./libdata/firmware/if_iwn
 ./libdata/firmware/if_otus
+./libdata/firmware/if_rtwn
 ./libdata/firmware/if_urtwn
 ./libdata/firmware/if_wpi
 ./libdata/firmware/radeon

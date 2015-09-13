@@ -2946,13 +2946,4 @@
 ./usr/libdata/debug/usr/X11R7/lib/modules/drivers	base-sys-usr	xorg
 ./usr/libdata/debug/usr/X11R7/lib/modules/extensions	base-sys-usr	xorg
 ./usr/libdata/debug/usr/X11R7/libexec			base-sys-usr	xorg
-./var/db/obsolete/xbase					xbase-sys-root	x11
 ./var/db/obsolete/xbase					xbase-sys-root	xorg
-./var/db/obsolete/xcomp					xbase-sys-root	x11
-./var/db/obsolete/xcomp					xbase-sys-root	xorg
-./var/db/obsolete/xetc					xbase-sys-root	x11
-./var/db/obsolete/xetc					xbase-sys-root	xorg
-./var/db/obsolete/xfont					xbase-sys-root	x11
-./var/db/obsolete/xfont					xbase-sys-root	xorg
-./var/db/obsolete/xserver				xbase-sys-root	x11
-./var/db/obsolete/xserver				xbase-sys-root	xorg

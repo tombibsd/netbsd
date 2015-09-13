@@ -27,6 +27,8 @@ CLEANFILES+=	elf32-target.h elf64-target.h targmatch.h \
 
 .include <bsd.lib.mk>
 
+COPTS+=         -Wno-stack-protector
+
 ${OBJS} ${SOBJS}: elf32-target.h elf64-target.h
 targets.o targets.pico: targmatch.h Makefile
 

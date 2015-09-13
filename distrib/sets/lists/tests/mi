@@ -31,7 +31,7 @@
 ./usr/libdata/debug/usr/tests/dev/sysmon				tests-fs-debug		compattestfile,atf
 ./usr/libdata/debug/usr/tests/fs					tests-fs-debug		compattestfile,atf
 ./usr/libdata/debug/usr/tests/fs/ffs					tests-fs-debug		compattestfile,atf
-./usr/libdata/debug/usr/tests/fs/fifofs					tests-fs-debug		compattestfile,atf,rump
+./usr/libdata/debug/usr/tests/fs/fifofs					tests-fs-debug		compattestfile,atf
 ./usr/libdata/debug/usr/tests/fs/hfs					tests-fs-debug		compattestfile,atf
 ./usr/libdata/debug/usr/tests/fs/kernfs					tests-fs-debug		compattestfile,atf
 ./usr/libdata/debug/usr/tests/fs/lfs					tests-fs-debug		compattestfile,atf
@@ -3134,6 +3134,7 @@
 ./usr/tests/net/icmp/Kyuafile			tests-net-tests		atf,rump,kyua
 ./usr/tests/net/icmp/t_forward			tests-net-tests		atf,rump
 ./usr/tests/net/icmp/t_forward			tests-net-tests		atf,rump
+./usr/tests/net/icmp/t_icmp_redirect		tests-net-tests		atf,rump
 ./usr/tests/net/icmp/t_ping			tests-net-tests		atf,rump
 ./usr/tests/net/icmp/t_ping2			tests-net-tests		atf,rump
 ./usr/tests/net/if				tests-net-tests		compattestfile,atf
@@ -4098,3 +4099,4 @@
 ./usr/tests/util/xlint/lint1/d_typename_as_var.c		tests-obsolete	obsolete
 ./usr/tests/util/xlint/lint1/d_zero_sized_arrays.c		tests-obsolete	obsolete
 ./usr/tests/util/xlint/lint1/t_integration			tests-obsolete	obsolete
+./var/db/obsolete/tests				base-sys-root		atf

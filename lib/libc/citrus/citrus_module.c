@@ -306,7 +306,7 @@ _citrus_load_module(_citrus_module_t *rhandle, const char *encname)
 			_pathI18nModule = _PATH_I18NMODULE;
 #ifdef MLIBDIR
 			p = strrchr(_pathI18nModule, '/');
-			if (p != NULL && MLIBDIR[0]) {
+			if (p != NULL) {
 				snprintf(path, sizeof(path), "%.*s/%s/%s",
 				    (int)(p - _pathI18nModule),
 				    _pathI18nModule, MLIBDIR, p + 1);

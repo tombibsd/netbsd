@@ -39,7 +39,9 @@ __FBSDID("$FreeBSD: src/sys/net80211/ieee80211_crypto.c,v 1.12 2005/08/08 18:46:
 __KERNEL_RCSID(0, "$NetBSD$");
 #endif
 
+#ifdef _KERNEL_OPT
 #include "opt_inet.h"
+#endif
 
 /*
  * IEEE 802.11 generic crypto support.

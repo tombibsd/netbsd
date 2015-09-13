@@ -3795,14 +3795,14 @@ chkcomp(op_t op, tnode_t *ln, tnode_t *rn)
 
 	if ((hflag || pflag) && lt == CHAR && rn->tn_op == CON &&
 	    (rn->tn_val->v_quad < 0 ||
-	     rn->tn_val->v_quad > ~(~0 << (CHAR_BIT - 1)))) {
+	     rn->tn_val->v_quad > (int)~(~0U << (CHAR_BIT - 1)))) {
 		/* nonportable character comparison, op %s */
 		warning(230, mp->m_name);
 		return;
 	}
 	if ((hflag || pflag) && rt == CHAR && ln->tn_op == CON &&
 	    (ln->tn_val->v_quad < 0 ||
-	     ln->tn_val->v_quad > ~(~0 << (CHAR_BIT - 1)))) {
+	     ln->tn_val->v_quad > (int)~(~0U << (CHAR_BIT - 1)))) {
 		/* nonportable character comparison, op %s */
 		warning(230, mp->m_name);
 		return;

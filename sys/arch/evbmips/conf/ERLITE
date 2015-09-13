@@ -75,7 +75,7 @@ file-system	MSDOSFS		# MS-DOS FAT filesystem(s).
 file-system	PTYFS		# /dev/pts/N support
 
 # File system options
-#options 	NFSSERVER	# Sun NFS-compatible filesystem server
+options 	NFSSERVER	# Sun NFS-compatible filesystem server
 #options 	QUOTA		# legacy UFS quotas
 #options 	QUOTA2		# new, in-filesystem UFS quotas
 #options 	FFS_EI		# FFS Endian Independent support

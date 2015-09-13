@@ -47,6 +47,7 @@ __RCSID("$NetBSD$");
 #include <sys/time.h>
 #include <sys/stat.h>
 #include <sys/mount.h>
+#include <sys/sysctl.h>
 
 #include <ufs/ffs/fs.h>
 #include <ufs/ffs/ffs_extern.h>
@@ -79,7 +80,7 @@ long	dev_bsize = 1;		/* recalculated below */
 long	blocksperfile;		/* output blocks per file */
 const char *host;		/* remote host (if any) */
 int	readcache = -1;		/* read cache size (in readblksize blks) */
-int	readblksize = 32 * 1024; /* read block size */
+int	readblksize = -1;	/* read block size */
 char    default_time_string[] = "%T %Z"; /* default timestamp string */
 char    *time_string = default_time_string; /* timestamp string */
 
@@ -640,10 +641,10 @@ main(int argc, char *argv[])
 	for (i = 0; i < ntrec; i++)
 		writeheader(maxino - 1);
 	if (pipeout)
-		msg("%d tape blocks\n",iswap32(spcl.c_tapea));
+		msg("%lld tape blocks\n",(long long)iswap64(spcl.c_tapea));
 	else
-		msg("%d tape blocks on %d volume%s\n",
-		    iswap32(spcl.c_tapea), iswap32(spcl.c_volume),
+		msg("%lld tape blocks on %d volume%s\n",
+		    (long long)iswap64(spcl.c_tapea), iswap32(spcl.c_volume),
 		    (iswap32(spcl.c_volume) == 1) ? "" : "s");
 	tnow = do_stats();
 	date = iswap32(spcl.c_date);

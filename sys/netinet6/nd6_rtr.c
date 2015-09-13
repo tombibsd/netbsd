@@ -2122,7 +2122,7 @@ rt6_deleteroute(struct rtentry *rt, void *arg)
 		return (0);
 
 	return (rtrequest(RTM_DELETE, rt_getkey(rt), rt->rt_gateway,
-	    rt_mask(rt), rt->rt_flags, 0));
+	    rt_mask(rt), rt->rt_flags, NULL));
 #undef SIN6
 }
 

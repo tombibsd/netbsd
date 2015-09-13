@@ -39,6 +39,10 @@
 #ifndef _SYS_PARAM_H_
 #define	_SYS_PARAM_H_
 
+#ifdef _KERNEL_OPT
+#include "opt_param.h"
+#endif
+
 /*
  * Historic BSD #defines -- probably will remain untouched for all time.
  */

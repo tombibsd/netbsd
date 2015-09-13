@@ -122,6 +122,7 @@ ssh_head()
 
 ssh_body()
 {
+	atf_expect_fail "PR lib/50174"
 
 	atf_check -s exit:0 ${rumpnetsrv} ${RUMP_SERVER}
 	# make sure clients die after we nuke the server

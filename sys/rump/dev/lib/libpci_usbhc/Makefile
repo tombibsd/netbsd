@@ -15,7 +15,6 @@ SRCS+=	ehci_pci.c ehci.c
 SRCS+=	usb_pci.c
 
 CPPFLAGS+= -I${RUMPTOP}/librump/rumpkern -I${RUMPTOP}/../dev
-CPPFLAGS+= -I${.CURDIR}/../libusb/opt
 
 .include "${RUMPTOP}/Makefile.rump"
 .include <bsd.lib.mk>

@@ -65,7 +65,9 @@
 #include <sys/cdefs.h>
 __KERNEL_RCSID(0, "$NetBSD$");
 
+#ifdef _KERNEL_OPT
 #include "opt_modular.h"
+#endif
 
 #include <sys/kobj_impl.h>
 

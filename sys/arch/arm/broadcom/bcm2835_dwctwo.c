@@ -84,6 +84,8 @@ static struct dwc2_core_params bcmdwc2_params = {
 	.reload_ctl			= 0,
 	.ahbcfg				= 0x10,
 	.uframe_sched			= 1,
+	.external_id_pin_ctl		= -1,
+	.hibernation			= -1,
 };
 
 static int bcmdwc2_match(device_t, struct cfdata *, void *);

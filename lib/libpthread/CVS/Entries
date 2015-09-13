@@ -58,8 +58,8 @@
 /pthread_spin.c/1.6/Thu Aug 16 04:49:47 2012/-kk/
 /pthread_suspend_np.3/1.5/Fri Jul  9 09:18:45 2010/-kk/
 /pthread_testcancel.3/1.9/Tue Mar 25 02:35:05 2014/-kk/
-/pthread_tsd.c/1.14/Wed Jun  3 06:53:50 2015/-kk/
-/pthread_types.h/1.16/Thu Jul  2 04:13:29 2015/-kk/
+/pthread_tsd.c/1.15/Sun Sep 13 01:04:32 2015/-kk/
+/pthread_types.h/1.17/Sun Sep 13 01:04:32 2015/-kk/
 /res_state.c/1.6/Mon Apr 28 20:23:02 2008/-kk/
 /sem.c/1.24/Sat Mar 10 18:01:10 2012/-kk/
 /shlib_version/1.16/Thu Oct 24 10:28:53 2013/-kk/

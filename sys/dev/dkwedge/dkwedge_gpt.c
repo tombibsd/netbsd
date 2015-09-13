@@ -178,11 +178,11 @@ dkwedge_discover_gpt(struct disk *pdk, struct vnode *vp)
 	}
 	gpe_crc = le32toh(hdr->hdr_crc_table);
 
-	/* XXX Clamp entries at 128 for now. */
-	if (entries > 128) {
+	/* XXX Clamp entries at 512 for now. */
+	if (entries > 512) {
 		aprint_error("%s: WARNING: clamping number of GPT entries to "
-		    "128 (was %u)\n", pdk->dk_name, entries);
-		entries = 128;
+		    "512 (was %u)\n", pdk->dk_name, entries);
+		entries = 512;
 	}
 
 	lba_start = le64toh(hdr->hdr_lba_start);

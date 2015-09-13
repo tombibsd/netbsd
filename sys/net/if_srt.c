@@ -4,7 +4,9 @@
 #include <sys/cdefs.h>
 __KERNEL_RCSID(0, "$NetBSD$");
 
+#ifdef _KERNEL_OPT
 #include "opt_inet.h"
+#endif
 
 #if !defined(INET) && !defined(INET6)
 #error "srt without INET/INET6?"

@@ -260,7 +260,7 @@ midictl_change(midictl *mc, uint_fast8_t chan, uint8_t *ctlval)
 		mc->nrpn &= ~PN_SET;
 		return;
 	case MIDI_CTRL_RPN_MSB:
-		mc-> rpn &= ~0x7f<<7;
+		mc-> rpn &= ~0x7fU<<7;
 		mc-> rpn |=  PN_SET | (0x7f & ctlval[1])<<7;
 		mc->nrpn &= ~PN_SET;
 		return;
@@ -270,7 +270,7 @@ midictl_change(midictl *mc, uint_fast8_t chan, uint8_t *ctlval)
 		mc-> rpn &= ~PN_SET;
 		return;
 	case MIDI_CTRL_NRPN_MSB:
-		mc->nrpn &= ~0x7f<<7;
+		mc->nrpn &= ~0x7fU<<7;
 		mc->nrpn |=  PN_SET | (0x7f & ctlval[1])<<7;
 		mc-> rpn &= ~PN_SET;
 		return;

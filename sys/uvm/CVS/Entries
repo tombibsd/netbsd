@@ -5,7 +5,7 @@
 /uvm_amap.h/1.37/Sun Jun 12 03:36:02 2011/-kk/
 /uvm_anon.c/1.63/Tue Oct 29 08:21:50 2013/-kk/
 /uvm_anon.h/1.30/Sat Aug  6 17:25:03 2011/-kk/
-/uvm_aobj.c/1.122/Tue Jun  3 03:10:03 2014/-kk/
+/uvm_aobj.c/1.123/Sun Sep 13 01:08:01 2015/-kk/
 /uvm_aobj.h/1.23/Thu Oct 24 10:28:58 2013/-kk/
 /uvm_bio.c/1.83/Wed Jun  3 06:55:56 2015/-kk/
 /uvm_coredump.c/1.6/Tue Jan 14 16:05:14 2014/-kk/
@@ -30,7 +30,7 @@
 /uvm_meter.c/1.65/Thu Dec 11 09:09:56 2014/-kk/
 /uvm_mmap.c/1.153/Wed Aug 12 04:14:39 2015/-kk/
 /uvm_mremap.c/1.17/Sun Jun 12 03:36:03 2011/-kk/
-/uvm_object.c/1.12/Tue Mar 25 02:35:52 2014/-kk/
+/uvm_object.c/1.13/Sun Sep 13 01:08:01 2015/-kk/
 /uvm_object.h/1.33/Fri Sep 14 22:20:50 2012/-kk/
 /uvm_page.c/1.187/Wed Apr 22 07:37:50 2015/-kk/
 /uvm_page.h/1.80/Thu Apr  2 02:28:10 2015/-kk/
@@ -56,5 +56,5 @@
 /uvm_swapstub.c/1.8/Thu Feb 27 08:56:17 2014/-kk/
 /uvm_unix.c/1.45/Fri Oct  3 09:51:04 2014/-kk/
 /uvm_user.c/1.14/Wed Feb  2 15:13:34 2011/-kk/
-/uvm_vnode.c/1.99/Mon Jul 30 23:56:48 2012/-kk/
+/uvm_vnode.c/1.100/Sun Sep 13 01:08:01 2015/-kk/
 D/pmap////

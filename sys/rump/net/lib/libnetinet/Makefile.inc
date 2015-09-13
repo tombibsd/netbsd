@@ -20,8 +20,6 @@ SRCS+=	tcp_congctl.c tcp_input.c tcp_output.c tcp_sack.c tcp_subr.c \
 # UDP
 SRCS+=	udp_usrreq.c
 
-CPPFLAGS+=	-I${.CURDIR}/opt -I${.CURDIR}/../libnet/opt
-
 CPPFLAGS+=	-DPORTALGO_INET4_DEFAULT=PORTALGO_RANDOM_START
 
 # TCP debugging

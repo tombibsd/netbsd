@@ -109,7 +109,6 @@ TEXTADDR?=	0xffffffff80100000
 .endif
 LINKFLAGS_NORMAL=	-X
 KERNLDSCRIPT?=	$S/arch/${XEN_BUILD}/conf/kern.ldscript.Xen
-LINKSCRIPT=	-T ${KERNLDSCRIPT}
 
 ##
 ## (6) port specific target dependencies

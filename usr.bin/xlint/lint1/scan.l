@@ -49,7 +49,7 @@ __RCSID("$NetBSD$");
 #include "lint1.h"
 #include "cgram.h"
 
-#define CHAR_MASK	(~(~0 << CHAR_BIT))
+#define CHAR_MASK	((int)(~(~0U << CHAR_BIT)))
 
 /* Current position (its also updated when an included file is parsed) */
 pos_t	curr_pos = { 1, "", 0 };

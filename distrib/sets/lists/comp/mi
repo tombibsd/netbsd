@@ -24673,3 +24673,4 @@
 ./usr/share/misc/operator			comp-c-share		share
 ./usr/share/misc/style				comp-c-share		share
 ./var/db/libc.tags				comp-c-root
+./var/db/obsolete/comp				base-sys-root

@@ -379,6 +379,7 @@ aupcm_event_thread(void *arg)
 			 * Go figure.
 			 */
 			tsleep(&sc->sc_wake, PWAIT, "aupcm_event", hz);
+			s = splhigh();
 		}
 		sc->sc_wake = 0;
 

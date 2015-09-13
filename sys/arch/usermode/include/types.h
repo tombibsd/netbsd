@@ -52,7 +52,7 @@ typedef long int	register_t;
 #define	PRIuVSIZE	"lu"
 #define	PRIxREGISTER	"lx"
 
-typedef volatile unsigned char	__cpu_simple_lock_t;
+typedef unsigned char	__cpu_simple_lock_nv_t;
 #define __CPU_SIMPLE_LOCK_PAD
 
 #define __SIMPLELOCK_LOCKED	1

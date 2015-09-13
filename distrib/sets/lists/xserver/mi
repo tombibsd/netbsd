@@ -81,3 +81,4 @@
 ./usr/X11R7/man/man1/Xserver.1				-unknown-	.man,xorg
 ./usr/X11R7/man/man1/Xvfb.1				-unknown-	.man,xorg
 ./usr/X11R7/man/man5/SecurityPolicy.5			-unknown-	obsolete
+./var/db/obsolete/xserver				xbase-sys-root	xorg

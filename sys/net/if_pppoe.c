@@ -33,7 +33,10 @@
 __KERNEL_RCSID(0, "$NetBSD$");
 
 #include "pppoe.h"
+
+#ifdef _KERNEL_OPT
 #include "opt_pppoe.h"
+#endif
 
 #include <sys/param.h>
 #include <sys/systm.h>

@@ -524,8 +524,11 @@ smc91cxx_init(struct smc91cxx_softc *sc)
 	sc->sc_txpacketno = ARR_FAILED;
 	for (;;) {
 		tmp = bus_space_read_2(bst, bsh, MMU_CMD_REG_W);
-		if (tmp == 0xffff)	/* card went away! */
+		if (tmp == 0xffff) {
+			/* card went away! */
+			splx(s);
 			return;
+		}
 		if ((tmp & MMUCR_BUSY) == 0)
 			break;
 	}

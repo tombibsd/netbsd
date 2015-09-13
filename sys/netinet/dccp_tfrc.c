@@ -34,7 +34,9 @@
 #include <sys/cdefs.h>
 __KERNEL_RCSID(0, "$NetBSD$");
 
+#ifdef _KERNEL_OPT
 #include "opt_dccp.h"
+#endif
 
 /*
  * This implementation conforms to the drafts of DCCP dated Mars 2003.

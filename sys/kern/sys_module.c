@@ -33,6 +33,10 @@
 #include <sys/cdefs.h>
 __KERNEL_RCSID(0, "$NetBSD$");
 
+#ifdef _KERNEL_OPT
+#include "opt_modular.h"
+#endif
+
 #include <sys/param.h>
 #include <sys/systm.h>
 #include <sys/proc.h>
@@ -43,8 +47,6 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/module.h>
 #include <sys/syscall.h>
 #include <sys/syscallargs.h>
-
-#include <opt_modular.h>
 
 /*
  * Arbitrary limit to avoid DoS for excessive memory allocation.

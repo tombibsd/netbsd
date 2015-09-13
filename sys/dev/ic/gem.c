@@ -1149,8 +1149,10 @@ gem_init(struct ifnet *ifp)
 		(*sc->sc_hwreset)(sc);
 
 	/* step 3. Setup data structures in host memory */
-	if (gem_meminit(sc) != 0)
+	if (gem_meminit(sc) != 0) {
+		splx(s);
 		return 1;
+	}
 
 	/* step 4. TX MAC registers & counters */
 	gem_init_regs(sc);

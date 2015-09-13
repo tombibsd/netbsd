@@ -105,7 +105,7 @@ do_upgrade(void)
 	    MSG_upgrcomplete, MSG_abortupgr) != 0)
 		return;
 
-	if (!md_post_extract() == 0)
+	if (md_post_extract())
 		return;
 
 	merge_X("/usr/X11R6");

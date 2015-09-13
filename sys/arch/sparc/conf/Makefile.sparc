@@ -62,7 +62,6 @@ TEXTADDR?=	F0004000
 EXTRA_LINKFLAGS=	-X
 KERNLDSCRIPT?= ${SPARC}/conf/kern.ldscript
 LINKFORMAT=	-n
-LINKSCRIPT=	-T ${KERNLDSCRIPT}
 
 ##
 ## (6) port specific target dependencies

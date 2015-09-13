@@ -64,8 +64,10 @@
 #include <sys/cdefs.h>
 __KERNEL_RCSID(0, "$NetBSD$");
 
+#ifdef _KERNEL_OPT
 #include "opt_ptrace.h"
 #include "opt_ktrace.h"
+#endif
 
 #include <sys/param.h>
 #include <sys/kernel.h>
@@ -147,12 +149,12 @@ __weak_alias(userconf_prompt, voidop);
 
 __weak_alias(kobj_renamespace, nullop);
 
-__weak_alias(interrupt_get_count, eopnotsupp);
-__weak_alias(interrupt_get_assigned, eopnotsupp);
-__weak_alias(interrupt_get_available, eopnotsupp);
-__weak_alias(interrupt_get_devname, eopnotsupp);
-__weak_alias(interrupt_construct_intrids, eopnotsupp);
-__weak_alias(interrupt_destruct_intrids, eopnotsupp);
+__weak_alias(interrupt_get_count, nullop);
+__weak_alias(interrupt_get_assigned, voidop);
+__weak_alias(interrupt_get_available, voidop);
+__weak_alias(interrupt_get_devname, voidop);
+__weak_alias(interrupt_construct_intrids, nullret);
+__weak_alias(interrupt_destruct_intrids, voidop);
 __weak_alias(interrupt_distribute, eopnotsupp);
 __weak_alias(interrupt_distribute_handler, eopnotsupp);
 
@@ -282,6 +284,16 @@ nullop(void *v)
 {
 
 	return (0);
+}
+
+/*
+ * Generic null operation, always returns null.
+ */
+void *
+nullret(void)
+{
+
+	return (NULL);
 }
 
 bool

@@ -76,10 +76,12 @@
 
 #include <sys/cdefs.h>
 
+#ifdef _KERNEL_OPT
 #include "opt_ddb.h"
 #include "opt_inet.h"
 #include "opt_inet_csum.h"
 #include "opt_tcp_debug.h"
+#endif
 
 #include <sys/param.h>
 #include <sys/systm.h>

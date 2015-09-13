@@ -10,7 +10,7 @@
 /regress.gen.h/1.1.1.2/Thu Oct 24 10:28:46 2013/-kk/
 /regress.h/1.5/Thu Feb  5 08:37:25 2015/-kk/
 /regress.rpc/1.1.1.1/Thu Oct 24 10:28:46 2013/-kk/
-/regress_buffer.c/1.4/Thu Feb  5 08:37:25 2015/-kk/
+/regress_buffer.c/1.5/Sun Sep 13 00:46:28 2015/-kk/
 /regress_bufferevent.c/1.2/Thu Oct 24 10:28:46 2013/-kk/
 /regress_dns.c/1.4/Thu Oct 24 10:28:46 2013/-kk/
 /regress_et.c/1.2/Thu Oct 24 10:28:46 2013/-kk/

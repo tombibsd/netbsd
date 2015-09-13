@@ -63,7 +63,7 @@ typedef long int	register_t;
 #define	PRIxREGISTER	"lx"
 #endif
 
-typedef	volatile int		__cpu_simple_lock_t;
+typedef	int		__cpu_simple_lock_nv_t;
 
 #define	__SIMPLELOCK_LOCKED	1
 #define	__SIMPLELOCK_UNLOCKED	0

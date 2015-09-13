@@ -121,6 +121,7 @@ extern void *_binary_splash_image_end;
 #endif
 
 #include "drvctl.h"
+#include "ether.h"
 #include "ksyms.h"
 
 #include "veriexec.h"
@@ -228,6 +229,7 @@ extern void *_binary_splash_image_end;
 #include <net/bpf.h>
 #include <net/if.h>
 #include <net/raw_cb.h>
+#include <net/if_llatbl.h>
 
 #include <prop/proplib.h>
 
@@ -565,6 +567,9 @@ main(void)
 	 */
 	s = splnet();
 	ifinit();
+#if NETHER > 0
+	lltableinit();
+#endif
 	domaininit(true);
 	if_attachdomain();
 	splx(s);

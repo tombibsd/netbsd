@@ -39,11 +39,14 @@
  * Author: Christopher G. Demetriou, March 2, 1998.
  */
 
+#ifdef _KERNEL_OPT
+#include "opt_pciide.h"
+#endif
+
 #include <dev/ata/atavar.h>
 #include <dev/ic/wdcreg.h>
 #include <dev/ic/wdcvar.h>
 #include <sys/device_if.h>
-#include "opt_pciide.h"
 
 /* options passed via the 'flags' config keyword */
 #define	PCIIDE_OPTIONS_DMA	0x01

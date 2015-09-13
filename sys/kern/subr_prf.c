@@ -39,11 +39,13 @@
 #include <sys/cdefs.h>
 __KERNEL_RCSID(0, "$NetBSD$");
 
+#ifdef _KERNEL_OPT
 #include "opt_ddb.h"
 #include "opt_ipkdb.h"
 #include "opt_kgdb.h"
 #include "opt_dump.h"
 #include "opt_rnd_printf.h"
+#endif
 
 #include <sys/param.h>
 #include <sys/stdint.h>

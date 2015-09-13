@@ -18,7 +18,7 @@ SRCS+=	kern_pmf.c subr_autoconf.c
 # sys/dev
 SRCS+=	dev_verbose.c
 
-CPPFLAGS+=	-I${RUMPTOP}/librump/rumpkern -I${RUMPTOP}/librump/rumpdev/opt
+CPPFLAGS+=	-I${RUMPTOP}/librump/rumpkern
 
 .include "${RUMPTOP}/Makefile.rump"
 

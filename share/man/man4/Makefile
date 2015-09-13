@@ -50,7 +50,7 @@ MAN=	aac.4 ac97.4 acardide.4 aceride.4 acphy.4 \
 	pseye.4 ptcd.4 ptm.4 pty.4 puc.4 pud.4 puffs.4 pwdog.4 px.4 pxg.4 \
 	qe.4 qec.4 qsphy.4 \
 	raid.4 ral.4 ray.4 rcons.4 rdcphy.4 re.4 rgephy.4 rlphy.4 \
-	rnd.4 route.4 rs5c372rtc.4 rtk.4 rtsx.4 rtw.4 rum.4 run.4 \
+	rnd.4 route.4 rs5c372rtc.4 rtk.4 rtsx.4 rtw.4 rtwn.4 rum.4 run.4 \
 	s390rtc.4 satalink.4 sbus.4 scc.4 schide.4 \
 	scsi.4 sd.4 se.4 seeprom.4 sem.4 \
 	ses.4 sf.4 sfb.4 sgsmix.4 shb.4 shmif.4 \
@@ -127,7 +127,7 @@ MAN+=	dbcool.4 g760a.4 lmenv.4 lmtemp.4 mcp980x.4 mpl115a.4 sdtemp.4 \
 	smscmon.4 spdmem.4 tps65217pmic.4
 
 # machine-independent SPI devices
-MAN +=	m25p.4 mcp23s17gpio.4 mcp3kadc.4 tm121temp.4
+MAN +=	m25p.4 mcp23s17gpio.4 mcp3kadc.4 mcp48x1dac.4 tm121temp.4
 
 # machine-independent SD/MMC devices
 MAN +=	sbt.4 sdhc.4 sdmmc.4

@@ -28,6 +28,7 @@ options 	NTP			# kernel PLL for NTP
 # Diagnostic/debugging support options
 options 	DIAGNOSTIC		# Cheap kernel consistency checks
 options 	DDB			# kernel debugger
+pseudo-device	ksyms
 makeoptions	DEBUG="-g"
 #makeoptions	DEBUGLIST="pattern1 pattern2 ..."
 makeoptions	COPY_SYMTAB=1

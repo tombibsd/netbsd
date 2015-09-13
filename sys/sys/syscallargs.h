@@ -10,8 +10,8 @@
 #ifndef _SYS_SYSCALLARGS_H_
 #define	_SYS_SYSCALLARGS_H_
 
-#include <sys/mount.h>
 #ifndef RUMP_CLIENT
+#include <sys/mount.h>
 #include <sys/sched.h>
 #endif
 #include <sys/socket.h>

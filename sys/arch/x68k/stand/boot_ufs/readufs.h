@@ -26,8 +26,7 @@ union ufs_dinode {
 	struct ufs2_dinode di2;
 #endif
 #ifdef USE_LFS
-	struct ulfs1_dinode dil1;
-	struct ulfs2_dinode dil2;
+	struct lfs32_dinode dil32;
 #endif
 };
 

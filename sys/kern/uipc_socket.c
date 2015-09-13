@@ -73,12 +73,14 @@
 #include <sys/cdefs.h>
 __KERNEL_RCSID(0, "$NetBSD$");
 
+#ifdef _KERNEL_OPT
 #include "opt_compat_netbsd.h"
 #include "opt_sock_counters.h"
 #include "opt_sosend_loan.h"
 #include "opt_mbuftrace.h"
 #include "opt_somaxkva.h"
 #include "opt_multiprocessor.h"	/* XXX */
+#endif
 
 #include <sys/param.h>
 #include <sys/systm.h>

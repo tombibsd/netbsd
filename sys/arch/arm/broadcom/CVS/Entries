@@ -3,7 +3,7 @@
 /bcm2835_dma.c/1.2/Tue Sep 18 05:47:27 2012/-kk/
 /bcm2835_dmac.c/1.14/Wed Aug 12 04:13:49 2015/-kk/
 /bcm2835_dmac.h/1.4/Wed Aug 12 04:13:49 2015/-kk/
-/bcm2835_dwctwo.c/1.5/Sun Aug  2 04:02:34 2015/-kk/
+/bcm2835_dwctwo.c/1.6/Sun Sep 13 01:05:35 2015/-kk/
 /bcm2835_emmc.c/1.28/Wed Aug 12 04:13:49 2015/-kk/
 /bcm2835_genfb.c/1.7/Fri Oct  3 09:50:37 2014/-kk/
 /bcm2835_gpio.c/1.2/Tue Jun  3 02:53:52 2014/-kk/

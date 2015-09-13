@@ -48,8 +48,6 @@
 #include "h_fsmacros.h"
 #include "mount_lfs.h"
 
-sem_t lfs_clearnerloop;
-
 struct lfstestargs {
 	struct ufs_args ta_uargs;
 	pthread_t ta_cleanerthread;

@@ -54,7 +54,6 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/vnode.h>
 #include <sys/syslog.h>
 #include <sys/mutex.h>
-#include <sys/rndsource.h>
 
 #include <dev/ldvar.h>
 
@@ -139,10 +138,6 @@ ldattach(struct ld_softc *sc)
 	dk_init(dksc, self, DKTYPE_LD);
 	disk_init(&dksc->sc_dkdev, dksc->sc_xname, &lddkdriver);
 
-	/* Attach the device into the rnd source list. */
-	rnd_attach_source(&sc->sc_rnd_source, dksc->sc_xname,
-	    RND_TYPE_DISK, RND_FLAG_DEFAULT);
-
 	if (sc->sc_maxxfer > MAXPHYS)
 		sc->sc_maxxfer = MAXPHYS;
 
@@ -197,8 +192,6 @@ ldbegindetach(struct ld_softc *sc, int flags)
 	mutex_enter(&sc->sc_mutex);
 	sc->sc_maxqueuecnt = 0;
 
-	dk_detach(dksc);
-
 	while (sc->sc_queuecnt > 0) {
 		sc->sc_flags |= LDF_DRAIN;
 		cv_wait(&sc->sc_drain, &sc->sc_mutex);
@@ -224,11 +217,10 @@ ldenddetach(struct ld_softc *sc)
 		if (cv_timedwait(&sc->sc_drain, &sc->sc_mutex, 30 * hz))
 			printf("%s: not drained\n", dksc->sc_xname);
 	}
-
-	/* Kill off any queued buffers. */
-	bufq_drain(dksc->sc_bufq);
 	mutex_exit(&sc->sc_mutex);
 
+	/* Kill off any queued buffers. */
+	dk_drain(dksc);
 	bufq_free(dksc->sc_bufq);
 
 	/* Locate the major numbers. */
@@ -249,8 +241,7 @@ ldenddetach(struct ld_softc *sc)
 	disk_detach(&dksc->sc_dkdev);
 	disk_destroy(&dksc->sc_dkdev);
 
-	/* Unhook the entropy source. */
-	rnd_detach_source(&sc->sc_rnd_source);
+	dk_detach(dksc);
 
 	/* Deregister with PMF */
 	pmf_device_deregister(dksc->sc_dev);

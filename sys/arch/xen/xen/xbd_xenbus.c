@@ -73,8 +73,6 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <uvm/uvm.h>
 
-#include <sys/rndsource.h>
-
 #include <xen/hypervisor.h>
 #include <xen/evtchn.h>
 #include <xen/granttables.h>
@@ -151,7 +149,6 @@ struct xbd_xenbus_softc {
 	u_long sc_info; /* VDISK_* */
 	u_long sc_handle; /* from backend */
 	int sc_cache_flush; /* backend supports BLKIF_OP_FLUSH_DISKCACHE */
-	krndsource_t     sc_rnd_source;
 };
 
 #if 0
@@ -309,9 +306,6 @@ xbd_xenbus_attach(device_t parent, device_t self, void *aux)
 		return;
 	}
 
-	rnd_attach_source(&sc->sc_rnd_source, device_xname(self),
-	    RND_TYPE_DISK, RND_FLAG_DEFAULT);
-
 	if (!pmf_device_register(self, xbd_xenbus_suspend, xbd_xenbus_resume))
 		aprint_error_dev(self, "couldn't establish power handler\n");
 
@@ -363,18 +357,14 @@ xbd_xenbus_detach(device_t dev, int flags)
 		/* Delete all of our wedges. */
 		dkwedge_delall(&sc->sc_dksc.sc_dkdev);
 
-		s = splbio();
 		/* Kill off any queued buffers. */
-		bufq_drain(sc->sc_dksc.sc_bufq);
+		dk_drain(&sc->sc_dksc);
 		bufq_free(sc->sc_dksc.sc_bufq);
-		splx(s);
 
 		/* detach disk */
 		disk_detach(&sc->sc_dksc.sc_dkdev);
 		disk_destroy(&sc->sc_dksc.sc_dkdev);
 		dk_detach(&sc->sc_dksc);
-		/* Unhook the entropy source. */
-		rnd_detach_source(&sc->sc_rnd_source);
 	}
 
 	hypervisor_mask_event(sc->sc_evtchn);
@@ -701,12 +691,9 @@ again:
 next:
 		if (bp->b_data != xbdreq->req_data)
 			xbd_unmap_align(xbdreq);
-		disk_unbusy(&sc->sc_dksc.sc_dkdev,
-		    (bp->b_bcount - bp->b_resid),
-		    (bp->b_flags & B_READ));
-		rnd_add_uint32(&sc->sc_rnd_source,
-		    bp->b_blkno);
-		biodone(bp);
+
+		dk_done(&sc->sc_dksc, bp);
+
 		SLIST_INSERT_HEAD(&sc->sc_xbdreq_head, xbdreq, req_next);
 	}
 done:

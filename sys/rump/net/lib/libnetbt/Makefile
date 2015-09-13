@@ -1,6 +1,8 @@
 #	$NetBSD$
 #
 
+NOLINT=	#defined
+
 .include <bsd.own.mk>
 
 .PATH:	${.CURDIR}/../../../../netbt

@@ -33,8 +33,11 @@
 #include <sys/cdefs.h>
 __KERNEL_RCSID(0, "$NetBSD$");
 
+#ifdef _KERNEL_OPT
 #include "opt_wsdisplay_compat.h"
 #include "opt_wsmsgattrs.h"
+#endif
+
 #include "wskbd.h"
 #include "wsmux.h"
 #include "wsdisplay.h"

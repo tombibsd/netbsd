@@ -94,10 +94,11 @@
 #include <sys/cdefs.h>
 __KERNEL_RCSID(0, "$NetBSD$");
 
+#ifdef _KERNEL_OPT
 #include "opt_inet.h"
 #include "opt_atalk.h"
 #include "opt_gateway.h"
-
+#endif
 
 #include <sys/param.h>
 #include <sys/systm.h>
@@ -113,11 +114,12 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/cpu.h>
 
 #include <net/if.h>
+#include <net/if_dl.h>
+#include <net/if_llatbl.h>
+#include <net/if_llc.h>
+#include <net/if_types.h>
 #include <net/netisr.h>
 #include <net/route.h>
-#include <net/if_llc.h>
-#include <net/if_dl.h>
-#include <net/if_types.h>
 
 #include <net/bpf.h>
 
@@ -216,9 +218,13 @@ token_output(struct ifnet *ifp0, struct mbuf *m0, const struct sockaddr *dst,
  * XXX m->m_flags & M_MCAST   IEEE802_MAP_IP_MULTICAST ??
  */
 		else {
+			struct llentry *la;
 			if (!arpresolve(ifp, rt, m, dst, edst))
 				return (0);	/* if not yet resolved */
-			rif = TOKEN_RIF((struct llinfo_arp *) rt->rt_llinfo);
+			la = rt->rt_llinfo;
+			KASSERT(la != NULL);
+			KASSERT(la->la_opaque != NULL);
+			rif = la->la_opaque;
 			riflen = (ntohs(rif->tr_rcf) & TOKEN_RCF_LEN_MASK) >> 8;
 		}
 		/* If broadcasting on a simplex interface, loopback a copy. */

@@ -7,7 +7,7 @@
 /sysmon_envsys_tables.c/1.12/Tue Jun  3 02:54:39 2014/-kk/
 /sysmon_envsys_util.c/1.5/Fri Nov 16 08:00:16 2007/-kk/
 /sysmon_envsysvar.h/1.47/Tue Dec  9 04:43:50 2014/-kk/
-/sysmon_power.c/1.55/Fri May  1 11:32:11 2015/-kk/
+/sysmon_power.c/1.56/Sun Sep 13 01:07:14 2015/-kk/
 /sysmon_taskq.c/1.19/Fri May  1 11:32:11 2015/-kk/
 /sysmon_taskq.h/1.4/Fri May  1 11:32:11 2015/-kk/
 /sysmon_wdog.c/1.28/Thu Jun 18 03:42:28 2015/-kk/

@@ -12,6 +12,4 @@ SRCS+=	dest6.c frag6.c icmp6.c in6.c in6_cksum.c in6_ifattach.c	\
 	mld6.c nd6.c nd6_nbr.c nd6_rtr.c raw_ip6.c route6.c scope6.c	\
 	udp6_output.c udp6_usrreq.c
 
-CPPFLAGS+=	-I${.CURDIR}/opt -I${.CURDIR}/../libnet/opt
-
 CPPFLAGS+=	-DPORTALGO_INET6_DEFAULT=PORTALGO_RANDOM_START

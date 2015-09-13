@@ -2,7 +2,6 @@
 #
 
 RUMPTOP=	${.CURDIR}/../../..
-CPPFLAGS+=	-I${RUMPTOP}/librump/rumpkern -I${RUMPTOP}/librump/rumpdev \
-		-I${RUMPTOP}/librump/rumpdev/opt
+CPPFLAGS+=	-I${RUMPTOP}/librump/rumpkern -I${RUMPTOP}/librump/rumpdev
 
 .include "${RUMPTOP}/Makefile.rump"

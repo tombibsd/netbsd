@@ -1,7 +1,7 @@
 /Makefile.sdmmcdevs/1.1/Tue Apr 21 03:00:30 2009/-kk/
 /devlist2h.awk/1.1/Tue Apr 21 03:00:30 2009/-kk/
 /files.sdmmc/1.4/Sun Oct 19 16:06:51 2014/-kk/
-/ld_sdmmc.c/1.20/Wed Aug 12 04:14:24 2015/-kk/
+/ld_sdmmc.c/1.21/Sun Sep 13 01:07:14 2015/-kk/
 /sbt.c/1.4/Tue Jun  3 02:54:38 2014/-kk/
 /sdhc.c/1.84/Wed Aug 12 04:14:24 2015/-kk/
 /sdhcreg.h/1.17/Wed Aug 12 04:14:24 2015/-kk/

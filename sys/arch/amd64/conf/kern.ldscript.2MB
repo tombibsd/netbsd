@@ -1,8 +1,7 @@
 /*	$NetBSD$	*/
 
-OUTPUT_FORMAT("elf64-x86-64", "elf64-x86-64",
-	      "elf64-x86-64")
-OUTPUT_ARCH(i386:x86-64)
+#include "assym.h"
+
 ENTRY(_start)
 SECTIONS
 {
@@ -31,17 +30,17 @@ SECTIONS
   {
     *(.data)
   }
-  . = ALIGN(64);	/* COHERENCY_UNIT */
+  . = ALIGN(COHERENCY_UNIT);
   .data.cacheline_aligned :
   {
     *(.data.cacheline_aligned)
   }
-  . = ALIGN(64);	/* COHERENCY_UNIT */
+  . = ALIGN(COHERENCY_UNIT);
   .data.read_mostly :
   {
     *(.data.read_mostly)
   }
-  . = ALIGN(64);	/* COHERENCY_UNIT */
+  . = ALIGN(COHERENCY_UNIT);
   _edata = . ;
   PROVIDE (edata = .) ;
   __bss_start = . ;
