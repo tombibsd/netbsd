@@ -46,7 +46,7 @@
 /mutex.h/1.10/Mon Apr 28 20:23:36 2008/-kk/
 /oldmon.h/1.17/Sun Mar  4 06:00:44 2007/-kk/
 /openfirm.h/1.8/Thu Apr  2 02:27:55 2015/-kk/
-/openpromio.h/1.6/Sun Dec 11 12:19:05 2005/-kk/
+/openpromio.h/1.7/Sun Sep 13 01:31:05 2015/-kk/
 /param.h/1.70/Fri Feb 10 17:35:48 2012/-kk/
 /pcb.h/1.9/Tue Oct 13 22:41:57 2009/-kk/
 /pci_machdep.h/1.11/Fri Apr 11 02:03:39 2014/-kk/
@@ -67,7 +67,7 @@
 /sljit_machdep.h/1.1/Wed Jul 23 18:19:45 2014/-kk/
 /sunos_machdep.h/1.3/Mon Apr 28 20:23:36 2008/-kk/
 /svr4_machdep.h/1.13/Mon Apr 28 20:23:36 2008/-kk/
-/tctrl.h/1.4/Mon Apr 28 20:23:36 2008/-kk/
+/tctrl.h/1.5/Sun Sep 13 01:31:05 2015/-kk/
 /trap.h/1.18/Sun Mar 27 18:47:08 2011/-kk/
 /types.h/1.63/Sun Sep 13 01:06:40 2015/-kk/
 /userret.h/1.8/Mon Nov  5 20:37:48 2007/-kk/

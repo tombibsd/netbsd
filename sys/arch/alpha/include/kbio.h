@@ -40,6 +40,8 @@
  *	@(#)kbio.h	8.1 (Berkeley) 6/11/93
  */
 
+#include <sys/ioccom.h>
+
 #if 0 /* XXX */
 /*
  * The following is a minimal emulation of Sun's `kio' structures

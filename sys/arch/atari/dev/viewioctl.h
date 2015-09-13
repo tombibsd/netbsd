@@ -39,6 +39,8 @@
  * a interface to graphics.
  */
 
+#include <sys/ioccom.h>
+
 struct view_size {
     int		x;
     int		y;

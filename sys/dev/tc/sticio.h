@@ -32,6 +32,8 @@
 #ifndef _TC_STICIO_H_
 #define	_TC_STICIO_H_
 
+#include <sys/ioccom.h>
+
 /*
  * Buffer sizes.  Image buffers (span buffers, really) must be able to hold
  * 1280 32-bit pixels, even for the 8-bit boards.

@@ -173,9 +173,9 @@ config		netbsd	root on ? type ?
 mainbus0	at root
 cpu*		at mainbus0
 
-#cfi0		at mainbus0
-#nor*		at cfi?
-#flash*		at nor?
+cfi0		at mainbus0
+nor*		at cfi?
+flash*		at nor?
 
 nhpow0		at mainbus0			# NH230/231 power,LED,buttons
 

@@ -56,22 +56,6 @@ KERN_AS=	library
 ##
 ## (4) local objects, compile rules, and dependencies
 ##
-MD_OBJS=	locore.o vector.o copy.o spl.o
-MD_CFILES=
-MD_SFILES=	${AMD64}/amd64/locore.S ${AMD64}/amd64/vector.S \
-		${AMD64}/amd64/copy.S ${AMD64}/amd64/spl.S
-
-locore.o: ${AMD64}/amd64/locore.S assym.h
-	${NORMAL_S}
-
-vector.o: ${AMD64}/amd64/vector.S assym.h
-	${NORMAL_S}
-
-copy.o: ${AMD64}/amd64/copy.S assym.h
-	${NORMAL_S}
-
-spl.o: ${AMD64}/amd64/spl.S assym.h
-	${NORMAL_S}
 
 ##
 ## (5) link settings

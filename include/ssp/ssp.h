@@ -79,7 +79,7 @@ __ssp_inline rtype fun args { \
     __ssp_redirect_raw(rtype, fun, fun, args, call, 1, __ssp_bos0)
 
 #define __ssp_overlap(a, b, l) \
-    (((a) <= (b) && (b) <= (a) + (l)) || ((b) <= (a) && (a) <= (b) + (l)))
+    (((a) <= (b) && (b) < (a) + (l)) || ((b) <= (a) && (a) < (b) + (l)))
 
 __BEGIN_DECLS
 void __stack_chk_fail(void) __dead;

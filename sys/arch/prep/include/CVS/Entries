@@ -42,7 +42,7 @@
 /math.h/1.1/Tue Feb 29 15:21:32 2000/-kk/
 /mcontext.h/1.2/Sat Jan 18 06:25:24 2003/-kk/
 /mutex.h/1.2/Fri Feb  9 21:55:11 2007/-kk/
-/nvram.h/1.8/Sat Oct 27 17:18:08 2012/-kk/
+/nvram.h/1.9/Sun Sep 13 01:31:00 2015/-kk/
 /openpicreg.h/1.1/Thu May 30 16:10:05 2002/-kk/
 /param.h/1.7/Thu Jul 28 01:44:50 2011/-kk/
 /pcb.h/1.1/Tue Feb 29 15:21:30 2000/-kk/

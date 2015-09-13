@@ -32,6 +32,8 @@
 #ifndef _NET_IF_ATM_H_
 #define _NET_IF_ATM_H_
 
+#include <sys/ioccom.h>
+
 #if (defined(__FreeBSD__) || defined(__bsdi__)) && defined(KERNEL)
 #ifndef _KERNEL
 #define _KERNEL

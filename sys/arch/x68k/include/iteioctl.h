@@ -40,6 +40,7 @@
 #ifndef _X68K_ITEIOCTL_H_
 #define _X68K_ITEIOCTL_H_
 
+#include <sys/ioccom.h>
 #include <machine/kbdmap.h>
 
 struct itewinsize {

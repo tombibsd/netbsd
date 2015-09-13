@@ -46,7 +46,8 @@ KERN_AS=	obj
 ##
 ## (4) local objects, compile rules, and dependencies
 ##
-MD_OBJS=	locore.o ${FPSP}
+MD_OBJS=	locore.o
+MD_LIBS=	${FPSP}
 MD_CFILES=
 MD_SFILES=	${NEWS68K}/news68k/locore.s
 

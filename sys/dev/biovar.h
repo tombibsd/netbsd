@@ -38,6 +38,7 @@
 
 #include <sys/types.h>
 #include <sys/device.h>
+#include <sys/ioccom.h>
 
 #ifndef _KERNEL
 #include <stdbool.h>

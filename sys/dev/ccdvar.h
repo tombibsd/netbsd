@@ -71,6 +71,7 @@
 #define	_DEV_CCDVAR_H_
 
 #include <sys/buf.h>
+#include <sys/ioccom.h>
 #include <sys/mutex.h>
 #include <sys/queue.h>
 #include <sys/condvar.h>

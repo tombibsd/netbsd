@@ -34,6 +34,7 @@
 #ifndef _DEV_BLUETOOTH_BTSCO_H_
 #define _DEV_BLUETOOTH_BTSCO_H_
 
+#include <sys/ioccom.h>
 #include <netbt/bluetooth.h>
 
 /* btsco(4) properties */

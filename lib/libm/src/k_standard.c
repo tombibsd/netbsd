@@ -469,7 +469,7 @@ __kernel_standard(double x, double y, int type)
 		if (_LIB_VERSION == _SVID_)
 		  exc.retval = zero;
 		else
-		  exc.retval = -HUGE_VAL;
+		  exc.retval = HUGE_VAL;
 		if (_LIB_VERSION == _POSIX_)
 		  errno = EDOM;
 		else if (!matherr(&exc)) {

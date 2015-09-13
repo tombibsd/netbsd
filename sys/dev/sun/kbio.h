@@ -43,6 +43,8 @@
 #ifndef _DEV_SUN_KBIO_H_
 #define _DEV_SUN_KBIO_H_
 
+#include <sys/ioccom.h>
+
 /*
  * The following is a minimal emulation of Sun's `kio' structures
  * and related operations necessary to make X11 happy (i.e., make it

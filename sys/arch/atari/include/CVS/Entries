@@ -35,7 +35,7 @@
 /math.h/1.1/Thu Dec 23 10:15:10 1999/-kk/
 /mcontext.h/1.2/Fri Jan 17 22:34:22 2003/-kk/
 /mfp.h/1.6/Tue Oct 20 19:10:11 2009/-kk/
-/msioctl.h/1.4/Tue Oct 20 19:10:11 2009/-kk/
+/msioctl.h/1.5/Sun Sep 13 01:30:22 2015/-kk/
 /mtpr.h/1.8/Tue Feb  8 20:20:10 2011/-kk/
 /mutex.h/1.2/Fri Feb  9 21:55:02 2007/-kk/
 /param.h/1.35/Fri Feb 10 17:35:49 2012/-kk/

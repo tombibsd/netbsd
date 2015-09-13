@@ -16,7 +16,7 @@
 /endian_machdep.h/1.1/Fri Mar 17 00:09:26 2000/-kk/
 /float.h/1.2/Tue Feb  3 01:26:34 1998/-kk/
 /frame.h/1.1.1.1/Sun May  5 12:17:11 1996/-kk/
-/grfioctl.h/1.6/Tue Feb  8 20:20:26 2011/-kk/
+/grfioctl.h/1.7/Sun Sep 13 01:31:13 2015/-kk/
 /ieee.h/1.2/Mon Aug 30 18:58:04 1999/-kk/
 /ieeefp.h/1.1.1.1/Sun May  5 12:17:14 1996/-kk/
 /int_const.h/1.1/Sat Apr 14 22:38:44 2001/-kk/
@@ -25,10 +25,10 @@
 /int_mwgwtypes.h/1.1/Sat Apr 14 12:20:02 2001/-kk/
 /int_types.h/1.1/Mon Jun 26 15:43:20 2000/-kk/
 /intr.h/1.21/Fri Apr 11 02:03:39 2014/-kk/
-/iteioctl.h/1.8/Tue Feb  8 20:20:26 2011/-kk/
+/iteioctl.h/1.9/Sun Sep 13 01:31:13 2015/-kk/
 /kbd.h/1.4/Sun Dec 11 12:19:44 2005/-kk/
 /kbdmap.h/1.2/Sun Dec 11 12:19:44 2005/-kk/
-/kbio.h/1.5/Mon Aug 28 17:15:24 2006/-kk/
+/kbio.h/1.6/Sun Sep 13 01:31:13 2015/-kk/
 /kcore.h/1.1/Mon Jan 13 14:04:46 1997/-kk/
 /limits.h/1.4/Wed Mar 28 17:03:31 2012/-kk/
 /loadfile_machdep.h/1.8/Fri Oct  3 09:25:55 2014/-kk/
@@ -53,7 +53,7 @@
 /rwlock.h/1.2/Fri Feb  9 21:55:13 2007/-kk/
 /setjmp.h/1.1.1.1/Sun May  5 12:17:15 1996/-kk/
 /signal.h/1.2/Sun Sep 13 12:01:42 1998/-kk/
-/sram.h/1.3/Sun Dec 11 12:19:44 2005/-kk/
+/sram.h/1.4/Sun Sep 13 01:31:13 2015/-kk/
 /sunos_machdep.h/1.2/Sun Dec 11 12:19:44 2005/-kk/
 /svr4_machdep.h/1.3/Tue Nov  9 21:34:05 1999/-kk/
 /trap.h/1.1.1.1/Sun May  5 12:17:13 1996/-kk/

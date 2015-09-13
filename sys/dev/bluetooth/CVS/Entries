@@ -2,7 +2,7 @@
 /bcsp.c/1.29/Tue Aug 25 04:51:14 2015/-kk/
 /bcsp.h/1.2/Tue Oct  2 05:40:10 2007/-kk/
 /bluetoothdevices.config/1.1/Wed Jul 20 22:42:59 2011/-kk/
-/btdev.h/1.9/Wed Apr 28 06:13:51 2010/-kk/
+/btdev.h/1.10/Sun Sep 13 01:31:24 2015/-kk/
 /bthid.h/1.1/Mon Jun 19 15:44:45 2006/-kk/
 /bthidev.c/1.29/Fri Oct  3 09:25:59 2014/-kk/
 /bthidev.h/1.5/Wed Apr 28 06:13:51 2010/-kk/
@@ -11,7 +11,7 @@
 /btmagic.c/1.14/Sat Jul 25 01:30:35 2015/-kk/
 /btms.c/1.12/Sat Dec 27 03:35:43 2014/-kk/
 /btsco.c/1.34/Sat Jul 25 01:30:35 2015/-kk/
-/btsco.h/1.2/Sun Sep 10 15:45:56 2006/-kk/
+/btsco.h/1.3/Sun Sep 13 01:31:24 2015/-kk/
 /btuart.c/1.28/Tue Aug 25 04:51:14 2015/-kk/
 /files.bluetooth/1.14/Sat May 22 18:56:01 2010/-kk/
 D

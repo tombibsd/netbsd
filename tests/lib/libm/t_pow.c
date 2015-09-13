@@ -280,21 +280,18 @@ ATF_TC_BODY(pow_zero_x, tc)
 	z = pow(+0.0, -4.0);
 
 	if (z != HUGE_VAL) {
-		atf_tc_expect_fail("PR port-amd64/45391");
 		atf_tc_fail_nonfatal("pow(+0.0, -4.0) != HUGE_VAL");
 	}
 
 	z = pow(-0.0, -4.0);
 
 	if (z != HUGE_VAL) {
-		atf_tc_expect_fail("PR port-amd64/45391");
 		atf_tc_fail_nonfatal("pow(-0.0, -4.0) != HUGE_VAL");
 	}
 
 	z = pow(+0.0, -5.0);
 
 	if (z != HUGE_VAL) {
-		atf_tc_expect_fail("PR port-amd64/45391");
 		atf_tc_fail_nonfatal("pow(+0.0, -5.0) != HUGE_VAL");
 	}
 

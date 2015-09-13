@@ -199,7 +199,6 @@ delete_invite(uint32_t id_num)
 {
 	TABLE_ENTRY *ptr;
 
-	ptr = table;
 	if (debug)
 		syslog(LOG_DEBUG, "delete_invite(%"PRIu32")", id_num);
 	for (ptr = table; ptr != NIL; ptr = ptr->next) {

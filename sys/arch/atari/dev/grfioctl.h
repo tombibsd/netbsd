@@ -41,6 +41,8 @@
 #ifndef _MACHINE_GRFIOCTL_H_
 #define _MACHINE_GRFIOCTL_H_
 
+#include <sys/ioccom.h>
+
 /* these are changeable values, encapsulated in their own structure, so
    no the whole thing has to be copied when setting parameters. */
 struct grfdyninfo {

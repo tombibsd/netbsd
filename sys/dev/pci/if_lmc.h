@@ -47,6 +47,9 @@
 #ifndef IF_LMC_H
 #define IF_LMC_H
 
+#include <sys/ioccom.h>
+
+
 #define DEVICE_NAME		"lmc"
 
 #define VER_YEAR		2006

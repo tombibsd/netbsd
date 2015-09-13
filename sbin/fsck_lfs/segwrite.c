@@ -264,7 +264,7 @@ lfs_writeinode(struct lfs * fs, struct segment * sp, struct inode * ip)
 	    sp->ibp == NULL) {
 		/* Allocate a new segment if necessary. */
 		if (sp->seg_bytes_left < lfs_sb_getibsize(fs) ||
-		    sp->sum_bytes_left < sizeof(ulfs_daddr_t))
+		    sp->sum_bytes_left < LFS_BLKPTRSIZE(fs))
 			(void) lfs_writeseg(fs, sp);
 
 		/* Get next inode block. */
@@ -288,11 +288,11 @@ lfs_writeinode(struct lfs * fs, struct segment * sp, struct inode * ip)
 		lfs_sb_subavail(fs, lfs_btofsb(fs, lfs_sb_getibsize(fs)));
 		/* Set remaining space counters. */
 		sp->seg_bytes_left -= lfs_sb_getibsize(fs);
-		sp->sum_bytes_left -= sizeof(ulfs_daddr_t);
-		ndx = lfs_sb_getsumsize(fs) / sizeof(ulfs_daddr_t) -
+		sp->sum_bytes_left -= LFS_BLKPTRSIZE(fs);
+		ndx = lfs_sb_getsumsize(fs) / sizeof(uint32_t) -
 		    sp->ninodes / LFS_INOPB(fs) - 1;
 		/* XXX ondisk32 */
-		((ulfs_daddr_t *) (sp->segsum))[ndx] = daddr;
+		((uint32_t *) (sp->segsum))[ndx] = daddr;
 	}
 	/* Update the inode times and copy the inode onto the inode page. */
 	ts.tv_nsec = 0;
@@ -311,7 +311,7 @@ lfs_writeinode(struct lfs * fs, struct segment * sp, struct inode * ip)
 	 */
 	if (ip->i_number == LFS_IFILE_INUM && sp->idp) {
 		lfs_copy_dinode(fs, sp->idp, ip->i_din);
-		ip->i_lfs_osize = ip->i_ffs1_size;
+		ip->i_lfs_osize = lfs_dino_getsize(fs, ip->i_din);
 		return 0;
 	}
 	bp = sp->ibp;
@@ -319,7 +319,7 @@ lfs_writeinode(struct lfs * fs, struct segment * sp, struct inode * ip)
 	lfs_copy_dinode(fs, cdp, ip->i_din);
 
 	/* If all blocks are goig to disk, update the "size on disk" */
-	ip->i_lfs_osize = ip->i_ffs1_size;
+	ip->i_lfs_osize = lfs_dino_getsize(fs, ip->i_din);
 
 	if (ip->i_number == LFS_IFILE_INUM)	/* We know sp->idp == NULL */
 		sp->idp = DINO_IN_BLOCK(fs, bp->b_data, sp->ninodes % LFS_INOPB(fs));
@@ -384,7 +384,7 @@ lfs_gatherblock(struct segment * sp, struct ubuf * bp)
 	 */
 	fs = sp->fs;
 	blksinblk = howmany(bp->b_bcount, lfs_sb_getbsize(fs));
-	if (sp->sum_bytes_left < sizeof(ulfs_daddr_t) * blksinblk ||
+	if (sp->sum_bytes_left < LFS_BLKPTRSIZE(fs) * blksinblk ||
 	    sp->seg_bytes_left < bp->b_bcount) {
 		lfs_updatemeta(sp);
 
@@ -413,7 +413,7 @@ lfs_gatherblock(struct segment * sp, struct ubuf * bp)
 		lfs_fi_setblock(fs, sp->fip, bn, bp->b_lblkno + j);;
 	}
 
-	sp->sum_bytes_left -= sizeof(ulfs_daddr_t) * blksinblk;
+	sp->sum_bytes_left -= LFS_BLKPTRSIZE(fs) * blksinblk;
 	sp->seg_bytes_left -= bp->b_bcount;
 	return 0;
 }
@@ -451,9 +451,9 @@ loop:
  *
  * Account for this change in the segment table.
  */
-void
+static void
 lfs_update_single(struct lfs * fs, struct segment * sp, daddr_t lbn,
-    ulfs_daddr_t ndaddr, int size)
+    daddr_t ndaddr, int size)
 {
 	SEGUSE *sup;
 	struct ubuf *bp;
@@ -478,21 +478,24 @@ lfs_update_single(struct lfs * fs, struct segment * sp, daddr_t lbn,
 	frags = lfs_numfrags(fs, size);
 	switch (num) {
 	case 0:
-		ooff = ip->i_ffs1_db[lbn];
+		ooff = lfs_dino_getdb(fs, ip->i_din, lbn);
 		if (ooff == UNWRITTEN)
-			ip->i_ffs1_blocks += frags;
+			lfs_dino_setblocks(fs, ip->i_din,
+			    lfs_dino_getblocks(fs, ip->i_din) + frags);
 		else {
 			/* possible fragment truncation or extension */
 			ofrags = lfs_btofsb(fs, ip->i_lfs_fragsize[lbn]);
-			ip->i_ffs1_blocks += (frags - ofrags);
+			lfs_dino_setblocks(fs, ip->i_din,
+			    lfs_dino_getblocks(fs, ip->i_din) + (frags - ofrags));
 		}
-		ip->i_ffs1_db[lbn] = ndaddr;
+		lfs_dino_setdb(fs, ip->i_din, lbn, ndaddr);
 		break;
 	case 1:
-		ooff = ip->i_ffs1_ib[a[0].in_off];
+		ooff = lfs_dino_getib(fs, ip->i_din, a[0].in_off);
 		if (ooff == UNWRITTEN)
-			ip->i_ffs1_blocks += frags;
-		ip->i_ffs1_ib[a[0].in_off] = ndaddr;
+			lfs_dino_setblocks(fs, ip->i_din,
+			    lfs_dino_getblocks(fs, ip->i_din) + frags);
+		lfs_dino_setib(fs, ip->i_din, a[0].in_off, ndaddr);
 		break;
 	default:
 		ap = &a[num - 1];
@@ -500,10 +503,11 @@ lfs_update_single(struct lfs * fs, struct segment * sp, daddr_t lbn,
 			errx(EXIT_FAILURE, "%s: bread bno %" PRId64, __func__,
 			    ap->in_lbn);
 
-		ooff = ((ulfs_daddr_t *) bp->b_data)[ap->in_off];
+		ooff = lfs_iblock_get(fs, bp->b_data, ap->in_off);
 		if (ooff == UNWRITTEN)
-			ip->i_ffs1_blocks += frags;
-		((ulfs_daddr_t *) bp->b_data)[ap->in_off] = ndaddr;
+			lfs_dino_setblocks(fs, ip->i_din,
+			    lfs_dino_getblocks(fs, ip->i_din) + frags);
+		lfs_iblock_set(fs, bp->b_data, ap->in_off, ndaddr);
 		(void) VOP_BWRITE(bp);
 	}
 
@@ -1033,7 +1037,7 @@ lfs_writevnodes(struct lfs *fs, struct segment *sp, int op)
 }
 
 void
-lfs_writesuper(struct lfs *fs, ulfs_daddr_t daddr)
+lfs_writesuper(struct lfs *fs, daddr_t daddr)
 {
 	struct ubuf *bp;
 

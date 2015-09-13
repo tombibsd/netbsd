@@ -72,7 +72,7 @@
 #include <sparc64/sparc64/intreg.h>
 #endif
 #ifdef SUN4V
-#include <sparc64/hypervisor.h>
+#include <machine/hypervisor.h>
 #endif
 
 #include <sys/cpu_data.h>
@@ -262,6 +262,10 @@ void cpu_proc_fork(struct proc *, struct proc *);
 void	cpu_pmap_init(struct cpu_info *);
 /* run upfront to prepare the cpu_info */
 void	cpu_pmap_prepare(struct cpu_info *, bool);
+
+/* Helper functions to retrieve cache info */
+int	cpu_ecache_associativity(int node);
+int	cpu_ecache_size(int node);
 
 #if defined(MULTIPROCESSOR)
 extern vaddr_t cpu_spinup_trampoline;

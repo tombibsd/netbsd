@@ -1,11 +1,11 @@
 /Makefile/1.2/Sat Dec 15 01:03:28 2001/-kk/
 /cir.c/1.31/Fri Oct  3 09:09:15 2014/-kk/
-/cirio.h/1.3/Mon Apr 28 20:23:51 2008/-kk/
+/cirio.h/1.4/Sun Sep 13 01:31:28 2015/-kk/
 /cirvar.h/1.9/Tue Jul 26 08:59:38 2011/-kk/
 /files.ir/1.3/Tue Mar  6 20:34:36 2007/-kk/
 /ir.c/1.6/Tue Dec 28 14:45:30 2010/-kk/
 /ir.h/1.5/Mon Apr 28 20:23:51 2008/-kk/
-/irdaio.h/1.7/Mon Apr 28 20:23:51 2008/-kk/
+/irdaio.h/1.8/Sun Sep 13 01:31:29 2015/-kk/
 /irframe.c/1.46/Fri Oct  3 09:09:15 2014/-kk/
 /irframe_tty.c/1.61/Tue Aug 25 04:51:16 2015/-kk/
 /irframevar.h/1.19/Tue May 12 14:29:42 2009/-kk/

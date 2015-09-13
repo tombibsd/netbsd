@@ -39,6 +39,9 @@
  * xylogic ioctl interface
  */
 
+#include <sys/ioccom.h>
+
+
 struct xd_iocmd {
 	u_char cmd;	/* in: command number */
 	u_char subfn;	/* in: subfunction number */

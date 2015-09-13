@@ -43,6 +43,7 @@
 #ifndef _X68K_KBIO_H_
 #define _X68K_KBIO_H_
 
+#include <sys/ioccom.h>
 #include <dev/sun/kbio.h>
 
 struct kiockey {

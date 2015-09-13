@@ -38,6 +38,8 @@
 #ifndef _NETISDN_I4B_RBCH_IOCTL_H_
 #define _NETISDN_I4B_RBCH_IOCTL_H_
 
+#include <sys/ioccom.h>
+
 /*---------------------------------------------------------------------------*
  *	instruct the rbch device to dial the given number
  *---------------------------------------------------------------------------*/

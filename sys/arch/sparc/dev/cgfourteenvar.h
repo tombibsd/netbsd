@@ -32,6 +32,9 @@
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
  */
+
+#include <sys/ioccom.h>
+
 struct sbus_reg {
 	uint32_t	sbr_slot;
 	uint32_t	sbr_offset;

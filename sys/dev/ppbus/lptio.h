@@ -32,6 +32,8 @@
 #ifndef __DEV_PPBUS_LPTIO_H_
 #define __DEV_PPBUS_LPTIO_H_
 
+#include <sys/ioccom.h>
+
 /* Definitions for get status command */
 enum lpt_mode_t {
 	mode_unknown = -1,

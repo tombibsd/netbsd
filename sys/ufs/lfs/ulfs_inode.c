@@ -58,6 +58,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/fstrans.h>
 #include <sys/kmem.h>
 
+#include <ufs/lfs/lfs.h>
+#include <ufs/lfs/lfs_accessors.h>
 #include <ufs/lfs/lfs_extern.h>
 
 #include <ufs/lfs/ulfs_inode.h>

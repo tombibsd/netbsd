@@ -38,6 +38,8 @@
 #ifndef FBIO_H
 #define FBIO_H
 
+#include <sys/ioccom.h>
+
 /*
  * Frame buffer ioctls (from Sprite, trimmed to essentials for X11).
  */

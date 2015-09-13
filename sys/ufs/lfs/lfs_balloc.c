@@ -160,8 +160,8 @@ lfs_balloc(struct vnode *vp, off_t startoffset, int iosize, kauth_cred_t cred,
 						    lastblock,
 						    (bpp ? &bp : NULL), cred)))
 				return (error);
-			ip->i_ffs1_size = ip->i_size =
-			    (lastblock + 1) * lfs_sb_getbsize(fs);
+			ip->i_size = (lastblock + 1) * lfs_sb_getbsize(fs);
+			lfs_dino_setsize(fs, ip->i_din, ip->i_size);
 			uvm_vnp_setsize(vp, ip->i_size);
 			ip->i_flag |= IN_CHANGE | IN_UPDATE;
 			if (bpp)
@@ -195,7 +195,7 @@ lfs_balloc(struct vnode *vp, off_t startoffset, int iosize, kauth_cred_t cred,
 			mutex_enter(&lfs_lock);
 			lfs_sb_subbfree(fs, frags);
 			mutex_exit(&lfs_lock);
-			ip->i_ffs1_db[lbn] = UNWRITTEN;
+			lfs_dino_setdb(fs, ip->i_din, lbn, UNWRITTEN);
 		} else {
 			if (nsize <= osize) {
 				/* No need to extend */
@@ -245,15 +245,15 @@ lfs_balloc(struct vnode *vp, off_t startoffset, int iosize, kauth_cred_t cred,
 	}
 
 	if (daddr == UNASSIGNED) {
-		if (num > 0 && ip->i_ffs1_ib[indirs[0].in_off] == 0) {
-			ip->i_ffs1_ib[indirs[0].in_off] = UNWRITTEN;
+		if (num > 0 && lfs_dino_getib(fs, ip->i_din, indirs[0].in_off) == 0) {
+			lfs_dino_setib(fs, ip->i_din, indirs[0].in_off, UNWRITTEN);
 		}
 
 		/*
 		 * Create new indirect blocks if necessary
 		 */
 		if (num > 1) {
-			idaddr = ip->i_ffs1_ib[indirs[0].in_off];
+			idaddr = lfs_dino_getib(fs, ip->i_din, indirs[0].in_off);
 			for (i = 1; i < num; ++i) {
 				ibp = getblk(vp, indirs[i].in_lbn,
 				    lfs_sb_getbsize(fs), 0,0);
@@ -322,10 +322,10 @@ lfs_balloc(struct vnode *vp, off_t startoffset, int iosize, kauth_cred_t cred,
 
 		switch (num) {
 		    case 0:
-			ip->i_ffs1_db[lbn] = UNWRITTEN;
+			lfs_dino_setdb(fs, ip->i_din, lbn, UNWRITTEN);
 			break;
 		    case 1:
-			ip->i_ffs1_ib[indirs[0].in_off] = UNWRITTEN;
+			lfs_dino_setib(fs, ip->i_din, indirs[0].in_off, UNWRITTEN);
 			break;
 		    default:
 			idp = &indirs[num - 1];

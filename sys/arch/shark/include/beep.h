@@ -30,6 +30,7 @@
  */
 
 #include <sys/types.h>
+#include <sys/ioccom.h>
 
 struct wavebuffer {
 	void *addr;

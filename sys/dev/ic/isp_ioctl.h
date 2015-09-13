@@ -25,9 +25,13 @@
  *  OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  *  SUCH DAMAGE. 
  */
+
 /*
  * ioctl definitions for Qlogic FC/SCSI HBA driver
  */
+
+#include <sys/ioccom.h>
+
 #define	ISP_IOC		(021)	/* 'Ctrl-Q' */
 
 /*

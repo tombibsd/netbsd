@@ -51,6 +51,8 @@
 #ifndef	_SYS_PIOCTL_H_
 #define _SYS_PIOCTL_H_
 
+#include <sys/ioccom.h>
+
 /* The 8K limits above are a consequence of the size of the kernel buffer
    used to buffer requests from the user to venus--2*MAXPATHLEN.
    The buffer pointers may be null, or the counts may be 0 if there

@@ -816,16 +816,15 @@ dump_super(struct lfs *lfsp)
   	(void)printf("\n");
  	
  	(void)printf("  Checkpoint Info\n");
- 	(void)printf("    %s%-10d  %s0x%-8jx  %s%-10d\n",
- 		     "freehd   ", lfs_sb_getfreehd(lfsp),
- 		     "idaddr   ", (intmax_t)lfs_sb_getidaddr(lfsp),
- 		     "ifile    ", lfs_sb_getifile(lfsp));
+ 	(void)printf("    %s%-10ju  %s0x%-8jx\n",
+ 		     "freehd   ", (uintmax_t)lfs_sb_getfreehd(lfsp),
+ 		     "idaddr   ", (intmax_t)lfs_sb_getidaddr(lfsp));
  	(void)printf("    %s%-10d  %s%-10jd  %s%-10jd\n",
  		     "uinodes  ", lfs_sb_getuinodes(lfsp),
  		     "bfree    ", (intmax_t)lfs_sb_getbfree(lfsp),
  		     "avail    ", (intmax_t)lfs_sb_getavail(lfsp));
- 	(void)printf("    %s%-10d  %s0x%-8jx  %s0x%-8jx\n",
- 		     "nfiles   ", lfs_sb_getnfiles(lfsp),
+ 	(void)printf("    %s%-10ju  %s0x%-8jx  %s0x%-8jx\n",
+ 		     "nfiles   ", (uintmax_t)lfs_sb_getnfiles(lfsp),
  		     "lastseg  ", (uintmax_t)lfs_sb_getlastseg(lfsp),
  		     "nextseg  ", (uintmax_t)lfs_sb_getnextseg(lfsp));
  	(void)printf("    %s0x%-8jx  %s0x%-8jx  %s%-10ju\n",
@@ -834,6 +833,12 @@ dump_super(struct lfs *lfsp)
 		     "serial   ", (uintmax_t)lfs_sb_getserial(lfsp));
 	stamp = lfs_sb_gettstamp(lfsp);
  	(void)printf("    tstamp   %s", ctime(&stamp));
+
+	if (!lfsp->lfs_is64) {
+		(void)printf("  32-bit only derived or constant fields\n");
+		(void)printf("    %s%-10u\n",
+ 		     "ifile    ", lfs_sb_getifile(lfsp));
+	}
 }
 
 static void

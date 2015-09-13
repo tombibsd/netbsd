@@ -3,6 +3,8 @@
 #ifndef _SH3_WDOGVAR_H_
 #define	_SH3_WDOGVAR_H_
 
+#include <sys/ioccom.h>
+
 #define	WDOGF_OPEN	1
 
 #define	SIORESETWDOG	_IO('S', 0x0)

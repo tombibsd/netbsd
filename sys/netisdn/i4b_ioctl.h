@@ -44,6 +44,8 @@
 #endif /* _MACHINE_TYPES_H_ */
 #endif /* __FreeBSD__ */
 
+#include <sys/ioccom.h>
+
 /*---------------------------------------------------------------------------*
  *	version and release number for isdn4bsd package
  *---------------------------------------------------------------------------*/

@@ -248,7 +248,7 @@ lfs_markv(struct lwp *l, fsid_t *fsidp, BLOCK_INFO *blkiov,
 	if (fs->lfs_ronly)
 		return EROFS;
 
-	maxino = (lfs_fragstoblks(fs, VTOI(fs->lfs_ivnode)->i_ffs1_blocks) -
+	maxino = (lfs_fragstoblks(fs, lfs_dino_getblocks(fs, VTOI(fs->lfs_ivnode)->i_din)) -
 		      lfs_sb_getcleansz(fs) - lfs_sb_getsegtabsz(fs)) * lfs_sb_getifpb(fs);
 
 	cnt = blkcnt;

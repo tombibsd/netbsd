@@ -38,6 +38,7 @@
 /*
  * IEEE 802.11 ioctls.
  */
+#include <sys/ioccom.h>
 #include <net80211/_ieee80211.h>
 #include <net80211/ieee80211.h>
 #include <net80211/ieee80211_crypto.h>

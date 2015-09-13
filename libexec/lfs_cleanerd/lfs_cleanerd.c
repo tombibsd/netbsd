@@ -269,6 +269,9 @@ init_fs(struct clfs *fs, char *fsname)
 		return -1;
 	}
 	fs->lfs_is64 = 0; /* XXX notyet */
+	fs->lfs_dobyteswap = 0; /* XXX notyet */
+	/* XXX: can this ever need to be set? does the cleaner even care? */
+	fs->lfs_hasolddirfmt = 0;
 
 	/* If this is not a version 2 filesystem, complain and exit */
 	if (lfs_sb_getversion(fs) != 2) {
@@ -1016,10 +1019,10 @@ check_hidden_cost(struct clfs *fs, BLOCK_INFO *bip, int bic, off_t *ifc)
 			/*
 			 * Look for IFILE blocks, unless this is the Ifile.
 			 */
-			if (bip[i].bi_inode != lfs_sb_getifile(fs)) {
+			if (bip[i].bi_inode != LFS_IFILE_INUM) {
 				lbn = lfs_sb_getcleansz(fs) + bip[i].bi_inode /
 							lfs_sb_getifpb(fs);
-				*ifc += check_or_add(lfs_sb_getifile(fs), lbn,
+				*ifc += check_or_add(LFS_IFILE_INUM, lbn,
 						     bip, bic, &ebip, &ebic);
 			}
 		}

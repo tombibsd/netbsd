@@ -176,18 +176,23 @@ lfs_dump_super(struct lfs *lfsp)
 	printf("\n");
 
 	printf("Checkpoint Info\n");
-	printf("%s%d\t%s%jx\t%s%d\n",
-	       "freehd	 ", lfs_sb_getfreehd(lfsp),
-	       "idaddr	 ", (intmax_t)lfs_sb_getidaddr(lfsp),
-	       "ifile	 ", lfs_sb_getifile(lfsp));
-	printf("%s%jx\t%s%d\t%s%jx\t%s%jx\t%s%jx\t%s%jx\n",
+	printf("%s%ju\t%s%jx\n",
+	       "freehd	 ", (uintmax_t)lfs_sb_getfreehd(lfsp),
+	       "idaddr	 ", (intmax_t)lfs_sb_getidaddr(lfsp));
+	printf("%s%jx\t%s%ju\t%s%jx\t%s%jx\t%s%jx\t%s%jx\n",
 	       "bfree	 ", (intmax_t)lfs_sb_getbfree(lfsp),
-	       "nfiles	 ", lfs_sb_getnfiles(lfsp),
+	       "nfiles	 ", (uintmax_t)lfs_sb_getnfiles(lfsp),
 	       "lastseg	 ", (intmax_t)lfs_sb_getlastseg(lfsp),
 	       "nextseg	 ", (intmax_t)lfs_sb_getnextseg(lfsp),
 	       "curseg	 ", (intmax_t)lfs_sb_getcurseg(lfsp),
 	       "offset	 ", (intmax_t)lfs_sb_getoffset(lfsp));
 	printf("tstamp	 %llx\n", (long long)lfs_sb_gettstamp(lfsp));
+
+	if (!lfsp->lfs_is64) {
+		printf("32-bit only derived or constant fields\n");
+		printf("%s%u\n",
+		       "ifile	 ", lfs_sb_getifile(lfsp));
+	}
 }
 
 void

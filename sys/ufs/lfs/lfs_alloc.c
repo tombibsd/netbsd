@@ -135,7 +135,7 @@ lfs_extend_ifile(struct lfs *fs, kauth_cred_t cred)
 		return (error);
 	}
 	ip->i_size += lfs_sb_getbsize(fs);
-	ip->i_ffs1_size = ip->i_size;
+	lfs_dino_setsize(fs, ip->i_din, ip->i_size);
 	uvm_vnp_setsize(vp, ip->i_size);
 
 	maxino = ((ip->i_size >> lfs_sb_getbshift(fs)) - lfs_sb_getcleansz(fs) -

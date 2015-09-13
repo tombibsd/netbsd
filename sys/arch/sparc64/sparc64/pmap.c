@@ -58,11 +58,12 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <machine/promlib.h>
 #include <machine/kcore.h>
 #include <machine/bootinfo.h>
+#ifdef SUN4V
+#include <machine/hypervisor.h>
+#endif
+#include <machine/mdesc.h>
 
 #include <sparc64/sparc64/cache.h>
-#ifdef SUN4V
-#include <sparc64/hypervisor.h>
-#endif
 
 #ifdef DDB
 #include <machine/db_machdep.h>
@@ -478,16 +479,15 @@ static int pmap_calculate_colors(void)
 			continue;
 
 		/* Found a CPU, get the E$ info. */
-		size = prom_getpropint(node, "ecache-size", -1);
-		if (size == -1) {
-			/* XXX sun4v support missing */
+		size = cpu_ecache_size(node);
+		if (size == 0) {
 			prom_printf("pmap_calculate_colors: node %x has "
 				"no ecache-size\n", node);
 			/* If we can't get the E$ size, skip the node */
 			continue;
 		}
 
-		assoc = prom_getpropint(node, "ecache-associativity", 1);
+		assoc = cpu_ecache_associativity(node);
 		color = size/assoc/PAGE_SIZE;
 		if (color > maxcolor)
 			maxcolor = color;
@@ -731,6 +731,18 @@ pmap_bootstrap(u_long kernelstart, u_long kernelend)
 
 	/* Initialize bootstrap allocator. */
 	kdata_alloc_init(kernelend + 1 * 1024 * 1024, ekdata);
+
+	/* make sure we have access to the mdesc data on SUN4V machines */
+	if (CPU_ISSUN4V) {
+		vaddr_t m_va;
+		psize_t m_len;
+		paddr_t m_pa;
+
+		m_len = mdesc_get_len();
+		m_va = kdata_alloc(m_len, 16);
+		m_pa = kdatap + (m_va - kdata);
+		mdesc_init(m_va, m_pa, m_len);
+	}
 
 	pmap_bootdebug();
 	pmap_alloc_bootargs();

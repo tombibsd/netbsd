@@ -36,6 +36,8 @@
 #ifndef _SYS_SCANIO_H_
 #define _SYS_SCANIO_H_
 
+#include <sys/ioccom.h>
+
 /*
  * XXX scancap make this sort of obsolete:
  *

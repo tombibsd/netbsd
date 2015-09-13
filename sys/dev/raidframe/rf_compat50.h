@@ -39,6 +39,8 @@
 #ifndef _RF_COMPAT50_H_
 #define _RF_COMPAT50_H_
 
+#include <sys/ioccom.h>
+
 #define RAIDFRAME_CONFIGURE50	_IOW ('r',  1, void *)
 #define RAIDFRAME_GET_INFO50	_IOWR('r', 15, void *)
 

@@ -70,6 +70,7 @@
 #ifndef _SYS_DEV_VNDVAR_H_
 #define _SYS_DEV_VNDVAR_H_
 
+#include <sys/ioccom.h>
 #include <sys/pool.h>
 
 /*

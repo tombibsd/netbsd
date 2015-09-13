@@ -58,7 +58,9 @@
 __RCSID("$NetBSD$");
 #endif /* LIBC_SCCS and not lint */
 
+#ifndef RUMP_ACTION
 #include "namespace.h"
+#endif
 #include <sys/types.h>
 #include <sys/param.h>
 #include <sys/socket.h>
@@ -90,10 +92,13 @@ __RCSID("$NetBSD$");
 
 #include "servent.h"
 
+#ifndef RUMP_ACTION
 #ifdef __weak_alias
 __weak_alias(getaddrinfo,_getaddrinfo)
+__weak_alias(allocaddrinfo,_allocaddrinfo)
 __weak_alias(freeaddrinfo,_freeaddrinfo)
 __weak_alias(gai_strerror,_gai_strerror)
+#endif
 #endif
 
 #define SUCCESS 0

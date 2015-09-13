@@ -20,6 +20,7 @@
 #ifndef _SYS_GPIO_H_
 #define _SYS_GPIO_H_
 
+#include <sys/ioccom.h>
 #include <sys/time.h>
 
 /* GPIO pin states */

@@ -31,6 +31,8 @@
 #ifndef _SYS_AGPIO_H_
 #define _SYS_AGPIO_H_
 
+#include <sys/ioccom.h>
+
 /*
  * The AGP gatt uses 4k pages irrespective of the host page size.
  */

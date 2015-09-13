@@ -34,6 +34,8 @@
 #ifndef _DEV_BLUETOOTH_BTDEV_H_
 #define _DEV_BLUETOOTH_BTDEV_H_
 
+#include <sys/ioccom.h>
+
 /* btdev attach/detach ioctl's */
 #define BTDEV_ATTACH		_IOW('b', 14, struct plistref)
 #define BTDEV_DETACH		_IOW('b', 15, struct plistref)

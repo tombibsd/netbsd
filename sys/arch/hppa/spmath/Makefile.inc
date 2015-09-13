@@ -26,20 +26,24 @@ SPMATHMAKE= \
 ${SPMATH}:	.NOTMAIN .MAKE __always_make_spmath
 	@echo making sure the spmath library is up to date...
 	@${SPMATHMAKE} spmath.o
+	@echo done
 
 ${SPMATH_PROF}:	.NOTMAIN .MAKE __always_make_spmath
 	@echo making sure the profiled spmath library is up to date...
 	@${SPMATHMAKE} spmath.po
+	@echo done
 
 __CLEANSPMATH:	.NOTMAIN .MAKE __always_make_spmath
 	@echo cleaning the spmath library objects
 	@${SPMATHMAKE} clean
+	@echo done
 
 clean:	__CLEANSPMATH
 
 __DEPENDSPMATH:	.NOTMAIN .MAKE __always_make_spmath assym.h
 	@echo depending the spmath library objects
 	@${SPMATHMAKE} depend
+	@echo done
 
 depend:	__DEPENDSPMATH
 

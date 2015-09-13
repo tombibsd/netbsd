@@ -41,6 +41,8 @@
 #ifndef _X68K_GRFIOCTL_H_
 #define	_X68K_GRFIOCTL_H_
 
+#include <sys/ioccom.h>
+
 struct	grfinfo {
 	int	gd_id;			/* HPUX identifier */
 	void *	gd_regaddr;		/* control registers physaddr */

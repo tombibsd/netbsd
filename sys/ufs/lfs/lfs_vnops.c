@@ -944,19 +944,8 @@ lfs_mkdir(void *v)
 	    ULFS_MPNEEDSWAP(fs));
 	dirtemplate.dotdot_reclen = ulfs_rw16(dirtemplate.dotdot_reclen,
 	    ULFS_MPNEEDSWAP(fs));
-	if (fs->um_maxsymlinklen <= 0) {
-#if BYTE_ORDER == LITTLE_ENDIAN
-		if (ULFS_MPNEEDSWAP(fs) == 0)
-#else
-		if (ULFS_MPNEEDSWAP(fs) != 0)
-#endif
-		{
-			dirtemplate.dot_type = dirtemplate.dot_namlen;
-			dirtemplate.dotdot_type = dirtemplate.dotdot_namlen;
-			dirtemplate.dot_namlen = dirtemplate.dotdot_namlen = 0;
-		} else
-			dirtemplate.dot_type = dirtemplate.dotdot_type = 0;
-	}
+	lfs_dirt_settypes(fs, &dirtemplate, LFS_DT_DIR, LFS_DT_DIR);
+	lfs_dirt_setnamlens(fs, &dirtemplate, 1, 2);
 	if ((error = lfs_balloc(tvp, (off_t)0, dirblksiz, cnp->cn_cred,
 	    B_CLRBUF, &bp)) != 0)
 		goto bad;
@@ -1150,14 +1139,22 @@ lfs_getattr(void *v)
 	vap->va_nlink = ip->i_nlink;
 	vap->va_uid = ip->i_uid;
 	vap->va_gid = ip->i_gid;
-	vap->va_rdev = (dev_t)ip->i_ffs1_rdev;
+	switch (vp->v_type) {
+	    case VBLK:
+	    case VCHR:
+		vap->va_rdev = (dev_t)lfs_dino_getrdev(fs, ip->i_din);
+		break;
+	    default:
+		vap->va_rdev = NODEV;
+		break;
+	}
 	vap->va_size = vp->v_size;
-	vap->va_atime.tv_sec = ip->i_ffs1_atime;
-	vap->va_atime.tv_nsec = ip->i_ffs1_atimensec;
-	vap->va_mtime.tv_sec = ip->i_ffs1_mtime;
-	vap->va_mtime.tv_nsec = ip->i_ffs1_mtimensec;
-	vap->va_ctime.tv_sec = ip->i_ffs1_ctime;
-	vap->va_ctime.tv_nsec = ip->i_ffs1_ctimensec;
+	vap->va_atime.tv_sec = lfs_dino_getatime(fs, ip->i_din);
+	vap->va_atime.tv_nsec = lfs_dino_getatimensec(fs, ip->i_din);
+	vap->va_mtime.tv_sec = lfs_dino_getmtime(fs, ip->i_din);
+	vap->va_mtime.tv_nsec = lfs_dino_getmtimensec(fs, ip->i_din);
+	vap->va_ctime.tv_sec = lfs_dino_getctime(fs, ip->i_din);
+	vap->va_ctime.tv_nsec = lfs_dino_getctimensec(fs, ip->i_din);
 	vap->va_flags = ip->i_flags;
 	vap->va_gen = ip->i_gen;
 	/* this doesn't belong here */

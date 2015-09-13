@@ -43,6 +43,8 @@
 #ifndef _SPARC_OPENPROMIO_H_
 #define _SPARC_OPENPROMIO_H_
 
+#include <sys/ioccom.h>
+
 struct opiocdesc {
 	int	op_nodeid;		/* passed or returned node id */
 	int	op_namelen;		/* length of op_name */

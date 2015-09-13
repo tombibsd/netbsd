@@ -217,29 +217,115 @@
  */
 
 /*
- * A directory consists of some number of blocks of LFS_DIRBLKSIZ
- * bytes, where LFS_DIRBLKSIZ is chosen such that it can be transferred
- * to disk in a single atomic operation (e.g. 512 bytes on most machines).
+ * Directories in LFS are files; they use the same inode and block
+ * mapping structures that regular files do. The directory per se is
+ * manifested in the file contents: an unordered, unstructured
+ * sequence of variable-size directory entries.
  *
- * Each LFS_DIRBLKSIZ byte block contains some number of directory entry
- * structures, which are of variable length.  Each directory entry has
- * a struct lfs_direct at the front of it, containing its inode number,
- * the length of the entry, and the length of the name contained in
- * the entry.  These are followed by the name padded to a 4 byte boundary.
- * All names are guaranteed null terminated.
- * The maximum length of a name in a directory is LFS_MAXNAMLEN.
+ * This format and structure is taken (via what was originally shared
+ * ufs-level code) from FFS. Each directory entry is a fixed header
+ * followed by a string, the total length padded to a 4-byte boundary.
+ * All strings include a null terminator; the maximum string length
+ * is LFS_MAXNAMLEN, which is 255.
  *
- * The macro DIRSIZ(fmt, dp) gives the amount of space required to represent
- * a directory entry.  Free space in a directory is represented by
- * entries which have dp->d_reclen > DIRSIZ(fmt, dp).  All LFS_DIRBLKSIZ bytes
- * in a directory block are claimed by the directory entries.  This
- * usually results in the last entry in a directory having a large
- * dp->d_reclen.  When entries are deleted from a directory, the
- * space is returned to the previous entry in the same directory
- * block by increasing its dp->d_reclen.  If the first entry of
- * a directory block is free, then its dp->d_ino is set to 0.
- * Entries other than the first in a directory do not normally have
- * dp->d_ino set to 0.
+ * The directory entry structure (struct lfs_direct) includes both the
+ * header and a maximal string. A real entry is potentially smaller;
+ * this causes assorted complications and hazards. For example, if
+ * pointing at the last entry in a directory block, in most cases the
+ * end of the struct lfs_direct will be off the end of the block
+ * buffer and pointing into some other memory (or into the void); thus
+ * one must never e.g. assign structures directly or do anything that
+ * accesses the name field beyond the real length stored in the
+ * header.
+ *
+ * Historically, FFS directories were/are organized into blocks of
+ * size DIRBLKSIZE that can be written atomically to disk at the
+ * hardware level. Directory entries are not allowed to cross the
+ * boundaries of these blocks. The resulting atomicity is important
+ * for the integrity of FFS volumes; however, for LFS it's irrelevant.
+ * All we have to care about is not writing out directories that
+ * confuse earlier ufs-based versions of the LFS code.
+ *
+ * This means [to be determined]. (XXX)
+ *
+ * As DIRBLKSIZE in its FFS sense is hardware-dependent, and file
+ * system images do from time to time move to different hardware, code
+ * that reads directories should be prepared to handle directories
+ * written in a context where DIRBLKSIZE was different (smaller or
+ * larger) than its current value. Note however that it is not
+ * sensible for DIRBLKSIZE to be larger than the volume fragment size,
+ * and not practically possible for it to be larger than the volume
+ * block size.
+ *
+ * Some further notes:
+ *    - the LFS_DIRSIZ macro provides the minimum space needed to hold
+ *      a directory entry.
+ *    - any particular entry may be arbitrarily larger (which is why the
+ *      header stores both the entry size and the name size) to pad out
+ *      unused space.
+ *    - dp->d_reclen is the size of the entry. This is always 4-byte
+ *      aligned.
+ *    - dp->d_namlen is the length of the string, and should always be
+ *      the same as strlen(dp->d_name).
+ *    - in particular, space available in an entry is given by
+ *      dp->d_reclen - LFS_DIRSIZ(dp), and all space available within a
+ *      directory block is tucked away within an existing entry.
+ *    - all space within a directory block is part of some entry.
+ *    - therefore, inserting a new entry requires finding and
+ *      splitting a suitable existing entry, and when entries are
+ *      removed their space is merged into the entry ahead of them.
+ *    - an empty/unused entry has d_ino set to 0. This normally only
+ *      appears in the first entry in a block, as elsewhere the unused
+ *      entry should have been merged into the one before it.
+ *    - a completely empty directory block has one entry whose
+ *      d_reclen is DIRBLKSIZ and whose d_ino is 0.
+ *
+ * LFS_OLDDIRFMT and LFS_NEWDIRFMT are code numbers for a directory
+ * format change that happened in ffs a long time ago. This was in the
+ * 80s, if I'm not mistaken, and well before LFS was first written, so
+ * there should be no LFS volumes (and certainly no LFS v2-format
+ * volumes, or LFS64 volumes) where LFS_OLDDIRFMT pertains. All the
+ * same, we get to carry the logic around until we can conclusively
+ * demonstrate that it's never needed.
+ *
+ * Note that these code numbers do not appear on disk. They're
+ * generated from runtime logic that is cued by other things, which is
+ * why LFS_OLDDIRFMT is confusingly 1 and LFS_NEWDIRFMT is confusingly
+ * 0.
+ *
+ * Relatedly, the byte swapping logic for directories we have, which
+ * is derived from the FFS_EI code, is a horrible mess. For example,
+ * to access the namlen field, one does the following:
+ *
+ * #if (BYTE_ORDER == LITTLE_ENDIAN)
+ *         swap = (ULFS_IPNEEDSWAP(VTOI(vp)) == 0);
+ * #else
+ *         swap = (ULFS_IPNEEDSWAP(VTOI(vp)) != 0);
+ * #endif
+ *         return ((FSFMT(vp) && swap)? ep->d_type : ep->d_namlen);
+ *
+ * ULFS_IPNEEDSWAP() is the same as fetching fs->lfs_dobyteswap. This
+ * horrible "swap" logic is cutpasted all over everywhere but amounts
+ * to the following:
+ *
+ *    running code      volume          lfs_dobyteswap  "swap"
+ *    ----------------------------------------------------------
+ *    LITTLE_ENDIAN     LITTLE_ENDIAN   false           true
+ *    LITTLE_ENDIAN     BIG_ENDIAN      true            false
+ *    BIG_ENDIAN        LITTLE_ENDIAN   true            true
+ *    BIG_ENDIAN        BIG_ENDIAN      false           false
+ *
+ * which you'll note boils down to "volume is little-endian".
+ *
+ * Meanwhile, FSFMT(vp) yields LFS_OLDDIRFMT or LFS_NEWDIRFMT via
+ * perverted logic of its own. Since LFS_OLDDIRFMT is 1 (contrary to
+ * what one might expect approaching this cold) what this mess means
+ * is: on OLDDIRFMT volumes that are little-endian, we read the
+ * namlen value out of the type field. This is because on OLDDIRFMT
+ * volumes there is no d_type field, just a 16-bit d_namlen; so if
+ * the 16-bit d_namlen is little-endian, the useful part of it is
+ * in the first byte, which in the NEWDIRFMT structure is the d_type
+ * field.
  */
 
 /*
@@ -249,33 +335,10 @@
 #define	LFS_DIRBLKSIZ	DEV_BSIZE
 
 /*
- * Convert between stat structure types and directory types.
+ * Convert between stat structure type codes and directory entry type codes.
  */
 #define	LFS_IFTODT(mode)	(((mode) & 0170000) >> 12)
 #define	LFS_DTTOIF(dirtype)	((dirtype) << 12)
-
-/*
- * The LFS_DIRSIZ macro gives the minimum record length which will hold
- * the directory entry.  This requires the amount of space in struct lfs_direct
- * without the d_name field, plus enough space for the name with a terminating
- * null byte (dp->d_namlen+1), rounded up to a 4 byte boundary.
- */
-#define	LFS_DIRECTSIZ(namlen) \
-	((sizeof(struct lfs_direct) - (LFS_MAXNAMLEN+1)) + (((namlen)+1 + 3) &~ 3))
-
-#if (BYTE_ORDER == LITTLE_ENDIAN)
-#define LFS_DIRSIZ(oldfmt, dp, needswap)	\
-    (((oldfmt) && !(needswap)) ?		\
-    LFS_DIRECTSIZ((dp)->d_type) : LFS_DIRECTSIZ((dp)->d_namlen))
-#else
-#define LFS_DIRSIZ(oldfmt, dp, needswap)	\
-    (((oldfmt) && (needswap)) ?			\
-    LFS_DIRECTSIZ((dp)->d_type) : LFS_DIRECTSIZ((dp)->d_namlen))
-#endif
-
-/* Constants for the first argument of LFS_DIRSIZ */
-#define LFS_OLDDIRFMT	1
-#define LFS_NEWDIRFMT	0
 
 /*
  * Theoretically, directories can be more than 2Gb in length; however, in
@@ -789,63 +852,63 @@ struct dlfs64 {
 	u_int32_t dlfs_frag;	  /* 36: number of frags in a block in fs */
 
 /* Checkpoint region. */
-	u_int32_t dlfs_freehd;	  /* 40: start of the free inode list */
-	u_int32_t dlfs_nfiles;	  /* 44: number of allocated inodes */
-	int64_t   dlfs_bfree;	  /* 48: number of free frags */
-	int64_t	  dlfs_avail;	  /* 56: blocks available for writing */
-	int64_t	  dlfs_idaddr;	  /* 64: inode file disk address */
-	int32_t	  dlfs_uinodes;	  /* 72: inodes in cache not yet on disk */
-	u_int32_t dlfs_ifile;	  /* 76: inode file inode number */
-	int64_t	  dlfs_lastseg;	  /* 80: address of last segment written */
-	int64_t	  dlfs_nextseg;	  /* 88: address of next segment to write */
-	int64_t	  dlfs_curseg;	  /* 96: current segment being written */
-	int64_t	  dlfs_offset;	  /* 104: offset in curseg for next partial */
-	int64_t	  dlfs_lastpseg;  /* 112: address of last partial written */
-	u_int32_t dlfs_inopf;	  /* 120: inodes per frag */
+	u_int64_t dlfs_freehd;	  /* 40: start of the free inode list */
+	u_int64_t dlfs_nfiles;	  /* 48: number of allocated inodes */
+	int64_t   dlfs_bfree;	  /* 56: number of free frags */
+	int64_t	  dlfs_avail;	  /* 64: blocks available for writing */
+	int64_t	  dlfs_idaddr;	  /* 72: inode file disk address */
+	int32_t	  dlfs_uinodes;	  /* 80: inodes in cache not yet on disk */
+	u_int32_t dlfs_unused_0;  /* 84: not used */
+	int64_t	  dlfs_lastseg;	  /* 88: address of last segment written */
+	int64_t	  dlfs_nextseg;	  /* 96: address of next segment to write */
+	int64_t	  dlfs_curseg;	  /* 104: current segment being written */
+	int64_t	  dlfs_offset;	  /* 112: offset in curseg for next partial */
+	int64_t	  dlfs_lastpseg;  /* 120: address of last partial written */
+	u_int32_t dlfs_inopf;	  /* 128: inodes per frag */
 
 /* These are configuration parameters. */
-	u_int32_t dlfs_minfree;	  /* 124: minimum percentage of free blocks */
+	u_int32_t dlfs_minfree;	  /* 132: minimum percentage of free blocks */
 
 /* These fields can be computed from the others. */
-	u_int64_t dlfs_maxfilesize; /* 128: maximum representable file size */
-	u_int32_t dlfs_fsbpseg;	  /* 136: frags (fsb) per segment */
-	u_int32_t dlfs_inopb;	  /* 140: inodes per block */
-	u_int32_t dlfs_ifpb;	  /* 144: IFILE entries per block */
-	u_int32_t dlfs_sepb;	  /* 148: SEGUSE entries per block */
-	u_int32_t dlfs_nindir;	  /* 152: indirect pointers per block */
-	u_int32_t dlfs_nseg;	  /* 156: number of segments */
-	u_int32_t dlfs_nspf;	  /* 160: number of sectors per fragment */
-	u_int32_t dlfs_cleansz;	  /* 164: cleaner info size in blocks */
-	u_int32_t dlfs_segtabsz;  /* 168: segment table size in blocks */
-	u_int32_t dlfs_bshift;	  /* 172: calc block number from file offset */
-	u_int32_t dlfs_ffshift;	  /* 176: fast mult/div for frag from file */
-	u_int32_t dlfs_fbshift;	  /* 180: fast mult/div for frag from block */
-	u_int64_t dlfs_bmask;	  /* 184: calc block offset from file offset */
-	u_int64_t dlfs_ffmask;	  /* 192: calc frag offset from file offset */
-	u_int64_t dlfs_fbmask;	  /* 200: calc frag offset from block offset */
-	u_int32_t dlfs_blktodb;	  /* 208: blktodb and dbtoblk shift constant */
-	u_int32_t dlfs_sushift;	  /* 212: fast mult/div for segusage table */
+	u_int64_t dlfs_maxfilesize; /* 136: maximum representable file size */
+	u_int32_t dlfs_fsbpseg;	  /* 144: frags (fsb) per segment */
+	u_int32_t dlfs_inopb;	  /* 148: inodes per block */
+	u_int32_t dlfs_ifpb;	  /* 152: IFILE entries per block */
+	u_int32_t dlfs_sepb;	  /* 156: SEGUSE entries per block */
+	u_int32_t dlfs_nindir;	  /* 160: indirect pointers per block */
+	u_int32_t dlfs_nseg;	  /* 164: number of segments */
+	u_int32_t dlfs_nspf;	  /* 168: number of sectors per fragment */
+	u_int32_t dlfs_cleansz;	  /* 172: cleaner info size in blocks */
+	u_int32_t dlfs_segtabsz;  /* 176: segment table size in blocks */
+	u_int32_t dlfs_bshift;	  /* 180: calc block number from file offset */
+	u_int32_t dlfs_ffshift;	  /* 184: fast mult/div for frag from file */
+	u_int32_t dlfs_fbshift;	  /* 188: fast mult/div for frag from block */
+	u_int64_t dlfs_bmask;	  /* 192: calc block offset from file offset */
+	u_int64_t dlfs_ffmask;	  /* 200: calc frag offset from file offset */
+	u_int64_t dlfs_fbmask;	  /* 208: calc frag offset from block offset */
+	u_int32_t dlfs_blktodb;	  /* 216: blktodb and dbtoblk shift constant */
+	u_int32_t dlfs_sushift;	  /* 220: fast mult/div for segusage table */
 
-				  /* 216: superblock disk offsets */
+				  /* 224: superblock disk offsets */
 	int64_t	   dlfs_sboffs[LFS_MAXNUMSB];
 
-	int32_t	  dlfs_maxsymlinklen; /* 296: max len of an internal symlink */
-	u_int32_t dlfs_nclean;	  /* 300: Number of clean segments */
-	u_char	  dlfs_fsmnt[MNAMELEN];	 /* 304: name mounted on */
-	u_int16_t dlfs_pflags;	  /* 394: file system persistent flags */
-	int32_t	  dlfs_dmeta;	  /* 396: total number of dirty summaries */
-	u_int32_t dlfs_minfreeseg; /* 400: segments not counted in bfree */
-	u_int32_t dlfs_sumsize;	  /* 404: size of summary blocks */
-	u_int32_t dlfs_ibsize;	  /* 408: size of inode blocks */
-	u_int32_t dlfs_inodefmt;  /* 412: inode format version */
-	u_int64_t dlfs_serial;	  /* 416: serial number */
-	int64_t	  dlfs_s0addr;	  /* 424: start of segment 0 */
-	u_int64_t dlfs_tstamp;	  /* 432: time stamp */
-	u_int32_t dlfs_interleave; /* 440: segment interleave */
-	u_int32_t dlfs_ident;	  /* 444: per-fs identifier */
-	u_int32_t dlfs_fsbtodb;	  /* 448: fsbtodb and dbtodsb shift constant */
-	u_int32_t dlfs_resvseg;   /* 452: segments reserved for the cleaner */
-	int8_t	  dlfs_pad[52];   /* 456: round to 512 bytes */
+	int32_t	  dlfs_maxsymlinklen; /* 304: max len of an internal symlink */
+	u_int32_t dlfs_nclean;	  /* 308: Number of clean segments */
+	u_char	  dlfs_fsmnt[MNAMELEN];	 /* 312: name mounted on */
+	u_int16_t dlfs_pflags;	  /* 402: file system persistent flags */
+	int32_t	  dlfs_dmeta;	  /* 404: total number of dirty summaries */
+	u_int32_t dlfs_minfreeseg; /* 408: segments not counted in bfree */
+	u_int32_t dlfs_sumsize;	  /* 412: size of summary blocks */
+	u_int32_t dlfs_ibsize;	  /* 416: size of inode blocks */
+	u_int32_t dlfs_inodefmt;  /* 420: inode format version */
+	u_int64_t dlfs_serial;	  /* 424: serial number */
+	int64_t	  dlfs_s0addr;	  /* 432: start of segment 0 */
+	u_int64_t dlfs_tstamp;	  /* 440: time stamp */
+	u_int32_t dlfs_interleave; /* 448: segment interleave */
+	u_int32_t dlfs_ident;	  /* 452: per-fs identifier */
+	u_int32_t dlfs_fsbtodb;	  /* 456: fsbtodb and dbtodsb shift constant */
+	u_int32_t dlfs_resvseg;   /* 460: segments reserved for the cleaner */
+	int8_t	  dlfs_pad[44];   /* 464: round to 512 bytes */
 /* Checksum -- last valid disk field. */
 	u_int32_t dlfs_cksum;	  /* 508: checksum for superblock checking */
 };
@@ -873,7 +936,9 @@ struct lfs {
 	} lfs_dlfs_u;
 
 /* These fields are set at mount time and are meaningless on disk. */
-	unsigned lfs_is64 : 1;		/* are we lfs64 or lfs32? */
+	unsigned lfs_is64 : 1,		/* are we lfs64 or lfs32? */
+		lfs_dobyteswap : 1,	/* are we opposite-endian? */
+		lfs_hasolddirfmt : 1;	/* dir entries have no d_type */
 
 	struct segment *lfs_sp;		/* current segment being written */
 	struct vnode *lfs_ivnode;	/* vnode for the ifile */

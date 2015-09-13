@@ -3,6 +3,8 @@
 #ifndef _COMPAT_SUNOS_SUNOS_H_
 #define _COMPAT_SUNOS_SUNOS_H_
 
+#include <sys/ioccom.h>
+
 /* used to ensure `struct sunos' types rename constantly sized. */
 #ifdef __arch64__
 typedef u_int32_t	sunos_charp;

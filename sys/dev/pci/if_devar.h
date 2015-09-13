@@ -927,6 +927,7 @@ static void tulip_softintr(void);
 #endif
 
 #ifdef notyet
+#include <sys/ioccom.h>
 #define	SIOCGADDRROM		_IOW('i', 240, struct ifreq)	/* get 128 bytes of ROM */
 #define	SIOCGCHIPID		_IOWR('i', 241, struct ifreq)	/* get chipid */
 #endif

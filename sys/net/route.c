@@ -410,6 +410,26 @@ rtalloc1(const struct sockaddr *dst, int report)
 	return newrt;
 }
 
+#ifdef DEBUG
+/*
+ * Check the following constraint for each rtcache:
+ *   if a rtcache holds a rtentry, the rtentry's refcnt is more than zero,
+ *   i.e., the rtentry should be referenced at least by the rtcache.
+ */
+static void
+rtcache_check_rtrefcnt(int family)
+{
+	struct domain *dom = pffinddomain(family);
+	struct route *ro;
+
+	if (dom == NULL)
+		return;
+
+	LIST_FOREACH(ro, &dom->dom_rtcache, ro_rtcache_next)
+		KDASSERT(ro->_ro_rt == NULL || ro->_ro_rt->rt_refcnt > 0);
+}
+#endif
+
 void
 rtfree(struct rtentry *rt)
 {
@@ -419,6 +439,10 @@ rtfree(struct rtentry *rt)
 	KASSERT(rt->rt_refcnt > 0);
 
 	rt->rt_refcnt--;
+#ifdef DEBUG
+	if (rt_getkey(rt) != NULL)
+		rtcache_check_rtrefcnt(rt_getkey(rt)->sa_family);
+#endif
 	if (rt->rt_refcnt == 0 && (rt->rt_flags & RTF_UP) == 0) {
 		rt_assert_inactive(rt);
 		rttrash--;

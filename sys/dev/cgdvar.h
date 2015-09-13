@@ -32,6 +32,8 @@
 #ifndef _DEV_CGDVAR_H_
 #define	_DEV_CGDVAR_H_
 
+#include <sys/ioccom.h>
+
 /* ioctl(2) code: used by CGDIOCSET and CGDIOCCLR */
 struct cgd_ioctl {
 	const char	*ci_disk;

@@ -2,6 +2,8 @@
 
 /* From:  NetBSD sunos.h,v 1.4 1995/03/04 09:50:00 pk Exp 	*/
 
+#include <sys/ioccom.h>
+
 
 struct ultrix_ttysize {
 	int	ts_row;

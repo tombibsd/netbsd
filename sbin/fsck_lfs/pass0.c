@@ -200,8 +200,8 @@ pass0(void)
 		writeit = 1;
 	}
 	if (freehd != lfs_sb_getfreehd(fs)) {
-		pwarn("FREE LIST HEAD IN SUPERBLOCK SHOULD BE %ju (WAS %u)\n",
-			(uintmax_t)freehd, lfs_sb_getfreehd(fs));
+		pwarn("FREE LIST HEAD IN SUPERBLOCK SHOULD BE %ju (WAS %ju)\n",
+			(uintmax_t)freehd, (uintmax_t)lfs_sb_getfreehd(fs));
 		if (preen || reply("FIX")) {
 			lfs_sb_setfreehd(fs, freehd);
 			sbdirty();

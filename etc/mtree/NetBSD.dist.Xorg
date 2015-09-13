@@ -19,6 +19,7 @@
 ./usr/X11R7/include/X11/extensions
 ./usr/X11R7/include/X11/fonts
 ./usr/X11R7/include/X11/pixmaps
+./usr/X11R7/include/X11/pixmaps/ctwm
 ./usr/X11R7/include/fontconfig
 ./usr/X11R7/include/freetype2
 ./usr/X11R7/include/freetype2

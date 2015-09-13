@@ -27,6 +27,8 @@
  * SUCH DAMAGE.
  */
 
+#include <sys/ioccom.h>
+
 struct ipw_firmware {
 	void	*main;
 	int	main_size;

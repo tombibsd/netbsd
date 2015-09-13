@@ -20,7 +20,7 @@
 /in6_print.c/1.1/Tue Dec  2 19:36:58 2014/-kk/
 /in6_proto.c/1.106/Sun Sep 13 01:07:53 2015/-kk/
 /in6_src.c/1.58/Sun Sep 13 01:07:53 2015/-kk/
-/in6_var.h/1.73/Sun Apr 12 03:35:17 2015/-kk/
+/in6_var.h/1.74/Sun Sep 13 01:31:57 2015/-kk/
 /ip6_etherip.c/1.16/Sun Sep 13 01:07:53 2015/-kk/
 /ip6_etherip.h/1.2/Tue Aug 24 00:07:00 2010/-kk/
 /ip6_flow.c/1.24/Thu Apr  2 02:28:09 2015/-kk/
@@ -36,7 +36,7 @@
 /ipsec.h/1.54/Thu Mar 22 20:34:41 2012/-kk/
 /mld6.c/1.63/Sun Sep 13 01:07:53 2015/-kk/
 /mld6_var.h/1.10/Sat Nov 19 22:51:29 2011/-kk/
-/nd6.c/1.170/Sun Sep 13 01:07:54 2015/-kk/
+/nd6.c/1.176/Sun Sep 13 01:31:57 2015/-kk/
 /nd6.h/1.66/Sat Jul 25 01:52:33 2015/-kk/
 /nd6_nbr.c/1.110/Sun Sep 13 01:07:54 2015/-kk/
 /nd6_rtr.c/1.103/Sun Sep 13 01:07:54 2015/-kk/

@@ -28,6 +28,8 @@
  * SUCH DAMAGE.
  */
 
+#include <sys/ioccom.h>
+
 #define	RAY_MAXSSIDLEN	32
 
 /*

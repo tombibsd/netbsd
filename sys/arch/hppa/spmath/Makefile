@@ -23,13 +23,14 @@ install:
 
 .include <bsd.lib.mk>
 
-${LIB}.o:: ${OBJS}
+${LIB}.o:: ${OBJS:O}
 	@echo building standard ${LIB} library
 	@rm -f ${LIB}.o
 	@${LD} -r -o ${LIB}.o `${LORDER} ${OBJS} | tsort`
+	@echo done
 
-${LIB}.po:: ${POBJS}
+${LIB}.po:: ${POBJS:O}
 	@echo building profiled ${LIB} library
 	@rm -f ${LIB}.po
 	@${LD} -r -o ${LIB}.po `${LORDER} ${POBJS} | tsort`
-
+	@echo done

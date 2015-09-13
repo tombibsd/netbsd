@@ -39,6 +39,8 @@
  * Created      : 21/07/95
  */
 
+#include <sys/ioccom.h>
+
 struct kbd_data {
 	int keycode;
 	struct timeval event_time;

@@ -5,6 +5,7 @@
 
 /* This file is in the public domain. */
 
+#include <sys/ioccom.h> /* for _IOR etc */
 #include <net/if.h> /* XXX for IFNAMSIZ */
 #include <netinet/in.h> /* for in_addr/in6_addr */
 

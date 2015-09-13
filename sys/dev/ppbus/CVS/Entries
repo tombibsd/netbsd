@@ -1,7 +1,7 @@
 /files.ppbus/1.8/Tue Apr 29 14:07:36 2008/-kk/
 /if_plip.c/1.25/Mon Jun  9 00:29:13 2014/-kk/
 /lpt.c/1.30/Fri Oct  3 09:09:19 2014/-kk/
-/lptio.h/1.8/Mon Apr 28 20:23:56 2008/-kk/
+/lptio.h/1.9/Sun Sep 13 01:31:34 2015/-kk/
 /lptreg.h/1.6/Sun Dec 11 12:23:28 2005/-kk/
 /lptvar.h/1.10/Mon Apr 28 20:23:56 2008/-kk/
 /ppbus_1284.c/1.13/Sun Jul 20 13:58:49 2014/-kk/

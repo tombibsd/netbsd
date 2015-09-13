@@ -1768,41 +1768,43 @@ void
 tcp_mtudisc(struct inpcb *inp, int errno)
 {
 	struct tcpcb *tp = intotcpcb(inp);
-	struct rtentry *rt = in_pcbrtentry(inp);
+	struct rtentry *rt;
 
-	if (tp != 0) {
-		if (rt != 0) {
-			/*
-			 * If this was not a host route, remove and realloc.
-			 */
-			if ((rt->rt_flags & RTF_HOST) == 0) {
-				in_rtchange(inp, errno);
-				if ((rt = in_pcbrtentry(inp)) == 0)
-					return;
-			}
+	if (tp == NULL)
+		return;
 
-			/*
-			 * Slow start out of the error condition.  We
-			 * use the MTU because we know it's smaller
-			 * than the previously transmitted segment.
-			 *
-			 * Note: This is more conservative than the
-			 * suggestion in draft-floyd-incr-init-win-03.
-			 */
-			if (rt->rt_rmx.rmx_mtu != 0)
-				tp->snd_cwnd =
-				    TCP_INITIAL_WINDOW(tcp_init_win,
-				    rt->rt_rmx.rmx_mtu);
+	rt = in_pcbrtentry(inp);
+	if (rt != NULL) {
+		/*
+		 * If this was not a host route, remove and realloc.
+		 */
+		if ((rt->rt_flags & RTF_HOST) == 0) {
+			in_rtchange(inp, errno);
+			if ((rt = in_pcbrtentry(inp)) == NULL)
+				return;
 		}
 
 		/*
-		 * Resend unacknowledged packets.
+		 * Slow start out of the error condition.  We
+		 * use the MTU because we know it's smaller
+		 * than the previously transmitted segment.
+		 *
+		 * Note: This is more conservative than the
+		 * suggestion in draft-floyd-incr-init-win-03.
 		 */
-		tp->snd_nxt = tp->sack_newdata = tp->snd_una;
-		tcp_output(tp);
+		if (rt->rt_rmx.rmx_mtu != 0)
+			tp->snd_cwnd =
+			    TCP_INITIAL_WINDOW(tcp_init_win,
+			    rt->rt_rmx.rmx_mtu);
 	}
+
+	/*
+	 * Resend unacknowledged packets.
+	 */
+	tp->snd_nxt = tp->sack_newdata = tp->snd_una;
+	tcp_output(tp);
 }
-#endif
+#endif /* INET */
 
 #ifdef INET6
 /*

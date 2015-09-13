@@ -3,7 +3,7 @@
 /files.sdmmc/1.4/Sun Oct 19 16:06:51 2014/-kk/
 /ld_sdmmc.c/1.21/Sun Sep 13 01:07:14 2015/-kk/
 /sbt.c/1.4/Tue Jun  3 02:54:38 2014/-kk/
-/sdhc.c/1.84/Wed Aug 12 04:14:24 2015/-kk/
+/sdhc.c/1.87/Sun Sep 13 01:31:35 2015/-kk/
 /sdhcreg.h/1.17/Wed Aug 12 04:14:24 2015/-kk/
 /sdhcvar.h/1.24/Wed Aug 12 04:14:24 2015/-kk/
 /sdmmc.c/1.31/Wed Aug 12 04:14:24 2015/-kk/

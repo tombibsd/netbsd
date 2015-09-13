@@ -170,7 +170,7 @@ fs_parametrize(void)
 ino_t
 fs_maxino(void)
 {
-	return ((getino(lfs_sb_getifile(sblock))->dp1.di_size
+	return ((getino(LFS_IFILE_INUM)->dp1.di_size
 		   - (lfs_sb_getcleansz(sblock) + lfs_sb_getsegtabsz(sblock))
 		   * lfs_sb_getbsize(sblock))
 		  / lfs_sb_getbsize(sblock)) * lfs_sb_getifpb(sblock) - 1;
@@ -288,7 +288,7 @@ lfs_ientry(ino_t ino)
 	unsigned index;
     
 	lbn = ino/lfs_sb_getifpb(sblock) + lfs_sb_getcleansz(sblock) + lfs_sb_getsegtabsz(sblock);
-	dp = getino(lfs_sb_getifile(sblock));
+	dp = getino(LFS_IFILE_INUM);
 	/* XXX this is foolish */
 	if (sblock->lfs_is64) {
 		ldp = (union lfs_dinode *)&dp->dlp64;
@@ -340,7 +340,7 @@ getino(ino_t inum)
 	union lfs_dinode *dp;
 	ino_t inum2;
 
-	if(inum == lfs_sb_getifile(sblock)) {
+	if (inum == LFS_IFILE_INUM) {
 		/* Load the ifile inode if not already */
 		inum2 = sblock->lfs_is64 ?
 			ifile_dinode.dlp64.di_inumber :

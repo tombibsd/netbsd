@@ -46,6 +46,8 @@
 #ifndef _NET_IF_PPP_H_
 #define _NET_IF_PPP_H_
 
+#include <sys/ioccom.h>
+
 /*
  * Bit definitions for flags.
  */

@@ -68,6 +68,9 @@
 #ifndef _PCI_MLYIO_H_
 #define	_PCI_MLYIO_H_
 
+#include <sys/ioccom.h>
+
+
 struct mly_user_command {
 	unsigned char	ControllerNumber;
 	union mly_cmd_packet	CommandMailbox;

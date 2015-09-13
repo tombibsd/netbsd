@@ -35,6 +35,7 @@
 #ifndef _COMPAT_SYS_CLOCKCTL_H_
 #define _COMPAT_SYS_CLOCKCTL_H_
 
+#include <sys/ioccom.h>
 #include <sys/time.h>
 #include <sys/timex.h>
 

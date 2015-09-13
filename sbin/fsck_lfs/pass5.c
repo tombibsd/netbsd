@@ -51,7 +51,6 @@
 #include "extern.h"
 #include "fsutil.h"
 
-extern SEGUSE *seg_table;
 extern off_t locked_queue_bytes;
 
 void

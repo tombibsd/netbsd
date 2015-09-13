@@ -38,6 +38,7 @@
 #ifndef _NET_IF_GRE_H_
 #define _NET_IF_GRE_H_
 
+#include <sys/ioccom.h>
 #include <sys/evcnt.h>
 #include <sys/queue.h>
 #include <sys/mutex.h>

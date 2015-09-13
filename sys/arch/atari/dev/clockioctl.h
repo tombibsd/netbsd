@@ -38,6 +38,8 @@
  *	@(#)clockioctl.h	7.2 (Berkeley) 11/2/90
  */
 
+#include <sys/ioccom.h>
+
 #define	CLOCKMAP	_IOWR('C', 1, int)
 #define	CLOCKUNMAP	_IOW('C', 2, int)
 #define	CLOCKGETRES	_IOR('C', 3, int)

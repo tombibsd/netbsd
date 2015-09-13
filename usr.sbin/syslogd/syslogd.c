@@ -714,9 +714,11 @@ dispatch_read_funix(int fd, short event, void *ev)
 		return;
 	}
 
+#define SUN_PATHLEN(su) \
+	((su)->sun_len - (sizeof(*(su)) - sizeof((su)->sun_path)))
+
 	DPRINTF((D_CALL|D_EVENT|D_NET), "Unix socket (%.*s) active (%d, %d %p)"
-		" with linebuf@%p, size %zu)\n", (int)(myname.sun_len
-		- sizeof(myname.sun_len) - sizeof(myname.sun_family)),
+		" with linebuf@%p, size %zu)\n", (int)SUN_PATHLEN(&myname),
 		myname.sun_path, fd, event, ev, linebuf, linebufsize-1);
 
 	sunlen = sizeof(fromunix);
@@ -727,7 +729,7 @@ dispatch_read_funix(int fd, short event, void *ev)
 		printline(LocalFQDN, linebuf, 0);
 	} else if (rv < 0 && errno != EINTR) {
 		logerror("recvfrom() unix `%.*s'",
-			myname.sun_len, myname.sun_path);
+			(int)SUN_PATHLEN(&myname), myname.sun_path);
 	}
 }
 

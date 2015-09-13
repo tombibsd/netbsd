@@ -29,6 +29,8 @@
 #ifndef _NET_IF_TAP_H_
 #define _NET_IF_TAP_H_
 
+#include <sys/ioccom.h>
+
 /* 'e' comes from former name 'ethfoo' */
 #define TAPGIFNAME	_IOR('e', 0, struct ifreq)
 

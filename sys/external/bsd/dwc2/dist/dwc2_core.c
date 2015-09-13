@@ -686,12 +686,22 @@ static int dwc2_phy_init(struct dwc2_hsotg *hsotg, bool select_phy)
 
 static int dwc2_gahbcfg_init(struct dwc2_hsotg *hsotg)
 {
+	struct dwc2_softc *sc = hsotg->hsotg_sc;
 	u32 ahbcfg = DWC2_READ_4(hsotg, GAHBCFG);
 
 	switch (hsotg->hw_params.arch) {
 	case GHWCFG2_EXT_DMA_ARCH:
-		dev_err(hsotg->dev, "External DMA Mode not supported\n");
-		return -EINVAL;
+		dev_dbg(hsotg->dev, "External DMA Mode\n");
+		if (!sc->sc_set_dma_addr) {
+			dev_err(hsotg->dev, "External DMA Mode not supported\n");
+			return -EINVAL;
+		}
+		if (hsotg->core_params->ahbcfg != -1) {
+			ahbcfg &= GAHBCFG_CTRL_MASK;
+			ahbcfg |= hsotg->core_params->ahbcfg &
+				  ~GAHBCFG_CTRL_MASK;
+		}
+		break;
 
 	case GHWCFG2_INT_DMA_ARCH:
 		dev_dbg(hsotg->dev, "Internal DMA Mode\n");
@@ -1842,10 +1852,18 @@ void dwc2_hc_start_transfer(struct dwc2_hsotg *hsotg,
 		} else {
 			dma_addr = chan->xfer_dma;
 		}
-		DWC2_WRITE_4(hsotg, HCDMA(chan->hc_num), (u32)dma_addr);
-		if (dbg_hc(chan))
-			dev_vdbg(hsotg->dev, "Wrote %08lx to HCDMA(%d)\n",
-				 (unsigned long)dma_addr, chan->hc_num);
+		if (hsotg->hsotg_sc->sc_set_dma_addr == NULL) {
+			DWC2_WRITE_4(hsotg, HCDMA(chan->hc_num),
+			    (u32)dma_addr);
+			if (dbg_hc(chan))
+				dev_vdbg(hsotg->dev,
+				    "Wrote %08lx to HCDMA(%d)\n",
+				     (unsigned long)dma_addr,
+				    chan->hc_num);
+		} else {
+			(void)(*hsotg->hsotg_sc->sc_set_dma_addr)(
+			    hsotg->dev, dma_addr, chan->hc_num);
+		}
 	}
 
 	/* Start the split */

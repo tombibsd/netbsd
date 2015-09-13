@@ -409,7 +409,7 @@ set_field_printf(FIELD *field, int buffer, char *fmt, ...)
  */
 
 int
-set_field_buffer(FIELD *field, int buffer, char *value)
+set_field_buffer(FIELD *field, int buffer, const char *value)
 {
 	unsigned int len;
 	int status;

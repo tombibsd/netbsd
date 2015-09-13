@@ -307,10 +307,7 @@ start:
  * [eventually this will replace the real getopt]
  */
 int
-getopt(nargc, nargv, options)
-	int nargc;
-	char * const *nargv;
-	const char *options;
+getopt(int nargc, char * const *nargv, const char *options)
 {
 	int retval;
 
@@ -326,7 +323,7 @@ getopt(nargc, nargv, options)
 		 */
 		if (nonopt_end != -1) {
 			permute_args(nonopt_start, nonopt_end, optind,
-				       nargv);
+				       __UNCONST(nargv));
 			optind -= nonopt_end - nonopt_start;
 		}
 		nonopt_start = nonopt_end = -1;

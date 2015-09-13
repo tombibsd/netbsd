@@ -20,7 +20,8 @@ SRCS+=	riscospart.c
 .undef DESTDIR
 .include <bsd.lib.mk>
 
-lib${LIB}.o:: ${OBJS}
+lib${LIB}.o:: ${OBJS:O}
 	@echo building standard ${LIB} library
 	@rm -f lib${LIB}.o
 	@${LD} -r -o lib${LIB}.o `lorder ${OBJS} | tsort`
+	@echo done

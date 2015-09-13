@@ -70,6 +70,8 @@
  *	@(#)event_var.h	8.1 (Berkeley) 6/11/93
  */
 
+#include <sys/ioccom.h>
+
 /*
  * Internal "wscons_event" queue interface for the keyboard and mouse drivers.
  * The drivers are expected not to place events in the queue above spltty(),

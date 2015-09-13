@@ -25,6 +25,8 @@
  */
 #ifndef FILEMON_SET_FD
 
+#include <sys/ioccom.h>
+
 #ifndef _PATH_FILEMON
 #define _PATH_FILEMON "/dev/filemon"
 #endif

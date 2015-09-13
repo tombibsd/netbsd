@@ -27,6 +27,12 @@ defparam opt_physmem.h	PHYSMEM_MAX_ADDR PHYSMEM_MAX_SIZE
 defflag			USER_LDT
 defflag eisa.h EISA
 
+# Start code
+file	arch/amd64/amd64/locore.S		machdep
+file	arch/amd64/amd64/vector.S		machdep
+file	arch/amd64/amd64/copy.S			machdep
+file	arch/amd64/amd64/spl.S			machdep
+
 file	arch/amd64/amd64/amd64func.S		machdep
 file	arch/amd64/amd64/autoconf.c		machdep
 file	arch/amd64/amd64/busfunc.S		machdep

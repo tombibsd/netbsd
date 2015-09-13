@@ -35,6 +35,8 @@
  * ioctl definitions for SatLink interface.
  */
 
+#include <sys/ioccom.h>
+
 struct satlink_id {
 	u_int16_t	sid_mfrid;	/* manufacturer ID */
 	u_int8_t	sid_grpid;	/* group ID */

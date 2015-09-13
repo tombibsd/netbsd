@@ -34,6 +34,8 @@
 #ifndef _SYS_MTIO_H_
 #define	_SYS_MTIO_H_
 
+#include <sys/ioccom.h>
+
 /*
  * Structures and definitions for mag tape io control commands
  */

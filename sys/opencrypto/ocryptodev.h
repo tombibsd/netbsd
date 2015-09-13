@@ -85,6 +85,8 @@
 #ifndef _CRYPTO_OCRYPTODEV_H_
 #define _CRYPTO_OCRYPTODEV_H_
 
+#include <sys/ioccom.h>
+
 struct osession_op {	/* backwards compatible */
 	u_int32_t	cipher;		/* ie. CRYPTO_DES_CBC */
 	u_int32_t	mac;		/* ie. CRYPTO_MD5_HMAC */

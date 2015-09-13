@@ -42,6 +42,8 @@
 #ifndef _DEV_OFW_OPENFIRMIO_H_
 #define _DEV_OFW_OPENFIRMIO_H_
 
+#include <sys/ioccom.h>
+
 struct ofiocdesc {
 	int	of_nodeid;		/* passed or returned node id */
 	int	of_namelen;		/* length of op_name */

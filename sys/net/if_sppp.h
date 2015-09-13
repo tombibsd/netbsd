@@ -34,6 +34,9 @@
 
 /* ioctls used by the if_spppsubr.c driver */
 
+#include <sys/ioccom.h>
+
+
 #define	SPPP_AUTHPROTO_NONE	0
 #define SPPP_AUTHPROTO_PAP	1
 #define SPPP_AUTHPROTO_CHAP	2

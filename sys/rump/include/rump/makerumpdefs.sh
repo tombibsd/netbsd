@@ -60,7 +60,8 @@ sed -n '/#define.*LK_[A-Z]/s/LK_/RUMP_LK_/gp' <../../../sys/vnode.h	\
     | sed 's,/\*.*$,,'
 
 fromvers ../../../sys/errno.h
-sed -n '/#define[ 	]*E/s/E[A-Z]*/RUMP_&/p' < ../../../sys/errno.h
+sed -n '/#define[ 	]*E/s/\([ 	]\)\(E[A-Z2][A-Z]*\)/\1RUMP_\2/gp' \
+    < ../../../sys/errno.h
 
 fromvers ../../../sys/reboot.h
 sed -n '/#define.*RB_[A-Z]/s/RB_/RUMP_RB_/gp' <../../../sys/reboot.h	\
@@ -97,7 +98,7 @@ fromvers ../../../sys/fstypes.h
 sed -n '/#define[ 	]*MNT_[A-Z].*[^\]$/s/MNT_/RUMP_MNT_/gp' <../../../sys/fstypes.h | sed 's,/\*.*$,,'
 
 fromvers ../../../sys/ioccom.h
-sed -n '/#define[ 	]*IOC[A-Z_]/s/IOC/RUMP_&/gp' <../../../sys/ioccom.h | sed 's,/\*.*$,,'
+sed -n '/#define[ 	]*IOC[A-Z_].*[^\\]$/s/IOC/RUMP_&/gp' <../../../sys/ioccom.h | sed 's,/\*.*$,,'
 sed -n '/#define[ 	]*_IO.*\\$/{:t;N;/\\$/bt;s/_IOC/_RUMP_IOC/g;s/IOC[A-Z]/RUMP_&/gp}' <../../../sys/ioccom.h \
     | sed 's,/\*.*$,,'
 sed -n '/#define[ 	]*_IO.*[^\]$/{s/_IO/_RUMP_IO/g;s/IOC_/RUMP_IOC_/gp}' <../../../sys/ioccom.h \

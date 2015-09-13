@@ -63,7 +63,7 @@ viadrm_init(void)
 
 	error = drm_pci_init(via_drm_driver, NULL);
 	if (error) {
-		aprint_error("i915drmkms: failed to init pci: %d\n",
+		aprint_error("viadrmkms: failed to init pci: %d\n",
 		    error);
 		return error;
 	}

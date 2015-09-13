@@ -38,6 +38,8 @@
 #ifndef _COMPAT_NETINET6_IN6_VAR_H_
 #define _COMPAT_NETINET6_IN6_VAR_H_
 
+#include <sys/ioccom.h>
+
 struct in6_addrlifetime50 {
 	int32_t ia6t_expire;
 	int32_t ia6t_preferred;

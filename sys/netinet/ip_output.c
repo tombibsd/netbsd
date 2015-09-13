@@ -260,7 +260,8 @@ retry:
 			error = EHOSTUNREACH;
 			goto bad;
 		}
-		gwrt = rt->rt_gwroute = rtalloc1(rt->rt_gateway, 1);
+		gwrt = rtalloc1(rt->rt_gateway, 1);
+		rt_set_gwroute(rt, gwrt);
 		RTFREE_IF_NEEDED(rt);
 		rt = gwrt;
 		if (rt == NULL) {
@@ -269,6 +270,8 @@ retry:
 		}
 		/* the "G" test below also prevents rt == rt0 */
 		if ((rt->rt_flags & RTF_GATEWAY) != 0 || rt->rt_ifp != ifp) {
+			if (rt0->rt_gwroute != NULL)
+				rtfree(rt0->rt_gwroute);
 			rt0->rt_gwroute = NULL;
 			error = EHOSTUNREACH;
 			goto bad;

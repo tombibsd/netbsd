@@ -43,6 +43,8 @@
 #ifndef _SUN_VUID_EVENT_H_
 #define _SUN_VUID_EVENT_H_
 
+#include <sys/ioccom.h>
+
 struct firm_timeval {
 	long tv_sec;
 	long tv_usec;

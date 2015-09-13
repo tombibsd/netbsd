@@ -32,6 +32,7 @@
 #ifndef __NETBSD_DM_H__
 #define __NETBSD_DM_H__
 
+#include <sys/ioccom.h>
 #include <prop/proplib.h>
 
 #define DM_CMD_LEN 16

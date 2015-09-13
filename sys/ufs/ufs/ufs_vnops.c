@@ -378,8 +378,16 @@ ufs_getattr(void *v)
 	vap->va_gid = ip->i_gid;
 	vap->va_size = vp->v_size;
 	if (ip->i_ump->um_fstype == UFS1) {
-		vap->va_rdev = (dev_t)ufs_rw32(ip->i_ffs1_rdev,
-		    UFS_MPNEEDSWAP(ip->i_ump));
+		switch (vp->v_type) {
+		    case VBLK:
+		    case VCHR:
+			vap->va_rdev = (dev_t)ufs_rw32(ip->i_ffs1_rdev,
+			    UFS_MPNEEDSWAP(ip->i_ump));
+			break;
+		    default:
+			vap->va_rdev = NODEV;
+			break;
+		}
 		vap->va_atime.tv_sec = ip->i_ffs1_atime;
 		vap->va_atime.tv_nsec = ip->i_ffs1_atimensec;
 		vap->va_mtime.tv_sec = ip->i_ffs1_mtime;
@@ -390,8 +398,16 @@ ufs_getattr(void *v)
 		vap->va_birthtime.tv_nsec = 0;
 		vap->va_bytes = dbtob((u_quad_t)ip->i_ffs1_blocks);
 	} else {
-		vap->va_rdev = (dev_t)ufs_rw64(ip->i_ffs2_rdev,
-		    UFS_MPNEEDSWAP(ip->i_ump));
+		switch (vp->v_type) {
+		    case VBLK:
+		    case VCHR:
+			vap->va_rdev = (dev_t)ufs_rw64(ip->i_ffs2_rdev,
+			    UFS_MPNEEDSWAP(ip->i_ump));
+			break;
+		    default:
+			vap->va_rdev = NODEV;
+			break;
+		}
 		vap->va_atime.tv_sec = ip->i_ffs2_atime;
 		vap->va_atime.tv_nsec = ip->i_ffs2_atimensec;
 		vap->va_mtime.tv_sec = ip->i_ffs2_mtime;

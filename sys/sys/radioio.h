@@ -32,6 +32,7 @@
 #define _SYS_RADIOIO_H_
 
 #include <sys/param.h>
+#include <sys/ioccom.h>
 
 #define MIN_FM_FREQ	87500
 #define MAX_FM_FREQ	108000

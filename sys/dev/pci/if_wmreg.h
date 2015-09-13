@@ -1114,6 +1114,13 @@ struct livengood_tcpip_ctxdesc {
 #define INVM_AUTOLOAD		0x0a
 #define INVM_PLL_WO_VAL		0x0010
 
+/* Version and Image Type field */
+#define INVM_VER_1	__BITS(12,3)
+#define INVM_VER_2	__BITS(22,13)
+#define INVM_IMGTYPE	__BITS(28,23)
+#define INVM_MINOR	__BITS(3,0)
+#define INVM_MAJOR	__BITS(9,4)
+
 /* Word definitions for ID LED Settings */
 #define ID_LED_RESERVED_FFFF 0xFFFF
 

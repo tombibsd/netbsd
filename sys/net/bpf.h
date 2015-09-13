@@ -40,6 +40,7 @@
 #ifndef _NET_BPF_H_
 #define _NET_BPF_H_
 
+#include <sys/ioccom.h>
 #include <sys/time.h>
 
 /* BSD style release date */

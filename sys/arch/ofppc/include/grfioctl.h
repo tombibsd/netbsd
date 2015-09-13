@@ -41,6 +41,8 @@
 #ifndef _MACPPC_GRFIOCTL_H_
 #define _MACPPC_GRFIOCTL_H_
 
+#include <sys/ioccom.h>
+
 struct	grfinfo {
 	void *	gd_regaddr;		/* control registers physaddr */
 	int	gd_regsize;		/* control registers size */

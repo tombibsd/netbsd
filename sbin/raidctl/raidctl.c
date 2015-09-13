@@ -577,12 +577,12 @@ rf_pm_configure(int fd, int raidID, char *parityconf, int parityparams[])
 }
 
 /* convert "component0" into "absent" */
-static const char *rf_output_devname(const char *devname)
+static const char *rf_output_devname(const char *name)
 {
 
-	if (strncmp(devname, "component", 9) == 0)
+	if (strncmp(name, "component", 9) == 0)
 		return "absent";
-	return devname;
+	return name;
 }
 
 static void

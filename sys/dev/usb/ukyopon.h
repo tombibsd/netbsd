@@ -29,6 +29,8 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include <sys/ioccom.h>
+
 #ifdef _KERNEL
 #include <machine/limits.h>
 #else

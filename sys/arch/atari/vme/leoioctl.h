@@ -27,5 +27,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include <sys/ioccom.h>
+
 #define LIOCYRES _IOW('l', 0, int)
 #define LIOCSCRL _IOW('l', 1, int)

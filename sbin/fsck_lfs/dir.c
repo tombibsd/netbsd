@@ -70,6 +70,7 @@ struct lfs_dirtemplate dirhead = {
 	.dotdot_namlen = 2,
 	.dotdot_name = ".."
 };
+#if 0
 struct lfs_odirtemplate odirhead = {
 	.dot_ino = 0,
 	.dot_reclen = 12,
@@ -80,6 +81,7 @@ struct lfs_odirtemplate odirhead = {
 	.dotdot_namlen = 2,
 	.dotdot_name = ".."
 };
+#endif
 
 static int expanddir(struct uvnode *, union lfs_dinode *, char *);
 static void freedir(ino_t, ino_t);
@@ -193,8 +195,8 @@ fsck_readdir(struct uvnode *vp, struct inodesc *idesc)
 		dp = (struct lfs_direct *) (bp->b_data + idesc->id_loc);
 		dp->d_reclen = LFS_DIRBLKSIZ;
 		dp->d_ino = 0;
-		dp->d_type = 0;
-		dp->d_namlen = 0;
+		lfs_dir_settype(fs, dp, LFS_DT_UNKNOWN);
+		lfs_dir_setnamlen(fs, dp, 0);
 		dp->d_name[0] = '\0';
 		if (fix)
 			VOP_BWRITE(bp);
@@ -266,9 +268,9 @@ dircheck(struct inodesc *idesc, struct lfs_direct *dp)
 	}
 	if (dp->d_ino == 0)
 		return (1);
-	size = LFS_DIRSIZ(0, dp, 0);
-	namlen = dp->d_namlen;
-	type = dp->d_type;
+	size = LFS_DIRSIZ(fs, dp);
+	namlen = lfs_dir_getnamlen(fs, dp);
+	type = lfs_dir_gettype(fs, dp);
 	if (dp->d_reclen < size ||
 	    idesc->id_filesize < size ||
 	/* namlen > MAXNAMLEN || */
@@ -316,7 +318,7 @@ fileerror(ino_t cwd, ino_t ino, const char *errmesg)
 	else {
 		if (ftypeok(VTOD(vp)))
 			pfatal("%s=%s\n",
-			    (VTOI(vp)->i_ffs1_mode & LFS_IFMT) == LFS_IFDIR ?
+			    (lfs_dino_getmode(fs, VTOI(vp)->i_din) & LFS_IFMT) == LFS_IFDIR ?
 			    "DIR" : "FILE", pathbuf);
 		else
 			pfatal("NAME=%s\n", pathbuf);
@@ -366,12 +368,14 @@ mkentry(struct inodesc *idesc)
 {
 	struct lfs_direct *dirp = idesc->id_dirp;
 	struct lfs_direct newent;
+	unsigned namlen;
 	int newlen, oldlen;
 
-	newent.d_namlen = strlen(idesc->id_name);
-	newlen = LFS_DIRSIZ(0, &newent, 0);
+	namlen = strlen(idesc->id_name);
+	lfs_dir_setnamlen(fs, &newent, namlen);
+	newlen = LFS_DIRSIZ(fs, &newent);
 	if (dirp->d_ino != 0)
-		oldlen = LFS_DIRSIZ(0, dirp, 0);
+		oldlen = LFS_DIRSIZ(fs, dirp);
 	else
 		oldlen = 0;
 	if (dirp->d_reclen - oldlen < newlen)
@@ -381,9 +385,9 @@ mkentry(struct inodesc *idesc)
 	dirp = (struct lfs_direct *) (((char *) dirp) + oldlen);
 	dirp->d_ino = idesc->id_parent;	/* ino to be entered is in id_parent */
 	dirp->d_reclen = newent.d_reclen;
-	dirp->d_type = typemap[idesc->id_parent];
-	dirp->d_namlen = newent.d_namlen;
-	memcpy(dirp->d_name, idesc->id_name, (size_t) dirp->d_namlen + 1);
+	lfs_dir_settype(fs, dirp, typemap[idesc->id_parent]);
+	lfs_dir_setnamlen(fs, dirp, namlen);
+	memcpy(dirp->d_name, idesc->id_name, (size_t)namlen + 1);
 	return (ALTERED | STOP);
 }
 
@@ -391,11 +395,13 @@ static int
 chgino(struct inodesc *idesc)
 {
 	struct lfs_direct *dirp = idesc->id_dirp;
+	int namlen;
 
-	if (memcmp(dirp->d_name, idesc->id_name, (int) dirp->d_namlen + 1))
+	namlen = lfs_dir_getnamlen(fs, dirp);
+	if (memcmp(dirp->d_name, idesc->id_name, namlen + 1))
 		return (KEEPON);
 	dirp->d_ino = idesc->id_parent;
-	dirp->d_type = typemap[idesc->id_parent];
+	lfs_dir_settype(fs, dirp, typemap[idesc->id_parent]);
 	return (ALTERED | STOP);
 }
 
@@ -492,7 +498,8 @@ linkup(ino_t orphan, ino_t parentdir)
 		    parentdir != (ino_t) - 1)
 			(void) makeentry(orphan, lfdir, "..");
 		vp = vget(fs, lfdir);
-		VTOI(vp)->i_ffs1_nlink++;
+		lfs_dino_setnlink(fs, VTOI(vp)->i_din,
+		    lfs_dino_getnlink(fs, VTOI(vp)->i_din) + 1);
 		inodirty(VTOI(vp));
 		lncntp[lfdir]++;
 		pwarn("DIR I=%llu CONNECTED. ", (unsigned long long)orphan);
@@ -688,7 +695,8 @@ freedir(ino_t ino, ino_t parent)
 
 	if (ino != parent) {
 		vp = vget(fs, parent);
-		VTOI(vp)->i_ffs1_nlink--;
+		lfs_dino_setnlink(fs, VTOI(vp)->i_din,
+		    lfs_dino_getnlink(fs, VTOI(vp)->i_din) - 1);
 		inodirty(VTOI(vp));
 	}
 	freeino(ino);

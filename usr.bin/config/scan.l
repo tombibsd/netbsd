@@ -164,6 +164,7 @@ obsolete	return OBSOLETE;
 on		return ON;
 options		return OPTIONS;
 prefix		return PREFIX;
+buildprefix	return BUILDPREFIX;
 pseudo-device	return PSEUDO_DEVICE;
 pseudo-root	return PSEUDO_ROOT;
 root		return ROOT;
@@ -475,6 +476,8 @@ package(const char *fname)
 	free(fname2);
 }
 
+int includedepth;
+
 /*
  * Open the named file for inclusion at the current point.  Returns 0 on
  * success (file opened and previous state pushed), nonzero on failure
@@ -536,6 +539,7 @@ include(const char *fname, int ateof, int conditional, int direct)
 	yyfile = intern(s);
 	yyline = 1;
 	free(s);
+	includedepth++;
 	return (0);
 }
 
@@ -597,6 +601,8 @@ endinclude(void)
 	ateof  = in->in_ateof;
 	interesting = in->in_interesting;
 	free(in);
+
+	includedepth--;
 
 	return (ateof);
 }

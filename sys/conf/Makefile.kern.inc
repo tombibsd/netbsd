@@ -104,21 +104,11 @@ CFLAGS+=	-fno-strict-aliasing
 CFLAGS+=	-fno-common
 .endif
 
-.if ${USE_SSP:Uno} == "yes"
-COPTS.kern_ssp.c+=	-fno-stack-protector -D__SSP__
-.endif
-
-# for multi-cpu machines, cpu_hatch() straddles the init of
-# __stack_chk_guard, so ensure stack protection is disabled
-.if ${MACHINE} == "i386" || ${MACHINE_ARCH} == "x86_64"
-COPTS.cpu.c+=		-fno-stack-protector
-.endif
-
 # Use the per-source COPTS variables to add -g to just those
 # files that match the shell patterns given in ${DEBUGLIST}
 #
 .for i in ${DEBUGLIST}
-. for j in ${CFILES:T:M$i.c}
+. for j in ${ALLFILES:M*.c:T:M$i.c}
 COPTS.${j}+=-g
 . endfor
 .endfor
@@ -137,50 +127,28 @@ COMPILE_CTFCONVERT=	${_MKSHECHO}\
 COMPILE_CTFCONVERT=	${_MKSHNOECHO}
 .endif
 
+KCOMPILE.c=	${CC} ${COPTS.${<:T}} ${CFLAGS} ${CPPFLAGS} -c $< -o $@
+KCOMPILE.s=	${CC} ${AFLAGS} ${AFLAGS.${<:T}} ${CPPFLAGS} -c $< -o $@
+KLINK.o=	${LD} -r ${LINKFORMAT} -Map=${.TARGET}.map -o ${.TARGET} ${.ALLSRC}
+
 # compile rules: rules are named ${TYPE}_${SUFFIX} where TYPE is NORMAL or
 # NOPROF and SUFFIX is the file suffix, capitalized (e.g. C for a .c file).
 NORMAL_C?=	@${_MKSHMSG} "compile  ${.CURDIR:T}/${.TARGET}" && \
-		${_MKSHECHO}\
-		${CC} ${COPTS.${<:T}} ${CFLAGS} ${CPPFLAGS} ${PROF} -c $< -o $@ && \
-		${CC} ${COPTS.${<:T}} ${CFLAGS} ${CPPFLAGS} ${PROF} -c $< -o $@ && \
+		${_MKSHECHO} ${KCOMPILE.c} ${PROF} && \
+		${KCOMPILE.c} ${PROF} && \
 		${COMPILE_CTFCONVERT}
 NOPROF_C?=	@${_MKSHMSG} "compile  ${.CURDIR:T}/${.TARGET}" && \
-		${_MKSHECHO}\
-		${CC} ${COPTS.${<:T}} ${CFLAGS} ${CPPFLAGS} -c $< -o $@ && \
-		${CC} ${COPTS.${<:T}} ${CFLAGS} ${CPPFLAGS} -c $< -o $@ && \
+		${_MKSHECHO} ${KCOMPILE.c} && \
+		${KCOMPILE.c} && \
 		${COMPILE_CTFCONVERT}
 NORMAL_S?=	@${_MKSHMSG} "compile  ${.CURDIR:T}/${.TARGET}" && \
-		${_MKSHECHO}\
-		${CC} ${AFLAGS} ${AFLAGS.${<:T}} ${CPPFLAGS} -c $< -o $@ && \
-		${CC} ${AFLAGS} ${AFLAGS.${<:T}} ${CPPFLAGS} -c $< -o $@
+		${_MKSHECHO} ${KCOMPILE.s} && \
+		${KCOMPILE.s}
  
 # link rules: 
 LINK_O?=	@${_MKSHMSG} "   link  ${.CURDIR:T}/${.TARGET}" && \
-		${_MKSHECHO}\
-		${LD} -r ${LINKFORMAT} -Map=${.TARGET}.map -o ${.TARGET} ${.ALLSRC} && \
-		${LD} -r ${LINKFORMAT} -Map=${.TARGET}.map -o ${.TARGET} ${.ALLSRC}
-
-.for _s in ${CFILES}
-.if !commands(${_s:T:R}.o)
-${_s:T:R}.o: ${_s}
-	${NORMAL_C}
-.endif
-.endfor
-
-.for _s in ${SFILES}
-.if !commands(${_s:T:R}.o)
-${_s:T:R}.o: ${_s}
-	${NORMAL_S}
-.endif
-.endfor
-
-.SUFFIXES: .c .o
-.c.o:
-	${NORMAL_C}
-
-.SUFFIXES: .S .o
-.S.o:
-	${NORMAL_S}
+		${_MKSHECHO} ${KLINK.o} && \
+		${KLINK.o}
 
 ##
 ## (3) libkern and compat
@@ -216,14 +184,11 @@ SYSLIBCOMPATLN?=	${COMPATLIBLN}
 ## MD_CFILES, MD_SFILES, and MD_OBJS, along with build rules for same.
 ##
 
-MI_CFILES=devsw.c ioconf.c param.c
-# the need for a MI_SFILES variable is dubitable at best
-MI_OBJS=${MI_CFILES:S/.c/.o/}
-
-param.c: $S/conf/param.c
-	${_MKTARGET_CREATE}
-	rm -f param.c
-	cp $S/conf/param.c .
+.if !defined(___USE_SUFFIX_RULES___)
+_MD_OBJS=	${MD_OBJS:T}
+.else
+_MD_OBJS=	${MD_OBJS}
+.endif
 
 ##
 ## (5) link settings
@@ -236,44 +201,23 @@ param.c: $S/conf/param.c
 # load lines for config "xxx" will be emitted as:
 # xxx: ${SYSTEM_DEP} swapxxxx.o vers.o build_kernel
 
-.if !empty(OBJS:Mnetbsd.ko)
-SYSTEM_OBJ?=	${MD_OBJS} ${MI_OBJS} ${OBJS} ${SYSLIBCOMPAT} ${LIBKERN}
-.else
-SYSTEM_OBJ?=	${MD_OBJS} ${MI_OBJS} ${OBJS:O} ${SYSLIBCOMPAT} ${LIBKERN}
-.endif
-SYSTEM_DEP+=	Makefile ${SYSTEM_OBJ} .gdbinit
+SYSTEM_LIB=	${MD_LIBS} ${SYSLIBCOMPAT} ${LIBKERN}
+SYSTEM_OBJ?=	${_MD_OBJS} ${OBJS} ${SYSTEM_LIB}
+SYSTEM_DEP+=	Makefile ${SYSTEM_OBJ:O}
 .if defined(CTFMERGE)
 SYSTEM_CTFMERGE= ${CTFMERGE} ${CTFMFLAGS} -o ${.TARGET} ${SYSTEM_OBJ} ${EXTRA_OBJ} vers.o
 .else
 SYSTEM_CTFMERGE= ${_MKSHECHO}
 .endif
 SYSTEM_LD_HEAD?=@rm -f $@
-SYSTEM_LD?=	@do_system_ld() { \
-		target=$$1; shift; \
-		${_MKSHMSG} "   link  ${.CURDIR:T}/${.TARGET}"; \
+SYSTEM_LD?=	${_MKSHMSG} "   link  ${.CURDIR:T}/${.TARGET}"; \
 		${_MKSHECHO}\
-		${LD} -Map $${target}.map --cref ${LINKFLAGS} -o $${target} '$${SYSTEM_OBJ}' '$${EXTRA_OBJ}' vers.o $$@; \
-		${LD} -Map $${target}.map --cref ${LINKFLAGS} -o $${target} ${SYSTEM_OBJ} ${EXTRA_OBJ} vers.o $$@; \
-		}; \
-		do_system_ld
-
-# Give MD generated ldscript dependency on ${SYSTEM_OBJ}
-.if defined(KERNLDSCRIPT)
-.if target(${KERNLDSCRIPT})
-${KERNLDSCRIPT}: ${SYSTEM_OBJ}
-.endif
-.endif
-
-.if defined(KERNLDSCRIPT)
-.for k in ${KERNELS}
-EXTRA_CLEAN+=	${k}.ldscript
-${k}: ${k}.ldscript
-${k}.ldscript: ${KERNLDSCRIPT} assym.h
-	${_MKTARGET_CREATE}
-	${CPP} -I. ${KERNLDSCRIPT} | grep -v '^#' | grep -v '^$$' >$@
-.endfor
-LINKSCRIPT=	-T ${.TARGET}.ldscript
-.endif
+		${LD} -Map ${.TARGET}.map --cref ${LINKFLAGS} -o ${.TARGET} \
+		'$${SYSTEM_OBJ:N*swap*netbsd*}' '$${EXTRA_OBJ}' vers.o \
+		${OBJS:M*swap${.TARGET}.o}; \
+		${LD} -Map ${.TARGET}.map --cref ${LINKFLAGS} -o ${.TARGET} \
+		${SYSTEM_OBJ:N*swap*netbsd*} ${EXTRA_OBJ} vers.o \
+		${OBJS:M*swap${.TARGET}.o}
 
 TEXTADDR?=	${LOADADDRESS}			# backwards compatibility
 LINKTEXT?=	${TEXTADDR:C/.+/-Ttext &/}
@@ -321,40 +265,45 @@ SYSTEM_LD_TAIL_STAGE2+=	${SYSTEM_LD_TAIL_EXTRA}
 ## (6) port independent targets and dependencies: assym.h, vers.o
 ##
 
-.SUFFIXES: .genassym .assym.h
-.genassym.assym.h:
-	${_MKTARGET_CREATE}
-	cat $< | \
-	    ${GENASSYM} -- ${CC} ${CFLAGS:N-Wa,*} ${CPPFLAGS} ${PROF} \
-	    ${GENASSYM_CPPFLAGS} > $@.tmp && \
-	mv -f $@.tmp $@
+.if !defined(___USE_SUFFIX_RULES___)
 
-assym.h: ${GENASSYM_CONF} ${GENASSYM_EXTRAS} $S/conf/genassym.cf
-	${_MKTARGET_CREATE}
-	cat ${GENASSYM_CONF} ${GENASSYM_EXTRAS} $S/conf/genassym.cf | \
-	    ${GENASSYM} -- ${CC} ${CFLAGS:N-Wa,*} ${CPPFLAGS} ${PROF} \
-	    ${GENASSYM_CPPFLAGS} > assym.h.tmp && \
-	mv -f assym.h.tmp assym.h
-${MD_SFILES:C/\.[Ss]/.o/} ${SFILES:C/\.[Ss]/.o/}: assym.h
+# Generate list of *.o files to pass to ${LD}, preserving order.
+#	x/y/z/a.[csS] -> a.[csS]
+#	a.[csS] -> a.o
+OBJS=	${ALLFILES:C|^.*/([^/]*\.[csS])$$|\1|:C|^(.*)\.[csS]$$|\1.o|}
 
-MKREPRO?=no
+CFILES=	${ALLFILES:M*.c}
+SFILES=	${ALLFILES:M*.[sS]}
+OFILES=	${ALLFILES:M*.o}
+# absolute, generated (build directory), relative (under $S)
+_CFILES=${CFILES:M/*} ${CFILES:N/*:N*/*} ${CFILES:N/*:M*/*:C|^|$S/|}
+_SFILES=${SFILES:M/*} ${SFILES:N/*:N*/*} ${SFILES:N/*:M*/*:C|^|$S/|}
+_MD_CFILES=${MD_CFILES}
+_MD_SFILES=${MD_SFILES}
+CSRCS=	${_MD_CFILES} ${_CFILES}
+SSRCS=	${_MD_SFILES} ${_SFILES}
+SRCS=	${CSRCS} ${SSRCS}
 
-.if ${MKREPRO} == "yes"
-_NVFLAGS=${NVFLAGS} -r
-.else
-_NVFLAGS=${NVFLAGS}
+.else # ___USE_SUFFIX_RULES___
+OBJS=	${ALLFILES:C|\.[csS]$$|.o|}
+SRCS=	${ALLFILES:M*.[csS]}
+.endif # ___USE_SUFFIX_RULES___
+
+.if !defined(___USE_SUFFIX_RULES___)
+.for _s in ${_CFILES}
+.if !commands(${_s:T:R}.o)
+${_s:T:R}.o: ${_s}
+	${NORMAL_C}
 .endif
+.endfor
 
-.if !target(vers.o)
-newvers: vers.o
-vers.o: ${SYSTEM_OBJ} Makefile $S/conf/newvers.sh \
-		$S/conf/osrelease.sh ${_NETBSD_VERSION_DEPENDS}
-	${_MKMSG_CREATE} vers.c
-	${HOST_SH} $S/conf/newvers.sh ${_NVFLAGS}
-	${_MKTARGET_COMPILE}
-	${CC} ${CFLAGS} ${CPPFLAGS} ${PROF} -c vers.c
-	${COMPILE_CTFCONVERT}
+.for _s in ${_SFILES}
+.if !commands(${_s:T:R}.o)
+${_s:T:R}.o: ${_s}
+	${NORMAL_S}
 .endif
+.endfor
+.endif # !___USE_SUFFIX_RULES___
 
 ##
 ## (7) misc targets: install, clean(dir), depend(all), lint, links, tags,
@@ -400,52 +349,35 @@ dependall: depend .WAIT all
 .if !target(.depend)
 MKDEP_AFLAGS?=	${AFLAGS}
 MKDEP_CFLAGS?=	${CFLAGS}
-SSRCS=${MD_SFILES} ${SFILES}
-CSRCS=${MD_CFILES} ${MI_CFILES} ${CFILES}
-SRCS=${SSRCS} ${CSRCS}
-DEPS=	${SRCS:T:u:R:S/$/.d/g}
+.if !defined(___USE_SUFFIX_RULES___)
+DEPS=	${SRCS:T:R:S/$/.d/g}
+.else
+DEPS=	${SRCS:R:S/$/.d/g}
+.endif
 
-.SUFFIXES: .S .d
-.S.d:
-	${_MKTARGET_CREATE}
-	${MKDEP} -f ${.TARGET} -- ${MKDEP_AFLAGS} \
-	    ${CPPFLAGS} ${CPPFLAGS.${_s:T}} $<
-
+.if !defined(___USE_SUFFIX_RULES___)
 .for _s in ${SSRCS}
 .if !target(${_s:T:R}.d)
-${_s:T:R}.d: ${_s} assym.h
+${_s:T:R}.d: ${_s}
 	${_MKTARGET_CREATE}
-	${MKDEP} -f ${.TARGET} -- ${MKDEP_AFLAGS} \
+	${MKDEP} -f ${.TARGET}.tmp -- ${MKDEP_AFLAGS} \
 	    ${CPPFLAGS} ${CPPFLAGS.${_s:T}} ${_s}
+	mv -f ${.TARGET}.tmp ${.TARGET}
 .endif
 .endfor
-
-.SUFFIXES: .c .d
-.c.d:
-	${_MKTARGET_CREATE}
-	${MKDEP} -f ${.TARGET} -- ${MKDEP_CFLAGS} \
-	    ${CPPFLAGS} ${CPPFLAGS.${_s:T}} $<
 
 .for _s in ${CSRCS}
 .if !target(${_s:T:R}.d)
 ${_s:T:R}.d: ${_s}
 	${_MKTARGET_CREATE}
-	${MKDEP} -f ${.TARGET} -- ${MKDEP_CFLAGS} \
+	${MKDEP} -f ${.TARGET}.tmp -- ${MKDEP_CFLAGS} \
 	    ${CPPFLAGS} ${CPPFLAGS.${_s:T}} ${_s}
+	mv -f ${.TARGET}.tmp ${.TARGET}
 .endif
 .endfor
+.endif # !___USE_SUFFIX_RULES___
 
-assym.d: assym.h
-	${_MKTARGET_CREATE}
-	cat ${GENASSYM_CONF} ${GENASSYM_EXTRAS} | \
-	    ${GENASSYM} -- ${MKDEP} -f assym.dep -- \
-	    ${CFLAGS:N-Wa,*} ${CPPFLAGS} ${GENASSYM_CPPFLAGS}
-	${TOOL_SED} -e 's/.*\.o:.*\.c/assym.h:/' < assym.dep >${.TARGET}
-	rm -f assym.dep
-
-DEPS+=	assym.d
-
-.depend: ${DEPS}
+.depend: ${DEPS:O}
 	${_MKTARGET_CREATE}
 	echo "${.ALLSRC}" | ${MKDEP} -D
 .endif
@@ -475,57 +407,125 @@ install-kernel-${MACHINE_NAME}:
 .endif
 .endif
 
+.include "${S}/conf/ldscript.mk"
+.include "${S}/conf/assym.mk"
+.include "${S}/conf/newvers.mk"
 .include "${S}/conf/splash.mk"
 .include "${S}/conf/mdroot.mk"
 .include "${S}/conf/lint.mk"
 .include "${S}/conf/cscope.mk"
 .include "${S}/conf/gdbinit.mk"
+.include "${S}/conf/ssp.mk"
 
 ##
 ## the kernel
 ##
-
-# The following files use alloca(3) or variable array allocations.
-# Their full name is noted as documentation.
-VARSTACK=kern/uipc_socket.c miscfs/genfs/genfs_vnops.c \
-    nfs/nfs_bio.c uvm/uvm_bio.c \
-    uvm/uvm_pager.c dev/ic/aic7xxx.c dev/ic/aic79xx.c arch/xen/i386/gdt.c \
-    dev/ofw/ofw_subr.c
-
-.for __varstack in ${VARSTACK}
-COPTS.${__varstack:T} += -Wno-stack-protector
-.endfor
 
 AFLAGS+=	${AOPTS.${.IMPSRC:T}}
 CFLAGS+=	${COPTS.${.IMPSRC:T}} ${CPUFLAGS.${.IMPSRC:T}}
 CPPFLAGS+=	${CPPFLAGS.${.IMPSRC:T}}
 CWARNFLAGS+=	${CWARNFLAGS.${.IMPSRC:T}}
 
+.MAIN: all
+all: .gdbinit
+.for k in ${KERNELS}
+all: .WAIT ${k}
+${k}: ${SYSTEM_DEP:O} swap${k}.o vers.o build_kernel
+.endfor
+
 .if !defined(COPY_SYMTAB)
 build_kernel: .USE
 	${SYSTEM_LD_HEAD}
-	${SYSTEM_LD} ${.TARGET} swap${.TARGET}.o
+	${SYSTEM_LD}
 	${SYSTEM_LD_TAIL_STAGE2}
 .else
 .for k in ${KERNELS}
 ${k}: $S/kern/kern_ksyms_buf.c
 .endfor
 build_kernel: .USE
-	${CC} ${CFLAGS} ${CPPFLAGS} -DCOPY_SYMTAB \
+	${CC} ${CFLAGS} ${CPPFLAGS} \
 	    -c $S/kern/kern_ksyms_buf.c -o kern_ksyms_buf.o
 	${SYSTEM_LD_HEAD}
-	${SYSTEM_LD} ${.TARGET} swap${.TARGET}.o kern_ksyms_buf.o
+	${SYSTEM_LD} kern_ksyms_buf.o
 	${SYSTEM_LD_TAIL_STAGE1}
-	${CC} ${CFLAGS} ${CPPFLAGS} -DCOPY_SYMTAB \
+	${CC} ${CFLAGS} ${CPPFLAGS} \
 	    -DSYMTAB_SPACE=$$(${DBSYM} -P ${.TARGET}${TARGETSFX}) \
 	    -c $S/kern/kern_ksyms_buf.c -o kern_ksyms_buf_real.o
 	${SYSTEM_LD_HEAD}
-	${SYSTEM_LD} ${.TARGET} swap${.TARGET}.o kern_ksyms_buf_real.o
+	${SYSTEM_LD} kern_ksyms_buf_real.o
 	${SYSTEM_LD_TAIL_STAGE2}
 .endif
 
 .include <bsd.files.mk>
 .include <bsd.clang-analyze.mk>
+
+##
+## suffix rules
+##
+
+.if defined(___USE_SUFFIX_RULES___)
+.SUFFIXES: .s .d
+.s.d:
+	${_MKTARGET_CREATE}
+	${MKDEP} -f $@.tmp -- ${MKDEP_AFLAGS} ${CPPFLAGS} ${CPPFLAGS.${<:T}} $<
+	mv -f $@.tmp $@
+
+.SUFFIXES: .S .d
+.S.d:
+	${_MKTARGET_CREATE}
+	${MKDEP} -f $@.tmp -- ${MKDEP_AFLAGS} ${CPPFLAGS} ${CPPFLAGS.${<:T}} $<
+	mv -f $@.tmp $@
+
+.SUFFIXES: .c .d
+.c.d:
+	${_MKTARGET_CREATE}
+	${MKDEP} -f $@.tmp -- ${MKDEP_CFLAGS} ${CPPFLAGS} ${CPPFLAGS.${<:T}} $<
+	mv -f $@.tmp $@
+
+.SUFFIXES: .c .o .go .po
+.c.o:
+	@${_MKSHMSG} "compile  ${.CURDIR:T}/${.TARGET}"
+	@${_MKSHECHO} ${KCOMPILE.c}
+	@${KCOMPILE.c}
+	@${COMPILE_CTFCONVERT}
+.c.go:
+	@${_MKSHMSG} "compile  ${.CURDIR:T}/${.TARGET}"
+	@${_MKSHECHO} ${KCOMPILE.c} -g
+	@${KCOMPILE.c} -g
+	@${COMPILE_CTFCONVERT}
+.c.po:
+	@${_MKSHMSG} "compile  ${.CURDIR:T}/${.TARGET}"
+	@${_MKSHECHO} ${KCOMPILE.c} -pg
+	@${KCOMPILE.c} -pg
+	@${COMPILE_CTFCONVERT}
+
+.SUFFIXES: .s .o .go .po
+.s.o:
+	@${_MKSHMSG} "compile  ${.CURDIR:T}/${.TARGET}"
+	@${_MKSHECHO} ${KCOMPILE.s}
+	@${KCOMPILE.s}
+.s.go:
+	@${_MKSHMSG} "compile  ${.CURDIR:T}/${.TARGET}"
+	@${_MKSHECHO} ${KCOMPILE.s} -g
+	@${KCOMPILE.s} -g
+.s.po:
+	@${_MKSHMSG} "compile  ${.CURDIR:T}/${.TARGET}"
+	@${_MKSHECHO} ${KCOMPILE.s} -pg
+	@${KCOMPILE.s} -pg
+
+.S.o:
+	@${_MKSHMSG} "compile  ${.CURDIR:T}/${.TARGET}"
+	@${_MKSHECHO} ${KCOMPILE.s}
+	@${KCOMPILE.s}
+.S.go:
+	@${_MKSHMSG} "compile  ${.CURDIR:T}/${.TARGET}"
+	@${_MKSHECHO} ${KCOMPILE.s} -g
+	@${KCOMPILE.s} -g
+.S.po:
+	@${_MKSHMSG} "compile  ${.CURDIR:T}/${.TARGET}"
+	@${_MKSHECHO} ${KCOMPILE.s} -pg
+	@${KCOMPILE.s} -pg
+.endif # ___USE_SUFFIX_RULES___
 
 ##
 ## the end

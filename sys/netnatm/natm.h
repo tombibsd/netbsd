@@ -32,6 +32,8 @@
  * natm.h: native mode atm
  */
 
+#include <sys/ioccom.h>
+
 
 /*
  * supported protocols

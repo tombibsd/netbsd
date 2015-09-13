@@ -20,9 +20,9 @@
 /xen_shm.h/1.9/Mon Oct 19 18:41:10 2009/-kk/
 /xenbus.h/1.13/Wed Dec  7 15:47:42 2011/-kk/
 /xenfunc.h/1.15/Fri Oct 23 02:32:33 2009/-kk/
-/xenio.h/1.9/Mon Jan 10 11:13:03 2011/-kk/
-/xenio3.h/1.3/Fri Sep  3 06:07:24 2010/-kk/
-/xenio_gntdev.h/1.1/Wed Dec 15 14:28:22 2010/-kk/
+/xenio.h/1.10/Sun Sep 13 01:31:15 2015/-kk/
+/xenio3.h/1.4/Sun Sep 13 01:31:15 2015/-kk/
+/xenio_gntdev.h/1.2/Sun Sep 13 01:31:15 2015/-kk/
 /xennet_checksum.h/1.1/Wed Jul 12 15:02:15 2006/-kk/
 /xenpmap.h/1.38/Mon May 19 16:26:19 2014/-kk/
 D/amd64////

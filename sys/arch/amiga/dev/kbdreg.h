@@ -44,6 +44,8 @@
  * Header: kbio.h,v 1.4 92/11/26 01:16:32 torek Exp  (LBL)
  */
 
+#include <sys/ioccom.h>
+
 #define	KIOCTRANS	_IOW('k', 0, int)	/* set translation mode */
 			/* (we only accept TR_UNTRANS_EVENT) */
 #define	KIOCGTRANS	_IOR('k', 5, int)	/* get translation mode */

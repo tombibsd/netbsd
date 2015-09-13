@@ -154,7 +154,7 @@ char *strndup(const char *str, size_t n);
 void dbprintf(const char *, const char *, size_t, const char *, ...)
     __printflike(4, 5);
 #define DPRINTF(x, ...) /*LINTED null effect */(void)(Debug & (x) \
-    ? dbprintf(__FILE__, __func__, __LINE__, __VA_ARGS__) : 0)
+    ? dbprintf(__FILE__, __func__, __LINE__, __VA_ARGS__) : ((void)0))
 #endif
 
 /* shortcuts for libevent */

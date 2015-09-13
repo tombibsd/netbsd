@@ -228,7 +228,7 @@ atphy_service(struct mii_softc *sc, struct mii_data *mii, int cmd)
 			return EINVAL;
 		}
 
-		anar = mii_anar(ife->ifm_media);
+		anar = mii_anar(IFM_SUBTYPE(ife->ifm_media));
 		if (((ife->ifm_media & IFM_GMASK) & IFM_FDX) != 0) {
 			bmcr |= BMCR_FDX;
 			/* Enable pause. */

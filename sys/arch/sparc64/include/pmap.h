@@ -41,7 +41,7 @@
 #ifdef _KERNEL
 #include <machine/cpuset.h>
 #ifdef SUN4V
-#include <sparc64/hypervisor.h>
+#include <machine/hypervisor.h>
 #endif
 #endif
 #endif

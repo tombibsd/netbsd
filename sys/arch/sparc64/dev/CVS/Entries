@@ -22,9 +22,9 @@
 /fhcreg.h/1.1/Fri Jul 29 08:37:36 2011/-kk/
 /fhcvar.h/1.1/Fri Jul 29 08:37:36 2011/-kk/
 /gfb.c/1.7/Thu Apr 12 19:11:49 2012/-kk/
-/iommu.c/1.108/Fri Oct  3 09:43:31 2014/-kk/
+/iommu.c/1.110/Sun Sep 13 01:31:07 2015/-kk/
 /iommureg.h/1.20/Fri Oct  3 09:43:31 2014/-kk/
-/iommuvar.h/1.21/Sun Mar 25 03:51:33 2012/-kk/
+/iommuvar.h/1.22/Sun Sep 13 01:31:07 2015/-kk/
 /kd.c/1.53/Fri Oct  3 09:09:07 2014/-kk/
 /lom.c/1.15/Fri May  1 11:31:47 2015/-kk/
 /lpt_ebus.c/1.24/Mon May 19 16:26:13 2014/-kk/
@@ -55,7 +55,7 @@
 /schizovar.h/1.6/Sun Mar 25 03:13:08 2012/-kk/
 /tda.c/1.10/Fri May  1 11:31:47 2015/-kk/
 /upa.c/1.18/Sun Mar 18 05:26:58 2012/-kk/
-/vpci.c/1.1/Thu Feb 12 04:48:37 2015/-kk/
+/vpci.c/1.5/Sun Sep 13 01:31:07 2015/-kk/
 /vpcivar.h/1.1/Thu Feb 12 04:48:37 2015/-kk/
 /zs.c/1.74/Sat Oct 27 17:18:12 2012/-kk/
 /zsvar.h/1.6/Sat Mar 29 19:15:35 2008/-kk/

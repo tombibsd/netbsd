@@ -65,6 +65,7 @@
 #define _NETINET6_IN6_VAR_H_
 
 #include <sys/callout.h>
+#include <sys/ioccom.h>
 
 /*
  * Interface address, Internet version.  One of these structures

@@ -87,9 +87,6 @@
 #include "fsutil.h"
 #include "extern.h"
 
-extern SEGUSE *seg_table;
-extern ulfs_daddr_t *din_table;
-
 static int iblock(struct inodesc *, long, u_int64_t);
 int blksreqd(struct lfs *, int);
 int lfs_maxino(void);
@@ -128,7 +125,7 @@ ginode(ino_t ino)
 int
 ckinode(union lfs_dinode *dp, struct inodesc *idesc)
 {
-	ulfs_daddr_t lbn, pbn;
+	daddr_t lbn, pbn;
 	long ret, n, ndb, offset;
 	union lfs_dinode dino;
 	u_int64_t remsize, sizepb;
@@ -234,7 +231,8 @@ ckinode(union lfs_dinode *dp, struct inodesc *idesc)
 static int
 iblock(struct inodesc *idesc, long ilevel, u_int64_t isize)
 {
-	ulfs_daddr_t *ap, *aplim;
+	unsigned j, maxindir;
+	daddr_t found;
 	struct ubuf *bp;
 	int i, n, (*func) (struct inodesc *), nif;
 	u_int64_t sizepb;
@@ -263,23 +261,25 @@ iblock(struct inodesc *idesc, long ilevel, u_int64_t isize)
 	else
 		nif = howmany(isize, sizepb);
 	if (idesc->id_func == pass1check && nif < LFS_NINDIR(fs)) {
-		aplim = ((ulfs_daddr_t *) bp->b_data) + LFS_NINDIR(fs);
-		for (ap = ((ulfs_daddr_t *) bp->b_data) + nif; ap < aplim; ap++) {
-			if (*ap == 0)
+		maxindir = LFS_NINDIR(fs);
+		for (j = nif; j < maxindir; j++) {
+			found = lfs_iblock_get(fs, bp->b_data, j);
+			if (found == 0)
 				continue;
 			(void)snprintf(buf, sizeof(buf),
 			    "PARTIALLY TRUNCATED INODE I=%llu",
 			    (unsigned long long)idesc->id_number);
 			if (dofix(idesc, buf)) {
-				*ap = 0;
+				lfs_iblock_set(fs, bp->b_data, j, 0);
 				++diddirty;
 			}
 		}
 	}
-	aplim = ((ulfs_daddr_t *) bp->b_data) + nif;
-	for (ap = ((ulfs_daddr_t *) bp->b_data); ap < aplim; ap++) {
-		if (*ap) {
-			idesc->id_blkno = *ap;
+	maxindir = nif;
+	for (j = 0; j < maxindir; j++) {
+		found = lfs_iblock_get(fs, bp->b_data, j);
+		if (found) {
+			idesc->id_blkno = found;
 			if (ilevel == 0) {
 				/*
 				 * dirscan needs lfs_lblkno.
@@ -305,7 +305,10 @@ iblock(struct inodesc *idesc, long ilevel, u_int64_t isize)
 				    pathbuf, (long long)idesc->id_number);
 				if (reply("ADJUST LENGTH") == 1) {
 					vp = vget(fs, idesc->id_number);
-					VTOI(vp)->i_ffs1_size -= isize;
+					lfs_dino_setsize(fs, VTOI(vp)->i_din,
+					    lfs_dino_getsize(fs,
+							     VTOI(vp)->i_din)
+					    - isize);
 					isize = 0;
 					printf(
 					    "YOU MUST RERUN FSCK AFTERWARDS\n");
@@ -367,7 +370,7 @@ cacheino(union lfs_dinode *dp, ino_t inumber)
 	blks = howmany(lfs_dino_getsize(fs, dp), lfs_sb_getbsize(fs));
 	if (blks > ULFS_NDADDR)
 		blks = ULFS_NDADDR + ULFS_NIADDR;
-	inp = emalloc(sizeof(*inp) + (blks - 1) * sizeof(ulfs_daddr_t));
+	inp = emalloc(sizeof(*inp) + (blks - 1) * sizeof(inp->i_blks[0]));
 	inpp = &inphead[inumber % numdirs];
 	inp->i_nexthash = *inpp;
 	*inpp = inp;
@@ -380,7 +383,7 @@ cacheino(union lfs_dinode *dp, ino_t inumber)
 	inp->i_number = inumber;
 	inp->i_isize = lfs_dino_getsize(fs, dp);
 
-	inp->i_numblks = blks * sizeof(ulfs_daddr_t);
+	inp->i_numblks = blks * sizeof(inp->i_blks[0]);
 	for (i=0; i<blks && i<ULFS_NDADDR; i++) {
 		inp->i_blks[i] = lfs_dino_getdb(fs, dp, i);
 	}
@@ -444,7 +447,7 @@ clri(struct inodesc * idesc, const char *type, int flag)
 	vp = vget(fs, idesc->id_number);
 	if (flag & 0x1) {
 		pwarn("%s %s", type,
-		      (VTOI(vp)->i_ffs1_mode & LFS_IFMT) == LFS_IFDIR ? "DIR" : "FILE");
+		      (lfs_dino_getmode(fs, VTOI(vp)->i_din) & LFS_IFMT) == LFS_IFDIR ? "DIR" : "FILE");
 		pinode(idesc->id_number);
 	}
 	if ((flag & 0x2) || preen || reply("CLEAR") == 1) {
@@ -504,8 +507,11 @@ findname(struct inodesc * idesc)
 
 	if (dirp->d_ino != idesc->id_parent)
 		return (KEEPON);
-	if ((len = dirp->d_namlen + 1) > MAXPATHLEN) {
+	len = lfs_dir_getnamlen(fs, dirp) + 1;
+	/* XXX this is wrong: namlen+1 can be up to MAXPATHLEN+1 */
+	if (len > MAXPATHLEN) {
 		/* Truncate it but don't overflow the buffer */
+		/* XXX: this case doesn't null-terminate the result */
 		len = MAXPATHLEN;
 	}
 	/* this is namebuf with utils.h */

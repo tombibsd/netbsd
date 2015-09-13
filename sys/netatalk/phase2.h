@@ -29,6 +29,7 @@
 #ifndef _NETATALK_PHASE2_H_
 #define _NETATALK_PHASE2_H_
 
+#include <sys/ioccom.h>
 #include <net/if_llc.h>
 
 #define llc_org_code llc_un.type_snap.org_code

@@ -30,6 +30,8 @@
 #ifndef _DEV_APM_APMIO_H_
 #define _DEV_APM_APMIO_H_
 
+#include <sys/ioccom.h>
+
 struct apm_event_info {
 	u_int type;
 	u_int index;

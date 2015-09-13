@@ -38,6 +38,8 @@
  * HP 98265A SCSI Interface Hardware Description.
  */
 
+#include <sys/ioccom.h>
+
 struct scsidevice {
 	u_char	p0,  scsi_id;
 #define			ID_MASK		0x1f

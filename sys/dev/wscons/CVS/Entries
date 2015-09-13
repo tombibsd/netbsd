@@ -16,7 +16,7 @@
 /wsdisplay_compat_usl.c/1.49/Sun Sep 13 01:07:16 2015/-kk/
 /wsdisplay_glyphcache.c/1.7/Sun Sep 13 01:07:16 2015/-kk/
 /wsdisplay_glyphcachevar.h/1.4/Thu Oct  4 10:26:32 2012/-kk/
-/wsdisplay_usl_io.h/1.3/Tue May 15 15:06:23 2001/-kk/
+/wsdisplay_usl_io.h/1.4/Sun Sep 13 01:31:38 2015/-kk/
 /wsdisplay_util.c/1.2/Thu Oct 24 10:28:58 2013/-kk/
 /wsdisplay_vcons.c/1.34/Sat Jul 25 01:52:23 2015/-kk/
 /wsdisplay_vcons_util.c/1.2/Wed May 25 06:01:39 2011/-kk/
@@ -32,7 +32,7 @@
 /wsemulconf.c/1.8/Tue Feb  2 16:18:29 2010/-kk/
 /wsemulvar.h/1.15/Tue Feb  2 16:18:29 2010/-kk/
 /wsevent.c/1.36/Sun Sep 13 01:07:16 2015/-kk/
-/wseventvar.h/1.15/Fri Jan 16 15:14:11 2009/-kk/
+/wseventvar.h/1.16/Sun Sep 13 01:31:38 2015/-kk/
 /wskbd.c/1.136/Sun Sep 13 01:07:16 2015/-kk/
 /wskbdutil.c/1.18/Fri Feb  5 18:26:38 2010/-kk/
 /wskbdvar.h/1.19/Sun Sep  2 21:14:56 2012/-kk/

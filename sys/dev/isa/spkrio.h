@@ -7,6 +7,8 @@
 #ifndef _DEV_ISA_SPKR_H_
 #define _DEV_ISA_SPKR_H_
 
+#include <sys/ioccom.h>
+
 #define SPKRTONE        _IOW('S', 1, tone_t)    /* emit tone */
 #define SPKRTUNE        _IO('S', 2)             /* emit tone sequence */
 

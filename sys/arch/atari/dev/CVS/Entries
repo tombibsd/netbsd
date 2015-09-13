@@ -1,7 +1,7 @@
 /Makefile/1.3/Tue Nov 26 23:30:12 2002/-kk/
 /atari5380.c/1.62/Wed Oct 29 08:12:59 2014/-kk/
 /clock.c/1.59/Fri Oct  3 09:08:54 2014/-kk/
-/clockioctl.h/1.4/Tue Feb  8 20:20:10 2011/-kk/
+/clockioctl.h/1.5/Sun Sep 13 01:30:22 2015/-kk/
 /clockreg.h/1.7/Tue Dec  9 04:34:41 2014/-kk/
 /clockvar.h/1.1/Tue Jul  7 15:37:02 2009/-kk/
 /dma.c/1.27/Mon Apr 12 12:43:39 2010/-kk/
@@ -22,7 +22,7 @@
 /grfabs_reg.h/1.14/Sat Mar 14 14:45:56 2009/-kk/
 /grfabs_tt.c/1.23/Tue Apr 13 11:31:11 2010/-kk/
 /grfabs_tt.h/1.3/Tue Oct 20 19:10:10 2009/-kk/
-/grfioctl.h/1.9/Tue Feb  8 20:20:10 2011/-kk/
+/grfioctl.h/1.10/Sun Sep 13 01:30:22 2015/-kk/
 /grfvar.h/1.14/Sat Oct 27 17:17:42 2012/-kk/
 /hdfd.c/1.81/Fri May  1 11:28:54 2015/-kk/
 /hdfd_intr.s/1.10/Mon Dec 20 00:25:30 2010/-kk/
@@ -31,12 +31,12 @@
 /ite.c/1.76/Fri Oct  3 09:08:54 2014/-kk/
 /ite_cc.c/1.38/Sat Oct 27 17:17:42 2012/-kk/
 /ite_et.c/1.30/Sun Jun  5 16:25:12 2011/-kk/
-/iteioctl.h/1.7/Tue Feb  8 20:20:10 2011/-kk/
+/iteioctl.h/1.8/Sun Sep 13 01:30:22 2015/-kk/
 /itevar.h/1.14/Sun Jun  5 16:25:12 2011/-kk/
 /kbd.c/1.46/Wed Oct 29 08:12:59 2014/-kk/
 /kbdmap.c/1.6/Tue Oct 20 19:10:10 2009/-kk/
 /kbdmap.h/1.6/Sun Dec 11 12:16:54 2005/-kk/
-/kbdreg.h/1.5/Sun Dec 11 12:16:54 2005/-kk/
+/kbdreg.h/1.6/Sun Sep 13 01:30:22 2015/-kk/
 /kbdvar.h/1.10/Sat Oct 27 17:17:42 2012/-kk/
 /lpt.c/1.37/Fri Oct  3 09:08:54 2014/-kk/
 /md_root.c/1.33/Tue Oct 20 19:10:10 2009/-kk/
@@ -50,7 +50,7 @@
 /ser.c/1.56/Tue Dec  9 04:34:41 2014/-kk/
 /serreg.h/1.2/Mon Apr 28 20:23:15 2008/-kk/
 /view.c/1.35/Tue Aug 25 04:51:02 2015/-kk/
-/viewioctl.h/1.1.1.1/Sun Mar 26 07:12:14 1995/-kk/
+/viewioctl.h/1.2/Sun Sep 13 01:30:22 2015/-kk/
 /viewvar.h/1.7/Sat Mar 14 14:45:56 2009/-kk/
 /vuid_event.h/1.5/Mon Aug 28 16:41:05 2006/-kk/
 /wdc_mb.c/1.38/Tue Jul 31 15:50:32 2012/-kk/

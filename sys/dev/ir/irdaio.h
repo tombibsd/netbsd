@@ -32,6 +32,8 @@
 #ifndef _SYS_DEV_IRDAIO_H_
 #define _SYS_DEV_IRDAIO_H_
 
+#include <sys/ioccom.h>
+
 struct irda_params {
 	unsigned int speed;
 	unsigned int ebofs;

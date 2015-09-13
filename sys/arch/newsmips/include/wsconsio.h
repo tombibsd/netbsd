@@ -3,6 +3,7 @@
 #ifndef _NEWSMIPS_WSCONSIO_H_
 #define	_NEWSMIPS_WSCONSIO_H_
 
+#include <sys/ioccom.h>
 #include <dev/wscons/wsconsio.h>
 
 struct newsmips_wsdisplay_fbinfo {

@@ -98,7 +98,7 @@
 extern u_int32_t cksum(void *, size_t);
 static uint64_t calcmaxfilesize(unsigned);
 
-ulfs_daddr_t *din_table;
+daddr_t *din_table;
 SEGUSE *seg_table;
 
 #ifdef DKTYPENAMES
@@ -394,10 +394,10 @@ setup(const char *dev)
 			sbdirty();
 		}
 	}
-	if (lfs_sb_getmaxsymlinklen(fs) != ULFS1_MAXSYMLINKLEN) {
+	if (lfs_sb_getmaxsymlinklen(fs) != LFS_MAXSYMLINKLEN(fs)) {
 		pwarn("INCORRECT MAXSYMLINKLEN=%d IN SUPERBLOCK (SHOULD BE %zu)",
-		    lfs_sb_getmaxsymlinklen(fs), ULFS1_MAXSYMLINKLEN);
-		lfs_sb_setmaxsymlinklen(fs, ULFS1_MAXSYMLINKLEN);
+		    lfs_sb_getmaxsymlinklen(fs), LFS_MAXSYMLINKLEN(fs));
+		lfs_sb_setmaxsymlinklen(fs, LFS_MAXSYMLINKLEN(fs));
 		if (preen)
 			printf(" (FIXED)\n");
 		if (preen || reply("FIX") == 1) {
@@ -413,11 +413,11 @@ setup(const char *dev)
 	 * XXX dirty while we do the rest.
 	 */
 	ivp = fs->lfs_ivnode;
-	maxino = ((VTOI(ivp)->i_ffs1_size - (lfs_sb_getcleansz(fs) + lfs_sb_getsegtabsz(fs))
+	maxino = ((lfs_dino_getsize(fs, VTOI(ivp)->i_din) - (lfs_sb_getcleansz(fs) + lfs_sb_getsegtabsz(fs))
 		* lfs_sb_getbsize(fs)) / lfs_sb_getbsize(fs)) * lfs_sb_getifpb(fs);
 	if (debug)
 		pwarn("maxino    = %llu\n", (unsigned long long)maxino);
-	for (i = 0; i < VTOI(ivp)->i_ffs1_size; i += lfs_sb_getbsize(fs)) {
+	for (i = 0; i < lfs_dino_getsize(fs, VTOI(ivp)->i_din); i += lfs_sb_getbsize(fs)) {
 		bread(ivp, i >> lfs_sb_getbshift(fs), lfs_sb_getbsize(fs), 0, &bp);
 		/* XXX check B_ERROR */
 		brelse(bp, 0);
@@ -438,7 +438,7 @@ setup(const char *dev)
 	}
 
 	/* Initialize Ifile entry */
-	din_table[lfs_sb_getifile(fs)] = lfs_sb_getidaddr(fs);
+	din_table[LFS_IFILE_INUM] = lfs_sb_getidaddr(fs);
 	seg_table[lfs_dtosn(fs, lfs_sb_getidaddr(fs))].su_nbytes += DINOSIZE(fs);
 
 #ifndef VERBOSE_BLOCKMAP

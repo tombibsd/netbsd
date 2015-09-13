@@ -23,6 +23,7 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include <sys/ioccom.h>
 
 #define	SESIOC			(('s' - 040) << 8)
 #define	SESIOC_GETNOBJ		_IO(SESIOC, 1)

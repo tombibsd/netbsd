@@ -41,6 +41,8 @@
 #ifndef _MACHINE_ITEIOCTL_H_
 #define _MACHINE_ITEIOCTL_H_
 
+#include <sys/ioccom.h>
+
 #ifndef _KERNEL
 #include <machine/kbdmap.h>
 #endif

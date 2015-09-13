@@ -44,6 +44,8 @@
  * SunOS disk label layout (only relevant portions discovered here).
  */
 
+#include <sys/ioccom.h>
+
 #define	SUN_DKMAGIC	55998
 
 /* These are the guys that Sun's dkinfo needs... */

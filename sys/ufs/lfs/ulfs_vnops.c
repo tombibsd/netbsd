@@ -97,6 +97,10 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <miscfs/fifofs/fifo.h>
 #include <miscfs/genfs/genfs.h>
 
+#include <ufs/lfs/lfs_extern.h>
+#include <ufs/lfs/lfs.h>
+#include <ufs/lfs/lfs_accessors.h>
+
 #include <ufs/lfs/ulfs_inode.h>
 #include <ufs/lfs/ulfsmount.h>
 #include <ufs/lfs/ulfs_bswap.h>
@@ -104,8 +108,6 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #ifdef LFS_DIRHASH
 #include <ufs/lfs/ulfs_dirhash.h>
 #endif
-#include <ufs/lfs/lfs_extern.h>
-#include <ufs/lfs/lfs.h>
 
 #include <uvm/uvm.h>
 
@@ -236,6 +238,7 @@ ulfs_setattr(void *v)
 	struct vattr	*vap;
 	struct vnode	*vp;
 	struct inode	*ip;
+	struct lfs	*fs;
 	kauth_cred_t	cred;
 	struct lwp	*l;
 	int		error;
@@ -245,6 +248,7 @@ ulfs_setattr(void *v)
 	vap = ap->a_vap;
 	vp = ap->a_vp;
 	ip = VTOI(vp);
+	fs = ip->i_lfs;
 	cred = ap->a_cred;
 	l = curlwp;
 	action = KAUTH_VNODE_WRITE_FLAGS;
@@ -375,10 +379,9 @@ ulfs_setattr(void *v)
 			if (vp->v_mount->mnt_flag & MNT_RELATIME)
 				ip->i_flag |= IN_ACCESS;
 		}
-		if (vap->va_birthtime.tv_sec != VNOVAL &&
-		    ip->i_ump->um_fstype == ULFS2) {
-			ip->i_ffs2_birthtime = vap->va_birthtime.tv_sec;
-			ip->i_ffs2_birthnsec = vap->va_birthtime.tv_nsec;
+		if (vap->va_birthtime.tv_sec != VNOVAL) {
+			lfs_dino_setbirthtime(fs, ip->i_din,
+					      &vap->va_birthtime);
 		}
 		error = lfs_update(vp, &vap->va_atime, &vap->va_mtime, 0);
 		if (error)
@@ -644,12 +647,8 @@ ulfs_whiteout(void *v)
 #endif
 
 		newdir = pool_cache_get(ulfs_direct_cache, PR_WAITOK);
-		newdir->d_ino = ULFS_WINO;
-		newdir->d_namlen = cnp->cn_namelen;
-		memcpy(newdir->d_name, cnp->cn_nameptr,
-		    (size_t)cnp->cn_namelen);
-		newdir->d_name[cnp->cn_namelen] = '\0';
-		newdir->d_type = LFS_DT_WHT;
+		ulfs_makedirentry_bytype(fs, cnp, ULFS_WINO, LFS_DT_WHT,
+					 newdir);
 		error = ulfs_direnter(dvp, ulr, NULL, newdir, cnp, NULL);
 		pool_cache_put(ulfs_direct_cache, newdir);
 		break;
@@ -796,11 +795,6 @@ ulfs_readdir(void *v)
 	struct ulfsmount *ump = VFSTOULFS(vp->v_mount);
 	struct lfs *fs = ump->um_lfs;
 	int nswap = ULFS_MPNEEDSWAP(fs);
-#if BYTE_ORDER == LITTLE_ENDIAN
-	int needswap = fs->um_maxsymlinklen <= 0 && nswap == 0;
-#else
-	int needswap = fs->um_maxsymlinklen <= 0 && nswap != 0;
-#endif
 	uio = ap->a_uio;
 	count = uio->uio_resid;
 	rcount = count - ((uio->uio_offset + count) & (fs->um_dirblksiz - 1));
@@ -871,13 +865,8 @@ ulfs_readdir(void *v)
 			cdp = ecdp;
 			break;
 		}
-		if (needswap) {
-			ndp->d_type = cdp->d_namlen;
-			ndp->d_namlen = cdp->d_type;
-		} else {
-			ndp->d_type = cdp->d_type;
-			ndp->d_namlen = cdp->d_namlen;
-		}
+		ndp->d_type = lfs_dir_gettype(fs, cdp);
+		ndp->d_namlen = lfs_dir_getnamlen(fs, cdp);
 		ndp->d_reclen = _DIRENT_RECLEN(ndp, ndp->d_namlen);
 		if ((char *)(void *)ndp + ndp->d_reclen +
 		    _DIRENT_MINSIZE(ndp) > endp)
@@ -1140,11 +1129,12 @@ ulfs_vinit(struct mount *mntp, int (**specops)(void *), int (**fifoops)(void *),
 	case VBLK:
 		vp->v_op = specops;
 		ump = ip->i_ump;
+		// XXX clean this up
 		if (ump->um_fstype == ULFS1)
-			rdev = (dev_t)ulfs_rw32(ip->i_ffs1_rdev,
+			rdev = (dev_t)ulfs_rw32(ip->i_din->u_32.di_rdev,
 			    ULFS_MPNEEDSWAP(ump->um_lfs));
 		else
-			rdev = (dev_t)ulfs_rw64(ip->i_ffs2_rdev,
+			rdev = (dev_t)ulfs_rw64(ip->i_din->u_64.di_rdev,
 			    ULFS_MPNEEDSWAP(ump->um_lfs));
 		spec_node_init(vp, rdev);
 		break;

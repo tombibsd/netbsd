@@ -58,6 +58,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <miscfs/specfs/specdev.h>
 
 #include <ufs/lfs/lfs.h>
+#include <ufs/lfs/lfs_accessors.h>
 #include <ufs/lfs/ulfs_quotacommon.h>
 #include <ufs/lfs/ulfs_inode.h>
 #include <ufs/lfs/ulfsmount.h>

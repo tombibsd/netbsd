@@ -33,6 +33,8 @@
 #ifndef _SYS_CHIO_H_
 #define _SYS_CHIO_H_
 
+#include <sys/ioccom.h>
+
 /*
  * Element types.  Used as "to" and "from" type indicators in move
  * and exchange operations.

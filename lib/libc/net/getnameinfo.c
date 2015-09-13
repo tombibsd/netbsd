@@ -536,11 +536,7 @@ getnameinfo_link(const struct sockaddr *sa, socklen_t salen,
 
 	if (sdl->sdl_nlen == 0 && sdl->sdl_alen == 0 && sdl->sdl_slen == 0) {
 		n = snprintf(host, hostlen, "link#%u", sdl->sdl_index);
-		if (n < 0 || (socklen_t) n > hostlen) {
-			*host = '\0';
-			return EAI_MEMORY;
-		}
-		return 0;
+		goto out;
 	}
 
 	switch (sdl->sdl_type) {
@@ -553,11 +549,7 @@ getnameinfo_link(const struct sockaddr *sa, socklen_t salen,
 		else
 			n = snprintf(host, hostlen, "%u.%u",
 			    CLLADDR(sdl)[1], CLLADDR(sdl)[0]);
-		if (n < 0 || (socklen_t) n >= hostlen) {
-			*host = '\0';
-			return EAI_MEMORY;
-		} else
-			return 0;
+		goto out;
 #endif
 	case IFT_IEEE1394:
 		if (sdl->sdl_alen < sizeof(iha->iha_uid))
@@ -591,6 +583,12 @@ getnameinfo_link(const struct sockaddr *sa, socklen_t salen,
 		return hexname((const uint8_t *)CLLADDR(sdl),
 		    (size_t)sdl->sdl_alen, host, hostlen);
 	}
+out:
+	if (n < 0 || (socklen_t) n >= hostlen) {
+		*host = '\0';
+		return EAI_MEMORY;
+	}
+	return 0;
 }
 
 static int

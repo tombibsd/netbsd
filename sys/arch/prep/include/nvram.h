@@ -39,6 +39,8 @@
 #ifndef _MACHINE_NVRAM_H
 #define _MACHINE_NVRAM_H
 
+#include <sys/ioccom.h>
+
 #if defined(_KERNEL)
 /* for the motorola machines */
 #include <dev/ic/mk48txxvar.h>

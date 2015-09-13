@@ -30,6 +30,8 @@
 #ifndef _DEV_IC_HD44780VAR_H_
 #define _DEV_IC_HD44780VAR_H_
 
+#include <sys/ioccom.h>
+
 /* IOCTL definitions */
 #define HLCD_DISPCTL		_IOW('h',   1, struct hd44780_dispctl)
 #define	HLCD_RESET		_IO('h',    2)

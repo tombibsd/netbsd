@@ -108,7 +108,9 @@ struct salfs {
 		struct dlfs u_32;
 		struct dlfs64 u_64;
 	} lfs_dlfs_u;
-	unsigned lfs_is64 : 1;
+	unsigned lfs_is64 : 1,
+		lfs_dobyteswap : 1,
+		lfs_hasolddirfmt : 1;
 };
 /* Get lfs accessors that use struct salfs. */
 #define STRUCT_LFS struct salfs
@@ -218,7 +220,7 @@ find_inode_sector(ino32_t inumber, struct open_file *f, daddr_t *isp)
 	size_t entsize;
 	int rc;
 
-	rc = read_inode(lfs_sb_getifile(fs), f);
+	rc = read_inode(LFS_IFILE_INUM, f);
 	if (rc)
 		return rc;
 
@@ -260,7 +262,7 @@ read_inode(ino32_t inumber, struct open_file *f)
 #endif
 
 #ifdef LIBSA_LFS
-	if (inumber == lfs_sb_getifile(fs))
+	if (inumber == LFS_IFILE_INUM)
 		inode_sector = FSBTODB(fs, lfs_sb_getidaddr(fs));
 	else if ((rc = find_inode_sector(inumber, f, &inode_sector)) != 0)
 		return rc;
@@ -598,6 +600,8 @@ ufs_open(const char *path, struct open_file *f)
 #endif
 #if defined(LIBSA_LFS)
 	fs->lfs_is64 = 0;
+	fs->lfs_dobyteswap = 0;
+	fs->lfs_hasolddirfmt = (fs->fs_maxsymlinklen <= 0);
 #endif
 #endif
 

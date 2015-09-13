@@ -45,12 +45,11 @@ int lfs_writeinode(struct lfs *, struct segment *, struct inode *);
 int lfs_gatherblock(struct segment *, struct ubuf *);
 int lfs_gather(struct lfs *, struct segment *, struct uvnode *,
 	   int (*match) (struct lfs *, struct ubuf *));
-void lfs_update_single(struct lfs *, struct segment *, daddr_t, int32_t, int);
 void lfs_updatemeta(struct segment *);
 int lfs_initseg(struct lfs *);
 void lfs_newseg(struct lfs *);
 int lfs_writeseg(struct lfs *, struct segment *);
-void lfs_writesuper(struct lfs *, ulfs_daddr_t);
+void lfs_writesuper(struct lfs *, daddr_t);
 
 int lfs_match_data(struct lfs *, struct ubuf *);
 int lfs_match_indir(struct lfs *, struct ubuf *);
@@ -64,4 +63,3 @@ int lfs_seglock(struct lfs *, unsigned long);
 void lfs_segunlock(struct lfs *);
 int lfs_writevnodes(struct lfs *, struct segment *, int);
 
-void lfs_writesuper(struct lfs *, ulfs_daddr_t);

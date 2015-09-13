@@ -31,6 +31,8 @@
 #ifndef __XEN_XENIO3_H__
 #define __XEN_XENIO3_H__
 
+#include <sys/ioccom.h>
+
 /*
  * Bind a fresh port to VIRQ @virq.
  * Return allocated port.

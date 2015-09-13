@@ -155,51 +155,6 @@ struct inode {
 	union lfs_dinode *i_din;
 };
 
-#define	i_ffs1_atime		i_din->u_32.di_atime
-#define	i_ffs1_atimensec	i_din->u_32.di_atimensec
-#define	i_ffs1_blocks		i_din->u_32.di_blocks
-#define	i_ffs1_ctime		i_din->u_32.di_ctime
-#define	i_ffs1_ctimensec	i_din->u_32.di_ctimensec
-#define	i_ffs1_db		i_din->u_32.di_db
-#define	i_ffs1_flags		i_din->u_32.di_flags
-#define	i_ffs1_gen		i_din->u_32.di_gen
-#define	i_ffs1_gid		i_din->u_32.di_gid
-#define	i_ffs1_ib		i_din->u_32.di_ib
-#define	i_ffs1_mode		i_din->u_32.di_mode
-#define	i_ffs1_mtime		i_din->u_32.di_mtime
-#define	i_ffs1_mtimensec	i_din->u_32.di_mtimensec
-#define	i_ffs1_nlink		i_din->u_32.di_nlink
-#define	i_ffs1_rdev		i_din->u_32.di_rdev
-#define	i_ffs1_size		i_din->u_32.di_size
-#define	i_ffs1_uid		i_din->u_32.di_uid
-#define	i_ffs1_modrev		i_din->u_32.di_modrev
-
-#define	i_ffs2_atime		i_din->u_64.di_atime
-#define	i_ffs2_atimensec	i_din->u_64.di_atimensec
-#define	i_ffs2_birthtime	i_din->u_64.di_birthtime
-#define	i_ffs2_birthnsec	i_din->u_64.di_birthnsec
-#define	i_ffs2_blocks		i_din->u_64.di_blocks
-#define	i_ffs2_blksize		i_din->u_64.di_blksize
-#define	i_ffs2_ctime		i_din->u_64.di_ctime
-#define	i_ffs2_ctimensec	i_din->u_64.di_ctimensec
-#define	i_ffs2_db		i_din->u_64.di_db
-#define	i_ffs2_flags		i_din->u_64.di_flags
-#define	i_ffs2_gen		i_din->u_64.di_gen
-#define	i_ffs2_gid		i_din->u_64.di_gid
-#define	i_ffs2_ib		i_din->u_64.di_ib
-#define	i_ffs2_mode		i_din->u_64.di_mode
-#define	i_ffs2_mtime		i_din->u_64.di_mtime
-#define	i_ffs2_mtimensec	i_din->u_64.di_mtimensec
-#define	i_ffs2_nlink		i_din->u_64.di_nlink
-#define	i_ffs2_rdev		i_din->u_64.di_rdev
-#define	i_ffs2_size		i_din->u_64.di_size
-#define	i_ffs2_uid		i_din->u_64.di_uid
-#define	i_ffs2_kernflags	i_din->u_64.di_kernflags
-#define	i_ffs2_extsize		i_din->u_64.di_extsize
-#define	i_ffs2_extb		i_din->u_64.di_extb
-#define	i_ffs2_inumber		i_din->u_64.di_inumber
-#define	i_ffs2_modrev		i_din->u_64.di_modrev
-
 /* These flags are kept in i_flag. */
 #define	IN_ACCESS	0x0001		/* Access time update request. */
 #define	IN_CHANGE	0x0002		/* Inode change time update request. */

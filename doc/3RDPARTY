@@ -114,8 +114,8 @@ Notes:
 bc includes dc, both of which are in the NetBSD tree.
 
 Package:	bind [named and utils]
-Version:	9.10.2-P3
-Current Vers:	9.10.2-P3
+Version:	9.10.2-P4
+Current Vers:	9.10.2-P4
 Maintainer:	Paul Vixie <vixie@vix.com>
 Archive Site:	ftp://ftp.isc.org/isc/bind9/
 Home Page:	http://www.isc.org/software/bind/
@@ -306,8 +306,8 @@ Notes:
 Use the dhcp2netbsd script.
 
 Package:	dhcpcd
-Version:	6.9.2
-Current Vers:	6.9.2
+Version:	6.9.3
+Current Vers:	6.9.3
 Maintainer:	roy
 Archive Site:	ftp://roy.marples.name/pub/dhcpcd/
 Home Page:	http://roy.marples.name/projects/dhcpcd/
@@ -1141,7 +1141,7 @@ now to do a new import.
 
 Package:	Postfix
 Version:	2.11.4
-Current Vers:	3.0
+Current Vers:	3.0.2
 Maintainer:	Wietse Venema <wietse@porcupine.org>
 Archive Site:	ftp://postfix.cloud9.net/official/
 Home Page:	http://www.postfix.org/

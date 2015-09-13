@@ -40,6 +40,8 @@
 #ifndef _ARM32_SCRIO_H_
 #define _ARM32_SCRIO_H_
 
+#include <sys/ioccom.h>
+
 #define ATR_BUF_MAX	1 + 1 + 4 * 10 + 15 + 1 /* TS + T0 + 4 * TABCD + 15 * TK + TCK */
 #define CMD_BUF_LEN	5
 #define DATA_BUF_MAX	256

@@ -27,6 +27,8 @@
  * SUCH DAMAGE.
  */
 
+#include <sys/ioccom.h>
+
 struct iwi_firmware {
 	void	*boot;
 	int	boot_size;

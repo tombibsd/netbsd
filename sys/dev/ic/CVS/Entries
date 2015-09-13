@@ -102,7 +102,7 @@
 /ath.c/1.117/Wed Oct 29 08:13:19 2014/-kk/
 /ath_netbsd.c/1.22/Sat Mar  1 06:04:41 2014/-kk/
 /ath_netbsd.h/1.15/Thu Oct 24 10:28:57 2013/-kk/
-/athioctl.h/1.15/Fri Oct  3 09:25:59 2014/-kk/
+/athioctl.h/1.16/Sun Sep 13 01:31:27 2015/-kk/
 /athn.c/1.10/Fri Oct  3 09:09:13 2014/-kk/
 /athnreg.h/1.1/Thu Oct 24 10:28:57 2013/-kk/
 /athnvar.h/1.4/Thu Oct 24 10:28:57 2013/-kk/
@@ -241,7 +241,7 @@
 /hayespreg.h/1.2/Tue Sep  4 01:33:14 2001/-kk/
 /hd44780_subr.c/1.21/Sat Nov 13 13:52:01 2010/-kk/
 /hd44780reg.h/1.4/Sun Aug 30 02:07:05 2009/-kk/
-/hd44780var.h/1.7/Sun Aug 30 02:07:05 2009/-kk/
+/hd44780var.h/1.8/Sun Sep 13 01:31:27 2015/-kk/
 /hd64570.c/1.47/Mon Jun  9 00:29:09 2014/-kk/
 /hd64570reg.h/1.11/Sun Dec 11 12:21:26 2005/-kk/
 /hd64570var.h/1.11/Sat Oct 27 17:18:20 2012/-kk/
@@ -316,7 +316,7 @@
 /isic_l1.h/1.21/Sat Oct 27 17:18:21 2012/-kk/
 /isic_l1fsm.c/1.14/Sun Jul 17 20:54:51 2011/-kk/
 /isp.c/1.125/Thu Oct 24 10:28:58 2013/-kk/
-/isp_ioctl.h/1.11/Tue Mar 11 05:33:30 2008/-kk/
+/isp_ioctl.h/1.12/Sun Sep 13 01:31:27 2015/-kk/
 /isp_library.c/1.7/Mon Feb 28 17:17:55 2011/-kk/
 /isp_library.h/1.4/Fri Mar 26 20:52:00 2010/-kk/
 /isp_netbsd.c/1.88/Fri Jan  2 11:21:34 2015/-kk/
@@ -543,7 +543,7 @@
 /spicvar.h/1.7/Wed Feb 24 22:37:58 2010/-kk/
 /st16650reg.h/1.3/Sun Dec 11 12:21:28 2005/-kk/
 /sti.c/1.18/Sun Jul 20 13:08:34 2014/-kk/
-/stireg.h/1.5/Tue Nov  9 12:24:48 2010/-kk/
+/stireg.h/1.6/Sun Sep 13 01:31:27 2015/-kk/
 /stivar.h/1.9/Sun Jul 20 13:08:34 2014/-kk/
 /sunscpal.c/1.26/Fri Apr 11 02:03:42 2014/-kk/
 /sunscpalreg.h/1.3/Mon Apr 28 20:23:51 2008/-kk/

@@ -54,7 +54,7 @@
 /rominfo.h/1.5/Tue Feb  8 20:20:14 2011/-kk/
 /samachdep.h/1.18/Fri Oct  3 09:25:35 2014/-kk/
 /scsi.c/1.11/Tue Jan 14 16:04:53 2014/-kk/
-/scsireg.h/1.3/Tue Feb  8 20:20:14 2011/-kk/
+/scsireg.h/1.4/Sun Sep 13 01:30:34 2015/-kk/
 /scsivar.h/1.4/Sun Dec 11 12:17:19 2005/-kk/
 /sd.c/1.11/Sun Jul 17 20:54:40 2011/-kk/
 /srt0.S/1.17/Tue Feb  8 20:20:14 2011/-kk/

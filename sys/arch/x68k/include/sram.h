@@ -35,6 +35,8 @@
 
 /* This is sram device driver. */
 
+#include <sys/ioccom.h>
+
 #define SRAM_SIZE 16*1024	/* Sram size is 16K bytes. */
 #define SRAM_IO_SIZE 16		/* IO size */
 

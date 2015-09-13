@@ -44,6 +44,8 @@
 #ifndef _DEV_ATH_ATHIOCTL_H
 #define _DEV_ATH_ATHIOCTL_H
 
+#include <sys/ioccom.h>
+
 struct ath_stats {
 	u_int32_t	ast_watchdog;	/* device reset by watchdog */
 	u_int32_t	ast_hardware;	/* fatal hardware error interrupts */

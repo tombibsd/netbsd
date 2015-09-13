@@ -93,7 +93,6 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <machine/bootinfo.h>
 #include <sparc64/sparc64/cache.h>
 #include <sparc64/sparc64/timerreg.h>
-#include <machine/mdesc.h>
 
 #include <dev/ata/atavar.h>
 #include <dev/pci/pcivar.h>
@@ -481,9 +480,6 @@ get_bootpath_from_prom(void)
 void
 cpu_configure(void)
 {
-	
-	if (CPU_ISSUN4V)
-		mdesc_init();
 	
 	bool userconf = (boothowto & RB_USERCONF) != 0;
 

@@ -50,6 +50,8 @@
  *  Copyright 1988, 1989 by Intel Corporation
  */
 
+#include <sys/ioccom.h>
+
 /* ioctl for direct QIC commands */
 #define WTQICMD         _IO('W', 0)
 

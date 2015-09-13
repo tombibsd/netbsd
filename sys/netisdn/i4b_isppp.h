@@ -26,6 +26,8 @@
 
 #define SPPP_VJ			/* use VJ compression */
 
+#include <sys/ioccom.h>
+
 
 #ifdef SPPP_VJ
 #if !(defined (KERNEL) || defined (_KERNEL))

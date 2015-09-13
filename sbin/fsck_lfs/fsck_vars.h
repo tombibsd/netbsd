@@ -77,3 +77,9 @@ extern daddr_t n_blks;		/* number of blocks in use */
 extern ino_t n_files;		/* number of files in use */
 
 extern int no_roll_forward;	/* Don't roll forward */
+
+blkcnt_t badblkcount;		/* count of "bad" blocks */
+
+/* from setup.c */
+extern SEGUSE *seg_table;
+extern daddr_t *din_table;

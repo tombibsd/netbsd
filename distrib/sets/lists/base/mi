@@ -84,6 +84,7 @@
 ./etc/X11/rstart/commands			base-x11-root
 ./etc/X11/rstart/commands/x11r6			base-x11-root
 ./etc/X11/rstart/contexts			base-x11-root
+./etc/X11/ctwm					base-x11-root
 ./etc/X11/twm					base-x11-root
 ./etc/X11/xdm					base-x11-root
 ./etc/X11/xinit					base-x11-root

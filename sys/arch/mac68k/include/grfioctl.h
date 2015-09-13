@@ -41,6 +41,8 @@
 #ifndef _MAC68K_GRFIOCTL_H_
 #define _MAC68K_GRFIOCTL_H_
 
+#include <sys/ioccom.h>
+
 struct grfmode {
 	u_int8_t	mode_id;	/* Identifier for mode              */
 	u_int8_t	pad0;

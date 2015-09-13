@@ -138,7 +138,7 @@
 /radiotrack2.c/1.16/Sat Oct 27 17:18:25 2012/-kk/
 /rtfps.c/1.58/Sat Oct 27 17:18:25 2012/-kk/
 /satlink.c/1.45/Fri Oct  3 09:09:15 2014/-kk/
-/satlinkio.h/1.3/Mon Apr 28 20:23:52 2008/-kk/
+/satlinkio.h/1.4/Sun Sep 13 01:31:29 2015/-kk/
 /satlinkreg.h/1.3/Mon Apr 28 20:23:52 2008/-kk/
 /sb.c/1.89/Wed Nov 23 23:07:32 2011/-kk/
 /sb_isa.c/1.38/Thu Nov 24 03:35:58 2011/-kk/
@@ -153,7 +153,7 @@
 /smscvar.h/1.5/Sat Oct 27 17:18:25 2012/-kk/
 /soekrisgpio.c/1.2/Thu Oct 24 10:28:58 2013/-kk/
 /spkr.c/1.36/Thu May 28 03:25:50 2015/-kk/
-/spkrio.h/1.1/Wed Apr 15 20:26:19 1998/-kk/
+/spkrio.h/1.2/Sun Sep 13 01:31:29 2015/-kk/
 /tcic2_isa.c/1.26/Sat Oct 27 17:18:25 2012/-kk/
 /tcom.c/1.19/Tue May 12 09:10:16 2009/-kk/
 /toaster.c/1.13/Sat Mar  1 06:04:42 2014/-kk/
@@ -178,7 +178,7 @@
 /wssreg.h/1.4/Wed Mar 19 06:45:24 1997/-kk/
 /wssvar.h/1.9/Sun Dec 11 12:22:03 2005/-kk/
 /wt.c/1.86/Fri Oct  3 09:09:15 2014/-kk/
-/wtreg.h/1.8/Sun Dec 11 12:22:03 2005/-kk/
+/wtreg.h/1.9/Sun Sep 13 01:31:29 2015/-kk/
 /ym.c/1.44/Tue Nov 12 02:18:44 2013/-kk/
 /ymvar.h/1.13/Wed Nov 23 23:07:33 2011/-kk/
 D

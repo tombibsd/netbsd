@@ -1489,7 +1489,8 @@ sdhc_exec_command(sdmmc_chipset_handle_t sch, struct sdmmc_command *cmd)
 		sdhc_transfer_data(hp, cmd);
 	else if (ISSET(cmd->c_flags, SCF_RSP_BSY)) {
 		if (!sdhc_wait_intr(hp, SDHC_TRANSFER_COMPLETE, hz * 10)) {
-			DPRINTF(1,(hp->sc->sc_dev,"sdhc_exec_command: RSP_BSY\n"));
+			DPRINTF(1,("%s: sdhc_exec_command: RSP_BSY\n",
+			    HDEVNAME(hp)));
 			cmd->c_error = ETIMEDOUT;
 			goto out;
 		}
@@ -2162,6 +2163,10 @@ sdhc_intr(void *arg)
 			uint32_t xstatus = HREAD4(hp, SDHC_NINTR_STATUS);
 			status = xstatus;
 			error = xstatus >> 16;
+			if (ISSET(sc->sc_flags, SDHC_FLAG_ENHANCED)) {
+				if ((error & SDHC_NINTR_STATUS_MASK) != 0)
+					SET(status, SDHC_ERROR_INTERRUPT);
+			}
 			if (error)
 				xstatus |= SDHC_ERROR_INTERRUPT;
 			else if (!ISSET(status, SDHC_NINTR_STATUS_MASK))
@@ -2222,8 +2227,7 @@ sdhc_intr(void *arg)
 		 * Wake up the blocking process to service command
 		 * related interrupt(s).
 		 */
-		if (ISSET(status, SDHC_COMMAND_COMPLETE|
-		    SDHC_CMD_TIMEOUT_ERROR|SDHC_DATA_TIMEOUT_ERROR|
+		if (ISSET(status, SDHC_COMMAND_COMPLETE|SDHC_ERROR_INTERRUPT|
 		    SDHC_BUFFER_READ_READY|SDHC_BUFFER_WRITE_READY|
 		    SDHC_TRANSFER_COMPLETE|SDHC_DMA_INTERRUPT)) {
 			hp->intr_error_status |= error;

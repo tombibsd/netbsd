@@ -35,6 +35,7 @@
 
 #include <sys/types.h>
 #include <sys/sha1.h>
+#include <sys/ioccom.h>
 
 /*
  * Exposed "size" of entropy pool, for convenience in load/save

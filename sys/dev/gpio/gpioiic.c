@@ -232,10 +232,10 @@ gpioiic_i2c_acquire_bus(void *cookie, int flags)
 	struct gpioiic_softc *sc = cookie;
 
 	if (flags & I2C_F_POLL)
-		return 0;
+		return 1;
 
 	rw_enter(&sc->sc_i2c_lock, RW_WRITER);
-	return 1;
+	return 0;
 }
 
 void
@@ -286,8 +286,8 @@ gpioiic_bb_set_bits(void *cookie, uint32_t bits)
 
 	gpio_pin_write(sc->sc_gpio, &sc->sc_map, sc->sc_pin_sda,
 	    bits & GPIOIIC_SDA ? GPIO_PIN_HIGH : GPIO_PIN_LOW);
-	gpio_pin_write(sc->sc_gpio, &sc->sc_map, GPIOIIC_PIN_SCL,
-	    bits & GPIOIIC_SCL ? GPIO_PIN_HIGH : sc->sc_pin_scl);
+	gpio_pin_write(sc->sc_gpio, &sc->sc_map, sc->sc_pin_scl,
+	    bits & GPIOIIC_SCL ? GPIO_PIN_HIGH : GPIO_PIN_LOW);
 }
 
 void

@@ -48,10 +48,11 @@ SRCS+= biosmca.S biosmemps2.S
 .undef DESTDIR
 .include <bsd.lib.mk>
 
-lib${LIB}.o:: ${OBJS}
+lib${LIB}.o:: ${OBJS:O}
 	@echo building standard ${LIB} library
 	@rm -f lib${LIB}.o
 	@${LD} -r -o lib${LIB}.o `lorder ${OBJS} | tsort`
+	@echo done
 
 # XXX
 .if ${ACTIVE_CC} == "gcc" && ${HAVE_GCC:U} == 48

@@ -32,6 +32,8 @@
 #ifndef _NET_IF_PPPOE_H_
 #define _NET_IF_PPPOE_H_
 
+#include <sys/ioccom.h>
+
 struct pppoediscparms {
 	char	ifname[IFNAMSIZ];	/* pppoe interface name */
 	char	eth_ifname[IFNAMSIZ];	/* external ethernet interface name */

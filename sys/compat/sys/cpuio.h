@@ -1,5 +1,7 @@
 /* $NetBSD$ */
 
+#include <sys/ioccom.h>
+
 struct compat6_cpu_ucode {
 	uint64_t version;
 	char fwname[PATH_MAX];

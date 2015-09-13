@@ -39,6 +39,9 @@
 #ifndef _DEV_PCI_TWAIO_H_
 #define	_DEV_PCI_TWAIO_H_
 
+#include <sys/ioccom.h>
+
+
 #define TWA_AEN_NOT_RETRIEVED	0x1
 #define TWA_AEN_RETRIEVED	0x2
 

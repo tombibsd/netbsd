@@ -31,6 +31,7 @@
 #define _HAVE_SYS_VIDEOIO_H
 
 #include <sys/types.h>
+#include <sys/ioccom.h>
 #include <sys/time.h>
 #ifdef _KERNEL
 #include <compat/sys/time.h>

@@ -16,7 +16,8 @@ LDADD+=		-lipsec -lm
 DPADD+=		${LIBIPSEC} ${LIBM}
 
 .PATH:		${.CURDIR}/../../lib/libc/net
-RUMPSRCS=	getnameinfo.c
+RUMPSRCS=	getaddrinfo.c getifaddrs.c getnameinfo.c
+RUMPSRCS+=	if_indextoname.c if_nametoindex.c
 .if (${MKRUMP} != "no")
 CPPFLAGS+= 	-DRUMP_ACTION
 .endif

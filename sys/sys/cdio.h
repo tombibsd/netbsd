@@ -3,6 +3,8 @@
 #ifndef _SYS_CDIO_H_
 #define _SYS_CDIO_H_
 
+#include <sys/ioccom.h>
+
 /* Shared between kernel & process */
 
 union msf_lba {

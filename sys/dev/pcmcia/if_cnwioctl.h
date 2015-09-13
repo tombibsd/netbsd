@@ -55,6 +55,8 @@
  * johnm@staff.cs.uit.no, http://www.cs.uit.no/~johnm/
  */
 
+#include <sys/ioccom.h>
+
 struct cnwstatus {
 	struct ifreq	ifr;
 	u_char		data[0x100];

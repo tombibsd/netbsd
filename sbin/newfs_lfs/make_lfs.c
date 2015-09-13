@@ -101,7 +101,8 @@ __RCSID("$NetBSD$");
 #include "segwrite.h"
 
 extern int Nflag; /* Don't write anything */
-ulfs_daddr_t ifibc; /* How many indirect blocks */
+
+static blkcnt_t ifibc; /* How many indirect blocks */
 
 #ifdef MAKE_LF_DIR
 # define HIGHEST_USED_INO LOSTFOUNDINO
@@ -152,7 +153,7 @@ static const struct dlfs dlfs32_default = {
 		.dlfs_fbmask =		DFL_LFS_FBMASK,
 		.dlfs_blktodb =		0,
 		.dlfs_sushift =		0,
-		.dlfs_maxsymlinklen =	ULFS1_MAXSYMLINKLEN,
+		.dlfs_maxsymlinklen =	LFS32_MAXSYMLINKLEN,
 		.dlfs_sboffs =		{ 0 },
 		.dlfs_nclean =  	0,
 		.dlfs_fsmnt =   	{ 0 },
@@ -189,7 +190,7 @@ static const struct dlfs64 dlfs64_default = {
 		.dlfs_avail =		0,
 		.dlfs_idaddr =		0,
 		.dlfs_uinodes =		0,
-		.dlfs_ifile =		LFS_IFILE_INUM,
+		.dlfs_unused_0 =	0,
 		.dlfs_lastseg =		0,
 		.dlfs_nextseg =		0,
 		.dlfs_curseg =		0,
@@ -216,7 +217,7 @@ static const struct dlfs64 dlfs64_default = {
 		.dlfs_blktodb =		0,
 		.dlfs_sushift =		0,
 		.dlfs_sboffs =		{ 0 },
-		.dlfs_maxsymlinklen =	ULFS2_MAXSYMLINKLEN,
+		.dlfs_maxsymlinklen =	LFS64_MAXSYMLINKLEN,
 		.dlfs_nclean =  	0,
 		.dlfs_fsmnt =   	{ 0 },
 		.dlfs_pflags =  	LFS_PF_CLEAN,
@@ -242,24 +243,62 @@ static const struct lfs lfs_default;
 #define	UMASK	0755
 
 struct lfs_direct lfs_root_dir[] = {
-	{ ULFS_ROOTINO, sizeof(struct lfs_direct), LFS_DT_DIR, 1, "."},
-	{ ULFS_ROOTINO, sizeof(struct lfs_direct), LFS_DT_DIR, 2, ".."},
-	/* { LFS_IFILE_INUM, sizeof(struct lfs_direct), LFS_DT_REG, 5, "ifile"}, */
+	{
+		.d_ino = ULFS_ROOTINO,
+		.d_reclen = sizeof(struct lfs_direct),
+		.d_type = LFS_DT_DIR,
+		.d_namlen = 1,
+		.d_name = "."
+	},
+	{
+		.d_ino = ULFS_ROOTINO,
+		.d_reclen = sizeof(struct lfs_direct),
+		.d_type = LFS_DT_DIR,
+		.d_namlen = 2,
+		.d_name = ".."
+	},
+/*
+	{
+		.d_ino = LFS_IFILE_INUM,
+		.d_reclen = sizeof(struct lfs_direct),
+		.d_type = LFS_DT_REG,
+		.d_namlen = 5,
+		.d_name = "ifile"
+	},
+*/
 #ifdef MAKE_LF_DIR
-	{ LOSTFOUNDINO, sizeof(struct lfs_direct), LFS_DT_DIR, 10, "lost+found"},
+	{
+		.d_ino = LOSTFOUNDINO,
+		.d_reclen = sizeof(struct lfs_direct),
+		.d_type = LFS_DT_DIR,
+		.d_namlen = 10,
+		.d_name = "lost+found"
+	},
 #endif
 };
 
 #ifdef MAKE_LF_DIR
 struct lfs_direct lfs_lf_dir[] = {
-        { LOSTFOUNDINO, sizeof(struct lfs_direct), LFS_DT_DIR, 1, "." },
-        { ULFS_ROOTINO, sizeof(struct lfs_direct), LFS_DT_DIR, 2, ".." },
+        {
+		.d_ino = LOSTFOUNDINO,
+		.d_reclen = sizeof(struct lfs_direct),
+		.d_type = LFS_DT_DIR,
+		.d_reclen = 1,
+		.d_name = "."
+	},
+        {
+		.d_ino = ULFS_ROOTINO,
+		.d_reclen = sizeof(struct lfs_direct),
+		.d_type = LFS_DT_DIR,
+		.d_reclen = 2,
+		.d_name = ".."
+	},
 };
 #endif
 
 void pwarn(const char *, ...);
 static void make_dinode(ino_t, union lfs_dinode *, int, struct lfs *);
-static void make_dir( void *, struct lfs_direct *, int);
+static void make_dir(struct lfs *, void *, struct lfs_direct *, int);
 static uint64_t maxfilesize(int);
 
 /*
@@ -346,21 +385,21 @@ make_dinode(ino_t ino, union lfs_dinode *dip, int nfrags, struct lfs *fs)
  * entries in protodir fit in the first DIRBLKSIZ.  
  */
 static void
-make_dir(void *bufp, struct lfs_direct *protodir, int entries)
+make_dir(struct lfs *fs, void *bufp, struct lfs_direct *protodir, int entries)
 {
 	char *cp;
 	int i, spcleft;
 
 	spcleft = LFS_DIRBLKSIZ;
 	for (cp = bufp, i = 0; i < entries - 1; i++) {
-		protodir[i].d_reclen = LFS_DIRSIZ(LFS_NEWDIRFMT, &protodir[i], 0);
+		protodir[i].d_reclen = LFS_DIRSIZ(fs, &protodir[i]);
 		memmove(cp, &protodir[i], protodir[i].d_reclen);
 		cp += protodir[i].d_reclen;
 		if ((spcleft -= protodir[i].d_reclen) < 0)
 			fatal("%s: %s", special, "directory too big");
 	}
 	protodir[i].d_reclen = spcleft;
-	memmove(cp, &protodir[i], LFS_DIRSIZ(LFS_NEWDIRFMT, &protodir[i], 0));
+	memmove(cp, &protodir[i], LFS_DIRSIZ(fs, &protodir[i]));
 }
 
 int
@@ -397,6 +436,7 @@ make_lfs(int devfd, uint secsize, struct dkwedge_info *dkw, int minfree,
 	u_int64_t tsepb, tnseg;
 	time_t stamp;
 	bool is64 = false; /* XXX notyet */
+	bool dobyteswap = false; /* XXX notyet */
 
 	/*
 	 * Initialize buffer cache.  Use a ballpark guess of the length of
@@ -409,7 +449,7 @@ make_lfs(int devfd, uint secsize, struct dkwedge_info *dkw, int minfree,
 	bufinit(tnseg / tsepb);
 
 	/* Initialize LFS subsystem with blank superblock and ifile. */
-	fs = lfs_init(devfd, start, (ulfs_daddr_t)0, 1, 1/* XXX debug*/);
+	fs = lfs_init(devfd, start, 0, 1, 1/* XXX debug*/);
 	save_devvp = fs->lfs_devvp;
 	vp = fs->lfs_ivnode;
 	/* XXX this seems like a rubbish */
@@ -420,6 +460,8 @@ make_lfs(int devfd, uint secsize, struct dkwedge_info *dkw, int minfree,
 		fs->lfs_dlfs_u.u_32 = dlfs32_default;
 	}
 	fs->lfs_is64 = is64;
+	fs->lfs_dobyteswap = dobyteswap;
+	fs->lfs_hasolddirfmt = false;
 	fs->lfs_ivnode = vp;
 	fs->lfs_devvp = save_devvp;
 
@@ -794,7 +836,7 @@ make_lfs(int devfd, uint secsize, struct dkwedge_info *dkw, int minfree,
 		VTOI(vp)->i_lfs_fragsize[i - 1] =
 			roundup(LFS_DIRBLKSIZ, lfs_sb_getfsize(fs));
 	bread(vp, 0, lfs_sb_getfsize(fs), 0, &bp);
-	make_dir(bp->b_data, lfs_root_dir, 
+	make_dir(fs, bp->b_data, lfs_root_dir, 
 		 sizeof(lfs_root_dir) / sizeof(struct lfs_direct));
 	VOP_BWRITE(bp);
 
@@ -814,7 +856,7 @@ make_lfs(int devfd, uint secsize, struct dkwedge_info *dkw, int minfree,
 		VTOI(vp)->i_lfs_fragsize[i - 1] =
 			roundup(DIRBLKSIZ,fs->lfs_fsize);
 	bread(vp, 0, fs->lfs_fsize, 0, &bp);
-	make_dir(bp->b_data, lfs_lf_dir, 
+	make_dir(fs, bp->b_data, lfs_lf_dir, 
 		 sizeof(lfs_lf_dir) / sizeof(struct lfs_direct));
 	VOP_BWRITE(bp);
 #endif /* MAKE_LF_DIR */

@@ -45,6 +45,8 @@
 #ifndef _MACHINE_KBDREG_H_
 #define _MACHINE_KBDREG_H_
 
+#include <sys/ioccom.h>
+
 struct kbdbell {
 	u_int volume;		/* volume of bell (0-64) */
 	u_int pitch;		/* pitch of bell (10-20000) */

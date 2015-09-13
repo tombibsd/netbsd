@@ -414,6 +414,15 @@ rt_get_gwroute(struct rtentry *rt)
 }
 
 static inline void
+rt_set_gwroute(struct rtentry *rt, struct rtentry *gwrt)
+{
+
+	rt->rt_gwroute = gwrt;
+	if (rt->rt_gwroute != NULL)
+		rt->rt_gwroute->rt_refcnt++;
+}
+
+static inline void
 rt_assert_referenced(const struct rtentry *rt)
 {
 

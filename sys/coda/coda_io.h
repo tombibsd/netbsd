@@ -49,6 +49,8 @@
 
 /* Define ioctl commands for vcioctl, /dev/cfs */
 
+#include <sys/ioccom.h>
+
 #define CODARESIZE    _IOW('c', 1, struct coda_resize ) /* Resize CODA NameCache */
 #define CODASTATS      _IO('c', 2)                      /* Collect stats */
 #define CODAPRINT      _IO('c', 3)                      /* Print Cache */

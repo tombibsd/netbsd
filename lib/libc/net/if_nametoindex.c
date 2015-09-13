@@ -31,7 +31,9 @@
 __RCSID("$NetBSD$");
 #endif /* LIBC_SCCS and not lint */
 
+#ifndef RUMP_ACTION
 #include "namespace.h"
+#endif
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <net/if.h>
@@ -41,8 +43,10 @@ __RCSID("$NetBSD$");
 #include <string.h>
 #include <errno.h>
 
+#ifndef RUMP_ACTION
 #ifdef __weak_alias
 __weak_alias(if_nametoindex,_if_nametoindex)
+#endif
 #endif
 
 /*

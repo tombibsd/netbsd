@@ -32,6 +32,8 @@
 #ifndef _SYS_DEV_CIRIO_H_
 #define _SYS_DEV_CIRIO_H_
 
+#include <sys/ioccom.h>
+
 struct cir_params {
 	unsigned int raw;
 };

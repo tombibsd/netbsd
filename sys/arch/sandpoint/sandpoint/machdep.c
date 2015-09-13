@@ -450,8 +450,8 @@ struct powerpc_bus_space sandpoint_eumb_space_tag = {
 	0xfc000000, 0x00000000, 0x00100000,
 };
 struct powerpc_bus_space sandpoint_flash_space_tag = {
-	_BUS_SPACE_LITTLE_ENDIAN|_BUS_SPACE_MEM_TYPE,
-	0x00000000, 0xff000000, 0x00000000,
+	_BUS_SPACE_BIG_ENDIAN|_BUS_SPACE_MEM_TYPE,
+	0x00000000, 0xff000000, 0xffffffff,
 };
 struct powerpc_bus_space sandpoint_nhgpio_space_tag = {
 	_BUS_SPACE_BIG_ENDIAN|_BUS_SPACE_MEM_TYPE,

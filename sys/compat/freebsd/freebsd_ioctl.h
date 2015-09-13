@@ -34,6 +34,8 @@
 #ifndef _FREEBSD_IOCTL_H
 #define _FREEBSD_IOCTL_H
 
+#include <sys/ioccom.h>
+
 #define	FREEBSD_IOCGROUP(x)	(((x) >> 8) & 0xff)
 
 #define FREEBSD_IOC_DIRMASK	0xe0000000

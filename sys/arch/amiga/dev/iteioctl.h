@@ -38,6 +38,8 @@
  *	@(#)iteioctl.h	7.2 (Berkeley) 11/4/90
  */
 
+#include <sys/ioccom.h>
+
 struct itewinsize {
 	int x;			/* leftedge offset to the right */
 	int y;			/* topedge offset down */

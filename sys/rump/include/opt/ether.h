@@ -1,3 +1,3 @@
 /*	$NetBSD$	*/
 
-/* dummy */
+#define NETHER 1

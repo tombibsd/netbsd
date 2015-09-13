@@ -159,7 +159,7 @@ static	void arp_init(void);
 
 static	struct sockaddr *arp_setgate(struct rtentry *, struct sockaddr *,
 	    const struct sockaddr *);
-static	void arptfree(struct llentry *);
+static	void arptfree(struct rtentry *);
 static	void arptimer(void *);
 static	struct llentry *arplookup(struct ifnet *, struct mbuf *,
 	    const struct in_addr *, int, int, int, struct rtentry *);
@@ -351,8 +351,11 @@ arptimer(void *arg)
 	/* XXX: LOR avoidance. We still have ref on lle. */
 	LLE_WUNLOCK(lle);
 
-	/* We have to call this w/o lock */
-	arptfree(lle);
+	if (lle->la_rt != NULL) {
+		/* We have to call arptfree w/o IF_AFDATA_LOCK */
+		arptfree(lle->la_rt);
+		lle->la_rt = NULL;
+	}
 
 	IF_AFDATA_LOCK(ifp);
 	LLE_WLOCK(lle);
@@ -787,7 +790,8 @@ arpresolve(struct ifnet *ifp, struct rtentry *rt, struct mbuf *m,
 	int renew;
 	int flags = 0;
 	int error;
-	bool create;
+
+	KASSERT(m != NULL);
 
 	la = arplookup(ifp, m, &satocsin(dst)->sin_addr, 1, 0, 0, rt);
 	if (la != NULL)
@@ -830,7 +834,6 @@ arpresolve(struct ifnet *ifp, struct rtentry *rt, struct mbuf *m,
 #endif
 
 retry:
-	create = false;
 	if (la == NULL) {
 		IF_AFDATA_RLOCK(ifp);
 		la = lla_lookup(LLTABLE(ifp), flags, dst);
@@ -843,20 +846,20 @@ retry:
 #else
 	    && ((ifp->if_flags & IFF_NOARP) == 0)) {
 #endif
-		create = true;
 		flags |= LLE_EXCLUSIVE;
 		IF_AFDATA_WLOCK(ifp);
 		la = lla_create(LLTABLE(ifp), flags, dst);
 		IF_AFDATA_WUNLOCK(ifp);
-	}
 
-	if (la == NULL) {
-		if (create) {
+		if (la == NULL) {
 			log(LOG_DEBUG,
 			    "%s: failed to create llentry for %s on %s\n",
 			    __func__, inet_ntoa(satocsin(dst)->sin_addr),
 			    ifp->if_xname);
 		}
+	}
+
+	if (la == NULL) {
 		m_freem(m);
 		return 0;
 	}
@@ -905,43 +908,42 @@ retry:
 	}
 
 	renew = (la->la_asked == 0 || la->la_expire != time_uptime);
-	if ((renew || m != NULL) && (flags & LLE_EXCLUSIVE) == 0) {
+	if (renew && (flags & LLE_EXCLUSIVE) == 0) {
 		flags |= LLE_EXCLUSIVE;
 		LLE_RUNLOCK(la);
 		la = NULL;
 		goto retry;
 	}
+
 	/*
 	 * There is an arptab entry, but no ethernet address
 	 * response yet.  Add the mbuf to the list, dropping
 	 * the oldest packet if we have exceeded the system
 	 * setting.
 	 */
-	if (m != NULL) {
-		LLE_WLOCK_ASSERT(la);
-		if (la->la_numheld >= arp_maxhold) {
-			if (la->la_hold != NULL) {
-				struct mbuf *next = la->la_hold->m_nextpkt;
-				m_freem(la->la_hold);
-				la->la_hold = next;
-				la->la_numheld--;
-				ARP_STATINC(ARP_STAT_DFRDROPPED);
-			}
-		}
+	LLE_WLOCK_ASSERT(la);
+	if (la->la_numheld >= arp_maxhold) {
 		if (la->la_hold != NULL) {
-			struct mbuf *curr = la->la_hold;
-			while (curr->m_nextpkt != NULL)
-				curr = curr->m_nextpkt;
-			curr->m_nextpkt = m;
-		} else
-			la->la_hold = m;
-		la->la_numheld++;
-		if (renew == 0 && (flags & LLE_EXCLUSIVE)) {
-			flags &= ~LLE_EXCLUSIVE;
-			LLE_DOWNGRADE(la);
+			struct mbuf *next = la->la_hold->m_nextpkt;
+			m_freem(la->la_hold);
+			la->la_hold = next;
+			la->la_numheld--;
+			ARP_STATINC(ARP_STAT_DFRDROPPED);
 		}
-
 	}
+	if (la->la_hold != NULL) {
+		struct mbuf *curr = la->la_hold;
+		while (curr->m_nextpkt != NULL)
+			curr = curr->m_nextpkt;
+		curr->m_nextpkt = m;
+	} else
+		la->la_hold = m;
+	la->la_numheld++;
+	if (renew == 0 && (flags & LLE_EXCLUSIVE)) {
+		flags &= ~LLE_EXCLUSIVE;
+		LLE_DOWNGRADE(la);
+	}
+
 	/*
 	 * Return EWOULDBLOCK if we have tried less than arp_maxtries. It
 	 * will be masked by ether_output(). Return EHOSTDOWN/EHOSTUNREACH
@@ -1424,18 +1426,11 @@ out:
 /*
  * Free an arp entry.
  */
-static void arptfree(struct llentry *la)
+static void arptfree(struct rtentry *rt)
 {
-	struct rtentry *rt = la->la_rt;
-
-	KASSERT(rt != NULL);
-
-	if (la->la_rt != NULL) {
-		rtfree(la->la_rt);
-		la->la_rt = NULL;
-	}
 
 	rtrequest(RTM_DELETE, rt_getkey(rt), NULL, rt_mask(rt), 0, NULL);
+	rtfree(rt);
 }
 
 /*

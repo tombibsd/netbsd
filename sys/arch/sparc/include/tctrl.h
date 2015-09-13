@@ -31,6 +31,8 @@
 #ifndef _MACHINE_TCTRL_H
 #define	_MACHINE_TCTRL_H
 
+#include <sys/ioccom.h>
+
 struct tctrl_req {
 	uint8_t        cmdbuf[16];
 	uint8_t        cmdlen;

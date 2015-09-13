@@ -349,7 +349,7 @@ int          post_form(FORM *);
 int          scale_form(FORM *, int *, int *);
 int          set_current_field(FORM *, FIELD *);
 int          set_field_back(FIELD *, chtype);
-int          set_field_buffer(FIELD *, int, char *);
+int          set_field_buffer(FIELD *, int, const char *);
 int          set_field_fore(FIELD *, chtype);
 int          set_field_init(FORM *, Form_Hook);
 int          set_field_just(FIELD *, int);

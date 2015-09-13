@@ -62,9 +62,6 @@
 extern u_int32_t cksum(void *, size_t);
 extern u_int32_t lfs_sb_cksum(struct dlfs *);
 
-extern ulfs_daddr_t badblk;
-extern SEGUSE *seg_table;
-
 static int nnewblocks;
 
 /*
@@ -78,7 +75,7 @@ static int nnewblocks;
  * Account for this change in the segment table.
  */
 static void
-rfw_update_single(struct uvnode *vp, daddr_t lbn, ulfs_daddr_t ndaddr, size_t size)
+rfw_update_single(struct uvnode *vp, daddr_t lbn, daddr_t ndaddr, size_t size)
 {
 	SEGUSE *sup;
 	struct ubuf *bp;
@@ -103,21 +100,24 @@ rfw_update_single(struct uvnode *vp, daddr_t lbn, ulfs_daddr_t ndaddr, size_t si
 	frags = lfs_numfrags(fs, size);
 	switch (num) {
 	case 0:
-		ooff = ip->i_ffs1_db[lbn];
+		ooff = lfs_dino_getdb(fs, ip->i_din, lbn);
 		if (ooff <= 0)
-			ip->i_ffs1_blocks += frags;
+			lfs_dino_setblocks(fs, ip->i_din,
+			    lfs_dino_getblocks(fs, ip->i_din) + frags);
 		else {
 			/* possible fragment truncation or extension */
 			ofrags = lfs_numfrags(fs, ip->i_lfs_fragsize[lbn]);
-			ip->i_ffs1_blocks += (frags - ofrags);
+			lfs_dino_setblocks(fs, ip->i_din,
+			    lfs_dino_getblocks(fs, ip->i_din) + (frags - ofrags));
 		}
-		ip->i_ffs1_db[lbn] = ndaddr;
+		lfs_dino_setdb(fs, ip->i_din, lbn, ndaddr);
 		break;
 	case 1:
-		ooff = ip->i_ffs1_ib[a[0].in_off];
+		ooff = lfs_dino_getib(fs, ip->i_din, a[0].in_off);
 		if (ooff <= 0)
-			ip->i_ffs1_blocks += frags;
-		ip->i_ffs1_ib[a[0].in_off] = ndaddr;
+			lfs_dino_setblocks(fs, ip->i_din,
+			    lfs_dino_getblocks(fs, ip->i_din) + frags);
+		lfs_dino_setib(fs, ip->i_din, a[0].in_off, ndaddr);
 		break;
 	default:
 		ap = &a[num - 1];
@@ -125,10 +125,11 @@ rfw_update_single(struct uvnode *vp, daddr_t lbn, ulfs_daddr_t ndaddr, size_t si
 			errx(1, "lfs_updatemeta: bread bno %" PRId64,
 			    ap->in_lbn);
 
-		ooff = ((ulfs_daddr_t *) bp->b_data)[ap->in_off];
+		ooff = lfs_iblock_get(fs, bp->b_data, ap->in_off);
 		if (ooff <= 0)
-			ip->i_ffs1_blocks += frags;
-		((ulfs_daddr_t *) bp->b_data)[ap->in_off] = ndaddr;
+			lfs_dino_setblocks(fs, ip->i_din,
+			    lfs_dino_getblocks(fs, ip->i_din) + frags);
+		lfs_iblock_set(fs, bp->b_data, ap->in_off, ndaddr);
 		(void) VOP_BWRITE(bp);
 	}
 
@@ -153,8 +154,8 @@ rfw_update_single(struct uvnode *vp, daddr_t lbn, ulfs_daddr_t ndaddr, size_t si
 	}
 
 	/* If block is beyond EOF, update size */
-	if (lbn >= 0 && ip->i_ffs1_size <= (lbn << lfs_sb_getbshift(fs))) {
-		ip->i_ffs1_size = (lbn << lfs_sb_getbshift(fs)) + 1;
+	if (lbn >= 0 && lfs_dino_getsize(fs, ip->i_din) <= (lbn << lfs_sb_getbshift(fs))) {
+		lfs_dino_setsize(fs, ip->i_din, (lbn << lfs_sb_getbshift(fs)) + 1);
 	}
 
 	/* If block frag size is too large for old EOF, update size */
@@ -163,8 +164,8 @@ rfw_update_single(struct uvnode *vp, daddr_t lbn, ulfs_daddr_t ndaddr, size_t si
 
 		minsize = (lbn << lfs_sb_getbshift(fs));
 		minsize += (size - lfs_sb_getfsize(fs)) + 1;
-		if (ip->i_ffs1_size < minsize)
-			ip->i_ffs1_size = minsize;
+		if (lfs_dino_getsize(fs, ip->i_din) < minsize)
+			lfs_dino_setsize(fs, ip->i_din, minsize);
 	}
 
 	/* Count for the user */
@@ -215,7 +216,7 @@ remove_ino(struct uvnode *vp, ino_t ino)
 	CLEANERINFO *cip;
 	struct ubuf *bp, *sbp, *cbp;
 	struct inodesc idesc;
-	ulfs_daddr_t daddr;
+	daddr_t daddr;
 
 	if (debug)
 		pwarn("remove ino %d\n", (int)ino);
@@ -256,7 +257,7 @@ remove_ino(struct uvnode *vp, ino_t ino)
  * Use FIP records to update blocks, if the generation number matches.
  */
 static void
-pass6harvest(ulfs_daddr_t daddr, FINFO *fip)
+pass6harvest(daddr_t daddr, FINFO *fip)
 {
 	struct uvnode *vp;
 	int i;
@@ -264,7 +265,7 @@ pass6harvest(ulfs_daddr_t daddr, FINFO *fip)
 
 	vp = vget(fs, lfs_fi_getino(fs, fip));
 	if (vp && vp != fs->lfs_ivnode &&
-	    VTOI(vp)->i_ffs1_gen == lfs_fi_getversion(fs, fip)) {
+	    lfs_dino_getgen(fs, VTOI(vp)->i_din) == lfs_fi_getversion(fs, fip)) {
 		for (i = 0; i < lfs_fi_getnblocks(fs, fip); i++) {
 			size = (i == lfs_fi_getnblocks(fs, fip) - 1 ?
 				lfs_fi_getlastlength(fs, fip) : lfs_sb_getbsize(fs));
@@ -314,7 +315,7 @@ pass6check(struct inodesc * idesc)
 	}
 	if (anyout) {
 		blkerror(idesc->id_number, "BAD", idesc->id_blkno);
-		if (badblk++ >= MAXBAD) {
+		if (badblkcount++ >= MAXBAD) {
 			pwarn("EXCESSIVE BAD BLKS I=%llu",
 			    (unsigned long long)idesc->id_number);
 			if (preen)
@@ -388,7 +389,7 @@ account_block_changes(union lfs_dinode *dp)
 
 	/* Check direct block holdings between existing and new */
 	for (i = 0; i < ULFS_NDADDR; i++) {
-		odaddr = (ip ? ip->i_ffs1_db[i] : 0x0);
+		odaddr = (ip ? lfs_dino_getdb(fs, ip->i_din, i) : 0x0);
 		if (lfs_dino_getdb(fs, dp, i) > 0 && lfs_dino_getdb(fs, dp, i) != odaddr)
 			rfw_update_single(vp, i, lfs_dino_getdb(fs, dp, i),
 					  lfs_dblksize(fs, dp, i));
@@ -397,7 +398,7 @@ account_block_changes(union lfs_dinode *dp)
 	/* Check indirect block holdings between existing and new */
 	off = 0;
 	for (i = 0; i < ULFS_NIADDR; i++) {
-		odaddr = (ip ? ip->i_ffs1_ib[i] : 0x0);
+		odaddr = (ip ? lfs_dino_getib(fs, ip->i_din, i) : 0x0);
 		if (lfs_dino_getib(fs, dp, i) > 0 && lfs_dino_getib(fs, dp, i) != odaddr) {
 			lbn = -(ULFS_NDADDR + off + i);
 			rfw_update_single(vp, i, lfs_dino_getib(fs, dp, i), lfs_sb_getbsize(fs));
@@ -418,13 +419,13 @@ account_block_changes(union lfs_dinode *dp)
  * free list accounting is done.
  */
 static void
-readdress_inode(union lfs_dinode *dp, ulfs_daddr_t daddr)
+readdress_inode(union lfs_dinode *dp, daddr_t daddr)
 {
 	IFILE *ifp;
 	SEGUSE *sup;
 	struct ubuf *bp;
 	int sn;
-	ulfs_daddr_t odaddr;
+	daddr_t odaddr;
 	ino_t thisino = lfs_dino_getinumber(fs, dp);
 	struct uvnode *vp;
 
@@ -439,10 +440,10 @@ readdress_inode(union lfs_dinode *dp, ulfs_daddr_t daddr)
 	VOP_BWRITE(bp);
 
 	if (debug)
-		pwarn("readdress ino %ju from 0x%x to 0x%x mode %o nlink %d\n",
+		pwarn("readdress ino %ju from 0x%jx to 0x%jx mode %o nlink %d\n",
 			(uintmax_t)lfs_dino_getinumber(fs, dp),
-			(unsigned)odaddr,
-			(unsigned)daddr,
+			(uintmax_t)odaddr,
+			(intmax_t)daddr,
 			(int)lfs_dino_getmode(fs, dp),
 			(int)lfs_dino_getnlink(fs, dp));
 
@@ -468,7 +469,7 @@ readdress_inode(union lfs_dinode *dp, ulfs_daddr_t daddr)
  * Allocate the given inode from the free list.
  */
 static void
-alloc_inode(ino_t thisino, ulfs_daddr_t daddr)
+alloc_inode(ino_t thisino, daddr_t daddr)
 {
 	ino_t ino, nextfree, oldhead;
 	IFILE *ifp;
@@ -477,8 +478,8 @@ alloc_inode(ino_t thisino, ulfs_daddr_t daddr)
 	CLEANERINFO *cip;
 
 	if (debug)
-		pwarn("allocating ino %d at 0x%x\n", (int)thisino,
-			(unsigned)daddr);
+		pwarn("allocating ino %ju at 0x%jx\n", (uintmax_t)thisino,
+			(intmax_t)daddr);
 	while (thisino >= maxino) {
 		extend_ifile(fs);
 	}
@@ -545,7 +546,8 @@ alloc_inode(ino_t thisino, ulfs_daddr_t daddr)
 void
 pass6(void)
 {
-	ulfs_daddr_t daddr, ibdaddr, odaddr, lastgood, *idaddrp;
+	daddr_t daddr, ibdaddr, odaddr, lastgood;
+	uint32_t *idaddrp; /* XXX ondisk32 */
 	struct uvnode *vp, *devvp;
 	CLEANERINFO *cip;
 	SEGUSE *sup;
@@ -614,13 +616,14 @@ pass6(void)
 					break;
 			}
 		}
+		KASSERT(hassuper == 0 || hassuper == 1);
 		
 		/* Read in summary block */
 		bread(devvp, LFS_FSBTODB(fs, daddr), lfs_sb_getsumsize(fs), 0, &bp);
 		sp = (SEGSUM *)bp->b_data;
 		if (debug)
-			pwarn("sum at 0x%x: ninos=%d nfinfo=%d\n",
-				(unsigned)daddr, (int)lfs_ss_getninos(fs, sp),
+			pwarn("sum at 0x%jx: ninos=%d nfinfo=%d\n",
+				(intmax_t)daddr, (int)lfs_ss_getninos(fs, sp),
 				(int)lfs_ss_getnfinfo(fs, sp));
 
 		/* We have verified that this is a good summary. */
@@ -646,7 +649,8 @@ pass6(void)
 							    LFS_INOPB(fs)) *
 						lfs_sb_getibsize(fs)));
 		}
-		idaddrp = ((ulfs_daddr_t *)((char *)bp->b_data + lfs_sb_getsumsize(fs)));
+		// XXX ondisk32
+		idaddrp = ((uint32_t *)((char *)bp->b_data + lfs_sb_getsumsize(fs)));
 		for (i = 0; i < howmany(lfs_ss_getninos(fs, sp), LFS_INOPB(fs)); i++) {
 			ino_t *inums;
 			
@@ -663,7 +667,7 @@ pass6(void)
 			for (k = 0; k < LFS_INOPB(fs); k++) {
 				dp = DINO_IN_BLOCK(fs, ibbuf, k);
 				if (lfs_dino_getinumber(fs, dp) == 0 ||
-				    lfs_dino_getinumber(fs, dp) == lfs_sb_getifile(fs))
+				    lfs_dino_getinumber(fs, dp) == LFS_IFILE_INUM)
 					continue;
 				/* Basic sanity checks */
 				if (lfs_dino_getnlink(fs, dp) < 0 
@@ -672,8 +676,8 @@ pass6(void)
 				    || lfs_dino_getsize(fs, dp) < 0
 #endif
 				) {
-					pwarn("BAD INODE AT 0x%" PRIx32 "\n",
-						ibdaddr);
+					pwarn("BAD INODE AT 0x%jx\n",
+						(intmax_t)ibdaddr);
 					brelse(bp, 0);
 					free(inums);
 					goto out;
@@ -711,11 +715,9 @@ pass6(void)
 				 *     allocated inode.  Delete old file
 				 *     and proceed as in (2).
 				 */
-				if (vp && (
-					fs->lfs_is64 ?
-					VTOI(vp)->i_ffs2_gen :
-					VTOI(vp)->i_ffs1_gen
-				    ) < lfs_dino_getgen(fs, dp)) {
+				if (vp &&
+				    lfs_dino_getgen(fs, VTOI(vp)->i_din)
+				    < lfs_dino_getgen(fs, dp)) {
 					remove_ino(vp, lfs_dino_getinumber(fs, dp));
 					if (!(lfs_ss_getflags(fs, sp) & SS_DIROP))
 						pfatal("NEW FILE VERSION IN NON-DIROP PARTIAL SEGMENT");
@@ -733,11 +735,9 @@ pass6(void)
 				 *     only.  We'll pick up any new
 				 *     blocks when we do the block pass.
 				 */
-				if (vp && (
-					fs->lfs_is64 ?
-					VTOI(vp)->i_ffs2_gen :
-					VTOI(vp)->i_ffs1_gen
-				    ) == lfs_dino_getgen(fs, dp)) {
+				if (vp &&
+				    lfs_dino_getgen(fs, VTOI(vp)->i_din)
+				    == lfs_dino_getgen(fs, dp)) {
 					nmvfiles++;
 					readdress_inode(dp, ibdaddr);
 
@@ -783,14 +783,14 @@ pass6(void)
 
 		bc = check_summary(fs, sp, daddr, debug, devvp, NULL);
 		if (bc == 0) {
-			pwarn("unexpected bad seg ptr at 0x%x with serial=%d\n",
-				(int)daddr, (int)lfs_ss_getserial(fs, sp));
+			pwarn("unexpected bad seg ptr at 0x%jx with serial=%ju\n",
+				(intmax_t)daddr, (uintmax_t)lfs_ss_getserial(fs, sp));
 			brelse(bp, 0);
 			break;
 		} else {
 			if (debug)
-				pwarn("good seg ptr at 0x%x with serial=%d\n",
-					(int)daddr, (int)lfs_ss_getserial(fs, sp));
+				pwarn("good seg ptr at 0x%jx with serial=%ju\n",
+					(intmax_t)daddr, (uintmax_t)lfs_ss_getserial(fs, sp));
 			lastserial = lfs_ss_getserial(fs, sp);
 		}
 		odaddr = daddr;
@@ -858,8 +858,8 @@ pass6(void)
 		sp = (SEGSUM *)bp->b_data;
 		bc = check_summary(fs, sp, daddr, debug, devvp, pass6harvest);
 		if (bc == 0) {
-			pwarn("unexpected bad seg ptr [2] at 0x%x with serial=%d\n",
-				(int)daddr, (int)lfs_ss_getserial(fs, sp));
+			pwarn("unexpected bad seg ptr [2] at 0x%jx with serial=%ju\n",
+				(intmax_t)daddr, (uintmax_t)lfs_ss_getserial(fs, sp));
 			brelse(bp, 0);
 			break;
 		}

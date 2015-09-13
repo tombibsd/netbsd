@@ -32,6 +32,9 @@
 
 /* Interface to /proc/xen/privcmd */
 
+#include <sys/ioccom.h>
+
+
 typedef struct privcmd_hypercall
 {
     unsigned long op;

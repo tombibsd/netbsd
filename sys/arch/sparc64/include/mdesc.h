@@ -38,10 +38,8 @@ struct md_element {
 };
 
 #ifdef _KERNEL
-extern vaddr_t mdesc;
-extern size_t mdesc_len;
-
-void	 mdesc_init(void);
+psize_t	mdesc_get_len(void);
+void	mdesc_init(vaddr_t, paddr_t, psize_t);
 uint64_t mdesc_get_prop_val(int, const char *);
 const char *mdesc_get_prop_str(int, const char *);
 const char *mdesc_get_prop_data(int, const char *, size_t *);

@@ -3,6 +3,8 @@
 #ifndef _DEV_WSCONS_WSDISPLAY_USL_IO_H_
 #define _DEV_WSCONS_WSDISPLAY_USL_IO_H_
 
+#include <sys/ioccom.h>
+
 #define VT_OPENQRY	_IOR('v', 1, int)
 #define VT_SETMODE	_IOW('v', 2, vtmode_t)
 #define VT_GETMODE	_IOR('v', 3, vtmode_t)

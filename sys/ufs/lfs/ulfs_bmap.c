@@ -172,10 +172,10 @@ ulfs_bmaparray(struct vnode *vp, daddr_t bn, daddr_t *bnp, struct indir *ap,
 		if (nump != NULL)
 			*nump = 0;
 		if (ump->um_fstype == ULFS1)
-			daddr = ulfs_fix_unwritten(ulfs_rw32(ip->i_ffs1_db[bn],
+			daddr = ulfs_fix_unwritten(ulfs_rw32(ip->i_din->u_32.di_db[bn],
 			    ULFS_MPNEEDSWAP(fs)));
 		else
-			daddr = ulfs_rw64(ip->i_ffs2_db[bn],
+			daddr = ulfs_rw64(ip->i_din->u_64.di_db[bn],
 			    ULFS_MPNEEDSWAP(fs));
 		*bnp = blkptrtodb(fs, daddr);
 		/*
@@ -201,17 +201,17 @@ ulfs_bmaparray(struct vnode *vp, daddr_t bn, daddr_t *bnp, struct indir *ap,
 			if (ump->um_fstype == ULFS1) {
 				for (++bn; bn < ULFS_NDADDR && *runp < maxrun &&
 				    is_sequential(fs,
-				        ulfs_fix_unwritten(ulfs_rw32(ip->i_ffs1_db[bn - 1],
+				        ulfs_fix_unwritten(ulfs_rw32(ip->i_din->u_32.di_db[bn - 1],
 				            ULFS_MPNEEDSWAP(fs))),
-				        ulfs_fix_unwritten(ulfs_rw32(ip->i_ffs1_db[bn],
+				        ulfs_fix_unwritten(ulfs_rw32(ip->i_din->u_32.di_db[bn],
 				            ULFS_MPNEEDSWAP(fs))));
 				    ++bn, ++*runp);
 			} else {
 				for (++bn; bn < ULFS_NDADDR && *runp < maxrun &&
 				    is_sequential(fs,
-				        ulfs_rw64(ip->i_ffs2_db[bn - 1],
+				        ulfs_rw64(ip->i_din->u_64.di_db[bn - 1],
 				            ULFS_MPNEEDSWAP(fs)),
-				        ulfs_rw64(ip->i_ffs2_db[bn],
+				        ulfs_rw64(ip->i_din->u_64.di_db[bn],
 				            ULFS_MPNEEDSWAP(fs)));
 				    ++bn, ++*runp);
 			}
@@ -228,11 +228,12 @@ ulfs_bmaparray(struct vnode *vp, daddr_t bn, daddr_t *bnp, struct indir *ap,
 	num = *nump;
 
 	/* Get disk address out of indirect block array */
+	// XXX clean this up
 	if (ump->um_fstype == ULFS1)
-		daddr = ulfs_fix_unwritten(ulfs_rw32(ip->i_ffs1_ib[xap->in_off],
+		daddr = ulfs_fix_unwritten(ulfs_rw32(ip->i_din->u_32.di_ib[xap->in_off],
 		    ULFS_MPNEEDSWAP(fs)));
 	else
-		daddr = ulfs_rw64(ip->i_ffs2_ib[xap->in_off],
+		daddr = ulfs_rw64(ip->i_din->u_64.di_ib[xap->in_off],
 		    ULFS_MPNEEDSWAP(fs));
 
 	for (bp = NULL, ++xap; --num; ++xap) {

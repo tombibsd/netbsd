@@ -168,6 +168,7 @@ Boolean			keepgoing;	/* -k flag */
 Boolean			queryFlag;	/* -q flag */
 Boolean			touchFlag;	/* -t flag */
 Boolean			enterFlag;	/* -w flag */
+Boolean			enterFlagObj;	/* -w and objdir != srcdir */
 Boolean			ignoreErrors;	/* -i flag */
 Boolean			beSilent;	/* -s flag */
 Boolean			oldVars;	/* variable substitution style */
@@ -710,6 +711,8 @@ Main_SetObjdir(const char *path)
 			setenv("PWD", objdir, 1);
 			Dir_InitDot();
 			rc = TRUE;
+			if (enterFlag && strcmp(objdir, curdir) != 0)
+				enterFlagObj = TRUE;
 		}
 	}
 
@@ -1231,6 +1234,9 @@ main(int argc, char **argv)
 	    doing_depend = FALSE;
 	}
 
+	if (enterFlagObj)
+		printf("%s: Entering directory `%s'\n", progname, objdir);
+	
 	MakeMode(NULL);
 
 	Var_Append("MFLAGS", Var_Value(MAKEFLAGS, VAR_GLOBAL, &p1), VAR_GLOBAL);
@@ -1372,6 +1378,8 @@ main(int argc, char **argv)
 
 	Trace_Log(MAKEEND, 0);
 
+	if (enterFlagObj)
+		printf("%s: Leaving directory `%s'\n", progname, objdir);
 	if (enterFlag)
 		printf("%s: Leaving directory `%s'\n", progname, curdir);
 

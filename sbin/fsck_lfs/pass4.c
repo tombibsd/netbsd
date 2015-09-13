@@ -52,8 +52,6 @@
 #include "fsck.h"
 #include "extern.h"
 
-extern SEGUSE *seg_table;
-
 static int check_orphan(struct inodesc *idp);
 
 static int

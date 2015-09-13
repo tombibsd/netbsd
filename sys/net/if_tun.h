@@ -19,6 +19,8 @@
 #ifndef _NET_IF_TUN_H_
 #define _NET_IF_TUN_H_
 
+#include <sys/ioccom.h>
+
 #ifdef _KERNEL
 struct tun_softc {
 	struct	ifnet tun_if;		/* the interface */

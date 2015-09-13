@@ -124,12 +124,13 @@ lfs_rf_valloc(struct lfs *fs, ino_t ino, int vers, struct lwp *l,
 			return 0;
 		else if (ip->i_gen < vers) {
 			lfs_truncate(vp, (off_t)0, 0, NOCRED);
-			ip->i_gen = ip->i_ffs1_gen = vers;
+			ip->i_gen = vers;
+			lfs_dino_setgen(fs, ip->i_din, vers);
 			LFS_SET_UINO(ip, IN_CHANGE | IN_UPDATE);
 			return 0;
 		} else {
 			DLOG((DLOG_RF, "ino %d: sought version %d, got %d\n",
-			       ino, vers, ip->i_ffs1_gen));
+			       ino, vers, lfs_dino_getgen(fs, ip->i_din)));
 			vput(vp);
 			*vpp = NULLVP;
 			return EEXIST;
@@ -152,7 +153,8 @@ lfs_rf_valloc(struct lfs *fs, ino_t ino, int vers, struct lwp *l,
 		return error;
 	}
 	ip = VTOI(vp);
-	ip->i_nlink = ip->i_ffs1_nlink = 1;
+	ip->i_nlink = 1;
+	lfs_dino_setnlink(fs, ip->i_din, 1);
 	*vpp = vp;
 	return 0;
 }
@@ -208,11 +210,13 @@ update_meta(struct lfs *fs, ino_t ino, int vers, daddr_t lbn,
 	if (ip->i_size <= (lbn << lfs_sb_getbshift(fs))) {
 		u_int64_t newsize;
 
-		if (lbn < ULFS_NDADDR)
-			newsize = ip->i_ffs1_size = (lbn << lfs_sb_getbshift(fs)) +
+		if (lbn < ULFS_NDADDR) {
+			newsize = (lbn << lfs_sb_getbshift(fs)) +
 				(size - lfs_sb_getfsize(fs)) + 1;
-		else
-			newsize = ip->i_ffs1_size = (lbn << lfs_sb_getbshift(fs)) + 1;
+		} else {
+			newsize = (lbn << lfs_sb_getbshift(fs)) + 1;
+		}
+		lfs_dino_setsize(fs, ip->i_din, newsize);
 
 		if (ip->i_size < newsize) {
 			ip->i_size = newsize;
@@ -232,8 +236,8 @@ update_meta(struct lfs *fs, ino_t ino, int vers, daddr_t lbn,
 
 	/* differences here should be due to UNWRITTEN indirect blocks. */
 	KASSERT((lfs_lblkno(fs, ip->i_size) > ULFS_NDADDR &&
-	    ip->i_lfs_effnblks == ip->i_ffs1_blocks) ||
-	    ip->i_lfs_effnblks >= ip->i_ffs1_blocks);
+	    ip->i_lfs_effnblks == lfs_dino_getblocks(fs, ip->i_din)) ||
+	    ip->i_lfs_effnblks >= lfs_dino_getblocks(fs, ip->i_din));
 
 #ifdef DEBUG
 	/* Now look again to make sure it worked */

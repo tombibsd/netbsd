@@ -32,6 +32,7 @@
 
 #ifdef _KSYMS_PRIVATE
 #include <sys/exec_elf.h>
+#include <sys/ioccom.h>
 #include <sys/queue.h>
 
 struct ksyms_symtab {

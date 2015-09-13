@@ -145,6 +145,12 @@
 #ifndef _UFS_LFS_LFS_ACCESSORS_H_
 #define _UFS_LFS_LFS_ACCESSORS_H_
 
+#if defined(_KERNEL_OPT)
+#include "opt_lfs.h"
+#endif
+
+#include <sys/bswap.h>
+
 #if !defined(_KERNEL) && !defined(_STANDALONE)
 #include <assert.h>
 #define KASSERT assert
@@ -161,18 +167,203 @@
 #endif
 
 /*
+ * byte order
+ */
+
+/*
+ * For now at least, the bootblocks shall not be endian-independent.
+ * We can see later if it fits in the size budget. Also disable the
+ * byteswapping if LFS_EI is off.
+ *
+ * Caution: these functions "know" that bswap16/32/64 are unsigned,
+ * and if that changes will likely break silently.
+ */
+
+#if defined(_STANDALONE) || (defined(_KERNEL) && !defined(LFS_EI))
+#define LFS_SWAP_int16_t(fs, val) (val)
+#define LFS_SWAP_int32_t(fs, val) (val)
+#define LFS_SWAP_int64_t(fs, val) (val)
+#define LFS_SWAP_uint16_t(fs, val) (val)
+#define LFS_SWAP_uint32_t(fs, val) (val)
+#define LFS_SWAP_uint64_t(fs, val) (val)
+#else
+#define LFS_SWAP_int16_t(fs, val) \
+	((fs)->lfs_dobyteswap ? (int16_t)bswap16(val) : (val))
+#define LFS_SWAP_int32_t(fs, val) \
+	((fs)->lfs_dobyteswap ? (int32_t)bswap32(val) : (val))
+#define LFS_SWAP_int64_t(fs, val) \
+	((fs)->lfs_dobyteswap ? (int64_t)bswap64(val) : (val))
+#define LFS_SWAP_uint16_t(fs, val) \
+	((fs)->lfs_dobyteswap ? bswap16(val) : (val))
+#define LFS_SWAP_uint32_t(fs, val) \
+	((fs)->lfs_dobyteswap ? bswap32(val) : (val))
+#define LFS_SWAP_uint64_t(fs, val) \
+	((fs)->lfs_dobyteswap ? bswap64(val) : (val))
+#endif
+
+/*
+ * For handling directories we will need to know if the volume is
+ * little-endian.
+ */
+#if BYTE_ORDER == LITTLE_ENDIAN
+#define LFS_LITTLE_ENDIAN_ONDISK(fs) (!(fs)->lfs_dobyteswap)
+#else
+#define LFS_LITTLE_ENDIAN_ONDISK(fs) ((fs)->lfs_dobyteswap)
+#endif
+
+
+/*
+ * directories
+ */
+
+/*
+ * The LFS_DIRSIZ macro gives the minimum record length which will hold
+ * the directory entry.  This requires the amount of space in struct lfs_direct
+ * without the d_name field, plus enough space for the name with a terminating
+ * null byte (dp->d_namlen+1), rounded up to a 4 byte boundary.
+ */
+#define	LFS_DIRECTSIZ(namlen) \
+	((sizeof(struct lfs_direct) - (LFS_MAXNAMLEN+1)) + (((namlen)+1 + 3) &~ 3))
+
+#if (BYTE_ORDER == LITTLE_ENDIAN)
+#define LFS_OLDDIRSIZ(oldfmt, dp, needswap)	\
+    (((oldfmt) && !(needswap)) ?		\
+    LFS_DIRECTSIZ((dp)->d_type) : LFS_DIRECTSIZ((dp)->d_namlen))
+#else
+#define LFS_OLDDIRSIZ(oldfmt, dp, needswap)	\
+    (((oldfmt) && (needswap)) ?			\
+    LFS_DIRECTSIZ((dp)->d_type) : LFS_DIRECTSIZ((dp)->d_namlen))
+#endif
+
+#define LFS_DIRSIZ(fs, dp) LFS_DIRECTSIZ(lfs_dir_getnamlen(fs, dp))
+
+/* Constants for the first argument of LFS_OLDDIRSIZ */
+#define LFS_OLDDIRFMT	1
+#define LFS_NEWDIRFMT	0
+
+static __unused inline uint8_t
+lfs_dir_gettype(const STRUCT_LFS *fs, const struct lfs_direct *dp)
+{
+	if (fs->lfs_hasolddirfmt) {
+		return LFS_DT_UNKNOWN;
+	}
+	return dp->d_type;
+}
+
+static __unused inline uint8_t
+lfs_dir_getnamlen(const STRUCT_LFS *fs, const struct lfs_direct *dp)
+{
+	if (fs->lfs_hasolddirfmt && LFS_LITTLE_ENDIAN_ONDISK(fs)) {
+		/* low-order byte of old 16-bit namlen field */
+		return dp->d_type;
+	}
+	return dp->d_namlen;
+}
+
+static __unused inline void
+lfs_dir_settype(const STRUCT_LFS *fs, struct lfs_direct *dp, uint8_t type)
+{
+	if (fs->lfs_hasolddirfmt) {
+		/* do nothing */
+		return;
+	}
+	dp->d_type = type;
+}
+
+static __unused inline void
+lfs_dir_setnamlen(const STRUCT_LFS *fs, struct lfs_direct *dp, uint8_t namlen)
+{
+	if (fs->lfs_hasolddirfmt && LFS_LITTLE_ENDIAN_ONDISK(fs)) {
+		/* low-order byte of old 16-bit namlen field */
+		dp->d_type = namlen;
+	}
+	dp->d_namlen = namlen;
+}
+
+/*
+ * These are called "dirt" because they ought to be cleaned up.
+ */
+
+static __unused inline uint8_t
+lfs_dirt_getdottype(const STRUCT_LFS *fs, const struct lfs_dirtemplate *dp)
+{
+	if (fs->lfs_hasolddirfmt) {
+		return LFS_DT_UNKNOWN;
+	}
+	return dp->dot_type;
+}
+
+static __unused inline uint8_t
+lfs_dirt_getdotnamlen(const STRUCT_LFS *fs, const struct lfs_dirtemplate *dp)
+{
+	if (fs->lfs_hasolddirfmt && LFS_LITTLE_ENDIAN_ONDISK(fs)) {
+		/* low-order byte of old 16-bit namlen field */
+		return dp->dot_type;
+	}
+	return dp->dot_namlen;
+}
+
+static __unused inline uint8_t
+lfs_dirt_getdotdottype(const STRUCT_LFS *fs, const struct lfs_dirtemplate *dp)
+{
+	if (fs->lfs_hasolddirfmt) {
+		return LFS_DT_UNKNOWN;
+	}
+	return dp->dotdot_type;
+}
+
+static __unused inline uint8_t
+lfs_dirt_getdotdotnamlen(const STRUCT_LFS *fs, const struct lfs_dirtemplate *dp)
+{
+	if (fs->lfs_hasolddirfmt && LFS_LITTLE_ENDIAN_ONDISK(fs)) {
+		/* low-order byte of old 16-bit namlen field */
+		return dp->dotdot_type;
+	}
+	return dp->dotdot_namlen;
+}
+
+static __unused inline void
+lfs_dirt_settypes(const STRUCT_LFS *fs, struct lfs_dirtemplate *dtp,
+    unsigned dt1, unsigned dt2)
+{
+	if (fs->lfs_hasolddirfmt) {
+		/* do nothing */
+		return;
+	}
+	dtp->dot_type = dt1;
+	dtp->dotdot_type = dt2;
+}
+
+static __unused inline void
+lfs_dirt_setnamlens(const STRUCT_LFS *fs, struct lfs_dirtemplate *dtp,
+    unsigned len1, unsigned len2)
+{
+	if (fs->lfs_hasolddirfmt && LFS_LITTLE_ENDIAN_ONDISK(fs)) {
+		/* low-order bytes of old 16-bit namlen field */
+		dtp->dot_type = len1;
+		dtp->dotdot_type = len2;
+		/* clear the high-order bytes */
+		dtp->dot_namlen = 0;
+		dtp->dotdot_namlen = 0;
+		return;
+	}
+	dtp->dot_namlen = len1;
+	dtp->dotdot_namlen = len2;
+}
+
+
+/*
  * dinodes
  */
 
 /*
  * Maximum length of a symlink that can be stored within the inode.
  */
-#define ULFS1_MAXSYMLINKLEN	((ULFS_NDADDR + ULFS_NIADDR) * sizeof(int32_t))
-#define ULFS2_MAXSYMLINKLEN	((ULFS_NDADDR + ULFS_NIADDR) * sizeof(int64_t))
+#define LFS32_MAXSYMLINKLEN	((ULFS_NDADDR + ULFS_NIADDR) * sizeof(int32_t))
+#define LFS64_MAXSYMLINKLEN	((ULFS_NDADDR + ULFS_NIADDR) * sizeof(int64_t))
 
-#define ULFS_MAXSYMLINKLEN(ip) \
-	((ip)->i_ump->um_fstype == ULFS1) ? \
-	ULFS1_MAXSYMLINKLEN : ULFS2_MAXSYMLINKLEN
+#define LFS_MAXSYMLINKLEN(fs) \
+	((fs)->lfs_is64 ? LFS64_MAXSYMLINKLEN : LFS32_MAXSYMLINKLEN)
 
 #define DINOSIZE(fs) ((fs)->lfs_is64 ? sizeof(struct lfs64_dinode) : sizeof(struct lfs32_dinode))
 
@@ -201,9 +392,9 @@ lfs_copy_dinode(STRUCT_LFS *fs,
 	lfs_dino_get##field(STRUCT_LFS *fs, union lfs_dinode *dip) \
 	{							\
 		if (fs->lfs_is64) {				\
-			return dip->u_64.di_##field; 		\
+			return LFS_SWAP_##type(fs, dip->u_64.di_##field); \
 		} else {					\
-			return dip->u_32.di_##field; 		\
+			return LFS_SWAP_##type32(fs, dip->u_32.di_##field); \
 		}						\
 	}							\
 	static __unused inline void				\
@@ -212,11 +403,11 @@ lfs_copy_dinode(STRUCT_LFS *fs,
 		if (fs->lfs_is64) {				\
 			type *p = &dip->u_64.di_##field;	\
 			(void)p;				\
-			dip->u_64.di_##field = val;		\
+			dip->u_64.di_##field = LFS_SWAP_##type(fs, val); \
 		} else {					\
 			type32 *p = &dip->u_32.di_##field;	\
 			(void)p;				\
-			dip->u_32.di_##field = val;		\
+			dip->u_32.di_##field = LFS_SWAP_##type32(fs, val); \
 		}						\
 	}							\
 
@@ -235,6 +426,9 @@ LFS_DEF_DINO_ACCESSOR(uint64_t, uint32_t, blocks);
 LFS_DEF_DINO_ACCESSOR(int32_t, int32_t, gen);
 LFS_DEF_DINO_ACCESSOR(uint32_t, uint32_t, uid);
 LFS_DEF_DINO_ACCESSOR(uint32_t, uint32_t, gid);
+
+/* XXX this should be done differently (it's a fake field) */
+LFS_DEF_DINO_ACCESSOR(uint64_t, int32_t, rdev);
 
 static __unused inline daddr_t
 lfs_dino_getdb(STRUCT_LFS *fs, union lfs_dinode *dip, unsigned ix)
@@ -277,6 +471,49 @@ lfs_dino_setib(STRUCT_LFS *fs, union lfs_dinode *dip, unsigned ix, daddr_t val)
 		dip->u_64.di_ib[ix] = val;
 	} else {
 		dip->u_32.di_ib[ix] = val;
+	}
+}
+
+/* birthtime is present only in the 64-bit inode */
+static __unused inline void
+lfs_dino_setbirthtime(STRUCT_LFS *fs, union lfs_dinode *dip,
+    const struct timespec *ts)
+{
+	if (fs->lfs_is64) {
+		dip->u_64.di_birthtime = ts->tv_sec;
+		dip->u_64.di_birthnsec = ts->tv_nsec;
+	} else {
+		/* drop it on the floor */
+	}
+}
+
+/*
+ * indirect blocks
+ */
+
+static __unused inline daddr_t
+lfs_iblock_get(STRUCT_LFS *fs, void *block, unsigned ix)
+{
+	if (fs->lfs_is64) {
+		// XXX re-enable these asserts after reorging this file
+		//KASSERT(ix < lfs_sb_getbsize(fs) / sizeof(int64_t));
+		return (daddr_t)(((int64_t *)block)[ix]);
+	} else {
+		//KASSERT(ix < lfs_sb_getbsize(fs) / sizeof(int32_t));
+		/* must sign-extend or UNWRITTEN gets trashed */
+		return (daddr_t)(int64_t)(((int32_t *)block)[ix]);
+	}
+}
+
+static __unused inline void
+lfs_iblock_set(STRUCT_LFS *fs, void *block, unsigned ix, daddr_t val)
+{
+	if (fs->lfs_is64) {
+		//KASSERT(ix < lfs_sb_getbsize(fs) / sizeof(int64_t));
+		((int64_t *)block)[ix] = val;
+	} else {
+		//KASSERT(ix < lfs_sb_getbsize(fs) / sizeof(int32_t));
+		((int32_t *)block)[ix] = val;
 	}
 }
 
@@ -832,13 +1069,13 @@ LFS_DEF_SB_ACCESSOR_FULL(u_int64_t, u_int32_t, dsize);
 LFS_DEF_SB_ACCESSOR(u_int32_t, bsize);
 LFS_DEF_SB_ACCESSOR(u_int32_t, fsize);
 LFS_DEF_SB_ACCESSOR(u_int32_t, frag);
-LFS_DEF_SB_ACCESSOR(u_int32_t, freehd);
+LFS_DEF_SB_ACCESSOR_FULL(uint64_t, uint32_t, freehd);
 LFS_DEF_SB_ACCESSOR_FULL(int64_t, int32_t, bfree);
-LFS_DEF_SB_ACCESSOR(u_int32_t, nfiles);
+LFS_DEF_SB_ACCESSOR_FULL(uint64_t, uint32_t, nfiles);
 LFS_DEF_SB_ACCESSOR_FULL(int64_t, int32_t, avail);
 LFS_DEF_SB_ACCESSOR(int32_t, uinodes);
 LFS_DEF_SB_ACCESSOR_FULL(int64_t, int32_t, idaddr);
-LFS_DEF_SB_ACCESSOR(u_int32_t, ifile);
+LFS_DEF_SB_ACCESSOR_32ONLY(u_int32_t, ifile, LFS_IFILE_INUM);
 LFS_DEF_SB_ACCESSOR_FULL(int64_t, int32_t, lastseg);
 LFS_DEF_SB_ACCESSOR_FULL(int64_t, int32_t, nextseg);
 LFS_DEF_SB_ACCESSOR_FULL(int64_t, int32_t, curseg);
@@ -1032,10 +1269,10 @@ lfs_btofsb(STRUCT_LFS *fs, uint64_t b)
 static __unused inline uint32_t
 lfs_blksize(STRUCT_LFS *fs, struct inode *ip, uint64_t lbn)
 {
-	if (lbn >= ULFS_NDADDR || ip->i_ffs1_size >= (lbn + 1) << lfs_sb_getbshift(fs)) {
+	if (lbn >= ULFS_NDADDR || lfs_dino_getsize(fs, ip->i_din) >= (lbn + 1) << lfs_sb_getbshift(fs)) {
 		return lfs_sb_getbsize(fs);
 	} else {
-		return lfs_fragroundup(fs, lfs_blkoff(fs, ip->i_ffs1_size));
+		return lfs_fragroundup(fs, lfs_blkoff(fs, lfs_dino_getsize(fs, ip->i_din)));
 	}
 }
 #endif

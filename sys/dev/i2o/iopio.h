@@ -32,6 +32,8 @@
 #ifndef _I2O_IOPIO_H_
 #define	_I2O_IOPIO_H_
 
+#include <sys/ioccom.h>
+
 #define	IOP_MAX_MSG_XFERS	3	/* Maximum transfer count per msg */
 #define	IOP_MAX_OUTBOUND	256	/* Maximum outbound queue depth */
 #define	IOP_MAX_INBOUND		256	/* Maximum inbound queue depth */

@@ -33,6 +33,7 @@
 #define _SYS_LUA_H_
 
 #include <sys/param.h>
+#include <sys/ioccom.h>
 
 #include <lua.h>		/* for lua_State */
 

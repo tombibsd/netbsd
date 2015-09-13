@@ -23,6 +23,7 @@
 ./etc/X11/rstart/contexts/x				-unknown-	x11
 ./etc/X11/rstart/contexts/x11				-unknown-	x11
 ./etc/X11/rstart/contexts/x11r6				-unknown-	x11
+./etc/X11/ctwm/system.ctwmrc				-unknown-	xorg
 ./etc/X11/twm/system.twmrc				-unknown-	x11
 ./etc/X11/twm/system.twmrc				-unknown-	xorg
 ./etc/X11/xdm/GiveConsole				-unknown-	x11

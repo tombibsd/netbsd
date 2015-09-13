@@ -2,11 +2,11 @@
 /com_eumb.c/1.8/Thu Dec 29 10:27:36 2011/-kk/
 /eumb.c/1.6/Sun Dec 18 14:28:59 2011/-kk/
 /eumbvar.h/1.6/Fri Jul  1 19:16:06 2011/-kk/
-/flash_cfi.c/1.3/Mon Jan 30 15:47:01 2012/-kk/
+/flash_cfi.c/1.4/Sun Sep 13 01:31:01 2015/-kk/
 /iic_eumb.c/1.19/Sat May 12 13:13:24 2012/-kk/
 /locore.S/1.24/Thu Feb 13 15:35:52 2014/-kk/
-/machdep.c/1.63/Thu Oct 24 10:28:57 2013/-kk/
-/mainbus.c/1.29/Tue Jan 31 21:12:03 2012/-kk/
+/machdep.c/1.64/Sun Sep 13 01:31:01 2015/-kk/
+/mainbus.c/1.30/Sun Sep 13 01:31:01 2015/-kk/
 /nhpow.c/1.1/Sat Jan 14 19:39:25 2012/-kk/
 /satmgr.c/1.26/Fri Oct  3 09:09:06 2014/-kk/
 D

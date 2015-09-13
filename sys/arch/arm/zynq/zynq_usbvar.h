@@ -63,9 +63,6 @@ void zynqusb_attach_common(device_t parent, device_t self,
  */
 int zynqusb_match(device_t, cfdata_t, void *);
 void zynqusb_attach(device_t, device_t, void *);
-
-void zynqusb_select_interface(struct zynqehci_softc *, enum zynq_usb_if);
-void zynqusb_host_mode(struct zynqehci_softc *);
 void zynqusb_reset(struct zynqehci_softc *);
 
 #endif	/* _ARM_ZYNQ_ZYNQ_USBVAR_H */

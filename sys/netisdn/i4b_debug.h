@@ -38,6 +38,8 @@
 #ifndef _NETISDN_I4B_DEBUG_H_
 #define _NETISDN_I4B_DEBUG_H_
 
+#include <sys/ioccom.h>
+
 #if !defined DO_I4B_DEBUG
 # define DO_I4B_DEBUG 1		/* default = include debugging code */
 #elif DO_I4B_DEBUG != 0

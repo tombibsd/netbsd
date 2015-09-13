@@ -30,6 +30,8 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include <sys/ioccom.h>
+
 struct urio_command
 {
 	unsigned short	length;

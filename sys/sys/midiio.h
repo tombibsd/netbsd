@@ -39,6 +39,7 @@
  */
 
 #include <machine/endian_machdep.h>
+#include <sys/ioccom.h>
 
 /*
  * ioctl() commands for /dev/midi##

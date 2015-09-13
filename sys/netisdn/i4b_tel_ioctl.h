@@ -38,6 +38,8 @@
 #ifndef _NETISDN_I4B_TEL_IOCTL_H_
 #define _NETISDN_I4B_TEL_IOCTL_H_
 
+#include <sys/ioccom.h>
+
 /*===========================================================================*
  *	/dev/i4btel<n> devices (audio data)
  *===========================================================================*/
