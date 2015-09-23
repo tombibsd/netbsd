@@ -128,16 +128,6 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <ufs/lfs/lfs_extern.h>
 
 /*
- * A virgin directory (no blushing please).
- *
- * XXX Copypasta from ulfs_vnops.c.  Kill!
- */
-static const struct lfs_dirtemplate mastertemplate = {
-	0,	12,			LFS_DT_DIR,	1,	".",
-	0,	LFS_DIRBLKSIZ - 12,	LFS_DT_DIR,	2,	".."
-};
-
-/*
  * ulfs_gro_directory_empty_p: Return true if the directory vp is
  * empty.  dvp is its parent.
  *
@@ -328,7 +318,7 @@ ulfs_rename_ulr_overlap_p(const struct ulfs_lookup_results *fulr,
  * the directory vp.
  */
 static int			/* XXX int?  uint8_t?  */
-ulfs_direct_namlen(const struct lfs_direct *ep, const struct vnode *vp)
+ulfs_direct_namlen(const struct lfs_dirheader *ep, const struct vnode *vp)
 {
 	struct lfs *fs;
 
@@ -355,14 +345,13 @@ ulfs_rename_recalculate_fulr(struct vnode *dvp,
 	struct mount *mp;
 	struct lfs *fs;
 	struct ulfsmount *ump;
-	int needswap;
 	/* XXX int is a silly type for this; blame ulfsmount::um_dirblksiz.  */
 	int dirblksiz;
 	doff_t search_start, search_end;
 	doff_t offset;		/* Offset of entry we're examining.  */
 	struct buf *bp;		/* I/O block we're examining.  */
 	char *dirbuf;		/* Pointer into directory at search_start.  */
-	struct lfs_direct *ep;	/* Pointer to the entry we're examining.  */
+	struct lfs_dirheader *ep;	/* Pointer to the entry we're examining.  */
 	/* XXX direct::d_reclen is 16-bit;
 	 * ulfs_lookup_results::ulr_reclen is 32-bit.  Blah.  */
 	uint32_t reclen;	/* Length of the entry we're examining.  */
@@ -383,8 +372,6 @@ ulfs_rename_recalculate_fulr(struct vnode *dvp,
 	KASSERT(ump != NULL);
 	KASSERT(ump == VTOI(dvp)->i_ump);
 	KASSERT(fs == VTOI(dvp)->i_lfs);
-
-	needswap = ULFS_MPNEEDSWAP(fs);
 
 	dirblksiz = fs->um_dirblksiz;
 	KASSERT(0 < dirblksiz);
@@ -433,19 +420,19 @@ ulfs_rename_recalculate_fulr(struct vnode *dvp,
 		/*
 		 * Examine the directory entry at offset.
 		 */
-		ep = (struct lfs_direct *)(dirbuf + (offset - search_start));
-		reclen = ulfs_rw16(ep->d_reclen, needswap);
+		ep = (struct lfs_dirheader *)(dirbuf + (offset - search_start));
+		reclen = lfs_dir_getreclen(fs, ep);
 
-		if (ep->d_ino == 0)
+		if (lfs_dir_getino(fs, ep) == 0)
 			goto next;	/* Entry is unused.  */
 
-		if (ulfs_rw32(ep->d_ino, needswap) == ULFS_WINO)
+		if (lfs_dir_getino(fs, ep) == ULFS_WINO)
 			goto next;	/* Entry is whiteout.  */
 
 		if (fcnp->cn_namelen != ulfs_direct_namlen(ep, dvp))
 			goto next;	/* Wrong name length.  */
 
-		if (memcmp(ep->d_name, fcnp->cn_nameptr, fcnp->cn_namelen))
+		if (memcmp(lfs_dir_nameptr(fs, ep), fcnp->cn_nameptr, fcnp->cn_namelen))
 			goto next;	/* Wrong name.  */
 
 		/* Got it!  */
@@ -587,33 +574,13 @@ ulfs_rmdired_p(struct vnode *vp)
 }
 
 /*
- * ulfs_dirbuf_dotdot_namlen: Return the namlen of the directory buffer
- * dirbuf that came from the directory vp.  Swap byte order if
- * necessary.
- */
-static int			/* XXX int?  uint8_t?  */
-ulfs_dirbuf_dotdot_namlen(const struct lfs_dirtemplate *dirbuf,
-    const struct vnode *vp)
-{
-	struct lfs *fs;
-
-	KASSERT(dirbuf != NULL);
-	KASSERT(vp != NULL);
-	KASSERT(VTOI(vp) != NULL);
-	KASSERT(VTOI(vp)->i_ump != NULL);
-	KASSERT(VTOI(vp)->i_lfs != NULL);
-	fs = VTOI(vp)->i_lfs;
-
-	return lfs_dirt_getdotdotnamlen(fs, dirbuf);
-}
-
-/*
  * ulfs_read_dotdot: Store in *ino_ret the inode number of the parent
  * of the directory vp.
  */
 static int
 ulfs_read_dotdot(struct vnode *vp, kauth_cred_t cred, ino_t *ino_ret)
 {
+	struct lfs *fs;
 	struct lfs_dirtemplate dirbuf;
 	int error;
 
@@ -621,19 +588,22 @@ ulfs_read_dotdot(struct vnode *vp, kauth_cred_t cred, ino_t *ino_ret)
 	KASSERT(ino_ret != NULL);
 	KASSERT(vp->v_type == VDIR);
 
+	KASSERT(VTOI(vp) != NULL);
+	KASSERT(VTOI(vp)->i_lfs != NULL);
+	fs = VTOI(vp)->i_lfs;
+
 	error = ulfs_bufio(UIO_READ, vp, &dirbuf, sizeof dirbuf, (off_t)0,
 	    IO_NODELOCKED, cred, NULL, NULL);
 	if (error)
 		return error;
 
-	if (ulfs_dirbuf_dotdot_namlen(&dirbuf, vp) != 2 ||
+	if (lfs_dir_getnamlen(fs, &dirbuf.dotdot_header) != 2 ||
 	    dirbuf.dotdot_name[0] != '.' ||
 	    dirbuf.dotdot_name[1] != '.')
 		/* XXX Panic?  Print warning?  */
 		return ENOTDIR;
 
-	*ino_ret = ulfs_rw32(dirbuf.dotdot_ino,
-	    ULFS_IPNEEDSWAP(VTOI(vp)));
+	*ino_ret = lfs_dir_getino(fs, &dirbuf.dotdot_header);
 	return 0;
 }
 
@@ -773,7 +743,6 @@ ulfs_gro_rename(struct mount *mp, kauth_cred_t cred,
 	struct ulfs_lookup_results *fulr = fde;
 	struct ulfs_lookup_results *tulr = tde;
 	bool directory_p, reparent_p;
-	struct lfs_direct *newdir;
 	int error;
 
 	KASSERT(mp != NULL);
@@ -874,10 +843,9 @@ ulfs_gro_rename(struct mount *mp, kauth_cred_t cred,
 			}
 		}
 
-		newdir = pool_cache_get(ulfs_direct_cache, PR_WAITOK);
-		ulfs_makedirentry(VTOI(fvp), tcnp, newdir);
-		error = ulfs_direnter(tdvp, tulr, NULL, newdir, tcnp, NULL);
-		pool_cache_put(ulfs_direct_cache, newdir);
+		error = ulfs_direnter(tdvp, tulr,
+		    NULL, tcnp, VTOI(fvp)->i_number, LFS_IFTODT(VTOI(fvp)->i_mode),
+		    NULL);
 		if (error) {
 			if (directory_p && reparent_p) {
 				/*
@@ -967,7 +935,15 @@ ulfs_gro_rename(struct mount *mp, kauth_cred_t cred,
 	 * the link count of fvp or the link count of tdvp.  Go figure.
 	 */
 	if (directory_p && reparent_p) {
-		error = ulfs_dirrewrite(VTOI(fvp), mastertemplate.dot_reclen,
+		off_t position;
+
+		/*
+		 * The .. entry goes immediately after the . entry, so
+		 * the position is the record length of the . entry,
+		 * namely LFS_DIRECTSIZ(1).
+		 */
+		position = LFS_DIRECTSIZ(1);
+		error = ulfs_dirrewrite(VTOI(fvp), position,
 		    VTOI(fdvp), VTOI(tdvp)->i_number, LFS_DT_DIR, 0, IN_CHANGE);
 #if 0		/* XXX This branch was not in ulfs_rename! */
 		if (error)

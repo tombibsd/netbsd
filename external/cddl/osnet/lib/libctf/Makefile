@@ -30,5 +30,7 @@ CPPFLAGS+=	-I${OSNETDIR}/sys \
 		-I${OPENSOLARIS_USR_DISTDIR}/lib/libctf/common \
 		-I${OPENSOLARIS_SYS_DISTDIR}/uts/common
 
+LIBDPLIBS+=	z	${NETBSDSRCDIR}/lib/libz
+
 .include <bsd.lib.mk>
 

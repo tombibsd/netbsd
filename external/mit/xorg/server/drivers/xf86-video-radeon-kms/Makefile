@@ -40,7 +40,8 @@ SRCS=		radeon_accel.c radeon_video.c \
 		$(SRCS.EXA) \
 		$(SRCS.KMS)
 
-MAN=	radeon.4
+MAN=		radeon.4
+MANSUBDIR=	/x86
 
 CPPFLAGS+=	-DHAVE_CONFIG_H
 CPPFLAGS+=	-I${DESTDIR}${X11INCDIR}/X11 \

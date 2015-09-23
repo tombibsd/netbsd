@@ -43,4 +43,10 @@
 	"PT_GETREGS", \
 	"PT_SETREGS"
 
+#include <machine/reg.h>
+#define PTRACE_REG_PC(r)	(r)->r_reg[31]	// XXX:!?!
+#define PTRACE_REG_SET_PC(r, v)	(r)->r_reg[31] = (v)
+#define PTRACE_REG_SP(r)	(r)->r_reg[11]
+#define PTRACE_REG_INTRV(r)	(r)->r_reg[0]
+
 #endif /* _OR1K_PTRACE_H_ */

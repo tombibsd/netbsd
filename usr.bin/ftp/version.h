@@ -34,5 +34,5 @@
 #endif
 
 #ifndef FTP_VERSION
-#define	FTP_VERSION	"20150424"
+#define	FTP_VERSION	"20150912"
 #endif

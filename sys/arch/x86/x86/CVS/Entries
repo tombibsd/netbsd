@@ -5,7 +5,7 @@
 /convert_xmm_s87.c/1.3/Thu Feb 27 08:55:55 2014/-kk/
 /core_machdep.c/1.5/Tue Jan 14 16:05:01 2014/-kk/
 /coretemp.c/1.34/Wed Jun  3 06:54:49 2015/-kk/
-/cpu.c/1.115/Thu May 28 03:25:45 2015/-kk/
+/cpu.c/1.116/Wed Sep 23 08:03:38 2015/-kk/
 /cpu_topology.c/1.9/Sat Mar  1 06:04:34 2014/-kk/
 /cpu_ucode.c/1.5/Mon Jan 12 06:48:34 2015/-kk/
 /cpu_ucode_amd.c/1.7/Mon Nov 18 05:31:36 2013/-kk/

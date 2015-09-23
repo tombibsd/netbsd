@@ -1074,19 +1074,19 @@ ordinary(
     int ch)
 {
 	cat_t *cap;
+	unsigned char uc = (unsigned char)ch;
 
 	_DIAGASSERT(p != NULL);
 
 	cap = p->g->categories;
-	if ((p->g->cflags&REG_ICASE) && isalpha((unsigned char) ch)
-	    && othercase((unsigned char) ch) != (unsigned char) ch)
-		bothcases(p, (unsigned char) ch);
+	if ((p->g->cflags & REG_ICASE) && isalpha(uc) && othercase(uc) != uc)
+		bothcases(p, uc);
 	else {
-		EMIT(OCHAR, (sopno)(unsigned char)ch);
-		if (cap[ch] == 0) {
+		EMIT(OCHAR, (sopno)uc);
+		if (cap[uc] == 0) {
 			_DIAGASSERT(__type_fit(unsigned char,
 			    p->g->ncategories + 1));
-			cap[ch] = (unsigned char)p->g->ncategories++;
+			cap[uc] = (unsigned char)p->g->ncategories++;
 		}
 	}
 }

@@ -223,7 +223,7 @@
  * null byte (dp->d_namlen+1), rounded up to a 4 byte boundary.
  */
 #define	LFS_DIRECTSIZ(namlen) \
-	((sizeof(struct lfs_direct) - (LFS_MAXNAMLEN+1)) + (((namlen)+1 + 3) &~ 3))
+	(sizeof(struct lfs_dirheader) + (((namlen)+1 + 3) &~ 3))
 
 #if (BYTE_ORDER == LITTLE_ENDIAN)
 #define LFS_OLDDIRSIZ(oldfmt, dp, needswap)	\
@@ -241,116 +241,93 @@
 #define LFS_OLDDIRFMT	1
 #define LFS_NEWDIRFMT	0
 
+#define LFS_NEXTDIR(fs, dp) \
+	((struct lfs_dirheader *)((char *)(dp) + lfs_dir_getreclen(fs, dp)))
+
+static __unused inline char *
+lfs_dir_nameptr(const STRUCT_LFS *fs, struct lfs_dirheader *dh)
+{
+	return (char *)(dh + 1);
+}
+
+static __unused inline uint32_t
+lfs_dir_getino(const STRUCT_LFS *fs, const struct lfs_dirheader *dh)
+{
+	return LFS_SWAP_uint32_t(fs, dh->dh_ino);
+}
+
+static __unused inline uint16_t
+lfs_dir_getreclen(const STRUCT_LFS *fs, const struct lfs_dirheader *dh)
+{
+	return LFS_SWAP_uint16_t(fs, dh->dh_reclen);
+}
+
 static __unused inline uint8_t
-lfs_dir_gettype(const STRUCT_LFS *fs, const struct lfs_direct *dp)
+lfs_dir_gettype(const STRUCT_LFS *fs, const struct lfs_dirheader *dh)
 {
 	if (fs->lfs_hasolddirfmt) {
 		return LFS_DT_UNKNOWN;
 	}
-	return dp->d_type;
+	return dh->dh_type;
 }
 
 static __unused inline uint8_t
-lfs_dir_getnamlen(const STRUCT_LFS *fs, const struct lfs_direct *dp)
+lfs_dir_getnamlen(const STRUCT_LFS *fs, const struct lfs_dirheader *dh)
 {
 	if (fs->lfs_hasolddirfmt && LFS_LITTLE_ENDIAN_ONDISK(fs)) {
 		/* low-order byte of old 16-bit namlen field */
-		return dp->d_type;
+		return dh->dh_type;
 	}
-	return dp->d_namlen;
+	return dh->dh_namlen;
 }
 
 static __unused inline void
-lfs_dir_settype(const STRUCT_LFS *fs, struct lfs_direct *dp, uint8_t type)
+lfs_dir_setino(STRUCT_LFS *fs, struct lfs_dirheader *dh, uint32_t ino)
+{
+	dh->dh_ino = LFS_SWAP_uint32_t(fs, ino);
+}
+
+static __unused inline void
+lfs_dir_setreclen(STRUCT_LFS *fs, struct lfs_dirheader *dh, uint16_t reclen)
+{
+	dh->dh_reclen = LFS_SWAP_uint16_t(fs, reclen);
+}
+
+static __unused inline void
+lfs_dir_settype(const STRUCT_LFS *fs, struct lfs_dirheader *dh, uint8_t type)
 {
 	if (fs->lfs_hasolddirfmt) {
 		/* do nothing */
 		return;
 	}
-	dp->d_type = type;
+	dh->dh_type = type;
 }
 
 static __unused inline void
-lfs_dir_setnamlen(const STRUCT_LFS *fs, struct lfs_direct *dp, uint8_t namlen)
+lfs_dir_setnamlen(const STRUCT_LFS *fs, struct lfs_dirheader *dh, uint8_t namlen)
 {
 	if (fs->lfs_hasolddirfmt && LFS_LITTLE_ENDIAN_ONDISK(fs)) {
 		/* low-order byte of old 16-bit namlen field */
-		dp->d_type = namlen;
+		dh->dh_type = namlen;
 	}
-	dp->d_namlen = namlen;
-}
-
-/*
- * These are called "dirt" because they ought to be cleaned up.
- */
-
-static __unused inline uint8_t
-lfs_dirt_getdottype(const STRUCT_LFS *fs, const struct lfs_dirtemplate *dp)
-{
-	if (fs->lfs_hasolddirfmt) {
-		return LFS_DT_UNKNOWN;
-	}
-	return dp->dot_type;
-}
-
-static __unused inline uint8_t
-lfs_dirt_getdotnamlen(const STRUCT_LFS *fs, const struct lfs_dirtemplate *dp)
-{
-	if (fs->lfs_hasolddirfmt && LFS_LITTLE_ENDIAN_ONDISK(fs)) {
-		/* low-order byte of old 16-bit namlen field */
-		return dp->dot_type;
-	}
-	return dp->dot_namlen;
-}
-
-static __unused inline uint8_t
-lfs_dirt_getdotdottype(const STRUCT_LFS *fs, const struct lfs_dirtemplate *dp)
-{
-	if (fs->lfs_hasolddirfmt) {
-		return LFS_DT_UNKNOWN;
-	}
-	return dp->dotdot_type;
-}
-
-static __unused inline uint8_t
-lfs_dirt_getdotdotnamlen(const STRUCT_LFS *fs, const struct lfs_dirtemplate *dp)
-{
-	if (fs->lfs_hasolddirfmt && LFS_LITTLE_ENDIAN_ONDISK(fs)) {
-		/* low-order byte of old 16-bit namlen field */
-		return dp->dotdot_type;
-	}
-	return dp->dotdot_namlen;
+	dh->dh_namlen = namlen;
 }
 
 static __unused inline void
-lfs_dirt_settypes(const STRUCT_LFS *fs, struct lfs_dirtemplate *dtp,
-    unsigned dt1, unsigned dt2)
+lfs_copydirname(STRUCT_LFS *fs, char *dest, const char *src,
+		unsigned namlen, unsigned reclen)
 {
-	if (fs->lfs_hasolddirfmt) {
-		/* do nothing */
-		return;
-	}
-	dtp->dot_type = dt1;
-	dtp->dotdot_type = dt2;
-}
+	unsigned spacelen;
 
-static __unused inline void
-lfs_dirt_setnamlens(const STRUCT_LFS *fs, struct lfs_dirtemplate *dtp,
-    unsigned len1, unsigned len2)
-{
-	if (fs->lfs_hasolddirfmt && LFS_LITTLE_ENDIAN_ONDISK(fs)) {
-		/* low-order bytes of old 16-bit namlen field */
-		dtp->dot_type = len1;
-		dtp->dotdot_type = len2;
-		/* clear the high-order bytes */
-		dtp->dot_namlen = 0;
-		dtp->dotdot_namlen = 0;
-		return;
-	}
-	dtp->dot_namlen = len1;
-	dtp->dotdot_namlen = len2;
-}
+	KASSERT(reclen > sizeof(struct lfs_dirheader));
+	spacelen = reclen - sizeof(struct lfs_dirheader);
 
+	/* must always be at least 1 byte as a null terminator */
+	KASSERT(spacelen > namlen);
+
+	memcpy(dest, src, namlen);
+	memset(dest + namlen, '\0', spacelen - namlen);
+}
 
 /*
  * dinodes

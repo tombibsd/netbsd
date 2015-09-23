@@ -53,6 +53,13 @@ struct stats
   struct stat stat;
 };
 
+#include <limits.h>
+#define MAX_OFF_T (sizeof(off_t) == sizeof(char) ? INT_MAX : \
+                   (sizeof(off_t) == sizeof(short) ? SHRT_MAX : \
+                    (sizeof(off_t) == sizeof(int) ? INT_MAX : \
+                     (sizeof(off_t) == sizeof(long) ? LONG_MAX : \
+                      (sizeof(off_t) == sizeof(long long) ? LLONG_MAX : INTMAX_MAX)))))
+
 /* base of chain of stat buffers, used to detect directory loops */
 static struct stats stats_base;
 
@@ -1341,7 +1348,7 @@ main (int argc, char **argv)
   eolbyte = '\n';
   filename_mask = ~0;
 
-  max_count = TYPE_MAXIMUM (off_t);
+  max_count = MAX_OFF_T;
 
   /* The value -1 means to use DEFAULT_CONTEXT. */
   out_after = out_before = -1;
@@ -1516,7 +1523,7 @@ main (int argc, char **argv)
 		break;
 	      /* Fall through.  */
 	    case LONGINT_OVERFLOW:
-	      max_count = TYPE_MAXIMUM (off_t);
+	      max_count = MAX_OFF_T;
 	      break;
 
 	    default:

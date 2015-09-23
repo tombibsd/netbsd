@@ -47,7 +47,8 @@ ATF_TC_BODY(t_execve_null, tc)
 
 	err = execve(NULL, NULL, NULL);
 	ATF_REQUIRE(err == -1);
-	ATF_REQUIRE(errno == EFAULT);
+	ATF_REQUIRE_MSG(errno == EFAULT,
+	    "wrong error returned %d instead of %d", errno, EFAULT);
 }
 
 ATF_TP_ADD_TCS(tp)

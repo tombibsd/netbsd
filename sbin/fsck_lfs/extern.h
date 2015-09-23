@@ -36,7 +36,7 @@ int chkrange(daddr_t, int);
 void ckfini(int);
 int ckinode(union lfs_dinode *, struct inodesc *);
 void clri(struct inodesc *, const char *, int);
-int dircheck(struct inodesc *, struct lfs_direct *);
+int dircheck(struct inodesc *, struct lfs_dirheader *);
 void direrror(ino_t, const char *);
 int dirscan(struct inodesc *);
 int dofix(struct inodesc *, const char *);

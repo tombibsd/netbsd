@@ -3,11 +3,7 @@
 .include <bsd.own.mk>
 
 MODULE=		gdb
-.if ${HAVE_GDB} == "79"
 GNUHOSTDIST=    ${.CURDIR}/../../external/gpl3/gdb/dist
-.else
-GNUHOSTDIST=    ${.CURDIR}/../../external/gpl3/gdb.old/dist
-.endif
 
 FIND_ARGS=	\! \( -type d -name sim -prune \)
 

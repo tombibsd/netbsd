@@ -106,6 +106,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <machine/bus.h>
 #include <machine/autoconf.h>
 #include <arch/x68k/dev/intiovar.h>
+#include <arch/x68k/x68k/iodevice.h>
 
 extern void doboot(void) __attribute__((__noreturn__));
 
@@ -522,6 +523,10 @@ cpu_reboot(int howto, char *bootstr)
 	if (((howto & RB_POWERDOWN) == RB_POWERDOWN) && power_switch_is_off) {
 		printf("powering off...\n");
 		delay(1000000);
+
+		/* Turn off the alarm signal of RTC */
+		IODEVbase->io_rtc.bank0.reset = 0x0c;
+
 		intio_set_sysport_powoff(0x00);
 		intio_set_sysport_powoff(0x0f);
 		intio_set_sysport_powoff(0x0f);

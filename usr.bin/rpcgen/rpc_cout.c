@@ -478,8 +478,7 @@ emit_struct(definition *def)
 
 						nsizestr = realloc(sizestr, strlen(sizestr) + strlen(ptemp) + 1);
 						if (nsizestr == NULL) {
-
-							errx(EXIT_FAILURE, "Out of memory");
+							err(EXIT_FAILURE, "realloc");
 						}
 						sizestr = nsizestr;
 						sizestr = strcat(sizestr, ptemp);	/* build up length of

@@ -450,17 +450,6 @@ ehci_init(ehci_softc_t *sc)
 	if (sc->sc_vendor_init)
 		sc->sc_vendor_init(sc);
 
-	/*
-	 * If we are doing embedded transaction translation function, force
-	 * the controller to host mode.
-	 */
-	if (sc->sc_flags & EHCIF_ETTF) {
-		uint32_t usbmode = EOREAD4(sc, EHCI_USBMODE);
-		usbmode &= ~EHCI_USBMODE_CM;
-		usbmode |= EHCI_USBMODE_CM_HOST;
-		EOWRITE4(sc, EHCI_USBMODE, usbmode);
-	}
-
 	/* XXX need proper intr scheduling */
 	sc->sc_rand = 96;
 

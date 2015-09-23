@@ -96,6 +96,12 @@
 	"PT_GETXMMREGS", \
 	"PT_SETXMMREGS",
 
+#include <machine/reg.h>
+#define PTRACE_REG_PC(r)	(r)->r_eip
+#define PTRACE_REG_SET_PC(r, v)	(r)->r_eip = (v)
+#define PTRACE_REG_SP(r)	(r)->r_esp
+#define PTRACE_REG_INTRV(r)	(r)->r_eax
+
 #ifdef _KERNEL
 
 /*

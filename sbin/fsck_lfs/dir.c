@@ -54,6 +54,7 @@
 
 const char *lfname = "lost+found";
 int lfmode = 01700;
+#if 0
 struct lfs_dirtemplate emptydir = {
 	.dot_ino = 0,
 	.dot_reclen = LFS_DIRBLKSIZ,
@@ -70,7 +71,6 @@ struct lfs_dirtemplate dirhead = {
 	.dotdot_namlen = 2,
 	.dotdot_name = ".."
 };
-#if 0
 struct lfs_odirtemplate odirhead = {
 	.dot_ino = 0,
 	.dot_reclen = 12,
@@ -85,7 +85,7 @@ struct lfs_odirtemplate odirhead = {
 
 static int expanddir(struct uvnode *, union lfs_dinode *, char *);
 static void freedir(ino_t, ino_t);
-static struct lfs_direct *fsck_readdir(struct uvnode *, struct inodesc *);
+static struct lfs_dirheader *fsck_readdir(struct uvnode *, struct inodesc *);
 static int lftempname(char *, ino_t);
 static int mkentry(struct inodesc *);
 static int chgino(struct inodesc *);
@@ -132,7 +132,7 @@ propagate(void)
 int
 dirscan(struct inodesc *idesc)
 {
-	struct lfs_direct *dp;
+	struct lfs_dirheader *dp;
 	struct ubuf *bp;
 	int dsize, n;
 	long blksiz;
@@ -154,9 +154,9 @@ dirscan(struct inodesc *idesc)
 	vp = vget(fs, idesc->id_number);
 	for (dp = fsck_readdir(vp, idesc); dp != NULL;
 	    dp = fsck_readdir(vp, idesc)) {
-		dsize = dp->d_reclen;
+		dsize = lfs_dir_getreclen(fs, dp);
 		memcpy(dbuf, dp, (size_t) dsize);
-		idesc->id_dirp = (struct lfs_direct *) dbuf;
+		idesc->id_dirp = (struct lfs_dirheader *) dbuf;
 		if ((n = (*idesc->id_func) (idesc)) & ALTERED) {
 			bread(vp, idesc->id_lblkno, blksiz, 0, &bp);
 			memcpy(bp->b_data + idesc->id_loc - dsize, dbuf,
@@ -173,10 +173,10 @@ dirscan(struct inodesc *idesc)
 /*
  * get next entry in a directory.
  */
-static struct lfs_direct *
+static struct lfs_dirheader *
 fsck_readdir(struct uvnode *vp, struct inodesc *idesc)
 {
-	struct lfs_direct *dp, *ndp;
+	struct lfs_dirheader *dp, *ndp;
 	struct ubuf *bp;
 	long size, blksiz, fix, dploc;
 
@@ -184,7 +184,7 @@ fsck_readdir(struct uvnode *vp, struct inodesc *idesc)
 	bread(vp, idesc->id_lblkno, blksiz, 0, &bp);
 	if (idesc->id_loc % LFS_DIRBLKSIZ == 0 && idesc->id_filesize > 0 &&
 	    idesc->id_loc < blksiz) {
-		dp = (struct lfs_direct *) (bp->b_data + idesc->id_loc);
+		dp = (struct lfs_dirheader *) (bp->b_data + idesc->id_loc);
 		if (dircheck(idesc, dp))
 			goto dpok;
 		brelse(bp, 0);
@@ -192,12 +192,14 @@ fsck_readdir(struct uvnode *vp, struct inodesc *idesc)
 			return (0);
 		fix = dofix(idesc, "DIRECTORY CORRUPTED");
 		bread(vp, idesc->id_lblkno, blksiz, 0, &bp);
-		dp = (struct lfs_direct *) (bp->b_data + idesc->id_loc);
-		dp->d_reclen = LFS_DIRBLKSIZ;
-		dp->d_ino = 0;
+		dp = (struct lfs_dirheader *) (bp->b_data + idesc->id_loc);
+		lfs_dir_setino(fs, dp, 0);
 		lfs_dir_settype(fs, dp, LFS_DT_UNKNOWN);
 		lfs_dir_setnamlen(fs, dp, 0);
-		dp->d_name[0] = '\0';
+		lfs_dir_setreclen(fs, dp, LFS_DIRBLKSIZ);
+		/* for now at least, don't zero the old contents */
+		/*lfs_copydirname(fs, lfs_dir_nameptr(fs, dp), "", 0, LFS_DIRBLKSIZ);*/
+		lfs_dir_nameptr(fs, dp)[0] = '\0';
 		if (fix)
 			VOP_BWRITE(bp);
 		else
@@ -212,14 +214,14 @@ dpok:
 		return NULL;
 	}
 	dploc = idesc->id_loc;
-	dp = (struct lfs_direct *) (bp->b_data + dploc);
-	idesc->id_loc += dp->d_reclen;
-	idesc->id_filesize -= dp->d_reclen;
+	dp = (struct lfs_dirheader *) (bp->b_data + dploc);
+	idesc->id_loc += lfs_dir_getreclen(fs, dp);
+	idesc->id_filesize -= lfs_dir_getreclen(fs, dp);
 	if ((idesc->id_loc % LFS_DIRBLKSIZ) == 0) {
 		brelse(bp, 0);
 		return dp;
 	}
-	ndp = (struct lfs_direct *) (bp->b_data + idesc->id_loc);
+	ndp = (struct lfs_dirheader *) (bp->b_data + idesc->id_loc);
 	if (idesc->id_loc < blksiz && idesc->id_filesize > 0 &&
 	    dircheck(idesc, ndp) == 0) {
 		brelse(bp, 0);
@@ -230,8 +232,8 @@ dpok:
 			return 0;
 		fix = dofix(idesc, "DIRECTORY CORRUPTED");
 		bread(vp, idesc->id_lblkno, blksiz, 0, &bp);
-		dp = (struct lfs_direct *) (bp->b_data + dploc);
-		dp->d_reclen += size;
+		dp = (struct lfs_dirheader *) (bp->b_data + dploc);
+		lfs_dir_setreclen(fs, dp, lfs_dir_getreclen(fs, dp) + size);
 		if (fix)
 			VOP_BWRITE(bp);
 		else
@@ -247,38 +249,40 @@ dpok:
  * This is a superset of the checks made in the kernel.
  */
 int
-dircheck(struct inodesc *idesc, struct lfs_direct *dp)
+dircheck(struct inodesc *idesc, struct lfs_dirheader *dp)
 {
 	int size;
-	char *cp;
+	const char *cp;
 	u_char namlen, type;
 	int spaceleft;
 
 	spaceleft = LFS_DIRBLKSIZ - (idesc->id_loc % LFS_DIRBLKSIZ);
-	if (dp->d_ino >= maxino ||
-	    dp->d_reclen == 0 ||
-	    dp->d_reclen > spaceleft ||
-	    (dp->d_reclen & 0x3) != 0) {
+	if (lfs_dir_getino(fs, dp) >= maxino ||
+	    lfs_dir_getreclen(fs, dp) == 0 ||
+	    lfs_dir_getreclen(fs, dp) > spaceleft ||
+	    (lfs_dir_getreclen(fs, dp) & 0x3) != 0) {
 		pwarn("ino too large, reclen=0, reclen>space, or reclen&3!=0\n");
-		pwarn("dp->d_ino = 0x%x\tdp->d_reclen = 0x%x\n",
-		    dp->d_ino, dp->d_reclen);
-		pwarn("maxino = %llu\tspaceleft = 0x%x\n",
-		    (unsigned long long)maxino, spaceleft);
+		pwarn("dp->d_ino = 0x%jx\tdp->d_reclen = 0x%x\n",
+		    (uintmax_t)lfs_dir_getino(fs, dp),
+		    lfs_dir_getreclen(fs, dp));
+		pwarn("maxino = %ju\tspaceleft = 0x%x\n",
+		    (uintmax_t)maxino, spaceleft);
 		return (0);
 	}
-	if (dp->d_ino == 0)
+	if (lfs_dir_getino(fs, dp) == 0)
 		return (1);
 	size = LFS_DIRSIZ(fs, dp);
 	namlen = lfs_dir_getnamlen(fs, dp);
 	type = lfs_dir_gettype(fs, dp);
-	if (dp->d_reclen < size ||
+	if (lfs_dir_getreclen(fs, dp) < size ||
 	    idesc->id_filesize < size ||
 	/* namlen > MAXNAMLEN || */
 	    type > 15) {
 		printf("reclen<size, filesize<size, namlen too large, or type>15\n");
 		return (0);
 	}
-	for (cp = dp->d_name, size = 0; size < namlen; size++)
+	cp = lfs_dir_nameptr(fs, dp);
+	for (size = 0; size < namlen; size++)
 		if (*cp == '\0' || (*cp++ == '/')) {
 			printf("name contains NUL or /\n");
 			return (0);
@@ -366,41 +370,52 @@ adjust(struct inodesc *idesc, short lcnt)
 static int
 mkentry(struct inodesc *idesc)
 {
-	struct lfs_direct *dirp = idesc->id_dirp;
-	struct lfs_direct newent;
+	struct lfs_dirheader *dirp = idesc->id_dirp;
 	unsigned namlen;
-	int newlen, oldlen;
+	unsigned newreclen, oldreclen;
 
+	/* figure the length needed for id_name */
 	namlen = strlen(idesc->id_name);
-	lfs_dir_setnamlen(fs, &newent, namlen);
-	newlen = LFS_DIRSIZ(fs, &newent);
-	if (dirp->d_ino != 0)
-		oldlen = LFS_DIRSIZ(fs, dirp);
+	newreclen = LFS_DIRECTSIZ(namlen);
+
+	/* find the minimum record length for the existing name */
+	if (lfs_dir_getino(fs, dirp) != 0)
+		oldreclen = LFS_DIRSIZ(fs, dirp);
 	else
-		oldlen = 0;
-	if (dirp->d_reclen - oldlen < newlen)
+		oldreclen = 0;
+
+	/* Can we insert here? */
+	if (lfs_dir_getreclen(fs, dirp) - oldreclen < newreclen)
 		return (KEEPON);
-	newent.d_reclen = dirp->d_reclen - oldlen;
-	dirp->d_reclen = oldlen;
-	dirp = (struct lfs_direct *) (((char *) dirp) + oldlen);
-	dirp->d_ino = idesc->id_parent;	/* ino to be entered is in id_parent */
-	dirp->d_reclen = newent.d_reclen;
+
+	/* Divide the record; all but oldreclen goes to the new record */
+	newreclen = lfs_dir_getreclen(fs, dirp) - oldreclen;
+	lfs_dir_setreclen(fs, dirp, oldreclen);
+
+	/* advance the pointer to the new record */
+	dirp = LFS_NEXTDIR(fs, dirp);
+
+	/* write record; ino to be entered is in id_parent */
+	lfs_dir_setino(fs, dirp, idesc->id_parent);
+	lfs_dir_setreclen(fs, dirp, newreclen);
 	lfs_dir_settype(fs, dirp, typemap[idesc->id_parent]);
 	lfs_dir_setnamlen(fs, dirp, namlen);
-	memcpy(dirp->d_name, idesc->id_name, (size_t)namlen + 1);
+	lfs_copydirname(fs, lfs_dir_nameptr(fs, dirp), idesc->id_name,
+			namlen, newreclen);
+
 	return (ALTERED | STOP);
 }
 
 static int
 chgino(struct inodesc *idesc)
 {
-	struct lfs_direct *dirp = idesc->id_dirp;
+	struct lfs_dirheader *dirp = idesc->id_dirp;
 	int namlen;
 
 	namlen = lfs_dir_getnamlen(fs, dirp);
-	if (memcmp(dirp->d_name, idesc->id_name, namlen + 1))
+	if (memcmp(lfs_dir_nameptr(fs, dirp), idesc->id_name, namlen + 1))
 		return (KEEPON);
-	dirp->d_ino = idesc->id_parent;
+	lfs_dir_setino(fs, dirp, idesc->id_parent);
 	lfs_dir_settype(fs, dirp, typemap[idesc->id_parent]);
 	return (ALTERED | STOP);
 }
@@ -572,6 +587,24 @@ makeentry(ino_t parent, ino_t ino, const char *name)
 }
 
 /*
+ * Initialize a completely empty directory block.
+ * (block size is LFS_DIRBLKSIZ)
+ */
+static void
+zerodirblk(void *buf)
+{
+	struct lfs_dirheader *dirp;
+
+	dirp = buf;
+	lfs_dir_setino(fs, dirp, 0);
+	lfs_dir_setreclen(fs, dirp, LFS_DIRBLKSIZ);
+	lfs_dir_settype(fs, dirp, LFS_DT_UNKNOWN);
+	lfs_dir_setnamlen(fs, dirp, 0);
+	lfs_copydirname(fs, lfs_dir_nameptr(fs, dirp), "", 0,
+			LFS_DIRBLKSIZ);
+}
+
+/*
  * Attempt to expand the size of a directory
  */
 static int
@@ -605,13 +638,13 @@ expanddir(struct uvnode *vp, union lfs_dinode *dp, char *name)
 	for (cp = &bp->b_data[LFS_DIRBLKSIZ];
 	    cp < &bp->b_data[lfs_sb_getbsize(fs)];
 	    cp += LFS_DIRBLKSIZ)
-		memcpy(cp, &emptydir, sizeof emptydir);
+		zerodirblk(cp);
 	VOP_BWRITE(bp);
 	bread(vp, lfs_dino_getdb(fs, dp, lastbn + 1),
 	    (long) lfs_dblksize(fs, dp, lastbn + 1), 0, &bp);
 	if (bp->b_flags & B_ERROR)
 		goto bad;
-	memcpy(bp->b_data, &emptydir, sizeof emptydir);
+	zerodirblk(bp->b_data);
 	pwarn("NO SPACE LEFT IN %s", name);
 	if (preen)
 		printf(" (EXPANDED)\n");
@@ -640,13 +673,10 @@ allocdir(ino_t parent, ino_t request, int mode)
 	char *cp;
 	union lfs_dinode *dp;
 	struct ubuf *bp;
-	struct lfs_dirtemplate *dirp;
+	struct lfs_dirheader *dirp;
 	struct uvnode *vp;
 
 	ino = allocino(request, LFS_IFDIR | mode);
-	dirp = &dirhead;
-	dirp->dot_ino = ino;
-	dirp->dotdot_ino = parent;
 	vp = vget(fs, ino);
 	dp = VTOD(vp);
 	bread(vp, lfs_dino_getdb(fs, dp, 0), lfs_sb_getfsize(fs), 0, &bp);
@@ -655,11 +685,27 @@ allocdir(ino_t parent, ino_t request, int mode)
 		freeino(ino);
 		return (0);
 	}
-	memcpy(bp->b_data, dirp, sizeof(struct lfs_dirtemplate));
+	dirp = (struct lfs_dirheader *)bp->b_data;
+	/* . */
+	lfs_dir_setino(fs, dirp, ino);
+	lfs_dir_setreclen(fs, dirp, LFS_DIRECTSIZ(1));
+	lfs_dir_settype(fs, dirp, LFS_DT_DIR);
+	lfs_dir_setnamlen(fs, dirp, 1);
+	lfs_copydirname(fs, lfs_dir_nameptr(fs, dirp), ".", 1,
+			LFS_DIRECTSIZ(1));
+	/* .. */
+	dirp = LFS_NEXTDIR(fs, dirp);
+	lfs_dir_setino(fs, dirp, parent);
+	lfs_dir_setreclen(fs, dirp, LFS_DIRBLKSIZ - LFS_DIRECTSIZ(1));
+	lfs_dir_settype(fs, dirp, LFS_DT_DIR);
+	lfs_dir_setnamlen(fs, dirp, 2);
+	lfs_copydirname(fs, lfs_dir_nameptr(fs, dirp), "..", 2,
+			LFS_DIRBLKSIZ - LFS_DIRECTSIZ(1));
 	for (cp = &bp->b_data[LFS_DIRBLKSIZ];
 	    cp < &bp->b_data[lfs_sb_getfsize(fs)];
-	    cp += LFS_DIRBLKSIZ)
-		memcpy(cp, &emptydir, sizeof emptydir);
+	    cp += LFS_DIRBLKSIZ) {
+		zerodirblk(cp);
+	}
 	VOP_BWRITE(bp);
 	lfs_dino_setnlink(fs, dp, 2);
 	inodirty(VTOI(vp));

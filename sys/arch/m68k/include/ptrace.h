@@ -48,4 +48,10 @@
 	"PT_GETFPREGS", \
 	"PT_SETFPREGS",
 
+#include <machine/reg.h>
+#define PTRACE_REG_PC(r)	(r)->r_pc
+#define PTRACE_REG_SET_PC(r, v)	(r)->r_pc = (v)
+#define PTRACE_REG_SP(r)	(r)->r_regs[15]
+#define PTRACE_REG_INTRV(r)	(r)->r_regs[0]
+
 #endif /* !_M68K_PTRACE_H_ */

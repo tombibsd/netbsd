@@ -1856,8 +1856,12 @@ main(int argc, char **argv)
 		}
 		capng_apply(CAPNG_SELECT_BOTH);
 #endif /* HAVE_LIBCAP_NG */
-		if (username || chroot_dir)
+		if (username || chroot_dir) {
+#ifndef HAVE_LIBCAP_NG
+			if (!WFileName)
+#endif
 			droproot(username, chroot_dir);
+		}
 	}
 #endif /* WIN32 */
 

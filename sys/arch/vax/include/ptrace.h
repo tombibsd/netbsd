@@ -41,3 +41,10 @@
 	"PT_STEP", \
 	"PT_GETREGS", \
 	"PT_SETREGS",
+
+#include <machine/reg.h>
+
+#define PTRACE_REG_PC(r)	(r)->pc
+#define PTRACE_REG_SET_PC(r, v)	(r)->pc = (v)
+#define PTRACE_REG_SP(r)	(r)->sp
+#define PTRACE_REG_INTRV(r)	(r)->r0

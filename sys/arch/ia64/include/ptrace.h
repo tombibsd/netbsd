@@ -45,3 +45,11 @@
 	"PT_SETREGS", \
 	"PT_GETFPREGS", \
 	"PT_SETFPREGS",
+
+#include <machine/reg.h>
+#define PTRACE_REG_PC(r)	(r)->r_special.iip
+#define PTRACE_REG_SET_PC(r, v)	(r)->r_special.iip = (v)
+#define PTRACE_REG_SP(r)	(r)->r_special.sp
+#ifdef notyet
+#define PTRACE_REG_INTRV(r)	(r)->r_special.!!!
+#endif

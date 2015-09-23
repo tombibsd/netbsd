@@ -501,14 +501,13 @@ clearinode(ino_t inumber)
 int
 findname(struct inodesc * idesc)
 {
-	struct lfs_direct *dirp = idesc->id_dirp;
+	struct lfs_dirheader *dirp = idesc->id_dirp;
 	size_t len;
 	char *buf;
 
-	if (dirp->d_ino != idesc->id_parent)
+	if (lfs_dir_getino(fs, dirp) != idesc->id_parent)
 		return (KEEPON);
 	len = lfs_dir_getnamlen(fs, dirp) + 1;
-	/* XXX this is wrong: namlen+1 can be up to MAXPATHLEN+1 */
 	if (len > MAXPATHLEN) {
 		/* Truncate it but don't overflow the buffer */
 		/* XXX: this case doesn't null-terminate the result */
@@ -516,20 +515,22 @@ findname(struct inodesc * idesc)
 	}
 	/* this is namebuf with utils.h */
 	buf = __UNCONST(idesc->id_name);
-	(void)memcpy(buf, dirp->d_name, len);
+	(void)memcpy(buf, lfs_dir_nameptr(fs, dirp), len);
 	return (STOP | FOUND);
 }
 
 int
 findino(struct inodesc * idesc)
 {
-	struct lfs_direct *dirp = idesc->id_dirp;
+	struct lfs_dirheader *dirp = idesc->id_dirp;
+	ino_t ino;
 
-	if (dirp->d_ino == 0)
+	ino = lfs_dir_getino(fs, dirp);
+	if (ino == 0)
 		return (KEEPON);
-	if (strcmp(dirp->d_name, idesc->id_name) == 0 &&
-	    dirp->d_ino >= ULFS_ROOTINO && dirp->d_ino < maxino) {
-		idesc->id_parent = dirp->d_ino;
+	if (strcmp(lfs_dir_nameptr(fs, dirp), idesc->id_name) == 0 &&
+	    ino >= ULFS_ROOTINO && ino < maxino) {
+		idesc->id_parent = ino;
 		return (STOP | FOUND);
 	}
 	return (KEEPON);

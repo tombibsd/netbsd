@@ -19,6 +19,10 @@ See also: BUILDING, build.sh, Makefile.
 Recent changes:
 ^^^^^^^^^^^^^^^
 
+20150818:
+	New acpica requires "make cleandir" in src/external/bsd/acpica
+	again.
+
 20150413:
 	New acpica requires "make cleandir" and reinstalling yacc
 	in /usr/src/external/bsd/byacc and /usr/src/tools/yacc and

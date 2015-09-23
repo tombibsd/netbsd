@@ -70,8 +70,6 @@ __KERNEL_RCSID(0, "$NetBSD$");
 /* how many times ulfs_init() was called */
 static int ulfs_initcount = 0;
 
-pool_cache_t ulfs_direct_cache;
-
 /*
  * Make a filesystem operational.
  * Nothing to do at the moment.
@@ -247,9 +245,6 @@ ulfs_init(void)
 	if (ulfs_initcount++ > 0)
 		return;
 
-	ulfs_direct_cache = pool_cache_init(sizeof(struct lfs_direct), 0, 0, 0,
-	    "ulfsdir", NULL, IPL_NONE, NULL, NULL, NULL);
-
 #if defined(LFS_QUOTA) || defined(LFS_QUOTA2)
 	lfs_dqinit();
 #endif
@@ -282,7 +277,6 @@ ulfs_done(void)
 #if defined(LFS_QUOTA) || defined(LFS_QUOTA2)
 	lfs_dqdone();
 #endif
-	pool_cache_destroy(ulfs_direct_cache);
 #ifdef LFS_DIRHASH
 	ulfsdirhash_done();
 #endif

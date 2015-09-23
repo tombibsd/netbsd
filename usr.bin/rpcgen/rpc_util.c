@@ -432,7 +432,7 @@ make_argname(const char *pname, const char *vname)
 	len = strlen(pname) + strlen(vname) + strlen(ARGEXT) + 3;
 	name = malloc(len);
 	if (!name) {
-		errx(EXIT_FAILURE, "Out of memory");
+		err(EXIT_FAILURE, "malloc");
 	}
 	snprintf(name, len, "%s_%s_%s", locase(pname), vname, ARGEXT);
 	return (name);
@@ -447,7 +447,7 @@ add_type(int len, const char *type)
 	bas_type *ptr;
 
 	if ((ptr = malloc(sizeof(bas_type))) == NULL) {
-		errx(EXIT_FAILURE, "Out of memory");
+		err(EXIT_FAILURE, "malloc");
 	}
 	ptr->name = type;
 	ptr->length = len;

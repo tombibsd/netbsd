@@ -17,6 +17,12 @@
 	"PT_GETFPREGS",		"PT_SETFPREGS",		\
 	"PT_GETVECREGS",	"PT_SETVECREGS",
 
+#include <machine/reg.h>
+#define PTRACE_REG_PC(r)	(r)->pc
+#define PTRACE_REG_SET_PC(r, v)	(r)->pc = (v)
+#define PTRACE_REG_SP(r)	(r)->fixreg[1]
+#define PTRACE_REG_INTRV(r)	(r)->fixreg[3]
+
 #ifdef _KERNEL
 #ifdef _KERNEL_OPT
 #include "opt_altivec.h"

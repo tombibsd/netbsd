@@ -119,7 +119,7 @@
 /genfb_pci.c/1.37/Fri Oct  3 09:09:19 2014/-kk/
 /genfb_pcivar.h/1.2/Tue Oct 18 23:05:17 2011/-kk/
 /geodeide.c/1.25/Thu Oct 24 10:28:58 2013/-kk/
-/gffb.c/1.9/Sun Jul 20 13:08:35 2014/-kk/
+/gffb.c/1.10/Wed Sep 23 08:04:01 2015/-kk/
 /gffbreg.h/1.3/Sun Oct 27 08:20:01 2013/-kk/
 /gtp.c/1.19/Sat Oct 27 17:18:32 2012/-kk/
 /hdaudio_pci.c/1.2/Sat Jul 25 01:30:38 2015/-kk/
@@ -183,7 +183,7 @@
 /if_iwn.c/1.75/Sun Sep 13 01:07:09 2015/-kk/
 /if_iwnreg.h/1.15/Tue Dec  9 04:24:01 2014/-kk/
 /if_iwnvar.h/1.16/Tue Dec  9 04:16:13 2014/-kk/
-/if_jme.c/1.27/Wed Apr 22 07:36:56 2015/-kk/
+/if_jme.c/1.28/Wed Sep 23 08:04:02 2015/-kk/
 /if_jmereg.h/1.3/Fri Jan 16 19:56:06 2009/-kk/
 /if_kse.c/1.28/Sun Jun 22 14:32:16 2014/-kk/
 /if_le_pci.c/1.52/Fri Apr 11 02:03:48 2014/-kk/
@@ -365,7 +365,7 @@
 /piixpmreg.h/1.7/Tue Mar 25 02:35:39 2014/-kk/
 /plx9060reg.h/1.1/Wed May 17 17:47:00 2000/-kk/
 /plx9060var.h/1.3/Sun Dec 11 12:22:50 2005/-kk/
-/pm2fb.c/1.27/Sat Dec 27 03:35:49 2014/-kk/
+/pm2fb.c/1.28/Wed Sep 23 08:04:03 2015/-kk/
 /pm2reg.h/1.10/Sat Dec 27 03:35:49 2014/-kk/
 /ppb.c/1.54/Fri Oct  3 10:05:14 2014/-kk/
 /ppbreg.h/1.6/Sun Dec 11 12:22:50 2005/-kk/
@@ -375,7 +375,7 @@
 /pucdata.c/1.97/Sun Sep 13 01:07:12 2015/-kk/
 /pucvar.h/1.11/Tue Mar 25 02:35:39 2014/-kk/
 /pwdog.c/1.8/Fri May  1 11:32:10 2015/-kk/
-/r128fb.c/1.38/Thu Oct 24 10:28:58 2013/-kk/
+/r128fb.c/1.39/Wed Sep 23 08:04:03 2015/-kk/
 /r128fbreg.h/1.5/Fri Jan  6 13:59:50 2012/-kk/
 /radeonfb.c/1.88/Tue Dec  9 04:24:01 2014/-kk/
 /radeonfb_bios.c/1.4/Wed Nov  3 00:49:02 2010/-kk/
@@ -444,7 +444,7 @@
 /virtio.c/1.9/Wed May 13 03:33:09 2015/-kk/
 /virtioreg.h/1.3/Wed May 13 03:33:09 2015/-kk/
 /virtiovar.h/1.4/Sat Dec 27 03:35:50 2014/-kk/
-/voodoofb.c/1.49/Fri Oct  3 09:09:19 2014/-kk/
+/voodoofb.c/1.50/Wed Sep 23 08:04:03 2015/-kk/
 /voodoofbreg.h/1.4/Sat Jan 21 16:12:57 2012/-kk/
 /voyager.c/1.10/Fri Apr 11 02:03:50 2014/-kk/
 /voyagervar.h/1.4/Wed Dec  7 09:08:00 2011/-kk/

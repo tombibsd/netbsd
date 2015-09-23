@@ -274,7 +274,7 @@ lfs_valloc_fixed(struct lfs *fs, ino_t ino, int vers)
 {
 	IFILE *ifp;
 	struct buf *bp, *cbp;
-	ino_t tino, oldnext;
+	ino_t headino, thisino, oldnext;
 	CLEANERINFO *cip;
 
 	/* If the Ifile is too short to contain this inum, extend it */
@@ -289,20 +289,20 @@ lfs_valloc_fixed(struct lfs *fs, ino_t ino, int vers)
 	lfs_if_setversion(fs, ifp, vers);
 	brelse(bp, 0);
 
-	LFS_GET_HEADFREE(fs, cip, cbp, &ino);
-	if (ino) {
+	LFS_GET_HEADFREE(fs, cip, cbp, &headino);
+	if (headino == ino) {
 		LFS_PUT_HEADFREE(fs, cip, cbp, oldnext);
 	} else {
 		ino_t nextfree;
 
-		tino = ino;
+		thisino = headino;
 		while (1) {
-			LFS_IENTRY(ifp, fs, tino, bp);
+			LFS_IENTRY(ifp, fs, thisino, bp);
 			nextfree = lfs_if_getnextfree(fs, ifp);
 			if (nextfree == ino ||
 			    nextfree == LFS_UNUSED_INUM)
 				break;
-			tino = nextfree;
+			thisino = nextfree;
 			brelse(bp, 0);
 		}
 		if (nextfree == LFS_UNUSED_INUM) {

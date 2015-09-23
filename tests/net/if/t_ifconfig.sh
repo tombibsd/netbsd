@@ -149,8 +149,11 @@ options_body()
 	atf_check -s exit:0 -o ignore rump.ifconfig shmif0 up
 	atf_check -s exit:0 -o match:'0 packets' rump.ifconfig -a -v
 	atf_check -s exit:0 -o ignore rump.ping -c 1 localhost
+	atf_check -s exit:0 -o ignore rump.ifconfig shmif0 down
 	atf_check -s exit:0 -o match:'2 packets' rump.ifconfig -a -z
 	atf_check -s exit:0 -o not-match:'2 packets' rump.ifconfig -a -v
+	atf_check -s exit:0 -o match:'0 packets' rump.ifconfig -a -v
+	atf_check -s exit:0 -o ignore rump.ifconfig shmif0 up
 
 	# ifconfig -l [-bdsu]
 	#   -l shows only inteface names

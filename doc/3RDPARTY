@@ -1140,13 +1140,13 @@ and more. Vern's ping is gone. We are too different from everyone else
 now to do a new import.
 
 Package:	Postfix
-Version:	2.11.4
+Version:	2.11.6
 Current Vers:	3.0.2
 Maintainer:	Wietse Venema <wietse@porcupine.org>
 Archive Site:	ftp://postfix.cloud9.net/official/
 Home Page:	http://www.postfix.org/
 Mailing List:	postfix-users@postfix.org
-Responsible:	christos, tron
+Responsible:	christos
 License:	IBM Public License. See also src/external/ibm-public/postfix/dist.
 Location:	external/ibm-public/postfix/dist
 Notes:
@@ -1369,23 +1369,6 @@ Location:	external/bsd/wpa/dist
 Notes:
 See /usr/src/external/bsd/wpa/NetBSD-upgrade for update instructions.
 
-Package:	XFree86
-Version:	4.5.0
-Current Vers:	4.8.0
-Maintainer:	XFree86 Project, Inc.
-Archive Site:	ftp://ftp.xfree86.org/pub/XFree86/
-Home Page:	http://www.xfree86.org/
-Mailing List:	devel@xfree86.org
-Responsible:	tron
-License:	XFree
-Location:	(xsrc)
-Notes:
-4.x:
- Only X4??src-1 to X4??src-6 were imported. X4??src-7 contains postscript
- files which we don't need in our tree.
- ALL changes must be sent back to the XFree86 repository. Patches should
- be submitted back via http://bugzilla.xfree86.org.
-
 Package:	zlib
 Version:	1.2.3
 Current Vers:	1.2.8
@@ -1393,7 +1376,7 @@ Maintainer:	Jean-loup Gailly and Mark Adler <zlib@gzip.org>
 Archive Site:	http://www.zlib.net/
 Home Page:	http://www.zlib.net/
 Mailing List:
-Responsible:	gwr, tron, christos
+Responsible:	gwr, christos
 License:	BSD (3-clause)
 Location:	common/dist/zlib
 Notes:

@@ -449,9 +449,12 @@ write_program(definition *def, const char *storage)
 				    "\t\t%s = (char *(*)(char *, struct svc_req *))",
 				    ROUTINE);
 
-			if (newstyle)	/* new style: calls internal routine */
+			if (newstyle) {	/* new style: calls internal routine */
 				f_print(fout, "_");
-			pvname_svc(proc->proc_name, vp->vers_num);
+				pvname(proc->proc_name, vp->vers_num);
+			} else {
+				pvname_svc(proc->proc_name, vp->vers_num);
+			}
 			f_print(fout, ";\n");
 			f_print(fout, "\t\tbreak;\n\n");
 		}

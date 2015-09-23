@@ -115,7 +115,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include "opt_rnd_printf.h"
 #include "opt_splash.h"
 
-#if defined(SPLASHSCREEN) && defined(SPLASHSCREEN_IMAGE)
+#if defined(SPLASHSCREEN) && defined(makeoptions_SPLASHSCREEN_IMAGE)
 extern void *_binary_splash_image_start;
 extern void *_binary_splash_image_end;
 #endif

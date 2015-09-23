@@ -554,7 +554,6 @@ ulfs_link(void *v)
 	struct componentname *cnp = ap->a_cnp;
 	struct mount *mp = dvp->v_mount;
 	struct inode *ip;
-	struct lfs_direct *newdir;
 	int error;
 	struct ulfs_lookup_results *ulr;
 
@@ -588,10 +587,8 @@ ulfs_link(void *v)
 	ip->i_flag |= IN_CHANGE;
 	error = lfs_update(vp, NULL, NULL, UPDATE_DIROP);
 	if (!error) {
-		newdir = pool_cache_get(ulfs_direct_cache, PR_WAITOK);
-		ulfs_makedirentry(ip, cnp, newdir);
-		error = ulfs_direnter(dvp, ulr, vp, newdir, cnp, NULL);
-		pool_cache_put(ulfs_direct_cache, newdir);
+		error = ulfs_direnter(dvp, ulr, vp,
+				      cnp, ip->i_number, LFS_IFTODT(ip->i_mode), NULL);
 	}
 	if (error) {
 		ip->i_nlink--;
@@ -620,7 +617,6 @@ ulfs_whiteout(void *v)
 	} */ *ap = v;
 	struct vnode		*dvp = ap->a_dvp;
 	struct componentname	*cnp = ap->a_cnp;
-	struct lfs_direct		*newdir;
 	int			error;
 	struct ulfsmount	*ump = VFSTOULFS(dvp->v_mount);
 	struct lfs *fs = ump->um_lfs;
@@ -646,11 +642,8 @@ ulfs_whiteout(void *v)
 			panic("ulfs_whiteout: old format filesystem");
 #endif
 
-		newdir = pool_cache_get(ulfs_direct_cache, PR_WAITOK);
-		ulfs_makedirentry_bytype(fs, cnp, ULFS_WINO, LFS_DT_WHT,
-					 newdir);
-		error = ulfs_direnter(dvp, ulr, NULL, newdir, cnp, NULL);
-		pool_cache_put(ulfs_direct_cache, newdir);
+		error = ulfs_direnter(dvp, ulr, NULL,
+				      cnp, ULFS_WINO, LFS_DT_WHT,  NULL);
 		break;
 
 	case DELETE:
@@ -782,7 +775,7 @@ ulfs_readdir(void *v)
 		int		*ncookies;
 	} */ *ap = v;
 	struct vnode	*vp = ap->a_vp;
-	struct lfs_direct	*cdp, *ecdp;
+	struct lfs_dirheader	*cdp, *ecdp;
 	struct dirent	*ndp;
 	char		*cdbuf, *ndbuf, *endp;
 	struct uio	auio, *uio;
@@ -794,12 +787,11 @@ ulfs_readdir(void *v)
 	size_t		skipbytes;
 	struct ulfsmount *ump = VFSTOULFS(vp->v_mount);
 	struct lfs *fs = ump->um_lfs;
-	int nswap = ULFS_MPNEEDSWAP(fs);
 	uio = ap->a_uio;
 	count = uio->uio_resid;
 	rcount = count - ((uio->uio_offset + count) & (fs->um_dirblksiz - 1));
 
-	if (rcount < _DIRENT_MINSIZE(cdp) || count < _DIRENT_MINSIZE(ndp))
+	if (rcount < LFS_DIRECTSIZ(0) || count < _DIRENT_MINSIZE(ndp))
 		return EINVAL;
 
 	startoff = uio->uio_offset & ~(fs->um_dirblksiz - 1);
@@ -824,8 +816,8 @@ ulfs_readdir(void *v)
 
 	rcount -= auio.uio_resid;
 
-	cdp = (struct lfs_direct *)(void *)cdbuf;
-	ecdp = (struct lfs_direct *)(void *)&cdbuf[rcount];
+	cdp = (struct lfs_dirheader *)(void *)cdbuf;
+	ecdp = (struct lfs_dirheader *)(void *)&cdbuf[rcount];
 
 	ndbufsz = count;
 	ndbuf = kmem_alloc(ndbufsz, KM_SLEEP);
@@ -834,7 +826,7 @@ ulfs_readdir(void *v)
 
 	off = uio->uio_offset;
 	if (ap->a_cookies) {
-		ccount = rcount / _DIRENT_RECLEN(cdp, 1);
+		ccount = rcount / _DIRENT_RECLEN(ndp, 1);
 		ccp = *(ap->a_cookies) = malloc(ccount * sizeof(*ccp),
 		    M_TEMP, M_WAITOK);
 	} else {
@@ -844,11 +836,10 @@ ulfs_readdir(void *v)
 	}
 
 	while (cdp < ecdp) {
-		cdp->d_reclen = ulfs_rw16(cdp->d_reclen, nswap);
 		if (skipbytes > 0) {
-			if (cdp->d_reclen <= skipbytes) {
-				skipbytes -= cdp->d_reclen;
-				cdp = _DIRENT_NEXT(cdp);
+			if (lfs_dir_getreclen(fs, cdp) <= skipbytes) {
+				skipbytes -= lfs_dir_getreclen(fs, cdp);
+				cdp = LFS_NEXTDIR(fs, cdp);
 				continue;
 			}
 			/*
@@ -857,7 +848,7 @@ ulfs_readdir(void *v)
 			error = EINVAL;
 			goto out;
 		}
-		if (cdp->d_reclen == 0) {
+		if (lfs_dir_getreclen(fs, cdp) == 0) {
 			struct dirent *ondp = ndp;
 			ndp->d_reclen = _DIRENT_MINSIZE(ndp);
 			ndp = _DIRENT_NEXT(ndp);
@@ -871,17 +862,18 @@ ulfs_readdir(void *v)
 		if ((char *)(void *)ndp + ndp->d_reclen +
 		    _DIRENT_MINSIZE(ndp) > endp)
 			break;
-		ndp->d_fileno = ulfs_rw32(cdp->d_ino, nswap);
-		(void)memcpy(ndp->d_name, cdp->d_name, ndp->d_namlen);
+		ndp->d_fileno = lfs_dir_getino(fs, cdp);
+		(void)memcpy(ndp->d_name, lfs_dir_nameptr(fs, cdp),
+			     ndp->d_namlen);
 		memset(&ndp->d_name[ndp->d_namlen], 0,
 		    ndp->d_reclen - _DIRENT_NAMEOFF(ndp) - ndp->d_namlen);
-		off += cdp->d_reclen;
+		off += lfs_dir_getreclen(fs, cdp);
 		if (ap->a_cookies) {
 			KASSERT(ccp - *(ap->a_cookies) < ccount);
 			*(ccp++) = off;
 		}
 		ndp = _DIRENT_NEXT(ndp);
-		cdp = _DIRENT_NEXT(cdp);
+		cdp = LFS_NEXTDIR(fs, cdp);
 	}
 
 	count = ((char *)(void *)ndp - ndbuf);
@@ -1169,7 +1161,6 @@ ulfs_makeinode(struct vattr *vap, struct vnode *dvp,
 	struct vnode **vpp, struct componentname *cnp)
 {
 	struct inode	*ip;
-	struct lfs_direct	*newdir;
 	struct vnode	*tvp;
 	int		error;
 
@@ -1209,10 +1200,8 @@ ulfs_makeinode(struct vattr *vap, struct vnode *dvp,
 	 */
 	if ((error = lfs_update(tvp, NULL, NULL, UPDATE_DIROP)) != 0)
 		goto bad;
-	newdir = pool_cache_get(ulfs_direct_cache, PR_WAITOK);
-	ulfs_makedirentry(ip, cnp, newdir);
-	error = ulfs_direnter(dvp, ulr, tvp, newdir, cnp, NULL);
-	pool_cache_put(ulfs_direct_cache, newdir);
+	error = ulfs_direnter(dvp, ulr, tvp,
+			      cnp, ip->i_number, LFS_IFTODT(ip->i_mode), NULL);
 	if (error)
 		goto bad;
 	*vpp = tvp;

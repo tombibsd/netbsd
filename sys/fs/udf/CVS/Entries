@@ -11,7 +11,7 @@
 /udf_rename.c/1.12/Tue Dec  9 04:24:04 2014/-kk/
 /udf_strat_bootstrap.c/1.4/Tue Dec  9 04:24:04 2014/-kk/
 /udf_strat_direct.c/1.12/Tue Nov  5 03:38:20 2013/-kk/
-/udf_strat_rmw.c/1.24/Tue Nov  5 03:38:20 2013/-kk/
+/udf_strat_rmw.c/1.26/Wed Sep 23 08:04:20 2015/-kk/
 /udf_strat_sequential.c/1.13/Fri Apr 11 02:03:52 2014/-kk/
 /udf_subr.c/1.132/Sun Sep 13 01:07:34 2015/-kk/
 /udf_subr.h/1.19/Thu Oct 24 10:28:58 2013/-kk/

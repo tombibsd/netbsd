@@ -181,7 +181,7 @@ gffb_attach(device_t parent, device_t self, void *aux)
 	struct wsemuldisplaydev_attach_args aa;
 	prop_dictionary_t	dict;
 	unsigned long		defattr;
-	bool			is_console;
+	bool			is_console = FALSE;
 	int			i, j, f;
 	uint8_t			cmap[768];
 

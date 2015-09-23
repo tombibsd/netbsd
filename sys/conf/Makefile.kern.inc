@@ -250,7 +250,7 @@ TARGETSFX=	.gdb
 LINKFLAGS+=	${LINKFLAGS_NORMAL}
 .endif
 
-SYSTEM_LD_HEAD+=${SYSTEM_LD_HEAD_EXTRA}
+SYSTEM_LD_HEAD+=	${SYSTEM_LD_HEAD_EXTRA}
 SYSTEM_LD_TAIL_STAGE1=	${SYSTEM_LD_TAIL}
 SYSTEM_LD_TAIL_STAGE2=	${SYSTEM_LD_TAIL}
 .if defined(COPY_SYMTAB)
@@ -410,7 +410,7 @@ install-kernel-${MACHINE_NAME}:
 .include "${S}/conf/ldscript.mk"
 .include "${S}/conf/assym.mk"
 .include "${S}/conf/newvers.mk"
-.include "${S}/conf/splash.mk"
+.include "${S}/dev/splash/splash.mk"
 .include "${S}/conf/mdroot.mk"
 .include "${S}/conf/lint.mk"
 .include "${S}/conf/cscope.mk"

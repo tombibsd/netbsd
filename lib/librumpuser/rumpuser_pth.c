@@ -80,11 +80,11 @@ rumpuser_thread_create(void *(*f)(void *), void *arg, const char *thrname,
 		nanosleep(&ts, NULL);
 	}
 
-#if defined(HAVE_PTHREAD_SETNAME_3)
+#if defined(HAVE_PTHREAD_SETNAME3)
 	if (rv == 0 && thrname) {
 		pthread_setname_np(*ptidp, thrname, NULL);
 	}
-#elif defined(HAVE_PTHREAD_SETNAME_2)
+#elif defined(HAVE_PTHREAD_SETNAME2)
 	if (rv == 0 && thrname) {
 		pthread_setname_np(*ptidp, thrname);
 	}

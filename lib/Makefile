@@ -68,10 +68,6 @@ SUBDIR+=	libbpfjit
 SUBDIR+=        ../external/cddl/osnet/lib/libdtrace
 .endif
 
-.if ${MKDTRACE} != "no" || ${MKCTF} != "no"
-SUBDIR+=        ../external/cddl/osnet/lib/libctf
-.endif
-
 .if (${MKZFS} != "no")
 SUBDIR+=        ../external/cddl/osnet/lib/libavl
 SUBDIR+=        ../external/cddl/osnet/lib/libnvpair
@@ -106,6 +102,10 @@ SUBDIR+=	../external/lgpl3/mpc/lib/libmpc
 #
 #==================== 1st library dependency barrier ====================
 SUBDIR+=	.WAIT
+
+.if ${MKDTRACE} != "no" || ${MKCTF} != "no"
+SUBDIR+=        ../external/cddl/osnet/lib/libctf
+.endif
 
 SUBDIR+=	../external/public-domain/xz/lib	# depends on libpthread
 

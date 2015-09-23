@@ -641,8 +641,11 @@ arp_rtrequest(int req, struct rtentry *rt, const struct rt_addrinfo *info)
 				panic("%s(%s): sockaddr_dl_init cannot fail",
 				    __func__, ifp->if_xname);
 			}
-			if (useloopback)
+			if (useloopback) {
 				ifp = rt->rt_ifp = lo0ifp;
+				rt->rt_rmx.rmx_mtu = 0;
+			}
+			rt->rt_flags |= RTF_LOCAL;
 			/*
 			 * make sure to set rt->rt_ifa to the interface
 			 * address we are using, otherwise we will have trouble

@@ -193,10 +193,11 @@ pargdef(definition *def)
 	}
 	did = 0;
 	for (vers = def->def.pr.versions; vers != NULL; vers = vers->next) {
-		if (!newstyle || plist->arg_num < 2) {
-			continue;	/* old style or single args */
-		}
 		for (plist = vers->procs; plist != NULL; plist = plist->next) {
+			if (!newstyle || plist->arg_num < 2) {
+				continue;	/* old style or single args */
+			}
+
 			if (!did) {
 				cplusplusstart();
 				did = 1;

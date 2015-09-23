@@ -146,7 +146,7 @@
 /sbdspvar.h/1.61/Wed Nov 23 23:07:33 2011/-kk/
 /sbreg.h/1.31/Sun Dec 11 12:22:03 2005/-kk/
 /sbvar.h/1.6/Mon Apr 28 20:23:52 2008/-kk/
-/seagate.c/1.72/Sat Apr 19 05:36:57 2014/-kk/
+/seagate.c/1.73/Wed Sep 23 08:03:58 2015/-kk/
 /sf16fmr2.c/1.16/Sat Oct 27 17:18:25 2012/-kk/
 /slhci_isa.c/1.12/Tue Mar  8 04:58:21 2011/-kk/
 /smsc.c/1.12/Fri May  1 11:32:07 2015/-kk/

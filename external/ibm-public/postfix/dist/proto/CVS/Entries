@@ -44,7 +44,7 @@
 /STANDARD_CONFIGURATION_README.html/1.1.1.4/Thu Oct 24 10:28:52 2013/-kk/
 /STRESS_README.html/1.1.1.3/Sun Jul 20 13:25:10 2014/-kk/
 /TLS_LEGACY_README.html/1.1.1.1/Tue Jun 23 10:08:39 2009/-kk/
-/TLS_README.html/1.9/Sun Jul 20 13:25:10 2014/-kk/
+/TLS_README.html/1.10/Wed Sep 23 08:01:07 2015/-kk/
 /TUNING_README.html/1.1.1.3/Thu Oct 24 10:28:52 2013/-kk/
 /UUCP_README.html/1.1.1.1/Tue Jun 23 10:08:40 2009/-kk/
 /VERP_README.html/1.1.1.3/Thu Oct 24 10:28:52 2013/-kk/
@@ -73,7 +73,7 @@
 /postconf.html.prolog/1.1.1.1/Tue Jun 23 10:08:40 2009/-kk/
 /postconf.man.epilog/1.1.1.1/Tue Jun 23 10:08:40 2009/-kk/
 /postconf.man.prolog/1.1.1.2/Sun Jul 20 13:25:10 2014/-kk/
-/postconf.proto/1.13/Sun Jul 20 13:25:10 2014/-kk/
+/postconf.proto/1.14/Wed Sep 23 08:01:07 2015/-kk/
 /postfix-wrapper/1.1.1.2/Thu Jun 17 18:06:40 2010/-kk/
 /regexp_table/1.1.1.3/Sun Jul 20 13:25:10 2014/-kk/
 /relocated/1.1.1.1/Tue Jun 23 10:08:40 2009/-kk/

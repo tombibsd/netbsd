@@ -1478,8 +1478,10 @@ nd6_rtrequest(int req, struct rtentry *rt, const struct rt_addrinfo *info)
 				 */
 				if (ifa != rt->rt_ifa)
 					rt_replace_ifa(rt, ifa);
+				rt->rt_rmx.rmx_mtu = 0;
 				rt->rt_flags &= ~RTF_CLONED;
 			}
+			rt->rt_flags |= RTF_LOCAL;
 		} else if (rt->rt_flags & RTF_ANNOUNCE) {
 			nd6_llinfo_settimer(ln, -1);
 			ln->ln_state = ND6_LLINFO_REACHABLE;

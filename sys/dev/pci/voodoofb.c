@@ -694,7 +694,7 @@ static bool
 voodoofb_is_console(struct voodoofb_softc *sc)
 {
 	prop_dictionary_t dict;
-	bool console;
+	bool console = FALSE;
 
 	dict = device_properties(sc->sc_dev);
 	prop_dictionary_get_bool(dict, "is_console", &console);

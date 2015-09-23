@@ -3,7 +3,7 @@
 /t_memchr.c/1.3/Fri Apr  6 07:53:10 2012/-kk/
 /t_memcpy.c/1.5/Thu Oct 24 10:28:58 2013/-kk/
 /t_memmem.c/1.2/Thu Jul  7 08:27:36 2011/-kk/
-/t_memset.c/1.3/Thu Oct 24 10:28:58 2013/-kk/
+/t_memset.c/1.4/Wed Sep 23 08:04:41 2015/-kk/
 /t_popcount.c/1.4/Thu Jul  7 08:27:36 2011/-kk/
 /t_strcat.c/1.2/Thu Jul 14 05:46:04 2011/-kk/
 /t_strchr.c/1.1/Thu Jul  7 08:59:33 2011/-kk/

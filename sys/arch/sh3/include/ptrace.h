@@ -58,6 +58,11 @@
 	"PT_GETREGS", \
 	"PT_SETREGS",
 
+#include <machine/reg.h>
+#define PTRACE_REG_PC(r)	r->r_spc
+#define PTRACE_REG_SET_PC(r, v)	r->r_spc = (v)
+#define PTRACE_REG_SP(r)	r->r_r15
+#define PTRACE_REG_INTV(r)	r->r_r0
 
 #ifdef _KERNEL
 #ifdef _KERNEL_OPT

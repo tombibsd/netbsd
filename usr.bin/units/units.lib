@@ -345,6 +345,8 @@ kbyte			1024 byte
 megabyte		1024 kbyte
 gigabyte		1024 megabyte
 meg			megabyte
+terabyte		1024 gigabyte
+petabyte		1024 terabyte
 
 
 / Trivia

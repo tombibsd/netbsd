@@ -1539,9 +1539,9 @@ iscsi_cleanup_thread(void *par)
 					free(sess->target_list, M_TEMP);
 				/* notify event handlers of session shutdown */
 				add_event(ISCSI_SESSION_TERMINATED, sess->id, 0, status);
+				DEB(1, ("Cleanup: session ended %d\n", sess->id));
 				free(sess, M_DEVBUF);
 
-				DEB(1, ("Cleanup: session ended %d\n", sess->id));
 				s = splbio();
 			}
 			splx(s);

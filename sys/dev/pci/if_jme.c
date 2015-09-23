@@ -949,6 +949,7 @@ jme_init(struct ifnet *ifp, int do_ifinit)
 			error = 0;
 		else if (error != 0) {
 			aprint_error_dev(sc->jme_dev, "could not set media\n");
+			splx(s);
 			return error;
 		}
 	}

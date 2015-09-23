@@ -53,7 +53,7 @@ usage(void)
 {
 	const char *progname = getprogname();
 
-	fprintf(stderr, "usage: %s [-c] [-d] [-s] [-t] [-h] [-v] "
+	fprintf(stderr, "usage: %s [-cdhstv] "
 			"[-f dsdt_input] [-o dsdt_output]\n", progname);
 	fprintf(stderr, "To send ASL:\n\t%s -dt | gzip -c9 > foo.asl.gz\n",
 	    progname);
@@ -72,7 +72,7 @@ main(int argc, char *argv[])
 	if (argc < 2)
 		usage();
 
-	while ((c = getopt(argc, argv, "cdhtvf:o:")) != -1) {
+	while ((c = getopt(argc, argv, "cdhtsvf:o:")) != -1) {
 		switch (c) {
 		case 'c':
 			cflag = 1;

@@ -2,5 +2,7 @@
 
 define splash: stbi
 file dev/splash/splash.c	splash & splashscreen
+file splash_image.o		splash & splashscreen
 
 defflag opt_splash.h	SPLASHSCREEN
+			makeoptions_SPLASHSCREEN_IMAGE

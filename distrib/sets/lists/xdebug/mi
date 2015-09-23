@@ -155,7 +155,6 @@
 ./usr/libdata/debug/usr/X11R6/bin/beforelight.debug	-unknown-	debug,x11
 ./usr/libdata/debug/usr/X11R6/bin/bitmap.debug		-unknown-	debug,x11
 ./usr/libdata/debug/usr/X11R6/bin/bmtoa.debug		-unknown-	debug,x11
-./usr/libdata/debug/usr/X11R7/bin/ctwm.debug		-unknown-	debug,x11
 ./usr/libdata/debug/usr/X11R6/bin/cxpm.debug		-unknown-	debug,x11
 ./usr/libdata/debug/usr/X11R6/bin/dga.debug		-unknown-	debug,x11
 ./usr/libdata/debug/usr/X11R6/bin/dmx.debug		-unknown-	debug,x11

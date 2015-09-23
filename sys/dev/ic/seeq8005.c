@@ -875,8 +875,10 @@ ea_start(struct ifnet *ifp)
 	 * us (actually ea_txpacket()) back when the card's ready for more
 	 * frames.
 	 */
-	if (ifp->if_flags & IFF_OACTIVE)
+	if (ifp->if_flags & IFF_OACTIVE) {
+		splx(s);
 		return;
+	}
 
 	/* Mark interface as output active */
 

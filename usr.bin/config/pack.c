@@ -119,7 +119,7 @@ pack(void)
 	 */
 	locspace = 0;
 	TAILQ_FOREACH(i, &alldevi, i_next) {
-		if (!i->i_active == DEVI_ACTIVE || i->i_collapsed)
+		if (i->i_active != DEVI_ACTIVE || i->i_collapsed)
 			continue;
 		if ((p = i->i_pspec) == NULL)
 			continue;

@@ -47,4 +47,10 @@
 	"PT_GETFPREGS", \
 	"PT_SETFPREGS"
 
+#include <machine/reg.h>
+#define PTRACE_REG_PC(r)	(r)->r_pc
+#define PTRACE_REG_SET_PC(r, v)	(r)->r_pc = (v)
+#define PTRACE_REG_SP(r)	(r)->r_reg[1]
+#define PTRACE_REG_INTRV(r)	(r)->r_reg[9]
+
 #endif /* _RISCV_PTRACE_H_ */

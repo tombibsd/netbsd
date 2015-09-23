@@ -34,7 +34,16 @@
 #include <sys/bus.h>
 
 /*
- * bus_dma(9) that works for USB drivers
+ * bus_dma(9) that works for USB drivers.
+ *
+ * So why is it here instead of in libusb?  Well, first of all, it's
+ * actually a bus_dma implementation which works with ugenhc.  Of course,
+ * ugenhc doesn't make any bus_dma calls itself, all of those calls come
+ * from the usb code.  However, the USB component can be paired with other
+ * USB host controllers, such as {e,o,u}hci.  Therefore, we keep the "D"MA
+ * code here.
+ *
+ * Note: this implementation requires a __HAVE_NEW_STYLE_BUS_H arch
  */
 
 int

@@ -197,3 +197,5 @@ Changes from NetBSD 7.0 to NetBSD 8.0:
 		[nonaka 20150827]
 	bind: Import version 9.10.2-P4. [christos 20150903]
 	dhcpcd: Import dhcpcd 6.9.3. [roy 20150904]
+	ftp(1): SNI support for https.  [wiz 20150912]
+	netstat(1): Now knows how tall the display is.  [mrg 20150919]
