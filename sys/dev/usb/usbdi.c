@@ -996,7 +996,8 @@ usbd_start_next(usbd_pipe_handle pipe)
 	}
 #endif
 
-	KASSERT(mutex_owned(pipe->device->bus->lock));
+	int polling = pipe->device->bus->use_polling;
+	KASSERT(polling || mutex_owned(pipe->device->bus->lock));
 
 	/* Get next request in queue. */
 	xfer = SIMPLEQ_FIRST(&pipe->queue);
@@ -1004,9 +1005,11 @@ usbd_start_next(usbd_pipe_handle pipe)
 	if (xfer == NULL) {
 		pipe->running = 0;
 	} else {
-		mutex_exit(pipe->device->bus->lock);
+		if (!polling)
+			mutex_exit(pipe->device->bus->lock);
 		err = pipe->methods->start(xfer);
-		mutex_enter(pipe->device->bus->lock);
+		if (!polling)
+			mutex_enter(pipe->device->bus->lock);
 
 		if (err != USBD_IN_PROGRESS) {
 			USBHIST_LOG(usbdebug, "error = %d", err, 0, 0, 0);
@@ -1015,7 +1018,7 @@ usbd_start_next(usbd_pipe_handle pipe)
 		}
 	}
 
-	KASSERT(mutex_owned(pipe->device->bus->lock));
+	KASSERT(polling || mutex_owned(pipe->device->bus->lock));
 }
 
 usbd_status

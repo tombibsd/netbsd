@@ -132,7 +132,6 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <netinet/in.h>
 #include <netinet/in_var.h>
 #include <netinet/if_inarp.h>
-#include "opt_gateway.h"
 #endif
 #include <net/if_fddi.h>
 

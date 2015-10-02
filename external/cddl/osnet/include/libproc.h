@@ -54,13 +54,6 @@ typedef void (*proc_child_func)(void *);
 #define PS_DEAD         5
 #define PS_LOST         6
 
-
-typedef struct prmap {
-	uintptr_t	pr_vaddr;       /* Virtual address. */
-} prmap_t;
-
-#if 0
 #include_next <libproc.h>
-#endif
 
 #endif

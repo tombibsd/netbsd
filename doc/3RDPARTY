@@ -291,7 +291,7 @@ src/lib/libc/db/db2netbsd.
 
 Package:	dhcp
 Version:	4.3.0
-Current Vers:	4.3.2
+Current Vers:	4.3.3
 Maintainer:	mellon
 Archive Site:	ftp://ftp.isc.org/isc/dhcp/
 Home Page:	http://www.isc.org/software/dhcp/
@@ -972,8 +972,8 @@ Location:	external/bsd/openpam/dist
 Notes:
 
 Package:	openresolv
-Version:	3.7.0
-Current Vers:	3.7.0
+Version:	3.7.1
+Current Vers:	3.7.1
 Maintainer:	roy
 Archive Site:	ftp://roy.marples.name/pub/openresolv/
 Home Page:	http://roy.marples.name/projects/openresolv/
@@ -1571,3 +1571,25 @@ Mailing List:	none
 Responsible:	christos
 License:	BSD-like (2-clause)
 Location:	usr.bin/timeout
+
+Package:        libproc
+Version:        FreeBSD-2015-09-24
+Current Vers:   FreeBSD-XXXX-YY-ZZ
+Maintainer:     Rui Paulo <rpaulo@FreeBSD.org>
+Archive Site:   none
+Home Page:      none
+Mailing List:   none
+Responsible:    christos
+License:        BSD-like (2-clause)
+Location:       external/bsd/libproc/dist
+
+Package:        librtld_db
+Version:        FreeBSD-2015-09-24
+Current Vers:   FreeBSD-XXXX-YY-ZZ
+Maintainer:     Rui Paulo <rpaulo@FreeBSD.org>
+Archive Site:   none
+Home Page:      none
+Mailing List:   none
+Responsible:    christos
+License:        BSD-like (2-clause)
+Location:       external/bsd/librtld_db/dist

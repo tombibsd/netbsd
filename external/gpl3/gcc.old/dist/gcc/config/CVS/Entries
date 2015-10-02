@@ -1,0 +1,146 @@
+/README/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/darwin-c.c/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/darwin-driver.c/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/darwin-f.c/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/darwin-ppc-ldouble-patch.def/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/darwin-protos.h/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/darwin-sections.def/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/darwin.c/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/darwin.h/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/darwin.opt/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/darwin10.h/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/darwin9.h/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/dbx.h/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/dbxcoff.h/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/dbxelf.h/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/default-c.c/1.1.1.1/Wed Sep 23 03:03:17 2015/-kk/
+/elfos.h/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/flat.h/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/freebsd-nthr.h/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/freebsd-spec.h/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/freebsd-stdint.h/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/freebsd.h/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/freebsd.opt/1.1.1.1/Wed Sep 23 03:03:17 2015/-kk/
+/fused-madd.opt/1.1.1.1/Wed Sep 23 03:03:17 2015/-kk/
+/g.opt/1.1.1.1/Wed Sep 23 03:03:17 2015/-kk/
+/glibc-c.c/1.1.1.1/Wed Sep 23 03:03:17 2015/-kk/
+/glibc-stdint.h/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/gnu-user.h/1.1.1.1/Wed Sep 23 03:03:17 2015/-kk/
+/gnu-user.opt/1.1.1.1/Wed Sep 23 03:03:17 2015/-kk/
+/gnu.h/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/host-darwin.c/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/host-darwin.h/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/host-hpux.c/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/host-linux.c/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/host-netbsd.c/1.1.1.1/Wed Sep 23 03:03:17 2015/-kk/
+/host-openbsd.c/1.1.1.1/Wed Sep 23 03:03:17 2015/-kk/
+/host-solaris.c/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/hpux-stdint.h/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/hpux11.opt/1.1.1.1/Wed Sep 23 03:03:17 2015/-kk/
+/initfini-array.h/1.1.1.1/Wed Sep 23 03:03:17 2015/-kk/
+/kfreebsd-gnu.h/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/knetbsd-gnu.h/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/kopensolaris-gnu.h/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/linux-android.h/1.1.1.1/Wed Sep 23 03:03:17 2015/-kk/
+/linux-android.opt/1.1.1.1/Wed Sep 23 03:03:17 2015/-kk/
+/linux.h/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/linux.opt/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/lynx.h/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/lynx.opt/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/netbsd-elf.h/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/netbsd-elf.opt/1.1.1.1/Wed Sep 23 03:03:17 2015/-kk/
+/netbsd-stdint.h/1.1.1.1/Wed Sep 23 03:03:18 2015/-kk/
+/netbsd.h/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/netbsd.opt/1.1.1.1/Wed Sep 23 03:03:17 2015/-kk/
+/newlib-stdint.h/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/openbsd-libpthread.h/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/openbsd-oldgas.h/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/openbsd-stdint.h/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/openbsd.h/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/openbsd.opt/1.1.1.1/Wed Sep 23 03:03:18 2015/-kk/
+/print-sysroot-suffix.sh/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/rpath.opt/1.1.1.1/Wed Sep 23 03:03:18 2015/-kk/
+/rtems.h/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/rtems.opt/1.1.1.1/Wed Sep 23 03:03:18 2015/-kk/
+/sol2-10.h/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/sol2-bi.h/1.1.1.1/Wed Sep 23 03:03:18 2015/-kk/
+/sol2-c.c/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/sol2-cxx.c/1.1.1.1/Wed Sep 23 03:03:18 2015/-kk/
+/sol2-protos.h/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/sol2-stubs.c/1.1.1.1/Wed Sep 23 03:03:18 2015/-kk/
+/sol2.c/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/sol2.h/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/sol2.opt/1.1.1.1/Wed Sep 23 03:03:18 2015/-kk/
+/t-darwin/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/t-glibc/1.1.1.1/Wed Sep 23 03:03:18 2015/-kk/
+/t-libunwind/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/t-lynx/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/t-openbsd/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/t-pnt16-warn/1.1.1.1/Wed Sep 23 03:03:18 2015/-kk/
+/t-rtems/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/t-slibgcc/1.1.1.1/Wed Sep 23 03:03:18 2015/-kk/
+/t-sol2/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/t-sysroot-suffix/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/t-vxworks/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/tm-dwarf2.h/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/usegas.h/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/usegld.h/1.1.1.1/Wed Sep 23 03:03:18 2015/-kk/
+/vx-common.h/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/vxworks-dummy.h/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/vxworks.c/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/vxworks.h/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/vxworks.opt/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/vxworksae.h/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/x-cflags-O1/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/x-darwin/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/x-hpux/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/x-linux/1.3/Wed Sep 23 03:39:12 2015/-kk/
+/x-netbsd/1.1.1.1/Wed Sep 23 03:03:18 2015/-kk/
+/x-openbsd/1.1.1.1/Wed Sep 23 03:03:18 2015/-kk/
+/x-solaris/1.3/Wed Sep 23 03:39:12 2015/-kk/
+D/aarch64////
+D/alpha////
+D/arm////
+D/avr////
+D/bfin////
+D/c6x////
+D/cr16////
+D/cris////
+D/epiphany////
+D/fr30////
+D/frv////
+D/h8300////
+D/i386////
+D/ia64////
+D/iq2000////
+D/lm32////
+D/m32c////
+D/m32r////
+D/m68k////
+D/mcore////
+D/mep////
+D/microblaze////
+D/mips////
+D/mmix////
+D/mn10300////
+D/moxie////
+D/or1k////
+D/pa////
+D/pdp11////
+D/picochip////
+D/riscv////
+D/rl78////
+D/rs6000////
+D/rx////
+D/s390////
+D/score////
+D/sh////
+D/sparc////
+D/spu////
+D/stormy16////
+D/tilegx////
+D/tilepro////
+D/v850////
+D/vax////
+D/vms////
+D/xtensa////

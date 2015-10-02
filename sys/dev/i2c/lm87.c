@@ -132,10 +132,15 @@ lmenv_match(device_t parent, cfdata_t match, void *aux)
 	} else {
 		/*
 		 * Direct config - match via the list of compatible
-		 * hardware.
+		 * hardware or simply match the device name.
 		 */
-		if (iic_compat_match(ia, lmenv_compats))
-			return 1;
+		if (ia->ia_ncompat > 0) {
+			if (iic_compat_match(ia, lmenv_compats))
+				return 1;
+		} else {
+			if (strcmp(ia->ia_name, "lmenv") == 0)
+				return 1;
+		}
 	}
 
 	return 0;

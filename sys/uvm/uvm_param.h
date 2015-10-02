@@ -177,8 +177,11 @@ extern const int *const uvmexp_pageshift;
 #define	VM_FILEMAX	13
 #define	VM_MINADDRESS	14
 #define	VM_MAXADDRESS	15
+#define	VM_PROC		16		/* process information */
 
-#define	VM_MAXID	16		/* number of valid vm ids */
+#define	VM_MAXID	17		/* number of valid vm ids */
+
+#define VM_PROC_MAP	1		/* struct kinfo_vmentry */
 
 #define	CTL_VM_NAMES { \
 	{ 0, 0 }, \
@@ -197,6 +200,7 @@ extern const int *const uvmexp_pageshift;
 	{ "filemax", CTLTYPE_INT }, \
 	{ "minaddress", CTLTYPE_LONG }, \
 	{ "maxaddress", CTLTYPE_LONG }, \
+	{ "proc", CTLTYPE_STRUCT }, \
 }
 
 #ifndef ASSEMBLER

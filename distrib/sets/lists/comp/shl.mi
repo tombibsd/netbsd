@@ -125,6 +125,9 @@
 ./usr/lib/libperfuse_pic.a			comp-perfuse-piclib	compatfile,picinstall
 ./usr/lib/libposix_pic.a			comp-c-piclib		compatfile,picinstall
 ./usr/lib/libppath_pic.a			comp-c-piclib		compatfile,picinstall
+./usr/lib/libproc.so				comp-c-shlib		compatfile,dtrace
+./usr/lib/libproc.so.0				comp-c-shlib		compatfile,dtrace
+./usr/lib/libproc_pic.a				comp-c-piclib		compatfile,dtrace
 ./usr/lib/libprop_pic.a				comp-c-piclib		compatfile,picinstall
 ./usr/lib/libpthread_dbg_pic.a			comp-c-piclib		compatfile,picinstall
 ./usr/lib/libpthread_pic.a			comp-c-piclib		compatfile,picinstall
@@ -136,11 +139,14 @@
 ./usr/lib/libroken_pic.a			comp-c-piclib		compatfile,picinstall,kerberos
 ./usr/lib/librpcsvc_pic.a			comp-c-piclib		compatfile,picinstall
 ./usr/lib/librt_pic.a				comp-c-piclib		compatfile,picinstall
+./usr/lib/librtld_db.so				comp-c-shlib		compatfile,dtrace
+./usr/lib/librtld_db.so.0			comp-c-shlib		compatfile,dtrace
+./usr/lib/librtld_db_pic.a			comp-c-piclib		compatfile,dtrace
 ./usr/lib/librump_pic.a				comp-c-piclib		compatfile,picinstall,rump
 ./usr/lib/librumpclient_pic.a			comp-c-piclib		compatfile,picinstall,rump
 ./usr/lib/librumpcrypto_pic.a			comp-obsolete		obsolete
-./usr/lib/librumpdev_audio_pic.a		comp-c-piclib		picinstall,rump
 ./usr/lib/librumpdev_audio_ac97_pic.a		comp-obsolete		obsolete
+./usr/lib/librumpdev_audio_pic.a		comp-c-piclib		picinstall,rump
 ./usr/lib/librumpdev_bpf_pic.a			comp-c-piclib		picinstall,rump
 ./usr/lib/librumpdev_cgd_pic.a			comp-c-piclib		picinstall,rump
 ./usr/lib/librumpdev_disk_pic.a			comp-c-piclib		picinstall,rump

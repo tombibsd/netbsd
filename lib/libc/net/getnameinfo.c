@@ -404,8 +404,21 @@ getnameinfo_inet(const struct sockaddr *sa, socklen_t salen,
 			}
 			strlcpy(host, hp->h_name, hostlen);
 		} else {
-			if (flags & NI_NAMEREQD)
-				return EAI_NONAME;
+			switch (he) {
+			case NO_DATA:
+			case HOST_NOT_FOUND:
+				if (flags & NI_NAMEREQD)
+					return EAI_NONAME;
+				break;
+			case TRY_AGAIN:
+				return EAI_AGAIN;
+			case NETDB_SUCCESS:
+			case NETDB_INTERNAL:
+			case NO_RECOVERY:
+				/*FALLTHROUGH*/
+			default:
+				return EAI_SYSTEM;
+			}
 			switch(afd->a_af) {
 #ifdef INET6
 			case AF_INET6:

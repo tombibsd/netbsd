@@ -95,6 +95,7 @@ static struct cdev		*sdt_cdev;
 /* declare all probes belonging to the provider */
 SDT_PROBE_DECLARE(proc,,,create);
 SDT_PROBE_DECLARE(proc,,,exec);
+SDT_PROBE_DECLARE(proc,,,exit);
 SDT_PROBE_DECLARE(proc,,,exec_success);
 SDT_PROBE_DECLARE(proc,,,exec_failure);
 SDT_PROBE_DECLARE(proc,,,signal_send);
@@ -121,6 +122,7 @@ static sdt_provider_t proc_provider = {
 	{ 
 		&SDT_NAME(proc,,,create),
 		&SDT_NAME(proc,,,exec),
+		&SDT_NAME(proc,,,exit),
 		&SDT_NAME(proc,,,exec_success),
 		&SDT_NAME(proc,,,exec_failure),
 		&SDT_NAME(proc,,,signal_send),

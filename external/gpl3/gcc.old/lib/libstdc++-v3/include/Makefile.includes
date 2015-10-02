@@ -1,0 +1,9 @@
+#	$NetBSD$
+
+#
+# Always install in INCSDIR regardless of any path in filename
+#
+.for f in ${INCS}
+INCSDIR_${f:C,/,_,g}=	${INCSDIR}
+INCSNAME_${f:C,/,_,g}=	${f:T}
+.endfor

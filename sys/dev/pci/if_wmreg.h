@@ -452,7 +452,7 @@ struct livengood_tcpip_ctxdesc {
 #define IVAR_ALLOC_MASK  __BITS(0, 6)	/* Bit 5 and 6 are reserved */
 #define IVAR_VALID       __BIT(7)
 /* IVAR definitions for 82580 and newer */
-#define WMREG_IVAR_Q(x)	(WMREG_IVAR0 + ((x) % 2) * 4)
+#define WMREG_IVAR_Q(x)	(WMREG_IVAR0 + ((x) / 2) * 4)
 #define IVAR_TX_MASK_Q(x) (0x000000ff << (((x) % 2) == 0 ? 8 : 24))
 #define IVAR_RX_MASK_Q(x) (0x000000ff << (((x) % 2) == 0 ? 0 : 16))
 /* IVAR definitions for 82576 */
@@ -918,6 +918,7 @@ struct livengood_tcpip_ctxdesc {
 #define GCR_CMPL_TMOUT_10MS	0x00001000
 #define GCR_CMPL_TMOUT_RESEND	0x00010000
 #define GCR_CAP_VER2		0x00040000
+#define GCR_L1_ACT_WITHOUT_L0S_RX 0x08000000
 
 #define WMREG_FACTPS	0x5b30	/* Function Active and Power State to MNG */
 #define FACTPS_MNGCG		0x20000000

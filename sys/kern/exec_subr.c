@@ -408,7 +408,7 @@ exec_setup_stack(struct lwp *l, struct exec_package *epp)
 	    max_stack_size);
 
 #ifdef PAX_ASLR
-	pax_aslr_stack(l, epp, &max_stack_size);
+	pax_aslr_stack(epp, &max_stack_size);
 #endif /* PAX_ASLR */
 
 	l->l_proc->p_stackbase = epp->ep_minsaddr;

@@ -102,6 +102,10 @@
 #define PTRACE_REG_SP(r)	(r)->r_esp
 #define PTRACE_REG_INTRV(r)	(r)->r_eax
 
+#define PTRACE_BREAKPOINT	((const uint8_t[]) { 0xcc })
+#define PTRACE_BREAKPOINT_SIZE	1
+#define PTRACE_BREAKPOINT_ADJ	sizeof(PTRACE_BREAKPOINT)
+
 #ifdef _KERNEL
 
 /*

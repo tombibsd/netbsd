@@ -115,7 +115,7 @@
 
 #endif	/* __minix */
 
-#ifdef __NetBSD__
+#if defined(__NetBSD__) || defined(HAVE_NBTOOL_CONFIG_H)
 
 #include <machine/elf_machdep.h>
 
@@ -135,7 +135,7 @@
 #define	Elf_Note		Elf64_Nhdr
 #endif
 
-#endif	/* __NetBSD__ */
+#endif	/* __NetBSD__ || HAVE_NBTOOL_CONFIG_H */
 
 #if defined(__OpenBSD__)
 

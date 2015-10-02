@@ -132,7 +132,7 @@ struct inodesc {
 	off_t id_filesize;	/* for DATA nodes, the size of the directory */
 	int id_loc;		/* for DATA nodes, current location in dir */
 	int id_entryno;		/* for DATA nodes, current entry number */
-	struct lfs_dirheader *id_dirp;	/* for DATA nodes, ptr to current entry */
+	LFS_DIRHEADER *id_dirp;	/* for DATA nodes, ptr to current entry */
 	const char *id_name;	/* for DATA nodes, name to find or enter */
 	char id_type;		/* type of descriptor, DATA or ADDR */
 };

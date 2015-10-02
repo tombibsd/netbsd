@@ -64,6 +64,9 @@
 #define PTRACE_REG_SP(r)	r->r_r15
 #define PTRACE_REG_INTV(r)	r->r_r0
 
+#define PTRACE_BREAKPOINT	((const uint8_t[]) { 0xc3, 0xc3 })
+#define PTRACE_BREAKPOINT_SIZE	2
+
 #ifdef _KERNEL
 #ifdef _KERNEL_OPT
 #include "opt_compat_netbsd.h"

@@ -334,6 +334,7 @@ struct wm_softc {
 
 	int sc_nvm_ver_major;
 	int sc_nvm_ver_minor;
+	int sc_nvm_ver_build;
 	int sc_nvm_addrbits;		/* NVM address bits */
 	unsigned int sc_nvm_wordsize;	/* NVM word size */
 	int sc_ich8_flash_base;
@@ -3580,6 +3581,17 @@ wm_initialize_hardware_bits(struct wm_softc *sc)
 			CSR_WRITE(sc, WMREG_CTRL, sc->sc_ctrl);
 
 			/* PCIe Control Register */
+			/*
+			 * 82573 Errata (unknown).
+			 *
+			 * 82574 Errata 25 and 82583 Errata 12
+			 * "Dropped Rx Packets":
+			 *   NVM Image Version 2.1.4 and newer has no this bug.
+			 */
+			reg = CSR_READ(sc, WMREG_GCR);
+			reg |= GCR_L1_ACT_WITHOUT_L0S_RX;
+			CSR_WRITE(sc, WMREG_GCR, reg);
+
 			if ((sc->sc_type == WM_T_82574)
 			    || (sc->sc_type == WM_T_82583)) {
 				/*
@@ -4361,8 +4373,10 @@ wm_init_locked(struct ifnet *ifp)
 		} else {
 			CSR_WRITE(sc, WMREG_RDH, 0);
 			CSR_WRITE(sc, WMREG_RDT, 0);
-			CSR_WRITE(sc, WMREG_RDTR, 375 | RDTR_FPD); /* ITR/4 */
-			CSR_WRITE(sc, WMREG_RADV, 375);	/* MUST be same */
+			/* ITR/4 */
+			CSR_WRITE(sc, WMREG_RDTR, (sc->sc_itr / 4) | RDTR_FPD);
+			/* MUST be same */
+			CSR_WRITE(sc, WMREG_RADV, sc->sc_itr);
 		}
 	}
 	for (i = 0; i < WM_NRXDESC; i++) {
@@ -4629,9 +4643,21 @@ wm_init_locked(struct ifnet *ifp)
 		 * XXX 82574 has both ITR and EITR. SET EITR when we use
 		 * the multi queue function with MSI-X.
 		 */
-		if ((sc->sc_flags & WM_F_NEWQUEUE) != 0)
-			CSR_WRITE(sc, WMREG_EITR(0), sc->sc_itr);
-		else
+		if ((sc->sc_flags & WM_F_NEWQUEUE) != 0) {
+			if (sc->sc_nintrs > 1) {
+				CSR_WRITE(sc, WMREG_EITR(WM_MSIX_RXINTR_IDX),
+				    sc->sc_itr);
+				CSR_WRITE(sc, WMREG_EITR(WM_MSIX_TXINTR_IDX),
+				    sc->sc_itr);
+				/*
+				 * Link interrupts occur much less than TX
+				 * interrupts and RX interrupts. So, we don't
+				 * tune EINTR(WM_MSIX_LINKINTR_IDX) value like
+				 * FreeBSD's if_igb.
+				 */
+			} else
+				CSR_WRITE(sc, WMREG_EITR(0), sc->sc_itr);
+		} else
 			CSR_WRITE(sc, WMREG_ITR, sc->sc_itr);
 	}
 
@@ -9808,6 +9834,7 @@ wm_nvm_version(struct wm_softc *sc)
 	case WM_T_82571:
 	case WM_T_82572:
 	case WM_T_82574:
+	case WM_T_82583:
 		check_version = true;
 		check_optionrom = true;
 		have_build = true;
@@ -9853,8 +9880,10 @@ wm_nvm_version(struct wm_softc *sc)
 printver:
 		aprint_verbose(", version %d.%d", sc->sc_nvm_ver_major,
 		    sc->sc_nvm_ver_minor);
-		if (have_build)
+		if (have_build) {
+			sc->sc_nvm_ver_build = build;
 			aprint_verbose(".%d", build);
+		}
 	}
 	if (check_optionrom) {
 		wm_nvm_read(sc, NVM_OFF_COMB_VER_PTR, 1, &off);

@@ -182,6 +182,11 @@ SUBDIR+= \
 	xf86-video-wsfb
 .endif	# ${MACHINE} == "luna68k"
 
+.if ${MACHINE} == "mac68k"
+SUBDIR+= \
+	xf86-video-wsfb
+.endif	# ${MACHINE} == "mac68k"
+
 .if ${MACHINE} == "macppc"
 SUBDIR+= \
 	xf86-video-ati \

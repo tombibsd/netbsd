@@ -6,6 +6,10 @@
 ./usr/bin/iasl					base-util-bin
 ./usr/lib/i386/libi386.so.1			base-compat-shlib	compat,pic
 ./usr/lib/i386/libi386.so.1.0			base-compat-shlib	compat,pic
+./usr/lib/i386/libproc.so.0			base-compat-shlib	compat,pic,dtrace
+./usr/lib/i386/libproc.so.0.0			base-compat-shlib	compat,pic,dtrace
+./usr/lib/i386/librtld_db.so.0			base-compat-shlib	compat,pic,dtrace
+./usr/lib/i386/librtld_db.so.0.0		base-compat-shlib	compat,pic,dtrace
 ./usr/lib/libx86_64.so				base-sys-shlib		pic
 ./usr/lib/libx86_64.so.0			base-sys-shlib		pic
 ./usr/lib/libx86_64.so.0.0			base-sys-shlib		pic

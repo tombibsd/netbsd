@@ -18,12 +18,12 @@
 /freebsd_sched.c/1.22/Sun Jul 20 13:08:32 2014/-kk/
 /freebsd_sched.h/1.2/Mon Apr 28 20:23:41 2008/-kk/
 /freebsd_signal.h/1.8/Tue Dec  4 18:40:08 2007/-kk/
-/freebsd_syscall.h/1.80/Sat Mar 21 02:37:47 2015/-kk/
-/freebsd_syscallargs.h/1.83/Sat Mar 21 02:37:47 2015/-kk/
-/freebsd_syscalls.c/1.80/Sat Mar 21 02:37:47 2015/-kk/
+/freebsd_syscall.h/1.81/Fri Oct  2 14:11:52 2015/-kk/
+/freebsd_syscallargs.h/1.84/Fri Oct  2 14:11:52 2015/-kk/
+/freebsd_syscalls.c/1.81/Fri Oct  2 14:11:52 2015/-kk/
 /freebsd_sysctl.c/1.19/Sat Mar 21 02:21:07 2015/-kk/
 /freebsd_sysctl.h/1.1/Wed Nov 19 18:36:02 2008/-kk/
-/freebsd_sysent.c/1.82/Sat Mar 21 02:37:47 2015/-kk/
+/freebsd_sysent.c/1.83/Fri Oct  2 14:11:52 2015/-kk/
 /freebsd_timex.h/1.4/Tue Dec  4 18:40:08 2007/-kk/
 /syscalls.conf/1.3/Sat Dec  9 06:16:12 2000/-kk/
 /syscalls.master/1.67/Tue Nov 12 02:18:42 2013/-kk/

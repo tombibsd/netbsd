@@ -102,5 +102,6 @@ sy_invoke(const struct sysent *sy, struct lwp *l, const void *uap,
 
 /* inclusion in the kernel currently depends on SYSCALL_DEBUG */
 extern const char * const syscallnames[];
+extern const char * const altsyscallnames[];
 
 #endif	/* _SYS_SYSCALLVAR_H_ */

@@ -5,6 +5,7 @@
 .include	"../../Makefile.inc"
 
 LIB=		ctf
+MAN=		ctf.5
 
 SRCS=		ctf_create.c \
 		ctf_decl.c \

@@ -840,7 +840,7 @@ sunos_sys_ioctl(struct lwp *l, const struct sunos_sys_ioctl_args *uap, register_
 	 * (which was from the old sparc/scsi/sun_disklabel.c), and
 	 * modified to suite.
 	 */
-	case DKIOCGGEOM:
+	case SUN_DKIOCGGEOM:
             {
 		struct disklabel dl;
 
@@ -863,12 +863,12 @@ sunos_sys_ioctl(struct lwp *l, const struct sunos_sys_ioctl_args *uap, register_
 		break;
 	    }
 
-	case DKIOCINFO:
+	case SUN_DKIOCINFO:
 		/* Homey don't do DKIOCINFO */
 		memset(SCARG(uap, data), 0, sizeof(struct sun_dkctlr));
 		break;
 
-	case DKIOCGPART:
+	case SUN_DKIOCGPART:
             {
 		struct partinfo pi;
 

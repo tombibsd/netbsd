@@ -1,0 +1,94 @@
+/darwin-64.c/1.1.1.1/Wed Sep 23 03:03:05 2015/-kk/
+/darwin-crt-tm.c/1.1.1.1/Wed Sep 23 03:03:05 2015/-kk/
+/darwin-crt3.c/1.1.1.1/Wed Sep 23 03:03:05 2015/-kk/
+/gmon-sol2.c/1.1.1.1/Wed Sep 23 03:03:05 2015/-kk/
+/gthr-lynx.h/1.1.1.1/Wed Sep 23 03:03:05 2015/-kk/
+/gthr-rtems.h/1.1.1.1/Wed Sep 23 03:03:05 2015/-kk/
+/gthr-vxworks.h/1.1.1.1/Wed Sep 23 03:03:05 2015/-kk/
+/libgcc-glibc.ver/1.1.1.1/Wed Sep 23 03:03:05 2015/-kk/
+/libgcc-libsystem.ver/1.1.1.1/Wed Sep 23 03:03:05 2015/-kk/
+/no-sfp-machine.h/1.1.1.1/Wed Sep 23 03:03:05 2015/-kk/
+/no-unwind.h/1.1.1.1/Wed Sep 23 03:03:05 2015/-kk/
+/t-crtfm/1.1.1.1/Wed Sep 23 03:03:05 2015/-kk/
+/t-crtstuff-pic/1.1.1.1/Wed Sep 23 03:03:05 2015/-kk/
+/t-darwin/1.1.1.1/Wed Sep 23 03:03:05 2015/-kk/
+/t-dfprules/1.1.1.1/Wed Sep 23 03:03:05 2015/-kk/
+/t-eh-dw2-dip/1.1.1.1/Wed Sep 23 03:03:05 2015/-kk/
+/t-fdpbit/1.1.1.1/Wed Sep 23 03:03:05 2015/-kk/
+/t-fixedpoint-gnu-prefix/1.1.1.1/Wed Sep 23 03:03:05 2015/-kk/
+/t-fpbit/1.1.1.1/Wed Sep 23 03:03:05 2015/-kk/
+/t-freebsd-thread/1.1.1.1/Wed Sep 23 03:03:05 2015/-kk/
+/t-gnu-prefix/1.1.1.1/Wed Sep 23 03:03:05 2015/-kk/
+/t-libgcc-pic/1.1.1.1/Wed Sep 23 03:03:05 2015/-kk/
+/t-libunwind-elf/1.1.1.1/Wed Sep 23 03:03:05 2015/-kk/
+/t-libunwind/1.1.1.1/Wed Sep 23 03:03:05 2015/-kk/
+/t-linux/1.1.1.1/Wed Sep 23 03:03:05 2015/-kk/
+/t-openbsd-thread/1.1.1.1/Wed Sep 23 03:03:05 2015/-kk/
+/t-rtems/1.1.1.1/Wed Sep 23 03:03:05 2015/-kk/
+/t-slibgcc-darwin/1.3/Wed Sep 23 03:39:20 2015/-kk/
+/t-slibgcc-elf-ver/1.1.1.1/Wed Sep 23 03:03:05 2015/-kk/
+/t-slibgcc-gld-nover/1.1.1.1/Wed Sep 23 03:03:05 2015/-kk/
+/t-slibgcc-gld/1.1.1.1/Wed Sep 23 03:03:05 2015/-kk/
+/t-slibgcc-hpux/1.1.1.1/Wed Sep 23 03:03:05 2015/-kk/
+/t-slibgcc-libgcc/1.1.1.1/Wed Sep 23 03:03:05 2015/-kk/
+/t-slibgcc-nolc-override/1.1.1.1/Wed Sep 23 03:03:05 2015/-kk/
+/t-slibgcc-sld/1.1.1.1/Wed Sep 23 03:03:05 2015/-kk/
+/t-slibgcc-vms/1.1.1.1/Wed Sep 23 03:03:05 2015/-kk/
+/t-slibgcc/1.1.1.1/Wed Sep 23 03:03:05 2015/-kk/
+/t-softfp-excl/1.1.1.1/Wed Sep 23 03:03:05 2015/-kk/
+/t-softfp-sfdf/1.1.1.1/Wed Sep 23 03:03:05 2015/-kk/
+/t-softfp-tf/1.1.1.1/Wed Sep 23 03:03:05 2015/-kk/
+/t-softfp/1.3/Wed Sep 23 03:39:20 2015/-kk/
+/t-sol2/1.1.1.1/Wed Sep 23 03:03:05 2015/-kk/
+/t-stack/1.1.1.1/Wed Sep 23 03:03:05 2015/-kk/
+/t-tls/1.3/Wed Sep 23 03:39:20 2015/-kk/
+/t-vxworks/1.1.1.1/Wed Sep 23 03:03:05 2015/-kk/
+/unwind-dw2-fde-darwin.c/1.1.1.1/Wed Sep 23 03:03:05 2015/-kk/
+/vxlib-tls.c/1.1.1.1/Wed Sep 23 03:03:05 2015/-kk/
+/vxlib.c/1.1.1.1/Wed Sep 23 03:03:05 2015/-kk/
+D/aarch64////
+D/alpha////
+D/arm////
+D/avr////
+D/bfin////
+D/c6x////
+D/cr16////
+D/cris////
+D/epiphany////
+D/fr30////
+D/frv////
+D/h8300////
+D/i386////
+D/ia64////
+D/iq2000////
+D/libbid////
+D/lm32////
+D/m32c////
+D/m32r////
+D/m68k////
+D/mcore////
+D/mep////
+D/microblaze////
+D/mips////
+D/mmix////
+D/moxie////
+D/or1k////
+D/pa////
+D/pdp11////
+D/picochip////
+D/riscv////
+D/rl78////
+D/rs6000////
+D/rx////
+D/s390////
+D/score////
+D/sh////
+D/sparc////
+D/spu////
+D/stormy16////
+D/tilegx////
+D/tilepro////
+D/v850////
+D/vax////
+D/vms////
+D/xtensa////

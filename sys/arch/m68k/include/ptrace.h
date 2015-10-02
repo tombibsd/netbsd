@@ -54,4 +54,7 @@
 #define PTRACE_REG_SP(r)	(r)->r_regs[15]
 #define PTRACE_REG_INTRV(r)	(r)->r_regs[0]
 
+#define PTRACE_BREAKPOINT	((const uint8_t[]) { 0x4e, 0x4f })
+#define PTRACE_BREAKPOINT_SIZE	2
+
 #endif /* !_M68K_PTRACE_H_ */

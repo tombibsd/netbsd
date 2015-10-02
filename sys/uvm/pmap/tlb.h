@@ -27,8 +27,8 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-#ifndef _COMMON_PMAP_TLB_TLB_H_
-#define	_COMMON_PMAP_TLB_TLB_H_
+#ifndef _UVM_PMAP_PMAP_TLB_TLB_H_
+#define	_UVM_PMAP_PMAP_TLB_TLB_H_
 
 #if defined(_KERNEL) || defined(_KMEMUSER)
 
@@ -68,4 +68,4 @@ void	tlb_dump(void (*)(const char *, ...));
 
 #endif /* _KERNEL || _KMEMUSER */
 
-#endif /* !_COMMON_PMAP_TLB_TLB_H_ */
+#endif /* !_UVM_PMAP_PMAP_TLB_TLB_H_ */

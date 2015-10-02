@@ -10,9 +10,9 @@
 /ultrix_misc.c/1.122/Sun Feb 19 21:06:45 2012/-kk/
 /ultrix_mod.c/1.5/Fri Mar 14 04:28:19 2014/-kk/
 /ultrix_pathname.c/1.39/Fri Oct  3 09:50:52 2014/-kk/
-/ultrix_syscall.h/1.64/Sat Mar 21 02:37:48 2015/-kk/
-/ultrix_syscallargs.h/1.59/Sat Mar 21 02:37:48 2015/-kk/
-/ultrix_syscalls.c/1.63/Sat Mar 21 02:37:48 2015/-kk/
-/ultrix_sysent.c/1.66/Sat Mar 21 02:37:48 2015/-kk/
+/ultrix_syscall.h/1.65/Fri Oct  2 14:11:53 2015/-kk/
+/ultrix_syscallargs.h/1.60/Fri Oct  2 14:11:53 2015/-kk/
+/ultrix_syscalls.c/1.64/Fri Oct  2 14:11:53 2015/-kk/
+/ultrix_sysent.c/1.67/Fri Oct  2 14:11:53 2015/-kk/
 /ultrix_tty.h/1.4/Sun Sep 13 01:31:21 2015/-kk/
 D

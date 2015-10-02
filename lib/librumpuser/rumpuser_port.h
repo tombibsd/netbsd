@@ -314,4 +314,16 @@ do {						\
 #define setprogname(a)
 #endif
 
+/* at least GNU Hurd does not specify various common hardcoded constants */
+#include <limits.h>
+#ifndef MAXPATHLEN
+#define MAXPATHLEN	4096
+#endif
+#ifndef PATH_MAX
+#define PATH_MAX	MAXPATHLEN
+#endif
+#ifndef MAXHOSTNAMELEN
+#define MAXHOSTNAMELEN	256
+#endif
+
 #endif /* _LIB_LIBRUMPUSER_RUMPUSER_PORT_H_ */

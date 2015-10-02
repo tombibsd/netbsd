@@ -57,7 +57,7 @@
 /promlib.h/1.24/Thu Jan 21 11:40:01 2010/-kk/
 /psl.h/1.48/Sun Aug 28 22:30:09 2011/-kk/
 /pte.h/1.31/Thu Feb 16 20:17:15 2006/-kk/
-/ptrace.h/1.8/Wed Sep 23 08:03:27 2015/-kk/
+/ptrace.h/1.9/Fri Oct  2 14:11:50 2015/-kk/
 /reg.h/1.8/Sun Dec 11 12:19:06 2005/-kk/
 /reloc.h/1.7/Sun Dec 11 12:19:06 2005/-kk/
 /remote-sl.h/1.4/Sun Dec 11 12:19:06 2005/-kk/

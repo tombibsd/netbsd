@@ -56,6 +56,9 @@
 #define PTRACE_REG_SP(r)	(r)->r_sp
 #define PTRACE_REG_INTRV(r)	(r)->r_reg[0]
 
+#define PTRACE_BREAKPOINT	((const uint8_t[]) { 0xd4, 0x20, 0x01, 0xa0 })
+#define PTRACE_BREAKPOINT_SIZE	4
+
 #elif defined(__arm__)
 
 #include <arm/ptrace.h>

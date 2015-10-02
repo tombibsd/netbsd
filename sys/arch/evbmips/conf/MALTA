@@ -31,7 +31,6 @@ options 	NTP		# network time protocol
 options 	DIAGNOSTIC	# extra kernel sanity checking
 options 	DEBUG		# extra kernel debugging support
 #options 	SYSCALL_DEBUG	# symbolic syscall names
-#options 	KMEMSTATS	# kernel memory statistics (vmstat -m)
 options 	USERCONF	# userconf(4) support
 #options 	SYSCTL_INCLUDE_DESCR	# Include sysctl descriptions in kernel
 options 	DDB		# kernel dynamic debugger

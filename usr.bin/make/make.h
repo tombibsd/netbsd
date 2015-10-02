@@ -503,4 +503,13 @@ int str2Lst_Append(Lst, char *, const char *);
 #define MAX(a, b) ((a > b) ? a : b)
 #endif
 
+/* At least GNU/Hurd systems lack hardcoded MAXPATHLEN/PATH_MAX */
+#include <limits.h>
+#ifndef MAXPATHLEN
+#define MAXPATHLEN	4096
+#endif
+#ifndef PATH_MAX
+#define PATH_MAX	MAXPATHLEN
+#endif
+
 #endif /* _MAKE_H_ */

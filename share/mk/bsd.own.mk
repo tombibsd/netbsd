@@ -78,8 +78,10 @@ MKGCCCMDS?=	no
 # We import the old gcc as "gcc.old" when upgrading.  EXTERNAL_GCC_SUBDIR is
 # set to the relevant subdirectory in src/external/gpl3 for his HAVE_GCC.
 #
-.if ${HAVE_GCC} == 48
+.if ${HAVE_GCC} == 5
 EXTERNAL_GCC_SUBDIR=	gcc
+.elif ${HAVE_GCC} == 48
+EXTERNAL_GCC_SUBDIR=	gcc.old
 .else
 EXTERNAL_GCC_SUBDIR=	/does/not/exist
 .endif
@@ -1047,6 +1049,7 @@ ${var}?=	${${var}.${MACHINE_ARCH}:Uno}
     ${MACHINE} == "hpcsh"	|| \
     ${MACHINE} == "i386"	|| \
     ${MACHINE} == "luna68k"	|| \
+    ${MACHINE} == "mac68k"	|| \
     ${MACHINE} == "macppc"	|| \
     ${MACHINE} == "netwinder"	|| \
     ${MACHINE} == "newsmips"	|| \

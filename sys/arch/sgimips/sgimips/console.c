@@ -227,7 +227,7 @@ mace_serial_init(const char *consdev)
 
 		/* XXX: hardcoded MACE iotag */
 		mace_init_bus();
-		if (comcnattach(mace_isa_memt, MIPS_PHYS_TO_KSEG1(MACE_BASE + base),
+		if (comcnattach(mace_isa_memt, MACE_BASE + base,
 		    speed, COM_FREQ, COM_TYPE_NORMAL, comcnmode) == 0)
 			return (1);
 	}

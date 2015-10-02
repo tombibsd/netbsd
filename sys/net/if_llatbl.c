@@ -364,6 +364,7 @@ lltable_free(struct lltable *llt)
 
 	lltable_unlink(llt);
 
+	mutex_enter(softnet_lock);
 	LIST_INIT(&dchain);
 	IF_AFDATA_WLOCK(llt->llt_ifp);
 	/* Push all lles to @dchain */
@@ -371,14 +372,25 @@ lltable_free(struct lltable *llt)
 	llentries_unlink(llt, &dchain);
 	IF_AFDATA_WUNLOCK(llt->llt_ifp);
 
-	mutex_enter(softnet_lock);
 	LIST_FOREACH_SAFE(lle, &dchain, lle_chain, next) {
 		if (callout_halt(&lle->la_timer, softnet_lock))
 			LLE_REMREF(lle);
 #if defined(__NetBSD__)
 		/* XXX should have callback? */
-		if (lle->la_rt != NULL)
-			rtfree(lle->la_rt);
+		if (lle->la_rt != NULL) {
+			struct rtentry *rt = lle->la_rt;
+			lle->la_rt = NULL;
+#ifdef GATEWAY
+			/* XXX cannot call rtfree with holding mutex(IPL_NET) */
+			LLE_ADDREF(lle);
+			LLE_WUNLOCK(lle);
+#endif
+			rtfree(rt);
+#ifdef GATEWAY
+			LLE_WLOCK(lle);
+			LLE_REMREF(lle);
+#endif
+		}
 #endif
 		llentry_free(lle);
 	}

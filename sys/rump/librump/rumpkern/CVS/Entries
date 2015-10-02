@@ -10,7 +10,7 @@
 /intr.c/1.53/Tue Aug 25 04:51:28 2015/-kk/
 /klock.c/1.8/Thu Oct 24 10:28:58 2013/-kk/
 /kobj_rename.c/1.2/Tue May  6 05:50:19 2014/-kk/
-/locks.c/1.69/Tue May  6 05:50:19 2014/-kk/
+/locks.c/1.71/Fri Oct  2 14:12:06 2015/-kk/
 /locks_up.c/1.9/Thu Oct 24 10:28:58 2013/-kk/
 /ltsleep.c/1.33/Thu Oct 24 10:28:58 2013/-kk/
 /lwproc.c/1.35/Wed Apr 22 07:37:47 2015/-kk/
@@ -22,7 +22,7 @@
 /rump_curlwp_hypercall.h/1.2/Sun Mar 16 15:30:05 2014/-kk/
 /rump_lwproc.3/1.2/Thu Apr  2 02:28:09 2015/-kk/
 /rump_private.h/1.92/Fri May  1 11:32:37 2015/-kk/
-/rump_syscalls.c/1.114/Sun Sep 13 01:07:58 2015/-kk/
+/rump_syscalls.c/1.115/Fri Oct  2 14:12:06 2015/-kk/
 /rumpcopy.c/1.20/Wed Apr 22 07:37:47 2015/-kk/
 /rumpkern.ifspec/1.13/Tue May  6 05:50:19 2014/-kk/
 /rumpkern_if_priv.h/1.16/Tue May  6 05:50:19 2014/-kk/

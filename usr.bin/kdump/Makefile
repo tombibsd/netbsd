@@ -6,7 +6,6 @@
 USE_FORT?= yes	# cryptographic software
 
 PROG=	kdump
-CPPFLAGS+=-I${NETBSDSRCDIR}/usr.bin/ktrace -I${NETBSDSRCDIR}/sys
 SRCS=	kdump.c subr.c setemul.c siginfo.c
 .PATH:	${NETBSDSRCDIR}/usr.bin/ktrace
 CLEANFILES+=siginfo.c
@@ -17,6 +16,8 @@ LDSTATIC?=-static
 
 .include "Makefile.ioctl-c"
 .include "Makefile.siginfo-c"
+
+CPPFLAGS+=-I${NETBSDSRCDIR}/usr.bin/ktrace -I${NETBSDSRCDIR}/sys
 
 LDADD+=-lutil
 DPADD+=${LIBUTIL}

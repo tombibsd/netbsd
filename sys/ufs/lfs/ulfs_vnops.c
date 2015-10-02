@@ -775,7 +775,7 @@ ulfs_readdir(void *v)
 		int		*ncookies;
 	} */ *ap = v;
 	struct vnode	*vp = ap->a_vp;
-	struct lfs_dirheader	*cdp, *ecdp;
+	LFS_DIRHEADER	*cdp, *ecdp;
 	struct dirent	*ndp;
 	char		*cdbuf, *ndbuf, *endp;
 	struct uio	auio, *uio;
@@ -791,7 +791,7 @@ ulfs_readdir(void *v)
 	count = uio->uio_resid;
 	rcount = count - ((uio->uio_offset + count) & (fs->um_dirblksiz - 1));
 
-	if (rcount < LFS_DIRECTSIZ(0) || count < _DIRENT_MINSIZE(ndp))
+	if (rcount < LFS_DIRECTSIZ(fs, 0) || count < _DIRENT_MINSIZE(ndp))
 		return EINVAL;
 
 	startoff = uio->uio_offset & ~(fs->um_dirblksiz - 1);
@@ -816,8 +816,8 @@ ulfs_readdir(void *v)
 
 	rcount -= auio.uio_resid;
 
-	cdp = (struct lfs_dirheader *)(void *)cdbuf;
-	ecdp = (struct lfs_dirheader *)(void *)&cdbuf[rcount];
+	cdp = (LFS_DIRHEADER *)(void *)cdbuf;
+	ecdp = (LFS_DIRHEADER *)(void *)&cdbuf[rcount];
 
 	ndbufsz = count;
 	ndbuf = kmem_alloc(ndbufsz, KM_SLEEP);

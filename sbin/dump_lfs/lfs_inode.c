@@ -239,8 +239,7 @@ lfs_bmap(struct lfs *fs, union lfs_dinode *idinode, daddr_t lbn)
 				return UNASSIGNED;
 			/* printf("lbn %d: parent is the triple\n", -lbn); */
 			bread(LFS_FSBTODB(sblock, up), bp, lfs_sb_getbsize(sblock));
-			/* XXX ondisk32 */
-			return (daddr_t)((int32_t *)bp)[off];
+			return lfs_iblock_get(fs, bp, off);
 		} else /* residue == 0 */ {
 			/* Single indirect.  Two cases. */
 			if(lbn < BASE_TINDIR) {
@@ -272,8 +271,7 @@ lfs_bmap(struct lfs *fs, union lfs_dinode *idinode, daddr_t lbn)
 	if(up == UNASSIGNED || up == LFS_UNUSED_DADDR)
 		return UNASSIGNED;
 	bread(LFS_FSBTODB(sblock, up), bp, lfs_sb_getbsize(sblock));
-	/* XXX ondisk32 */
-	return (daddr_t)((int32_t *)bp)[off];
+	return lfs_iblock_get(fs, bp, off);
 }
 
 static IFILE *

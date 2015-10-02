@@ -2,5 +2,5 @@
 #	Remember to update distrib/sets/lists/base/shl.* when changing
 #
 
-major=2
+major=3
 minor=0

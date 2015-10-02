@@ -35,12 +35,18 @@
 # include "nbtool_config.h"
 #endif
 
-#include <sys/types.h>
-#ifdef __NetBSD__
-#include <sys/exec_elf.h>
+
+#if HAVE_NBTOOL_CONFIG_H
+# include <nbinclude/sys/exec_elf.h>
+#elif defined(__NetBSD__)
+# include <sys/types.h>
+# include <sys/exec_elf.h>
+#elif defined(__FreeBSD__)
+# include <sys/types.h>
+# include <sys/elf32.h>
+# include <sys/elf64.h>
 #else
-#include <sys/elf32.h>
-#include <sys/elf64.h>
+# error "Unsupported platform"
 #endif
 
 /* Library private data structures */

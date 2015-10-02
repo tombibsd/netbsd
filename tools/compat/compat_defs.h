@@ -910,6 +910,13 @@ void *setmode(const char *);
 #define LLONG_MIN ((long long)(~LLONG_MAX))
 #endif
 
+#ifndef MAXPATHLEN
+#define MAXPATHLEN	4096
+#endif
+#ifndef PATH_MAX
+#define PATH_MAX	MAXPATHLEN
+#endif
+
 /* <paths.h> */
 
 /* The host's _PATH_BSHELL might be broken, so override it. */
@@ -1148,6 +1155,9 @@ __GEN_ENDIAN_DEC(64, le)
 #endif
 #ifndef MAXPHYS
 #define MAXPHYS (64 * 1024)
+#endif
+#ifndef MAXHOSTNAMELEN
+#define MAXHOSTNAMELEN	256
 #endif
 
 /* XXX needed by makefs; this should be done in a better way */

@@ -12,10 +12,10 @@
 /linux_siginfo.h/1.6/Fri Nov 18 04:07:44 2011/-kk/
 /linux_signal.h/1.7/Mon Apr 28 20:23:42 2008/-kk/
 /linux_socket.h/1.5/Thu Feb 13 15:22:27 2014/-kk/
-/linux_syscall.h/1.96/Sat Mar 21 02:37:47 2015/-kk/
-/linux_syscallargs.h/1.95/Sat Mar 21 02:37:47 2015/-kk/
-/linux_syscalls.c/1.96/Sat Mar 21 02:37:47 2015/-kk/
-/linux_sysent.c/1.96/Sat Mar 21 02:37:47 2015/-kk/
+/linux_syscall.h/1.97/Fri Oct  2 14:11:52 2015/-kk/
+/linux_syscallargs.h/1.96/Fri Oct  2 14:11:52 2015/-kk/
+/linux_syscalls.c/1.97/Fri Oct  2 14:11:52 2015/-kk/
+/linux_sysent.c/1.97/Fri Oct  2 14:11:52 2015/-kk/
 /linux_termios.h/1.6/Mon Apr 28 20:23:42 2008/-kk/
 /linux_types.h/1.9/Sun Jan 11 02:45:48 2009/-kk/
 /syscalls.conf/1.5/Sun Dec 11 12:20:16 2005/-kk/

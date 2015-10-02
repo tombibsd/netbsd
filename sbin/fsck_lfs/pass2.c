@@ -52,7 +52,9 @@
 #include "fsutil.h"
 #include "extern.h"
 
-#define MINDIRSIZE	(sizeof (struct lfs_dirtemplate))
+#define MINDIRSIZE(fs) \
+	((fs)->lfs_is64 ? sizeof(struct lfs_dirtemplate64) : \
+			sizeof(struct lfs_dirtemplate32))
 
 static int pass2check(struct inodesc *);
 static int blksort(const void *, const void *);
@@ -135,9 +137,9 @@ pass2(void)
 		inp = *inpp;
 		if (inp->i_isize == 0)
 			continue;
-		if (inp->i_isize < MINDIRSIZE) {
+		if (inp->i_isize < MINDIRSIZE(fs)) {
 			direrror(inp->i_number, "DIRECTORY TOO SHORT");
-			inp->i_isize = roundup(MINDIRSIZE, LFS_DIRBLKSIZ);
+			inp->i_isize = roundup(MINDIRSIZE(fs), LFS_DIRBLKSIZ);
 			if (reply("FIX") == 1) {
 				vp = vget(fs, inp->i_number);
 				dp = VTOD(vp);
@@ -212,12 +214,12 @@ pass2(void)
 static int
 pass2check(struct inodesc * idesc)
 {
-	struct lfs_dirheader *dirp = idesc->id_dirp;
+	LFS_DIRHEADER *dirp = idesc->id_dirp;
 	struct inoinfo *inp;
 	int n, entrysize, ret = 0;
 	union lfs_dinode *dp;
 	const char *errmsg;
-	struct lfs_dirheader proto;
+	LFS_DIRHEADER proto;
 	char namebuf[MAXPATHLEN + 1];
 	char pathbuf[MAXPATHLEN + 1];
 
@@ -247,7 +249,7 @@ pass2check(struct inodesc * idesc)
 	lfs_dir_setino(fs, &proto, idesc->id_number);
 	lfs_dir_settype(fs, &proto, LFS_DT_DIR);
 	lfs_dir_setnamlen(fs, &proto, 1);
-	entrysize = LFS_DIRECTSIZ(1);
+	entrysize = LFS_DIRECTSIZ(fs, 1);
 	lfs_dir_setreclen(fs, &proto, entrysize);
 	if (lfs_dir_getino(fs, dirp) != 0 && strcmp(lfs_dir_nameptr(fs, dirp), "..") != 0) {
 		pfatal("CANNOT FIX, FIRST ENTRY IN DIRECTORY CONTAINS %s\n",
@@ -283,7 +285,7 @@ chk1:
 	lfs_dir_setino(fs, &proto, inp->i_parent);
 	lfs_dir_settype(fs, &proto, LFS_DT_DIR);
 	lfs_dir_setnamlen(fs, &proto, 2);
-	entrysize = LFS_DIRECTSIZ(2);
+	entrysize = LFS_DIRECTSIZ(fs, 2);
 	lfs_dir_setreclen(fs, &proto, entrysize);
 	if (idesc->id_entryno == 0) {
 		n = LFS_DIRSIZ(fs, dirp);
@@ -293,7 +295,7 @@ chk1:
 		lfs_dir_setreclen(fs, dirp, n);
 		idesc->id_entryno++;
 		lncntp[lfs_dir_getino(fs, dirp)]--;
-		dirp = (struct lfs_dirheader *) ((char *) (dirp) + n);
+		dirp = (LFS_DIRHEADER *) ((char *) (dirp) + n);
 		memset(dirp, 0, lfs_dir_getreclen(fs, &proto));
 		lfs_dir_setreclen(fs, dirp, lfs_dir_getreclen(fs, &proto));
 	}

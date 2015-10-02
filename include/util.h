@@ -83,6 +83,7 @@ const char     *getdiskrawname(char *, size_t, const char *);
 const char     *getdiskcookedname(char *, size_t, const char *);
 const char     *getfstypename(int);
 const char     *getfsspecname(char *, size_t, const char *);
+struct kinfo_vmentry *kinfo_getvmmap(pid_t, size_t *);
 #ifndef __LIBC12_SOURCE__
 void		login(const struct utmp *) __RENAME(__login50);
 void		loginx(const struct utmpx *) __RENAME(__loginx50);

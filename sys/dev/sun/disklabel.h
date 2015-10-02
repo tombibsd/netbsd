@@ -49,9 +49,9 @@
 #define	SUN_DKMAGIC	55998
 
 /* These are the guys that Sun's dkinfo needs... */
-#define DKIOCGGEOM	_IOR('d', 2, struct sun_dkgeom)	/* geometry info */
-#define DKIOCINFO	_IOR('d', 8, struct sun_dkctlr)	/* controller info */
-#define DKIOCGPART	_IOR('d', 4, struct sun_dkpart)	/* partition info */
+#define SUN_DKIOCGGEOM	_IOR('d', 2, struct sun_dkgeom)	/* geometry info */
+#define SUN_DKIOCINFO	_IOR('d', 8, struct sun_dkctlr)	/* controller info */
+#define SUN_DKIOCGPART	_IOR('d', 4, struct sun_dkpart)	/* partition info */
 
 /* geometry info */
 struct sun_dkgeom {

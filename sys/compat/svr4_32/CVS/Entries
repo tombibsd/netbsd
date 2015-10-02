@@ -36,10 +36,10 @@
 /svr4_32_statvfs.h/1.2/Mon Apr 28 20:23:46 2008/-kk/
 /svr4_32_stream.c/1.25/Sat Jun  2 21:39:27 2007/-kk/
 /svr4_32_stropts.h/1.5/Mon Apr 28 20:23:46 2008/-kk/
-/svr4_32_syscall.h/1.23/Sat Mar 21 02:37:48 2015/-kk/
-/svr4_32_syscallargs.h/1.23/Sat Mar 21 02:37:48 2015/-kk/
-/svr4_32_syscalls.c/1.23/Sat Mar 21 02:37:48 2015/-kk/
-/svr4_32_sysent.c/1.24/Sat Mar 21 02:37:48 2015/-kk/
+/svr4_32_syscall.h/1.24/Fri Oct  2 14:11:53 2015/-kk/
+/svr4_32_syscallargs.h/1.24/Fri Oct  2 14:11:53 2015/-kk/
+/svr4_32_syscalls.c/1.24/Fri Oct  2 14:11:53 2015/-kk/
+/svr4_32_sysent.c/1.25/Fri Oct  2 14:11:53 2015/-kk/
 /svr4_32_termios.c/1.17/Mon Apr 28 20:23:46 2008/-kk/
 /svr4_32_termios.h/1.4/Mon Apr 28 20:23:46 2008/-kk/
 /svr4_32_time.h/1.2/Mon Apr 28 20:23:46 2008/-kk/

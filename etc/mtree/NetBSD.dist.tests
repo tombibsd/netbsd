@@ -109,6 +109,7 @@
 ./usr/libdata/debug/usr/tests/lib/libposix/posix1
 ./usr/libdata/debug/usr/tests/lib/libposix/posix2
 ./usr/libdata/debug/usr/tests/lib/libppath
+./usr/libdata/debug/usr/tests/lib/libproc
 ./usr/libdata/debug/usr/tests/lib/libprop
 ./usr/libdata/debug/usr/tests/lib/libpthread
 ./usr/libdata/debug/usr/tests/lib/libpthread/dlopen
@@ -288,6 +289,7 @@
 ./usr/tests/lib/libposix/posix1
 ./usr/tests/lib/libposix/posix2
 ./usr/tests/lib/libppath
+./usr/tests/lib/libproc
 ./usr/tests/lib/libprop
 ./usr/tests/lib/libpthread
 ./usr/tests/lib/libpthread/dlopen

@@ -348,21 +348,50 @@
 /*
  * (See notes above)
  */
-struct lfs_dirheader {
+
+struct lfs_dirheader32 {
 	u_int32_t dh_ino;		/* inode number of entry */
 	u_int16_t dh_reclen;		/* length of this record */
 	u_int8_t  dh_type; 		/* file type, see below */
 	u_int8_t  dh_namlen;		/* length of string in d_name */
 };
 
+struct lfs_dirheader64 {
+	u_int32_t dh_inoA;		/* inode number of entry */
+	u_int32_t dh_inoB;		/* inode number of entry */
+	u_int16_t dh_reclen;		/* length of this record */
+	u_int8_t  dh_type; 		/* file type, see below */
+	u_int8_t  dh_namlen;		/* length of string in d_name */
+};
+
+union lfs_dirheader {
+	struct lfs_dirheader64 u_64;
+	struct lfs_dirheader32 u_32;
+};
+
+typedef union lfs_dirheader LFS_DIRHEADER;
+
 /*
  * Template for manipulating directories.
  */
-struct lfs_dirtemplate {
-	struct lfs_dirheader	dot_header;
+
+struct lfs_dirtemplate32 {
+	struct lfs_dirheader32	dot_header;
 	char			dot_name[4];	/* must be multiple of 4 */
-	struct lfs_dirheader	dotdot_header;
+	struct lfs_dirheader32	dotdot_header;
 	char			dotdot_name[4];	/* ditto */
+};
+
+struct lfs_dirtemplate64 {
+	struct lfs_dirheader64	dot_header;
+	char			dot_name[4];	/* must be multiple of 4 */
+	struct lfs_dirheader64	dotdot_header;
+	char			dotdot_name[4];	/* ditto */
+};
+
+union lfs_dirtemplate {
+	struct lfs_dirtemplate64 u_64;
+	struct lfs_dirtemplate32 u_32;
 };
 
 #if 0
@@ -559,11 +588,10 @@ typedef union finfo {
 typedef struct ifile64 IFILE64;
 struct ifile64 {
 	u_int32_t if_version;		/* inode version number */
-	u_int32_t if_pad;		/* 64-bit alignment padding */
+	u_int32_t if_atime_nsec;	/* and nanoseconds */
+	u_int64_t if_atime_sec;		/* Last access time, seconds */
 	int64_t	  if_daddr;		/* inode disk address */
 	u_int64_t if_nextfree;		/* next-unallocated inode */
-	u_int32_t if_atime_sec;		/* Last access time, seconds */
-	u_int32_t if_atime_nsec;	/* and nanoseconds */
 };
 
 typedef struct ifile32 IFILE32;

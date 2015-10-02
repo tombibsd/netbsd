@@ -84,7 +84,7 @@
 ./lib/libtermlib.so.0.6				base-sys-shlib		dynamicroot
 ./lib/libutil.so				base-sys-shlib		dynamicroot
 ./lib/libutil.so.7				base-sys-shlib		dynamicroot
-./lib/libutil.so.7.22				base-sys-shlib		dynamicroot
+./lib/libutil.so.7.23				base-sys-shlib		dynamicroot
 ./lib/libz.so					base-sys-shlib		dynamicroot
 ./lib/libz.so.1					base-sys-shlib		dynamicroot
 ./lib/libz.so.1.0				base-sys-shlib		dynamicroot
@@ -228,8 +228,8 @@
 ./usr/lib/libcrypto_rc5.so.7			base-crypto-shlib	compatfile,crypto,crypto_rc5
 ./usr/lib/libcrypto_rc5.so.7.0			base-crypto-shlib	compatfile,crypto,crypto_rc5
 ./usr/lib/libctf.so				base-sys-shlib		compatfile,dtrace
-./usr/lib/libctf.so.2				base-sys-shlib		compatfile,dtrace
-./usr/lib/libctf.so.2.0				base-sys-shlib		compatfile,dtrace
+./usr/lib/libctf.so.3				base-sys-shlib		compatfile,dtrace
+./usr/lib/libctf.so.3.0				base-sys-shlib		compatfile,dtrace
 ./usr/lib/libcurses.so				base-sys-shlib		compatfile
 ./usr/lib/libcurses.so.7			base-sys-shlib		compatfile
 ./usr/lib/libcurses.so.7.0			base-sys-shlib		compatfile
@@ -249,8 +249,8 @@
 ./usr/lib/libdns_sd.so.0			base-mdns-shlib		compatfile,mdns
 ./usr/lib/libdns_sd.so.0.0			base-mdns-shlib		compatfile,mdns
 ./usr/lib/libdtrace.so				base-sys-shlib		compatfile,dtrace
-./usr/lib/libdtrace.so.2			base-sys-shlib		compatfile,dtrace
-./usr/lib/libdtrace.so.2.0			base-sys-shlib		compatfile,dtrace
+./usr/lib/libdtrace.so.3			base-sys-shlib		compatfile,dtrace
+./usr/lib/libdtrace.so.3.0			base-sys-shlib		compatfile,dtrace
 ./usr/lib/libdwarf.so				base-sys-shlib		compatfile
 ./usr/lib/libdwarf.so.1				base-sys-shlib		compatfile
 ./usr/lib/libdwarf.so.1.0			base-sys-shlib		compatfile
@@ -431,6 +431,9 @@
 ./usr/lib/libppath.so				base-sys-shlib		compatfile
 ./usr/lib/libppath.so.0				base-sys-shlib		compatfile
 ./usr/lib/libppath.so.0.0			base-sys-shlib		compatfile
+./usr/lib/libproc.so				base-sys-shlib		compatfile,dtrace
+./usr/lib/libproc.so.0				base-sys-shlib		compatfile,dtrace
+./usr/lib/libproc.so.0.0			base-sys-shlib		compatfile,dtrace
 ./usr/lib/libprop.so				base-sys-shlib		compatfile
 ./usr/lib/libprop.so.1				base-sys-shlib		compatfile
 ./usr/lib/libprop.so.1.1			base-sys-shlib		compatfile
@@ -464,6 +467,9 @@
 ./usr/lib/librt.so				base-sys-shlib		compatfile
 ./usr/lib/librt.so.1				base-sys-shlib		compatfile
 ./usr/lib/librt.so.1.1				base-sys-shlib		compatfile
+./usr/lib/librtld_db.so				base-sys-shlib		compatfile,dtrace
+./usr/lib/librtld_db.so.0			base-sys-shlib		compatfile,dtrace
+./usr/lib/librtld_db.so.0.0			base-sys-shlib		compatfile,dtrace
 ./usr/lib/librump.so				base-rump-shlib		compatfile,rump
 ./usr/lib/librump.so.0				base-rump-shlib		compatfile,rump
 ./usr/lib/librump.so.0.0			base-rump-shlib		compatfile,rump
@@ -784,7 +790,7 @@
 ./usr/lib/libusbhid.so.1.0			base-sys-shlib		compatfile
 ./usr/lib/libutil.so				base-sys-shlib		compatfile
 ./usr/lib/libutil.so.7				base-sys-shlib		compatfile
-./usr/lib/libutil.so.7.22			base-sys-shlib		compatfile
+./usr/lib/libutil.so.7.23			base-sys-shlib		compatfile
 ./usr/lib/libuutil.so				base-zfs-shlib		compatfile,zfs
 ./usr/lib/libuutil.so.0				base-zfs-shlib		compatfile,zfs
 ./usr/lib/libuutil.so.0.0			base-zfs-shlib		compatfile,zfs

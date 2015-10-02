@@ -2,7 +2,7 @@
 /Version.map/1.1.1.1/Sun Mar  9 16:26:06 2014/-kk/
 /_libelf.h/1.2/Sun Mar  9 16:58:04 2014/-kk/
 /_libelf_ar.h/1.2/Sun Mar  9 16:58:04 2014/-kk/
-/_libelf_config.h/1.2/Sun Mar  9 16:58:04 2014/-kk/
+/_libelf_config.h/1.3/Fri Oct  2 14:04:19 2015/-kk/
 /elf.3/1.2/Sun Mar  9 16:58:04 2014/-kk/
 /elf.c/1.2/Sun Mar  9 16:58:04 2014/-kk/
 /elf_begin.3/1.2/Sun Mar  9 16:58:04 2014/-kk/
@@ -95,7 +95,7 @@
 /gelf_update_ehdr.3/1.2/Sun Mar  9 16:58:04 2014/-kk/
 /gelf_xlate.c/1.2/Sun Mar  9 16:58:04 2014/-kk/
 /gelf_xlatetof.3/1.2/Sun Mar  9 16:58:04 2014/-kk/
-/libelf.h/1.2/Sun Mar  9 16:58:04 2014/-kk/
+/libelf.h/1.4/Fri Oct  2 14:04:19 2015/-kk/
 /libelf_align.c/1.3/Thu Apr 24 14:20:00 2014/-kk/
 /libelf_allocate.c/1.2/Sun Mar  9 16:58:04 2014/-kk/
 /libelf_ar.c/1.2/Sun Mar  9 16:58:04 2014/-kk/

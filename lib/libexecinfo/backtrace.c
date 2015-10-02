@@ -60,7 +60,7 @@ open_self(int flags)
 	const char *pathname = SELF;
 #ifdef KERN_PROC_PATHNAME
 	static const int name[] = {
-		CTL_KERN, KERN_PROC, KERN_PROC_PATHNAME, -1,
+		CTL_KERN, KERN_PROC_ARGS, -1, KERN_PROC_PATHNAME,
 	};
 	char path[MAXPATHLEN];
 	size_t len;

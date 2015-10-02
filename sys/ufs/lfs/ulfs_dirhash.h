@@ -48,8 +48,8 @@
 #define DIRHASH_DEL	(-2)	/* deleted entry; may be part of chain */
 
 #define DIRALIGN	4
-#define DH_NFSTATS	(LFS_DIRECTSIZ(LFS_MAXNAMLEN + 1) / DIRALIGN)
-				 /* max DIRALIGN words in a directory entry */
+#define DH_NFSTATS	(LFS_MAXDIRENTRYSIZE / DIRALIGN)
+			 /* max DIRALIGN words in a directory entry */
 
 /*
  * Dirhash uses a score mechanism to achieve a hybrid between a
@@ -118,9 +118,9 @@ doff_t	ulfsdirhash_enduseful(struct inode *);
 int	ulfsdirhash_lookup(struct inode *, const char *, int, doff_t *,
 	    struct buf **, doff_t *);
 void	ulfsdirhash_newblk(struct inode *, doff_t);
-void	ulfsdirhash_add(struct inode *, struct lfs_dirheader *, doff_t);
-void	ulfsdirhash_remove(struct inode *, struct lfs_dirheader *, doff_t);
-void	ulfsdirhash_move(struct inode *, struct lfs_dirheader *, doff_t, doff_t);
+void	ulfsdirhash_add(struct inode *, LFS_DIRHEADER *, doff_t);
+void	ulfsdirhash_remove(struct inode *, LFS_DIRHEADER *, doff_t);
+void	ulfsdirhash_move(struct inode *, LFS_DIRHEADER *, doff_t, doff_t);
 void	ulfsdirhash_dirtrunc(struct inode *, doff_t);
 void	ulfsdirhash_free(struct inode *);
 void	ulfsdirhash_checkblock(struct inode *, char *, doff_t);

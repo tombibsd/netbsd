@@ -136,7 +136,7 @@ efs_locate_inode(ino_t ino, struct efs_sb *sbp, uint32_t *bboff, int *index)
 
 	cgisize = be16toh(sbp->sb_cgisize);
 	cgfsize = be32toh(sbp->sb_cgfsize);
-	firstcg = be32toh(sbp->sb_firstcg),
+	firstcg = be32toh(sbp->sb_firstcg);
 
 	*bboff = firstcg + ((ino / (cgisize * EFS_DINODES_PER_BB)) * cgfsize) +
 	    ((ino % (cgisize * EFS_DINODES_PER_BB)) / EFS_DINODES_PER_BB);

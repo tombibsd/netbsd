@@ -87,7 +87,7 @@
 /omapl1x_aintc.c/1.1/Thu Oct 24 10:28:57 2013/-kk/
 /omapl1x_bus_dma.c/1.1/Thu Oct 24 10:28:57 2013/-kk/
 /omapl1x_com.c/1.1/Thu Oct 24 10:28:57 2013/-kk/
-/omapl1x_emac.c/1.1/Thu Oct 24 10:28:57 2013/-kk/
+/omapl1x_emac.c/1.2/Fri Oct  2 14:11:41 2015/-kk/
 /omapl1x_intr.h/1.1/Thu Oct 24 10:28:57 2013/-kk/
 /omapl1x_misc.h/1.1/Thu Oct 24 10:28:57 2013/-kk/
 /omapl1x_ohci.c/1.1/Thu Oct 24 10:28:57 2013/-kk/

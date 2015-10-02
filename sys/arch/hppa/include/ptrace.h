@@ -52,3 +52,6 @@
     } while (/*CONSTCOND*/0)
 #define PTRACE_REG_SP(r)	(r)->r_out[30]
 #define PTRACE_REG_INTRV(r)	(r)->r_out[28]
+
+#define PTRACE_BREAKPOINT	((const uint8_t[]) { 0x00, 0x01, 0x00, 0x04 })
+#define PTRACE_BREAKPOINT_SIZE	4

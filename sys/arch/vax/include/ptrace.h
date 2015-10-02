@@ -48,3 +48,6 @@
 #define PTRACE_REG_SET_PC(r, v)	(r)->pc = (v)
 #define PTRACE_REG_SP(r)	(r)->sp
 #define PTRACE_REG_INTRV(r)	(r)->r0
+
+#define PTRACE_BREAKPOINT	((const uint8_t[]) { 0x03 })
+#define PTRACE_BREAKPOINT_SIZE	1

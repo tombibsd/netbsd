@@ -244,6 +244,7 @@ getanswer(const querybuf *answer, int anslen, const char *qname, int qtype,
 		name_ok = res_dnok;
 		break;
 	default:
+		*he = NO_RECOVERY;
 		return NULL;	/* XXX should be abort(); */
 	}
 
@@ -964,6 +965,7 @@ _dns_gethtbyname(void *rv, void *cb_data, va_list ap)
 	res = __res_get_state();
 	if (res == NULL) {
 		free(buf);
+		*info->he = NETDB_INTERNAL;
 		return NS_NOTFOUND;
 	}
 	n = res_nsearch(res, name, C_IN, type, buf->buf, (int)sizeof(buf->buf));
@@ -978,7 +980,7 @@ _dns_gethtbyname(void *rv, void *cb_data, va_list ap)
 	free(buf);
 	__res_put_state(res);
 	if (hp == NULL)
-		switch (h_errno) {
+		switch (*info->he) {
 		case HOST_NOT_FOUND:
 			return NS_NOTFOUND;
 		case TRY_AGAIN:
@@ -1026,35 +1028,31 @@ _dns_gethtbyaddr(void *rv, void	*cb_data, va_list ap)
 			    ((unsigned int)uaddr[n] >> 4) & 0xf);
 			if (advance > 0 && qp + advance < ep)
 				qp += advance;
-			else {
-				*info->he = NETDB_INTERNAL;
-				return NS_NOTFOUND;
-			}
+			else
+				goto norecovery;
 		}
-		if (strlcat(qbuf, "ip6.arpa", sizeof(qbuf)) >= sizeof(qbuf)) {
-			*info->he = NETDB_INTERNAL;
-			return NS_NOTFOUND;
-		}
+		if (strlcat(qbuf, "ip6.arpa", sizeof(qbuf)) >= sizeof(qbuf))
+			goto norecovery;
 		break;
 	default:
-		return NS_UNAVAIL;
+		goto norecovery;
 	}
 
 	buf = malloc(sizeof(*buf));
 	if (buf == NULL) {
-		*info->he = NETDB_INTERNAL;
-		return NS_NOTFOUND;
+		goto nospc;
 	}
 	res = __res_get_state();
 	if (res == NULL) {
 		free(buf);
-		return NS_NOTFOUND;
+		goto nospc;
 	}
 	n = res_nquery(res, qbuf, C_IN, T_PTR, buf->buf, (int)sizeof(buf->buf));
 	if (n < 0) {
 		free(buf);
 		debugprintf("res_nquery failed (%d)\n", res, n);
 		__res_put_state(res);
+		*info->he = HOST_NOT_FOUND;
 		return NS_NOTFOUND;
 	}
 	hp = getanswer(buf, n, qbuf, T_PTR, res, info->hp, info->buf,
@@ -1080,8 +1078,10 @@ _dns_gethtbyaddr(void *rv, void	*cb_data, va_list ap)
 	hp->h_addr_list[1] = NULL;
 	(void)memcpy(bf, uaddr, (size_t)info->hp->h_length);
 	if (info->hp->h_addrtype == AF_INET && (res->options & RES_USE_INET6)) {
-		if (blen + NS_IN6ADDRSZ > info->buflen)
+		if (blen + NS_IN6ADDRSZ > info->buflen) {
+			__res_put_state(res);
 			goto nospc;
+		}
 		map_v4v6_address(bf, bf);
 		hp->h_addrtype = AF_INET6;
 		hp->h_length = NS_IN6ADDRSZ;
@@ -1092,6 +1092,9 @@ _dns_gethtbyaddr(void *rv, void	*cb_data, va_list ap)
 	return NS_SUCCESS;
 nospc:
 	*info->he = NETDB_INTERNAL;
+	return NS_UNAVAIL;
+norecovery:
+	*info->he = NO_RECOVERY;
 	return NS_UNAVAIL;
 }
 

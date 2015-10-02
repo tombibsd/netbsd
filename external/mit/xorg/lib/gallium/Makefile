@@ -54,8 +54,6 @@ GALLIUM_SUBDIRS= \
 	winsys/sw/kms-dri \
 	state_trackers/dri
 
-GALLIUM_NAMES=	kms_swrast r600 swrant
-
 GALLIUM_SOURCES.auxiliary/cso_cache= \
 	cso_cache.c \
 	cso_context.c \

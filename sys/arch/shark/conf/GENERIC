@@ -330,5 +330,4 @@ pseudo-device	putter			# for puffs and pud
 #options VERIFIED_EXEC_FP_MD5
 
 options PAX_MPROTECT=0			# PaX mprotect(2) restrictions
-#options PAX_SEGVGUARD=0			# PaX Segmentation fault guard
 options PAX_ASLR=0			# PaX Address Space Layout Randomization

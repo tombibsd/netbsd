@@ -3,7 +3,7 @@
 /aout_machdep.h/1.1/Sun Feb  4 18:32:11 2001/-kk/
 /asm.h/1.1/Sun Feb  4 18:32:11 2001/-kk/
 /autoconf.h/1.1/Sat Dec 17 20:20:37 2011/-kk/
-/bootinfo.h/1.8/Tue Jan 11 06:57:35 2011/-kk/
+/bootinfo.h/1.9/Fri Oct  2 14:11:50 2015/-kk/
 /bswap.h/1.1/Sun Feb  4 18:32:12 2001/-kk/
 /bus_defs.h/1.1/Fri Jul  1 17:10:00 2011/-kk/
 /bus_funcs.h/1.3/Sat Jan 14 19:39:25 2012/-kk/

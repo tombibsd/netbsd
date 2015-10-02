@@ -1,0 +1,3 @@
+# $NetBSD$
+
+LIBPROCDIR:=	${.PARSEDIR}/dist

@@ -221,8 +221,10 @@ struct iwn_softc {
 #define IWN_FLAG_HAS_11N	(1 << 6)
 #define IWN_FLAG_ENH_SENS	(1 << 7)
 /* Added for NetBSD */
-#define IWN_FLAG_SCANNING	(1 << 8)
-#define IWN_FLAG_HW_INITED	(1 << 9)
+#define IWN_FLAG_HW_INITED	(1 << 8)
+#define IWN_FLAG_SCANNING_2GHZ	(1 << 9)
+#define IWN_FLAG_SCANNING_5GHZ	(1 << 10)
+#define IWN_FLAG_SCANNING	(IWN_FLAG_SCANNING_2GHZ|IWN_FLAG_SCANNING_5GHZ)
 
 	uint8_t 		hw_type;
 

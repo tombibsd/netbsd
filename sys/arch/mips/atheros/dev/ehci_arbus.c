@@ -66,7 +66,7 @@ static void	ehci_arbus_attach(device_t, device_t, void *);
 CFATTACH_DECL_NEW(ehci_arbus, sizeof (ehci_softc_t),
     ehci_arbus_match, ehci_arbus_attach, NULL, NULL);
 
-static void ehci_arbus_init(struct ehci_soft *);
+static void ehci_arbus_init(struct ehci_softc *);
 
 int
 ehci_arbus_match(device_t parent, cfdata_t cf, void *aux)

@@ -626,10 +626,7 @@ crmfb_init_screen(void *c, struct vcons_screen *scr, int existing,
 		break;
 	}
 
-	ri->ri_bits = KERNADDR(sc->sc_dma);
-
-	if (existing)
-		ri->ri_flg |= RI_CLEAR;
+	ri->ri_bits = NULL;
 
 	rasops_init(ri, 0, 0);
 	ri->ri_caps = WSSCREEN_WSCOLORS;

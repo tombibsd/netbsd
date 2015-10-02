@@ -64,6 +64,8 @@ kill_body() {
 	# a helper script that executes /bin/sh directly.
 	local s=$PWD/killhelper.sh
 	local z=/tmp/killhelper.$$ 
+	local pid=
+
 	cat >$s <<\EOF
 #!/bin/sh
 trap "echo SIGHUP" 1
@@ -73,9 +75,15 @@ wait
 echo $?
 EOF
 	chmod +x $s
+
 	$s > $z &
+	pid=$!
+	sleep 1
+
 	# XXX: built-in kill does not work?
-	/bin/kill -HUP $!
+	/bin/kill -HUP $pid
+	sleep 1
+
 	output="$(cat $z | tr '\n' ' ')"
 	rm -f $s $z
 	if [ "$output" != "SIGHUP 129 " ]; then

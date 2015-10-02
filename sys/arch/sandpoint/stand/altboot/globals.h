@@ -172,6 +172,7 @@ NIF_DECL(stg);
 struct disk {
 	char xname[8];
 	void *dvops;
+	unsigned unitchan;
 	unsigned unittag;
 	uint16_t ident[128];
 	uint64_t nsect;
@@ -195,6 +196,8 @@ struct fs_ops *dsk_fsops(struct open_file *);
 
 DSK_DECL(pciide);
 DSK_DECL(siisata);
+
+extern int sata_delay[4];
 
 /* status */
 #define ATA_STS_BUSY		0x80

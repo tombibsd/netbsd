@@ -80,7 +80,7 @@
 /profile.h/1.33/Thu Dec 20 23:46:13 2007/-kk/
 /psl.h/1.35/Wed Feb 26 21:29:03 2003/-kk/
 /pte.h/1.27/Tue Feb  1 20:09:08 2011/-kk/
-/ptrace.h/1.14/Wed Sep 23 08:03:09 2015/-kk/
+/ptrace.h/1.15/Fri Oct  2 14:11:45 2015/-kk/
 /rbus_machdep.h/1.9/Mon Mar  1 01:15:24 2010/-kk/
 /reg.h/1.19/Wed Jan 16 09:37:08 2008/-kk/
 /return.h/1.1/Tue Nov  3 05:08:18 2009/-kk/

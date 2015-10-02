@@ -58,6 +58,10 @@
 #define PTRACE_REG_SET_PC(r, v)	(r)->r_regs[35] = (v)
 #define PTRACE_REG_SP(r)	(r)->r_regs[29]
 #define PTRACE_REG_INTRV(r)	(r)->r_regs[2]
+
+#define PTRACE_BREAKPOINT	((const uint8_t[]) { 0x00, 0x00, 0x00, 0x0d })
+#define PTRACE_BREAKPOINT_SIZE	4
+
 /*
  * Glue for gdb: map NetBSD register names to legacy ptrace register names
  */

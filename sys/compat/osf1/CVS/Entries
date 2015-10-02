@@ -26,10 +26,10 @@
 /osf1_signal.h/1.6/Wed May  5 01:51:36 1999/-kk/
 /osf1_signo.c/1.2/Thu Oct 24 10:28:57 2013/-kk/
 /osf1_socket.c/1.21/Wed Aug 12 04:14:17 2015/-kk/
-/osf1_syscall.h/1.62/Sat Mar 21 02:37:48 2015/-kk/
-/osf1_syscallargs.h/1.63/Sat Mar 21 02:37:48 2015/-kk/
-/osf1_syscalls.c/1.61/Sat Mar 21 02:37:48 2015/-kk/
-/osf1_sysent.c/1.63/Sat Mar 21 02:37:48 2015/-kk/
+/osf1_syscall.h/1.63/Fri Oct  2 14:11:53 2015/-kk/
+/osf1_syscallargs.h/1.64/Fri Oct  2 14:11:53 2015/-kk/
+/osf1_syscalls.c/1.62/Fri Oct  2 14:11:53 2015/-kk/
+/osf1_sysent.c/1.64/Fri Oct  2 14:11:53 2015/-kk/
 /osf1_sysv_ipc.c/1.7/Thu Dec 20 23:03:03 2007/-kk/
 /osf1_time.c/1.16/Thu Dec 20 23:03:03 2007/-kk/
 /syscalls.conf/1.2/Wed Dec 13 01:29:16 2000/-kk/

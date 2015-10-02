@@ -8,7 +8,7 @@
 /efs_inode.h/1.1/Fri Jun 29 23:30:29 2007/-kk/
 /efs_mount.h/1.1/Fri Jun 29 23:30:29 2007/-kk/
 /efs_sb.h/1.1/Fri Jun 29 23:30:29 2007/-kk/
-/efs_subr.c/1.11/Thu Apr  2 02:28:06 2015/-kk/
+/efs_subr.c/1.12/Fri Oct  2 14:12:04 2015/-kk/
 /efs_subr.h/1.2/Wed Jul  4 19:24:09 2007/-kk/
 /efs_vfsops.c/1.26/Fri Oct  3 09:26:13 2014/-kk/
 /efs_vnops.c/1.33/Fri Oct  3 09:26:13 2014/-kk/

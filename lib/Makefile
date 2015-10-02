@@ -35,7 +35,8 @@ SUBDIR+=	libkern
 
 .if (${MACHINE_CPU} == "arm" || ${MACHINE_CPU} == "aarch64")
 LIBC_MACHINE_ARCH?=${MACHINE_ARCH}
-.if empty(LIBC_MACHINE_ARCH:M*hf*)
+LIBC_MACHINE_CPU?=${MACHINE_CPU}
+.if ${LIBC_MACHINE_CPU} == "arm" && empty(LIBC_MACHINE_ARCH:M*hf*)
 SUBDIR+=	libc_vfp
 .endif
 .endif
@@ -62,10 +63,6 @@ SUBDIR+=	../external/bsd/libpcap/lib
 .if ${MKSLJIT} != "no"
 SUBDIR+=	../external/bsd/sljit/lib
 SUBDIR+=	libbpfjit
-.endif
-
-.if ${MKDTRACE} != "no"
-SUBDIR+=        ../external/cddl/osnet/lib/libdtrace
 .endif
 
 .if (${MKZFS} != "no")
@@ -102,6 +99,10 @@ SUBDIR+=	../external/lgpl3/mpc/lib/libmpc
 #
 #==================== 1st library dependency barrier ====================
 SUBDIR+=	.WAIT
+
+.if ${MKDTRACE} != "no"
+SUBDIR+=	../external/bsd/librtld_db/lib		# depends on libutil
+.endif
 
 .if ${MKDTRACE} != "no" || ${MKCTF} != "no"
 SUBDIR+=        ../external/cddl/osnet/lib/libctf
@@ -206,6 +207,9 @@ SUBDIR+=	../crypto/external/bsd/netpgp/lib  # depends on libcrypto, ...
 .endif
 
 SUBDIR+=	../external/bsd/libevent/lib	# depends on libcrypto
+.if ${MKDTRACE} != "no"
+SUBDIR+=	../external/bsd/libproc/lib	# depends on libstdc++, libctf
+.endif
 SUBDIR+=	../external/bsd/fetch/lib	# depends on libssl
 
 .if (${MKLDAP} != "no")
@@ -216,6 +220,10 @@ SUBDIR+=	../external/bsd/openldap/lib	# depends on libcrypto, ...
 SUBDIR+=	.WAIT
 
 SUBDIR+=	../external/bsd/bind/lib	# depends on heimdal, libcrypto
+
+.if ${MKDTRACE} != "no"
+SUBDIR+=        ../external/cddl/osnet/lib/libdtrace	# depends on libproc
+.endif
 
 .if (${MKRUMP} != "no")
 SUBDIR+=	librumpdev	# depends on librump

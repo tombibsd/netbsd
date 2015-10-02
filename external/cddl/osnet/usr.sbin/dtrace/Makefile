@@ -33,13 +33,11 @@ COPTS.dtrace.c += -Wno-stack-protector -Wno-format-extra-args
 
 LDFLAGS+=	-pthread
 
-LIBCTF_OBJDIR!=	cd ${.CURDIR}/../../lib/libctf && ${PRINTOBJDIR}
-LDFLAGS+=	-L${LIBDTRACE_OBJDIR} -ldtrace
-
-LIBDTRACE_OBJDIR!= cd ${.CURDIR}/../../lib/libdtrace && ${PRINTOBJDIR}
-LDFLAGS+=	-L${LIBCTF_OBJDIR} -lctf
-
-LDADD+=		-ly -ll -lelf -lz
-
+PROGDPLIBS+=	ctf ${.CURDIR}/../../lib/libctf
+PROGDPLIBS+=	dtrace ${.CURDIR}/../../lib/libdtrace
+PROGDPLIBS+=	elf ${NETBSDSRCDIR}/external/bsd/elftoolchain/lib/libelf
+PROGDPLIBS+=	y ${NETBSDSRCDIR}/lib/liby
+PROGDPLIBS+=	l ${NETBSDSRCDIR}/external/bsd/flex/lib
+PROGDPLIBS+=	z ${NETBSDSRCDIR}/lib/libz
 
 .include <bsd.prog.mk>

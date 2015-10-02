@@ -849,7 +849,7 @@ lfs_mkdir(void *v)
 	struct vattr *vap;
 	struct ulfs_lookup_results *ulr;
 	struct buf *bp;
-	struct lfs_dirheader *dirp;
+	LFS_DIRHEADER *dirp;
 	int dirblksiz;
 	int error;
 
@@ -942,19 +942,19 @@ lfs_mkdir(void *v)
 
 	/* . */
 	lfs_dir_setino(fs, dirp, ip->i_number);
-	lfs_dir_setreclen(fs, dirp, LFS_DIRECTSIZ(1));
+	lfs_dir_setreclen(fs, dirp, LFS_DIRECTSIZ(fs, 1));
 	lfs_dir_settype(fs, dirp, LFS_DT_DIR);
 	lfs_dir_setnamlen(fs, dirp, 1);
 	lfs_copydirname(fs, lfs_dir_nameptr(fs, dirp), ".", 1,
-			LFS_DIRECTSIZ(1));
+			LFS_DIRECTSIZ(fs, 1));
 	dirp = LFS_NEXTDIR(fs, dirp);
 	/* .. */
 	lfs_dir_setino(fs, dirp, dp->i_number);
-	lfs_dir_setreclen(fs, dirp, dirblksiz - LFS_DIRECTSIZ(1));
+	lfs_dir_setreclen(fs, dirp, dirblksiz - LFS_DIRECTSIZ(fs, 1));
 	lfs_dir_settype(fs, dirp, LFS_DT_DIR);
 	lfs_dir_setnamlen(fs, dirp, 2);
 	lfs_copydirname(fs, lfs_dir_nameptr(fs, dirp), "..", 2,
-			dirblksiz - LFS_DIRECTSIZ(1));
+			dirblksiz - LFS_DIRECTSIZ(fs, 1));
 
 	/*
 	 * Directory set up; now install its entry in the parent directory.

@@ -1633,7 +1633,7 @@ options 	VERIFIED_EXEC_FP_MD5
 
 options 	PAX_MPROTECT=0		# PaX mprotect(2) restrictions
 options 	PAX_ASLR=0		# PaX Address Space Layout Randomization
-options 	PAX_SEGVGUARD=0		# PaX Segmentation fault guard
+#options 	PAX_SEGVGUARD=0		# PaX Segmentation fault guard
 
 #
 # NetBSD: GENERIC_ISDN,v 1.16 2010/01/03 03:53:34 dholland Exp

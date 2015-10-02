@@ -10,12 +10,12 @@
 /gai_strerror.3/1.5/Mon Mar 22 19:30:54 2010/-kk/
 /getaddrinfo.3/1.57/Thu Oct 24 10:28:53 2013/-kk/
 /getaddrinfo.c/1.109/Sun Sep 13 01:29:27 2015/-kk/
-/gethnamaddr.c/1.91/Sun Jun 22 14:31:48 2014/-kk/
+/gethnamaddr.c/1.92/Fri Oct  2 14:11:18 2015/-kk/
 /gethostbyname.3/1.29/Thu Oct 24 10:28:53 2013/-kk/
 /getifaddrs.3/1.14/Thu Oct 24 10:28:53 2013/-kk/
 /getifaddrs.c/1.15/Tue Mar 13 21:13:40 2012/-kk/
 /getnameinfo.3/1.41/Thu Oct 24 10:28:53 2013/-kk/
-/getnameinfo.c/1.57/Sun Sep 13 01:29:27 2015/-kk/
+/getnameinfo.c/1.59/Fri Oct  2 14:11:18 2015/-kk/
 /getnetent.3/1.13/Sat May  8 18:52:15 2004/-kk/
 /getnetent.c/1.21/Tue Mar 20 17:44:18 2012/-kk/
 /getnetnamadr.c/1.42/Tue Mar 13 21:13:41 2012/-kk/

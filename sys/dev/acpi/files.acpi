@@ -169,6 +169,11 @@ device	vald
 attach	vald at acpinodebus with vald_acpi
 file	dev/acpi/vald_acpi.c		vald_acpi
 
+# Toshiba Dynabook hotkeys
+device	valz
+attach	valz at acpinodebus with valz_acpi
+file	dev/acpi/valz_acpi.c		valz_acpi
+
 # Sony SPIC (jog dial etc.)
 attach	spic at acpinodebus with spic_acpi
 file	dev/acpi/spic_acpi.c		spic_acpi

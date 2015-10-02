@@ -910,7 +910,7 @@ at91dbgu_cn_getc(dev_t dev)
 	if (!db_active)
 #endif
 	{
-		int cn_trapped = 0; /* unused */
+		int cn_trapped __unused = 0;
 
 		cn_check_magic(dev, c, at91dbgu_cnm_state);
 	}

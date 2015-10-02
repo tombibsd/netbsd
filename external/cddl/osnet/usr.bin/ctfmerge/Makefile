@@ -28,8 +28,7 @@ SRCS=		alist.c \
 		tdata.c \
 		traverse.c \
 		util.c
-
-LDADD+=-lrt -lpthread
-DPADD+=${LIBRT} ${LIBPTHREAD}
+LDADD+=-lpthread
+DPADD+=${LIBPTHREAD}
 
 .include <bsd.prog.mk>

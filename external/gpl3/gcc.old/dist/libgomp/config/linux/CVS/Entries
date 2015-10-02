@@ -1,0 +1,23 @@
+/affinity.c/1.3/Wed Sep 23 03:39:23 2015/-kk/
+/bar.c/1.3/Wed Sep 23 03:39:23 2015/-kk/
+/bar.h/1.3/Wed Sep 23 03:39:23 2015/-kk/
+/futex.h/1.1.1.1/Wed Sep 23 03:03:27 2015/-kk/
+/lock.c/1.3/Wed Sep 23 03:39:23 2015/-kk/
+/mutex.c/1.3/Wed Sep 23 03:39:23 2015/-kk/
+/mutex.h/1.3/Wed Sep 23 03:39:23 2015/-kk/
+/omp-lock.h/1.3/Wed Sep 23 03:39:23 2015/-kk/
+/proc.c/1.3/Wed Sep 23 03:39:23 2015/-kk/
+/proc.h/1.1.1.1/Wed Sep 23 03:03:27 2015/-kk/
+/ptrlock.c/1.3/Wed Sep 23 03:39:23 2015/-kk/
+/ptrlock.h/1.3/Wed Sep 23 03:39:23 2015/-kk/
+/sem.c/1.3/Wed Sep 23 03:39:23 2015/-kk/
+/sem.h/1.3/Wed Sep 23 03:39:23 2015/-kk/
+/wait.h/1.3/Wed Sep 23 03:39:23 2015/-kk/
+D/alpha////
+D/ia64////
+D/mips////
+D/powerpc////
+D/s390////
+D/sparc////
+D/tile////
+D/x86////
