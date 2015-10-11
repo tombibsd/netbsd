@@ -215,6 +215,9 @@ glx_pci_read_hook(void *v, pcitag_t tag, int offset)
 	int bus, dev, fn;
 	pcireg_t data;
 
+	if ((unsigned int)offset >= PCI_CONF_SIZE)
+		return (pcireg_t) -1;
+
 	/*
 	 * Do not get in the way of MSR programming
 	 */
@@ -259,6 +262,9 @@ glx_pci_write_hook(void *v, pcitag_t tag,
     int offset, pcireg_t data)
 {
 	int bus, dev, fn;
+
+	if ((unsigned int)offset >= PCI_CONF_SIZE)
+		return;
 
 	/*
 	 * Do not get in the way of MSR programming

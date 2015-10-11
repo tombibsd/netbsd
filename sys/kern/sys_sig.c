@@ -68,6 +68,8 @@
 #include <sys/cdefs.h>
 __KERNEL_RCSID(0, "$NetBSD$");
 
+#include "opt_dtrace.h"
+
 #include <sys/param.h>
 #include <sys/kernel.h>
 #include <sys/signalvar.h>
@@ -78,6 +80,12 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/wait.h>
 #include <sys/kmem.h>
 #include <sys/module.h>
+#include <sys/sdt.h>
+
+SDT_PROVIDER_DECLARE(proc);
+SDT_PROBE_DEFINE2(proc, kernel, , signal__clear,
+    "int", 		/* signal */
+    "ksiginfo_t *");	/* signal-info */
 
 int
 sys___sigaction_sigtramp(struct lwp *l,
@@ -833,7 +841,10 @@ out:
 		error = (*storeinf)(&ksi.ksi_info, SCARG(uap, info),
 		    sizeof(ksi.ksi_info));
 	}
-	if (error == 0)
+	if (error == 0) {
 		*retval = ksi.ksi_info._signo;
+		SDT_PROBE(proc, kernel, , signal__clear, *retval,
+		    &ksi, 0, 0, 0);
+	}
 	return error;
 }

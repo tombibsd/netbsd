@@ -314,6 +314,9 @@ necpb_conf_read(pci_chipset_tag_t pc, pcitag_t tag, int reg)
 	pcireg_t data;
 	int s;
 
+	if ((unsigned int)reg >= PCI_CONF_SIZE)
+		return (pcireg_t) -1;
+
 	s = splhigh();
 	out32(RD94_SYS_PCI_CONFADDR, tag | reg);
 	data = in32(RD94_SYS_PCI_CONFDATA);
@@ -327,6 +330,9 @@ static void
 necpb_conf_write(pci_chipset_tag_t pc, pcitag_t tag, int reg, pcireg_t data)
 {
 	int s;
+
+	if ((unsigned int)reg >= PCI_CONF_SIZE)
+		return;
 
 	s = splhigh();
 	out32(RD94_SYS_PCI_CONFADDR, tag | reg);

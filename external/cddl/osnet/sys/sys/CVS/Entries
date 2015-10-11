@@ -61,7 +61,7 @@
 /refstr.h/1.2/Sun Feb 21 01:46:36 2010/-kk/
 /rwlock.h/1.3/Sun Feb 21 01:46:36 2010/-kk/
 /rwlock_impl.h/1.1/Sun Feb 21 01:46:36 2010/-kk/
-/sdt.h/1.5/Mon Mar  1 23:42:41 2010/-kk/
+/sdt.h/1.7/Sun Oct 11 08:58:45 2015/-kk/
 /sema.h/1.2/Sun Feb 21 01:46:36 2010/-kk/
 /sha2.h/1.1/Sun Feb 28 17:22:01 2010/-kk/
 /sid.h/1.3/Sun Feb 21 01:46:36 2010/-kk/

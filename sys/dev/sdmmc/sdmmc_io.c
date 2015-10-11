@@ -566,7 +566,7 @@ sdmmc_io_send_op_cond(struct sdmmc_softc *sc, u_int32_t ocr, u_int32_t *ocrp)
 		memset(&cmd, 0, sizeof cmd);
 		cmd.c_opcode = SD_IO_SEND_OP_COND;
 		cmd.c_arg = ocr;
-		cmd.c_flags = SCF_CMD_BCR | SCF_RSP_R4;
+		cmd.c_flags = SCF_CMD_BCR | SCF_RSP_R4 | SCF_TOUT_OK;
 
 		error = sdmmc_mmc_command(sc, &cmd);
 		if (error)

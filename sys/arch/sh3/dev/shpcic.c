@@ -295,6 +295,9 @@ shpcic_conf_read(void *v, pcitag_t tag, int reg)
 	pcireg_t data;
 	int s;
 
+	if ((unsigned int)reg >= PCI_CONF_SIZE)
+		return (pcireg_t) -1;
+
 	s = splhigh();
 	_reg_write_4(SH4_PCIPAR, tag | reg);
 	data = _reg_read_4(SH4_PCIPDR);
@@ -308,6 +311,9 @@ void
 shpcic_conf_write(void *v, pcitag_t tag, int reg, pcireg_t data)
 {
 	int s;
+
+	if ((unsigned int)reg >= PCI_CONF_SIZE)
+		return;
 
 	s = splhigh();
 	_reg_write_4(SH4_PCIPAR, tag | reg);

@@ -693,9 +693,6 @@ rmixl_pcix_conf_setup(rmixl_pcix_softc_t *sc,
 		}
 		bsh = cfg_bsh;
 	} else  {
-#ifdef DEBUG
-		panic("%s: offset %#x: unknown", __func__, *offp);
-#endif
 		return -1;
 	}
 

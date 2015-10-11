@@ -761,10 +761,10 @@ check_summary(struct lfs *fs, SEGSUM *sp, daddr_t pseg_addr, int debug,
 	int bc;			/* Bytes in partial segment */
 	int nblocks;
 	daddr_t daddr;
-	uint32_t *dp, *idp; // XXX ondisk32
+	IINFO *iibase, *iip;
 	struct ubuf *bp;
 	int i, j, k, datac, len;
-	u_int32_t *datap;
+	lfs_checkword *datap;
 	u_int32_t ccksum;
 
 	/* We've already checked the sumsum, just do the data bounds and sum */
@@ -787,34 +787,33 @@ check_summary(struct lfs *fs, SEGSUM *sp, daddr_t pseg_addr, int debug,
 	datap = emalloc(nblocks * sizeof(*datap));
 	datac = 0;
 
-	dp = (uint32_t *) sp; /* XXX ondisk32 */
-	dp += lfs_sb_getsumsize(fs) / sizeof(*dp);
-	dp--;
+	iibase = SEGSUM_IINFOSTART(fs, sp);
 
-	idp = dp;
+	iip = iibase;
 	daddr = pseg_addr + lfs_btofsb(fs, lfs_sb_getsumsize(fs));
-	fp = (FINFO *) (sp + 1);
+	fp = SEGSUM_FINFOBASE(fs, sp);
 	for (i = 0, j = 0;
 	     i < lfs_ss_getnfinfo(fs, sp) || j < howmany(lfs_ss_getninos(fs, sp), LFS_INOPB(fs)); i++) {
-		if (i >= lfs_ss_getnfinfo(fs, sp) && *idp != daddr) {
+		if (i >= lfs_ss_getnfinfo(fs, sp) && lfs_ii_getblock(fs, iip) != daddr) {
 			pwarn("Not enough inode blocks in pseg at 0x%jx: "
 			      "found %d, wanted %d\n",
 			      pseg_addr, j, howmany(lfs_ss_getninos(fs, sp),
 						    LFS_INOPB(fs)));
 			if (debug)
-				pwarn("*idp=0x%jx, daddr=0x%jx\n",
-				    (uintmax_t)*idp, (intmax_t)daddr);
+				pwarn("iip=0x%jx, daddr=0x%jx\n",
+				    (uintmax_t)lfs_ii_getblock(fs, iip),
+				    (intmax_t)daddr);
 			break;
 		}
-		while (j < howmany(lfs_ss_getninos(fs, sp), LFS_INOPB(fs)) && *idp == daddr) {
+		while (j < howmany(lfs_ss_getninos(fs, sp), LFS_INOPB(fs)) && lfs_ii_getblock(fs, iip) == daddr) {
 			bread(devvp, LFS_FSBTODB(fs, daddr), lfs_sb_getibsize(fs),
 			    0, &bp);
-			datap[datac++] = ((u_int32_t *) (bp->b_data))[0];
+			datap[datac++] = ((lfs_checkword *)bp->b_data)[0];
 			brelse(bp, 0);
 
 			++j;
 			daddr += lfs_btofsb(fs, lfs_sb_getibsize(fs));
-			--idp;
+			iip = NEXTLOWER_IINFO(fs, iip);
 		}
 		if (i < lfs_ss_getnfinfo(fs, sp)) {
 			if (func)
@@ -825,7 +824,7 @@ check_summary(struct lfs *fs, SEGSUM *sp, daddr_t pseg_addr, int debug,
 				       : lfs_sb_getbsize(fs));
 				bread(devvp, LFS_FSBTODB(fs, daddr), len,
 				    0, &bp);
-				datap[datac++] = ((u_int32_t *) (bp->b_data))[0];
+				datap[datac++] = ((lfs_checkword *)bp->b_data)[0];
 				brelse(bp, 0);
 				daddr += lfs_btofsb(fs, len);
 			}
@@ -837,8 +836,7 @@ check_summary(struct lfs *fs, SEGSUM *sp, daddr_t pseg_addr, int debug,
 		pwarn("Partial segment at 0x%jx expected %d blocks counted %d\n",
 		    (intmax_t)pseg_addr, nblocks, datac);
 	}
-	/* XXX ondisk32 */
-	ccksum = cksum(datap, nblocks * sizeof(u_int32_t));
+	ccksum = cksum(datap, nblocks * sizeof(datap[0]));
 	/* Check the data checksum */
 	if (ccksum != lfs_ss_getdatasum(fs, sp)) {
 		pwarn("Partial segment at 0x%jx data checksum"
@@ -1092,8 +1090,6 @@ lfs_balloc(struct uvnode *vp, off_t startoffset, int iosize, struct ubuf **bpp)
 	if (error)
 		return (error);
 
-	daddr = (daddr_t)((int32_t)daddr); /* XXX ondisk32 */
-
 	/*
 	 * Do byte accounting all at once, so we can gracefully fail *before*
 	 * we start assigning blocks.
@@ -1138,12 +1134,12 @@ lfs_balloc(struct uvnode *vp, off_t startoffset, int iosize, struct ubuf **bpp)
 				 * If that is the case mark it UNWRITTEN to
                                  * keep the accounting straight.
 				 */
-				/* XXX ondisk32 */
-				if (((int32_t *)ibp->b_data)[indirs[i].in_off] == 0)
-					((int32_t *)ibp->b_data)[indirs[i].in_off] =
-						UNWRITTEN;
-				/* XXX ondisk32 */
-				idaddr = ((int32_t *)ibp->b_data)[indirs[i].in_off];
+				if (lfs_iblock_get(fs, ibp->b_data,
+						indirs[i].in_off) == 0)
+					lfs_iblock_set(fs, ibp->b_data,
+						indirs[i].in_off, UNWRITTEN);
+				idaddr = lfs_iblock_get(fs, ibp->b_data,
+						indirs[i].in_off);
 				if ((error = VOP_BWRITE(ibp)))
 					return error;
 			}
@@ -1184,7 +1180,6 @@ lfs_balloc(struct uvnode *vp, off_t startoffset, int iosize, struct ubuf **bpp)
 			if (bread(vp, idp->in_lbn, lfs_sb_getbsize(fs), 0, &ibp))
 				panic("lfs_balloc: bread bno %lld",
 				    (long long)idp->in_lbn);
-			/* XXX ondisk32 */
 			lfs_iblock_set(fs, ibp->b_data, idp->in_off,
 				       UNWRITTEN);
 			VOP_BWRITE(ibp);

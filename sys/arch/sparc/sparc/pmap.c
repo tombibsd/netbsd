@@ -3214,7 +3214,7 @@ pmap_bootstrap4_4c(void *top, int nctx, int nregion, int nsegment)
 	 * above NUREG, we save storage space and can index kernel and
 	 * user regions in the same way.
 	 */
-	kernel_pmap_store.pm_regmap = &kernel_regmap_store[-NUREG];
+	kernel_pmap_store.pm_regmap = kernel_regmap_store - NUREG;
 	for (i = NKREG; --i >= 0;) {
 #if defined(SUN4_MMU3L)
 		kernel_regmap_store[i].rg_smeg = reginval;
@@ -3592,7 +3592,7 @@ pmap_bootstrap4m(void *top)
 	 * above NUREG, we save storage space and can index kernel and
 	 * user regions in the same way.
 	 */
-	kernel_pmap_store.pm_regmap = &kernel_regmap_store[-NUREG];
+	kernel_pmap_store.pm_regmap = kernel_regmap_store - NUREG;
 	memset(kernel_regmap_store, 0, NKREG * sizeof(struct regmap));
 	memset(kernel_segmap_store, 0, NKREG * NSEGRG * sizeof(struct segmap));
 	for (i = NKREG; --i >= 0;) {

@@ -72,6 +72,7 @@ typedef struct apbus_dev {
 } apbus_dev_t;
 
 static const apbus_dev_t apbus_devs[] = {
+	{ "efuse",	JZ_EFUSE,	-1, 0, 0, 0},
 	{ "com",	JZ_UART0,	51, CLK_UART0, 0, 0},
 	{ "com",	JZ_UART1,	50, CLK_UART1, 0, 0},
 	{ "com",	JZ_UART2,	49, CLK_UART2, 0, 0},

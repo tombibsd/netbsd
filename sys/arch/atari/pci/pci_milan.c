@@ -67,6 +67,9 @@ pci_conf_read(pci_chipset_tag_t pc, pcitag_t tag, int reg)
 {
 	u_long		data;
 
+	if ((unsigned int)reg >= PCI_CONF_SIZE)
+		return 0xffffffff;
+
 	data = bswap32(milan_pci_confread(tag | reg));
 	if ((plx_status) & 0xf9000000) {
 		/*
@@ -81,6 +84,10 @@ pci_conf_read(pci_chipset_tag_t pc, pcitag_t tag, int reg)
 void
 pci_conf_write(pci_chipset_tag_t pc, pcitag_t tag, int reg, pcireg_t data)
 {
+
+	if ((unsigned int)reg >= PCI_CONF_SIZE)
+		return;
+
 	milan_pci_confwrite(tag | reg, bswap32(data));
 }
 

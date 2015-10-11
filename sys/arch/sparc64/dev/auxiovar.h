@@ -28,5 +28,36 @@
  */
 
 #ifndef _LOCORE
+
+/*
+ * on sun4u, auxio exists with one register (LED) on the sbus, and 5
+ * registers on the ebus2 (pci) (LED, PCIMODE, FREQUENCY, SCSI
+ * OSCILLATOR, and TEMP SENSE.
+ */
+
+struct auxio_softc {
+	device_t		sc_dev;
+
+	kmutex_t		sc_lock;
+
+	/* parent's tag */
+	bus_space_tag_t		sc_tag;
+
+	/* handles to the various auxio register sets */
+	bus_space_handle_t	sc_led;
+	bus_space_handle_t	sc_pci;
+	bus_space_handle_t	sc_freq;
+	bus_space_handle_t	sc_scsi;
+	bus_space_handle_t	sc_temp;
+
+	int			sc_flags;
+#define	AUXIO_LEDONLY		0x1	// only sc_led is valid
+#define	AUXIO_EBUS		0x2
+};
+
+#define	AUXIO_ROM_NAME		"auxio"
+
+void auxio_attach_common(struct auxio_softc *);
 int auxio_fd_control(u_int32_t);
+
 #endif

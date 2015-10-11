@@ -43,7 +43,6 @@ int dofix(struct inodesc *, const char *);
 void fileerror(ino_t, ino_t, const char *);
 int findino(struct inodesc *);
 int findname(struct inodesc *);
-void flush(int, struct ubufarea *);
 void freeblk(daddr_t, long);
 void freeino(ino_t);
 void freeinodebuf(void);

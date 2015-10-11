@@ -212,6 +212,9 @@ macepci_conf_read(pci_chipset_tag_t pc, pcitag_t tag, int reg)
 {
 	pcireg_t data;
 
+	if ((unsigned int)reg >= PCI_CONF_SIZE)
+		return (pcireg_t) -1;
+
 	bus_space_write_4(pc->iot, pc->ioh, MACE_PCI_CONFIG_ADDR, (tag | reg));
 	data = bus_space_read_4(pc->iot, pc->ioh, MACE_PCI_CONFIG_DATA);
 	bus_space_write_4(pc->iot, pc->ioh, MACE_PCI_CONFIG_ADDR, 0);
@@ -222,6 +225,9 @@ macepci_conf_read(pci_chipset_tag_t pc, pcitag_t tag, int reg)
 void
 macepci_conf_write(pci_chipset_tag_t pc, pcitag_t tag, int reg, pcireg_t data)
 {
+
+	if ((unsigned int)reg >= PCI_CONF_SIZE)
+		return;
 
 	bus_space_write_4(pc->iot, pc->ioh, MACE_PCI_CONFIG_ADDR, (tag | reg));
 	bus_space_write_4(pc->iot, pc->ioh, MACE_PCI_CONFIG_DATA, data);

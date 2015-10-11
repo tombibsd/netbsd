@@ -69,8 +69,6 @@
 
 #define	MAXDUP		10	/* limit on dup blks (per inode) */
 #define	MAXBAD		10	/* limit on bad blks (per inode) */
-#define	MAXBUFSPACE	40*1024	/* maximum space to allocate to buffers */
-#define	INOBUFSIZE	56*1024	/* size of buffer to read inodes in pass1 */
 
 #ifndef BUFSIZ
 #define BUFSIZ 1024
@@ -84,37 +82,6 @@
 #define	FCLEAR	06		/* file is to be cleared */
 
 #define EEXIT	8		/* Standard error exit */
-
-/*
- * buffer cache structure.
- */
-struct ubufarea {
-	struct ubufarea *b_next;	/* free list queue */
-	struct ubufarea *b_prev;	/* free list queue */
-	daddr_t b_bno;
-	int b_size;
-	int b_errs;
-	int b_flags;
-	union {
-		char *b_buf;	/* buffer space */
-		/* XXX ondisk32 */
-		int32_t *b_indir;	/* indirect block */
-		struct lfs *b_fs;	/* super block */
-		struct cg *b_cg;/* cylinder group */
-		struct lfs32_dinode *b_dinode32;	/* inode block */
-		struct lfs64_dinode *b_dinode64;	/* inode block */
-	}     b_un;
-	char b_dirty;
-};
-#define	B_INUSE 1
-
-#define	MINBUFS		5	/* minimum number of buffers required */
-
-#define	dirty(bp)	(bp)->b_dirty = 1
-#define	initbarea(bp) \
-	(bp)->b_dirty = 0; \
-	(bp)->b_bno = (daddr_t)-1; \
-	(bp)->b_flags = 0;
 
 enum fixstate {
 	DONTKNOW, NOFIX, FIX, IGNORE
@@ -131,7 +98,7 @@ struct inodesc {
 	int id_numfrags;	/* number of frags contained in block */
 	off_t id_filesize;	/* for DATA nodes, the size of the directory */
 	int id_loc;		/* for DATA nodes, current location in dir */
-	int id_entryno;		/* for DATA nodes, current entry number */
+	long long id_entryno;	/* for DATA nodes, current entry number */
 	LFS_DIRHEADER *id_dirp;	/* for DATA nodes, ptr to current entry */
 	const char *id_name;	/* for DATA nodes, name to find or enter */
 	char id_type;		/* type of descriptor, DATA or ADDR */
@@ -183,8 +150,7 @@ struct inoinfo {
 	ino_t i_dotdot;		/* inode number of `..' */
 	size_t i_isize;		/* size of inode */
 	u_int i_numblks;	/* size of block array in bytes */
-	/* XXX ondisk32 */
-	int32_t i_blks[1];	/* actually longer */
+	daddr_t i_blks[1];	/* actually longer */
 }     **inphead, **inpsort;
 
 #ifndef VERBOSE_BLOCKMAP

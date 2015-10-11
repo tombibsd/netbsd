@@ -1296,7 +1296,7 @@ extern struct sparc_bus_space_tag mainbus_space_tag;
 		if ((node = findnode(node0, sp)) == 0) {
 			if (ssp->flags & BS_OPTIONAL) continue;
 			printf("could not find %s in OPENPROM\n", sp);
-			panic(sp);
+			panic("%s", sp);
 		}
 
 		memset(&ma, 0, sizeof ma);
@@ -1318,7 +1318,7 @@ extern struct sparc_bus_space_tag mainbus_space_tag;
 
 		if (config_found(dev, (void *)&ma, mbprint) == NULL) {
 			if (ssp->flags & BS_OPTIONAL) continue;
-			panic(sp);
+			panic("%s", sp);
 		}
 	}
 

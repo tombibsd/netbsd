@@ -165,6 +165,9 @@ vtpbc_conf_addr(struct vtpbc_config *vt, pcitag_t tag, int offset,
 {
 	int b, d, f;
 
+	if ((unsigned int)offset >= PCI_CONF_SIZE)
+		return (1);
+
 	vtpbc_decompose_tag(vt, tag, &b, &d, &f);
 
 	if (b == 0) {

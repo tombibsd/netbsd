@@ -490,7 +490,7 @@ typedef struct ifnet {
 #define	IF_AFDATA_WLOCK_ASSERT(ifp)	\
 	KASSERT(rw_write_held((ifp)->if_afdata_lock))
 #define	IF_AFDATA_UNLOCK_ASSERT(ifp)	\
-	KASSERT(!rw_lock_head((ifp)->if_afdata_lock))
+	KASSERT(!rw_lock_held((ifp)->if_afdata_lock))
 #endif /* GATEWAY */
 
 #define IFQ_LOCK(_ifq)		if ((_ifq)->ifq_lock) mutex_enter((_ifq)->ifq_lock)

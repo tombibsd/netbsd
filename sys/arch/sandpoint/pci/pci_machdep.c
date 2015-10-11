@@ -213,6 +213,9 @@ pci_conf_read(pci_chipset_tag_t pc, pcitag_t tag, int reg)
 {
 	pcireg_t data;
 
+	if ((unsigned int)reg >= PCI_CONF_SIZE)
+		return (pcireg_t) -1;
+
 	out32rb(SANDPOINT_PCI_CONFIG_ADDR, tag | reg);
 	data = in32rb(SANDPOINT_PCI_CONFIG_DATA);
 	out32rb(SANDPOINT_PCI_CONFIG_ADDR, 0);
@@ -222,6 +225,9 @@ pci_conf_read(pci_chipset_tag_t pc, pcitag_t tag, int reg)
 void
 pci_conf_write(pci_chipset_tag_t pc, pcitag_t tag, int reg, pcireg_t data)
 {
+
+	if ((unsigned int)reg >= PCI_CONF_SIZE)
+		return;
 
 	out32rb(SANDPOINT_PCI_CONFIG_ADDR, tag | reg);
 	out32rb(SANDPOINT_PCI_CONFIG_DATA, data);

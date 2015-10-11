@@ -347,14 +347,15 @@ pci_conf_read(pci_chipset_tag_t pc, pcitag_t tag, int reg)
 #ifdef DIAGNOSTIC
 	if (reg & 0x3)
 		panic("pci_conf_read: reg %x unaligned", reg);
-	if (reg & ~0xff)
-		panic("pci_conf_read: reg %x out of range", reg);
 #endif
 
 	if (PCITAG_NODE(tag) == -1) {
 		DPRINTF(SPDB_CONF, ("\n"));
 		return ~0;
 	}
+
+	if ((unsigned int)reg >= PCI_CONF_SIZE)
+		return ~0;
 
 	mode1_addr = PCITAG_OFFSET(tag) | reg;
 	mode1_data_reg_pa = PCI_MODE1_DATA_REG_PA
@@ -384,14 +385,15 @@ pci_conf_write(pci_chipset_tag_t pc, pcitag_t tag, int reg, pcireg_t data)
 #ifdef DIAGNOSTIC
 	if (reg & 0x3)
 		panic("pci_conf_write: reg %x unaligned", reg);
-	if (reg & ~0xff)
-		panic("pci_conf_write: reg %x out of range", reg);
 #endif
 
 	if (PCITAG_NODE(tag) == -1) {
 		DPRINTF(SPDB_CONF, ("\n"));
 		return;
 	}
+
+	if ((unsigned int)reg >= PCI_CONF_SIZE)
+		return;
 
 	mode1_addr = PCITAG_OFFSET(tag) | reg;
 	mode1_data_reg_pa = PCI_MODE1_DATA_REG_PA

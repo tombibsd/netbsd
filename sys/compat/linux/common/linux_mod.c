@@ -65,7 +65,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 # define	MD3	""
 #endif
 
-MODULE(MODULE_CLASS_EXEC, compat_linux, "compat,compat_ossaudio" MD1 MD2 MD3);
+MODULE(MODULE_CLASS_EXEC, compat_linux, "compat,compat_ossaudio,compat_sysv"
+	MD1 MD2 MD3);
 
 static struct execsw linux_execsw[] = {
 #if defined(EXEC_ELF32) && ELFSIZE == 32

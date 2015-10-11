@@ -181,6 +181,9 @@ sbbrz_pci_conf_read(void *cpv, pcitag_t tag, int offset)
 		panic ("pci_conf_read: misaligned");
 #endif
 
+	if ((unsigned int)offset >= PCI_CONF_SIZE)
+		return 0xffffffff;
+
 	addr = A_PHYS_LDTPCI_CFG_MATCH_BITS + tag + offset;
 	addr = MIPS_PHYS_TO_XKPHYS(MIPS3_TLB_ATTR_UNCACHED, addr);
 
@@ -201,6 +204,9 @@ sbbrz_pci_conf_write(void *cpv, pcitag_t tag, int offset, pcireg_t data)
 	if ((offset & 0x3) != 0)
 		panic ("pci_conf_write: misaligned");
 #endif
+
+	if ((unsigned int)offset >= PCI_CONF_SIZE)
+		return;
 
 	addr = A_PHYS_LDTPCI_CFG_MATCH_BITS + tag + offset;
 	addr = MIPS_PHYS_TO_XKPHYS(MIPS3_TLB_ATTR_UNCACHED, addr);

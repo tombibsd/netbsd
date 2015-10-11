@@ -497,7 +497,7 @@ schizo_conf_read(pci_chipset_tag_t pc, pcitag_t tag, int reg)
 	int s;
 
 	DPRINTF(SDB_CONF, ("%s: tag %lx reg %x ", __func__, (long)tag, reg));
-	if (PCITAG_NODE(tag) != -1) {
+	if (PCITAG_NODE(tag) != -1 && (unsigned int)reg < PCI_CONF_SIZE) {
 		s = splhigh();
 		ci->ci_pci_probe = true;
 		membar_Sync();
@@ -526,6 +526,9 @@ schizo_conf_write(pci_chipset_tag_t pc, pcitag_t tag, int reg, pcireg_t data)
 		DPRINTF(SDB_CONF, (" .. bad addr\n"));
 		return;
 	}
+
+	if ((unsigned int)reg >= PCI_CONF_SIZE)
+		return;
 
         bus_space_write_4(sp->sp_cfgt, sp->sp_cfgh,
 	    PCITAG_OFFSET(tag) + reg, data);

@@ -145,6 +145,7 @@ lfs_setup_resblks(struct lfs *fs)
 		"lfsclpl", &pool_allocator_nointr, IPL_NONE);
 	pool_init(&fs->lfs_segpool, sizeof(struct segment), 0, 0, 0,
 		"lfssegpool", &pool_allocator_nointr, IPL_NONE);
+	/* XXX: should this int32 be 32/64? */
 	maxbpp = ((lfs_sb_getsumsize(fs) - SEGSUM_SIZE(fs)) / sizeof(int32_t) + 2);
 	maxbpp = MIN(maxbpp, lfs_segsize(fs) / lfs_sb_getfsize(fs) + 2);
 	pool_init(&fs->lfs_bpppool, maxbpp * sizeof(struct buf *), 0, 0, 0,

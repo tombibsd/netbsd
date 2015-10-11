@@ -129,9 +129,6 @@ udf_wr_nodedscr_callback(struct buf *buf)
 		wakeup(&udf_node->outstanding_nodedscr);
 	}
 
-	/* unreference the vnode so it can be recycled */
-	holdrele(udf_node->vnode);
-
 	putiobuf(buf);
 }
 
@@ -219,9 +216,6 @@ udf_write_logvol_dscr_seq(struct udf_strat_args *args)
 			goto out;
 	}
 
-	/* add reference to the vnode to prevent recycling */
-	vhold(udf_node->vnode);
-
 	if (waitfor) {
 		DPRINTF(WRITE, ("udf_write_logvol_dscr: sync write\n"));
 
@@ -235,8 +229,6 @@ udf_write_logvol_dscr_seq(struct udf_strat_args *args)
 		/* will be UNLOCKED in call back */
 		return error;
 	}
-
-	holdrele(udf_node->vnode);
 out:
 	udf_node->outstanding_nodedscr--;
 	if (udf_node->outstanding_nodedscr == 0) {

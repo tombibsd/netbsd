@@ -310,15 +310,18 @@ sys_clock_nanosleep(struct lwp *l, const struct sys_clock_nanosleep_args *uap,
 
 	error = copyin(SCARG(uap, rqtp), &rqt, sizeof(struct timespec));
 	if (error)
-		return (error);
+		goto out;
 
 	error = nanosleep1(l, SCARG(uap, clock_id), SCARG(uap, flags), &rqt,
 	    SCARG(uap, rmtp) ? &rmt : NULL);
 	if (SCARG(uap, rmtp) == NULL || (error != 0 && error != EINTR))
-		return error;
+		goto out;
 
-	error1 = copyout(&rmt, SCARG(uap, rmtp), sizeof(rmt));
-	return error1 ? error1 : error;
+	if ((error1 = copyout(&rmt, SCARG(uap, rmtp), sizeof(rmt))) != 0)
+		error = error1;
+out:
+	*retval = error;
+	return 0;
 }
 
 int

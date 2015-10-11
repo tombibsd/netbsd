@@ -1843,9 +1843,6 @@ lfs_issequential_hole(const struct lfs *fs,
 {
 	(void)fs; /* not used */
 
-	daddr0 = (daddr_t)((int32_t)daddr0); /* XXX ondisk32 */
-	daddr1 = (daddr_t)((int32_t)daddr1); /* XXX ondisk32 */
-
 	KASSERT(daddr0 == UNWRITTEN ||
 	    (0 <= daddr0 && daddr0 <= LFS_MAX_DADDR(fs)));
 	KASSERT(daddr1 == UNWRITTEN ||

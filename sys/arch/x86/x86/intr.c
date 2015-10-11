@@ -1007,6 +1007,21 @@ intr_establish_xname(int legacy_irq, struct pic *pic, int pin, int type,
 		/* NOTREACHED */
 	}
 
+        /*
+	 * If the establishing interrupt uses shared IRQ, the interrupt uses
+	 * "ci->ci_isources[slot]" instead of allocated by the establishing
+	 * device's pci_intr_alloc() or this function.
+	 */
+	if (source->is_handlers != NULL) {
+		struct intrsource *isp;
+
+		SIMPLEQ_FOREACH(isp, &io_interrupt_sources, is_list) {
+			if (strncmp(intrstr, isp->is_intrid, INTRIDBUF - 1) == 0
+			    && isp->is_handlers == NULL)
+				intr_free_io_intrsource_direct(isp);
+		}
+	}
+
 	/*
 	 * We're now committed.  Mask the interrupt in hardware and
 	 * count it for load distribution.

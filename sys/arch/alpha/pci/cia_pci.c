@@ -101,6 +101,9 @@ cia_conf_read(void *cpv, pcitag_t tag, int offset)
 	int s, secondary, ba;
 	uint32_t old_cfg, errbits;
 
+	if ((unsigned int)offset >= PCI_CONF_SIZE)
+		return (pcireg_t) -1;
+
 #ifdef __GNUC__
 	s = 0;					/* XXX gcc -Wuninitialized */
 	old_cfg = 0;				/* XXX gcc -Wuninitialized */
@@ -195,6 +198,9 @@ cia_conf_write(void *cpv, pcitag_t tag, int offset, pcireg_t data)
 	pcireg_t *datap;
 	int s, secondary;
 	uint32_t old_cfg;
+
+	if ((unsigned int)offset >= PCI_CONF_SIZE)
+		return;
 
 #ifdef __GNUC__
 	s = 0;					/* XXX gcc -Wuninitialized */

@@ -2097,13 +2097,12 @@ rt6_flush(struct in6_addr *gateway, struct ifnet *ifp)
 static int
 rt6_deleteroute(struct rtentry *rt, void *arg)
 {
-#define SIN6(s)	((struct sockaddr_in6 *)s)
 	struct in6_addr *gate = (struct in6_addr *)arg;
 
 	if (rt->rt_gateway == NULL || rt->rt_gateway->sa_family != AF_INET6)
 		return (0);
 
-	if (!IN6_ARE_ADDR_EQUAL(gate, &SIN6(rt->rt_gateway)->sin6_addr))
+	if (!IN6_ARE_ADDR_EQUAL(gate, &satosin6(rt->rt_gateway)->sin6_addr))
 		return (0);
 
 	/*
@@ -2123,7 +2122,6 @@ rt6_deleteroute(struct rtentry *rt, void *arg)
 
 	return (rtrequest(RTM_DELETE, rt_getkey(rt), rt->rt_gateway,
 	    rt_mask(rt), rt->rt_flags, NULL));
-#undef SIN6
 }
 
 int

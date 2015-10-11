@@ -123,8 +123,7 @@ calcmaxfilesize(unsigned bshift)
 	uint64_t nptr; /* number of block pointers per block */
 	uint64_t maxblock;
 
-	/* XXX ondisk32 */
-	nptr = (1 << bshift) / sizeof(uint32_t);
+	nptr = (1 << bshift) / LFS_BLKPTRSIZE(fs);
 	maxblock = ULFS_NDADDR + nptr + nptr * nptr + nptr * nptr * nptr;
 
 	return maxblock << bshift;

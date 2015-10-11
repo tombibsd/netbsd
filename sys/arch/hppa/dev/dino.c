@@ -338,6 +338,9 @@ dino_conf_read(void *v, pcitag_t tag, int reg)
 	pcireg_t data;
 	uint32_t pamr;
 
+	if ((unsigned int)reg >= PCI_CONF_SIZE)
+		return (pcireg_t) -1;
+
 	/* fix arbitration errata by disabling all pci devs on config read */
 	pamr = r->pamr;
 	r->pamr = 0;
@@ -357,6 +360,9 @@ dino_conf_write(void *v, pcitag_t tag, int reg, pcireg_t data)
 	struct dino_softc *sc = v;
 	volatile struct dino_regs *r = sc->sc_regs;
 	uint32_t pamr;
+
+	if ((unsigned int)reg >= PCI_CONF_SIZE)
+		return;
 
 	/* fix arbitration errata by disabling all pci devs on config read */
 	pamr = r->pamr;

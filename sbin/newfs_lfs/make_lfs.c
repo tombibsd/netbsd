@@ -426,7 +426,7 @@ make_lfs(int devfd, uint secsize, struct dkwedge_info *dkw, int minfree,
 	 * the segment table for the number of hash chains.
 	 */
 	tnseg = dkw->dkw_size / ((seg_size ? seg_size : DFL_LFSSEG) / secsize);
-	tsepb = (block_size ? block_size : DFL_LFSBLOCK) / sizeof(SEGSUM);
+	tsepb = (block_size ? block_size : DFL_LFSBLOCK) / sizeof(SEGSUM32);
 	if (tnseg == 0)
 		fatal("zero size partition");
 	bufinit(tnseg / tsepb);

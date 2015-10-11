@@ -162,6 +162,9 @@ gaps_conf_read(void *v, pcitag_t tag, int reg)
 	if (tag != GAPS_PCITAG_MAGIC)
 		return -1;
 
+	if ((unsigned int)reg >= PCI_CONF_SIZE)
+		return -1;
+
 	if (reg == (PCI_MAPREG_START + 4)) {
 		/*
 		 * We fake the BAR -- just return the physical address
@@ -179,6 +182,9 @@ gaps_conf_write(void *v, pcitag_t tag, int reg, pcireg_t val)
 	struct gaps_softc *sc = v;
 
 	if (tag != GAPS_PCITAG_MAGIC)
+		return;
+
+	if ((unsigned int)reg >= PCI_CONF_SIZE)
 		return;
 
 	/* Disallow writing to the "BAR" ... it doesn't actually exist. */

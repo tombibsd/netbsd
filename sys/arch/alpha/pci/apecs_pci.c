@@ -101,6 +101,9 @@ apecs_conf_read(void *cpv, pcitag_t tag, int offset)
 	int s, secondary, ba;
 	int32_t old_haxr2;					/* XXX */
 
+	if ((unsigned int)offset >= PCI_CONF_SIZE)
+		return (pcireg_t) -1;
+
 	s = 0;					/* XXX gcc -Wuninitialized */
 	old_haxr2 = 0;				/* XXX gcc -Wuninitialized */
 
@@ -145,6 +148,9 @@ apecs_conf_write(void *cpv, pcitag_t tag, int offset, pcireg_t data)
 	pcireg_t *datap;
 	int s, secondary;
 	int32_t old_haxr2;					/* XXX */
+
+	if ((unsigned int)offset >= PCI_CONF_SIZE)
+		return;
 
 	s = 0;					/* XXX gcc -Wuninitialized */
 	old_haxr2 = 0;				/* XXX gcc -Wuninitialized */

@@ -38,6 +38,12 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/device.h>
 #include <sys/systm.h>
 
+#include <net/if_ether.h>
+
+static uint8_t enaddr[ETHER_ADDR_LEN];
+static int have_enaddr = false;
+void ingenic_set_enaddr(uint8_t *);
+
 /*
  * Configure all devices on system
  */     
@@ -63,7 +69,24 @@ cpu_rootconf(void)
 void
 device_register(device_t dev, void *aux)
 {
+	if (device_is_a(dev, "dme") && have_enaddr) {
+		prop_dictionary_t dict;
+		prop_data_t blob;
+		
+		dict = device_properties(dev);
+
+		blob = prop_data_create_data(enaddr, ETHER_ADDR_LEN);
+		prop_dictionary_set(dict, "mac-address", blob);
+		prop_object_release(blob);
+	}
 #ifdef notyet
 	(*platformsw->apsw_device_register)(dev, aux);
 #endif
+}
+
+void
+ingenic_set_enaddr(uint8_t *goop)
+{
+	memcpy(enaddr, goop, ETHER_ADDR_LEN);
+	have_enaddr = true;
 }

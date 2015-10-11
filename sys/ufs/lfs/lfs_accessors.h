@@ -499,9 +499,10 @@ lfs_dino_getdb(STRUCT_LFS *fs, union lfs_dinode *dip, unsigned ix)
 {
 	KASSERT(ix < ULFS_NDADDR);
 	if (fs->lfs_is64) {
-		return dip->u_64.di_db[ix];
+		return LFS_SWAP_uint64_t(fs, dip->u_64.di_db[ix]);
 	} else {
-		return dip->u_32.di_db[ix];
+		/* note: this must sign-extend or UNWRITTEN gets trashed */
+		return (int32_t)LFS_SWAP_uint32_t(fs, dip->u_32.di_db[ix]);
 	}
 }
 
@@ -510,9 +511,10 @@ lfs_dino_getib(STRUCT_LFS *fs, union lfs_dinode *dip, unsigned ix)
 {
 	KASSERT(ix < ULFS_NIADDR);
 	if (fs->lfs_is64) {
-		return dip->u_64.di_ib[ix];
+		return LFS_SWAP_uint64_t(fs, dip->u_64.di_ib[ix]);
 	} else {
-		return dip->u_32.di_ib[ix];
+		/* note: this must sign-extend or UNWRITTEN gets trashed */
+		return (int32_t)LFS_SWAP_uint32_t(fs, dip->u_32.di_ib[ix]);
 	}
 }
 
@@ -521,9 +523,9 @@ lfs_dino_setdb(STRUCT_LFS *fs, union lfs_dinode *dip, unsigned ix, daddr_t val)
 {
 	KASSERT(ix < ULFS_NDADDR);
 	if (fs->lfs_is64) {
-		dip->u_64.di_db[ix] = val;
+		dip->u_64.di_db[ix] = LFS_SWAP_uint64_t(fs, val);
 	} else {
-		dip->u_32.di_db[ix] = val;
+		dip->u_32.di_db[ix] = LFS_SWAP_uint32_t(fs, val);
 	}
 }
 
@@ -532,9 +534,9 @@ lfs_dino_setib(STRUCT_LFS *fs, union lfs_dinode *dip, unsigned ix, daddr_t val)
 {
 	KASSERT(ix < ULFS_NIADDR);
 	if (fs->lfs_is64) {
-		dip->u_64.di_ib[ix] = val;
+		dip->u_64.di_ib[ix] = LFS_SWAP_uint64_t(fs, val);
 	} else {
-		dip->u_32.di_ib[ix] = val;
+		dip->u_32.di_ib[ix] = LFS_SWAP_uint32_t(fs, val);
 	}
 }
 
@@ -763,6 +765,42 @@ lfs_fi_setblock(STRUCT_LFS *fs, FINFO *fip, unsigned index, daddr_t blk)
 		((int64_t *)firstblock)[index] = blk;
 	} else {
 		((int32_t *)firstblock)[index] = blk;
+	}
+}
+
+/*
+ * inode info entries (in the segment summary)
+ */
+
+#define IINFOSIZE(fs)	((fs)->lfs_is64 ? sizeof(IINFO64) : sizeof(IINFO32))
+
+/* iinfos scroll backward from the end of the segment summary block */
+#define SEGSUM_IINFOSTART(fs, buf) \
+	((IINFO *)((char *)buf + lfs_sb_getsumsize(fs) - IINFOSIZE(fs)))
+
+#define NEXTLOWER_IINFO(fs, iip) \
+	((IINFO *)((char *)(iip) - IINFOSIZE(fs)))
+
+#define NTH_IINFO(fs, buf, n) \
+	((IINFO *)((char *)SEGSUM_IINFOSTART(fs, buf) - (n)*IINFOSIZE(fs)))
+
+static __unused inline uint64_t
+lfs_ii_getblock(STRUCT_LFS *fs, IINFO *iip)
+{
+	if (fs->lfs_is64) {
+		return iip->u_64.ii_block;
+	} else {
+		return iip->u_32.ii_block;
+	}
+}
+
+static __unused inline void
+lfs_ii_setblock(STRUCT_LFS *fs, IINFO *iip, uint64_t block)
+{
+	if (fs->lfs_is64) {
+		iip->u_64.ii_block = block;
+	} else {
+		iip->u_32.ii_block = block;
 	}
 }
 

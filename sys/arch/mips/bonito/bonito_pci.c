@@ -119,6 +119,9 @@ bonito_conf_addr(struct bonito_config *bc, pcitag_t tag, int offset,
 {
 	int b, d, f;
 
+	if ((unsigned int)offset >= PCI_CONF_SIZE)
+		return true;
+
 	bonito_decompose_tag(bc, tag, &b, &d, &f);
 
 	if (b == 0) {

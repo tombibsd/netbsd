@@ -435,6 +435,9 @@ bcmpax_conf_read(void *v, pcitag_t tag, int reg)
 {
 	struct bcmpax_softc * const sc = v;
 
+	if ((unsigned int)reg >= PCI_CONF_SIZE)
+		return 0xffffffff;
+
 	/*
 	 * Even in RC mode, the PCI Express Root Complex return itself
 	 * as BCM Ethernet Controller!.  We could change ppb.c to match it
@@ -470,6 +473,9 @@ static void
 bcmpax_conf_write(void *v, pcitag_t tag, int reg, pcireg_t val)
 {
 	struct bcmpax_softc * const sc = v;
+
+	if ((unsigned int)reg >= PCI_CONF_SIZE)
+		return;
 
 	mutex_enter(sc->sc_cfg_lock);
 	bus_size_t data_reg = bcmpax_conf_addr_write(sc, tag | reg);

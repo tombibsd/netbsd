@@ -23,7 +23,7 @@
 /netbsd32_ioctl.h/1.52/Thu Jun 18 03:42:24 2015/-kk/
 /netbsd32_ipc.c/1.17/Sat Dec 12 10:30:09 2009/-kk/
 /netbsd32_lwp.c/1.18/Thu May 28 03:25:47 2015/-kk/
-/netbsd32_mod.c/1.6/Mon Jun 22 02:35:00 2015/-kk/
+/netbsd32_mod.c/1.9/Sun Oct 11 09:01:16 2015/-kk/
 /netbsd32_module.c/1.2/Thu Jul  2 04:14:13 2015/-kk/
 /netbsd32_mqueue.c/1.5/Thu Jul  2 04:14:13 2015/-kk/
 /netbsd32_netbsd.c/1.197/Sun Aug  2 04:02:47 2015/-kk/

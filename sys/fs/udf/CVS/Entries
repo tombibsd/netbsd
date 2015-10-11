@@ -10,9 +10,9 @@
 /udf_readwrite.c/1.11/Sun Jun 12 03:35:55 2011/-kk/
 /udf_rename.c/1.12/Tue Dec  9 04:24:04 2014/-kk/
 /udf_strat_bootstrap.c/1.4/Tue Dec  9 04:24:04 2014/-kk/
-/udf_strat_direct.c/1.12/Tue Nov  5 03:38:20 2013/-kk/
-/udf_strat_rmw.c/1.26/Wed Sep 23 08:04:20 2015/-kk/
-/udf_strat_sequential.c/1.13/Fri Apr 11 02:03:52 2014/-kk/
+/udf_strat_direct.c/1.13/Sun Oct 11 09:01:32 2015/-kk/
+/udf_strat_rmw.c/1.27/Sun Oct 11 09:01:32 2015/-kk/
+/udf_strat_sequential.c/1.14/Sun Oct 11 09:01:32 2015/-kk/
 /udf_subr.c/1.132/Sun Sep 13 01:07:34 2015/-kk/
 /udf_subr.h/1.19/Thu Oct 24 10:28:58 2013/-kk/
 /udf_vfsops.c/1.71/Sun Sep 13 01:07:34 2015/-kk/

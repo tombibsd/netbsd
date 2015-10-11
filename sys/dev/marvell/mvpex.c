@@ -507,6 +507,9 @@ mvpex_conf_read(void *v, pcitag_t tag, int reg)
 	uint32_t stat;
 	int bus, dev, func, pexbus, pexdev;
 
+	if ((unsigned int)reg >= PCI_EXTCONF_SIZE)
+		return -1;
+
 	mvpex_decompose_tag(v, tag, &bus, &dev, &func);
 
 	stat = bus_space_read_4(sc->sc_iot, sc->sc_ioh, MVPEX_STAT);
@@ -551,6 +554,9 @@ mvpex_conf_write(void *v, pcitag_t tag, int reg, pcireg_t data)
 	pcireg_t addr;
 	uint32_t stat;
 	int bus, dev, func, pexbus, pexdev;
+
+	if ((unsigned int)reg >= PCI_EXTCONF_SIZE)
+		return;
 
 	mvpex_decompose_tag(v, tag, &bus, &dev, &func);
 

@@ -154,7 +154,6 @@ struct execsw {
 		int (*elf_probe_func)(struct lwp *,
 			struct exec_package *, void *, char *, vaddr_t *);
 		int (*ecoff_probe_func)(struct lwp *, struct exec_package *);
-		int (*mach_probe_func)(const char **);
 	} u;
 	struct  emul *es_emul;		/* os emulation */
 	int	es_prio;		/* entry priority */

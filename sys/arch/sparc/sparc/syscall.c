@@ -143,7 +143,7 @@ getargs(struct proc *p, struct trapframe *tf, register_t *code,
 		break;
 	}
 
-	if (*code < 0 || *code >= p->p_emul->e_nsysent)
+	if (*code >= p->p_emul->e_nsysent)
 		return ENOSYS;
 
 	*callp += *code;

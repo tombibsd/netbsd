@@ -325,7 +325,7 @@ checkinode(ino_t inumber, struct inodesc * idesc)
 	idesc->id_number = inumber;
 	(void) ckinode(VTOD(vp), idesc);
 	if (lfs_dino_getblocks(fs, dp) != idesc->id_entryno) {
-		pwarn("INCORRECT BLOCK COUNT I=%llu (%ju SHOULD BE %d)",
+		pwarn("INCORRECT BLOCK COUNT I=%llu (%ju SHOULD BE %lld)",
 		    (unsigned long long)inumber, lfs_dino_getblocks(fs, dp),
 		    idesc->id_entryno);
 		if (preen)

@@ -78,6 +78,9 @@ pci_conf_read(pci_chipset_tag_t pc, pcitag_t tag, int reg)
 {
 	struct ia64_sal_result res;
 
+	if ((unsigned int)reg >= PCI_CONF_SIZE)
+		return -1;
+
 	res = ia64_sal_entry(SAL_PCI_CONFIG_READ,
 	    tag | reg, sizeof(pcireg_t), 0, 0, 0, 0, 0);
 	if (res.sal_status < 0)
@@ -90,6 +93,9 @@ void
 pci_conf_write(pci_chipset_tag_t pc, pcitag_t tag, int reg, pcireg_t val)
 {
 	struct ia64_sal_result res;
+
+	if ((unsigned int)reg >= PCI_CONF_SIZE)
+		return;
 
 	res = ia64_sal_entry(SAL_PCI_CONFIG_WRITE,
 	    tag | reg, sizeof(pcireg_t), val, 0, 0, 0, 0);

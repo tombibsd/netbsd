@@ -110,6 +110,9 @@ tsp_conf_read(void *cpv, pcitag_t tag, int offset)
 	pcireg_t *datap, data;
 	struct tsp_config *pcp = cpv;
 
+	if ((unsigned int)offset >= PCI_CONF_SIZE)
+		return (pcireg_t) -1;
+
 	datap = S_PAGE(pcp->pc_iobase | P_PCI_CONFIG | tag | (offset & ~3));
 	alpha_mb();
 	data = *datap;
@@ -122,6 +125,9 @@ tsp_conf_write(void *cpv, pcitag_t tag, int offset, pcireg_t data)
 {
 	pcireg_t *datap;
 	struct tsp_config *pcp = cpv;
+
+	if ((unsigned int)offset >= PCI_CONF_SIZE)
+		return;
 
 	datap = S_PAGE(pcp->pc_iobase | P_PCI_CONFIG | tag | (offset & ~3));
 	alpha_mb();

@@ -576,43 +576,6 @@ arp_rtrequest(int req, struct rtentry *rt, const struct rt_addrinfo *info)
 		if (rt->rt_flags & RTF_BROADCAST)
 			break;
 
-		/*
-		 * Case 2:  This route may come from cloning, or a manual route
-		 * add with a LL address.
-		 */
-		flags = LLE_EXCLUSIVE;
-		if ((rt->rt_flags & RTF_CLONED) == 0)
-			flags |= LLE_IFADDR;
-
-		IF_AFDATA_WLOCK(ifp);
-		la = lla_create(LLTABLE(ifp), flags, rt_getkey(rt));
-		IF_AFDATA_WUNLOCK(ifp);
-
-		if (la == NULL) {
-			log(LOG_DEBUG, "%s: lla_create failed\n",
-			    __func__);
-			rt->rt_llinfo = NULL;
-			break;
-		}
-		rt->rt_llinfo = la;
-		switch (ifp->if_type) {
-#if NTOKEN > 0
-		case IFT_ISO88025:
-			la->la_opaque = kmem_alloc(sizeof(struct token_rif),
-			    KM_SLEEP);
-			break;
-#endif /* NTOKEN > 0 */
-		default:
-			break;
-		}
-		la->la_rt = rt;
-		rt->rt_refcnt++;
-		rt->rt_flags |= RTF_LLINFO;
-		arp_inuse++, arp_allocated++;
-
-		LLE_WUNLOCK(la);
-		la = NULL;
-
 		INADDR_TO_IA(satocsin(rt_getkey(rt))->sin_addr, ia);
 		while (ia && ia->ia_ifp != ifp)
 			NEXT_IA_WITH_SAME_ADDR(ia);
@@ -655,6 +618,44 @@ arp_rtrequest(int req, struct rtentry *rt, const struct rt_addrinfo *info)
 			if (ifa != rt->rt_ifa)
 				rt_replace_ifa(rt, ifa);
 		}
+
+		/*
+		 * Case 2:  This route may come from cloning, or a manual route
+		 * add with a LL address.
+		 */
+		flags = LLE_EXCLUSIVE;
+		if ((rt->rt_flags & RTF_CLONED) == 0)
+			flags |= LLE_IFADDR;
+
+		IF_AFDATA_WLOCK(ifp);
+		la = lla_create(LLTABLE(ifp), flags, rt_getkey(rt));
+		IF_AFDATA_WUNLOCK(ifp);
+
+		if (la == NULL) {
+			log(LOG_DEBUG, "%s: lla_create failed\n",
+			    __func__);
+			rt->rt_llinfo = NULL;
+			break;
+		}
+		rt->rt_llinfo = la;
+		switch (ifp->if_type) {
+#if NTOKEN > 0
+		case IFT_ISO88025:
+			la->la_opaque = kmem_alloc(sizeof(struct token_rif),
+			    KM_SLEEP);
+			break;
+#endif /* NTOKEN > 0 */
+		default:
+			break;
+		}
+		la->la_rt = rt;
+		rt->rt_refcnt++;
+		rt->rt_flags |= RTF_LLINFO;
+		arp_inuse++, arp_allocated++;
+
+		LLE_WUNLOCK(la);
+		la = NULL;
+
 		break;
 
 	case RTM_DELETE:
@@ -843,12 +844,14 @@ retry:
 		IF_AFDATA_RUNLOCK(ifp);
 	}
 
-	if ((la == NULL) && ((flags & LLE_EXCLUSIVE) == 0)
-#ifdef __FreeBSD__
-	    && ((ifp->if_flags & (IFF_NOARP | IFF_STATICARP)) == 0)) {
+#ifdef IFF_STATICARP /* FreeBSD */
+#define _IFF_NOARP (IFF_NOARP | IFF_STATICARP)
 #else
-	    && ((ifp->if_flags & IFF_NOARP) == 0)) {
+#define _IFF_NOARP IFF_NOARP
 #endif
+	if ((la == NULL) && ((flags & LLE_EXCLUSIVE) == 0)
+	    && ((ifp->if_flags & _IFF_NOARP) == 0))
+	{
 		flags |= LLE_EXCLUSIVE;
 		IF_AFDATA_WLOCK(ifp);
 		la = lla_create(LLTABLE(ifp), flags, dst);
@@ -861,6 +864,7 @@ retry:
 			    ifp->if_xname);
 		}
 	}
+#undef _IFF_NOARP
 
 	if (la == NULL) {
 		m_freem(m);
@@ -1471,14 +1475,14 @@ arplookup(struct ifnet *ifp, struct mbuf *m, const struct in_addr *addr,
 		struct llentry *la;
 		int flags = wlock ? LLE_EXCLUSIVE : 0;
 
-		if (create) {
+		IF_AFDATA_RLOCK(ifp);
+		la = lla_lookup(LLTABLE(ifp), flags, rt_getkey(rt));
+		IF_AFDATA_RUNLOCK(ifp);
+
+		if (la == NULL && create) {
 			IF_AFDATA_WLOCK(ifp);
 			la = lla_create(LLTABLE(ifp), flags, rt_getkey(rt));
 			IF_AFDATA_WUNLOCK(ifp);
-		} else {
-			IF_AFDATA_RLOCK(ifp);
-			la = lla_lookup(LLTABLE(ifp), flags, rt_getkey(rt));
-			IF_AFDATA_RUNLOCK(ifp);
 		}
 
 		return la;

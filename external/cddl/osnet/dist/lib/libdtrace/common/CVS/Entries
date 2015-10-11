@@ -26,9 +26,9 @@
 /dt_list.c/1.1.1.1/Sat Feb 20 04:33:44 2010/-kk/
 /dt_list.h/1.3/Fri Oct  2 14:05:59 2015/-kk/
 /dt_map.c/1.3/Fri Oct  2 14:05:59 2015/-kk/
-/dt_module.c/1.9/Fri Oct  2 14:05:59 2015/-kk/
+/dt_module.c/1.12/Sun Oct 11 08:58:45 2015/-kk/
 /dt_module.h/1.2/Fri Oct  2 14:05:59 2015/-kk/
-/dt_open.c/1.6/Fri Oct  2 14:05:59 2015/-kk/
+/dt_open.c/1.8/Sun Oct 11 08:58:45 2015/-kk/
 /dt_options.c/1.7/Fri Oct  2 14:05:59 2015/-kk/
 /dt_parser.c/1.7/Fri Oct  2 14:05:59 2015/-kk/
 /dt_parser.h/1.2/Fri Oct  2 14:05:59 2015/-kk/
@@ -40,7 +40,7 @@
 /dt_pq.h/1.1/Thu Sep 24 14:25:29 2015/-kk/
 /dt_pragma.c/1.4/Fri Oct  2 14:05:59 2015/-kk/
 /dt_print.c/1.1/Thu Sep 24 14:25:29 2015/-kk/
-/dt_printf.c/1.8/Fri Oct  2 14:05:59 2015/-kk/
+/dt_printf.c/1.10/Sun Oct 11 08:58:45 2015/-kk/
 /dt_printf.h/1.1.1.1/Sat Feb 20 04:33:48 2010/-kk/
 /dt_proc.c/1.8/Fri Oct  2 14:05:59 2015/-kk/
 /dt_proc.h/1.4/Fri Oct  2 14:05:59 2015/-kk/

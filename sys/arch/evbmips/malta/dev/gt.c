@@ -164,6 +164,9 @@ gt_conf_read(void *v, pcitag_t tag, int offset)
 	pcireg_t data;
 	int bus, dev, func, s;
 
+	if ((unsigned int)offset >= PCI_CONF_SIZE)
+		return ((pcireg_t) -1);
+
 	gt_decompose_tag(NULL /* XXX */, tag, &bus, &dev, &func);
 
 	/* The galileo has problems accessing device 31. */
@@ -195,6 +198,9 @@ static void
 gt_conf_write(void *v, pcitag_t tag, int offset, pcireg_t data)
 {
 	int bus, dev, func, s;
+
+	if ((unsigned int)offset >= PCI_CONF_SIZE)
+		return;
 
 	gt_decompose_tag(NULL /* XXX */, tag, &bus, &dev, &func);
 

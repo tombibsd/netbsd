@@ -2398,8 +2398,9 @@ find_out_wild_ports:
 /* Function:    ipf_nat6_lookupredir                                        */
 /* Returns:     nat6_t* - NULL == no match,                                 */
 /*                       else pointer to matching NAT entry                 */
-/* Parameters:  np(I) - pointer to description of packet to find NAT table  */
-/*                      entry for.                                          */
+/* Parameters:  softc(I) - pointer to soft context main structure           */
+/*              np(I)    - pointer to description of packet to find NAT     */
+/*                         table entry for.                                 */
 /*                                                                          */
 /* Lookup the NAT tables to search for a matching redirect                  */
 /* The contents of natlookup_t should imitate those found in a packet that  */

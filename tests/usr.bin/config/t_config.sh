@@ -147,9 +147,9 @@ check_select()
 {
 	local f=Makefile
 
-	grep -q '^a\.o:' $f &&
-	grep -q '^b\.o:' $f &&
-	grep -q '^c\.o:' $f &&
+	grep -q '^	a\.c ' $f &&
+	grep -q '^	b\.c ' $f &&
+	grep -q '^	c\.c ' $f &&
 	:
 }
 select_body() {

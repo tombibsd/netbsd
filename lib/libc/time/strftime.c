@@ -487,9 +487,7 @@ label:
 				continue;
 			case 'Z':
 #ifdef TM_ZONE
-				if (t->TM_ZONE != NULL)
-					pt = _add(t->TM_ZONE, pt, ptlim);
-				else
+				pt = _add(t->TM_ZONE, pt, ptlim);
 #endif /* defined TM_ZONE */
 				if (t->tm_isdst >= 0)
 					pt = _add((sp ?

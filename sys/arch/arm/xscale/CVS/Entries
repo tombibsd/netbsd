@@ -3,7 +3,7 @@
 /becc_csrvar.h/1.3/Sun Apr 27 18:58:45 2008/-kk/
 /becc_icu.c/1.13/Thu Aug  2 15:56:07 2012/-kk/
 /becc_intr.h/1.6/Thu Feb 13 15:35:49 2014/-kk/
-/becc_pci.c/1.17/Fri Apr 11 02:03:28 2014/-kk/
+/becc_pci.c/1.18/Sun Oct 11 09:00:53 2015/-kk/
 /becc_pci_space_asm.S/1.1/Fri May 30 18:38:02 2003/-kk/
 /becc_space.c/1.5/Fri Jul  1 20:32:51 2011/-kk/
 /becc_timer.c/1.15/Fri Jul  1 20:32:51 2011/-kk/
@@ -23,7 +23,7 @@
 /i80312_gpio.c/1.4/Fri Jul  1 20:32:51 2011/-kk/
 /i80312_i2c.c/1.6/Tue Jan 10 18:55:37 2012/-kk/
 /i80312_mem.c/1.5/Fri Jul  1 20:32:51 2011/-kk/
-/i80312_pci.c/1.15/Thu Feb 13 15:22:13 2014/-kk/
+/i80312_pci.c/1.16/Sun Oct 11 09:00:53 2015/-kk/
 /i80312_space.c/1.11/Fri Jul  1 20:32:51 2011/-kk/
 /i80312reg.h/1.11/Mon Apr 28 20:23:14 2008/-kk/
 /i80312var.h/1.11/Sun Oct 14 14:20:57 2012/-kk/
@@ -34,7 +34,7 @@
 /i80321_icu.c/1.24/Thu Aug  2 15:56:07 2012/-kk/
 /i80321_intr.h/1.11/Thu Feb 13 15:35:49 2014/-kk/
 /i80321_mcu.c/1.4/Fri Jul  1 20:32:51 2011/-kk/
-/i80321_pci.c/1.15/Thu Oct 24 10:28:57 2013/-kk/
+/i80321_pci.c/1.16/Sun Oct 11 09:00:53 2015/-kk/
 /i80321_space.c/1.14/Fri Mar 14 04:28:13 2014/-kk/
 /i80321_timer.c/1.21/Wed Dec 25 07:37:20 2013/-kk/
 /i80321_wdog.c/1.10/Sun Feb 12 16:31:01 2012/-kk/
@@ -62,7 +62,7 @@
 /ixp425_npe.c/1.11/Fri Oct  3 09:36:01 2014/-kk/
 /ixp425_npereg.h/1.1/Sun Dec 10 10:01:49 2006/-kk/
 /ixp425_npevar.h/1.5/Tue Mar 25 02:35:18 2014/-kk/
-/ixp425_pci.c/1.11/Mon Nov 12 18:00:38 2012/-kk/
+/ixp425_pci.c/1.12/Sun Oct 11 09:00:53 2015/-kk/
 /ixp425_pci_asm.S/1.2/Sun Dec 11 12:16:51 2005/-kk/
 /ixp425_pci_dma.c/1.6/Tue Sep 18 05:47:28 2012/-kk/
 /ixp425_pci_space.c/1.13/Sat Mar  1 06:04:23 2014/-kk/

@@ -6715,18 +6715,14 @@ static int
 wm_linkintr_msix(void *arg)
 {
 	struct wm_softc *sc = arg;
+	uint32_t reg;
 
 	DPRINTF(WM_DEBUG_TX,
 	    ("%s: LINK: got link intr\n", device_xname(sc->sc_dev)));
 
-	if (sc->sc_type == WM_T_82574)
-		CSR_WRITE(sc, WMREG_IMC, ICR_OTHER); /* 82574 only */
-	else if (sc->sc_type == WM_T_82575)
-		CSR_WRITE(sc, WMREG_EIMC, EITR_OTHER);
-	else
-		CSR_WRITE(sc, WMREG_EIMC, 1 << WM_MSIX_LINKINTR_IDX);
+	reg = CSR_READ(sc, WMREG_ICR);
 	WM_TX_LOCK(sc);
-	if (sc->sc_stopping)
+	if ((sc->sc_stopping) || ((reg & ICR_LSC) == 0))
 		goto out;
 
 	WM_EVCNT_INCR(&sc->sc_ev_linkintr);

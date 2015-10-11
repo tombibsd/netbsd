@@ -327,7 +327,8 @@ lfs_last_alloc_ino(struct lfs *fs)
 	ino_t ino, maxino;
 
 	maxino = ((fs->lfs_ivnode->v_size >> lfs_sb_getbshift(fs)) -
-		  lfs_sb_getcleansz(fs) - lfs_sb_getsegtabsz(fs)) * fs->lfs_ifpb;
+		  lfs_sb_getcleansz(fs) - lfs_sb_getsegtabsz(fs)) *
+		lfs_sb_getifpb(fs);
 	for (ino = maxino - 1; ino > LFS_UNUSED_INUM; --ino) {
 		if (ISSET_BITMAP_FREE(fs, ino) == 0)
 			break;
@@ -602,8 +603,8 @@ lfs_order_freelist(struct lfs *fs)
 			lfs_truncate(vp, 0, 0, NOCRED);
 			vput(vp);
 			LFS_SEGENTRY(sup, fs, segno, bp);
-			KASSERT(sup->su_nbytes >= LFS_DINODE1_SIZE);
-			sup->su_nbytes -= LFS_DINODE1_SIZE;
+			KASSERT(sup->su_nbytes >= DINOSIZE(fs));
+			sup->su_nbytes -= DINOSIZE(fs);
 			LFS_WRITESEGENTRY(sup, fs, segno, bp);
 
 			/* Set up to fall through to next section */

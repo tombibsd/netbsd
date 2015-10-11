@@ -445,6 +445,10 @@ s3c2800_pci_decompose_tag(void *v, pcitag_t tag, int *bp, int *dp, int *fp)
 static vaddr_t
 make_pci_conf_va(struct sspci_softc * sc, pcitag_t tag, int offset)
 {
+
+	if ((unsigned int)offset >= PCI_CONF_SIZE)
+		return (vaddr_t) -1;
+
 	if ((tag & BUSNO_MASK) == 0) {
 		/* configuration type 0 */
 		int devno = tag_to_devno(tag);

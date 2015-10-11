@@ -40,6 +40,9 @@
 #include <sys/module.h>
 #include <sys/stat.h>
 #endif
+#ifdef __NetBSD__
+#include <sys/sysctl.h>
+#endif
 
 #include <unistd.h>
 #ifdef illumos
@@ -1131,9 +1134,8 @@ dt_module_getctflib(dtrace_hdl_t *dtp, dt_module_t *dmp, const char *name)
  * On FreeBSD, the module name is passed as the full module file name, 
  * including the path.
  */
-#ifndef __NetBSD__
 static void
-#ifdef illumos
+#if defined(illumos) || defined(__NetBSD__)
 dt_module_update(dtrace_hdl_t *dtp, const char *name)
 #elif defined(__FreeBSD__)
 dt_module_update(dtrace_hdl_t *dtp, struct kld_file_stat *k_stat)
@@ -1169,6 +1171,36 @@ dt_module_update(dtrace_hdl_t *dtp, struct kld_file_stat *k_stat)
 
 	(void) strlcpy(name, k_stat->name, sizeof(name));
 	(void) strlcpy(fname, k_stat->pathname, sizeof(fname));
+#elif defined(__NetBSD__)
+	int mib_osrel[2] = { CTL_KERN, KERN_OSRELEASE };
+	int mib_mach[2] = { CTL_HW, HW_MACHINE };
+	char osrel[64];
+	char machine[64];
+	size_t len;
+
+	if (strcmp("netbsd", name) == 0) {
+		/* want the kernel */
+		strncpy(fname, "/netbsd", sizeof(fname));
+	} else {
+
+		/* build stand module path from system */
+		len = sizeof(osrel);
+		if (sysctl(mib_osrel, 2, osrel, &len, NULL, 0) == -1) {
+			dt_dprintf("sysctl osrel failed: %s\n",
+				strerror(errno));
+		    return;
+		}
+
+		len = sizeof(machine);
+		if (sysctl(mib_mach, 2, machine, &len, NULL, 0) == -1) {
+			dt_dprintf("sysctl machine failed: %s\n",
+				strerror(errno));
+		    return;
+		}
+
+		(void) snprintf(fname, sizeof (fname),
+		    "/stand/%s/%s/modules/%s/%s.kmod", machine, osrel, name, name);
+	}
 #endif
 
 	if ((fd = open(fname, O_RDONLY)) == -1 || fstat64(fd, &st) == -1 ||
@@ -1276,7 +1308,7 @@ dt_module_update(dtrace_hdl_t *dtp, struct kld_file_stat *k_stat)
 	 * [Text][R/O data][R/W data][Dynamic][BSS][Non loadable]
 	 */
 	dmp->dm_text_size = dmp->dm_data_va - dmp->dm_text_va;
-#if defined(__i386__)
+#if defined(__i386__) && !defined(__NetBSD__)
 	/*
 	 * Find the first load section and figure out the relocation
 	 * offset for the symbols. The kernel module will not need
@@ -1324,7 +1356,6 @@ dt_module_update(dtrace_hdl_t *dtp, struct kld_file_stat *k_stat)
 	dt_dprintf("opened %d-bit module %s (%s) [%d]\n",
 	    bits, dmp->dm_name, dmp->dm_file, dmp->dm_modid);
 }
-#endif
 
 /*
  * Unload all the loaded modules and then refresh the module cache with the
@@ -1371,6 +1402,9 @@ dtrace_update(dtrace_hdl_t *dtp)
 		if (kldstat(fileid, &k_stat) == 0)
 			dt_module_update(dtp, &k_stat);
 	}
+#elif defined(__NetBSD__)
+	/* XXX just the kernel for now */
+	dt_module_update(dtp, "netbsd");
 #endif
 
 	/*

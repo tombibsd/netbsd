@@ -180,6 +180,9 @@ i80312_pci_conf_setup(struct i80312_softc *sc, pcitag_t tag, int offset,
 	pcireg_t binfo;
 	int pbus, sbus;
 
+	if ((unsigned int)offset >= PCI_CONF_SIZE)
+		return (1);
+
 	i80312_pci_decompose_tag(sc, tag, &ps->ps_b, &ps->ps_d, &ps->ps_f);
 
 	binfo = bus_space_read_4(sc->sc_st, sc->sc_ppb_sh, PPB_REG_BUSINFO);

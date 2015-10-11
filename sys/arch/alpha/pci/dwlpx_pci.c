@@ -125,6 +125,9 @@ dwlpx_conf_read(void *cpv, pcitag_t tag, int offset)
 	int secondary, i, s = 0;
 	uint32_t rvp;
 
+	if ((unsigned int)offset >= PCI_CONF_SIZE)
+		return (data);
+
 	if (ccp == NULL) {
 		panic("NULL ccp in dwlpx_conf_read");
 	}
@@ -190,6 +193,9 @@ dwlpx_conf_write(void *cpv, pcitag_t tag, int offset, pcireg_t data)
 	unsigned long paddr;
 	int secondary, i, s = 0;
 	uint32_t rvp;
+
+	if ((unsigned int)offset >= PCI_CONF_SIZE)
+		return;
 
 	if (ccp == NULL) {
 		panic("NULL ccp in dwlpx_conf_write");

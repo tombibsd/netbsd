@@ -121,12 +121,8 @@ beforedepend:	dt_errtags.c dt_names.c
 foo:
 	echo ${OPENSOLARIS_USR_DISTDIR}
 
-#beforeinstall:
-#.if exists(${DESTDIR}/usr/lib/dtrace)
-#.for file in ${DSRCS}
-#	${INSTALL} -o ${BINOWN} -g ${BINGRP} -m ${NOBINMODE} ${.CURDIR}/${file} ${DESTDIR}/usr/lib/dtrace
-#.endfor
-#.endif
+FILES=		${DSRCS}
+FILESDIR=	/usr/lib/dtrace
 
 LIBDPLIBS=	proc	${NETBSDSRCDIR}/external/bsd/libproc/lib
 

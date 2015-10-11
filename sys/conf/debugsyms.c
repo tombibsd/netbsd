@@ -8,6 +8,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #define	_CALLOUT_PRIVATE
 #define	__MUTEX_PRIVATE
+#define	__KAUTH_PRIVATE
 
 #include <sys/param.h>
 #include <sys/lwp.h>
@@ -22,6 +23,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/un.h>
 #include <sys/unpcb.h>
 #include <sys/vnode.h>
+#include <sys/specificdata.h>
+#include <sys/kauth.h>
 
 /*
  * Without a dummy function referencing some of the types, gcc will
@@ -32,6 +35,7 @@ proc_t	*_debugsym_dummyfunc(vnode_t *vp);
 proc_t *
 _debugsym_dummyfunc(vnode_t *vp)
 {
+	struct kauth_cred *cr = (kauth_cred_t)vp;
 
-	return ((lwp_t *)vp->v_mount)->l_proc;
+	return cr->cr_uid ? ((lwp_t *)vp->v_mount)->l_proc : NULL;
 }

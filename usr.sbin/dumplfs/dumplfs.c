@@ -277,8 +277,9 @@ dump_ifile(int fd, struct lfs *lfsp, int do_ientries, int do_segentries, daddr_t
 	char *ipage;
 	char *dpage;
 	union lfs_dinode *dip = NULL;
-	/* XXX ondisk32 */
-	int32_t *addrp, *dindir, *iaddrp, *indir;
+	void *dindir, *indir;
+	unsigned offset;
+	daddr_t thisblock;
 	daddr_t pdb;
 	int block_limit, i, inum, j, nblocks, psize;
 
@@ -346,10 +347,11 @@ dump_ifile(int fd, struct lfs *lfsp, int do_ientries, int do_segentries, daddr_t
 		err(1, "malloc");
 	get(fd, fsbtobyte(lfsp, lfs_dino_getib(lfsp, dip, 0)), indir, psize);
 	block_limit = MIN(i + lfs_sb_getnindir(lfsp), nblocks);
-	for (addrp = indir; i < block_limit; i++, addrp++) {
-		if (*addrp == LFS_UNUSED_DADDR)
+	for (offset = 0; i < block_limit; i++, offset++) {
+		thisblock = lfs_iblock_get(lfsp, indir, offset);
+		if (thisblock == LFS_UNUSED_DADDR)
 			break;
-		get(fd, fsbtobyte(lfsp, *addrp), ipage, psize);
+		get(fd, fsbtobyte(lfsp, thisblock), ipage, psize);
 		if (i < lfs_sb_getcleansz(lfsp)) {
 			dump_cleaner_info(lfsp, ipage);
 			continue;
@@ -378,15 +380,17 @@ dump_ifile(int fd, struct lfs *lfsp, int do_ientries, int do_segentries, daddr_t
 	if (!(dindir = malloc(psize)))
 		err(1, "malloc");
 	get(fd, fsbtobyte(lfsp, lfs_dino_getib(lfsp, dip, 1)), dindir, psize);
-	for (iaddrp = dindir, j = 0; j < lfs_sb_getnindir(lfsp); j++, iaddrp++) {
-		if (*iaddrp == LFS_UNUSED_DADDR)
+	for (j = 0; j < lfs_sb_getnindir(lfsp); j++) {
+		thisblock = lfs_iblock_get(lfsp, dindir, j);
+		if (thisblock == LFS_UNUSED_DADDR)
 			break;
-		get(fd, fsbtobyte(lfsp, *iaddrp), indir, psize);
+		get(fd, fsbtobyte(lfsp, thisblock), indir, psize);
 		block_limit = MIN(i + lfs_sb_getnindir(lfsp), nblocks);
-		for (addrp = indir; i < block_limit; i++, addrp++) {
-			if (*addrp == LFS_UNUSED_DADDR)
+		for (offset = 0; i < block_limit; i++, offset++) {
+			thisblock = lfs_iblock_get(lfsp, indir, offset);
+			if (thisblock == LFS_UNUSED_DADDR)
 				break;
-			get(fd, fsbtobyte(lfsp, *addrp), ipage, psize);
+			get(fd, fsbtobyte(lfsp, thisblock), ipage, psize);
 			if (i < lfs_sb_getcleansz(lfsp)) {
 				dump_cleaner_info(lfsp, ipage);
 				continue;
@@ -502,7 +506,7 @@ static int
 dump_sum(int fd, struct lfs *lfsp, SEGSUM *sp, int segnum, daddr_t addr)
 {
 	FINFO *fp;
-	int32_t *dp, *idp;
+	IINFO *iip, *iip2;
 	union lfs_blocks fipblocks;
 	int i, j, acc;
 	int ck;
@@ -560,18 +564,16 @@ dump_sum(int fd, struct lfs *lfsp, SEGSUM *sp, int segnum, daddr_t addr)
 	}
 
 	/* Dump out inode disk addresses */
-	/* XXX ondisk32 */
-	dp = (int32_t *)sp;
-	dp += lfs_sb_getsumsize(lfsp) / sizeof(int32_t);
+	iip = SEGSUM_IINFOSTART(lfsp, sp);
 	diblock = malloc(lfs_sb_getbsize(lfsp));
 	printf("    Inode addresses:");
 	numbytes = 0;
 	numblocks = 0;
-	for (dp--, i = 0; i < lfs_ss_getninos(lfsp, sp); dp--) {
+	for (i = 0; i < lfs_ss_getninos(lfsp, sp); iip = NEXTLOWER_IINFO(lfsp, iip)) {
 		++numblocks;
 		numbytes += lfs_sb_getibsize(lfsp);	/* add bytes for inode block */
-		printf("\t0x%x {", *dp);
-		get(fd, fsbtobyte(lfsp, *dp), diblock, lfs_sb_getibsize(lfsp));
+		printf("\t0x%jx {", (intmax_t)lfs_ii_getblock(lfsp, iip));
+		get(fd, fsbtobyte(lfsp, lfs_ii_getblock(lfsp, iip)), diblock, lfs_sb_getibsize(lfsp));
 		for (j = 0; i < lfs_ss_getninos(lfsp, sp) && j < LFS_INOPB(lfsp); j++, i++) {
 			if (j > 0) 
 				(void)printf(", ");
@@ -619,14 +621,11 @@ dump_sum(int fd, struct lfs *lfsp, SEGSUM *sp, int segnum, daddr_t addr)
 	 * compute the data checksum.  (A bad data checksum is not enough
 	 * to prevent us from continuing, but it odes merit a warning.)
 	 */
-	idp = (int32_t *)sp;
-	idp += lfs_sb_getsumsize(lfsp) / sizeof(int32_t);
-	--idp;
+	iip2 = SEGSUM_IINFOSTART(lfsp, sp);
+	fp = SEGSUM_FINFOBASE(lfsp, sp);
 	if (lfs_sb_getversion(lfsp) == 1) {
-		fp = (FINFO *)((SEGSUM_V1 *)sp + 1);
 		el_size = sizeof(unsigned long);
 	} else {
-		fp = (FINFO *)(sp + 1);
 		el_size = sizeof(u_int32_t);
 	}
 	datap = (char *)malloc(el_size * numblocks);
@@ -635,11 +634,11 @@ dump_sum(int fd, struct lfs *lfsp, SEGSUM *sp, int segnum, daddr_t addr)
 	addr += lfs_btofsb(lfsp, lfs_sb_getsumsize(lfsp));
 	buf = malloc(lfs_sb_getbsize(lfsp));
 	for (i = 0; i < lfs_ss_getnfinfo(lfsp, sp); i++) {
-		while (addr == *idp) {
+		while (addr == lfs_ii_getblock(lfsp, iip2)) {
 			get(fd, fsbtobyte(lfsp, addr), buf, lfs_sb_getibsize(lfsp));
 			memcpy(datap + acc * el_size, buf, el_size);
 			addr += lfs_btofsb(lfsp, lfs_sb_getibsize(lfsp));
-			--idp;
+			iip2 = NEXTLOWER_IINFO(lfsp, iip2);
 			++acc;
 		}
 		for (j = 0; j < lfs_fi_getnblocks(lfsp, fp); j++) {
@@ -653,11 +652,11 @@ dump_sum(int fd, struct lfs *lfsp, SEGSUM *sp, int segnum, daddr_t addr)
 		}
 		fp = NEXT_FINFO(lfsp, fp);
 	}
-	while (addr == *idp) {
+	while (addr == lfs_ii_getblock(lfsp, iip2)) {
 		get(fd, fsbtobyte(lfsp, addr), buf, lfs_sb_getibsize(lfsp));
 		memcpy(datap + acc * el_size, buf, el_size);
 		addr += lfs_btofsb(lfsp, lfs_sb_getibsize(lfsp));
-		--idp;
+		iip2 = NEXTLOWER_IINFO(lfsp, iip2);
 		++acc;
 	}
 	free(buf);

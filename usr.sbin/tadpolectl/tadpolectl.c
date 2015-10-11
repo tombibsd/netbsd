@@ -47,7 +47,7 @@
 int aflag, nflag, wflag, dev;
 
 #define PROTO(x) int x __P((int, int, int));
-void usage __P((void));
+static void usage __P((void)) __dead;
 static void parse __P((char *));
 char *dashdot __P((const char *));
 int main __P((int, char *[]));
@@ -663,8 +663,8 @@ FUNC(hw_serial_power)
 	return(1);
 }
 
-void
-usage()
+static void
+usage(void)
 {
 	(void)fprintf(stderr,
 	    "usage: tadpolectl [-n] name ...\n"

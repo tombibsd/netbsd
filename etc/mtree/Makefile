@@ -28,6 +28,10 @@ EXTRA_DIST_FILES+=	NetBSD.dist.tests.compat
 .endif
 .endif
 
+.if ${MKDTRACE} != "no"
+EXTRA_DIST_FILES+=	${.CURDIR}/NetBSD.dist.dtrace
+.endif
+
 .if ${MKEXTSRC} != "no"
 EXTRA_DIST_FILES+=	${.CURDIR}/NetBSD.dist.extsrc
 .endif

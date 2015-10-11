@@ -298,6 +298,9 @@ tegra_pcie_conf_read(void *v, pcitag_t tag, int offset)
 	int b, d, f;
 	u_int reg;
 
+	if ((unsigned int)offset >= PCI_EXTCONF_SIZE)
+		return (pcireg_t) -1;
+
 	tegra_pcie_decompose_tag(v, tag, &b, &d, &f);
 
 	if (b == 0) {
@@ -318,6 +321,9 @@ tegra_pcie_conf_write(void *v, pcitag_t tag, int offset, pcireg_t val)
 	bus_space_handle_t bsh;
 	int b, d, f;
 	u_int reg;
+
+	if ((unsigned int)offset >= PCI_EXTCONF_SIZE)
+		return;
 
 	tegra_pcie_decompose_tag(v, tag, &b, &d, &f);
 

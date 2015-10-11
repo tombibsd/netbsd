@@ -900,7 +900,7 @@ db_disasm(vaddr_t loc, bool altfmt)
 
 		if (((bitmask>>30) & 0x3) == 0x1) {
 			/* Call */
-			you_lose = ((~0x1)<<30);
+			you_lose = ((~0x1U)<<30);
 		} else if (((bitmask>>30) & 0x3) == 0x0) {
 			if (((bitmask>>22) & 0x7) == 0x4) {
 				/* Sethi */

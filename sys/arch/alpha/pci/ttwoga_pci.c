@@ -146,6 +146,9 @@ ttwoga_conf_read(void *cpv, pcitag_t tag, int offset)
 	paddr_t addr;
 	uint64_t old_hae3;
 
+	if ((unsigned int)offset >= PCI_CONF_SIZE)
+		return (pcireg_t) -1;
+
 	pci_decompose_tag(&tcp->tc_pc, tag, &b, &d, &f);
 
 	addr = b ? tag : ttwoga_make_type0addr(d, f);
@@ -197,6 +200,9 @@ ttwoga_conf_write(void *cpv, pcitag_t tag, int offset, pcireg_t data)
 	int b, d, f;
 	paddr_t addr;
 	uint64_t old_hae3;
+
+	if ((unsigned int)offset >= PCI_CONF_SIZE)
+		return;
 
 	pci_decompose_tag(&tcp->tc_pc, tag, &b, &d, &f);
 

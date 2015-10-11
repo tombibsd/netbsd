@@ -118,6 +118,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <dev/acpi/acpireg.h>
 #include <dev/acpi/acpivar.h>
+#include <dev/acpi/acpi_mcfg.h>
 #include <dev/acpi/acpi_osd.h>
 #include <dev/acpi/acpi_pci.h>
 #include <dev/acpi/acpi_power.h>
@@ -482,6 +483,11 @@ acpi_attach(device_t parent, device_t self, void *aux)
 	 * Scan the namespace and build our device tree.
 	 */
 	acpi_build_tree(sc);
+
+	/*
+	 * Probe MCFG table
+	 */
+	acpimcfg_probe(sc);
 
 	acpi_md_callback(sc);
 

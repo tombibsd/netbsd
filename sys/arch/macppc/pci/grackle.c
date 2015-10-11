@@ -155,6 +155,9 @@ grackle_conf_read(void *cookie, pcitag_t tag, int reg)
 	pcireg_t data;
 	int s;
 
+	if ((unsigned int)reg >= PCI_CONF_SIZE)
+		return (pcireg_t) -1;
+
 	s = splhigh();
 
 	out32rb(pc->pc_addr, tag | reg);
@@ -173,6 +176,9 @@ grackle_conf_write(void *cookie, pcitag_t tag, int reg, pcireg_t data)
 {
 	pci_chipset_tag_t pc = cookie;
 	int s;
+
+	if ((unsigned int)reg >= PCI_CONF_SIZE)
+		return;
 
 	s = splhigh();
 

@@ -1,7 +1,7 @@
 /CTASSERT.9/1.2/Mon Apr  5 19:18:45 2010/-kk/
 /KASSERT.9/1.13/Tue Sep 27 00:36:51 2011/-kk/
 /LWP_CACHE_CREDS.9/1.2/Sun Dec  9 08:53:57 2007/-kk/
-/Makefile/1.391/Tue Aug 25 04:50:59 2015/-kk/
+/Makefile/1.392/Sun Oct 11 09:00:49 2015/-kk/
 /RUN_ONCE.9/1.8/Tue Jul  6 22:29:29 2010/-kk/
 /SET.9/1.3/Tue Mar 25 02:35:16 2014/-kk/
 /STACK.9/1.2/Fri Apr  8 07:55:04 2011/-kk/
@@ -138,7 +138,7 @@
 /microseq.9/1.5/Sat Jul 14 10:52:49 2007/-kk/
 /microtime.9/1.21/Thu Oct 24 10:28:54 2013/-kk/
 /microuptime.9/1.12/Tue Mar 25 02:35:16 2014/-kk/
-/module.9/1.37/Thu Jun 18 03:42:14 2015/-kk/
+/module.9/1.38/Sun Oct 11 09:00:49 2015/-kk/
 /mstohz.9/1.11/Thu Oct 20 10:36:42 2011/-kk/
 /mutex.9/1.26/Thu Oct 24 10:28:54 2013/-kk/
 /namecache.9/1.19/Thu Feb 13 15:35:47 2014/-kk/
@@ -148,7 +148,7 @@
 /optstr.9/1.4/Wed Apr 30 13:10:58 2008/-kk/
 /panic.9/1.21/Tue Jun 12 21:06:43 2012/-kk/
 /pathbuf.9/1.2/Tue Nov 30 10:32:46 2010/-kk/
-/pci.9/1.41/Tue Aug 25 04:50:59 2015/-kk/
+/pci.9/1.43/Sun Oct 11 09:00:49 2015/-kk/
 /pci_configure_bus.9/1.16/Sat Jul 14 05:32:17 2012/-kk/
 /pci_intr.9/1.20/Wed Aug 12 04:13:44 2015/-kk/
 /pci_msi.9/1.7/Tue Aug 25 04:50:59 2015/-kk/

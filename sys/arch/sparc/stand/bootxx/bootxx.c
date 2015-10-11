@@ -86,7 +86,7 @@ main(void)
 	io.f_flags = F_RAW;
 	if (devopen(&io, 0, &dummy1)) {
 		panic("%s: can't open device `%s'", progname,
-			prom_bootdevice != NULL ? prom_bootdevice : "unknown");
+			prom_bootdevice[0] ? prom_bootdevice : "unknown");
 	}
 
 	(void)loadboot(&io, (void *)PROM_LOADADDR);

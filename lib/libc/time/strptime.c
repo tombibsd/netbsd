@@ -533,7 +533,7 @@ literal:
 						tm->TM_GMTOFF = (int)*bp - 'M';
 #endif
 #ifdef TM_ZONE
-					tm->TM_ZONE = NULL; /* XXX */
+					tm->TM_ZONE = utc; /* XXX */
 #endif
 					bp++;
 					continue;
@@ -574,7 +574,7 @@ literal:
 			tm->TM_GMTOFF = offs;
 #endif
 #ifdef TM_ZONE
-			tm->TM_ZONE = NULL;	/* XXX */
+			tm->TM_ZONE = utc;	/* XXX */
 #endif
 			continue;
 

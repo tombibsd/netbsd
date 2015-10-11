@@ -953,7 +953,9 @@ rmixl_pcie_conf_setup(struct rmixl_pcie_softc *sc,
 			ecfg_oba = ba;
 		}
 		bsh = ecfg_bsh;
-	} else  {
+	} else if ((*offp > 0x700) && (*offp <= PCI_EXTCONF_SIZE)) {
+		return -1;
+	} else {
 #ifdef DEBUG
 		panic("%s: offset %#x: unknown", __func__, *offp);
 #endif

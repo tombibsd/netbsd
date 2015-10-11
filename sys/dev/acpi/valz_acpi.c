@@ -414,16 +414,11 @@ hci_op(struct valz_acpi_softc *sc, uint32_t *input, uint32_t *output)
 		return rv;
 	}
 
-	for (i = 0; i < HCI_WORDS; i++) {
-		output[i] = 0;
-	}
 	param = (ACPI_OBJECT *)buf.Pointer;
 	PrtElement = param->Package.Elements;
 	for (i = 0; i < HCI_WORDS; i++) {
-		if (PrtElement->Type == ACPI_TYPE_INTEGER) {
-			output[i] = PrtElement->Integer.Value;
-			PrtElement++;
-		}
+		output[i] = PrtElement[i].Type == ACPI_TYPE_INTEGER ?
+		    PrtElement[i].Integer.Value : 0;
 	}
 
 	ACPI_FREE(buf.Pointer);

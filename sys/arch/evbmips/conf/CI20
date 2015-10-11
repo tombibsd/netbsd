@@ -142,6 +142,9 @@ cpu0 		at mainbus?
 #wdog0		at mainbus?
 apbus0		at mainbus?
 
+# EFUSE Slave Interface
+efuse* 		at apbus?
+
 # On-chip UARTs
 com*		at apbus?
 

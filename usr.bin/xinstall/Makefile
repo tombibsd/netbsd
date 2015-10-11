@@ -12,9 +12,9 @@ CPPFLAGS+=	-I${NETBSDSRCDIR}/usr.bin/make
 
 .PATH:		${NETBSDSRCDIR}/usr.sbin/mtree
 CPPFLAGS+=	-I${NETBSDSRCDIR}/usr.sbin/mtree
-CPPFLAGS+=	-DHAVE_POSIX_SPAWN
 
 .if (${HOSTPROG:U} == "")
+CPPFLAGS+=	-DHAVE_POSIX_SPAWN
 DPADD+= ${LIBUTIL}
 LDADD+= -lutil
 .endif

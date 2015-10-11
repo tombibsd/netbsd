@@ -187,6 +187,9 @@ ixp425_pci_conf_read(void *v, pcitag_t tag, int offset)
 	int i;
 #endif
 
+	if ((unsigned int)offset >= PCI_CONF_SIZE)
+		return (pcireg_t) -1;
+
 	PCI_CONF_LOCK(s);
 	ixp425_pci_conf_setup(v, sc, tag, offset);
 
@@ -225,6 +228,9 @@ ixp425_pci_conf_write(void *v, pcitag_t tag, int offset, pcireg_t val)
 	struct ixp425_softc *sc = v;
 	uint32_t data;
 	int s;
+
+	if ((unsigned int)offset >= PCI_CONF_SIZE)
+		return;
 
 	PCI_CONF_LOCK(s);
 

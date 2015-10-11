@@ -1,6 +1,8 @@
-/auxio.c/1.24/Sun Sep 13 01:06:42 2015/-kk/
+/auxio.c/1.25/Sun Oct 11 09:01:10 2015/-kk/
+/auxio_ebus.c/1.6/Tue Oct  6 16:40:36 2015/-kk/
+/auxio_sbus.c/1.1/Tue Oct  6 16:40:36 2015/-kk/
 /auxioreg.h/1.8/Sat Jul 25 01:52:09 2015/-kk/
-/auxiovar.h/1.7/Thu May 29 14:51:26 2008/-kk/
+/auxiovar.h/1.8/Sun Oct 11 09:01:10 2015/-kk/
 /central.c/1.3/Sun Mar 18 05:26:58 2012/-kk/
 /centralvar.h/1.1/Fri Jul 29 08:37:36 2011/-kk/
 /com_ebus.c/1.33/Fri Jul  1 18:48:36 2011/-kk/
@@ -39,10 +41,10 @@
 /power.h/1.2/Fri May 12 23:35:24 2006/-kk/
 /psm.c/1.10/Sat Oct 27 17:18:12 2012/-kk/
 /psmreg.h/1.2/Thu Jun 30 20:09:36 2011/-kk/
-/psycho.c/1.120/Wed Oct 29 08:13:12 2014/-kk/
+/psycho.c/1.121/Sun Oct 11 09:01:10 2015/-kk/
 /psychoreg.h/1.19/Thu Oct 24 10:28:57 2013/-kk/
 /psychovar.h/1.21/Tue Dec 17 04:13:29 2013/-kk/
-/pyro.c/1.15/Thu Oct 24 10:28:57 2013/-kk/
+/pyro.c/1.16/Sun Oct 11 09:01:10 2015/-kk/
 /pyrovar.h/1.3/Fri Jun  3 03:05:21 2011/-kk/
 /rtc.c/1.8/Fri Jul  1 18:48:37 2011/-kk/
 /sab.c/1.54/Tue Dec  9 04:34:51 2014/-kk/
@@ -50,7 +52,7 @@
 /sbus.c/1.93/Mon Jan 30 04:25:15 2012/-kk/
 /sbusreg.h/1.10/Wed Mar 16 05:49:43 2011/-kk/
 /sbusvar.h/1.18/Fri Jul  1 18:48:37 2011/-kk/
-/schizo.c/1.32/Fri Oct  3 10:05:09 2014/-kk/
+/schizo.c/1.33/Sun Oct 11 09:01:10 2015/-kk/
 /schizoreg.h/1.10/Wed Aug 12 04:14:11 2015/-kk/
 /schizovar.h/1.6/Sun Mar 25 03:13:08 2012/-kk/
 /tda.c/1.10/Fri May  1 11:31:47 2015/-kk/

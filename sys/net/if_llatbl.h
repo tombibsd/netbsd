@@ -131,7 +131,7 @@ struct llentry {
 					mutex_exit(&(lle)->lle_lock); \
 				} while (0)
 #define	LLE_DOWNGRADE(lle)	do {} while (0)
-#define	LLE_TRY_UPGRADE(lle)	do {} while (0)
+#define	LLE_TRY_UPGRADE(lle)	(1)
 #define	LLE_LOCK_INIT(lle)	mutex_init(&(lle)->lle_lock, MUTEX_DEFAULT, \
 				    IPL_NET)
 #define	LLE_LOCK_DESTROY(lle)	mutex_destroy(&(lle)->lle_lock)

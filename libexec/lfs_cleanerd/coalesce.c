@@ -269,7 +269,7 @@ clean_inode(struct clfs *fs, ino_t ino)
 	for (i = 1; i < nb; i++) {
 		if (bip[i].bi_daddr != bip[i - 1].bi_daddr + lfs_sb_getfrag(fs))
 			++noff;
-		toff += abs(bip[i].bi_daddr - bip[i - 1].bi_daddr
+		toff += llabs(bip[i].bi_daddr - bip[i - 1].bi_daddr
 		    - lfs_sb_getfrag(fs)) >> lfs_sb_getfbshift(fs);
 	}
 

@@ -344,6 +344,9 @@ p5pb_pci_conf_read(pci_chipset_tag_t pc, pcitag_t tag, int reg)
 	uint32_t bus, dev, func;
 	uint32_t offset;
 
+	if ((unsigned int)reg >= PCI_CONF_SIZE)
+		return 0xFFFFFFFF;
+
 	pci_decompose_tag(pc, tag, &bus, &dev, &func);
 
 	offset = (OFF_PCI_DEVICE << dev) + reg;
@@ -375,6 +378,9 @@ p5pb_pci_conf_write(pci_chipset_tag_t pc, pcitag_t tag, int reg, pcireg_t val)
 {
 	uint32_t bus, dev, func;
 	uint32_t offset;
+
+	if ((unsigned int)reg >= PCI_CONF_SIZE)
+		return;
 
 	pci_decompose_tag(pc, tag, &bus, &dev, &func);
 

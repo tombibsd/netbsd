@@ -108,6 +108,9 @@ mcpcia_conf_read(void *cpv, pcitag_t tag, int offset)
 	pcireg_t *dp, data = (pcireg_t) -1;
 	unsigned long paddr;
 
+	if ((unsigned int)offset >= PCI_CONF_SIZE)
+		return (data);
+
 	/*
 	 * There's nothing in slot 0 on a primary bus- don't even try.
 	 */
@@ -135,6 +138,9 @@ mcpcia_conf_write(void *cpv, pcitag_t tag, int offset, pcireg_t data)
 	struct mcpcia_config *ccp = cpv;
 	pcireg_t *dp;
 	unsigned long paddr;
+
+	if ((unsigned int)offset >= PCI_CONF_SIZE)
+		return;
 
 	/*
 	 * There's nothing in slot 0 on a primary bus- don't even try.

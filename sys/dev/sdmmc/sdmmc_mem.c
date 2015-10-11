@@ -1068,7 +1068,7 @@ sdmmc_mem_send_cid(struct sdmmc_softc *sc, sdmmc_response *resp)
 	if (!ISSET(sc->sc_caps, SMC_CAPS_SPI_MODE)) {
 		memset(&cmd, 0, sizeof cmd);
 		cmd.c_opcode = MMC_ALL_SEND_CID;
-		cmd.c_flags = SCF_CMD_BCR | SCF_RSP_R2;
+		cmd.c_flags = SCF_CMD_BCR | SCF_RSP_R2 | SCF_TOUT_OK;
 
 		error = sdmmc_mmc_command(sc, &cmd);
 	} else {

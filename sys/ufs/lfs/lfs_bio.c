@@ -197,19 +197,10 @@ lfs_reservebuf(struct lfs *fs, struct vnode *vp,
 
 /*
  * Try to reserve some blocks, prior to performing a sensitive operation that
- * requires the vnode lock to be honored.  If there is not enough space, give
- * up the vnode lock temporarily and wait for the space to become available.
+ * requires the vnode lock to be honored.  If there is not enough space, wait
+ * for the space to become available.
  *
  * Called with vp locked.  (Note nowever that if fsb < 0, vp is ignored.)
- *
- * XXX YAMT - it isn't safe to unlock vp here
- * because the node might be modified while we sleep.
- * (eg. cached states like i_offset might be stale,
- *  the vnode might be truncated, etc..)
- * maybe we should have a way to restart the vnodeop (EVOPRESTART?)
- * or rearrange vnodeop interface to leave vnode locking to file system
- * specific code so that each file systems can have their own vnode locking and
- * vnode re-using strategies.
  */
 static int
 lfs_reserveavail(struct lfs *fs, struct vnode *vp,
@@ -301,19 +292,9 @@ lfs_reserve(struct lfs *fs, struct vnode *vp, struct vnode *vp2, int fsb)
 	mutex_exit(&lfs_lock);
 #endif
 
-	/*
-	 * XXX
-	 * vref vnodes here so that cleaner doesn't try to reuse them.
-	 * (see XXX comment in lfs_reserveavail)
-	 */
-	vhold(vp);
-	if (vp2 != NULL) {
-		vhold(vp2);
-	}
-
 	error = lfs_reserveavail(fs, vp, vp2, fsb);
 	if (error)
-		goto done;
+		return error;
 
 	/*
 	 * XXX just a guess. should be more precise.
@@ -321,12 +302,6 @@ lfs_reserve(struct lfs *fs, struct vnode *vp, struct vnode *vp2, int fsb)
 	error = lfs_reservebuf(fs, vp, vp2, fsb, lfs_fsbtob(fs, fsb));
 	if (error)
 		lfs_reserveavail(fs, vp, vp2, -fsb);
-
-done:
-	holdrele(vp);
-	if (vp2 != NULL) {
-		holdrele(vp2);
-	}
 
 	return error;
 }

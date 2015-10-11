@@ -324,6 +324,10 @@ admpci_tag_to_addr(void *v, pcitag_t tag, int reg, bus_addr_t *addrp)
 	int bus, device, function;
 
 	KASSERT(addrp != NULL);
+
+	if ((unsigned int)reg >= PCI_CONF_SIZE)
+		return -1;
+
 	/* panics if tag is not well-formed */
 	admpci_decompose_tag(v, tag, &bus, &device, &function);
 	if (reg > __SHIFTOUT_MASK(ADMPCI_TAG_REGISTER_MASK))

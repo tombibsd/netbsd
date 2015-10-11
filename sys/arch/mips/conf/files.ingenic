@@ -45,3 +45,8 @@ defflag	opt_ingenic.h	JZMMC_DEBUG
 device	jzrng
 attach	jzrng at apbus with ingenic_rng
 file	arch/mips/ingenic/ingenic_rng.c	ingenic_rng
+
+# EFUSE
+device	efuse
+attach	efuse at apbus with ingenic_efuse
+file	arch/mips/ingenic/ingenic_efuse.c	ingenic_efuse

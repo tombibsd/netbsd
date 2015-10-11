@@ -10,7 +10,7 @@
 /db.h/1.4/Mon Oct 16 19:44:23 2006/-kk/
 /defs.mk.in/1.12/Sun Dec  2 13:05:14 2012/-kk/
 /dprintf.c/1.2/Thu Oct 24 10:28:58 2013/-kk/
-/fgetln.c/1.9/Tue Apr 29 06:53:03 2008/-kk/
+/fgetln.c/1.12/Sun Oct 11 09:01:46 2015/-kk/
 /flock.c/1.6/Mon Apr 28 20:24:12 2008/-kk/
 /fpurge.c/1.1/Tue Jun 16 22:35:34 2009/-kk/
 /fts.h/1.2/Mon Oct 27 00:12:43 2003/-kk/

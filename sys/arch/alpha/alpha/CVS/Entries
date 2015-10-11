@@ -5,7 +5,7 @@
 /compat_13_machdep.c/1.21/Tue Jun  3 02:53:40 2014/-kk/
 /compat_16_machdep.c/1.19/Tue Jun  3 02:53:40 2014/-kk/
 /core_machdep.c/1.9/Tue Jun  3 02:53:40 2014/-kk/
-/cpu.c/1.95/Mon Feb  6 02:14:10 2012/-kk/
+/cpu.c/1.96/Sun Oct 11 09:00:50 2015/-kk/
 /cpuconf.c/1.36/Thu Oct 24 10:28:57 2013/-kk/
 /db_disasm.c/1.16/Fri Apr 11 02:03:26 2014/-kk/
 /db_instruction.h/1.9/Mon Feb  6 02:14:10 2012/-kk/

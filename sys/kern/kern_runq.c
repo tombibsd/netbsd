@@ -29,6 +29,8 @@
 #include <sys/cdefs.h>
 __KERNEL_RCSID(0, "$NetBSD$");
 
+#include "opt_dtrace.h"
+
 #include <sys/param.h>
 #include <sys/kernel.h>
 #include <sys/bitops.h>
@@ -119,6 +121,10 @@ static u_int	balance_period;		/* Balance period */
 static struct cpu_info *worker_ci;	/* Victim CPU */
 #ifdef MULTIPROCESSOR
 static struct callout balance_ch;	/* Callout of balancer */
+#endif
+
+#ifdef KDTRACE_HOOKS
+struct lwp *curthread;
 #endif
 
 void
@@ -712,6 +718,9 @@ sched_lwp_stats(struct lwp *l)
 
 	/* Scheduler-specific hook */
 	sched_pstats_hook(l, batch);
+#ifdef KDTRACE_HOOKS
+	curthread = l;
+#endif
 }
 
 /*

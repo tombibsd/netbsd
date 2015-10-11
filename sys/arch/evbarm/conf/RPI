@@ -26,8 +26,7 @@ options 	PLCONSOLE
 
 ## USB Debugging options
 options USB_DEBUG
-#options EHCI_DEBUG
-#options OHCI_DEBUG
+#options DWC2_DEBUG
 #options UHUB_DEBUG
 
 

@@ -261,6 +261,9 @@ vrc4172pci_conf_read(pci_chipset_tag_t pc, pcitag_t tag, int reg)
 	struct vrc4172pci_softc *sc = device_private(pc->pc_dev);
 	u_int32_t val;
 
+	if ((unsigned int)reg >= PCI_CONF_SIZE)
+		return ((pcireg_t) -1);
+
 #ifdef VRC4172PCI_MCR700_SUPPORT
 	if (sc->sc_fake_baseaddr != 0 &&
 	    tag == vrc4172pci_make_tag(pc, 0, 0, 1) &&
@@ -292,6 +295,9 @@ vrc4172pci_conf_write(pci_chipset_tag_t pc, pcitag_t tag, int reg,
 
 	DPRINTF(("%s: conf_write: tag = 0x%08x, reg = 0x%x, val = 0x%08x\n",
 	    device_xname(sc->sc_dev), (u_int32_t)tag, reg, (u_int32_t)data));
+
+	if ((unsigned int)reg >= PCI_CONF_SIZE)
+		return;
 
 #ifdef VRC4172PCI_MCR700_SUPPORT
 	if (sc->sc_fake_baseaddr != 0 &&

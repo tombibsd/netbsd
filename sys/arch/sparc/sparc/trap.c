@@ -296,7 +296,7 @@ trap(unsigned type, int psr, int pc, struct trapframe *tf)
 		write_all_windows();
 		(void) kdb_trap(type, tf);
 #endif
-		panic(type < N_TRAP_TYPES ? trap_type[type] : T);
+		panic("%s", type < N_TRAP_TYPES ? trap_type[type] : T);
 		/* NOTREACHED */
 	}
 	if ((l = curlwp) == NULL)

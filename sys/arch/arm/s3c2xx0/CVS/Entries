@@ -36,7 +36,7 @@
 /s3c2800_clk.c/1.17/Tue Feb  7 09:06:05 2012/-kk/
 /s3c2800_intr.c/1.13/Fri Jul  1 20:31:39 2011/-kk/
 /s3c2800_intr.h/1.5/Sun Jan  6 01:37:56 2008/-kk/
-/s3c2800_pci.c/1.21/Fri Apr 11 02:03:28 2014/-kk/
+/s3c2800_pci.c/1.22/Sun Oct 11 09:00:53 2015/-kk/
 /s3c2800reg.h/1.7/Sun Feb 21 06:08:53 2010/-kk/
 /s3c2800var.h/1.7/Sun Dec 11 12:16:51 2005/-kk/
 /s3c2xx0_busdma.c/1.5/Tue Sep 18 05:47:28 2012/-kk/

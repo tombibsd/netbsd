@@ -240,9 +240,6 @@ db_suspend_others(void)
 	int cpu_me = cpu_number();
 	int win;
 
-	if (cpus == NULL)
-		return 1;
-
 	__cpu_simple_lock(&db_lock);
 	if (ddb_cpu == NOCPU)
 		ddb_cpu = cpu_me;

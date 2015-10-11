@@ -100,6 +100,9 @@ pci_conf_read(pci_chipset_tag_t pc, pcitag_t tag, int reg)
 
 	KASSERT(pc != NULL);
 
+	if ((unsigned int)reg >= PCI_CONF_SIZE)
+		return (pcireg_t) -1;
+
 	pci_decompose_tag(pc, tag, &bus, &dev, &func);
 
 	/*
@@ -124,6 +127,9 @@ pci_conf_read(pci_chipset_tag_t pc, pcitag_t tag, int reg)
 void
 pci_conf_write(pci_chipset_tag_t pc, pcitag_t tag, int reg, pcireg_t data)
 {
+
+	if ((unsigned int)reg >= PCI_CONF_SIZE)
+		return;
 
 	bus_space_write_4(pc->pc_bst, pc->pc_bsh, GT_PCICFG_ADDR,
 	    PCICFG_ENABLE | tag | reg);

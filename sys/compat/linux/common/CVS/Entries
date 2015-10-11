@@ -38,7 +38,7 @@
 /linux_misc.h/1.24/Tue Nov 26 03:29:51 2013/-kk/
 /linux_misc_notalpha.c/1.109/Tue Dec  9 04:23:58 2014/-kk/
 /linux_mmap.h/1.21/Mon Apr 28 20:23:43 2008/-kk/
-/linux_mod.c/1.4/Fri Mar 14 04:28:18 2014/-kk/
+/linux_mod.c/1.5/Sun Oct 11 09:01:16 2015/-kk/
 /linux_msg.h/1.13/Wed Nov 18 15:19:24 2009/-kk/
 /linux_mtio.c/1.7/Fri Mar 21 21:54:58 2008/-kk/
 /linux_mtio.h/1.2/Sun Dec 11 12:20:19 2005/-kk/

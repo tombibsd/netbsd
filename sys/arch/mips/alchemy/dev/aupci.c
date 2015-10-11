@@ -334,6 +334,9 @@ aupci_conf_access(void *v, int dir, pcitag_t tag, int reg, pcireg_t *datap)
 	int			b, d, f;
 	bus_space_handle_t	h;
 
+	if ((unsigned int)reg >= PCI_CONF_SIZE)
+		return false;
+
 	aupci_decompose_tag(v, tag, &b, &d, &f);
 	if (b) {
 		/* configuration type 1 */

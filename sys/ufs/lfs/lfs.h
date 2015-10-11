@@ -577,6 +577,27 @@ typedef union finfo {
 } FINFO;
 
 /*
+ * inode info (part of the segment summary)
+ *
+ * Each one of these is just a block number; wrapping the structure
+ * around it gives more contextual information in the code about
+ * what's going on.
+ */
+
+typedef struct iinfo64 {
+	uint64_t ii_block;		/* block number */
+} IINFO64;
+
+typedef struct iinfo32 {
+	uint32_t ii_block;		/* block number */
+} IINFO32;
+
+typedef union iinfo {
+	struct iinfo64 u_64;
+	struct iinfo32 u_32;
+} IINFO;
+
+/*
  * Index file inode entries.
  */
 
@@ -673,6 +694,9 @@ typedef union _cleanerinfo {
 #define	SS_CLEAN	0x04		/* written by the cleaner */
 #define	SS_RFW		0x08		/* written by the roll-forward agent */
 #define	SS_RECLAIM	0x10		/* written by the roll-forward agent */
+
+/* type used for reading checksum signatures from metadata structures */
+typedef uint32_t lfs_checkword;
 
 typedef struct segsum_v1 SEGSUM_V1;
 struct segsum_v1 {

@@ -198,7 +198,7 @@ forward(FILE *fp, enum STYLE style, off_t off, struct stat *sbp)
 			n = 0;
 
 			memset(ev, 0, sizeof(ev));
-			if (fflag == 2 && fileno(fp) != STDIN_FILENO) {
+			if (fflag == 2 && fp != stdin) {
 				EV_SET(&ev[n], fileno(fp), EVFILT_VNODE,
 				    EV_ADD | EV_ENABLE | EV_CLEAR,
 				    NOTE_DELETE | NOTE_RENAME, 0, 0);
@@ -240,7 +240,7 @@ forward(FILE *fp, enum STYLE style, off_t off, struct stat *sbp)
 			 */
                 	(void) sleep(1);
 
-			if (fflag == 2 && fileno(fp) != STDIN_FILENO &&
+			if (fflag == 2 && fp != stdin &&
 			    stat(fname, &statbuf) != -1) {
 				if (statbuf.st_ino != sbp->st_ino ||
 				    statbuf.st_dev != sbp->st_dev ||

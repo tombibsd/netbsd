@@ -68,9 +68,6 @@ int	pciprint(void *, const char *);
 
 #ifdef PCI_MACHDEP_ENUMERATE_BUS
 #define pci_enumerate_bus PCI_MACHDEP_ENUMERATE_BUS
-#else
-int pci_enumerate_bus(struct pci_softc *, const int *,
-    int (*)(const struct pci_attach_args *), struct pci_attach_args *);
 #endif
 
 /*
@@ -611,6 +608,43 @@ pci_msix_count(pci_chipset_tag_t pc, pcitag_t tag)
 	reg = pci_conf_read(pc, tag, offset + PCI_MSIX_CTL);
 
 	return PCI_MSIX_CTL_TBLSIZE(reg);
+}
+
+int
+pci_get_ext_capability(pci_chipset_tag_t pc, pcitag_t tag, int capid,
+    int *offset, pcireg_t *value)
+{
+	pcireg_t reg;
+	unsigned int ofs;
+
+	/* Only supported for PCI-express devices */
+	if (!pci_get_capability(pc, tag, PCI_CAP_PCIEXPRESS, NULL, NULL))
+		return 0;
+
+	ofs = PCI_EXTCAPLIST_BASE;
+	reg = pci_conf_read(pc, tag, ofs);
+	if (reg == 0xffffffff || reg == 0)
+		return 0;
+
+	for (;;) {
+#ifdef DIAGNOSTIC
+		if ((ofs & 3) || ofs < PCI_EXTCAPLIST_BASE)
+			panic("%s: invalid offset %u", __func__, ofs);
+#endif
+		if (PCI_EXTCAPLIST_CAP(reg) == capid) {
+			if (offset != NULL)
+				*offset = ofs;
+			if (value != NULL)
+				*value = reg;
+			return 1;
+		}
+		ofs = PCI_EXTCAPLIST_NEXT(reg);
+		if (ofs == 0)
+			break;
+		reg = pci_conf_read(pc, tag, ofs);
+	}
+
+	return 0;
 }
 
 int

@@ -250,6 +250,9 @@ giopci_conf_read(pci_chipset_tag_t pc, pcitag_t tag, int reg)
 	int bus, dev, func;
 	pcireg_t data;
 
+	if ((unsigned int)reg >= PCI_CONF_SIZE)
+		return (pcireg_t) -1;
+
 	pci_decompose_tag(pc, tag, &bus, &dev, &func);
 	if (bus != 0 || dev != 0 || func != 0)
 		return (0);
@@ -272,6 +275,9 @@ giopci_conf_write(pci_chipset_tag_t pc, pcitag_t tag, int reg, pcireg_t data)
 {
 	struct giopci_softc *sc = pc->cookie;
 	int bus, dev, func;
+
+	if ((unsigned int)reg >= PCI_CONF_SIZE)
+		return;
 
 	pci_decompose_tag(pc, tag, &bus, &dev, &func);
 	if (bus != 0 || dev != 0 || func != 0)

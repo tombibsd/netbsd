@@ -194,6 +194,9 @@ becc_pci_conf_setup(struct becc_softc *sc, pcitag_t tag, int offset,
     struct pciconf_state *ps)
 {
 
+	if ((unsigned int)offset >= PCI_CONF_SIZE)
+		return (1);
+
 	becc_pci_decompose_tag(sc, tag, &ps->ps_b, &ps->ps_d, &ps->ps_f);
 
 	/*

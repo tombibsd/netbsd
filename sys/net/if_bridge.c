@@ -1971,8 +1971,16 @@ out:
 	bridge_release_member(sc, bif);
 
 	/* Queue the packet for bridge forwarding. */
-	if (__predict_false(!pktq_enqueue(sc->sc_fwd_pktq, m, 0)))
-		m_freem(m);
+	{
+		/*
+		 * Force to enqueue to curcpu's pktq (RX can run on a CPU
+		 * other than CPU#0). XXX need fundamental solution.
+		 */
+		const unsigned hash = curcpu()->ci_index;
+
+		if (__predict_false(!pktq_enqueue(sc->sc_fwd_pktq, m, hash)))
+			m_freem(m);
+	}
 }
 
 /*

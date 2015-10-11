@@ -27,9 +27,9 @@
 /rmixl_pci_ecfg_space.c/1.3/Fri Jul  1 19:01:31 2011/-kk/
 /rmixl_pci_io_space.c/1.3/Fri Jul  1 19:01:31 2011/-kk/
 /rmixl_pci_mem_space.c/1.3/Fri Jul  1 19:01:31 2011/-kk/
-/rmixl_pcie.c/1.11/Sat Apr 19 05:36:48 2014/-kk/
+/rmixl_pcie.c/1.12/Sun Oct 11 09:01:03 2015/-kk/
 /rmixl_pcievar.h/1.3/Sun Feb 20 07:48:37 2011/-kk/
-/rmixl_pcix.c/1.12/Sat Apr 19 05:36:48 2014/-kk/
+/rmixl_pcix.c/1.13/Sun Oct 11 09:01:04 2015/-kk/
 /rmixl_pcixvar.h/1.2/Sun Feb 20 07:48:37 2011/-kk/
 /rmixl_spl.S/1.4/Mon Jun 22 02:34:53 2015/-kk/
 /rmixl_subr.S/1.6/Thu Jun 18 03:42:19 2015/-kk/

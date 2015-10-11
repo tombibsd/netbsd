@@ -33,19 +33,7 @@
 
 #include_next <sys/sdt.h>
 #include <sys/dtrace.h>
-
-#ifdef _KERNEL
-typedef struct {
-    char			name[SDT_MAX_NAME_SIZE];
-    dtrace_provider_id_t	id;
-    dtrace_pattr_t 		attr;
-    sdt_probe_t			*probes[];
-} sdt_provider_t;
-
-int sdt_register(sdt_provider_t *);
-int sdt_unregister(sdt_provider_t *);
-#endif /* _KERNEL */
-
+ 
 #undef	DTRACE_PROBE
 #undef	DTRACE_PROBE1
 #undef	DTRACE_PROBE2

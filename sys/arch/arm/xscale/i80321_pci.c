@@ -185,6 +185,9 @@ i80321_pci_conf_setup(struct i80321_softc *sc, pcitag_t tag, int offset,
 {
 	uint32_t busno;
 
+	if ((unsigned int)offset >= PCI_CONF_SIZE)
+		return (1);
+
 	i80321_pci_decompose_tag(sc, tag, &ps->ps_b, &ps->ps_d, &ps->ps_f);
 
 	busno = bus_space_read_4(sc->sc_st, sc->sc_atu_sh, ATU_PCIXSR);

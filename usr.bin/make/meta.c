@@ -1209,16 +1209,6 @@ meta_oodate(GNode *gn, Boolean oodate)
 			break;
 		    }
 
-		    if ((cp = strrchr(p, '/'))) {
-			cp++;
-			/*
-			 * We don't normally expect to see this,
-			 * but we do expect it to change.
-			 */
-			if (strcmp(cp, makeDependfile) == 0)
-			    break;
-		    }
-
 		    /*
 		     * The rest of the record is the file name.
 		     * Check if it's not an absolute path.

@@ -217,7 +217,7 @@ cpuattach(device_t parent, device_t self, void *aux)
 			s = cpunametable[i].cpu_minor_names;
 			for(i = 0; s && s[i]; ++i) {
 				if (i == minor && strlen(s[i]) != 0) {
-					aprint_normal(" (%s)\n", s[i]);
+					aprint_normal(" (%s)", s[i]);
 					goto recognized;
 				}
 			}

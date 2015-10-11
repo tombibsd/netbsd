@@ -114,6 +114,8 @@ struct sdmmc_command {
 #define SCF_RSP_SPI_S2	(1U << 11)
 #define SCF_RSP_SPI_B4	(1U << 12)
 #define SCF_RSP_SPI_BSY	(1U << 13)
+/* Probing */
+#define SCF_TOUT_OK	(1U << 14)	/* command timeout expected */
 /* response types */
 #define SCF_RSP_R0	0	/* none */
 #define SCF_RSP_R1	(SCF_RSP_PRESENT|SCF_RSP_CRC|SCF_RSP_IDX)

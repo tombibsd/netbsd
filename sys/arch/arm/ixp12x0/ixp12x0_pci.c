@@ -164,6 +164,9 @@ ixp12x0_pci_conf_setup(void *v, struct ixp12x0_softc *sc, pcitag_t tag, int offs
 	int bus, device, function;
 	vaddr_t addr;
 
+	if ((unsigned int)offset >= PCI_CONF_SIZE)
+		return 0;
+
 	ixp12x0_pci_decompose_tag(v, tag, &bus, &device, &function);
 
 	if (bus == 0) { 

@@ -325,8 +325,8 @@ _kvm_kvatop4u(kvm_t *kd, vaddr_t va, paddr_t *pa)
 	 *	segmap[cpup->nsegmap];
 	 */
 	segmaps = (int64_t **)((long)kd->cpu_data + cpup->segmapoffset);
-	ptes = (int64_t *)(int)_kvm_pa2off(kd,
-	    (paddr_t)segmaps[sparc64_va_to_seg(va)]);
+	ptes = (int64_t *)(intptr_t)_kvm_pa2off(kd,
+	    (paddr_t)(intptr_t)segmaps[sparc64_va_to_seg(va)]);
 	pte = ptes[sparc64_va_to_pte(va)];
 	if ((pte & SPARC64_TLB_V) != 0)
 		return ((pte & SPARC64_TLB_PA_MASK) | (va & (kd->nbpg - 1)));
@@ -363,7 +363,7 @@ _kvm_pa2off(kvm_t *kd, paddr_t pa)
 		off += mp->size;
 	}
 	if (nmem < 0) {
-		_kvm_err(kd, 0, "invalid address (%lx)", pa);
+		_kvm_err(kd, 0, "invalid address (%lx)", (unsigned long)pa);
 		return (-1);
 	}
 

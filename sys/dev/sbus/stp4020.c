@@ -152,7 +152,6 @@ static void	stp4020_dump_regs(struct stp4020_socket *);
 
 static int	stp4020_rd_sockctl(struct stp4020_socket *, int);
 static void	stp4020_wr_sockctl(struct stp4020_socket *, int, int);
-static int	stp4020_rd_winctl(struct stp4020_socket *, int, int);
 static void	stp4020_wr_winctl(struct stp4020_socket *, int, int, int);
 
 void	stp4020_delay(struct stp4020_softc *sc, unsigned int);
@@ -220,14 +219,6 @@ stp4020_wr_sockctl(struct stp4020_socket *h, int idx, int v)
 {
 	int o = (STP4020_SOCKREGS_SIZE * (h->sock)) + idx;
 	bus_space_write_2(h->tag, h->regs, o, v);
-}
-
-static inline int
-stp4020_rd_winctl(struct stp4020_socket *h, int win, int idx)
-{
-	int o = (STP4020_SOCKREGS_SIZE * (h->sock)) +
-		(STP4020_WINREGS_SIZE * win) + idx;
-	return (bus_space_read_2(h->tag, h->regs, o));
 }
 
 static inline void

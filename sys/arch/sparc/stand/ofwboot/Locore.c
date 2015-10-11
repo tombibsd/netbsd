@@ -36,6 +36,15 @@
 
 #include <machine/cpu.h>
 
+/*
+ * We are trying to boot a sparc v9 cpu, so openfirmware has to be 64bit,
+ * and the kernel we load will be dealing with 64bits too (even if it is
+ * a 32bit kernel.
+ * Make sure we picked up the right defines:
+ */
+__CTASSERT(sizeof(cell_t)==8);
+__CTASSERT(sizeof(paddr_t)==8);
+
 extern int openfirmware(void *);
 
 
