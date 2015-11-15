@@ -6,6 +6,8 @@ RUMPTOP=${TOPRUMP}
 .PATH:	${RUMPTOP}/../dev/pci ${RUMPTOP}/../dev/usb
 
 LIB=	rumpdev_pci_usbhc
+COMMENT=PCI USB host controller drivers
+
 IOCONF=	PCI_USBHC.ioconf
 SRCS=	usbhc_at_pci.c
 

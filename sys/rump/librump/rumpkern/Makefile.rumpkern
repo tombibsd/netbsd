@@ -6,6 +6,8 @@
 .include <bsd.own.mk>
 
 LIB=		rump
+COMMENT=	Rump kernel base
+
 MAN=		rump.3 rump_lwproc.3
 
 .PATH:	${RUMPTOP}/librump/rumpkern				\

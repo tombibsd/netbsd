@@ -99,6 +99,49 @@ allocate_mbuf_chain(char **lens)
 	return m;
 }
 
+#ifdef MBUFDUMP
+static void
+dump_mbuf(const struct mbuf *m, int len, int off)
+{
+	int x = 0;
+	if (len <= 0)
+		return;
+
+	printf("Starting len=%d off=%d:\n", len, off);
+	if (off > 0) {
+		for (; m; m = m->m_next)
+			if (off > m->m_len)
+				off -= m->m_len;
+			else
+				break;
+		if (m == NULL || off > m->m_len)
+			errx(1, "out of data");
+	}
+
+	unsigned char *ptr = mtod(m, unsigned char *) + off;
+	unsigned char *eptr = ptr + m->m_len;
+	printf("[");
+	for (;;) {
+		if (ptr == eptr) {
+			m = m->m_next;
+			if (m == NULL)
+				errx(1, "out of data");
+			ptr = mtod(m, unsigned char *);
+			eptr = ptr + m->m_len;
+			printf("]\n[");
+			x = 0;
+		}
+		printf("%.2x ", *ptr++);
+		if (++x % 16 == 0)
+			printf("\n");
+		if (--len == 0)
+			break;
+	}
+	printf("]\n");
+	fflush(stdout);
+}
+#endif
+
 static void
 randomise_mbuf_chain(struct mbuf *m)
 {
@@ -181,6 +224,10 @@ main(int argc, char **argv)
 		len -= off;
 		old_sum = portable_cpu_in_cksum(m, len, off, init_sum);
 #ifdef HAVE_CPU_IN_CKSUM
+#ifdef MBUFDUMP
+		printf("m->m_len=%d len=%d off=%d\n", m->m_len, len, off);
+		dump_mbuf(m, len, off);
+#endif
 		new_sum = cpu_in_cksum(m, len, off, init_sum);
 		if (old_sum != new_sum)
 			errx(1, "comparison failed: %x %x", old_sum, new_sum);

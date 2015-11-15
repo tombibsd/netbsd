@@ -6,6 +6,8 @@ RUMPTOP=${TOPRUMP}
 .PATH:	${RUMPTOP}/../dev/pci
 
 LIB=	rumpdev_pci_auich
+COMMENT=AC97 Intel Audio driver
+
 IOCONF=	PCI_AUICH.ioconf
 SRCS=	auich_at_pci.c
 SRCS+=	auich.c

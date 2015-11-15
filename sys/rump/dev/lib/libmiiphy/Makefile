@@ -6,6 +6,8 @@ RUMPTOP=${TOPRUMP}
 .PATH:	${RUMPTOP}/../dev/pci ${RUMPTOP}/../dev/mii
 
 LIB=	rumpdev_miiphy
+COMMENT=MII and PHY drivers (for networking)
+
 IOCONF=	MIIPHY.ioconf
 
 SRCS=	phy_at_mii.c

@@ -4,6 +4,8 @@
 .PATH:	${.CURDIR}/../../../../dev
 
 LIB=	rumpdev_cgd
+COMMENT=Cryptographic disk driver (block device crypto layer)
+
 IOCONF=	CGD.ioconf
 SRCS=   cgd.c cgd_crypto.c
 

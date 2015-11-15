@@ -6,6 +6,7 @@ S!=             cd ${.PARSEDIR}/../../../../;pwd
 .include "${.CURDIR}/../../../../modules/zfs/Makefile.zfsmod"
 
 LIB=	rumpfs_zfs
+COMMENT=ZFS
 
 # RUMP stuff
 CPPFLAGS+=      -I${RUMPTOP}/librump/rumpkern -I${RUMPTOP}/librump/rumpvfs\

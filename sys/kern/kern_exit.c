@@ -227,9 +227,16 @@ exit1(struct lwp *l, int rv)
 	if (__predict_false(p->p_sflag & PS_STOPEXIT)) {
 		KERNEL_UNLOCK_ALL(l, &l->l_biglocks);
 		sigclearall(p, &contsigmask, &kq);
+
+		if (!mutex_tryenter(proc_lock)) {
+			mutex_exit(p->p_lock);
+			mutex_enter(proc_lock);
+			mutex_enter(p->p_lock);
+		}
 		p->p_waited = 0;
-		membar_producer();
+		p->p_pptr->p_nstopchild++;
 		p->p_stat = SSTOP;
+		mutex_exit(proc_lock);
 		lwp_lock(l);
 		p->p_nrlwps--;
 		l->l_stat = LSSTOP;
@@ -959,7 +966,7 @@ proc_reparent(struct proc *child, struct proc *parent)
 	if (child->p_pptr == parent)
 		return;
 
-	if (child->p_stat == SZOMB ||
+	if (child->p_stat == SZOMB || child->p_stat == SDEAD ||
 	    (child->p_stat == SSTOP && !child->p_waited)) {
 		child->p_pptr->p_nstopchild--;
 		parent->p_nstopchild++;

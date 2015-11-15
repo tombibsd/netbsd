@@ -198,10 +198,12 @@ tegra_hdmi_hpd(struct tegra_hdmi_softc *sc)
 static void
 tegra_hdmi_connect(struct tegra_hdmi_softc *sc)
 {
+	prop_dictionary_t prop = device_properties(sc->sc_dev);
 	const struct videomode *mode;
 	char edid[128], *pedid = NULL;
 	struct edid_info ei;
 	int retry = 4, error;
+	bool force_dvi = false;
 
 	memset(&ei, 0, sizeof(ei));
 
@@ -237,7 +239,12 @@ tegra_hdmi_connect(struct tegra_hdmi_softc *sc)
 	}
 
 	sc->sc_curmode = mode;
-	sc->sc_hdmimode = tegra_hdmi_is_hdmi(sc, &ei);
+	prop_dictionary_get_bool(prop, "force-dvi", &force_dvi);
+	if (force_dvi) {
+		sc->sc_hdmimode = false;
+	} else {
+		sc->sc_hdmimode = tegra_hdmi_is_hdmi(sc, &ei);
+	}
 
 	tegra_hdmi_enable(sc, pedid);
 }

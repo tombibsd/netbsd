@@ -4,6 +4,8 @@
 .PATH:	${.CURDIR}/../../../../dev
 
 LIB=	rumpdev_rnd
+COMMENT=/dev/{,u}random
+
 IOCONF=	RND.ioconf
 SRCS=	rndpseudo.c
 

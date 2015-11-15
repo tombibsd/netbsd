@@ -47,7 +47,11 @@ extern const char *rulename;
 extern const char *controlprog;
 extern struct ifaddrs *ifas;
 
+#if !defined(__syslog_attribute__) && !defined(__syslog__)
+#define __syslog__ __printf__
+#endif
+
 void (*lfun)(int, const char *, ...)
-    __attribute__((__format__(__printf__, 2, 3)));
+    __attribute__((__format__(__syslog__, 2, 3)));
 
 #endif /* _INTERNAL_H */

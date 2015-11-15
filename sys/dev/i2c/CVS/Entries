@@ -12,7 +12,8 @@
 /au8522mod_qam64.h/1.2/Sun Jul 10 00:47:34 2011/-kk/
 /au8522reg.h/1.2/Sun Jul 10 00:47:34 2011/-kk/
 /au8522var.h/1.4/Sun Jul 10 00:47:34 2011/-kk/
-/axp20x.c/1.2/Tue Sep  9 23:39:16 2014/-kk/
+/axp20x.c/1.4/Sun Nov 15 13:36:05 2015/-kk/
+/axp20xvar.h/1.1/Thu Oct 15 13:41:11 2015/-kk/
 /axp22x.c/1.2/Tue Dec  9 04:43:47 2014/-kk/
 /axp806.c/1.1/Sun Dec  7 00:33:26 2014/-kk/
 /axp806.h/1.1/Sun Dec  7 00:33:26 2014/-kk/

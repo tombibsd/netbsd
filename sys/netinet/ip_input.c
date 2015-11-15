@@ -103,6 +103,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include "opt_inet_csum.h"
 #endif
 
+#include "arp.h"
+
 #include <sys/param.h>
 #include <sys/systm.h>
 #include <sys/cpu.h>

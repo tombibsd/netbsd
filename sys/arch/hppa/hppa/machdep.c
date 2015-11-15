@@ -981,10 +981,11 @@ delay(u_int us)
 		end = start + n * cpu_ticksnum / cpu_ticksdenom;
 
 		/* N.B. Interval Timer may wrap around */
-		if (end < start)
-			do
+		if (end < start) {
+			do {
 				mfctl(CR_ITMR, start);
-			while (start > end);
+			} while (start > end);
+		}
 
 		do
 			mfctl(CR_ITMR, start);

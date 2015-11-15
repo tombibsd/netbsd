@@ -404,7 +404,7 @@ db_stack_trace_print(db_expr_t addr, bool have_addr, db_expr_t count,
 		const char *cp = modif;
 		char c;
 
-		while ((c = *cp++) != 0)
+		while ((c = *cp++) != 0) {
 			if (c == 'a') {
 				lwpaddr = true;
 				trace_thread = true;
@@ -414,6 +414,7 @@ db_stack_trace_print(db_expr_t addr, bool have_addr, db_expr_t count,
 			else if (c == 'u')
 				kernel_only = false;
 #endif
+		}
 	}
 
 	if (!have_addr)

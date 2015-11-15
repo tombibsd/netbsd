@@ -2,6 +2,7 @@
 #
 
 LIB=	rumpnet_shmif
+COMMENT=Shared memory bus network interface
 
 SRCS=	if_shmem.c shmif_busops.c
 SRCS+=	shmif_component.c

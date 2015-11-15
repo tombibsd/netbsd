@@ -48,6 +48,7 @@ SUBDIR+= \
 	xf86-video-mga \
 	xf86-video-neomagic \
 	xf86-video-nv \
+	xf86-video-nouveau \
 	xf86-video-openchrome \
 	xf86-video-r128 \
 	xf86-video-radeon \
@@ -177,6 +178,11 @@ SUBDIR+= \
 	xf86-video-wsfb
 .endif # ${MACHINE} == "hpcarm" || ${MACHINE} == "hpcmips" || ${MACHINE} == "hpcsh"
 
+.if ${MACHINE} == "ibmnws"
+SUBDIR+= \
+	xf86-video-s3
+.endif	# ${MACHINE} == "ibmnws"
+
 .if ${MACHINE} == "luna68k"
 SUBDIR+= \
 	xf86-video-wsfb
@@ -236,7 +242,11 @@ SUBDIR+= \
 .if ${MACHINE} == "sgimips"
 SUBDIR+= \
 	xf86-video-crime \
+	xf86-video-cirrus \
+	xf86-video-glint \
+	xf86-video-mga \
 	xf86-video-newport \
+	xf86-video-s3 \
 	xf86-video-wsfb
 .endif	# ${MACHINE} == "sgimips"
 

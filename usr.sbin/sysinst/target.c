@@ -153,6 +153,9 @@ int
 target_already_root(void)
 {
 
+	if (pm == NULL)
+		return TRUE;
+
 	if (strcmp(pm->diskdev, "") == 0)
 		/* No root partition was ever selected.
 		 * Assume that the currently mounted one should be used

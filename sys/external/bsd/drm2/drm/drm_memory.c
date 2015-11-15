@@ -32,12 +32,22 @@
 #include <sys/cdefs.h>
 __KERNEL_RCSID(0, "$NetBSD$");
 
-#ifdef _KERNEL_OPT
-#include "agp_i810.h"
-#include "genfb.h"
+#if defined(__i386__) || defined(__x86_64__)
+#define HAS_AGP_I810	1
 #else
-#define	NAGP_I810	1	/* XXX WTF?  */
-#define	NGENFB		0	/* XXX WTF?  */
+#define HAS_AGP_I810	0
+#endif
+
+#ifdef _KERNEL_OPT
+# if HAS_AGP_I810 > 0
+#  include "agp_i810.h"
+# else
+#  define NAGP_I810	0
+# endif
+# include "genfb.h"
+#else
+# define NAGP_I810	HAS_AGP_I810	/* XXX WTF?  */
+# define NGENFB		0	/* XXX WTF?  */
 #endif
 
 #include <sys/bus.h>

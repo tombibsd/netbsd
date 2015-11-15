@@ -43,6 +43,9 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include "locators.h"
 
+#define _COMPONENT      ACPI_RESOURCE_COMPONENT
+ACPI_MODULE_NAME	("acpi_mcfg")
+
 #define	EXTCONF_OFFSET(d, f, r)	((((d) * 8 + (f)) * PCI_EXTCONF_SIZE) + (r))
 
 #define	EXTCONF_SET_VALID(mb, d, f)	((mb)->valid_devs[(d)] |= __BIT((f)))

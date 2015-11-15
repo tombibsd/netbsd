@@ -12,6 +12,12 @@ SPARC64DIR=	${.PARSEDIR}/../../sparc64/atomic
 
 .include "${SPARC64DIR}/Makefile.inc"
 
+.if defined(LIB) && (${LIB} == "kern" || ${LIB} == "c" || ${LIB} == "pthread" \
+	|| ${LIB} == "rump")
+SRCS+=	atomic_nand_64_cas.c atomic_xor_64_cas.c atomic_sub_64_cas.c \
+	atomic_cas_64_cas.c
+.endif
+
 .else
 
 . if defined(LIB)

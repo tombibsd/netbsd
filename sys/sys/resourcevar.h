@@ -39,6 +39,7 @@
 #endif
 
 #include <sys/mutex.h>
+#include <sys/resource.h>
 
 /*
  * Kernel per-process accounting / statistics

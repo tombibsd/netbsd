@@ -2,6 +2,8 @@
 #
 
 LIB=	rumpnet_virtif
+COMMENT=Network interface which uses hypercalls for I/O
+
 VIRTIF=	virt
 
 .include "${.CURDIR}/Makefile.virtif"

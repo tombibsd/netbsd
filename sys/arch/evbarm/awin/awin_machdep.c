@@ -178,6 +178,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <dev/ic/ns16550reg.h>
 #include <dev/ic/comreg.h>
 
+#include <dev/i2c/axp20xvar.h>
+
 #include <arm/allwinner/awin_reg.h>
 #include <arm/allwinner/awin_var.h>
 
@@ -207,6 +209,8 @@ bool cubietruck_p;
 #define cubietruck_p	false
 #endif
 
+static device_t pmic_dev = NULL;
+static int pmic_cpu_dcdc;
 #ifdef AWIN_SYSCONFIG
 bool awin_sysconfig_p;
 #else
@@ -841,6 +845,13 @@ awin_device_register(device_t self, void *aux)
 			}
 		}
 	}
+	if (device_is_a(self, "axp20x")) {
+		pmic_dev = self;
+#if AWIN_board == AWIN_cubieboard || AWIN_board == AWIN_cubietruck || AWIN_board == AWIN_bpi || AWIN_board == AWIN_olimexlime2
+		pmic_cpu_dcdc = AXP20X_DCDC2;
+#endif
+	}
+
 
 #if NGENFB > 0
 	if (device_is_a(self, "genfb")) {
@@ -859,6 +870,15 @@ awin_device_register(device_t self, void *aux)
 		}
 	}
 #endif
+}
+
+int
+awin_set_mpu_volt(int mvolt, bool poll)
+{
+	if (pmic_dev == NULL) {
+		return ENODEV;
+	}
+	return axp20x_set_dcdc(pmic_dev, pmic_cpu_dcdc, mvolt, 0);
 }
 
 #ifdef AWIN_SYSCONFIG

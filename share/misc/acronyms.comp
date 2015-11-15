@@ -37,6 +37,7 @@ AL	active link
 ALE	address latch enable
 ALS	ambient light sensor
 ALU	arithmetic and logical unit
+ALUA	asymmetric logical unit access
 AM	access method
 AM	alignment mask
 AM	amplitude modulation
@@ -687,6 +688,7 @@ LTO	link time optimization
 LTR	left to right
 LTR	load task register
 LTR	letter(-sized paper)
+LUA	Lua Uppercase Accident
 LUN	logical unit number
 LV	logical volume
 LVM	logical volume management

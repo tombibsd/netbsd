@@ -150,7 +150,7 @@
 /pathbuf.9/1.2/Tue Nov 30 10:32:46 2010/-kk/
 /pci.9/1.43/Sun Oct 11 09:00:49 2015/-kk/
 /pci_configure_bus.9/1.16/Sat Jul 14 05:32:17 2012/-kk/
-/pci_intr.9/1.20/Wed Aug 12 04:13:44 2015/-kk/
+/pci_intr.9/1.23/Sun Nov 15 13:35:32 2015/-kk/
 /pci_msi.9/1.7/Tue Aug 25 04:50:59 2015/-kk/
 /pckbport.9/1.5/Mon Mar  9 19:24:32 2009/-kk/
 /pcmcia.9/1.20/Mon May 30 01:48:40 2011/-kk/
@@ -242,7 +242,7 @@
 /vnsubr.9/1.43/Sat Jul 25 01:51:48 2015/-kk/
 /wapbl.9/1.10/Sun Apr 12 03:34:25 2015/-kk/
 /wdc.9/1.19/Fri May  1 11:28:37 2015/-kk/
-/workqueue.9/1.10/Mon Oct 24 07:27:09 2011/-kk/
+/workqueue.9/1.11/Sun Nov 15 13:35:32 2015/-kk/
 /wscons.9/1.8/Thu Dec  2 12:54:13 2010/-kk/
 /wsdisplay.9/1.23/Thu Dec  2 12:54:13 2010/-kk/
 /wsfont.9/1.18/Fri Jan 13 23:09:51 2012/-kk/

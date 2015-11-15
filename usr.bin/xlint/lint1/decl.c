@@ -1778,6 +1778,9 @@ compltag(type_t *tp, sym_t *fmem)
 		} else {
 			n = 0;
 			for (mem = fmem; mem != NULL; mem = mem->s_nxt) {
+				/* bind anonymous members to the structure */
+				if (mem->s_styp == NULL)
+					mem->s_styp = sp;
 				if (mem->s_name != unnamed)
 					n++;
 			}

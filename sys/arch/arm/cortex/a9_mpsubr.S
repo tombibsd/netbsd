@@ -498,6 +498,10 @@ cortex_init:
 	bfi	r0, r2, #31, #1			// copy it to bit 31 in ACTRL
 #endif
 
+#if defined(TEGRAK1_PMAP_WORKAROUND)
+	orr	r0, r0, #CORTEXA15_ACTLR_IOBEU
+#endif
+
 #if defined(CPU_CORTEXA5) || defined(CPU_CORTEXA9)
 	//
 	// Step 4a (continued on A5/A9), ACTLR.FW=1)

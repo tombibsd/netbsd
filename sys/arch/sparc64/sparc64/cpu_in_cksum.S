@@ -27,12 +27,6 @@
 #include "assym.h"
 #include <machine/asm.h>
 
-#ifdef __arch64__
-#define	LDPTR	ldx
-#else
-#define	LDPTR	lduw
-#endif
-
 /*
  * int cpu_in_cksum(struct mbuf *m, int len, int off, uint32_t initial_sum);
  *

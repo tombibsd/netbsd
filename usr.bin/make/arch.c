@@ -261,7 +261,7 @@ Arch_ParseArchive(char **linePtr, Lst nodeLst, GNode *ctxt)
 	    void	*freeIt;
 	    char	*result;
 
-	    result = Var_Parse(cp, ctxt, TRUE, &length, &freeIt);
+	    result = Var_Parse(cp, ctxt, TRUE, TRUE, &length, &freeIt);
 	    if (freeIt)
 		free(freeIt);
 	    if (result == var_Error) {
@@ -276,7 +276,7 @@ Arch_ParseArchive(char **linePtr, Lst nodeLst, GNode *ctxt)
 
     *cp++ = '\0';
     if (subLibName) {
-	libName = Var_Subst(NULL, libName, ctxt, TRUE);
+	libName = Var_Subst(NULL, libName, ctxt, TRUE, TRUE);
     }
 
 
@@ -302,7 +302,7 @@ Arch_ParseArchive(char **linePtr, Lst nodeLst, GNode *ctxt)
 		void	*freeIt;
 		char	*result;
 
-		result = Var_Parse(cp, ctxt, TRUE, &length, &freeIt);
+		result = Var_Parse(cp, ctxt, TRUE, TRUE, &length, &freeIt);
 		if (freeIt)
 		    free(freeIt);
 		if (result == var_Error) {
@@ -355,7 +355,7 @@ Arch_ParseArchive(char **linePtr, Lst nodeLst, GNode *ctxt)
 	    char    *oldMemName = memName;
 	    size_t   sz;
 
-	    memName = Var_Subst(NULL, memName, ctxt, TRUE);
+	    memName = Var_Subst(NULL, memName, ctxt, TRUE, TRUE);
 
 	    /*
 	     * Now form an archive spec and recurse to deal with nested

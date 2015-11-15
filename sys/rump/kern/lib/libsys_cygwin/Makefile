@@ -2,6 +2,7 @@
 #
 
 LIB=	rumpkern_sys_cygwin
+COMMENT=Cygwin system call translation
 
 SRCS=	rump_cygwin_compat.c
 SRCS+=	sys_cygwin_component.c

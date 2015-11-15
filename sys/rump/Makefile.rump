@@ -242,6 +242,10 @@ __archivebuild: .USE
 	    `NM=${NM} ${LORDER} ${.ALLSRC:M*o} | ${TSORT}`
 .endif
 
+COMMENT?=	(no description)
+describe: .PHONY
+	@printf '%-24s %s\n' '${LIB}' '${COMMENT}'
+
 _BSD_IOCONF_MK_USER_=1
 .include <bsd.ioconf.mk>
 

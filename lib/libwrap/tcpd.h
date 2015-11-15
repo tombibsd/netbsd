@@ -168,10 +168,10 @@ extern void tli_host			/* look up endpoint addresses etc. */
   */
 
 /* Report problem and proceed */
-void tcpd_warn(const char *, ...) __printflike(1, 2);
+void tcpd_warn(const char *, ...) __sysloglike(1, 2);
 
 /* Report problem and jump */
-void tcpd_jump(const char *, ...) __dead __printflike(1, 2);
+void tcpd_jump(const char *, ...) __dead __sysloglike(1, 2);
 __END_DECLS
 
 struct tcpd_context {

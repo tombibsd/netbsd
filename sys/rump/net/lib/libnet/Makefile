@@ -5,6 +5,8 @@
 .PATH:	${.CURDIR}/../../../../net ${.CURDIR}/../../../../compat/common
 
 LIB=	rumpnet_net
+COMMENT=Network interface and routing support
+
 IOCONF=	NET.ioconf
 # iffy stuff
 SRCS=	if.c if_loop.c route.c rtsock.c raw_usrreq.c			\

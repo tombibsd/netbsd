@@ -129,6 +129,20 @@ tegra_ahcisata_init(struct tegra_ahcisata_softc *sc)
 	const u_int gen2_tx_amp = 0x18;
 	const u_int gen2_tx_peak = 0x0a;
 
+	/* Set RX idle detection source and disable RX idle detection interrupt */
+	tegra_reg_set_clear(bst, bsh, TEGRA_SATA_AUX_MISC_CNTL_1_REG,
+	    TEGRA_SATA_AUX_MISC_CNTL_1_AUX_OR_CORE_IDLE_STATUS_SEL, 0);
+	tegra_reg_set_clear(bst, bsh, TEGRA_SATA_AUX_RX_STAT_INT_REG,
+	    TEGRA_SATA_AUX_RX_STAT_INT_SATA_RX_STAT_INT_DISABLE, 0);
+
+	/* Prevent automatic OOB sequence when coming out of reset */
+	tegra_reg_set_clear(bst, bsh, TEGRA_SATA_AUX_MISC_CNTL_1_REG,
+	    0, TEGRA_SATA_AUX_MISC_CNTL_1_OOB_ON_POR);
+
+	/* Disable device sleep */
+	tegra_reg_set_clear(bst, bsh, TEGRA_SATA_AUX_MISC_CNTL_1_REG,
+	    0, TEGRA_SATA_AUX_MISC_CNTL_1_SDS_SUPPORT);
+
 	/* Enable IFPS device block */
 	tegra_reg_set_clear(bst, bsh, TEGRA_SATA_CONFIGURATION_REG,
 	    TEGRA_SATA_CONFIGURATION_EN_FPCI, 0);

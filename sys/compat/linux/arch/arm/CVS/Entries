@@ -8,7 +8,7 @@
 /linux_machdep.c/1.32/Tue Dec  9 04:23:58 2014/-kk/
 /linux_machdep.h/1.6/Mon Apr 28 20:23:42 2008/-kk/
 /linux_mmap.h/1.5/Sat Mar 21 02:47:09 2015/-kk/
-/linux_ptrace.c/1.18/Tue Dec  9 04:23:58 2014/-kk/
+/linux_ptrace.c/1.19/Sun Nov 15 13:36:04 2015/-kk/
 /linux_sigarray.c/1.4/Mon Apr 28 20:23:42 2008/-kk/
 /linux_siginfo.h/1.2/Mon Jun  8 11:46:07 2009/-kk/
 /linux_signal.h/1.9/Mon Apr 28 20:23:42 2008/-kk/

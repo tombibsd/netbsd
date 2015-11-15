@@ -776,8 +776,8 @@ union segsum {
 #define	       LFS_MAGIC       		0x070162
 #define        LFS_MAGIC_SWAPPED	0x62010700
 
-#define        LFS64_MAGIC     		0x19620701
-#define        LFS64_MAGIC_SWAPPED      0x01076219
+#define        LFS64_MAGIC     		(0x19620701 ^ 0xffffffff)
+#define        LFS64_MAGIC_SWAPPED      (0x01076219 ^ 0xffffffff)
 
 #define	       LFS_VERSION     		2
 
@@ -1028,6 +1028,10 @@ struct lfs {
 	LIST_HEAD(, segdelta) lfs_segdhd;	/* List of pending trunc accounting events */
 
 #ifdef _KERNEL
+	/* The block device we're mounted on. */
+	dev_t lfs_dev;
+	struct vnode *lfs_devvp;
+
 	/* ULFS-level information */
 	u_int32_t um_flags;			/* ULFS flags (below) */
 	u_long	um_nindir;			/* indirect ptrs per block */
@@ -1049,6 +1053,13 @@ struct lfs {
 	int lfs_availsleep;
 	/* This one replaces &lfs_nextseg... all ditto */
 	int lfs_nextsegsleep;
+
+	/* Cleaner lwp, set on first bmapv syscall. */
+	struct lwp *lfs_cleaner_thread;
+
+	/* Hint from cleaner, only valid if curlwp == um_cleaner_thread. */
+	/* XXX change this to BLOCK_INFO after resorting this file */
+	struct block_info *lfs_cleaner_hint;
 #endif
 };
 

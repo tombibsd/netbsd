@@ -4,6 +4,8 @@
 .PATH:	${.CURDIR}/../../../../dev/scsipi
 
 LIB=	rumpdev_scsipi
+COMMENT=SCSI & ATAPI mid-layer
+
 IOCONF=	SCSIPI.ioconf
 
 SRCS+=	scsipiconf.c scsipi_base.c scsipi_ioctl.c scsi_base.c scsiconf.c

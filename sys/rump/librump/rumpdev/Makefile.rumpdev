@@ -2,6 +2,7 @@
 #
 
 LIB=	rumpdev
+COMMENT=Rump kernel device faction
 
 .PATH:	${RUMPTOP}/librump/rumpdev				\
 	${RUMPTOP}/../kern					\

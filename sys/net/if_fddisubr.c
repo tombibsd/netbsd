@@ -235,8 +235,8 @@ fddi_output(struct ifnet *ifp0, struct mbuf *m0, const struct sockaddr *dst,
 		else if (m->m_flags & M_MCAST) {
 			ETHER_MAP_IP_MULTICAST(&satocsin(dst)->sin_addr,
 			    (char *)edst);
-		} else if (!arpresolve(ifp, rt, m, dst, edst))
-			return (0);	/* if not yet resolved */
+		} else if ((error = arpresolve(ifp, rt, m, dst, edst)) != 0)
+			return error == EWOULDBLOCK ? 0 : error;
 		/* If broadcasting on a simplex interface, loopback a copy */
 		if ((m->m_flags & M_BCAST) && (ifp->if_flags & IFF_SIMPLEX))
 			mcopy = m_copy(m, 0, (int)M_COPYALL);

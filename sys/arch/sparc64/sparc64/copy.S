@@ -883,7 +883,7 @@ ENTRY(probeget)
 	ldxa	[%o0] %asi, %o0		!	value = *(long *)addr;
 1:	
 #ifndef _LP64
-	SPLIT(%o0, %o1)
+	SPLIT(%o0, %o0, %o1)
 #endif
 	membar	#Sync
 #ifndef _LP64

@@ -1136,7 +1136,7 @@ device	viomb
 attach	viomb at virtio
 file	dev/pci/viomb.c		viomb
 
-device	vioif
+device	vioif: ether, ifnet, arp
 attach	vioif at virtio
 file	dev/pci/if_vioif.c	vioif
 

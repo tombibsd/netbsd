@@ -268,7 +268,6 @@ ciaattach(device_t parent, device_t self, void *aux)
 	struct pcibus_attach_args pba;
 	char bits[64];
 	const char *name;
-	int pass;
 
 	/* note that we've attached the chipset; can't have 2 CIAs. */
 	ciafound = 1;
@@ -284,14 +283,12 @@ ciaattach(device_t parent, device_t self, void *aux)
 
 	if (ccp->cc_flags & CCF_ISPYXIS) {
 		name = "Pyxis";
-		pass = ccp->cc_rev;
 	} else {
 		name = "ALCOR/ALCOR2";
-		pass = ccp->cc_rev + 1;
 	}
 
 	aprint_normal(": DECchip 2117x Core Logic Chipset (%s), pass %d\n",
-	    name, pass);
+	    name, ccp->cc_rev + 1);
 	if (ccp->cc_cnfg) {
 		snprintb(bits, sizeof(bits), CIA_CSR_CNFG_BITS, ccp->cc_cnfg);
 		aprint_normal_dev(self, "extended capabilities: %s\n", bits);

@@ -6,6 +6,8 @@ RUMPTOP=${TOPRUMP}
 .PATH:	${RUMPTOP}/../dev/pci
 
 LIB=	rumpdev_pci_eap
+COMMENT=Ensoniq AudioPCI driver
+
 IOCONF=	PCI_EAP.ioconf
 SRCS=	eap_at_pci.c
 SRCS+=	eap.c

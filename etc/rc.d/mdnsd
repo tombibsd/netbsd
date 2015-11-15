@@ -4,7 +4,8 @@
 #
 
 # PROVIDE: mdnsd
-# REQUIRE: SERVERS
+# REQUIRE: network mountcritlocal staticroute
+# BEFORE:  NETWORKING
 
 $_rc_subr_loaded . /etc/rc.subr
 

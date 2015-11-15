@@ -54,12 +54,26 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include "npf_impl.h"
 #include "npf_conn.h"
 
+#ifndef _MODULE
+#include "opt_modular.h"
+#endif
+
 #include "ioconf.h"
 
 /*
  * Module and device structures.
  */
+#ifdef MODULAR
+/*
+ * Modular kernels load drivers too early, and we need percpu to be inited
+ * So we make this misc; a better way would be to have early boot and late
+ * boot drivers
+ */
+MODULE(MODULE_CLASS_MISC, npf, NULL);
+#else
+/* This module autoloads via /dev/npf so it needs to be a driver */
 MODULE(MODULE_CLASS_DRIVER, npf, NULL);
+#endif
 
 static int	npf_fini(void);
 static int	npf_dev_open(dev_t, int, int, lwp_t *);
@@ -88,13 +102,11 @@ const struct cdevsw npf_cdevsw = {
 	.d_flag = D_OTHER | D_MPSAFE
 };
 
+#if !defined(MODULAR) || defined(_MODULE)
 static int
 npf_init(void)
 {
-#ifdef _MODULE
-	devmajor_t bmajor = NODEVMAJOR, cmajor = NODEVMAJOR;
-#endif
-	int error = 0;
+	KASSERT(npf_stats_percpu == NULL);
 
 	npf_stats_percpu = percpu_alloc(NPF_STATS_SIZE);
 	npf_sysctl = NULL;
@@ -112,15 +124,20 @@ npf_init(void)
 	npf_config_init();
 
 #ifdef _MODULE
+	devmajor_t bmajor = NODEVMAJOR, cmajor = NODEVMAJOR;
+
 	/* Attach /dev/npf device. */
-	error = devsw_attach("npf", NULL, &bmajor, &npf_cdevsw, &cmajor);
+	int error = devsw_attach("npf", NULL, &bmajor, &npf_cdevsw, &cmajor);
 	if (error) {
 		/* It will call devsw_detach(), which is safe. */
 		(void)npf_fini();
 	}
-#endif
 	return error;
+#else
+	return 0;
+#endif
 }
+#endif
 
 static int
 npf_fini(void)
@@ -160,7 +177,12 @@ npf_modcmd(modcmd_t cmd, void *arg)
 
 	switch (cmd) {
 	case MODULE_CMD_INIT:
+#if defined(_MODULE)
 		return npf_init();
+#else
+		/* initialized by npfattach */
+		return 0;
+#endif
 	case MODULE_CMD_FINI:
 		return npf_fini();
 	case MODULE_CMD_AUTOUNLOAD:
@@ -177,8 +199,16 @@ npf_modcmd(modcmd_t cmd, void *arg)
 void
 npfattach(int nunits)
 {
-
-	/* Void. */
+#ifdef MODULAR
+	/*   
+	 * Modular kernels will automatically load any built-in modules
+	 * and call their modcmd() routine, so we don't need to do it
+	 * again as part of pseudo-device configuration.
+	 */     
+	return;
+#else
+	(void)npf_init();
+#endif   
 }
 
 static int

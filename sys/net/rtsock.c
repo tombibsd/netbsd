@@ -67,6 +67,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include "opt_inet.h"
 #include "opt_mpls.h"
 #include "opt_compat_netbsd.h"
+#include "opt_sctp.h"
 #endif
 
 #include <sys/param.h>
@@ -89,6 +90,11 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <net/raw_cb.h>
 
 #include <netmpls/mpls.h>
+
+#ifdef SCTP
+extern void sctp_add_ip_address(struct ifaddr *);
+extern void sctp_delete_ip_address(struct ifaddr *);
+#endif
 
 #if defined(COMPAT_14) || defined(COMPAT_50)
 #include <compat/net/if.h>
@@ -1056,6 +1062,14 @@ COMPATNAME(rt_newaddrmsg)(int cmd, struct ifaddr *ifa, int error,
 
 	KASSERT(ifa != NULL);
 	ifp = ifa->ifa_ifp;
+#ifdef SCTP
+	if (cmd == RTM_ADD) {
+		sctp_add_ip_address(ifa);
+	} else if (cmd == RTM_DELETE) {
+		sctp_delete_ip_address(ifa);
+	}
+#endif
+
 	COMPATCALL(rt_newaddrmsg, (cmd, ifa, error, rt));
 	if (COMPATNAME(route_info).ri_cb.any_count == 0)
 		return;

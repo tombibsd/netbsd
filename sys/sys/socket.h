@@ -521,6 +521,7 @@ struct msghdr {
 #define	MSG_CMSG_CLOEXEC 0x0800		/* close on exec receiving fd */
 #define	MSG_NBIO	0x1000		/* use non-blocking I/O */
 #define	MSG_WAITFORONE	0x2000		/* recvmmsg() wait for one message */
+#define	MSG_NOTIFICATION 0x4000		/* SCTP notification */
 
 struct mmsghdr {
 	struct msghdr msg_hdr;

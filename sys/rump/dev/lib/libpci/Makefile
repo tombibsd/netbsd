@@ -8,6 +8,8 @@ RUMPTOP= ${TOPRUMP}
 .PATH:	${RUMPTOP}/../dev/pci
 
 LIB=	rumpdev_pci
+COMMENT=PCI bus support
+
 IOCONF=	PCI.ioconf
 
 SRCS+=	pci.c pci_map.c pci_quirks.c pci_subr.c pci_stub.c pci_usrreq.c

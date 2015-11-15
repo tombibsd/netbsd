@@ -4,6 +4,8 @@
 .PATH:	${.CURDIR}/../../../../dev/usb
 
 LIB=	rumpdev_ulpt
+COMMENT=USB printer driver
+
 IOCONF=	ULPT.ioconf
 
 SRCS=	ulpt.c

@@ -92,7 +92,7 @@ int
 pam_error(const pam_handle_t *_pamh,
 	const char *_fmt,
 	...)
-	OPENPAM_FORMAT ((__printf__, 2, 3))
+	OPENPAM_FORMAT ((__syslog__, 2, 3))
 	OPENPAM_NONNULL((1,2));
 
 int
@@ -106,7 +106,7 @@ int
 pam_info(const pam_handle_t *_pamh,
 	const char *_fmt,
 	...)
-	OPENPAM_FORMAT ((__printf__, 2, 3))
+	OPENPAM_FORMAT ((__syslog__, 2, 3))
 	OPENPAM_NONNULL((1,2));
 
 int
@@ -129,14 +129,14 @@ int
 pam_vinfo(const pam_handle_t *_pamh,
 	const char *_fmt,
 	va_list _ap)
-	OPENPAM_FORMAT ((__printf__, 2, 0))
+	OPENPAM_FORMAT ((__syslog__, 2, 0))
 	OPENPAM_NONNULL((1,2));
 
 int
 pam_verror(const pam_handle_t *_pamh,
 	const char *_fmt,
 	va_list _ap)
-	OPENPAM_FORMAT ((__printf__, 2, 0))
+	OPENPAM_FORMAT ((__syslog__, 2, 0))
 	OPENPAM_NONNULL((1,2));
 
 int
@@ -216,7 +216,7 @@ _openpam_log(int _level,
 	const char *_func,
 	const char *_fmt,
 	...)
-	OPENPAM_FORMAT ((__printf__, 3, 4))
+	OPENPAM_FORMAT ((__syslog__, 3, 4))
 	OPENPAM_NONNULL((3));
 
 #if defined(__STDC_VERSION__) && (__STDC_VERSION__ >= 199901L)
@@ -236,7 +236,7 @@ void
 openpam_log(int _level,
 	const char *_format,
 	...)
-	OPENPAM_FORMAT ((__printf__, 2, 3))
+	OPENPAM_FORMAT ((__syslog__, 2, 3))
 	OPENPAM_NONNULL((2));
 #endif
 

@@ -70,4 +70,10 @@ vm_mmap(struct file *file __unused, unsigned long base __unused,
 	return -ENODEV;
 }
 
+static inline unsigned long
+get_num_physpages(void)
+{
+	return uvmexp.npages;
+}
+
 #endif  /* _LINUX_MM_H_ */

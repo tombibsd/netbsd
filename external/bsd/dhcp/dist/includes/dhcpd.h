@@ -2092,8 +2092,7 @@ int parse_option_token (struct expression **, struct parse *,
 			const char **, struct expression *, int, int);
 int parse_allow_deny (struct option_cache **, struct parse *, int);
 int parse_auth_key (struct data_string *, struct parse *);
-int parse_warn (struct parse *, const char *, ...)
-	__attribute__((__format__(__printf__,2,3)));
+int parse_warn (struct parse *, const char *, ...) __sysloglike(2, 3);
 struct expression *parse_domain_list(struct parse *cfile, int);
 
 

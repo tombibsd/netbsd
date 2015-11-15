@@ -45,6 +45,7 @@
  */
 
 #include <arm/cpuconf.h>
+#include <arm/arm32/param.h>
 #include <arm/arm32/pte.h>	/* pt_entry_t */
 
 #define	__USE_TOPDOWN_VM 

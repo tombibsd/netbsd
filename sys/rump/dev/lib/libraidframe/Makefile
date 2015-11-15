@@ -4,6 +4,8 @@
 .PATH:	${.CURDIR}/../../../../dev/raidframe
 
 LIB=	rumpdev_raidframe
+COMMENT=RAIDframe (software RAID)
+
 IOCONF=	RAIDFRAME.ioconf
 SRCS=   rf_acctrace.c rf_alloclist.c rf_aselect.c rf_callback.c		\
 	rf_chaindecluster.c rf_copyback.c rf_cvscan.c rf_dagdegrd.c	\

@@ -346,7 +346,10 @@ awin_mmc_set_clock(struct awin_mmc_softc *sc, u_int freq)
 		sdly = 0;
 		clksrc = AWIN_SD_CLK_SRC_SEL_OSC24M;
 		n = 2;
-		m = ((osc24m_freq / (1 << n)) / freq) - 1;
+		if (freq > 0)
+			m = ((osc24m_freq / (1 << n)) / freq) - 1;
+		else
+			m = 15;
 	} else if (freq <= 25000) {
 		odly = 0;
 		sdly = 5;

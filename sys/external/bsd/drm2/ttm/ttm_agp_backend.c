@@ -42,6 +42,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <ttm/ttm_bo_driver.h>
 #include <ttm/ttm_page_alloc.h>
 
+#if __OS_HAS_AGP
+
 struct ttm_agp {
 	struct ttm_dma_tt ttm_dma;
 	struct agp_softc *agp;
@@ -164,3 +166,5 @@ static const struct ttm_backend_func ttm_agp_backend_func = {
 	.unbind = &ttm_agp_unbind,
 	.destroy = &ttm_agp_destroy,
 };
+
+#endif

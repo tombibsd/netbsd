@@ -9,7 +9,7 @@
 /bus_funcs.h/1.1/Fri Jul  1 17:10:01 2011/-kk/
 /bus_private.h/1.14/Thu Sep  1 15:10:31 2011/-kk/
 /busdefs.h/1.2/Mon Apr 28 20:23:40 2008/-kk/
-/cacheinfo.h/1.19/Fri Oct  3 09:50:51 2014/-kk/
+/cacheinfo.h/1.20/Sun Nov 15 13:36:02 2015/-kk/
 /cpu.h/1.66/Sat Mar  1 06:04:34 2014/-kk/
 /cpu_counter.h/1.5/Wed Feb  2 12:26:42 2011/-kk/
 /cpu_extended_state.h/1.9/Sat Mar  1 06:04:34 2014/-kk/

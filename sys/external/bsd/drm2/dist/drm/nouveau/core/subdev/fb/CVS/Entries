@@ -1,5 +1,6 @@
 /nouveau_subdev_fb_base.c/1.1.1.1/Wed Aug  6 12:36:30 2014/-kk/
 /nouveau_subdev_fb_gddr5.c/1.1.1.1/Wed Aug  6 12:36:30 2014/-kk/
+/nouveau_subdev_fb_gk20a.c/1.1/Sun Oct 18 15:42:00 2015/-kk/
 /nouveau_subdev_fb_gm107.c/1.1.1.1/Wed Aug  6 12:36:30 2014/-kk/
 /nouveau_subdev_fb_nv04.c/1.1.1.1/Wed Aug  6 12:36:30 2014/-kk/
 /nouveau_subdev_fb_nv10.c/1.1.1.1/Wed Aug  6 12:36:30 2014/-kk/
@@ -16,13 +17,14 @@
 /nouveau_subdev_fb_nv47.c/1.1.1.1/Wed Aug  6 12:36:30 2014/-kk/
 /nouveau_subdev_fb_nv49.c/1.1.1.1/Wed Aug  6 12:36:30 2014/-kk/
 /nouveau_subdev_fb_nv4e.c/1.1.1.1/Wed Aug  6 12:36:30 2014/-kk/
-/nouveau_subdev_fb_nv50.c/1.2/Sat Mar 21 02:29:58 2015/-kk/
+/nouveau_subdev_fb_nv50.c/1.3/Sun Nov 15 13:36:21 2015/-kk/
 /nouveau_subdev_fb_nv84.c/1.1.1.1/Wed Aug  6 12:36:30 2014/-kk/
 /nouveau_subdev_fb_nva3.c/1.1.1.1/Wed Aug  6 12:36:30 2014/-kk/
 /nouveau_subdev_fb_nvaa.c/1.1.1.1/Wed Aug  6 12:36:30 2014/-kk/
 /nouveau_subdev_fb_nvaf.c/1.1.1.1/Wed Aug  6 12:36:30 2014/-kk/
-/nouveau_subdev_fb_nvc0.c/1.2/Sat Mar 21 02:29:58 2015/-kk/
+/nouveau_subdev_fb_nvc0.c/1.3/Sun Nov 15 13:36:21 2015/-kk/
 /nouveau_subdev_fb_nve0.c/1.1.1.1/Wed Aug  6 12:36:30 2014/-kk/
+/nouveau_subdev_fb_ramgk20a.c/1.2/Mon Oct 19 23:31:26 2015/-kk/
 /nouveau_subdev_fb_ramgm107.c/1.1.1.1/Wed Aug  6 12:36:30 2014/-kk/
 /nouveau_subdev_fb_ramnv04.c/1.1.1.1/Wed Aug  6 12:36:30 2014/-kk/
 /nouveau_subdev_fb_ramnv10.c/1.1.1.1/Wed Aug  6 12:36:30 2014/-kk/
@@ -43,7 +45,7 @@
 /nv40.h/1.1.1.1/Thu Jul 17 01:50:59 2014/-kk/
 /nv50.h/1.2/Sat Mar 21 02:29:58 2015/-kk/
 /nvc0.h/1.2/Sat Mar 21 02:29:58 2015/-kk/
-/priv.h/1.1.1.1/Thu Jul 17 01:50:59 2014/-kk/
+/priv.h/1.2/Sun Nov 15 13:36:21 2015/-kk/
 /ramfuc.h/1.1.1.1/Thu Jul 17 01:50:59 2014/-kk/
 /ramseq.h/1.1.1.1/Thu Jul 17 01:50:59 2014/-kk/
 D

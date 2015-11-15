@@ -93,7 +93,7 @@
 /pxa2x0_i2s.h/1.5/Mon Nov 12 18:00:38 2012/-kk/
 /pxa2x0_intr.c/1.21/Wed Dec 25 07:37:20 2013/-kk/
 /pxa2x0_intr.h/1.14/Thu Feb 13 15:35:49 2014/-kk/
-/pxa2x0_lcd.c/1.35/Sat Mar  1 06:04:23 2014/-kk/
+/pxa2x0_lcd.c/1.36/Sun Nov 15 13:35:39 2015/-kk/
 /pxa2x0_lcd.h/1.10/Fri Jul  1 20:32:51 2011/-kk/
 /pxa2x0_mci.c/1.10/Sat Jan 21 19:44:28 2012/-kk/
 /pxa2x0_mci.h/1.2/Sat Jan 21 19:44:28 2012/-kk/

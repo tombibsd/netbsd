@@ -528,8 +528,8 @@ nv_device_resource_tag(struct nouveau_device *device, unsigned int bar)
 		else
 			return pa->pa_iot;
 	} else {
-		/* XXX nouveau platform device */
-		panic("can't handle non-PCI nouveau devices");
+		KASSERT(bar < device->platformdev->nresource);
+		return device->platformdev->resource[bar].tag;
 	}
 }
 #endif
@@ -541,8 +541,9 @@ nv_device_resource_start(struct nouveau_device *device, unsigned int bar)
 		return pci_resource_start(device->pdev, bar);
 	} else {
 #ifdef __NetBSD__
-		/* XXX nouveau platform device */
-		panic("can't handle non-PCI nouveau devices");
+		if (bar >= device->platformdev->nresource)
+			return 0;
+		return device->platformdev->resource[bar].start;
 #else
 		struct resource *res;
 		res = platform_get_resource(device->platformdev,
@@ -561,8 +562,9 @@ nv_device_resource_len(struct nouveau_device *device, unsigned int bar)
 		return pci_resource_len(device->pdev, bar);
 	} else {
 #ifdef __NetBSD__
-		/* XXX nouveau platform device */
-		panic("can't handle non-PCI nouveau devices");
+		if (bar >= device->platformdev->nresource)
+			return 0;
+		return device->platformdev->resource[bar].len;
 #else
 		struct resource *res;
 		res = platform_get_resource(device->platformdev,

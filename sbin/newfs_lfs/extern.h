@@ -38,7 +38,7 @@ void	fatal(const char *fmt, ...)
      __attribute__((__format__(__printf__,1,2)));
 u_int	lfs_log2(u_int);
 int	make_lfs(int, uint, struct dkwedge_info *, int,
-    int, int, int, int, int, int, daddr_t, int, int, u_int32_t);
+    int, int, int, int, int, int, daddr_t, int, int, u_int32_t, int);
 
 extern char	*progname;
 extern char	*special;

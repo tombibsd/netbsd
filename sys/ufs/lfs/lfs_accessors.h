@@ -313,7 +313,7 @@ lfs_dir_getnamlen(const STRUCT_LFS *fs, const LFS_DIRHEADER *dh)
 {
 	if (fs->lfs_is64) {
 		KASSERT(fs->lfs_hasolddirfmt == 0);
-		return dh->u_64.dh_type;
+		return dh->u_64.dh_namlen;
 	} else if (fs->lfs_hasolddirfmt && LFS_LITTLE_ENDIAN_ONDISK(fs)) {
 		/* low-order byte of old 16-bit namlen field */
 		return dh->u_32.dh_type;
@@ -671,7 +671,8 @@ lfs_iblock_set(STRUCT_LFS *fs, void *block, unsigned ix, daddr_t val)
 	if ((_e = bread((F)->lfs_ivnode,				\
 	    ((IN) / lfs_sb_getsepb(F)) + lfs_sb_getcleansz(F),		\
 	    lfs_sb_getbsize(F), 0, &(BP))) != 0)			\
-		panic("lfs: ifile read: %d", _e);			\
+		panic("lfs: ifile read: segentry %llu: error %d\n",	\
+			 (unsigned long long)(IN), _e);			\
 	if (lfs_sb_getversion(F) == 1)					\
 		(SP) = (SEGUSE *)((SEGUSE_V1 *)(BP)->b_data +		\
 			((IN) & (lfs_sb_getsepb(F) - 1)));		\
@@ -933,11 +934,13 @@ lfs_ci_shiftdirtytoclean(STRUCT_LFS *fs, CLEANERINFO *cip, unsigned num)
 
 /* Read in the block with the cleaner info from the ifile. */
 #define LFS_CLEANERINFO(CP, F, BP) do {					\
+	int _e;								\
 	SHARE_IFLOCK(F);						\
 	VTOI((F)->lfs_ivnode)->i_flag |= IN_ACCESS;			\
-	if (bread((F)->lfs_ivnode,					\
-	    (daddr_t)0, lfs_sb_getbsize(F), 0, &(BP)))			\
-		panic("lfs: ifile read");				\
+	_e = bread((F)->lfs_ivnode,					\
+	    (daddr_t)0, lfs_sb_getbsize(F), 0, &(BP));			\
+	if (_e)								\
+		panic("lfs: ifile read: cleanerinfo: error %d\n", _e);	\
 	(CP) = (CLEANERINFO *)(BP)->b_data;				\
 	UNSHARE_IFLOCK(F);						\
 } while (0)
@@ -1166,7 +1169,6 @@ lfs_ss_setocreate(STRUCT_LFS *fs, SEGSUM *ssp, uint32_t val)
 		}						\
 	}
 
-#define lfs_magic lfs_dlfs.dlfs_magic
 LFS_DEF_SB_ACCESSOR(u_int32_t, version);
 LFS_DEF_SB_ACCESSOR_FULL(u_int64_t, u_int32_t, size);
 LFS_DEF_SB_ACCESSOR(u_int32_t, ssize);

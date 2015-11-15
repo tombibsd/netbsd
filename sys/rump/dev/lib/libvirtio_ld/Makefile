@@ -7,6 +7,8 @@ RUMPTOP=${TOPRUMP}
 	${RUMPTOP}/../dev/pci
 
 LIB=	rumpdev_virtio_ld
+COMMENT=VirtIO block device driver
+
 IOCONF=	VIRTIO_LD.ioconf
 
 SRCS=	ld_at_virtio.c

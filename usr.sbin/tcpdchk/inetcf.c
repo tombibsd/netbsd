@@ -102,7 +102,7 @@ char   *conf;
      */
     if (conf != 0) {
 	if ((fp = fopen(conf, "r")) == 0) {
-	    fprintf(stderr, percent_m(buf, "open %s: %m\n"), conf);
+	    fprintf(stderr, "open %s: %s\n", conf, strerror(errno));
 	    exit(1);
 	}
     } else {

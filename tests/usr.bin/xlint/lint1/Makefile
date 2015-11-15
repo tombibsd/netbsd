@@ -10,6 +10,7 @@ TESTS_SH=	t_integration
 
 FILESDIR=	${TESTSDIR}
 FILES+=		d_alignof.c
+FILES+=		d_c99_anon_struct.c
 FILES+=		d_c99_complex_num.c
 FILES+=		d_c99_complex_split.c
 FILES+=		d_c99_compound_literal_comma.c

@@ -33,10 +33,21 @@
 #define _LINUX_PLATFORM_DEVICE_H_
 
 #include <sys/device.h>
+#include <sys/bus.h>
+
+#define NUM_PLATFORM_RESOURCE	2
 
 struct platform_device {
 	struct device	dev;	/* XXX DON'T BELIEVE ME */
 	uint64_t	id;
+
+	bus_dma_tag_t	dmat;
+	unsigned int	nresource;
+	struct {
+		bus_space_tag_t	tag;
+		bus_addr_t	start;
+		bus_size_t	len;
+	}		resource[NUM_PLATFORM_RESOURCE];
 };
 
 #endif  /* _LINUX_PLATFORM_DEVICE_H_ */

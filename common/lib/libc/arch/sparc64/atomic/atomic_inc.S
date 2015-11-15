@@ -58,8 +58,13 @@ ENTRY(_atomic_inc_64)
 	cmp	%o2, %o3
 	bne,a,pn %xcc, 1b
 	 mov	%o3, %o2
+#ifdef __arch64__
 	retl
 	 add	%o2, 1, %o0
+#else
+	add	%o2, 1, %o0
+	SPLIT_RETL(%o0, %o0, %o1)
+#endif
 ATOMIC_OP_ALIAS(atomic_inc_64,_atomic_inc_64)
 
 ATOMIC_OP_ALIAS(atomic_inc_64_nv,_atomic_inc_64)

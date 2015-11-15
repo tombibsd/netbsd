@@ -1141,7 +1141,7 @@ now to do a new import.
 
 Package:	Postfix
 Version:	2.11.6
-Current Vers:	3.0.2
+Current Vers:	3.0.3
 Maintainer:	Wietse Venema <wietse@porcupine.org>
 Archive Site:	ftp://postfix.cloud9.net/official/
 Home Page:	http://www.postfix.org/

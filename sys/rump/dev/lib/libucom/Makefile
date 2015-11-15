@@ -4,6 +4,8 @@
 .PATH:	${.CURDIR}/../../../../dev/usb ${.CURDIR}/../../../../kern
 
 LIB=	rumpdev_ucom
+COMMENT=USB serial driver
+
 IOCONF= UCOM.ioconf
 
 SRCS=	ucom.c uplcom.c u3g.c

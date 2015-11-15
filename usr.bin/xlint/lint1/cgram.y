@@ -105,6 +105,14 @@ static inline void RESTORE(const char *file, size_t line)
 #define SAVE(f, l)	olwarn = lwarn
 #define RESTORE(f, l) (void)(olwarn == LWARN_BAD ? (clrwflgs(), 0) : (lwarn = olwarn))
 #endif
+
+/* unbind the anonymous struct members from the struct */
+static void
+anonymize(sym_t *s)
+{
+	for ( ; s; s = s->s_nxt)
+		s->s_styp = NULL;
+}
 %}
 
 %expect 80
@@ -698,14 +706,22 @@ member_declaration:
 		$$ = $4;
 	  }
 	| noclass_declmods deftyp {
+		symtyp = FVFT;
 		/* struct or union member must be named */
-		warning(49);
-		$$ = NULL;
+		if (!Sflag)
+			warning(49);
+		/* add all the members of the anonymous struct/union */
+		$$ = dcs->d_type->t_str->memb;
+		anonymize($$);
 	  }
 	| noclass_declspecs deftyp {
+		symtyp = FVFT;
 		/* struct or union member must be named */
-		warning(49);
-		$$ = NULL;
+		if (!Sflag)
+			warning(49);
+		$$ = dcs->d_type->t_str->memb;
+		/* add all the members of the anonymous struct/union */
+		anonymize($$);
 	  }
 	| error {
 		symtyp = FVFT;
@@ -1972,7 +1988,7 @@ idecl(sym_t *decl, int initflg, sbuf_t *renaming)
 	case EXTERN:
 		if (renaming != NULL) {
 			if (decl->s_rename != NULL)
-				LERROR("idecl()");
+				LERROR("idecl(rename)");
 
 			s = getlblk(1, renaming->sb_len + 1);
 	                (void)memcpy(s, renaming->sb_name, renaming->sb_len + 1);
@@ -2000,7 +2016,7 @@ idecl(sym_t *decl, int initflg, sbuf_t *renaming)
 		decl1loc(decl, initflg);
 		break;
 	default:
-		LERROR("idecl()");
+		LERROR("idecl(%d)", dcs->d_ctx);
 	}
 
 	if (initflg && !initerr)

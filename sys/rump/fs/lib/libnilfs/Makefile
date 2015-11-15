@@ -4,6 +4,7 @@
 .PATH:  ${.CURDIR}/../../../../fs/nilfs
 
 LIB=	rumpfs_nilfs
+COMMENT=NILFS
 
 SRCS=	nilfs_subr.c nilfs_vfsops.c nilfs_vnops.c
 

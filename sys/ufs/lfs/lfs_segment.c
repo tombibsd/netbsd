@@ -680,10 +680,16 @@ lfs_segwrite(struct mount *mp, int flags)
 		segleft = lfs_sb_getnseg(fs);
 		curseg = 0;
 		for (n = 0; n < lfs_sb_getsegtabsz(fs); n++) {
+			int bread_error;
+
 			dirty = 0;
-			if (bread(fs->lfs_ivnode, lfs_sb_getcleansz(fs) + n,
-			    lfs_sb_getbsize(fs), B_MODIFY, &bp))
-				panic("lfs_segwrite: ifile read");
+			bread_error = bread(fs->lfs_ivnode,
+			    lfs_sb_getcleansz(fs) + n,
+			    lfs_sb_getbsize(fs), B_MODIFY, &bp);
+			if (bread_error)
+				panic("lfs_segwrite: ifile read: "
+				      "seguse %u: error %d\n",
+				      n, bread_error);
 			segusep = (SEGUSE *)bp->b_data;
 			maxseg = min(segleft, lfs_sb_getsepb(fs));
 			for (i = 0; i < maxseg; i++) {

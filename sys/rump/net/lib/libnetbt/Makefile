@@ -8,6 +8,7 @@ NOLINT=	#defined
 .PATH:	${.CURDIR}/../../../../netbt
 
 LIB=	rumpnet_netbt
+COMMENT=BlueTooth (PF_BLUETOOTH)
 
 SRCS=	bt_proto.c bt_sysctl.c						\
 	hci_event.c hci_ioctl.c hci_link.c hci_misc.c hci_socket.c	\

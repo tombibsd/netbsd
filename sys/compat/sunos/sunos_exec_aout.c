@@ -71,6 +71,8 @@ exec_sunos_aout_makecmds(struct lwp *l, struct exec_package *epp)
 	struct sunos_exec *sunmag = epp->ep_hdr;
 	int error = ENOEXEC;
 
+	if (epp->ep_hdrvalid < sizeof(struct sunos_exec))
+		return ENOEXEC;
 	if (!SUNOS_M_NATIVE(sunmag->a_machtype))
 		return (ENOEXEC);
 

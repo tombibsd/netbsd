@@ -66,24 +66,6 @@
 
 
 /*
- * Combine 2 regs -- used to convert 64-bit ILP32
- * values to LP64.
- */
-#define	COMBINE(r1, r2, d)	\
-	clruw	r2;		\
-	sllx	r1, 32, d;	\
-	or	d, r2, d
-
-/*
- * Split 64-bit value in 1 reg into high and low halves.
- * Used for ILP32 return values.
- */
-#define	SPLIT(r0, r1)		\
-	srl	r0, 0, r1;	\
-	srlx	r0, 32, r0
-
-
-/*
  * A handy macro for maintaining instrumentation counters.
  * Note that this clobbers %o0, %o1 and %o2.  Normal usage is
  * something like:

@@ -4,6 +4,7 @@
 .PATH:	${.CURDIR}/../../../../dev/usb
 
 LIB=	rumpdev_usb
+COMMENT=USB support
 
 .if ${MACHINE} == "i386" || ${MACHINE} == "amd64"
 IOCONF= USB.ioconf

@@ -4,6 +4,8 @@
 .PATH:	${.CURDIR}/../../../../kern
 
 LIB=	rumpdev_drvctl
+COMMENT=/dev/drvctl driver
+
 IOCONF=	DRVCTL.ioconf
 
 SRCS=	kern_drvctl.c

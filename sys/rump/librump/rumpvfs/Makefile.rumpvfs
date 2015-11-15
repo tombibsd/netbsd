@@ -6,6 +6,7 @@
 .include <bsd.own.mk>
 
 LIB=	rumpvfs
+COMMENT=Rump kernel file system faction
 
 MAN=	rump_etfs.3 rumpfs.4
 

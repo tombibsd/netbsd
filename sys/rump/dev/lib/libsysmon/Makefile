@@ -4,6 +4,8 @@
 .PATH:	${.CURDIR}/../../../../dev/sysmon
 
 LIB=	rumpdev_sysmon
+COMMENT=System monitoring and power management
+
 IOCONF=	SYSMON.ioconf
 
 SRCS=	sysmon_taskq.c sysmon_power.c sysmon_envsys.c sysmon_envsys_events.c \

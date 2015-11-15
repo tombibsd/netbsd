@@ -107,8 +107,10 @@ _nouveau_mc_dtor(struct nouveau_object *object)
 {
 	struct nouveau_device *device = nv_device(object);
 	struct nouveau_mc *pmc = (void *)object;
-#ifdef __NetBSD__
-	pci_intr_disestablish(device->pdev->pd_pa.pa_pc, pmc->irq_cookie);
+#ifdef __NetBSD__		/* XXX nouveau platform */
+	if (nv_device_is_pci(device)) {
+		pci_intr_disestablish(device->pdev->pd_pa.pa_pc, pmc->irq_cookie);
+	}
 #else
 	free_irq(pmc->irq, pmc);
 #endif

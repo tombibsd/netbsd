@@ -6,6 +6,7 @@
 .PATH:	${.CURDIR}/../../../../net
 
 LIB=	rumpnet_bpfjit
+COMMENT=JIT compiler for Berkeley Packet Filter
 
 SRCS=	bpfjit.c                                                                
 

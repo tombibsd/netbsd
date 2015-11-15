@@ -456,6 +456,11 @@
 #define	CORTEXA9_AUXCTL_ONEWAY	0x00000100 /* Allocate in on cache way only */
 #define	CORTEXA9_AUXCTL_PARITY	0x00000200 /* Support parity checking */
 
+/* Cortex-A15 Auxiliary Control Register (CP15 register 1, opcode 1) */
+#define	CORTEXA15_ACTLR_BTB	__BIT(0)  /* Cache and TLB updates broadcast */
+#define	CORTEXA15_ACTLR_SMP	__BIT(6)  /* SMP */
+#define	CORTEXA15_ACTLR_IOBEU	__BIT(15) /* In order issue in Branch Exec Unit */
+
 /* Marvell Feroceon Extra Features Register (CP15 register 1, opcode2 0) */
 #define FC_DCACHE_REPL_LOCK	0x80000000 /* Replace DCache Lock */
 #define FC_DCACHE_STREAM_EN	0x20000000 /* DCache Streaming Switch */

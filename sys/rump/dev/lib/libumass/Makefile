@@ -4,6 +4,8 @@
 .PATH:	${.CURDIR}/../../../../dev/usb
 
 LIB=	rumpdev_umass
+COMMENT=USB mass storage driver
+
 IOCONF=	UMASS.ioconf
 
 .if ${MACHINE} == "i386" || ${MACHINE} == "amd64"

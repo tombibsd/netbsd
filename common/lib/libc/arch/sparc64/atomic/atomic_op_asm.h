@@ -54,6 +54,10 @@
 #define	ATOMIC_OP_ALIAS_SIZE(a,s)	WEAK_ALIAS(a,s ## _32)
 #endif
 
+#ifdef _LIBC
+#define	CRT_ALIAS(a,s)			STRONG_ALIAS(a,s)
+#endif
+
 #endif /* _KERNEL */
 
 #ifdef __arch64__

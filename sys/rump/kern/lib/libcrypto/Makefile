@@ -10,6 +10,7 @@
 	${.CURDIR}/../../../../crypto/skipjack
 
 LIB=	rumpkern_crypto
+COMMENT=Cryptographic routines
 
 # arc4
 SRCS+=	arc4.c

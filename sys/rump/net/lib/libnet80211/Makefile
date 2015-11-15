@@ -4,6 +4,7 @@
 .PATH:	${.CURDIR}/../../../../net80211
 
 LIB=	rumpnet_net80211
+COMMENT=IEEE 802.11 (wireless LAN) support
 
 SRCS=   ieee80211.c ieee80211_amrr.c ieee80211_crypto.c			\
 	ieee80211_crypto_ccmp.c ieee80211_crypto_none.c			\

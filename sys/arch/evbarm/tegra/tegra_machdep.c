@@ -49,6 +49,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/device.h>
 #include <sys/exec.h>
 #include <sys/kernel.h>
+#include <sys/kmem.h>
 #include <sys/ksyms.h>
 #include <sys/msgbuf.h>
 #include <sys/proc.h>
@@ -370,6 +371,29 @@ tegra_bootconf_match(const char *key, const char *val)
 	return strncmp(s, val, strlen(val)) == 0;
 }
 
+static char *
+tegra_bootconf_strdup(const char *key)
+{
+	char *s, *ret;
+	int i = 0;
+
+	if (!get_bootconf_option(boot_args, key, BOOTOPT_TYPE_STRING, &s))
+		return NULL;
+
+	for (;;) {
+		if (s[i] == ' ' || s[i] == '\t' || s[i] == '\0')
+			break;
+		++i;
+	}
+
+	ret = kmem_alloc(i + 1, KM_SLEEP);
+	if (ret == NULL)
+		return NULL;
+
+	strncpy(ret, s, i + 1);
+	return ret;
+}
+
 void
 tegra_device_register(device_t self, void *aux)
 {
@@ -401,6 +425,15 @@ tegra_device_register(device_t self, void *aux)
 
 	if (device_is_a(self, "tegracec")) {
 		prop_dictionary_set_cstring(dict, "hdmi-device", "tegrahdmi0");
+	}
+
+	if (device_is_a(self, "nouveau")) {
+		const char *config = tegra_bootconf_strdup("nouveau.config");
+		const char *debug = tegra_bootconf_strdup("nouveau.debug");
+		if (config)
+			prop_dictionary_set_cstring(dict, "config", config);
+		if (debug)
+			prop_dictionary_set_cstring(dict, "debug", debug);
 	}
 
 #ifdef BOARD_JETSONTK1
@@ -439,6 +472,9 @@ tegra_device_register(device_t self, void *aux)
 		prop_dictionary_set_cstring(dict, "power-gpio", "K6");
 		prop_dictionary_set_cstring(dict, "ddc-device", "ddc0");
 		prop_dictionary_set_cstring(dict, "display-device", "tegradc1");
+		if (tegra_bootconf_match("hdmi.forcemode", "dvi")) {
+			prop_dictionary_set_bool(dict, "force-dvi", true);
+		}
 	}
 #endif
 

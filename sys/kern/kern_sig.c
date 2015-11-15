@@ -1359,14 +1359,13 @@ kpsignal2(struct proc *p, ksiginfo_t *ksi)
 		}
 		if ((prop & SA_CONT) != 0 || signo == SIGKILL) {
 			/*
-			 * Re-adjust p_nstopchild if the process wasn't
-			 * collected by its parent.
+			 * Re-adjust p_nstopchild if the process was
+			 * stopped but not yet collected by its parent.
 			 */
+			if (p->p_stat == SSTOP && !p->p_waited)
+				p->p_pptr->p_nstopchild--;
 			p->p_stat = SACTIVE;
 			p->p_sflag &= ~PS_STOPPING;
-			if (!p->p_waited) {
-				p->p_pptr->p_nstopchild--;
-			}
 			if (p->p_slflag & PSL_TRACED) {
 				KASSERT(signo == SIGKILL);
 				goto deliver;

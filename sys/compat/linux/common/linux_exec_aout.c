@@ -135,9 +135,11 @@ exec_linux_aout_makecmds(struct lwp *l, struct exec_package *epp)
 	int machtype, magic;
 	int error = ENOEXEC;
 
+	if (epp->ep_hdrvalid < sizeof(struct exec))
+		return ENOEXEC;
+
 	magic = LINUX_N_MAGIC(linux_ep);
 	machtype = LINUX_N_MACHTYPE(linux_ep);
-
 
 	if (machtype != LINUX_MID_MACHINE)
 		return (ENOEXEC);

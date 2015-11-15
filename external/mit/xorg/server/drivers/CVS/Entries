@@ -1,5 +1,5 @@
 /Makefile.xf86-driver/1.19/Tue Nov 23 08:22:29 2010/-kk/
-/Makefile/1.69/Fri Oct  2 14:10:32 2015/-kk/
+/Makefile/1.72/Sun Nov 15 13:33:57 2015/-kk/
 D/xf86-input-elographics////
 D/xf86-input-keyboard////
 D/xf86-input-mouse////
@@ -28,6 +28,7 @@ D/xf86-video-mach64////
 D/xf86-video-mga////
 D/xf86-video-neomagic////
 D/xf86-video-newport////
+D/xf86-video-nouveau////
 D/xf86-video-nsc////
 D/xf86-video-nv////
 D/xf86-video-nvxbox////

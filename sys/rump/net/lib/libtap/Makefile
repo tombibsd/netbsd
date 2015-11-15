@@ -4,6 +4,8 @@
 .PATH:	${.CURDIR}/../../../../net
 
 LIB=	rumpnet_tap
+COMMENT=/dev/tap virtual Ethernet interface
+
 IOCONF=	TAP.ioconf
 SRCS=	if_tap.c
 

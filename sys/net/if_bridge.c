@@ -2181,7 +2181,7 @@ retry:
 	count = sc->sc_brtcnt;
 	if (count == 0)
 		return;
-	brt_list = kmem_alloc(sizeof(struct bridge_rtnode *) * count, KM_SLEEP);
+	brt_list = kmem_alloc(sizeof(*brt_list) * count, KM_SLEEP);
 
 	BRIDGE_RT_LOCK(sc);
 	BRIDGE_RT_INTR_LOCK(sc);

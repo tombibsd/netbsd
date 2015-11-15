@@ -793,7 +793,7 @@ pic_establish_intr(struct pic_softc *pic, int irq, int ipl, int type,
 		if (pic__iplsources[off] == NULL) {
 			is->is_iplidx = off - pic_ipl_offset[ipl];
 			pic__iplsources[off] = is;
-			return is;
+			goto unblock;
 		}
 	}
 
@@ -824,6 +824,7 @@ pic_establish_intr(struct pic_softc *pic, int irq, int ipl, int type,
 
 	(*pic->pic_ops->pic_establish_irq)(pic, is);
 
+unblock:
 	(*pic->pic_ops->pic_unblock_irqs)(pic, is->is_irq & ~0x1f,
 	    __BIT(is->is_irq & 0x1f));
 	

@@ -119,6 +119,8 @@ struct protosw {
 #define PR_PURGEIF	0x100		/* might store struct ifnet pointer;
 					   pr_purgeif() must be called on ifnet
 					   deletion */
+#define	PR_ADDR_OPT	0x200		/* Allow address during delivery */
+
 
 /*
  * The arguments to usrreq are:

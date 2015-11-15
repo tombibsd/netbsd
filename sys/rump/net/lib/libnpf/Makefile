@@ -8,6 +8,8 @@ NOLINT=		# defined
 .PATH:	${.CURDIR}/../../../../net/npf
 
 LIB=	rumpnet_npf
+COMMENT=NPF packet filter
+
 IOCONF=	NPF.ioconf
 SRCS=	npf.c npf_alg.c npf_conf.c npf_ctl.c npf_handler.c
 SRCS+=	npf_bpf.c npf_if.c npf_inet.c npf_mbuf.c npf_nat.c

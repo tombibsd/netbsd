@@ -739,18 +739,21 @@ sme_events_check(void *arg)
 		mutex_exit(&sme->sme_work_mtx);
 		return;
 	}
-	mutex_exit(&sme->sme_work_mtx);
-
-	mutex_enter(&sme->sme_mtx);
-	mutex_enter(&sme->sme_work_mtx);
+	if (!mutex_tryenter(&sme->sme_mtx)) {
+		/* can't get lock - try again later */
+		if (!sysmon_low_power)
+			sme_schedule_callout(sme);
+		mutex_exit(&sme->sme_work_mtx);
+		return;
+	}
 	LIST_FOREACH(see, &sme->sme_events_list, see_list) {
 		workqueue_enqueue(sme->sme_wq, &see->see_wk, NULL);
 		see->see_edata->flags |= ENVSYS_FNEED_REFRESH;
 		sme->sme_busy++;
 	}
-	mutex_exit(&sme->sme_work_mtx);
 	if (!sysmon_low_power)
 		sme_schedule_callout(sme);
+	mutex_exit(&sme->sme_work_mtx);
 	mutex_exit(&sme->sme_mtx);
 }
 

@@ -1243,19 +1243,24 @@ asgntypok(op_t op, int arg, tnode_t *ln, tnode_t *rn)
 	}
 
 	if ((lt == PTR && isityp(rt)) || (isityp(lt) && rt == PTR)) {
+		const char *lx = lt == PTR ? "pointer" : "integer";
+		const char *rx = rt == PTR ? "pointer" : "integer";
+		tyname(lbuf, sizeof(lbuf), ltp);
+		tyname(rbuf, sizeof(rbuf), rtp);
+
 		switch (op) {
 		case INIT:
 		case RETURN:
 			/* illegal combination of pointer and integer */
-			warning(183);
+			warning(183, lx, lbuf, rx, rbuf);
 			break;
 		case FARG:
 			/* illegal comb. of ptr. and int., arg #%d */
-			warning(154, arg);
+			warning(154, lx, lbuf, rx, rbuf, arg);
 			break;
 		default:
 			/* illegal comb. of ptr. and int., op %s */
-			warning(123, mp->m_name);
+			warning(123, lx, lbuf, rx, rbuf, mp->m_name);
 			break;
 		}
 		return (1);

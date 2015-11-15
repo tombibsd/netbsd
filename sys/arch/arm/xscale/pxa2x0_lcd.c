@@ -566,7 +566,7 @@ pxa2x0_lcd_new_screen(struct pxa2x0_lcd_softc *sc, int depth,
 			PTE_SYNC(ptep);
 			va += PAGE_SIZE;
 		}
-		tlb_flush();
+		cpu_tlb_flushID();
 	}
 
 	memset(scr->buf_va, 0, scr->buf_size);

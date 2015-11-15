@@ -110,11 +110,16 @@ file	arch/arm/nvidia/tegra_genfb.c		tegra_genfb
 device	tegrahdmi: edid, ddc_read_edid, videomode
 attach	tegrahdmi at tegraio with tegra_hdmi
 file	arch/arm/nvidia/tegra_hdmi.c		tegra_hdmi
+defflag	opt_tegra.h			TEGRA_HDMI_DEBUG
 
 # HDMI CEC
 device	tegracec: hdmicecbus
 attach	tegracec at tegraio with tegra_cec
 file	arch/arm/nvidia/tegra_cec.c		tegra_cec
+
+# GPU
+attach	nouveau at tegraio with tegra_nouveau
+file	arch/arm/nvidia/tegra_nouveau.c		tegra_nouveau
 
 # Console parameters
 defparam opt_tegra.h			CONADDR

@@ -1062,7 +1062,7 @@ ofw_callbackhandler(void *v)
 		}
 
 		/* Clean out tlb. */
-		tlb_flush();
+		cpu_tlb_flushID();
 
 		args_n_results[nargs + 1] = 0;
 		args->nreturns = 2;
@@ -1106,7 +1106,7 @@ ofw_callbackhandler(void *v)
 		}
 
 		/* Clean out tlb. */
-		tlb_flush();
+		cpu_tlb_flushID();
 
 		args->nreturns = 1;
 	} else if (strcmp(name, "translate") == 0) {

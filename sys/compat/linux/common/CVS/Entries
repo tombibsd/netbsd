@@ -10,7 +10,7 @@
 /linux_errno_generic.h/1.1/Tue Dec 17 22:14:24 2013/-kk/
 /linux_exec.c/1.117/Tue Dec  9 04:23:58 2014/-kk/
 /linux_exec.h/1.51/Sat Mar  1 06:04:36 2014/-kk/
-/linux_exec_aout.c/1.67/Tue Dec  9 04:23:58 2014/-kk/
+/linux_exec_aout.c/1.68/Sun Nov 15 13:36:04 2015/-kk/
 /linux_exec_elf32.c/1.93/Mon Jun 22 02:35:00 2015/-kk/
 /linux_exec_elf64.c/1.3/Mon Apr 28 20:23:43 2008/-kk/
 /linux_fadvise64.c/1.3/Tue Dec  9 04:23:58 2014/-kk/

@@ -259,9 +259,9 @@ struct bus_space armv7_generic_a4x_bs_tag = {
 	bs_notimpl_bs_rm_8,
 
 	/* read region */
-	a4x_bs_rr_1,
-	NSWAP(a4x_bs_rr_2),
-	NSWAP(a4x_bs_rr_4),
+	bs_notimpl_bs_rr_1,
+	bs_notimpl_bs_rr_2,
+	bs_notimpl_bs_rr_4,
 	bs_notimpl_bs_rr_8,
 
 	/* write (single) */
@@ -277,9 +277,9 @@ struct bus_space armv7_generic_a4x_bs_tag = {
 	bs_notimpl_bs_wm_8,
 
 	/* write region */
-	a4x_bs_wr_1,
-	NSWAP(a4x_bs_wr_2),
-	NSWAP(a4x_bs_wr_4),
+	bs_notimpl_bs_wr_1,
+	bs_notimpl_bs_wr_2,
+	bs_notimpl_bs_wr_4,
 	bs_notimpl_bs_wr_8,
 #endif
 };

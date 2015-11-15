@@ -2,6 +2,7 @@
 #
 
 LIB=		rumpnet
+COMMENT=	Rump kernel networking faction
 
 .PATH:	${RUMPTOP}/librump/rumpnet				\
 	${RUMPTOP}/../kern					\

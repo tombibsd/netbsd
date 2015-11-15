@@ -4,9 +4,9 @@
 /arm32_machdep.c/1.109/Wed Apr 22 07:35:47 2015/-kk/
 /arm32_reboot.c/1.8/Mon Jan 12 06:47:53 2015/-kk/
 /arm32_tlb.c/1.9/Thu Apr  2 02:27:47 2015/-kk/
-/armv7_generic_space.c/1.1/Sun Mar 29 22:26:18 2015/-kk/
+/armv7_generic_space.c/1.2/Sun Nov 15 13:35:35 2015/-kk/
 /bcopy_page.S/1.10/Wed Dec 25 07:37:18 2013/-kk/
-/bus_dma.c/1.93/Sun Sep 13 01:05:34 2015/-kk/
+/bus_dma.c/1.94/Sun Nov 15 13:35:35 2015/-kk/
 /cortex_pmc.c/1.4/Tue Aug 25 04:51:01 2015/-kk/
 /cpu.c/1.110/Sat Jul 25 01:29:53 2015/-kk/
 /cpuswitch.S/1.90/Sun Apr 12 03:34:30 2015/-kk/

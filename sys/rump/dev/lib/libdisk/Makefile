@@ -5,6 +5,8 @@
 	${.CURDIR}/../../../../dev ${.CURDIR}/../../../../dev/dkwedge
 
 LIB=	rumpdev_disk
+COMMENT=Disk-like device support (used e.g. by file systems)
+
 SRCS=	disk_component.c
 
 #

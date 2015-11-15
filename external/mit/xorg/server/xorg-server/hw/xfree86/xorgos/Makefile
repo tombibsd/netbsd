@@ -32,7 +32,7 @@ CPPFLAGS.${_FN}+=	-DUSE_I386_IOPL -DPCVT_SUPPORT -DWSCONS_SUPPORT \
 .endfor
 .endif
 
-.if ${MACHINE} == "macppc" || ${MACHINE} == "prep" || ${MACHINE} == "bebox" || ${MACHINE} == "ofppc"
+.if ${MACHINE} == "macppc" || ${MACHINE} == "prep" || ${MACHINE} == "bebox" || ${MACHINE} == "ofppc" || ${MACHINE} == "ibmnws"
 SRCS.bsd+=	ppc_video.c pm_noop.c lnx_agp.c
 .for _FN in ${SRCS.bsd}
 CPPFLAGS.${_FN}=	-DWSCONS_SUPPORT -DPCVT_SUPPORT -DUSESTDRES -DHAVE_SYSV_IPC
@@ -114,7 +114,8 @@ SRCS.bus+=	Pci.c
     ${MACHINE} == "sgimips" || ${MACHINE} == "shark" || \
     ${MACHINE} == "netwinder" || ${MACHINE_ARCH} == "sparc" || \
     ${MACHINE_ARCH} == "sparc64" || ${MACHINE_ARCH} == "alpha" || \
-    ${MACHINE} == "prep" || ${MACHINE} == "bebox" || ${MACHINE} == "ofppc"
+    ${MACHINE} == "prep" || ${MACHINE} == "bebox" || \
+    ${MACHINE} == "ofppc" || ${MACHINE} == "ibmnws"
 #SRCS.bus+=	netbsdPci.c
 .endif
 
@@ -136,7 +137,7 @@ SRCS.bus+=	Pci.c
 	${MACHINE_ARCH} == "sparc" || ${MACHINE} == "netwinder" || \
 	${MACHINE} == "shark" || ${MACHINE} == "ofppc" || \
 	${MACHINE_ARCH} == "alpha" || ${MACHINE} == "prep" || \
-	${MACHINE} == "bebox"
+	${MACHINE} == "bebox" || ${MACHINE} == "ibmnws"
 #SRCS.misc+=     CBUSmemcpy.c CIODelay.c CSlowBcopy.c
 .endif
 

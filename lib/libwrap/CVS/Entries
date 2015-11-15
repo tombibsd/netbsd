@@ -2,7 +2,7 @@
 /Makefile.cflags/1.8/Mon Jan 10 02:58:58 2005/-kk/
 /Makefile/1.10/Mon May 28 12:06:22 2007/-kk/
 /clean_exit.c/1.5/Wed Mar 21 10:10:37 2012/-kk/
-/diag.c/1.10/Thu Mar 22 22:58:15 2012/-kk/
+/diag.c/1.11/Sun Nov 15 13:35:19 2015/-kk/
 /eval.c/1.7/Wed Mar 21 10:10:37 2012/-kk/
 /fix_options.c/1.11/Wed Mar 21 10:10:37 2012/-kk/
 /hosts_access.3/1.7/Tue Oct  1 19:38:46 2002/-kk/
@@ -20,6 +20,6 @@
 /shell_cmd.c/1.7/Thu Mar 22 22:59:43 2012/-kk/
 /shlib_version/1.6/Sun Jan 11 03:07:50 2009/-kk/
 /socket.c/1.19/Wed Mar 21 10:10:37 2012/-kk/
-/tcpd.h/1.14/Thu Mar 22 22:59:43 2012/-kk/
+/tcpd.h/1.15/Sun Nov 15 13:35:19 2015/-kk/
 /update.c/1.9/Wed Mar 21 10:10:37 2012/-kk/
 D

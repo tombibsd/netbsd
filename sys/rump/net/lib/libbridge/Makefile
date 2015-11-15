@@ -4,6 +4,8 @@
 .PATH:	${.CURDIR}/../../../../net
 
 LIB=	rumpnet_bridge
+COMMENT=Bridging for IEEE 802
+
 IOCONF=	BRIDGE.ioconf
 SRCS=	if_bridge.c bridgestp.c
 

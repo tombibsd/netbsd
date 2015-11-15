@@ -4,6 +4,8 @@
 .PATH:	${.CURDIR}/../../../../opencrypto
 
 LIB=	rumpdev_opencrypto
+COMMENT=OpenCrypto, incl. /dev/crypto
+
 IOCONF=	OPENCRYPTO.ioconf
 SRCS=	opencrypto_component.c
 

@@ -152,6 +152,15 @@ tegra_pmc_remove_clamping(u_int partid)
 
 	tegra_pmc_get_bs(&bst, &bsh);
 
+	if (tegra_chip_id() == CHIP_ID_TEGRA124) {
+		/*
+		 * On Tegra124 the GPU power clamping is controlled by a
+		 * separate register
+		 */
+		bus_space_write_4(bst, bsh, PMC_GPU_RG_CNTRL_REG, 0);
+		return;
+	}
+
 	bus_space_write_4(bst, bsh, PMC_REMOVE_CLAMPING_CMD_0_REG,
 	    __BIT(partid));
 }

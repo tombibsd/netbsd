@@ -1,7 +1,7 @@
-/DNSCommon.c/1.5/Tue Dec  9 04:40:56 2014/-kk/
+/DNSCommon.c/1.6/Sun Nov 15 13:29:06 2015/-kk/
 /DNSCommon.h/1.1.1.3/Sat Apr 19 05:33:51 2014/-kk/
 /DNSDigest.c/1.4/Sat Apr 19 05:33:51 2014/-kk/
-/mDNS.c/1.4/Sat Apr 19 05:33:51 2014/-kk/
+/mDNS.c/1.6/Sun Nov 15 13:29:06 2015/-kk/
 /mDNSDebug.h/1.1.1.2/Fri Apr 11 02:00:15 2014/-kk/
 /mDNSEmbeddedAPI.h/1.4/Sat Apr 19 05:33:51 2014/-kk/
 /uDNS.c/1.1.1.3/Sat Apr 19 05:33:51 2014/-kk/

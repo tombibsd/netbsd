@@ -478,12 +478,18 @@
 #if __GNUC_PREREQ__(2, 7)
 #define __printflike(fmtarg, firstvararg)	\
 	    __attribute__((__format__ (__printf__, fmtarg, firstvararg)))
+#ifndef __syslog_attribute__
+#define __syslog__ __printf__
+#endif
+#define __sysloglike(fmtarg, firstvararg)	\
+	    __attribute__((__format__ (__syslog__, fmtarg, firstvararg)))
 #define __scanflike(fmtarg, firstvararg)	\
 	    __attribute__((__format__ (__scanf__, fmtarg, firstvararg)))
 #define __format_arg(fmtarg)    __attribute__((__format_arg__ (fmtarg)))
 #else
 #define __printflike(fmtarg, firstvararg)	/* nothing */
 #define __scanflike(fmtarg, firstvararg)	/* nothing */
+#define __sysloglike(fmtarg, firstvararg)	/* nothing */
 #define __format_arg(fmtarg)			/* nothing */
 #endif
 

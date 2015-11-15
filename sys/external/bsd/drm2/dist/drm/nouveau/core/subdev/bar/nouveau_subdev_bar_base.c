@@ -145,14 +145,17 @@ nouveau_bar_create_(struct nouveau_object *parent,
 		return ret;
 
 #ifdef __NetBSD__
-	bar->iomemt = nv_device_resource_tag(device, 3);
-	bar->iomemsz = nv_device_resource_len(device, 3);
-	if (bus_space_map(bar->iomemt, nv_device_resource_start(device, 3),
-		bar->iomemsz, 0, &bar->iomemh))
-		bar->iomemsz = 0; /* XXX Fail?  */
+	if (nv_device_resource_len(device, 3) != 0) {
+		bar->iomemt = nv_device_resource_tag(device, 3);
+		bar->iomemsz = nv_device_resource_len(device, 3);
+		if (bus_space_map(bar->iomemt, nv_device_resource_start(device, 3),
+			bar->iomemsz, 0, &bar->iomemh))
+			bar->iomemsz = 0; /* XXX Fail?  */
+	}
 #else
-	bar->iomem = ioremap(nv_device_resource_start(device, 3),
-			     nv_device_resource_len(device, 3));
+	if (nv_device_resource_len(device, 3) != 0)
+		bar->iomem = ioremap(nv_device_resource_start(device, 3),
+				     nv_device_resource_len(device, 3));
 #endif
 	return 0;
 }

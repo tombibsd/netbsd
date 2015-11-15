@@ -985,7 +985,13 @@ suspendsched(void)
 			continue;
 		}
 
-		p->p_stat = SSTOP;
+		if (p->p_stat != SSTOP) {
+			if (p->p_stat != SZOMB && p->p_stat != SDEAD) {
+				p->p_pptr->p_nstopchild++;
+				p->p_waited = 0;
+			}
+			p->p_stat = SSTOP;
+		}
 
 		LIST_FOREACH(l, &p->p_lwps, l_sibling) {
 			if (l == curlwp)

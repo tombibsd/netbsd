@@ -21,7 +21,7 @@
 /callout.h/1.32/Mon Feb 16 03:14:31 2015/-kk/
 /cctr.h/1.3/Mon Apr 28 20:24:10 2008/-kk/
 /cdbr.h/1.1/Wed Dec 11 01:24:08 2013/-kk/
-/cdefs.h/1.126/Sun Sep 13 01:08:00 2015/-kk/
+/cdefs.h/1.127/Sun Nov 15 13:36:36 2015/-kk/
 /cdefs_aout.h/1.20/Thu May 18 17:55:38 2006/-kk/
 /cdefs_elf.h/1.49/Wed May 13 03:33:21 2015/-kk/
 /cdio.h/1.34/Sun Sep 13 01:32:01 2015/-kk/
@@ -134,7 +134,7 @@
 /lwpctl.h/1.4/Mon Apr 28 20:24:10 2008/-kk/
 /malloc.h/1.116/Fri Jan  2 11:21:55 2015/-kk/
 /mallocvar.h/1.13/Fri Jan  2 11:21:55 2015/-kk/
-/mbuf.h/1.158/Thu Jun 18 03:42:36 2015/-kk/
+/mbuf.h/1.159/Sun Nov 15 13:36:37 2015/-kk/
 /md4.h/1.7/Mon Dec 26 18:41:36 2005/-kk/
 /md5.h/1.9/Mon Dec 26 18:41:36 2005/-kk/
 /midiio.h/1.16/Sun Sep 13 01:32:01 2015/-kk/
@@ -166,7 +166,7 @@
 /power.h/1.20/Mon Jan 12 06:49:24 2015/-kk/
 /proc.h/1.323/Fri Oct  2 14:12:06 2015/-kk/
 /prot.h/1.2/Tue Apr 29 06:53:03 2008/-kk/
-/protosw.h/1.64/Wed May 13 03:33:21 2015/-kk/
+/protosw.h/1.65/Sun Nov 15 13:36:37 2015/-kk/
 /pserialize.h/1.1/Sat Jul 30 17:01:04 2011/-kk/
 /pset.h/1.4/Thu Oct 24 10:28:58 2013/-kk/
 /ptrace.h/1.46/Sat Jul 25 01:31:06 2015/-kk/
@@ -181,7 +181,7 @@
 /rbtree.h/1.2/Fri Feb 17 08:20:55 2012/-kk/
 /reboot.h/1.25/Tue Dec 25 18:33:48 2007/-kk/
 /resource.h/1.33/Sat Jun  9 02:31:15 2012/-kk/
-/resourcevar.h/1.55/Fri Oct  3 09:51:03 2014/-kk/
+/resourcevar.h/1.56/Sun Nov 15 13:36:37 2015/-kk/
 /rmd160.h/1.2/Sat Feb 16 17:37:13 2008/-kk/
 /rnd.h/1.49/Wed Apr 22 07:37:49 2015/-kk/
 /rndio.h/1.2/Sun Sep 13 01:32:01 2015/-kk/
@@ -206,7 +206,7 @@
 /signalvar.h/1.86/Tue Jun  3 02:54:47 2014/-kk/
 /sigtypes.h/1.10/Sun Feb 19 21:07:00 2012/-kk/
 /sleepq.h/1.24/Mon Feb 16 03:14:31 2015/-kk/
-/socket.h/1.117/Sun Apr 12 03:35:21 2015/-kk/
+/socket.h/1.118/Sun Nov 15 13:36:37 2015/-kk/
 /socketvar.h/1.139/Wed May 13 03:33:21 2015/-kk/
 /sockio.h/1.33/Wed May 13 03:33:21 2015/-kk/
 /spawn.h/1.5/Fri Oct  3 09:51:03 2014/-kk/
@@ -226,7 +226,7 @@
 /syscallvar.h/1.11/Fri Oct  2 14:12:06 2015/-kk/
 /sysctl.h/1.217/Fri Oct  2 14:12:06 2015/-kk/
 /syslimits.h/1.28/Sun Sep 13 01:08:00 2015/-kk/
-/syslog.h/1.36/Mon Jul 21 08:07:51 2014/-kk/
+/syslog.h/1.38/Sun Nov 15 13:36:37 2015/-kk/
 /systm.h/1.268/Sun Sep 13 01:08:00 2015/-kk/
 /tape.h/1.3/Mon Dec 26 18:41:36 2005/-kk/
 /termios.h/1.32/Thu Oct 24 10:28:58 2013/-kk/

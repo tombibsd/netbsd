@@ -35,21 +35,21 @@
 #include <sys/queue.h>
 #include <sys/workqueue.h>
 
-struct nouveau_task {
+struct nouveau_pci_task {
 	union {
-		SIMPLEQ_ENTRY(nouveau_task)	queue;
+		SIMPLEQ_ENTRY(nouveau_pci_task)	queue;
 		struct work			work;
 	}			nt_u;
-	void			(*nt_fn)(struct nouveau_task *);
+	void			(*nt_fn)(struct nouveau_pci_task *);
 };
 
 static inline void
-nouveau_task_init(struct nouveau_task *task, void (*fn)(struct nouveau_task *))
+nouveau_pci_task_init(struct nouveau_pci_task *task, void (*fn)(struct nouveau_pci_task *))
 {
 
 	task->nt_fn = fn;
 }
 
-int	nouveau_task_schedule(device_t, struct nouveau_task *);
+int	nouveau_pci_task_schedule(device_t, struct nouveau_pci_task *);
 
 #endif	/* _NOUVEAU_NOUVEAU_PCI_H_ */

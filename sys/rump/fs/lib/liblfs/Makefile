@@ -4,6 +4,7 @@
 .PATH:  ${.CURDIR}/../../../../ufs/lfs
 
 LIB=	rumpfs_lfs
+COMMENT=Log-structured File System
 
 SRCS=	lfs_alloc.c lfs_balloc.c lfs_bio.c lfs_cksum.c lfs_debug.c	\
 	lfs_inode.c lfs_itimes.c lfs_pages.c lfs_rename.c lfs_rfw.c	\

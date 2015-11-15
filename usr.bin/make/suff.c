@@ -1543,7 +1543,7 @@ SuffExpandChildren(LstNode cln, GNode *pgn)
     if (DEBUG(SUFF)) {
 	fprintf(debug_file, "Expanding \"%s\"...", cgn->name);
     }
-    cp = Var_Subst(NULL, cgn->name, pgn, TRUE);
+    cp = Var_Subst(NULL, cgn->name, pgn, TRUE, TRUE);
 
     if (cp != NULL) {
 	Lst	    members = Lst_Init(FALSE);
@@ -1596,7 +1596,7 @@ SuffExpandChildren(LstNode cln, GNode *pgn)
 		    int 	len;
 		    void	*freeIt;
 
-		    junk = Var_Parse(cp, pgn, TRUE, &len, &freeIt);
+		    junk = Var_Parse(cp, pgn, TRUE, TRUE, &len, &freeIt);
 		    if (junk != var_Error) {
 			cp += len - 1;
 		    }

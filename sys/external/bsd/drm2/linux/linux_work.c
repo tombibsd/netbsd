@@ -44,6 +44,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/queue.h>
 #include <sys/systm.h>
 #include <sys/workqueue.h>
+#include <sys/cpu.h>
 
 #include <machine/lock.h>
 

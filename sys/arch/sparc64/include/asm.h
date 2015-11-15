@@ -66,3 +66,25 @@
 /* use as needed to align things on longword boundaries */
 #define	_ALIGN	.align 8
 #define ICACHE_ALIGN	.align	32
+
+/*
+ * Combine 2 regs -- used to convert 64-bit ILP32
+ * values to LP64.
+ */
+#define	COMBINE(r1, r2, d)	\
+	clruw	r2;		\
+	sllx	r1, 32, d;	\
+	or	d, r2, d
+
+/*
+ * Split 64-bit value in 1 reg into high and low halves.
+ * Used for ILP32 return values.
+ */
+#define	SPLIT(s, r0, r1)	\
+	srl	s, 0, r1;	\
+	srlx	s, 32, r0
+
+#define	SPLIT_RETL(s, r0, r1)	\
+	srl	s, 0, r1;	\
+	retl;			\
+	 srlx	s, 32, r0

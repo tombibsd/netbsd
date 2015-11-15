@@ -47,14 +47,18 @@ void
 nouveau_objects_init(void)
 {
 
+#ifdef NOUVEAU_OBJECT_MAGIC
 	spin_lock_init(&_objlist_lock);
+#endif
 }
 
 void
 nouveau_objects_fini(void)
 {
 
+#ifdef NOUVEAU_OBJECT_MAGIC
 	spin_lock_destroy(&_objlist_lock);
+#endif
 }
 #endif
 

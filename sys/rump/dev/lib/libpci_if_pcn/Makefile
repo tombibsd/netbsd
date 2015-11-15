@@ -6,6 +6,8 @@ RUMPTOP=${TOPRUMP}
 .PATH:	${RUMPTOP}/../dev/pci
 
 LIB=	rumpdev_pci_if_pcn
+COMMENT=PCnet Ethernet device driver
+
 IOCONF=	PCI_IF_PCN.ioconf
 
 SRCS=	pcn_at_pci.c

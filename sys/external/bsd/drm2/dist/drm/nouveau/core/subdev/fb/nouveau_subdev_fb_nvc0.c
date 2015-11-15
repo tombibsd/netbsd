@@ -81,7 +81,8 @@ nvc0_fb_dtor(struct nouveau_object *object)
 
 #ifdef __NetBSD__
 	if (priv->r100c10_map) {
-		const bus_dma_tag_t dmat = device->pdev->pd_pa.pa_dmat64;
+		const bus_dma_tag_t dmat = pci_dma64_available(&device->pdev->pd_pa) ?
+		    device->pdev->pd_pa.pa_dmat64 : device->pdev->pd_pa.pa_dmat;
 
 		bus_dmamap_unload(dmat, priv->r100c10_map);
 		bus_dmamem_unmap(dmat, priv->r100c10_kva, PAGE_SIZE);
@@ -114,8 +115,8 @@ nvc0_fb_ctor(struct nouveau_object *parent, struct nouveau_object *engine,
 
 #ifdef __NetBSD__
     {
-	/* XXX pa_dmat or pa_dmat64?  */
-	const bus_dma_tag_t dmat = device->pdev->pd_pa.pa_dmat64;
+	const bus_dma_tag_t dmat = pci_dma64_available(&device->pdev->pd_pa) ?
+	    device->pdev->pd_pa.pa_dmat64 : device->pdev->pd_pa.pa_dmat;
 	int nsegs;
 
 	priv->r100c10_map = NULL; /* paranoia */

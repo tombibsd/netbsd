@@ -5,6 +5,7 @@
 .PATH:	${.CURDIR}/../../../../net
 
 LIB=	rumpkern_z
+COMMENT=Data compression
 
 SRCS=	zlib.c
 

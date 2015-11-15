@@ -100,7 +100,7 @@ gpio*		at awingpio?
 awiniic0	at awinio? port 0
 #awiniic*	at awinio? port ?
 iic*		at awiniic?
-#axp20x0 	at iic0 addr 0x34	# AXP209 Power Management Unit
+axp20x0 	at iic0 addr 0x34	# AXP209 Power Management Unit
 
 # On-board 16550 UARTs
 com0		at awinio? port 0			# UART0 (console)

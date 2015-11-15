@@ -6,8 +6,8 @@
 /c-common.h/1.1.1.1/Wed Sep 23 03:03:26 2015/-kk/
 /c-cppbuiltin.c/1.1.1.1/Wed Sep 23 03:03:26 2015/-kk/
 /c-dump.c/1.1.1.1/Wed Sep 23 03:03:26 2015/-kk/
-/c-format.c/1.1.1.1/Wed Sep 23 03:03:26 2015/-kk/
-/c-format.h/1.1.1.1/Wed Sep 23 03:03:26 2015/-kk/
+/c-format.c/1.2/Sun Nov 15 13:33:21 2015/-kk/
+/c-format.h/1.2/Sun Nov 15 13:33:21 2015/-kk/
 /c-gimplify.c/1.1.1.1/Wed Sep 23 03:03:26 2015/-kk/
 /c-lex.c/1.1.1.1/Wed Sep 23 03:03:26 2015/-kk/
 /c-objc.h/1.1.1.1/Wed Sep 23 03:03:26 2015/-kk/

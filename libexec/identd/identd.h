@@ -14,7 +14,7 @@
 #define satosin6(sa)	((struct sockaddr_in6 *)(sa))
 #define in_hosteq(s,t)	((s).s_addr == (t).s_addr)
 
-void maybe_syslog(int, const char *, ...) __printflike(2, 3);
+void maybe_syslog(int, const char *, ...) __sysloglike(2, 3);
 
 #ifdef WITH_PF
 int pf_natlookup(struct sockaddr_storage *, struct sockaddr *, int *);

@@ -32,6 +32,16 @@
 #ifndef _LINUX_ACPI_H_
 #define _LINUX_ACPI_H_
 
+#ifdef _KERNEL_OPT
+#if defined(__i386__) || defined(__x86_64__)
+#include "acpica.h"
+#else
+#define NACPICA 0
+#endif
+#endif
+
+#if NACPICA > 0
 #include <dev/acpi/acpivar.h>
+#endif
 
 #endif  /* _LINUX_ACPI_H_ */

@@ -4,6 +4,7 @@
 .PATH:  ${.CURDIR}/../../../../miscfs/umapfs
 
 LIB=	rumpfs_umap
+COMMENT=uid/gid mapping layer
 
 SRCS=	umap_subr.c umap_vfsops.c umap_vnops.c
 

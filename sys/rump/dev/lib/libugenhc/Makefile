@@ -2,6 +2,7 @@
 #
 
 LIB=	rumpdev_ugenhc
+COMMENT=USB host controller using /dev/ugen
 
 .if ${MACHINE} == "i386" || ${MACHINE} == "amd64"
 IOCONF= UGENHC.ioconf

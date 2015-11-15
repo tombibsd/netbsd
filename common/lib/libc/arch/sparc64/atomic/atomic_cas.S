@@ -48,9 +48,17 @@ ATOMIC_OP_ALIAS(atomic_cas_uint_ni,_atomic_cas_32)
 STRONG_ALIAS(_atomic_cas_uint_ni,_atomic_cas_32)
 
 ENTRY(_atomic_cas_64)
+#ifndef __arch64__
+	COMBINE(%o1, %o2, %o1)
+	COMBINE(%o3, %o4, %o2)
+#endif
 	casx	[%o0], %o1, %o2
+#ifdef __arch64__
 	retl
 	 mov	%o2, %o0
+#else
+	SPLIT_RETL(%o2, %o0, %o1)
+#endif
 
 ATOMIC_OP_ALIAS(atomic_cas_64,_atomic_cas_64)
 ATOMIC_OP_ALIAS_SIZE(atomic_cas_ulong,_atomic_cas)
@@ -64,3 +72,7 @@ ATOMIC_OP_ALIAS_SIZE(atomic_cas_ulong_ni,_atomic_cas)
 STRONG_ALIAS_SIZE(_atomic_cas_ulong_ni,_atomic_cas)
 ATOMIC_OP_ALIAS_SIZE(atomic_cas_ptr_ni,_atomic_cas)
 STRONG_ALIAS_SIZE(_atomic_cas_ptr_ni,_atomic_cas)
+
+#if !defined(__arch64__) && defined(CRT_ALIAS)
+CRT_ALIAS(__sync_val_compare_and_swap_8,_atomic_cas_64)
+#endif

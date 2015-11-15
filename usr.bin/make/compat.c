@@ -210,7 +210,7 @@ CompatRunCommand(void *cmdp, void *gnp)
     doIt = FALSE;
     
     cmdNode = Lst_Member(gn->commands, cmd);
-    cmdStart = Var_Subst(NULL, cmd, gn, FALSE);
+    cmdStart = Var_Subst(NULL, cmd, gn, FALSE, TRUE);
 
     /*
      * brk_string will return an argv with a NULL in av[0], thus causing

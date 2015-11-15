@@ -53,6 +53,10 @@
 /*** MACROS								***/
 /**************************************************************************/
 
+#if !defined(__syslog_attribute__) && !defined(__syslog__)
+#define __syslog__ __printf__
+#endif
+
 /*
  * General macros.
  */
@@ -324,7 +328,7 @@ extern void getwire(char **name1, char **number1);
 extern void going_down(int);
 extern void mnt_free(mntent_t *);
 extern void plog(int, const char *,...)
-     __attribute__ ((__format__ (__printf__, 2, 3)));
+     __attribute__ ((__format__ (__syslog__, 2, 3)));
 extern void rmdirs(char *);
 extern void rpc_msg_init(struct rpc_msg *, u_long, u_long, u_long);
 extern void set_amd_program_number(u_long program);
@@ -489,7 +493,7 @@ extern void malloc_verify(void);
 extern void print_nfs_args(const void *, u_long nfs_version);
 extern int debug_option (char *opt);
 extern void dplog(const char *fmt, ...)
-     __attribute__ ((__format__ (__printf__, 1, 2)));
+     __attribute__ ((__format__ (__syslog__, 1, 2)));
 
 #else /* not DEBUG */
 

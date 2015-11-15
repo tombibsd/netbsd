@@ -74,7 +74,7 @@ static const char *sp = "";
 static char	 tfname[NAME_MAX];	/* tmp copy of cf before linking */
 
 static int        chksize(int);
-static void       frecverr(const char *, ...) __dead __printflike(1, 2);
+static void       frecverr(const char *, ...) __dead __sysloglike(1, 2);
 static int        noresponse(void);
 static void       rcleanup(int);
 static int        read_number(const char *);

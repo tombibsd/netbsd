@@ -293,6 +293,14 @@ lintmanpages: ${MANPAGES}
 	${TOOL_MANDOC_LINT} -Tlint -fstrict -Wall,stop ${.ALLSRC}
 .endif
 
+##### describe
+describe:
+.for _M in ${MANPAGES}
+	@echo $$(basename ${_M}) - \
+		$$(${TOOL_SED} < ${${_M}:P} -n -e '/^\.Nd /{;s/^....//;p;}')
+.endfor
+
+
 ##### Pull in related .mk logic
 .include <bsd.obj.mk>
 .include <bsd.files.mk>

@@ -151,8 +151,8 @@ arc_output(struct ifnet *ifp, struct mbuf *m0, const struct sockaddr *dst,
 			adst = arcbroadcastaddr; /* ARCnet broadcast address */
 		else if (ifp->if_flags & IFF_NOARP)
 			adst = ntohl(satocsin(dst)->sin_addr.s_addr) & 0xFF;
-		else if (!arpresolve(ifp, rt, m, dst, &adst))
-			return 0;	/* not resolved yet */
+		else if ((error = arpresolve(ifp, rt, m, dst, &adst)) != 0)
+			return error == EWOULDBLOCK ? 0 : error;
 
 		/* If broadcasting on a simplex interface, loopback a copy */
 		if ((m->m_flags & (M_BCAST|M_MCAST)) &&

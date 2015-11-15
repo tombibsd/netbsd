@@ -42,16 +42,24 @@
 
 #include <lib/libkern/libkern.h>
 
+/*
+ * Linux __ffs/__ffs64 is zero-based; zero input is undefined.  Our
+ * ffs/ffs64 is one-based; zero input yields zero.
+ */
 static inline unsigned long
 __ffs(unsigned long x)
 {
-	return ffs64(x);
+
+	KASSERT(x != 0);
+	return ffs64(x) - 1;
 }
 
 static inline unsigned long
 __ffs64(uint64_t x)
 {
-	return ffs64(x);
+
+	KASSERT(x != 0);
+	return ffs64(x) - 1;
 }
 
 static inline unsigned int

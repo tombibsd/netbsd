@@ -38,7 +38,7 @@ struct tcpd_context tcpd_context;
 jmp_buf tcpd_buf;
 
 static void tcpd_diag(int, const char *, const char *, va_list)
-    __printflike(3,0);
+    __sysloglike(3,0);
 
 /* tcpd_diag - centralize error reporter */
 

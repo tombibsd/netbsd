@@ -1370,6 +1370,30 @@ ttioctl(struct tty *tp, u_long cmd, void *data, int flag, struct lwp *l)
 		    s != tp->t_qsize)
 			error = tty_set_qsize(tp, s);
 		return error;
+
+	case TIOCSBRK:
+	case TIOCCBRK:
+	case TIOCSDTR:
+	case TIOCCDTR:
+	case TIOCSFLAGS:
+	case TIOCGFLAGS:
+	case TIOCMSET:
+	case TIOCMGET:
+	case TIOCMBIS:
+	case TIOCMBIC:
+		/* Handled by the driver layer */
+		return EPASSTHROUGH;
+
+	case TIOCEXT:
+	case TIOCPTSNAME:
+	case TIOCGRANTPT:
+	case TIOCPKT:
+	case TIOCUCNTL:
+	case TIOCREMOTE:
+	case TIOCSIG:
+		/* for ptys */
+		return EPASSTHROUGH;
+
 	default:
 #ifdef COMPAT_60
 		error = compat_60_ttioctl(tp, cmd, data, flag, l);

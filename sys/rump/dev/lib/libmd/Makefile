@@ -4,6 +4,8 @@
 .PATH:	${.CURDIR}/../../../../dev
 
 LIB=	rumpdev_md
+COMMENT=Memory disk device driver
+
 IOCONF=	MD.ioconf
 
 SRCS=	md.c

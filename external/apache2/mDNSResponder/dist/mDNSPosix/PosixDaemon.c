@@ -92,7 +92,8 @@ mDNSlocal void mDNS_StatusCallback(mDNS *const m, mStatus result)
 static void Reconfigure(mDNS *m)
 	{
 	mDNSAddr DynDNSIP;
-	const mDNSAddr dummy = { mDNSAddrType_IPv4, { { { 1, 1, 1, 1 } } } };;
+	// Use a random address from TEST-NET-2	in RFC5737
+	const mDNSAddr dummy = { mDNSAddrType_IPv4, { { { 198, 51, 100, 42 } } } };;
 	mDNS_SetPrimaryInterfaceInfo(m, NULL, NULL, NULL);
         mDNS_Lock(m);
 	if (ParseDNSServers(m, uDNS_SERVERS_FILE) < 0)
@@ -232,7 +233,7 @@ int main(int argc, char **argv)
 
 	ParseCmdLinArgs(argc, argv);
 
-	LogMsg("%s starting", mDNSResponderVersionString);
+	LogInfo("%s starting", mDNSResponderVersionString);
 
 	err = mDNS_Init(&mDNSStorage, &PlatformStorage, gRRCache, RR_CACHE_SIZE, mDNS_Init_AdvertiseLocalAddresses, 
 					mDNS_StatusCallback, mDNS_Init_NoInitCallbackContext); 
@@ -265,7 +266,7 @@ int main(int argc, char **argv)
 	if (mStatus_NoError == err)
 		err = MainLoop(&mDNSStorage);
  
-	LogMsg("%s stopping", mDNSResponderVersionString);
+	LogInfo("%s stopping", mDNSResponderVersionString);
 
 	mDNS_Close(&mDNSStorage);
 

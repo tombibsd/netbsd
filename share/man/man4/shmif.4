@@ -28,7 +28,7 @@
 .Os
 .Sh NAME
 .Nm shmif
-.Nd rump shared memory network interface
+.Nd rump kernel shared memory network interface
 .Sh SYNOPSIS
 .In rump/rump.h
 .Ft int
@@ -52,7 +52,7 @@ the bus hold).
 .El
 .Pp
 It is not possible to directly access the host networking
-facilities from a rump virtual kernel using purely
+facilities from a rump kernel using purely
 .Nm .
 However, traffic can be routed to another rump kernel instance which
 provides both

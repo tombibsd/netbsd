@@ -40,13 +40,13 @@
 #include <uvm/uvm.h>
 #include <uvm/uvm_extern.h>
 
-/* XXX This is x86-specific bollocks.  */
-#if !defined(__i386__) && !defined(__x86_64__)
-#error DRM GEM/TTM need new MI bus_dma APIs!  Halp!
-#endif
-
+#if defined(__i386__) || defined(__x86_64__)
 #include <x86/bus_private.h>
 #include <x86/machdep.h>
+#elif defined(__arm__)
+#else
+#error DRM GEM/TTM need new MI bus_dma APIs!  Halp!
+#endif
 
 static inline int
 bus_dmamem_wire_uvm_object(bus_dma_tag_t tag, struct uvm_object *uobj,
@@ -116,7 +116,11 @@ bus_dmamem_unwire_uvm_object(bus_dma_tag_t tag __unused,
 static inline int
 bus_dmamem_pgfl(bus_dma_tag_t tag)
 {
+#if defined(__i386__) || defined(__x86_64__)
 	return x86_select_freelist(tag->_bounce_alloc_hi - 1);
+#else
+	return VM_FREELIST_DEFAULT;
+#endif
 }
 
 static inline int

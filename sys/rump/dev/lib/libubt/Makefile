@@ -4,6 +4,8 @@
 .PATH:	${.CURDIR}/../../../../dev/usb ${.CURDIR}/../../../../dev/bluetooth
 
 LIB=	rumpdev_ubt
+COMMENT=USB BlueTooth driver
+
 IOCONF= UBT.ioconf
 
 SRCS=	ubt.c bthub.c

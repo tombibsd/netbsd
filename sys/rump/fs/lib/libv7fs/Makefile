@@ -4,6 +4,7 @@
 .PATH:	${.CURDIR}/../../../../fs/v7fs
 
 LIB=	rumpfs_v7fs
+COMMENT=Unix 7th edition file system
 
 SRCS= v7fs_endian.c v7fs_superblock.c v7fs_inode.c v7fs_dirent.c	\
 v7fs_datablock.c v7fs_file.c v7fs_io.c

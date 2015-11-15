@@ -7,6 +7,7 @@
 	${.CURDIR}/../../../../external/bsd/sljit/dist/sljit_src
 
 LIB=	rumpkern_sljit
+COMMENT=Stackless JIT compiler
 
 SRCS=	sljitLir.c sljit_mod.c
 

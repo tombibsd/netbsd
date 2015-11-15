@@ -36,6 +36,6 @@ attach	gpiorfkill at gpio
 file	dev/gpio/gpiorfkill.c			gpiorfkill
 
 # Button
-device	gpiobutton: gpiobus, sysmon_power
+device	gpiobutton: gpiobus, sysmon_power, sysmon_taskq
 attach	gpiobutton at gpio
 file	dev/gpio/gpiobutton.c			gpiobutton

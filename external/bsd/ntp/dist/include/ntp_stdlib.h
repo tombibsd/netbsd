@@ -21,18 +21,20 @@
 
 #ifdef __GNUC__
 #define NTP_PRINTF(fmt, args) __attribute__((__format__(__printf__, fmt, args)))
+#define NTP_SYSLOG(fmt, args) __attribute__((__format__(__syslog__, fmt, args)))
 #else
 #define NTP_PRINTF(fmt, args)
+#define NTP_SYSLOG(fmt, args)
 #endif
 
-extern	int	mprintf(const char *, ...) NTP_PRINTF(1, 2);
-extern	int	mfprintf(FILE *, const char *, ...) NTP_PRINTF(2, 3);
-extern	int	mvfprintf(FILE *, const char *, va_list) NTP_PRINTF(2, 0);
+extern	int	mprintf(const char *, ...) NTP_SYSLOG(1, 2);
+extern	int	mfprintf(FILE *, const char *, ...) NTP_SYSLOG(2, 3);
+extern	int	mvfprintf(FILE *, const char *, va_list) NTP_SYSLOG(2, 0);
 extern	int	mvsnprintf(char *, size_t, const char *, va_list)
-			NTP_PRINTF(3, 0);
+			NTP_SYSLOG(3, 0);
 extern	int	msnprintf(char *, size_t, const char *, ...)
-			NTP_PRINTF(3, 4);
-extern	void	msyslog(int, const char *, ...) NTP_PRINTF(2, 3);
+			NTP_SYSLOG(3, 4);
+extern	void	msyslog(int, const char *, ...) NTP_SYSLOG(2, 3);
 extern	void	init_logging	(const char *, u_int32, int);
 extern	int	change_logfile	(const char *, int);
 extern	void	setup_logfile	(const char *);

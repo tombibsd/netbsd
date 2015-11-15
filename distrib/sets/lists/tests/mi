@@ -3751,6 +3751,7 @@
 ./usr/tests/usr.bin/xlint/lint1/Atffile		tests-usr.bin-tests	compattestfile,atf
 ./usr/tests/usr.bin/xlint/lint1/Kyuafile	tests-usr.bin-tests	compattestfile,atf,kyua
 ./usr/tests/usr.bin/xlint/lint1/d_alignof.c			tests-usr.bin-tests	compattestfile,atf
+./usr/tests/usr.bin/xlint/lint1/d_c99_anon_struct.c		tests-usr.bin-tests	compattestfile,atf
 ./usr/tests/usr.bin/xlint/lint1/d_c99_complex_num.c		tests-usr.bin-tests	compattestfile,atf
 ./usr/tests/usr.bin/xlint/lint1/d_c99_complex_split.c		tests-usr.bin-tests	compattestfile,atf
 ./usr/tests/usr.bin/xlint/lint1/d_c99_compound_literal_comma.c	tests-usr.bin-tests	compattestfile,atf

@@ -739,6 +739,9 @@ configure(void)
 	drvctl_init();
 #endif
 
+	/* Initialize driver modules */
+	module_init_class(MODULE_CLASS_DRIVER);
+
 	userconf_init();
 	if (boothowto & RB_USERCONF)
 		userconf_prompt();

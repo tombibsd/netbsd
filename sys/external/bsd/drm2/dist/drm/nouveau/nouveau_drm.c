@@ -62,6 +62,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include "nouveau_fbcon.h"
 #include "nouveau_fence.h"
 #include "nouveau_debugfs.h"
+#include "nouveau_ttm.h"
 
 MODULE_PARM_DESC(config, "option string to pass to driver core");
 char *nouveau_config;
@@ -87,6 +88,10 @@ module_param_named(runpm, nouveau_runtime_pm, int, 0400);
 static struct drm_driver driver;
 #ifdef __NetBSD__
 struct drm_driver *const nouveau_drm_driver = &driver;
+
+/* XXX Kludge for the non-GEM GEM that nouveau uses.  */
+static const struct uvm_pagerops nouveau_gem_uvm_ops;
+
 #endif
 
 static u64
@@ -880,7 +885,11 @@ driver = {
 
 	.ioctls = nouveau_ioctls,
 	.num_ioctls = ARRAY_SIZE(nouveau_ioctls),
-#ifndef __NetBSD__
+#ifdef __NetBSD__
+	.fops = NULL,
+	.mmap_object = &nouveau_ttm_mmap_object,
+	.gem_uvm_ops = &nouveau_gem_uvm_ops,
+#else
 	.fops = &nouveau_driver_fops,
 #endif
 

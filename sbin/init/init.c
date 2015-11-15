@@ -110,9 +110,9 @@ static const struct timespec dtrtime = {.tv_sec = 0, .tv_nsec = 250000};
 static void handle(sig_t, ...);
 static void delset(sigset_t *, ...);
 
-static void stall(const char *, ...) __printflike(1, 2);
-static void warning(const char *, ...) __printflike(1, 2);
-static void emergency(const char *, ...) __printflike(1, 2);
+static void stall(const char *, ...) __sysloglike(1, 2);
+static void warning(const char *, ...) __sysloglike(1, 2);
+static void emergency(const char *, ...) __sysloglike(1, 2);
 __dead static void disaster(int);
 static void badsys(int);
 

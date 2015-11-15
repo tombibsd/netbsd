@@ -842,11 +842,11 @@ ARM_APCS_FLAGS+=${${ACTIVE_CC} == "clang":? -target ${MACHINE_GNU_ARCH}--netbsde
 GENASSYM_CPPFLAGS+=	${${ACTIVE_CC} == "clang":? -no-integrated-as :}
 
 TARGETS+=	all clean cleandir depend dependall includes \
-		install lint obj regress tags html analyze
+		install lint obj regress tags html analyze describe
 PHONY_NOTMAIN =	all clean cleandir depend dependall distclean includes \
 		install lint obj regress beforedepend afterdepend \
 		beforeinstall afterinstall realinstall realdepend realall \
-		html subdir-all subdir-install subdir-depend analyze
+		html subdir-all subdir-install subdir-depend analyze describe
 .PHONY:		${PHONY_NOTMAIN}
 .NOTMAIN:	${PHONY_NOTMAIN}
 
@@ -1048,6 +1048,7 @@ ${var}?=	${${var}.${MACHINE_ARCH}:Uno}
     ${MACHINE} == "hpcmips"	|| \
     ${MACHINE} == "hpcsh"	|| \
     ${MACHINE} == "i386"	|| \
+    ${MACHINE} == "ibmnws"	|| \
     ${MACHINE} == "luna68k"	|| \
     ${MACHINE} == "mac68k"	|| \
     ${MACHINE} == "macppc"	|| \
@@ -1298,7 +1299,7 @@ X11SRCDIR.xf86-input-${_i}?=	${X11SRCDIRMIT}/xf86-input-${_i}/dist
 .for _v in \
 	ag10e apm ark ast ati ati-kms chips cirrus crime \
 	geode glint i128 i740 igs imstt intel intel-old mach64 mga \
-	neomagic newport nsc nv nvxbox openchrome pnozz \
+	neomagic newport nouveau nsc nv nvxbox openchrome pnozz \
 	r128 radeonhd rendition \
 	s3 s3virge savage siliconmotion sis suncg14 \
 	suncg6 sunffb sunleo suntcx \

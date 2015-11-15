@@ -55,7 +55,7 @@ touchoverlap(WINDOW *win1, WINDOW *win2)
 #endif
 	starty = max(win1->begy, win2->begy);
 	startx = max(win1->begx, win2->begx);
-	endy = min(win1->maxy + win1->begy, win2->maxy + win2->begx);
+	endy = min(win1->maxy + win1->begy, win2->maxy + win2->begy);
 	endx = min(win1->maxx + win1->begx, win2->maxx + win2->begx);
 #ifdef DEBUG
 	__CTRACE(__CTRACE_WINDOW, "touchoverlap: from (%d,%d) to (%d,%d)\n",

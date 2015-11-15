@@ -160,6 +160,8 @@ void	awin_fb_ddb_trap_callback(int);
 void	awin_wdog_reset(void);
 void	awin_tmr_cpu_init(struct cpu_info *);
 
+int	awin_set_mpu_volt(int, bool);
+
 static inline void
 awin_gpio_pindata_write(const struct awin_gpio_pindata *pd, int value)
 {
