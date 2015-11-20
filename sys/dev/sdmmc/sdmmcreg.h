@@ -98,6 +98,7 @@
 
 /* R1 response type bits */
 #define MMC_R1_READY_FOR_DATA		(1<<8)	/* ready for next transfer */
+#define MMC_R1_SWITCH_ERROR		(1<<7)	/* switch command failed */
 #define MMC_R1_APP_CMD			(1<<5)	/* app. commands supported */
 
 /* 48-bit response decoding (32 bits w/o CRC) */

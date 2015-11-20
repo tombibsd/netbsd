@@ -1395,6 +1395,17 @@ ttioctl(struct tty *tp, u_long cmd, void *data, int flag, struct lwp *l)
 		return EPASSTHROUGH;
 
 	default:
+		/* Pass through various console ioctls */
+		switch (IOCGROUP(cmd)) {
+		case 'c':	/* syscons console */
+		case 'v':	/* usl console, video - where one letter */
+		case 'K':	/* usl console, keyboard - aint enough */
+		case 'V':	/* pcvt compat */
+		case 'W':	/* wscons console */
+			return EPASSTHROUGH;
+		default:
+			break;
+		}
 #ifdef COMPAT_60
 		error = compat_60_ttioctl(tp, cmd, data, flag, l);
 		if (error != EPASSTHROUGH)

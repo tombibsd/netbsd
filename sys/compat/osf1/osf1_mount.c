@@ -261,7 +261,7 @@ osf1_mount_mfs(struct lwp *l, const struct osf1_sys_mount_args *uap)
 	bsd_ma.base = osf_ma.base;
 	bsd_ma.size = osf_ma.size;
 
-	return do_sys_mount(l, vfs_getopsbyname("mfs"), NULL, SCARG(uap, path),
+	return do_sys_mount(l, "mfs", UIO_SYSSPACE, SCARG(uap, path),
 	    SCARG(uap, flags), &bsd_ma, UIO_SYSSPACE, sizeof bsd_ma, &dummy);
 }
 
@@ -312,6 +312,6 @@ osf1_mount_nfs(struct lwp *l, const struct osf1_sys_mount_args *uap)
 	if (bsd_na.flags & NFSMNT_RETRANS)
 		bsd_na.retrans = osf_na.retrans;
 
-	return do_sys_mount(l, vfs_getopsbyname("nfs"), NULL, SCARG(uap, path),
+	return do_sys_mount(l, "nfs", UIO_SYSSPACE, SCARG(uap, path),
 	    SCARG(uap, flags), &bsd_na, UIO_SYSSPACE, sizeof bsd_na, &dummy);
 }

@@ -37,9 +37,6 @@
 
 #include <uvm/uvm_extern.h>
 
-#ifndef SUN4U
-#define SUN4U	/* see .../sparc/include/frame.h for the reason */
-#endif
 #include <machine/frame.h>
 #include <machine/pcb.h>
 #include <machine/psl.h>

@@ -81,6 +81,6 @@ compat_40_sys_mount(struct lwp *l, const struct compat_40_sys_mount_args *uap, r
 	} */
 	register_t dummy;
 
-	return do_sys_mount(l, NULL, SCARG(uap, type), SCARG(uap, path),
+	return do_sys_mount(l, SCARG(uap, type), UIO_USERSPACE, SCARG(uap, path),
 	    SCARG(uap, flags), SCARG(uap, data), UIO_USERSPACE, 0, &dummy);
 }

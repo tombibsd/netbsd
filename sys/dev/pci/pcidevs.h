@@ -4,7 +4,7 @@
  * THIS FILE AUTOMATICALLY GENERATED.  DO NOT EDIT.
  *
  * generated from:
- *	NetBSD: pcidevs,v 1.1237 2015/10/19 09:57:37 tnn Exp
+ *	NetBSD: pcidevs,v 1.1239 2015/10/22 13:17:56 msaitoh Exp
  */
 
 /*
@@ -3493,8 +3493,13 @@
 #define	PCI_PRODUCT_INTEL_82946GZ_IGD	0x2972		/* 82946GZ Integrated Graphics Device */
 #define	PCI_PRODUCT_INTEL_82946GZ_KT	0x2977		/* 82946GZ KT */
 #define	PCI_PRODUCT_INTEL_82G35_HB	0x2980		/* 82G35 Host Bridge */
+#define	PCI_PRODUCT_INTEL_82965_PCIE	0x2981		/* 82G35 PCIe Root Port */
 #define	PCI_PRODUCT_INTEL_82G35_IGD	0x2982		/* 82G35 Integrated Graphics Device */
 #define	PCI_PRODUCT_INTEL_82G35_IGD_1	0x2983		/* 82G35 Integrated Graphics Device */
+#define	PCI_PRODUCT_INTEL_82G35_HECI_1	0x2984		/* 82G35 HECI */
+#define	PCI_PRODUCT_INTEL_82G35_HECI_2	0x2985		/* 82G35 HECI */
+#define	PCI_PRODUCT_INTEL_82965_IDE_R	0x2986		/* 82965 IDE-R */
+#define	PCI_PRODUCT_INTEL_82965Q_KT	0x2987		/* 82965Q KT */
 #define	PCI_PRODUCT_INTEL_82965Q_HB	0x2990		/* 82965Q Host Bridge */
 #define	PCI_PRODUCT_INTEL_82965Q_EXP	0x2991		/* 82965Q PCI Express Bridge */
 #define	PCI_PRODUCT_INTEL_82965Q_IGD	0x2992		/* 82965Q Integrated Graphics Device */
@@ -5407,6 +5412,7 @@
 /* Samsung Electronics products */
 #define	PCI_PRODUCT_SAMSUNGELEC3_XP941	0xa800		/* XP941 M.2 SSD */
 #define	PCI_PRODUCT_SAMSUNGELEC3_SM951	0xa801		/* SM951 M.2 SSD */
+#define	PCI_PRODUCT_SAMSUNGELEC3_SM951_NVME	0xa802		/* SM951 M.2 NVMe SSD */
 
 /* Samsung Semiconductor products */
 #define	PCI_PRODUCT_SAMSUNGSEMI_KS8920	0x8920		/* KS8920 10/100 Ethernet */

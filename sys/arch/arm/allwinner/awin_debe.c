@@ -249,8 +249,8 @@ awin_debe_attach(device_t parent, device_t self, void *aux)
 #endif
 
 #ifdef AWIN_DEBE_FWINIT
-	awin_debe_set_videomode(&mode);
-	awin_debe_enable(true);
+	awin_debe_set_videomode(device_unit(self), &mode);
+	awin_debe_enable(device_unit(self), true);
 #endif
 }
 
@@ -443,13 +443,13 @@ awin_debe_set_cursor(struct awin_debe_softc *sc, struct wsdisplay_cursor *cur)
 }
 
 void
-awin_debe_enable(bool enable)
+awin_debe_enable(int unit, bool enable)
 {
 	struct awin_debe_softc *sc;
 	device_t dev;
 	uint32_t val;
 
-	dev = device_find_by_driver_unit("awindebe", 0);
+	dev = device_find_by_driver_unit("awindebe", unit);
 	if (dev == NULL) {
 		printf("DEBE: no driver found\n");
 		return;
@@ -472,13 +472,13 @@ awin_debe_enable(bool enable)
 }
 
 void
-awin_debe_set_videomode(const struct videomode *mode)
+awin_debe_set_videomode(int unit, const struct videomode *mode)
 {
 	struct awin_debe_softc *sc;
 	device_t dev;
 	uint32_t val;
 
-	dev = device_find_by_driver_unit("awindebe", 0);
+	dev = device_find_by_driver_unit("awindebe", unit);
 	if (dev == NULL) {
 		printf("DEBE: no driver found\n");
 		return;

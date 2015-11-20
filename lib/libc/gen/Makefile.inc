@@ -5,12 +5,12 @@
 .PATH: ${ARCHDIR}/gen ${.CURDIR}/gen
 
 .if ${RUMPRUN} != "yes"
-SRCS+=	_errno.c
+SRCS+=	_errno.c daemon.c
 .endif
 
 SRCS+=	alarm.c alphasort.c arc4random.c assert.c asysctl.c \
 	basename.c clock.c closedir.c closefrom.c \
-	confstr.c ctermid.c ctype_.c daemon.c \
+	confstr.c ctermid.c ctype_.c \
 	dehumanize_number.c devname.c dirname.c disklabel.c err.c errx.c \
 	errc.c errlist.c errno.c execl.c execle.c execlp.c execv.c execvp.c \
 	extattr.c fmtcheck.c fmtmsg.c fnmatch.c fstab.c ftok.c \

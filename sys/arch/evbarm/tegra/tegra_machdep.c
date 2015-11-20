@@ -390,7 +390,7 @@ tegra_bootconf_strdup(const char *key)
 	if (ret == NULL)
 		return NULL;
 
-	strncpy(ret, s, i + 1);
+	strlcpy(ret, s, i + 1);
 	return ret;
 }
 
@@ -435,6 +435,21 @@ tegra_device_register(device_t self, void *aux)
 		if (debug)
 			prop_dictionary_set_cstring(dict, "debug", debug);
 	}
+
+#ifdef SOC_TEGRA124
+	if (device_is_a(self, "tegrausbphy")) {
+		prop_dictionary_set_uint8(dict, "nvidia,hssync-start-delay", 0);
+		prop_dictionary_set_uint8(dict, "nvidia,idle-wait-delay", 17);
+		prop_dictionary_set_uint8(dict, "nvidia,elastic-limit", 16);
+		prop_dictionary_set_uint8(dict, "nvidia,term-range-adj", 6);
+		prop_dictionary_set_uint8(dict, "nvidia,xcvr-setup", 9);
+		prop_dictionary_set_uint8(dict, "nvidia,xcvr-lsfslew", 0);
+		prop_dictionary_set_uint8(dict, "nvidia,xcvr-lsrslew", 3);
+		prop_dictionary_set_uint8(dict, "nvidia,hssquelch-level", 2);
+		prop_dictionary_set_uint8(dict, "nvidia,hsdiscon-level", 5);
+		prop_dictionary_set_uint8(dict, "nvidia,xcvr-hsslew", 12);
+	}
+#endif
 
 #ifdef BOARD_JETSONTK1
 	if (device_is_a(self, "sdhc")

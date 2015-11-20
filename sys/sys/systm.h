@@ -489,6 +489,7 @@ extern int db_fromconsole; /* XXX ddb/ddbvar.h */
 #endif /* _KERNEL */
 
 /* For SYSCALL_DEBUG */
+void scdebug_init(void);
 void scdebug_call(register_t, const register_t[]);
 void scdebug_ret(register_t, int, const register_t[]);
 

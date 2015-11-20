@@ -97,6 +97,7 @@ compat_60_ttioctl(struct tty *tp, u_long cmd, void *data, int flag,
 {
 
 	switch (cmd) {
+	case COMPAT_60_TIOCPTMGET:
 	case COMPAT_60_TIOCPTSNAME:
 		return compat_60_ptmget_ioctl(tp->t_dev, cmd, data, flag, l);
 	default:

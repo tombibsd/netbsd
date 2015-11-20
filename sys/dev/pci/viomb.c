@@ -54,6 +54,11 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #define VIRTIO_BALLOON_F_MUST_TELL_HOST (1<<0)
 #define VIRTIO_BALLOON_F_STATS_VQ	(1<<1)
 
+#define VIRTIO_BALLOON_FLAG_BITS \
+	VIRTIO_COMMON_FLAG_BITS \
+	"\x02""STATS_VQ" \
+	"\x01""MUST_TELL_HOST"
+
 #define PGS_PER_REQ		(256) /* 1MB, 4KB/page */
 
 CTASSERT((PAGE_SIZE) == (VIRTIO_PAGE_SIZE)); /* XXX */
@@ -118,6 +123,8 @@ viomb_attach(device_t parent, device_t self, void *aux)
 	struct viomb_softc *sc = device_private(self);
 	struct virtio_softc *vsc = device_private(parent);
 	const struct sysctlnode *node;
+	uint32_t features;
+	char buf[256];
 
 	if (vsc->sc_child != NULL) {
 		aprint_normal(": child already attached for %s; "
@@ -129,7 +136,6 @@ viomb_attach(device_t parent, device_t self, void *aux)
 		aprint_normal(": balloon already exists; something wrong...\n");
 		goto err_none;
 	}
-	aprint_normal("\n");
 
 	sc->sc_dev = self;
 	sc->sc_virtio = vsc;
@@ -142,8 +148,11 @@ viomb_attach(device_t parent, device_t self, void *aux)
 	vsc->sc_intrhand = virtio_vq_intr;
 	vsc->sc_flags = 0;
 
-	virtio_negotiate_features(vsc,
-				  VIRTIO_CONFIG_DEVICE_FEATURES);
+	features = virtio_negotiate_features(vsc,
+	    VIRTIO_CONFIG_DEVICE_FEATURES);
+
+	snprintb(buf, sizeof(buf), VIRTIO_BALLOON_FLAG_BITS, features);
+	aprint_normal(": Features: %s\n", buf);
 	if ((virtio_alloc_vq(vsc, &sc->sc_vq[0], 0,
 			     sizeof(uint32_t)*PGS_PER_REQ, 1,
 			     "inflate") != 0) ||

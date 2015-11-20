@@ -63,11 +63,11 @@ __KERNEL_RCSID(0, "$NetBSD$");
 /*
  * Module and device structures.
  */
-#ifdef MODULAR
+#ifndef _MODULE
 /*
  * Modular kernels load drivers too early, and we need percpu to be inited
  * So we make this misc; a better way would be to have early boot and late
- * boot drivers
+ * boot drivers.
  */
 MODULE(MODULE_CLASS_MISC, npf, NULL);
 #else
@@ -102,7 +102,6 @@ const struct cdevsw npf_cdevsw = {
 	.d_flag = D_OTHER | D_MPSAFE
 };
 
-#if !defined(MODULAR) || defined(_MODULE)
 static int
 npf_init(void)
 {
@@ -137,7 +136,6 @@ npf_init(void)
 	return 0;
 #endif
 }
-#endif
 
 static int
 npf_fini(void)
@@ -177,12 +175,7 @@ npf_modcmd(modcmd_t cmd, void *arg)
 
 	switch (cmd) {
 	case MODULE_CMD_INIT:
-#if defined(_MODULE)
 		return npf_init();
-#else
-		/* initialized by npfattach */
-		return 0;
-#endif
 	case MODULE_CMD_FINI:
 		return npf_fini();
 	case MODULE_CMD_AUTOUNLOAD:
@@ -199,16 +192,7 @@ npf_modcmd(modcmd_t cmd, void *arg)
 void
 npfattach(int nunits)
 {
-#ifdef MODULAR
-	/*   
-	 * Modular kernels will automatically load any built-in modules
-	 * and call their modcmd() routine, so we don't need to do it
-	 * again as part of pseudo-device configuration.
-	 */     
-	return;
-#else
-	(void)npf_init();
-#endif   
+	/* Nothing */
 }
 
 static int

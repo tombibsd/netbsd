@@ -798,7 +798,7 @@ sysctl_create(SYSCTLFN_ARGS)
 
 	/*
 	 * the name must be only alphanumerics or - or _, longer than
-	 * 0 bytes and less that SYSCTL_NAMELEN
+	 * 0 bytes and less than SYSCTL_NAMELEN
 	 */
 	nsz = 0;
 	while (nsz < SYSCTL_NAMELEN && nnode.sysctl_name[nsz] != '\0') {

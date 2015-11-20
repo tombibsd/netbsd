@@ -29,6 +29,7 @@ MLINKS+=ctime.3 ctime_r.3	\
 	time2posix.3 posix2time_z.3 \
 	time2posix.3 time2posix_z.3 \
 	tzset.3 tzgetname.3	\
+	tzset.3 tzgetgmtoff.3	\
 	tzset.3 daylight.3	\
 	tzset.3 tzalloc.3	\
 	tzset.3 tzfree.3	\

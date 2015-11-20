@@ -152,5 +152,7 @@
 ./usr/libdata/debug/usr/X11R7/lib/modules/dri/libmesa_dri.so.0.debug	-unknown-	xorg,debug,machine=i386
 ./usr/libdata/debug/usr/X11R7/lib/modules/dri/libmesa_dri.so.0.debug	-unknown-	xorg,debug,machine=amd64
 ./usr/libdata/debug/usr/X11R7/lib/modules/dri/libmesa_dri.so.0.debug	obsolete	obsolete,xorg,debug,!machine=i386,!machine=amd64
+./usr/libdata/debug/usr/X11R7/lib/modules/dri/nouveau_dri.so.0.debug	-unknown-	xorg,debug,machine=amd64
+./usr/libdata/debug/usr/X11R7/lib/modules/dri/nouveau_dri.so.0.debug	-unknown-	xorg,debug,machine=i386
 ./usr/libdata/debug/usr/X11R7/lib/modules/dri/libswrast_dri.so.0.debug	obsolete	obsolete,xorg,debug
 ./usr/libdata/debug/usr/X11R7/lib/modules/dri/swrast_dri.so.0.debug	-unknown-	xorg,debug

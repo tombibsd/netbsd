@@ -741,6 +741,7 @@ lostpeer(int signo)
 	struct sigaction sa;
 	sa.sa_flags = SA_RESTART;
 	sa.sa_handler = SIG_IGN;
+	sigemptyset(&sa.sa_mask);
 	(void)sigaction(SIGPIPE, &sa, (struct sigaction *)0);
 	msg("\aconnection closed.");
 	done(1);

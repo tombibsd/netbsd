@@ -37,6 +37,7 @@ SCRIPTSDIR_dhcpcd-run-hooks=	/libexec
 
 CONFIGFILES=			dhcpcd.conf
 FILESDIR_dhcpcd.conf=		/etc
+FILESMODE_dhcpcd.conf=		644	# -rw-r--r--
 
 HOOKS=			01-test 02-dump 10-wpa_supplicant 15-timezone
 HOOKS+=			20-resolv.conf 29-lookup-hostname 30-hostname

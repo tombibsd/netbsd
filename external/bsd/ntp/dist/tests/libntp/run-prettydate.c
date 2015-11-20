@@ -24,6 +24,10 @@
 #include "unity.h"
 #include <setjmp.h>
 #include <stdio.h>
+#include "config.h"
+#include "ntp_stdlib.h"
+#include "ntp_calendar.h"
+#include "ntp_fp.h"
 
 //=======External Functions This Runner Calls=====
 extern void setUp(void);
@@ -32,22 +36,22 @@ extern void test_ConstantDate(void);
 
 
 //=======Test Reset Option=====
-void resetTest()
+void resetTest(void);
+void resetTest(void)
 {
   tearDown();
   setUp();
 }
 
-char *progname;
+char const *progname;
 
 
 //=======MAIN=====
 int main(int argc, char *argv[])
 {
   progname = argv[0];
-  Unity.TestFile = "prettydate.c";
   UnityBegin("prettydate.c");
-  RUN_TEST(test_ConstantDate, 10);
+  RUN_TEST(test_ConstantDate, 9);
 
   return (UnityEnd());
 }

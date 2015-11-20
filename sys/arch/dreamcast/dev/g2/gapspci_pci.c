@@ -62,7 +62,7 @@ void		gaps_decompose_tag(void *, pcitag_t, int *, int *, int *);
 pcireg_t	gaps_conf_read(void *, pcitag_t, int);
 void		gaps_conf_write(void *, pcitag_t, int, pcireg_t);
 
-int		gaps_intr_map(struct pci_attach_args *, pci_intr_handle_t *);
+int		gaps_intr_map(const struct pci_attach_args *, pci_intr_handle_t *);
 const char	*gaps_intr_string(void *, pci_intr_handle_t,
 		    char *buf, size_t len);
 void		*gaps_intr_establish(void *, pci_intr_handle_t,
@@ -195,7 +195,7 @@ gaps_conf_write(void *v, pcitag_t tag, int reg, pcireg_t val)
 }
 
 int
-gaps_intr_map(struct pci_attach_args *pa, pci_intr_handle_t *ihp)
+gaps_intr_map(const struct pci_attach_args *pa, pci_intr_handle_t *ihp)
 {
 
 	*ihp = SYSASIC_EVENT_EXT;

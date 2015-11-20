@@ -30,7 +30,12 @@
  * 254.255.255.255
  */
 
+
+
 void rtol(uint32_t r, char *es);
+void rtoltor(uint32_t er, char *es);
+void ltor(l_fp l, char *er);
+void test_refidsmear(void);
 
 void
 rtol(uint32_t r, char *es)
@@ -55,7 +60,7 @@ rtol(uint32_t r, char *es)
 }
 
 
-void rtoltor(uint32_t er, char *es);
+
 
 void
 rtoltor(uint32_t er, char *es)
@@ -83,8 +88,6 @@ rtoltor(uint32_t er, char *es)
 	return;
 }
 
-
-void ltor(l_fp l, char *er);
 
 void
 ltor(l_fp l, char *er)

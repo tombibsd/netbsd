@@ -10,10 +10,10 @@
 /sdmmc_cis.c/1.4/Wed Feb  1 22:34:43 2012/-kk/
 /sdmmc_io.c/1.12/Sun Oct 11 09:01:24 2015/-kk/
 /sdmmc_ioreg.h/1.2/Thu Oct  7 12:40:34 2010/-kk/
-/sdmmc_mem.c/1.47/Sun Oct 11 09:01:24 2015/-kk/
+/sdmmc_mem.c/1.48/Fri Nov 20 01:31:19 2015/-kk/
 /sdmmcchip.h/1.7/Wed Aug 12 04:14:24 2015/-kk/
 /sdmmcdevs.h/1.2/Tue Apr 21 03:10:41 2009/-kk/
 /sdmmcdevs/1.2/Thu Oct 24 10:28:58 2013/-kk/
-/sdmmcreg.h/1.20/Wed Aug 12 04:14:24 2015/-kk/
+/sdmmcreg.h/1.21/Fri Nov 20 01:31:19 2015/-kk/
 /sdmmcvar.h/1.20/Sun Oct 11 09:01:24 2015/-kk/
 D

@@ -1,0 +1,4 @@
+# $NetBSD$
+./usr/X11R7/lib/libdrm_nouveau.so		-unknown-		xorg
+./usr/X11R7/lib/libdrm_nouveau.so.2		-unknown-		xorg
+./usr/X11R7/lib/libdrm_nouveau.so.2.0		-unknown-		xorg

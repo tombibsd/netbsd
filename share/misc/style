@@ -339,7 +339,10 @@ function(int a1, int a2, float fl, int a4)
 	 * Function prototypes should go in the include file "extern.h".
 	 * If a line overflows reuse the type keyword.
 	 *
-	 * DO NOT initialize variables in the declarations.
+	 * Avoid initializing variables in the declarations; move
+	 * declarations next to their first use, and initialize
+	 * opportunistically. This avoids over-initialization and
+	 * accidental bugs caused by declaration reordering.
 	 */
 	extern u_char one;
 	extern char two;

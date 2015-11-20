@@ -26,7 +26,7 @@ LIBC=
 LIBCRTBEGIN=
 LIBCRTEND=
 
-COPTS+=		-ffreestanding
+COPTS+=		-ffreestanding -mcpu=v9
 CWARNFLAGS+=	-Wno-main
 CFLAGS+=	${COPTS}
 CPPFLAGS+=	-D_STANDALONE

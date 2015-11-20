@@ -161,7 +161,7 @@ usb* 		at ohci?
 #options 	INGENIC_EHCI_DEBUG
 #options 	EHCI_DEBUG
 #options 	USBVERBOSE
-#options 	USBHIST
+#options 	USB_DEBUG
 #usb* 		at ehci?
 
 # onboard ethernet

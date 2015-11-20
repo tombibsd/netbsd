@@ -659,7 +659,6 @@ x86_set_sdbase(void *arg, char which, lwp_t *l, bool direct)
 #else
 	struct pcb *pcb;
 	vaddr_t base;
-	int error;
 
 	if (l->l_proc->p_flag & PK_32) {
 		return x86_set_sdbase32(arg, which, l, direct);
@@ -668,17 +667,13 @@ x86_set_sdbase(void *arg, char which, lwp_t *l, bool direct)
 	if (direct) {
 		base = (vaddr_t)arg;
 	} else {
-		error = copyin(arg, &base, sizeof(base));
+		int error = copyin(arg, &base, sizeof(base));
 		if (error != 0)
 			return error;
 	}
 
 	if (base >= VM_MAXUSER_ADDRESS)
 		return EINVAL;
-
-	if (error) {
-		return error;
-	}
 
 	pcb = lwp_getpcb(l);
 
@@ -699,7 +694,7 @@ x86_set_sdbase(void *arg, char which, lwp_t *l, bool direct)
 	}
 	kpreempt_enable();
 
-	return error;
+	return 0;
 #endif
 }
 

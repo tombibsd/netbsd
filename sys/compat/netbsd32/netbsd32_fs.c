@@ -958,7 +958,7 @@ netbsd32___mount50(struct lwp *l, const struct netbsd32___mount50_args *uap,
 	} else {
 		data_seg = UIO_USERSPACE;
 	}
-	error = do_sys_mount(l, NULL, type, path, flags, data, data_seg,
+	error = do_sys_mount(l, mtype, UIO_SYSSPACE, path, flags, data, data_seg,
 	    data_len, retval);
 	if (error)
 		return error;

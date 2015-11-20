@@ -154,7 +154,8 @@ awin_sysconfig_get_int(const char *key, const char *subkey)
 	if (awin_sysconfig_parse(key, subkey, &value) == false)
 		return -1;
 
-	KASSERT(value.type == AWIN_SYSCONFIG_TYPE_SINGLE_WORD);
+	if (value.type != AWIN_SYSCONFIG_TYPE_SINGLE_WORD)
+		return -1;
 
 	memcpy(&ret, &awin_sysconfig[value.offset << 2], sizeof(ret));
 
@@ -169,7 +170,8 @@ awin_sysconfig_get_string(const char *key, const char *subkey)
 	if (awin_sysconfig_parse(key, subkey, &value) == false)
 		return NULL;
 
-	KASSERT(value.type == AWIN_SYSCONFIG_TYPE_STRING);
+	if (value.type != AWIN_SYSCONFIG_TYPE_STRING)
+		return NULL;
 
 	return &awin_sysconfig[value.offset << 2];
 }

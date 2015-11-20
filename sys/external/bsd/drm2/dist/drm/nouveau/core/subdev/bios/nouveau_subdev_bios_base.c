@@ -376,7 +376,8 @@ nouveau_bios_shadow(struct nouveau_bios *bios)
 		} while ((++mthd)->shadow);
 
 		/* attempt to load firmware image */
-		ret = request_firmware(&fw, source, &nv_device(bios)->pdev->dev);
+		ret = request_firmware(&fw, source,
+		    nv_device_base(nv_device(bios)));
 		if (ret == 0) {
 			bios->size = fw->size;
 			bios->data = kmemdup(fw->data, fw->size, GFP_KERNEL);

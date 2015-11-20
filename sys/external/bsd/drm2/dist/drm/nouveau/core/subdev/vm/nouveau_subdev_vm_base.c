@@ -92,23 +92,27 @@ nouveau_vm_map_dma(struct nouveau_vma *vma, u64 delta, u64 length,
 	u32 pde  = (offset >> vmm->pgt_bits) - vm->fpde;
 	u32 pte  = (offset & ((1 << vmm->pgt_bits) - 1)) >> bits;
 	u32 max  = 1 << (vmm->pgt_bits - bits);
-	unsigned seg;
+	unsigned seg, pgoff;
 
 	for (seg = 0; seg < mem->pages->dm_nsegs; seg++) {
 		struct nouveau_gpuobj *pgt = vm->pgt[pde].obj[big];
 		dma_addr_t addr = mem->pages->dm_segs[seg].ds_addr;
 
-		KASSERT(mem->pages->dm_segs[seg].ds_len == PAGE_SIZE);
-		vmm->map_sg(vma, pgt, mem, pte, 1, &addr);
-		num--;
-		pte++;
+		KASSERT((mem->pages->dm_segs[seg].ds_len & NOUVEAU_GPU_PAGE_MASK) == 0);
+		for (pgoff = 0; pgoff < mem->pages->dm_segs[seg].ds_len;
+		     pgoff += NOUVEAU_GPU_PAGE_SIZE, addr += NOUVEAU_GPU_PAGE_SIZE) {
+			
+			vmm->map_sg(vma, pgt, mem, pte, 1, &addr);
+			num--;
+			pte++;
 
-		if (num == 0)
-			goto finish;
+			if (num == 0)
+				goto finish;
 
-		if (__predict_false(pte >= max)) {
-			pde++;
-			pte = 0;
+			if (__predict_false(pte >= max)) {
+				pde++;
+				pte = 0;
+			}
 		}
 	}
 

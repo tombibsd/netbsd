@@ -102,5 +102,6 @@ int32_t posix2time_z(const timezone_t, int32_t);
 timezone_t tzalloc(const char *);
 void tzfree(const timezone_t);
 const char *tzgetname(const timezone_t, int);
+long tzgetgmtoff(const timezone_t, int);
 
 #endif /* !_COMPAT_TIME_H_ */

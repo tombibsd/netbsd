@@ -101,7 +101,7 @@
 #define	INTRSTACKSIZE	8192
 
 #ifndef MSGBUFSIZE
-#define MSGBUFSIZE	8*NBPG		/* default message buffer size */
+#define MSGBUFSIZE	(8*NBPG)	/* default message buffer size */
 #endif
 
 /*

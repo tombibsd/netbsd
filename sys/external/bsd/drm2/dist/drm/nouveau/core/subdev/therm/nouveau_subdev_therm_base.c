@@ -141,7 +141,9 @@ nouveau_therm_update(struct nouveau_therm *therm, int mode)
 	spin_unlock_irqrestore(&priv->lock, flags);
 
 	if (duty >= 0) {
+#if 0 /* XXXMRG one log per second is a little excessive */
 		nv_debug(therm, "FAN target request: %d%%\n", duty);
+#endif
 		nouveau_therm_fan_set(therm, immd, duty);
 	}
 }

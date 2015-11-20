@@ -211,6 +211,7 @@ time_t posix2time_z(timezone_t __restrict, time_t) __RENAME(__posix2time_z50);
 timezone_t tzalloc(const char *) __RENAME(__tzalloc50);
 void tzfree(timezone_t __restrict) __RENAME(__tzfree50);
 const char *tzgetname(timezone_t __restrict, int) __RENAME(__tzgetname50);
+long tzgetgmtoff(timezone_t __restrict, int) __RENAME(__tzgetgmtoff50);
 #endif
 
 size_t strftime_lz(timezone_t __restrict, char * __restrict, size_t,

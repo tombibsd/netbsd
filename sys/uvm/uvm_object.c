@@ -62,6 +62,9 @@ uvm_obj_init(struct uvm_object *uo, const struct uvm_pagerops *ops,
     bool alock, u_int refs)
 {
 
+#if 0 /* notyet */
+	KASSERT(ops);
+#endif
 	if (alock) {
 		/* Allocate and assign a lock. */
 		uo->vmobjlock = mutex_obj_alloc(MUTEX_DEFAULT, IPL_NONE);

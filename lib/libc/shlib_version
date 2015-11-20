@@ -42,4 +42,4 @@
 # - move gethostbyname to a compat library
 # - remove arc4random(3) API
 major=12
-minor=197
+minor=198

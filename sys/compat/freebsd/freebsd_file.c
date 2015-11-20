@@ -98,16 +98,12 @@ freebsd_sys_mount(struct lwp *l, const struct freebsd_sys_mount_args *uap, regis
 		syscallarg(void *) data;
 	} */
 	const char *type;
-	struct vfsops *vfsops;
 	register_t dummy;
 
 	if ((type = convert_from_freebsd_mount_type(SCARG(uap, type))) == NULL)
 		return ENODEV;
-	vfsops = vfs_getopsbyname(type);
-	if (vfsops == NULL)
-		return ENODEV;
 
-	return do_sys_mount(l, vfsops, NULL, SCARG(uap, path),
+	return do_sys_mount(l, type, UIO_SYSSPACE, SCARG(uap, path),
 	    SCARG(uap, flags), SCARG(uap, data), UIO_USERSPACE, 0, &dummy);
 }
 

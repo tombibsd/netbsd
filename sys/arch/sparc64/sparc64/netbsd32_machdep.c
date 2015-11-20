@@ -76,9 +76,6 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <compat/sys/siginfo.h>
 #include <compat/sys/ucontext.h>
 
-#ifndef SUN4U
-#define SUN4U	/* see .../sparc/include/frame.h for the reason */
-#endif
 #include <machine/frame.h>
 #include <machine/pcb.h>
 #include <machine/reg.h>

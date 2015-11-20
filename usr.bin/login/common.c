@@ -173,6 +173,7 @@ update_db(int quietlog, int rootlogin, int fflag)
 	int remote;
 
 	hname = (hostname == NULL) ? "?" : hostname;
+	alen = sizeof(ass);
 	if (getpeername(STDIN_FILENO, (struct sockaddr *)&ass, &alen) != -1) {
 		(void)sockaddr_snprintf(assbuf,
 		    sizeof(assbuf), "%A (%a)", (void *)&ass);
@@ -389,7 +390,7 @@ decode_ss(const char *arg)
 	if (len > sizeof(*ssp) * 4 + 1 || len < sizeof(*ssp))
 		errx(EXIT_FAILURE, "Bad argument");
 
-	if ((ssp = malloc(len)) == NULL)
+	if ((ssp = malloc(len + 1)) == NULL)
 		err(EXIT_FAILURE, NULL);
 
 	if (strunvis((char *)ssp, arg) != sizeof(*ssp))

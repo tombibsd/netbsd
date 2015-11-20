@@ -66,7 +66,7 @@
 #define	USPACE		(UPAGES * NBPG)	/* pages for user struct and kstack */
 
 #ifndef	MSGBUFSIZE
-#define	MSGBUFSIZE	2*NBPG		/* default message buffer size */
+#define	MSGBUFSIZE	(2*NBPG)	/* default message buffer size */
 #endif
 
 /*

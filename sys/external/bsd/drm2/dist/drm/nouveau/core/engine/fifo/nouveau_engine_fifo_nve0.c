@@ -139,7 +139,8 @@ nve0_fifo_runlist_update(struct nve0_fifo_priv *priv, u32 engine)
 	if (cold) {
 		uint count = 2000;
 		while (count-- > 0) {
-			if (!(nv_rd32(priv, 0x002284 + (engine * 0x08)) & 0x00100000))
+			if (!(nv_rd32(priv, 0x002284 +
+			    (engine * 0x08)) & 0x00100000))
 				break;
 			delay(1000);
 		}

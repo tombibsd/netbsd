@@ -445,7 +445,7 @@ agp_i810_attach(device_t parent, device_t self, void *aux)
 	 */
 	mmadr_type = pci_mapreg_type(isc->vga_pa.pa_pc, isc->vga_pa.pa_tag,
 	    mmadr_bar);
-	if ((mmadr_type & PCI_MAPREG_TYPE_MEM) != PCI_MAPREG_TYPE_MEM) {
+	if (PCI_MAPREG_TYPE(mmadr_type) != PCI_MAPREG_TYPE_MEM) {
 		aprint_error_dev(self, "non-memory device MMIO registers\n");
 		error = ENXIO;
 		goto fail1;

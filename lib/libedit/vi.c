@@ -1041,8 +1041,7 @@ vi_histedit(EditLine *el, Int c __attribute__((__unused__)))
 		st = read(fd, cp, TMP_BUFSIZ - 1);
 		if (st > 0) {
 			cp[st] = '\0';
-			len = (size_t)(el->el_line.lastchar -
-			    el->el_line.buffer);
+			len = (size_t)(el->el_line.limit - el->el_line.buffer);
 			len = ct_mbstowcs(el->el_line.buffer, cp, len);
 			if (len > 0 && el->el_line.buffer[len - 1] == '\n')
 				--len;

@@ -85,6 +85,8 @@ LIST_HEAD(kern_history_head, kern_history);
 #define	KERNHIST_UVMPDHIST	0x00000002	/* pdhist */
 #define	KERNHIST_UVMUBCHIST	0x00000004	/* ubchist */
 #define	KERNHIST_UVMLOANHIST	0x00000008	/* loanhist */
+#define	KERNHIST_USBHIST	0x00000010	/* usbhist */
+#define	KERNHIST_SCDEBUGHIST	0x00000020	/* scdebughist */
 
 #ifdef _KERNEL
 

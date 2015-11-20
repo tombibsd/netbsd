@@ -15,7 +15,7 @@
 /confopt.html/1.1.1.4/Sun Apr 12 03:30:00 2015/-kk/
 /copyright.html/1.1.1.5/Sun Apr 12 03:30:00 2015/-kk/
 /debug.html/1.1.1.4/Sat Dec 27 03:33:37 2014/-kk/
-/decode.html/1.1.1.4/Sat Dec 27 03:33:37 2014/-kk/
+/decode.html/1.1.1.5/Fri Nov 20 01:23:08 2015/-kk/
 /discipline.html/1.1.1.2/Sat Dec 27 03:33:37 2014/-kk/
 /discover.html/1.1.1.2/Sat Dec 27 03:33:38 2014/-kk/
 /extern.html/1.1.1.3/Sat Dec 27 03:33:38 2014/-kk/
@@ -29,7 +29,7 @@
 /kernpps.html/1.1.1.3/Sat Dec 27 03:33:38 2014/-kk/
 /keygen.html/1.1.1.4/Sat Dec 27 03:33:38 2014/-kk/
 /leap.html/1.1.1.2/Sat Dec 27 03:33:38 2014/-kk/
-/miscopt.html/1.1.1.5/Sat Jul 25 01:20:52 2015/-kk/
+/miscopt.html/1.1.1.6/Fri Nov 20 01:23:08 2015/-kk/
 /monopt.html/1.1.1.3/Sat Dec 27 03:33:38 2014/-kk/
 /msyslog.html/1.1.1.3/Sat Dec 27 03:33:38 2014/-kk/
 /ntp-wait.html/1.1.1.2/Sat Dec 27 03:33:38 2014/-kk/
@@ -56,12 +56,11 @@
 /select.html/1.1.1.2/Sat Dec 27 03:33:38 2014/-kk/
 /sitemap.html/1.1.1.3/Sat Dec 27 03:33:38 2014/-kk/
 /sntp.html/1.1.1.4/Sun Apr 12 03:30:00 2015/-kk/
-/stats.html/1.1.1.2/Sat Dec 27 03:33:38 2014/-kk/
+/stats.html/1.1.1.3/Fri Nov 20 01:23:08 2015/-kk/
 /tickadj.html/1.1.1.4/Sat Dec 27 03:33:38 2014/-kk/
 /warp.html/1.1.1.2/Sat Dec 27 03:33:38 2014/-kk/
 /xleave.html/1.1.1.3/Sat Dec 27 03:33:38 2014/-kk/
 D/drivers////
 D/hints////
 D/icons////
-D/pic////
 D/scripts////

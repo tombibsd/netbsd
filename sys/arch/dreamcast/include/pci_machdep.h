@@ -65,7 +65,7 @@ struct dreamcast_pci_chipset {
 
 	void		*pc_intr_v;
 
-  	int		(*pc_intr_map)(struct pci_attach_args *,
+  	int		(*pc_intr_map)(const struct pci_attach_args *,
 			    pci_intr_handle_t *);
 	const char	*(*pc_intr_string)(void *, pci_intr_handle_t,
 			    char *, size_t);

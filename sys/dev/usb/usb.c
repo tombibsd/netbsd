@@ -73,7 +73,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <dev/usb/usb_quirks.h>
 #include <dev/usb/usbhist.h>
 
-#if defined(USBHIST)
+#if defined(USB_DEBUG)
 
 #ifndef USBHIST_SIZE
 #define USBHIST_SIZE 50000

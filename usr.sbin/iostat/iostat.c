@@ -184,7 +184,7 @@ main(int argc, char *argv[])
 	if (ISSET(todo, SHOW_CPU))
 		defdrives -= 16;	/* XXX magic number */
 	if (ISSET(todo, SHOW_TTY))
-		defdrives -= 9;		/* XXX magic number */
+		defdrives -= 10;	/* XXX magic number */
 	defdrives /= 18;		/* XXX magic number */
 
 	drvinit(0);
@@ -279,7 +279,7 @@ header(void)
 
 					/* Sub-Headers. */
 	if (ISSET(todo, SHOW_TTY))
-		printf(" tin tout");
+		printf(" tin  tout");
 
 	if (ISSET(todo, SHOW_STATS_1)) {
 		for (i = 0; i < ndrive; i++)
@@ -468,7 +468,7 @@ display(void)
 	}
 
 	if (ISSET(todo, SHOW_TTY))
-		printf("%4.0f %4.0f", cur.tk_nin / etime, cur.tk_nout / etime);
+		printf("%4.0f %5.0f", cur.tk_nin / etime, cur.tk_nout / etime);
 
 	if (ISSET(todo, SHOW_STATS_1)) {
 		drive_stats(etime);

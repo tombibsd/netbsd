@@ -7,7 +7,10 @@
 SUBDIR=	libfontenc freetype libFS libICE libglapi \
 	libXau libXdmcp libdrm libpciaccess libpthread-stubs .WAIT
 .if ${MACHINE_ARCH} == "i386" || ${MACHINE_ARCH} == "x86_64"
-SUBDIR+=libdrm_intel libdrm_nouveau
+SUBDIR+=libdrm_intel
+.endif
+.if ${MACHINE_ARCH} == "i386" || ${MACHINE_ARCH} == "x86_64" || ${MACHINE} == "evbarm"
+SUBDIR+=libdrm_nouveau
 .endif
 SUBDIR+=libdrm_radeon pixman
 .if !defined(MLIBDIR)

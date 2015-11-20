@@ -73,7 +73,7 @@
  * TODO (in order of importance):
  *
  *	- Check XXX'ed comments
- *	- LPLU other than PCH*
+ *	- Disable D0 LPLU on 8257[12356], 82580 and I350.
  *	- TX Multi queue
  *	- EEE (Energy Efficiency Ethernet)
  *	- Virtual Function
@@ -156,10 +156,6 @@ int	wm_debug = WM_DEBUG_TX | WM_DEBUG_RX | WM_DEBUG_LINK | WM_DEBUG_GMII
 
 #ifdef NET_MPSAFE
 #define WM_MPSAFE	1
-#endif
-
-#ifdef __HAVE_PCI_MSI_MSIX
-#define WM_MSI_MSIX	1 /* Enable by default */
 #endif
 
 /*
@@ -565,12 +561,11 @@ static uint32_t	wm_rxpbs_adjust_82580(uint32_t);
 static void	wm_reset(struct wm_softc *);
 static int	wm_add_rxbuf(struct wm_rxqueue *, int);
 static void	wm_rxdrain(struct wm_rxqueue *);
+static void	wm_rss_getkey(uint8_t *);
 static void	wm_init_rss(struct wm_softc *);
-#ifdef WM_MSI_MSIX
 static void	wm_adjust_qnum(struct wm_softc *, int);
 static int	wm_setup_legacy(struct wm_softc *);
 static int	wm_setup_msix(struct wm_softc *);
-#endif
 static int	wm_init(struct ifnet *);
 static int	wm_init_locked(struct ifnet *);
 static void	wm_stop(struct ifnet *, int);
@@ -614,11 +609,9 @@ static void	wm_linkintr_tbi(struct wm_softc *, uint32_t);
 static void	wm_linkintr_serdes(struct wm_softc *, uint32_t);
 static void	wm_linkintr(struct wm_softc *, uint32_t);
 static int	wm_intr_legacy(void *);
-#ifdef WM_MSI_MSIX
 static int	wm_txintr_msix(void *);
 static int	wm_rxintr_msix(void *);
 static int	wm_linkintr_msix(void *);
-#endif
 
 /*
  * Media related.
@@ -727,10 +720,12 @@ static void	wm_put_hw_semaphore_82573(struct wm_softc *);
  * Management mode and power management related subroutines.
  * BMC, AMT, suspend/resume and EEE.
  */
+#ifdef WM_WOL
 static int	wm_check_mng_mode(struct wm_softc *);
 static int	wm_check_mng_mode_ich8lan(struct wm_softc *);
 static int	wm_check_mng_mode_82574(struct wm_softc *);
 static int	wm_check_mng_mode_generic(struct wm_softc *);
+#endif
 static int	wm_enable_mng_pass_thru(struct wm_softc *);
 static int	wm_check_reset_block(struct wm_softc *);
 static void	wm_get_hw_control(struct wm_softc *);
@@ -745,6 +740,9 @@ static void	wm_enable_phy_wakeup(struct wm_softc *);
 static void	wm_igp3_phy_powerdown_workaround_ich8lan(struct wm_softc *);
 static void	wm_enable_wakeup(struct wm_softc *);
 #endif
+/* LPLU (Low Power Link Up) */
+static void	wm_lplu_d0_disable(struct wm_softc *);
+static void	wm_lplu_d0_disable_pch(struct wm_softc *);
 /* EEE */
 static void	wm_set_eee_i350(struct wm_softc *);
 
@@ -1455,14 +1453,8 @@ wm_attach(device_t parent, device_t self, void *aux)
 	prop_dictionary_t dict;
 	struct ifnet *ifp = &sc->sc_ethercom.ec_if;
 	pci_chipset_tag_t pc = pa->pa_pc;
-#ifndef WM_MSI_MSIX
-	pci_intr_handle_t ih;
-	const char *intrstr = NULL;
-	char intrbuf[PCI_INTRSTR_LEN];
-#else
 	int counts[PCI_INTR_TYPE_SIZE];
 	pci_intr_type_t max_type;
-#endif
 	const char *eetype, *xname;
 	bus_space_tag_t memt;
 	bus_space_handle_t memh;
@@ -1627,46 +1619,7 @@ wm_attach(device_t parent, device_t self, void *aux)
 		return;
 	}
 
-#ifndef WM_MSI_MSIX
-	sc->sc_ntxqueues = 1;
-	sc->sc_nrxqueues = 1;
-	error = wm_alloc_txrx_queues(sc);
-	if (error) {
-		aprint_error_dev(sc->sc_dev, "cannot allocate queues %d\n",
-		    error);
-		return;
-	}
-
-	/*
-	 * Map and establish our interrupt.
-	 */
-	if (pci_intr_map(pa, &ih)) {
-		aprint_error_dev(sc->sc_dev, "unable to map interrupt\n");
-		return;
-	}
-	intrstr = pci_intr_string(pc, ih, intrbuf, sizeof(intrbuf));
-#ifdef WM_MPSAFE
-	pci_intr_setattr(pc, &ih, PCI_INTR_MPSAFE, true);
-#endif
-	sc->sc_ihs[0] = pci_intr_establish_xname(pc, ih, IPL_NET,
-	    wm_intr_legacy, sc, device_xname(sc->sc_dev));
-	if (sc->sc_ihs[0] == NULL) {
-		aprint_error_dev(sc->sc_dev, "unable to establish interrupt");
-		if (intrstr != NULL)
-			aprint_error(" at %s", intrstr);
-		aprint_error("\n");
-		return;
-	}
-	aprint_normal_dev(sc->sc_dev, "interrupting at %s\n", intrstr);
-	sc->sc_nintrs = 1;
-#else /* WM_MSI_MSIX */
 	wm_adjust_qnum(sc, pci_msix_count(pa->pa_pc, pa->pa_tag));
-	error = wm_alloc_txrx_queues(sc);
-	if (error) {
-		aprint_error_dev(sc->sc_dev, "cannot allocate queues %d\n",
-		    error);
-		return;
-	}
 
 	/* Allocation settings */
 	max_type = PCI_INTR_TYPE_MSIX;
@@ -1693,6 +1646,7 @@ alloc_retry:
 			goto alloc_retry;
 		}
 	} else 	if (pci_intr_type(sc->sc_intrs[0]) == PCI_INTR_TYPE_MSI) {
+		wm_adjust_qnum(sc, 0);	/* must not use multiqueue */
 		error = wm_setup_legacy(sc);
 		if (error) {
 			pci_intr_release(sc->sc_pc, sc->sc_intrs,
@@ -1704,6 +1658,7 @@ alloc_retry:
 			goto alloc_retry;
 		}
 	} else {
+		wm_adjust_qnum(sc, 0);	/* must not use multiqueue */
 		error = wm_setup_legacy(sc);
 		if (error) {
 			pci_intr_release(sc->sc_pc, sc->sc_intrs,
@@ -1711,7 +1666,6 @@ alloc_retry:
 			return;
 		}
 	}
-#endif /* WM_MSI_MSIX */
 
 	/*
 	 * Check the function ID (unit number of the chip).
@@ -2063,6 +2017,7 @@ alloc_retry:
 	if ((sc->sc_flags & WM_F_PLL_WA_I210) != 0)
 		wm_pll_workaround_i210(sc);
 
+	wm_get_wakeup(sc);
 	switch (sc->sc_type) {
 	case WM_T_82571:
 	case WM_T_82572:
@@ -2076,13 +2031,14 @@ alloc_retry:
 	case WM_T_PCH:
 	case WM_T_PCH2:
 	case WM_T_PCH_LPT:
-		if (wm_check_mng_mode(sc) != 0)
+		/* Non-AMT based hardware can now take control from firmware */
+		if ((sc->sc_flags & WM_F_HAS_AMT) == 0)
 			wm_get_hw_control(sc);
 		break;
 	default:
 		break;
 	}
-	wm_get_wakeup(sc);
+
 	/*
 	 * Read the Ethernet address from the EEPROM, if not first found
 	 * in device properties.
@@ -2626,9 +2582,7 @@ wm_detach(device_t self, int flags __unused)
 			sc->sc_ihs[i] = NULL;
 		}
 	}
-#ifdef WM_MSI_MSIX
 	pci_intr_release(sc->sc_pc, sc->sc_intrs, sc->sc_nintrs);
-#endif /* WM_MSI_MSIX */
 
 	/* Unmap the registers */
 	if (sc->sc_ss) {
@@ -3780,9 +3734,8 @@ wm_reset(struct wm_softc *sc)
 			 */
 			if ((sc->sc_type == WM_T_PCH2)
 			    && ((CSR_READ(sc, WMREG_FWSM) & FWSM_FW_VALID)
-				!= 0))
+				== 0))
 				wm_gate_hw_phy_config_ich8lan(sc, 1);
-
 
 			reg |= CTRL_PHY_RESET;
 			phy_reset = 1;
@@ -3961,7 +3914,7 @@ wm_reset(struct wm_softc *sc)
 	if (sc->sc_type == WM_T_PCH)
 		CSR_WRITE(sc, WMREG_CRC_OFFSET, 0x65656565);
 
-	if ((sc->sc_flags & WM_F_NEWQUEUE) != 0)
+	if (sc->sc_type >= WM_T_82544)
 		CSR_WRITE(sc, WMREG_WUC, 0);
 
 	wm_reset_mdicnfg_82580(sc);
@@ -4047,6 +4000,43 @@ wm_rxdrain(struct wm_rxqueue *rxq)
 	}
 }
 
+
+/*
+ * XXX copy from FreeBSD's sys/net/rss_config.c
+ */
+/*
+ * RSS secret key, intended to prevent attacks on load-balancing.  Its
+ * effectiveness may be limited by algorithm choice and available entropy
+ * during the boot.
+ *
+ * XXXRW: And that we don't randomize it yet!
+ *
+ * This is the default Microsoft RSS specification key which is also
+ * the Chelsio T5 firmware default key.
+ */
+#define RSS_KEYSIZE 40
+static uint8_t wm_rss_key[RSS_KEYSIZE] = {
+	0x6d, 0x5a, 0x56, 0xda, 0x25, 0x5b, 0x0e, 0xc2,
+	0x41, 0x67, 0x25, 0x3d, 0x43, 0xa3, 0x8f, 0xb0,
+	0xd0, 0xca, 0x2b, 0xcb, 0xae, 0x7b, 0x30, 0xb4,
+	0x77, 0xcb, 0x2d, 0xa3, 0x80, 0x30, 0xf2, 0x0c,
+	0x6a, 0x42, 0xb7, 0x3b, 0xbe, 0xac, 0x01, 0xfa,
+};
+
+/*
+ * Caller must pass an array of size sizeof(rss_key).
+ *
+ * XXX
+ * As if_ixgbe may use this function, this function should not be
+ * if_wm specific function.
+ */
+static void
+wm_rss_getkey(uint8_t *key)
+{
+
+	memcpy(key, wm_rss_key, sizeof(wm_rss_key));
+}
+
 /*
  * Setup registers for RSS.
  *
@@ -4055,8 +4045,10 @@ wm_rxdrain(struct wm_rxqueue *rxq)
 static void
 wm_init_rss(struct wm_softc *sc)
 {
-	uint32_t mrqc, reta_reg;
+	uint32_t mrqc, reta_reg, rss_key[RSSRK_NUM_REGS];
 	int i;
+
+	CTASSERT(sizeof(rss_key) == sizeof(wm_rss_key));
 
 	for (i = 0; i < RETA_NUM_ENTRIES; i++) {
 		int qid, reta_ent;
@@ -4082,8 +4074,9 @@ wm_init_rss(struct wm_softc *sc)
 		CSR_WRITE(sc, WMREG_RETA_Q(i), reta_reg);
 	}
 
+	wm_rss_getkey((uint8_t *)rss_key);
 	for (i = 0; i < RSSRK_NUM_REGS; i++)
-		CSR_WRITE(sc, WMREG_RSSRK(i), (uint32_t)random());
+		CSR_WRITE(sc, WMREG_RSSRK(i), rss_key[i]);
 
 	if (sc->sc_type == WM_T_82574)
 		mrqc = MRQC_ENABLE_RSS_MQ_82574;
@@ -4101,8 +4094,6 @@ wm_init_rss(struct wm_softc *sc)
 
 	CSR_WRITE(sc, WMREG_MRQC, mrqc);
 }
-
-#ifdef WM_MSI_MSIX
 
 /*
  * Adjust TX and RX queue numbers which the system actulally uses.
@@ -4212,7 +4203,14 @@ wm_setup_legacy(struct wm_softc *sc)
 	pci_chipset_tag_t pc = sc->sc_pc;
 	const char *intrstr = NULL;
 	char intrbuf[PCI_INTRSTR_LEN];
+	int error;
 
+	error = wm_alloc_txrx_queues(sc);
+	if (error) {
+		aprint_error_dev(sc->sc_dev, "cannot allocate queues %d\n",
+		    error);
+		return ENOMEM;
+	}
 	intrstr = pci_intr_string(pc, sc->sc_intrs[0], intrbuf,
 	    sizeof(intrbuf));
 #ifdef WM_MPSAFE
@@ -4242,6 +4240,13 @@ wm_setup_msix(struct wm_softc *sc)
 	const char *intrstr = NULL;
 	char intrbuf[PCI_INTRSTR_LEN];
 	char intr_xname[INTRDEVNAMEBUF];
+
+	error = wm_alloc_txrx_queues(sc);
+	if (error) {
+		aprint_error_dev(sc->sc_dev, "cannot allocate queues %d\n",
+		    error);
+		return ENOMEM;
+	}
 
 	kcpuset_create(&affinity, false);
 	intr_idx = 0;
@@ -4386,7 +4391,6 @@ wm_setup_msix(struct wm_softc *sc)
 	kcpuset_destroy(affinity);
 	return ENOMEM;
 }
-#endif
 
 /*
  * wm_init:		[ifnet interface function]
@@ -4457,7 +4461,8 @@ wm_init_locked(struct ifnet *ifp)
 	case WM_T_PCH:
 	case WM_T_PCH2:
 	case WM_T_PCH_LPT:
-		if (wm_check_mng_mode(sc) != 0)
+		/* AMT based hardware can now take control from firmware */
+		if ((sc->sc_flags & WM_F_HAS_AMT) != 0)
 			wm_get_hw_control(sc);
 		break;
 	default:
@@ -7114,8 +7119,12 @@ wm_linkintr_gmii(struct wm_softc *sc, uint32_t icr)
 		__func__));
 
 	if (icr & ICR_LSC) {
-		DPRINTF(WM_DEBUG_LINK,
-		    ("%s: LINK: LSC -> mii_pollstat\n",
+		uint32_t status = CSR_READ(sc, WMREG_STATUS);
+
+		if ((sc->sc_type == WM_T_ICH8) && ((status & STATUS_LU) == 0))
+			wm_gig_downshift_workaround_ich8lan(sc);
+
+		DPRINTF(WM_DEBUG_LINK, ("%s: LINK: LSC -> mii_pollstat\n",
 			device_xname(sc->sc_dev)));
 		mii_pollstat(&sc->sc_mii);
 		if (sc->sc_type == WM_T_82543) {
@@ -7415,7 +7424,6 @@ wm_intr_legacy(void *arg)
 	return handled;
 }
 
-#ifdef WM_MSI_MSIX
 /*
  * wm_txintr_msix:
  *
@@ -7541,7 +7549,6 @@ out:
 
 	return 1;
 }
-#endif /* WM_MSI_MSIX */
 
 /*
  * Media related.
@@ -7767,7 +7774,6 @@ wm_gmii_reset(struct wm_softc *sc)
 	case WM_T_82571:
 	case WM_T_82572:
 	case WM_T_82573:
-	case WM_T_82574:
 	case WM_T_82575:
 	case WM_T_82576:
 	case WM_T_82580:
@@ -7775,9 +7781,12 @@ wm_gmii_reset(struct wm_softc *sc)
 	case WM_T_I354:
 	case WM_T_I210:
 	case WM_T_I211:
-	case WM_T_82583:
 	case WM_T_80003:
 		/* null */
+		break;
+	case WM_T_82574:
+	case WM_T_82583:
+		wm_lplu_d0_disable(sc);
 		break;
 	case WM_T_82541:
 	case WM_T_82547:
@@ -7811,18 +7820,11 @@ wm_gmii_reset(struct wm_softc *sc)
 		 * in NVM
 		 */
 
-		/* Configure the LCD with the OEM bits in NVM */
-		if ((sc->sc_type == WM_T_PCH) || (sc->sc_type == WM_T_PCH2)
-		    || (sc->sc_type == WM_T_PCH_LPT)) {
-			/*
-			 * Disable LPLU.
-			 * XXX It seems that 82567 has LPLU, too.
-			 */
-			reg = wm_gmii_hv_readreg(sc->sc_dev, 1, HV_OEM_BITS);
-			reg &= ~(HV_OEM_BITS_A1KDIS| HV_OEM_BITS_LPLU);
-			reg |= HV_OEM_BITS_ANEGNOW;
-			wm_gmii_hv_writereg(sc->sc_dev, 1, HV_OEM_BITS, reg);
-		}
+		/* Disable D0 LPLU. */
+		if (sc->sc_type >= WM_T_PCH)	/* PCH* */
+			wm_lplu_d0_disable_pch(sc);
+		else
+			wm_lplu_d0_disable(sc);	/* ICH* */
 		break;
 	default:
 		panic("%s: unknown type\n", __func__);
@@ -8072,13 +8074,9 @@ wm_gmii_mediainit(struct wm_softc *sc, pci_product_id_t prodid)
 		struct mii_softc *child;
 
 		child = LIST_FIRST(&mii->mii_phys);
-		if (device_is_a(child->mii_dev, "igphy")) {
-			struct igphy_softc *isc = (struct igphy_softc *)child;
-
-			model = isc->sc_mii.mii_mpd_model;
-			if (model == MII_MODEL_yyINTEL_I82566)
-				sc->sc_phytype = WMPHY_IGP_3;
-		}
+		model = child->mii_mpd_model;
+		if (model == MII_MODEL_yyINTEL_I82566)
+			sc->sc_phytype = WMPHY_IGP_3;
 
 		ifmedia_set(&mii->mii_media, IFM_ETHER | IFM_AUTO);
 	}
@@ -10927,6 +10925,7 @@ wm_put_hw_semaphore_82573(struct wm_softc *sc)
  * BMC, AMT, suspend/resume and EEE.
  */
 
+#ifdef WM_WOL
 static int
 wm_check_mng_mode(struct wm_softc *sc)
 {
@@ -10967,7 +10966,8 @@ wm_check_mng_mode_ich8lan(struct wm_softc *sc)
 
 	fwsm = CSR_READ(sc, WMREG_FWSM);
 
-	if ((fwsm & FWSM_MODE_MASK) == (MNG_ICH_IAMT_MODE << FWSM_MODE_SHIFT))
+	if (((fwsm & FWSM_FW_VALID) != 0) &&
+	    (fwsm & FWSM_MODE_MASK) == (MNG_ICH_IAMT_MODE << FWSM_MODE_SHIFT))
 		return 1;
 
 	return 0;
@@ -10998,6 +10998,7 @@ wm_check_mng_mode_generic(struct wm_softc *sc)
 
 	return 0;
 }
+#endif /* WM_WOL */
 
 static int
 wm_enable_mng_pass_thru(struct wm_softc *sc)
@@ -11042,7 +11043,9 @@ wm_enable_mng_pass_thru(struct wm_softc *sc)
 static int
 wm_check_reset_block(struct wm_softc *sc)
 {
+	bool blocked = false;
 	uint32_t reg;
+	int i = 0;
 
 	switch (sc->sc_type) {
 	case WM_T_ICH8:
@@ -11051,11 +11054,16 @@ wm_check_reset_block(struct wm_softc *sc)
 	case WM_T_PCH:
 	case WM_T_PCH2:
 	case WM_T_PCH_LPT:
-		reg = CSR_READ(sc, WMREG_FWSM);
-		if ((reg & FWSM_RSPCIPHY) != 0)
-			return 0;
-		else
-			return -1;
+		do {
+			reg = CSR_READ(sc, WMREG_FWSM);
+			if ((reg & FWSM_RSPCIPHY) == 0) {
+				blocked = true;
+				delay(10*1000);
+				continue;
+			}
+			blocked = false;
+		} while (blocked && (i++ < 10));
+		return blocked ? 1 : 0;
 		break;
 	case WM_T_82571:
 	case WM_T_82572:
@@ -11409,6 +11417,29 @@ wm_enable_wakeup(struct wm_softc *sc)
 }
 #endif /* WM_WOL */
 
+/* LPLU */
+
+static void
+wm_lplu_d0_disable(struct wm_softc *sc)
+{
+	uint32_t reg;
+
+	reg = CSR_READ(sc, WMREG_PHY_CTRL);
+	reg &= ~(PHY_CTRL_GBE_DIS | PHY_CTRL_D0A_LPLU);
+	CSR_WRITE(sc, WMREG_PHY_CTRL, reg);
+}
+
+static void
+wm_lplu_d0_disable_pch(struct wm_softc *sc)
+{
+	uint32_t reg;
+
+	reg = wm_gmii_hv_readreg(sc->sc_dev, 1, HV_OEM_BITS);
+	reg &= ~(HV_OEM_BITS_A1KDIS | HV_OEM_BITS_LPLU);
+	reg |= HV_OEM_BITS_ANEGNOW;
+	wm_gmii_hv_writereg(sc->sc_dev, 1, HV_OEM_BITS, reg);
+}
+
 /* EEE */
 
 static void
@@ -11445,13 +11476,14 @@ wm_set_eee_i350(struct wm_softc *sc)
 static void
 wm_kmrn_lock_loss_workaround_ich8lan(struct wm_softc *sc)
 {
+#if 0
 	int miistatus, active, i;
 	int reg;
 
 	miistatus = sc->sc_mii.mii_media_status;
 
 	/* If the link is not up, do nothing */
-	if ((miistatus & IFM_ACTIVE) != 0)
+	if ((miistatus & IFM_ACTIVE) == 0)
 		return;
 
 	active = sc->sc_mii.mii_media_active;
@@ -11464,7 +11496,7 @@ wm_kmrn_lock_loss_workaround_ich8lan(struct wm_softc *sc)
 		/* read twice */
 		reg = wm_gmii_i80003_readreg(sc->sc_dev, 1, IGP3_KMRN_DIAG);
 		reg = wm_gmii_i80003_readreg(sc->sc_dev, 1, IGP3_KMRN_DIAG);
-		if ((reg & IGP3_KMRN_DIAG_PCS_LOCK_LOSS) != 0)
+		if ((reg & IGP3_KMRN_DIAG_PCS_LOCK_LOSS) == 0)
 			goto out;	/* GOOD! */
 
 		/* Reset the PHY */
@@ -11485,6 +11517,7 @@ wm_kmrn_lock_loss_workaround_ich8lan(struct wm_softc *sc)
 
 out:
 	return;
+#endif
 }
 
 /* WOL from S5 stops working */

@@ -151,7 +151,7 @@ int unpriv_port = 0;
 /*
  * Program name.
  */
-char *progname;
+char const *progname;
 
 /*
  * Systemwide parameters and flags

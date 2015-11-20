@@ -1080,6 +1080,14 @@ struct pci_msix_table_entry {
  * Capability ID: 0x12
  * SATA
  */
+#define	PCI_SATA_REV	0x00	/* Revision Register */
+#define	PCI_SATA_REV_MINOR	__BITS(19, 16)	/* Minor Revision */
+#define	PCI_SATA_REV_MAJOR	__BITS(23, 20)	/* Major Revision */
+#define	PCI_SATA_BAR	0x04	/* BAR Register */
+#define	PCI_SATA_BAR_SPEC	__BITS(3, 0)	/* BAR Specifier */
+#define	PCI_SATA_BAR_INCONF	__BITS(3, 0)	/* All 1 = in config space */
+#define	PCI_SATA_BAR_NUM(x)	(__SHIFTOUT((x), PCI_SATA_BAR_SPEC) - 4)
+#define	PCI_SATA_BAR_OFFSET	__BITS(23, 4)	/* BAR Offset */
 
 /*
  * Capability ID: 0x13
@@ -1347,7 +1355,7 @@ struct pci_rom {
 #define	PCI_EXTCAP_ATS		0x000f	/* Address Translation Services */
 #define	PCI_EXTCAP_SRIOV	0x0010	/* Single Root IO Virtualization */
 #define	PCI_EXTCAP_MRIOV	0x0011	/* Multiple Root IO Virtualization */
-#define	PCI_EXTCAP_MULTICAST	0x0012	/* Multicast */
+#define	PCI_EXTCAP_MCAST	0x0012	/* Multicast */
 #define	PCI_EXTCAP_PAGE_REQ	0x0013	/* Page Request */
 #define	PCI_EXTCAP_AMD		0x0014	/* Reserved for AMD */
 #define	PCI_EXTCAP_RESIZE_BAR	0x0015	/* Resizable BAR */
@@ -1690,6 +1698,27 @@ struct pci_rom {
  * Extended capability ID: 0x0012
  * Multicast
  */
+#define	PCI_MCAST_CAP	0x04	/* Capability Register */
+#define	PCI_MCAST_CAP_MAXGRP	__BITS(5, 0)	/* Max Group */
+#define	PCI_MCAST_CAP_WINSIZEREQ __BITS(13, 8)	/* Window Size Requested  */
+#define	PCI_MCAST_CAP_ECRCREGEN	__BIT(15)	/* ECRC Regen. Supported */
+#define	PCI_MCAST_CTL	0x04	/* Control Register */
+#define	PCI_MCAST_CTL_NUMGRP	__BITS(5+16, 16) /* Num Group */
+#define	PCI_MCAST_CTL_ENA	__BIT(15+16)	/* Enable */
+#define	PCI_MCAST_BARL	0x08	/* Base Address Register (low) */
+#define	PCI_MCAST_BARL_INDPOS	__BITS(5, 0)	/* Index Position */
+#define	PCI_MCAST_BARL_ADDR	__BITS(31, 12)	/* Base Address Register(low)*/
+#define	PCI_MCAST_BARH	0x0c	/* Base Address Register (high) */
+#define	PCI_MCAST_RECVL	0x10	/* Receive Register (low) */
+#define	PCI_MCAST_RECVH	0x14	/* Receive Register (high) */
+#define	PCI_MCAST_BLOCKALLL 0x18 /* Block All Register (low) */
+#define	PCI_MCAST_BLOCKALLH 0x1c /* Block All Register (high) */
+#define	PCI_MCAST_BLOCKUNTRNSL 0x20 /* Block Untranslated Register (low) */
+#define	PCI_MCAST_BLOCKUNTRNSH 0x24 /* Block Untranslated Register (high) */
+#define	PCI_MCAST_OVERLAYL 0x28 /* Overlay BAR (low) */
+#define	PCI_MCAST_OVERLAYL_SIZE	__BITS(5, 0)	/* Overlay Size */
+#define	PCI_MCAST_OVERLAYL_ADDR	__BITS(31, 6)	/* Overlay BAR (low) */
+#define	PCI_MCAST_OVERLAYH 0x2c /* Overlay BAR (high) */
 
 /*
  * Extended capability ID: 0x0013
@@ -1823,10 +1852,5 @@ struct pci_rom {
 #define	PCI_L1PM_CTL2	0x0c	/* Control Register 2 */
 #define	PCI_L1PM_CTL2_TPOSCALE	__BITS(1, 0)	/* T_POWER_ON Scale */
 #define	PCI_L1PM_CTL2_TPOVAL	__BITS(7, 3)	/* T_POWER_ON Value */
-
-/*
- * Local constants
- */
-#define PCI_INTRSTR_LEN			64
 
 #endif /* _DEV_PCI_PCIREG_H_ */

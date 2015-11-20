@@ -35,6 +35,8 @@ __COPYRIGHT("@(#) Copyright (c) 2008\
 __RCSID("$NetBSD$");
 
 #include <time.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 #include <atf-c.h>
 
@@ -78,6 +80,124 @@ h_fail(const char *buf, const char *fmt)
 
 	ATF_REQUIRE_MSG(strptime(buf, fmt, &tm) == NULL, "strptime(\"%s\", "
 	    "\"%s\", &tm) should fail, but it didn't", buf, fmt);
+}
+
+static struct {
+	const char *name;
+	long offs;
+} zt[] = {
+	{ "Z",				0 },
+	{ "UT",				0 },
+	{ "UTC",			0 },
+	{ "GMT",			0 },
+	{ "EST",			-18000 },
+	{ "EDT",			-14400 },
+	{ "CST",			-21600 },
+	{ "CDT",			-18000 },
+	{ "MST",			-25200 },
+	{ "MDT",			-21600 },
+	{ "PST",			-28800 },
+	{ "PDT",			-25200 },
+
+	{ "VST",			-1 },
+	{ "VDT",			-1 },
+
+	{ "+03",			10800 },
+	{ "-03",			-10800 },
+	{ "+0403",			14580 },
+	{ "-0403",			-14580 },
+	{ "+04:03",			14580 },
+	{ "-04:03",			-14580 },
+	{ "+14:00",			50400 },
+	{ "-14:00",			-50400 },
+	{ "+23:59",			86340 },
+	{ "-23:59",			-86340 },
+
+	{ "1",				-1 },
+	{ "03",				-1 },
+	{ "0304",			-1 },
+	{ "+1",				-1 },
+	{ "-203",			-1 },
+	{ "+12345",			-1 },
+	{ "+12:345",			-1 },
+	{ "+123:45",			-1 },
+	{ "+2400",			-1 },
+	{ "-2400",			-1 },
+	{ "+1060",			-1 },
+	{ "-1060",			-1 },
+
+	{ "A",				-3600 },
+	{ "B",				-7200 },
+	{ "C",				-10800 },
+	{ "D",				-14400 },
+	{ "E",				-18000 },
+	{ "F",				-21600 },
+	{ "G",				-25200 },
+	{ "H",				-28800 },
+	{ "I",				-32400 },
+	{ "L",				-39600 },
+	{ "M",				-43200 },
+	{ "N",				3600 },
+	{ "O",				7200 },
+	{ "P",				10800 },
+	{ "Q",				14400 },
+	{ "R",				18000 },
+	{ "T",				25200 },
+	{ "U",				28800 },
+	{ "V",				32400 },
+	{ "W",				36000 },
+	{ "X",				39600 },
+	{ "Y",				43200 },
+
+	{ "J",				-2 },
+
+	{ "America/Los_Angeles",	-28800 },
+	{ "America/New_York",		-18000 },
+	{ "EST4EDT",			-14400 },
+
+	{ "Bogus",			-1 },
+};
+
+static void
+ztest1(const char *name, const char *fmt, long value)
+{
+	struct tm tm;
+	char *rv;
+
+	memset(&tm, 0, sizeof(tm));
+	if ((rv = strptime(name, fmt, &tm)) == NULL) 
+		tm.tm_gmtoff = -1;
+	else if (rv == name && fmt[1] == 'Z')
+		value = 0;
+
+	switch (value) {
+	case -2:
+		value = -timezone;
+		break;
+	case -1:
+		if (fmt[1] == 'Z')
+			value = 0;
+		break;
+	default:
+		break;
+	}
+
+	ATF_REQUIRE_MSG(tm.tm_gmtoff == value,
+	    "strptime(\"%s\", \"%s\", &tm): "
+	    "expected: tm.tm_gmtoff=%ld, got: tm.tm_gmtoff=%ld",
+	    name, fmt, value, tm.tm_gmtoff);
+	printf("%s %s %ld\n", name, fmt, tm.tm_gmtoff);
+}
+
+static void
+ztest(const char *fmt)
+{
+	setenv("TZ", "US/Eastern", 1);
+	ztest1("GMT", fmt, 0);
+	ztest1("UTC", fmt, 0);
+	ztest1("US/Eastern", fmt, -18000);
+	for (size_t i = 0; i < __arraycount(zt); i++)
+		ztest1(zt[i].name, fmt, zt[i].offs);
 }
 
 ATF_TC(common);
@@ -291,6 +411,36 @@ ATF_TC_BODY(year, tc)
 	h_pass("1980", "%EY", 4, -1, -1, -1, -1, -1, 80, -1, -1);
 }
 
+ATF_TC(zone);
+
+ATF_TC_HEAD(zone, tc)
+{
+
+	atf_tc_set_md_var(tc, "descr",
+			  "Checks strptime(3) timezone conversion [z]");
+}
+
+
+ATF_TC_BODY(zone, tc)
+{
+	ztest("%z");
+}
+
+ATF_TC(Zone);
+
+ATF_TC_HEAD(Zone, tc)
+{
+
+	atf_tc_set_md_var(tc, "descr",
+			  "Checks strptime(3) timezone conversion [Z]");
+}
+
+
+ATF_TC_BODY(Zone, tc)
+{
+	ztest("%z");
+}
+
 ATF_TP_ADD_TCS(tp)
 {
 
@@ -300,6 +450,8 @@ ATF_TP_ADD_TCS(tp)
 	ATF_TP_ADD_TC(tp, month);
 	ATF_TP_ADD_TC(tp, seconds);
 	ATF_TP_ADD_TC(tp, year);
+	ATF_TP_ADD_TC(tp, zone);
+	ATF_TP_ADD_TC(tp, Zone);
 
 	return atf_no_error();
 }

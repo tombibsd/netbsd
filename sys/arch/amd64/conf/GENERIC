@@ -1195,7 +1195,7 @@ viomb*	at virtio?			# Virtio memory balloon device
 ld*	at virtio?			# Virtio disk device
 vioif*	at virtio?			# Virtio network device
 viornd*	at virtio?			# Virtio entropy device
-
+vioscsi* at virtio?			# Virtio SCSI device
 
 # Pull in optional local configuration
 cinclude "arch/amd64/conf/GENERIC.local"

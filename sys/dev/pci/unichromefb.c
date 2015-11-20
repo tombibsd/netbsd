@@ -471,8 +471,6 @@ unichromefb_ioctl(void *v, void *vs, u_long cmd, void *data, int flag,
 		return 0;
 	case WSDISPLAYIO_SSPLASH:
 		return ENODEV;
-	case WSDISPLAYIO_SPROGRESS:
-		return ENODEV;
 
 	/* PCI config read/write passthrough. */
 	case PCI_IOC_CFGREAD:

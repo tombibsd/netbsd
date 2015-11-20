@@ -528,7 +528,7 @@
 /smc83c170.c/1.81/Sun Jul 22 14:32:58 2012/-kk/
 /smc83c170reg.h/1.13/Mon Apr 28 20:23:51 2008/-kk/
 /smc83c170var.h/1.14/Thu Sep  3 14:13:16 2009/-kk/
-/smc90cx6.c/1.64/Sat Oct 27 17:18:22 2012/-kk/
+/smc90cx6.c/1.65/Fri Nov 20 01:31:14 2015/-kk/
 /smc90cx6reg.h/1.10/Mon Apr 28 20:23:51 2008/-kk/
 /smc90cx6var.h/1.11/Sat Oct 27 17:18:22 2012/-kk/
 /smc91cxx.c/1.90/Sun Sep 13 01:07:06 2015/-kk/

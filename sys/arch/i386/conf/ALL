@@ -311,7 +311,6 @@ options 	WSDISPLAY_SCROLLSUPPORT
 #options 	VGA_RASTERCONSOLE
 # enable splash screen support; requires hw driver support
 #options 	SPLASHSCREEN
-#options 	SPLASHSCREEN_PROGRESS
 
 # Keylock support
 options 	KEYLOCK

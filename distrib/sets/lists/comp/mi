@@ -9045,6 +9045,7 @@
 ./usr/share/man/cat3/types.0			comp-c-catman		.cat
 ./usr/share/man/cat3/tzalloc.0			comp-c-catman		.cat
 ./usr/share/man/cat3/tzfree.0			comp-c-catman		.cat
+./usr/share/man/cat3/tzgetgmtoff.0		comp-c-catman		.cat
 ./usr/share/man/cat3/tzgetname.0		comp-c-catman		.cat
 ./usr/share/man/cat3/tzset.0			comp-c-catman		.cat
 ./usr/share/man/cat3/tzsetwall.0		comp-c-catman		.cat
@@ -10055,6 +10056,7 @@
 ./usr/share/man/cat9/kcpuset_use.0		comp-sys-catman		.cat
 ./usr/share/man/cat9/kcpuset_zero.0		comp-sys-catman		.cat
 ./usr/share/man/cat9/kernacc.0			comp-obsolete		obsolete
+./usr/share/man/cat9/kernhist.0			comp-sys-catman		.cat
 ./usr/share/man/cat9/kfilter_register.0		comp-sys-catman		.cat
 ./usr/share/man/cat9/kfilter_unregister.0	comp-sys-catman		.cat
 ./usr/share/man/cat9/killproc.0			comp-sys-catman		.cat
@@ -15912,6 +15914,7 @@
 ./usr/share/man/html3/types.html		comp-c-htmlman		html
 ./usr/share/man/html3/tzalloc.html		comp-c-htmlman		html
 ./usr/share/man/html3/tzfree.html		comp-c-htmlman		html
+./usr/share/man/html3/tzgetgmtoff.html		comp-c-htmlman		html
 ./usr/share/man/html3/tzgetname.html		comp-c-htmlman		html
 ./usr/share/man/html3/tzset.html		comp-c-htmlman		html
 ./usr/share/man/html3/tzsetwall.html		comp-c-htmlman		html
@@ -16877,6 +16880,7 @@
 ./usr/share/man/html9/kcpuset_unuse.html	comp-sys-htmlman	html
 ./usr/share/man/html9/kcpuset_use.html		comp-sys-htmlman	html
 ./usr/share/man/html9/kcpuset_zero.html		comp-sys-htmlman	html
+./usr/share/man/html9/kernhist.html		comp-sys-htmlman	html
 ./usr/share/man/html9/kfilter_register.html	comp-sys-htmlman	html
 ./usr/share/man/html9/kfilter_unregister.html	comp-sys-htmlman	html
 ./usr/share/man/html9/killproc.html		comp-sys-htmlman	html
@@ -22844,6 +22848,7 @@
 ./usr/share/man/man3/types.3			comp-c-man		.man
 ./usr/share/man/man3/tzalloc.3			comp-c-man		.man
 ./usr/share/man/man3/tzfree.3			comp-c-man		.man
+./usr/share/man/man3/tzgetgmtoff.3		comp-c-man		.man
 ./usr/share/man/man3/tzgetname.3		comp-c-man		.man
 ./usr/share/man/man3/tzset.3			comp-c-man		.man
 ./usr/share/man/man3/tzsetwall.3		comp-c-man		.man
@@ -23853,6 +23858,7 @@
 ./usr/share/man/man9/kcpuset_use.9		comp-sys-man		.man
 ./usr/share/man/man9/kcpuset_zero.9		comp-sys-man		.man
 ./usr/share/man/man9/kernacc.9			comp-obsolete		obsolete
+./usr/share/man/man9/kernhist.9			comp-sys-man		.man
 ./usr/share/man/man9/kfilter_register.9		comp-sys-man		.man
 ./usr/share/man/man9/kfilter_unregister.9	comp-sys-man		.man
 ./usr/share/man/man9/killproc.9			comp-sys-man		.man

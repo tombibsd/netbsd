@@ -420,7 +420,11 @@ skip_auth:
 	nsaved_gids = getgroups(NGROUPS_MAX, saved_gids);
 	
 	(void)setegid(pwd->pw_gid);
-	initgroups(username, pwd->pw_gid);
+	if (initgroups(username, pwd->pw_gid) == -1) {
+		syslog(LOG_ERR, "initgroups failed");
+		pam_end(pamh, PAM_SUCCESS);
+		exit(EXIT_FAILURE);
+	}
 	(void)seteuid(pwd->pw_uid);
 	
 	if (chdir(pwd->pw_dir) != 0) {
@@ -446,9 +450,13 @@ skip_auth:
 	}
 
 	/* regain special privileges */
-	setegid(saved_gid);
-	setgroups(nsaved_gids, saved_gids);
-	seteuid(saved_uid);
+	(void)setegid(saved_gid);
+	(void)seteuid(saved_uid);
+	if (setgroups(nsaved_gids, saved_gids) == -1) {
+		syslog(LOG_ERR, "setgroups failed: %m");
+		pam_end(pamh, PAM_SUCCESS);
+		exit(EXIT_FAILURE);
+	}
 
 	(void)getgrnam_r(TTYGRPNAME, &grs, grbuf, sizeof(grbuf), &grp);
 	(void)chown(ttyn, pwd->pw_uid,

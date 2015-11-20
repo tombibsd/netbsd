@@ -101,7 +101,7 @@ bah_zbus_attach(device_t parent, device_t self, void *aux)
 
 	sc->sc_dev = self;
 #if (defined(BAH_DEBUG) && (BAH_DEBUG > 2))
-	printf("\n%s: attach(0x%x, 0x%x, 0x%x)\n",
+	printf("\n%s: attach(0x%p, 0x%p, 0x%p)\n",
 	    device_xname(self), parent, self, aux);
 #endif
 	bsc->sc_bst.base = (bus_addr_t)zap->va;

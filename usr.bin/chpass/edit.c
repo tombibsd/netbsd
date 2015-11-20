@@ -139,6 +139,7 @@ display(char *tempname, int fd, struct passwd *pw)
 
 	(void)fchown(fd, getuid(), getgid());
 	(void)fclose(fp);
+	free(bp);
 }
 
 int

@@ -77,6 +77,12 @@ __weak_alias(getnetbyaddr,_getnetbyaddr)
 __weak_alias(getnetbyname,_getnetbyname)
 #endif
 
+#define maybe_ok(res, nm, ok) (((res)->options & RES_NOCHECKNAME) != 0U || \
+                               (ok)(nm) != 0)
+#define maybe_hnok(res, hn) maybe_ok((res), (hn), res_hnok)
+#define maybe_dnok(res, dn) maybe_ok((res), (dn), res_dnok)
+
+
 extern int _net_stayopen;
 
 #define BYADDR 0
@@ -105,7 +111,7 @@ static	struct netent net_entry;
 static	char *net_aliases[MAXALIASES];
 
 static int		parse_reversed_addr(const char *, in_addr_t *);
-static struct netent	*getnetanswer(querybuf *, int, int);
+static struct netent	*getnetanswer(res_state, querybuf *, int, int);
 static int		_files_getnetbyaddr(void *, void *, va_list);
 static int		_files_getnetbyname(void *, void *, va_list);
 static int		_dns_getnetbyaddr(void *, void *, va_list);
@@ -159,7 +165,7 @@ parse_reversed_addr(const char *str, in_addr_t *result)
 }
 
 static struct netent *
-getnetanswer(querybuf *answer, int anslen, int net_i)
+getnetanswer(res_state res, querybuf *answer, int anslen, int net_i)
 {
 	static char	n_name[MAXDNAME];
 	static char	netbuf[PACKETSZ];
@@ -172,6 +178,7 @@ getnetanswer(querybuf *answer, int anslen, int net_i)
 	char		*in, *bp, **ap, *ep;
 
 	_DIAGASSERT(answer != NULL);
+	_DIAGASSERT(res != NULL);
 
 	/*
 	 * find first satisfactory answer
@@ -216,7 +223,7 @@ getnetanswer(querybuf *answer, int anslen, int net_i)
 	n_name[0] = '\0';
 	while (--ancount >= 0 && cp < eom) {
 		n = dn_expand(answer->buf, eom, cp, bp, (int)(ep - bp));
-		if ((n < 0) || !res_dnok(bp))
+		if ((n < 0) || !maybe_dnok(res, bp))
 			break;
 		cp += n;
 		(void)strlcpy(n_name, bp, sizeof(n_name));
@@ -226,7 +233,7 @@ getnetanswer(querybuf *answer, int anslen, int net_i)
 		GETSHORT(n, cp);
 		if (class == C_IN && type == T_PTR) {
 			n = dn_expand(answer->buf, eom, cp, bp, (int)(ep - bp));
-			if ((n < 0) || !res_hnok(bp)) {
+			if ((n < 0) || !maybe_hnok(res, bp)) {
 				cp += n;
 				return NULL;
 			}
@@ -358,8 +365,8 @@ _dns_getnetbyaddr(void *cbrv, void *cbdata, va_list ap)
 		__res_put_state(res);
 		return NS_NOTFOUND;
 	}
+	np = getnetanswer(res, buf, anslen, BYADDR);
 	__res_put_state(res);
-	np = getnetanswer(buf, anslen, BYADDR);
 	free(buf);
 	if (np) {
 		/* maybe net should be unsigned? */
@@ -470,8 +477,8 @@ _dns_getnetbyname(void *cbrv, void *cbdata, va_list ap)
 		__res_put_state(res);
 		return NS_NOTFOUND;
 	}
+	np = getnetanswer(res, buf, anslen, BYNAME);
 	__res_put_state(res);
-	np = getnetanswer(buf, anslen, BYNAME);
 	free(buf);
 
 	if (np != NULL) {

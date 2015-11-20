@@ -363,7 +363,7 @@ _kvm_pa2off(kvm_t *kd, paddr_t pa)
 		off += mp->size;
 	}
 	if (nmem < 0) {
-		_kvm_err(kd, 0, "invalid address (%lx)", (unsigned long)pa);
+		_kvm_err(kd, 0, "invalid address (%#"PRIxPADDR")", pa);
 		return (-1);
 	}
 

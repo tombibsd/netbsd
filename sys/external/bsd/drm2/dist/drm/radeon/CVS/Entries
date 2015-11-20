@@ -98,7 +98,7 @@
 /radeon_cs.c/1.1.1.1/Wed Jul 16 19:35:28 2014/-kk/
 /radeon_cursor.c/1.1.1.1/Wed Jul 16 19:35:28 2014/-kk/
 /radeon_device.c/1.3/Thu Jul 17 20:41:22 2014/-kk/
-/radeon_display.c/1.4/Fri May  1 11:32:22 2015/-kk/
+/radeon_display.c/1.5/Fri Nov 20 01:31:24 2015/-kk/
 /radeon_drv.c/1.5/Sun Oct 19 16:06:53 2014/-kk/
 /radeon_drv.h/1.1.1.1/Wed Jul 16 19:35:28 2014/-kk/
 /radeon_encoders.c/1.1.1.1/Wed Jul 16 19:35:28 2014/-kk/
@@ -106,12 +106,12 @@
 /radeon_fb.c/1.5/Tue Dec  9 04:35:01 2014/-kk/
 /radeon_fence.c/1.8/Sat Mar 21 02:37:55 2015/-kk/
 /radeon_gart.c/1.5/Fri Oct  3 09:09:23 2014/-kk/
-/radeon_gem.c/1.2/Wed Jul 16 20:59:57 2014/-kk/
-/radeon_i2c.c/1.2/Wed Jul 16 20:59:57 2014/-kk/
+/radeon_gem.c/1.3/Fri Nov 20 01:31:24 2015/-kk/
+/radeon_i2c.c/1.3/Fri Nov 20 01:31:24 2015/-kk/
 /radeon_ioc32.c/1.1.1.1/Wed Jul 16 19:35:28 2014/-kk/
 /radeon_irq.c/1.2/Wed Jul 16 20:59:57 2014/-kk/
 /radeon_irq_kms.c/1.2/Wed Jul 16 20:59:57 2014/-kk/
-/radeon_kms.c/1.2/Wed Jul 16 20:59:57 2014/-kk/
+/radeon_kms.c/1.3/Fri Nov 20 01:31:24 2015/-kk/
 /radeon_legacy_crtc.c/1.2/Sun Apr 12 03:35:11 2015/-kk/
 /radeon_legacy_encoders.c/1.2/Tue Aug 25 04:51:23 2015/-kk/
 /radeon_legacy_tv.c/1.2/Wed Jul 16 20:59:57 2014/-kk/

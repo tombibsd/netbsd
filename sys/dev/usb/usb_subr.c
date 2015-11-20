@@ -1115,7 +1115,7 @@ usbd_new_device(device_t parent, usbd_bus_handle bus, int depth,
 
 	dev->def_ep_desc.bInterval = 0;
 
-	/* doesn't matter, just don't let it uninitialized */
+	/* doesn't matter, just don't leave it uninitialized */
 	dev->def_ep.datatoggle = 0;
 
 	dev->quirks = &usbd_no_quirk;

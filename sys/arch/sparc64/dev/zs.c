@@ -259,6 +259,7 @@ zs_attach_sbus(device_t parent, device_t self, void *aux)
 	zsc->zsc_dmatag = sa->sa_dmatag;
 	zsc->zsc_promunit = prom_getpropint(sa->sa_node, "slave", -2);
 	zsc->zsc_node = sa->sa_node;
+	aprint_normal("\n");
 	zs_attach(zsc, zsaddr[zs_unit], sa->sa_pri);
 }
 

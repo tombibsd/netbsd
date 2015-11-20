@@ -601,6 +601,8 @@ main(void)
 
 	procinit_sysctl();
 
+	scdebug_init();
+
 	/*
 	 * Create process 1 (init(8)).  We do this now, as Unix has
 	 * historically had init be process 1, and changing this would

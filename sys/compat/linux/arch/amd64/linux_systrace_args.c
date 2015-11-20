@@ -5168,12 +5168,12 @@ systrace_return_setargdesc(int sysnum, int ndx, char *desc, size_t descsz)
 	/* sys_setuid */
 	case 105:
 		if (ndx == 0 || ndx == 1)
-			p = "void";
+			p = "int";
 		break;
 	/* sys_setgid */
 	case 106:
 		if (ndx == 0 || ndx == 1)
-			p = "void";
+			p = "int";
 		break;
 	/* sys_geteuid */
 	case 107:

@@ -788,6 +788,7 @@ gz_uncompress(int in, int out, char *pre, size_t prelen, off_t *gsizep,
 					goto stop;
 				}
 				maybe_warnx("input not gziped (MAGIC0)");
+				exit_value = 2;
 				goto stop_and_fail;
 			}
 			ADVANCE();

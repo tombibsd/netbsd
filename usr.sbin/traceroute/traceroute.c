@@ -607,6 +607,7 @@ main(int argc, char **argv)
 		case 'z':
 			pausemsecs = str2val(optarg, "pause msecs",
 			    0, 60 * 60 * 1000);
+			break;
 
 		case 'P':
 			off = IP_DF;

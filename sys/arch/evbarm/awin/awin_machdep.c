@@ -140,6 +140,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include "ukbd.h"
 #include "genfb.h"
 #include "ether.h"
+#include "axp20x.h"
 
 #include <sys/param.h>
 #include <sys/systm.h>
@@ -178,7 +179,9 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <dev/ic/ns16550reg.h>
 #include <dev/ic/comreg.h>
 
+#if NAXP20X > 0
 #include <dev/i2c/axp20xvar.h>
+#endif
 
 #include <arm/allwinner/awin_reg.h>
 #include <arm/allwinner/awin_var.h>
@@ -209,8 +212,11 @@ bool cubietruck_p;
 #define cubietruck_p	false
 #endif
 
+#if NAXP20X > 0
 static device_t pmic_dev = NULL;
 static int pmic_cpu_dcdc;
+#endif
+
 #ifdef AWIN_SYSCONFIG
 bool awin_sysconfig_p;
 #else
@@ -254,6 +260,10 @@ static void awin_device_register(device_t, void *);
 
 #ifdef AWIN_SYSCONFIG
 static void awin_gpio_sysconfig(prop_dictionary_t);
+static void awin_display_sysconfig(prop_dictionary_t);
+static void awin_hdmi_sysconfig(prop_dictionary_t);
+static void awin_tcon_sysconfig(device_t, prop_dictionary_t);
+static void awin_tcon_lcd_sysconfig(const char *, prop_dictionary_t);
 #endif
 
 #if NCOM > 0
@@ -667,6 +677,11 @@ awin_device_register(device_t self, void *aux)
 #elif AWIN_board == AWIN_bpi || AWIN_board == AWIN_olimexlime2
 		prop_dictionary_set_bool(dict, "no-awe", true);
 #endif
+#ifdef AWIN_SYSCONFIG
+		if (awin_sysconfig_p) {
+			awin_display_sysconfig(dict);
+		}
+#endif
 		return;
 	}
 
@@ -844,14 +859,28 @@ awin_device_register(device_t self, void *aux)
 				    "display-mode", "dvi");
 			}
 		}
+#ifdef AWIN_SYSCONFIG
+		if (awin_sysconfig_p) {
+			awin_hdmi_sysconfig(dict);
+		}
+#endif
 	}
+#ifdef AWIN_SYSCONFIG
+	if (device_is_a(self, "awintcon")) {
+		if (awin_sysconfig_p) {
+			awin_tcon_sysconfig(self, dict);
+		}
+	}
+#endif
+
+#if NAXP20X > 0
 	if (device_is_a(self, "axp20x")) {
 		pmic_dev = self;
 #if AWIN_board == AWIN_cubieboard || AWIN_board == AWIN_cubietruck || AWIN_board == AWIN_bpi || AWIN_board == AWIN_olimexlime2
 		pmic_cpu_dcdc = AXP20X_DCDC2;
 #endif
 	}
-
+#endif
 
 #if NGENFB > 0
 	if (device_is_a(self, "genfb")) {
@@ -875,10 +904,12 @@ awin_device_register(device_t self, void *aux)
 int
 awin_set_mpu_volt(int mvolt, bool poll)
 {
-	if (pmic_dev == NULL) {
-		return ENODEV;
+#if NAXP20X > 0
+	if (pmic_dev && device_is_a(pmic_dev, "axp20x")) {
+		return axp20x_set_dcdc(pmic_dev, pmic_cpu_dcdc, mvolt, 0);
 	}
-	return axp20x_set_dcdc(pmic_dev, pmic_cpu_dcdc, mvolt, 0);
+#endif
+	return ENODEV;
 }
 
 #ifdef AWIN_SYSCONFIG
@@ -923,5 +954,218 @@ awin_gpio_sysconfig(prop_dictionary_t dict)
 			prop_dictionary_set_cstring(dict, gpios[n].prop, cfg);
 		}
 	}
+}
+
+/* see which display devices needs to be disabled */
+
+static void
+awin_display_sysconfig(prop_dictionary_t dict)
+{
+	bool hdmi_used = false;
+	int screen0_type, screen1_type;
+
+	switch(awin_sysconfig_get_int("disp_init", "disp_init_enable")) {
+	case -1:
+		return;
+	case 0:
+		prop_dictionary_set_bool(dict, "no-awindebe-0", true);
+		prop_dictionary_set_bool(dict, "no-awindebe-1", true);
+		prop_dictionary_set_bool(dict, "no-awintcon-0", true);
+		prop_dictionary_set_bool(dict, "no-awintcon-1", true);
+		prop_dictionary_set_bool(dict, "no-awinhdmi", true);
+		prop_dictionary_set_bool(dict, "no-awinhdmiaudio", true);
+		return;
+	default:
+		break;
+	}
+	screen0_type = awin_sysconfig_get_int("disp_init", "screen0_output_type");
+	screen1_type = awin_sysconfig_get_int("disp_init", "screen1_output_type");
+	switch(awin_sysconfig_get_int("disp_init", "disp_mode")) {
+	case 0:
+		/* screen0, fb0 */
+		prop_dictionary_set_bool(dict, "no-awindebe-1", true);
+		prop_dictionary_set_bool(dict, "no-awintcon-1", true);
+		hdmi_used = (screen0_type == 3);
+		break;
+	case 1:
+		/* screen1, fb0 */
+		prop_dictionary_set_bool(dict, "no-awindebe-1", true);
+		prop_dictionary_set_bool(dict, "no-awintcon-0", true);
+		hdmi_used = (screen1_type == 3);
+		break;
+	case 2:
+		/* dual-head; all tcon and debe used */
+		hdmi_used = (screen0_type == 3 || screen1_type == 3);
+		break;
+	case 3:
+		/* xinerama */
+	case 4:
+		/* clone */
+		prop_dictionary_set_bool(dict, "no-awindebe-1", true);
+		hdmi_used = (screen0_type == 3 || screen1_type == 3);
+		break;
+	default:
+		return;
+	}
+	if (!hdmi_used) {
+		prop_dictionary_set_bool(dict, "no-awinhdmi", true);
+		prop_dictionary_set_bool(dict, "no-awinhdmiaudio", true);
+	}
+
+}
+
+static void
+awin_hdmi_sysconfig(prop_dictionary_t dict)
+{
+	int type;
+
+	if (awin_sysconfig_get_int("disp_init", "disp_mode") != 1) {
+		/* tcon0 enabled, try tcon0 first */
+		type =
+		    awin_sysconfig_get_int("disp_init", "screen0_output_type");
+		if (type < 0)
+			return;
+		if (type == 3) {
+			prop_dictionary_set_int8(dict, "tcon_unit", 0);
+			return;
+		}
+	}
+	/* either tcon0 is not enabled, or not in hdmi mode. try tcon1 */
+	type = awin_sysconfig_get_int("disp_init", "screen1_output_type");
+	if (type == 3) {
+		prop_dictionary_set_int8(dict, "tcon_unit", 1);
+		return;
+	}
+	/*
+	 * all other cases, including failure to get screen1_output_type
+	 * Note that this should not happen as HDMI should have been
+	 * disabled in this case.
+	 */
+	prop_dictionary_set_int8(dict, "tcon_unit", -1);
+}
+
+static void
+awin_tcon_sysconfig(device_t self, prop_dictionary_t dict)
+{
+	int mode = awin_sysconfig_get_int("disp_init", "disp_mode");
+	int type;
+
+	if (device_unit(self) == 0) {
+		if (mode < 0)
+			return;
+
+		prop_dictionary_set_int8(dict, "debe_unit", 0);
+		type = awin_sysconfig_get_int("disp_init", "screen0_output_type");
+		if (type == 1) {
+			/* LCD/LVDS output */
+			awin_tcon_lcd_sysconfig("lcd0_para", dict);
+			return;
+		}
+		if (type == 3) {
+			prop_dictionary_set_cstring(dict, "output", "hdmi");
+			return;
+		}
+		/* unsupported mode */
+		return;
+	}
+	if (device_unit(self) == 1) {
+		switch (mode) {
+		case 0:
+			/* only mode where tcon1 is not used */
+			return;
+		case 2:
+			prop_dictionary_set_int8(dict, "debe_unit", 1);
+			break;
+		default:
+			prop_dictionary_set_int8(dict, "debe_unit", 0);
+			break;
+		}
+		type = awin_sysconfig_get_int("disp_init", "screen1_output_type");
+		if (type == 1) {
+			/* LCD/LVDS output */
+			awin_tcon_lcd_sysconfig("lcd1_para", dict);
+			return;
+		}
+		if (type == 3) {
+			prop_dictionary_set_cstring(dict, "output", "hdmi");
+			return;
+		}
+		/* unsupported mode */
+		return;
+	}
+}
+
+static void
+awin_tcon_lcd_sysconfig(const char *key, prop_dictionary_t dict)
+{
+	static const char *lcdtimings[] = {
+		"lcd_x",
+		"lcd_y",
+		"lcd_dclk_freq",
+		"lcd_hbp",
+		"lcd_ht",
+		"lcd_vbp",
+		"lcd_vt",
+		"lcd_hv_hspw",
+		"lcd_io_cfg0",
+	};
+	static const char *lcdgpio[] = {
+		"lcdd0",
+		"lcdd1",
+		"lcdd2",
+		"lcdd3",
+		"lcdd4",
+		"lcdd5",
+		"lcdd6",
+		"lcdd7",
+		"lcdd8",
+		"lcdd9",
+		"lcdd10",
+		"lcdd11",
+		"lcdd12",
+		"lcdd13",
+		"lcdd14",
+		"lcdd15",
+		"lcdd16",
+		"lcdd17",
+		"lcdd18",
+		"lcdd19",
+		"lcdd20",
+		"lcdd21",
+		"lcdd22",
+		"lcdd23",
+		"lcdclk",
+		"lcdde",
+		"lcdhsync",
+		"lcdvsync"
+	};
+	unsigned int n;
+	const char *cfg;
+
+	for (n = 0; n < __arraycount(lcdtimings); n++) {
+		int value = awin_sysconfig_get_int( key, lcdtimings[n]);
+		if (value >= 0) {
+			prop_dictionary_set_int32(dict, lcdtimings[n], value);
+		}
+	}
+	if (awin_sysconfig_get_int(key, "lcd_bl_en_used") == 1) {
+		cfg = awin_sysconfig_get_gpio(key, "lcd_bl_en");
+		if (cfg != NULL) {
+			prop_dictionary_set_cstring(dict, "lcd_bl_en", cfg);
+		}
+	}
+	if (awin_sysconfig_get_int(key, "lcd_power_used") == 1) {
+		cfg = awin_sysconfig_get_gpio(key, "lcd_power");
+		if (cfg != NULL) {
+			prop_dictionary_set_cstring(dict, "lcd_bl_en", cfg);
+		}
+	}
+	for (n = 0; n < __arraycount(lcdgpio); n++) {
+		cfg = awin_sysconfig_get_string(key, lcdgpio[n]);
+		if (cfg != NULL) {
+			prop_dictionary_set_cstring(dict, lcdgpio[n], cfg);
+		}
+	}
+
 }
 #endif

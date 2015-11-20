@@ -289,6 +289,25 @@ tzgetname(const timezone_t sp, int isdst)
 	return NULL;
 }
 
+long
+tzgetgmtoff(const timezone_t sp, int isdst)
+{
+	int i;
+	long l = -1;
+	for (i = 0; i < sp->timecnt; ++i) {
+		const struct ttinfo *const ttisp = &sp->ttis[sp->types[i]];
+
+		if (ttisp->tt_isdst == isdst) {
+			l = ttisp->tt_gmtoff;
+			if (sp->types[i] != 0)
+				return l;
+		}
+	}
+	if (l == -1)
+		errno = ESRCH;
+	return l;
+}
+
 static void
 scrub_abbrs(struct state *sp)
 {
@@ -617,10 +636,10 @@ tzloadbody(char const *name, struct state *sp, bool doextend,
 				break;
 			      }
 			    if (! (j < charcnt)) {
-			      int tsabbrlen = strlen(tsabbr);
+			      size_t tsabbrlen = strlen(tsabbr);
 			      if (j + tsabbrlen < TZ_MAX_CHARS) {
 				strcpy(sp->chars + j, tsabbr);
-				charcnt = j + tsabbrlen + 1;
+				charcnt = (int_fast32_t)(j + tsabbrlen + 1);
 				ts->ttis[i].tt_abbrind = j;
 				gotabbr++;
 			      }
@@ -1253,7 +1272,7 @@ tzparse(const char *name, struct state *sp, bool lastditch)
 		init_ttinfo(&sp->ttis[1], 0, false, 0);
 		sp->defaulttype = 0;
 	}
-	sp->charcnt = charcnt;
+	sp->charcnt = (int)charcnt;
 	cp = sp->chars;
 	(void) memcpy(cp, stdname, stdlen);
 	cp += stdlen;

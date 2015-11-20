@@ -197,7 +197,7 @@ extern int nbpg, pgofset, pgshift;
 #define	MCLBYTES	(1 << MCLSHIFT)	/* size of a m_buf cluster */
 
 #if !defined (MSGBUFSIZE)		/* options MSGBUFSIZE=integer	*/
-#define MSGBUFSIZE	4 * NBPG
+#define MSGBUFSIZE	(4 * NBPG)
 #else
 #if INTSTACK - MSGBUF_VA - MSGBUFSIZE < 0
 #error MSGBUFSIZE is too large

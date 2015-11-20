@@ -371,6 +371,7 @@ DVR	digital video recorder
 E-XER	extended XML encoding rules
 EABI	embedded-application binary interface
 EAP	Extensible Authentication Protocol
+EBCDIC	Extended Binary Coded Decimal Interchange Code
 EBR	extended boot record
 EC	elliptical curve
 ECC	error correction code
@@ -393,7 +394,7 @@ EFM	eight to fourteen modulation
 EGA	Enhanced Graphics Adapter
 EGP	exterior gateway protocol
 EH	extension header
-EIDE	enchanced IDE
+EIDE	enhanced IDE
 EISA	extended industry standard architecture
 ELF	executable and linking format
 ELS	entry level system

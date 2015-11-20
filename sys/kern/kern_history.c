@@ -36,15 +36,32 @@
 __KERNEL_RCSID(0, "$NetBSD$");
 
 #include "opt_kernhist.h"
-#include "opt_uvmhist.h"
 #include "opt_ddb.h"
+#include "opt_uvmhist.h"
+#include "opt_usb.h"
+#include "opt_syscall_debug.h"
 
 #include <sys/param.h>
 #include <sys/systm.h>
 #include <sys/cpu.h>
 #include <sys/kernhist.h>
 
+#include "usb.h"
+#if NUSB == 0
+#undef USB_DEBUG
+#endif
+
+#ifdef UVMHIST
 #include <uvm/uvm.h>
+#endif
+
+#ifdef USB_DEBUG
+#include <dev/usb/usbhist.h>
+#endif
+
+#ifdef SYSCALL_DEBUG
+KERNHIST_DECL(scdebughist);
+#endif
 
 /*
  * globals
@@ -112,6 +129,8 @@ kernhist_dump_histories(struct kern_history *hists[])
 restart:
 			if (cur[lcv] == -1)
 				continue;
+			if (!hists[lcv]->e)
+				continue;
 
 			/*
 			 * if the format is empty, go to the next entry
@@ -172,6 +191,16 @@ kernhist_dumpmask(u_int32_t bitmask)	/* XXX only support 32 hists */
 
 	if ((bitmask & KERNHIST_UVMLOANHIST) || bitmask == 0)
 		hists[i++] = &loanhist;
+#endif
+
+#ifdef USB_DEBUG
+	if ((bitmask & KERNHIST_USBHIST) || bitmask == 0)
+		hists[i++] = &usbhist;
+#endif
+
+#ifdef SYSCALL_DEBUG
+	if ((bitmask & KERNHIST_SCDEBUGHIST) || bitmask == 0)
+		hists[i++] = &scdebughist;
 #endif
 
 	hists[i] = NULL;

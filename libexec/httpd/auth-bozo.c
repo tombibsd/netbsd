@@ -190,8 +190,7 @@ bozo_auth_check_401(bozo_httpreq_t *request, int code)
 	if (code == 401)
 		bozo_printf(httpd,
 			"WWW-Authenticate: Basic realm=\"%s\"\r\n",
-			(request && request->hr_authrealm) ?
-				request->hr_authrealm : "default realm");
+			request->hr_authrealm ? request->hr_authrealm : "default realm");
 }
 
 #ifndef NO_CGIBIN_SUPPORT

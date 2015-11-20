@@ -1,5 +1,5 @@
-/nouveau_subdev_therm_base.c/1.1.1.1/Wed Aug  6 12:36:32 2014/-kk/
-/nouveau_subdev_therm_fan.c/1.1.1.1/Wed Aug  6 12:36:32 2014/-kk/
+/nouveau_subdev_therm_base.c/1.2/Fri Nov 20 01:31:24 2015/-kk/
+/nouveau_subdev_therm_fan.c/1.2/Fri Nov 20 01:31:24 2015/-kk/
 /nouveau_subdev_therm_fannil.c/1.1.1.1/Wed Aug  6 12:36:32 2014/-kk/
 /nouveau_subdev_therm_fanpwm.c/1.1.1.1/Wed Aug  6 12:36:32 2014/-kk/
 /nouveau_subdev_therm_fantog.c/1.1.1.1/Wed Aug  6 12:36:32 2014/-kk/

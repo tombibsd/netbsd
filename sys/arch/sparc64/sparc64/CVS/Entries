@@ -28,7 +28,7 @@
 /machdep.c/1.282/Mon Jun 22 02:34:57 2015/-kk/
 /mdesc.c/1.6/Sun Sep 13 01:31:07 2015/-kk/
 /mp_subr.S/1.9/Mon Jun 22 02:34:57 2015/-kk/
-/netbsd32_machdep.c/1.103/Fri Mar 14 04:28:17 2014/-kk/
+/netbsd32_machdep.c/1.104/Fri Nov 20 01:30:58 2015/-kk/
 /netbsd32_sigcode.s/1.6/Thu May 29 14:51:26 2008/-kk/
 /ofw_machdep.c/1.44/Sat Mar 21 02:37:43 2015/-kk/
 /pmap.c/1.299/Sun Sep 13 01:31:07 2015/-kk/

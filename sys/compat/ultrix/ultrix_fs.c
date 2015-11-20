@@ -401,7 +401,7 @@ ultrix_sys_mount(struct lwp *l, const struct ultrix_sys_mount_args *uap, registe
 		na.timeo = una.timeo;
 		na.retrans = una.retrans;
 		na.hostname = una.hostname;
-		return do_sys_mount(l, vfs_getopsbyname("nfs"), NULL,
+		return do_sys_mount(l, "nfs", UIO_SYSSPACE,
 		    SCARG(uap, special), nflags, &na, UIO_SYSSPACE,
 		    sizeof na, &dummy);
 	}
@@ -431,7 +431,7 @@ ultrix_sys_mount(struct lwp *l, const struct ultrix_sys_mount_args *uap, registe
 			printf("COMPAT_ULTRIX: mount with MNT_UPDATE on %s\n",
 			    fsname);
 		}
-		return do_sys_mount(l, vfs_getopsbyname("ffs"), NULL,
+		return do_sys_mount(l, "ffs", UIO_SYSSPACE,
 		    SCARG(uap, dir), nflags, &ua, UIO_SYSSPACE, sizeof ua,
 		    &dummy);
 	}

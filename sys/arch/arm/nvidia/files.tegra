@@ -71,6 +71,11 @@ device	tegrartc
 attach	tegrartc at tegraio with tegra_rtc
 file	arch/arm/nvidia/tegra_rtc.c		tegra_rtc
 
+# USB PHY
+device	tegrausbphy
+attach	tegrausbphy at tegraio with tegra_usbphy
+file	arch/arm/nvidia/tegra_usbphy.c		tegra_usbphy
+
 # USB 2.0
 attach	ehci at tegraio with tegra_ehci
 file	arch/arm/nvidia/tegra_ehci.c		tegra_ehci

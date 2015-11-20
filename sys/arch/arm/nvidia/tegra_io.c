@@ -118,10 +118,16 @@ static const struct tegra_locators tegra_apb_locators[] = {
 };
 
 static const struct tegra_locators tegra_ahb_a2_locators[] = {
+  { "tegrausbphy",
+    TEGRA_USB1_OFFSET, TEGRA_USB1_SIZE, 0, NOINTR },
   { "ehci",
     TEGRA_USB1_OFFSET, TEGRA_USB1_SIZE, 0, TEGRA_INTR_USB1 },
+  { "tegrausbphy",
+    TEGRA_USB2_OFFSET, TEGRA_USB2_SIZE, 1, NOINTR },
   { "ehci",
     TEGRA_USB2_OFFSET, TEGRA_USB2_SIZE, 1, TEGRA_INTR_USB2 },
+  { "tegrausbphy",
+    TEGRA_USB3_OFFSET, TEGRA_USB3_SIZE, 2, NOINTR },
   { "ehci",
     TEGRA_USB3_OFFSET, TEGRA_USB3_SIZE, 2, TEGRA_INTR_USB3 },
 };

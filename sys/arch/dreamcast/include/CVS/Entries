@@ -33,7 +33,7 @@
 /mutex.h/1.2/Fri Feb  9 21:55:02 2007/-kk/
 /param.h/1.7/Sun Dec 11 12:17:06 2005/-kk/
 /pcb.h/1.1/Mon Dec 11 18:19:15 2000/-kk/
-/pci_machdep.h/1.8/Fri Apr 11 02:03:28 2014/-kk/
+/pci_machdep.h/1.9/Fri Nov 20 01:30:19 2015/-kk/
 /pmap.h/1.1/Mon Dec 11 18:19:15 2000/-kk/
 /pmc.h/1.1/Wed Aug  7 05:15:11 2002/-kk/
 /proc.h/1.1/Mon Dec 11 18:19:15 2000/-kk/

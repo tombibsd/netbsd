@@ -1610,10 +1610,7 @@ Static void
 ehci_dump_qtd(ehci_qtd_t *qtd)
 {
 	USBHIST_FUNC();	USBHIST_CALLED(ehcidebug);
-
-#ifdef USBHIST
 	uint32_t s = le32toh(qtd->qtd_status);
-#endif
 
 	USBHIST_LOGN(ehcidebug, 10,
 	    "     next = 0x%08x  altnext = 0x%08x  status = 0x%08x",
@@ -1650,10 +1647,8 @@ ehci_dump_qtd(ehci_qtd_t *qtd)
 Static void
 ehci_dump_sqh(ehci_soft_qh_t *sqh)
 {
-#ifdef USBHIST
 	ehci_qh_t *qh = &sqh->qh;
 	ehci_link_t link;
-#endif
 	u_int32_t endp, endphub;
 	USBHIST_FUNC();	USBHIST_CALLED(ehcidebug);
 

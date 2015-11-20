@@ -44,7 +44,7 @@
 
 #include <sys/kernhist.h>
 
-#ifdef USBHIST
+#ifdef USB_DEBUG
 
 extern int usbdebug;
 

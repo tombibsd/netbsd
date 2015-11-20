@@ -2589,6 +2589,9 @@ parsestate(
 			i++;
 		}
 		t = ap(buffer, size, t, ")");
+		/* t is unused here, but if we don't track it and
+		 * need it later, that's a bug waiting to happen.
+		 */
 	}
 	return buffer;
 }

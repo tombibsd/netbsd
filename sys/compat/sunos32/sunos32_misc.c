@@ -522,7 +522,7 @@ sunos32_sys_mount(struct lwp *l, const struct sunos32_sys_mount_args *uap, regis
 		na.retrans = sna.retrans;
 		na.hostname = (char *)(u_long)sna.hostname;
 
-		return do_sys_mount(l, vfs_getopsbyname("nfs"), NULL,
+		return do_sys_mount(l, "nfs", UIO_SYSSPACE,
 		    SCARG_P32(uap, path), nflags, &na, UIO_SYSSPACE, sizeof na,
 		    &dummy);
 	}
@@ -530,7 +530,7 @@ sunos32_sys_mount(struct lwp *l, const struct sunos32_sys_mount_args *uap, regis
 	if (strcmp(fsname, "4.2") == 0)
 		strcpy(fsname, "ffs");
 
-	return do_sys_mount(l, vfs_getopsbyname(fsname), NULL,
+	return do_sys_mount(l, fsname, UIO_SYSSPACE,
 	    SCARG_P32(uap, path), nflags, SCARG_P32(uap, data), UIO_USERSPACE,
 	    0, &dummy);
 }
