@@ -432,7 +432,9 @@ pci_probe_device(struct pci_softc *sc, pcitag_t tag,
 			if (addr == PCI_HT_MSI_FIXED_ADDR) {
 				pa.pa_flags |= PCI_FLAGS_MSI_OKAY;
 				pa.pa_flags |= PCI_FLAGS_MSIX_OKAY;
-			}
+			} else
+				aprint_verbose_dev(sc->sc_dev,
+				    "HyperTransport MSI mapping is not supported yet. Disable MSI/MSI-X.\n");
 		}
 	}
 #endif

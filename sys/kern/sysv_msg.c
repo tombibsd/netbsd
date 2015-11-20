@@ -91,8 +91,10 @@ static void msg_freehdr(struct __msg *);
 
 extern int kern_has_sysvmsg;
 
+SYSCTL_SETUP_PROTO(sysctl_ipc_msg_setup);
+
 void
-msginit(void)
+msginit(struct sysctllog **clog)
 {
 	int i, sz;
 	vaddr_t v;
@@ -161,7 +163,10 @@ msginit(void)
 
 	kern_has_sysvmsg = 1;
 
-	sysvipcinit();
+#ifdef _MODULE
+	if (clog)
+		sysctl_ipc_msg_setup(clog);
+#endif
 }
 
 int

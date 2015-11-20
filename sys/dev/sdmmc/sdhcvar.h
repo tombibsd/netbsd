@@ -67,6 +67,7 @@ struct sdhc_softc {
 	int (*sc_vendor_rod)(struct sdhc_softc *, int);
 	int (*sc_vendor_write_protect)(struct sdhc_softc *);
 	int (*sc_vendor_card_detect)(struct sdhc_softc *);
+	int (*sc_vendor_bus_width)(struct sdhc_softc *, int);
 	int (*sc_vendor_bus_clock)(struct sdhc_softc *, int);
 	int (*sc_vendor_transfer_data_dma)(struct sdhc_softc *, struct sdmmc_command *);
 };

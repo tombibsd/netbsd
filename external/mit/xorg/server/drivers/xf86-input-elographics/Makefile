@@ -7,7 +7,7 @@ SRCS=		xf86Elo.c
 MAN=		elographics.4
 
 CPPFLAGS+=	-DHAVE_CONFIG_H \
-		-I${X11SRCDIR.${DRIVER}}/../include \
+		-I${X11SRCDIR.${DRIVER}}/../include
 
 COPTS.xf86Elo.c=      -Wno-error	# XXX deprecated
 

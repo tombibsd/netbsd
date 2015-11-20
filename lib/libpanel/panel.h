@@ -34,7 +34,6 @@
 typedef struct __panel PANEL;
 
 __BEGIN_DECLS
-
 PANEL  *new_panel(WINDOW *);
 int     del_panel(PANEL *);
 

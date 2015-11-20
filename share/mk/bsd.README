@@ -1540,6 +1540,7 @@ DPADD		Additional dependencies for the program.  Usually used for
 		LIBEVENT?=	${DESTDIR}/usr/lib/libevent.a
 		LIBEVENT_OPENSSL?=	${DESTDIR}/usr/lib/libevent_openssl.a
 		LIBEVENT_PTHREADS?=	${DESTDIR}/usr/lib/libevent_pthreads.a
+		LIBEXECINFO?=	${DESTDIR}/usr/lib/libexecinfo.a
 		LIBEXPAT?=	${DESTDIR}/usr/lib/libexpat.a
 		LIBFETCH?=	${DESTDIR}/usr/lib/libfetch.a
 		LIBFORM?=	${DESTDIR}/usr/lib/libform.a

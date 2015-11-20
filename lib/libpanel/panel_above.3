@@ -61,6 +61,13 @@ For a visible panel its neighbors in the deck can be obtained with
 .Fn panel_above
 and
 .Fn panel_below .
+The bottom and top panels can be obtained by passing a
+.Dv NULL
+argument to
+.Fn panel_above
+and
+.Fn panel_below ,
+respectively.
 .Sh IMPLEMENTATION NOTES
 The
 .Fn top_panel

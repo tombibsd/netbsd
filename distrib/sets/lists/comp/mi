@@ -348,7 +348,9 @@
 ./usr/include/cdk/swindow.h			comp-obsolete		obsolete
 ./usr/include/cdk/template.h			comp-obsolete		obsolete
 ./usr/include/cdk/viewer.h			comp-obsolete		obsolete
-./usr/include/clang-3.6/stdatomic.h	comp-c-include		llvm
+./usr/include/clang-3.6/stdalign.h		comp-c-include		llvm
+./usr/include/clang-3.6/stdatomic.h		comp-c-include		llvm
+./usr/include/clang-3.6/stdnoreturn.h		comp-c-include		llvm
 ./usr/include/complex.h				comp-c-include
 ./usr/include/cpio.h				comp-c-include
 ./usr/include/crypto/cryptodev.h		comp-c-include
@@ -3490,6 +3492,8 @@
 ./usr/lib/librumpnet_bpfjit_p.a			comp-c-proflib		rump,sljit,profile
 ./usr/lib/librumpnet_bridge.a			comp-c-lib		rump
 ./usr/lib/librumpnet_bridge_p.a			comp-c-proflib		rump,profile
+./usr/lib/librumpnet_gif.a			comp-c-lib		rump
+./usr/lib/librumpnet_gif_p.a			comp-c-proflib		rump,profile
 ./usr/lib/librumpnet_local.a			comp-c-lib		rump
 ./usr/lib/librumpnet_local_p.a			comp-c-proflib		rump,profile
 ./usr/lib/librumpnet_net.a			comp-c-lib		rump
@@ -11890,6 +11894,7 @@
 ./usr/share/man/html3/aio_suspend.html		comp-c-htmlman		html
 ./usr/share/man/html3/aio_write.html		comp-c-htmlman		html
 ./usr/share/man/html3/alarm.html		comp-c-htmlman		html
+./usr/share/man/html3/aligned_alloc.html	comp-c-htmlman		html
 ./usr/share/man/html3/alloca.html		comp-c-htmlman		html
 ./usr/share/man/html3/allocaddrinfo.html	comp-c-htmlman		html
 ./usr/share/man/html3/alphasort.html		comp-c-htmlman		html
@@ -18693,6 +18698,7 @@
 ./usr/share/man/man3/aio_suspend.3		comp-c-man		.man
 ./usr/share/man/man3/aio_write.3		comp-c-man		.man
 ./usr/share/man/man3/alarm.3			comp-c-man		.man
+./usr/share/man/man3/aligned_alloc.3		comp-c-man		.man
 ./usr/share/man/man3/alloca.3			comp-c-man		.man
 ./usr/share/man/man3/allocaddrinfo.3		comp-c-man		.man
 ./usr/share/man/man3/alphasort.3		comp-c-man		.man

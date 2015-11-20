@@ -1182,6 +1182,12 @@ sdhc_bus_width(sdmmc_chipset_handle_t sch, int width)
 		return 1;
 	}
 
+	if (hp->sc->sc_vendor_bus_width) {
+		const int error = hp->sc->sc_vendor_bus_width(hp->sc, width);
+		if (error != 0)
+			return error;
+	}
+
 	mutex_enter(&hp->intr_lock);
 
 	reg = HREAD1(hp, SDHC_HOST_CTL);
@@ -1590,7 +1596,7 @@ sdhc_start_command(struct sdhc_host *hp, struct sdmmc_command *cmd)
 
 	/* Wait until command and optionally data inhibit bits are clear. (1.5) */
 	pmask = SDHC_CMD_INHIBIT_CMD;
-	if (cmd->c_flags & SCF_CMD_ADTC)
+	if (cmd->c_flags & (SCF_CMD_ADTC|SCF_RSP_BSY))
 		pmask |= SDHC_CMD_INHIBIT_DAT;
 	error = sdhc_wait_state(hp, pmask, 0);
 	if (error) {
@@ -2037,9 +2043,10 @@ sdhc_soft_reset(struct sdhc_host *hp, int mask)
 			/* Short delay because I worry we may miss it...  */
 			sdmmc_delay(1);
 		}
-		if (timo == 0)
+		if (timo == 0) {
 			DPRINTF(1,("%s: timeout for reset on\n", __func__));
 			return ETIMEDOUT;
+		}
 	}
 
 	/*

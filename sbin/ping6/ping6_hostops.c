@@ -42,6 +42,7 @@ __RCSID("$NetBSD$");
 
 const struct prog_ops prog_ops = {
 	.op_socket = socket,
+	.op_bind = bind,
 	.op_setsockopt = setsockopt,
 	.op_getsockname = getsockname,
 	.op_poll = poll,

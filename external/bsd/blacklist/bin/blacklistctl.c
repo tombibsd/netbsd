@@ -85,7 +85,7 @@ main(int argc, char *argv[])
 	argc--;
 	argv++;
 
-	while ((o = getopt(argc, argv, "abD:drw")) != -1)
+	while ((o = getopt(argc, argv, "abD:dnrw")) != -1)
 		switch (o) {
 		case 'a':
 			all = 1;

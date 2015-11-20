@@ -36,13 +36,13 @@ panel_below(PANEL *p)
 {
 	PANEL *below;
 
-	if (__predict_false(p == NULL))
+	if (p == NULL)
+		below = TAILQ_LAST(&_deck, deck);
+	else if (__predict_true(!PANEL_HIDDEN(p)))
+		below = PANEL_BELOW(p);
+	else
 		return NULL;
 
-	if (__predict_false(PANEL_HIDDEN(p)))
-		return NULL;
-
-	below = PANEL_BELOW(p);
 	if (below == &_stdscr_panel)
 		return NULL;
 	else

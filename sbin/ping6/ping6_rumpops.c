@@ -47,6 +47,7 @@ const struct prog_ops prog_ops = {
 	.op_init =	rumpclient_init,
 
 	.op_socket =	rump_sys_socket,
+	.op_bind =	rump_sys_bind,
 	.op_setsockopt=	rump_sys_setsockopt,
 	.op_getsockname=rump_sys_getsockname,
 	.op_poll =	rump_sys_poll,

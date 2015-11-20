@@ -110,6 +110,8 @@ struct shmmap_state {
 
 extern int kern_has_sysvshm;
 
+SYSCTL_SETUP_PROTO(sysctl_ipc_shm_setup);
+
 #ifdef SHMDEBUG
 #define SHMPRINTF(a) printf a
 #else
@@ -951,7 +953,7 @@ shmrealloc(int newshmni)
 }
 
 void
-shminit(void)
+shminit(struct sysctllog **clog)
 {
 	vaddr_t v;
 	size_t sz;
@@ -990,7 +992,14 @@ shminit(void)
 
 	kern_has_sysvshm = 1;
 
-	sysvipcinit();
+	/* Load the callback function pointers for the uvm subsystem */
+	uvm_shmexit = shmexit;
+	uvm_shmfork = shmfork;
+
+#ifdef _MODULE
+	if (clog)
+		sysctl_ipc_shm_setup(clog);
+#endif
 }
 
 int
@@ -1005,6 +1014,10 @@ shmfini(void)
 		mutex_exit(&shm_lock);
 		return 1;
 	}
+
+	/* Clear the callback function pointers for the uvm subsystem */
+	uvm_shmexit = NULL;
+	uvm_shmfork = NULL;
 
 	/* Destroy all condvars */
 	for (i = 0; i < shminfo.shmmni; i++)

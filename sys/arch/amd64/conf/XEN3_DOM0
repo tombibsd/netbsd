@@ -835,6 +835,9 @@ pseudo-device	vcoda			# coda minicache <-> venus comm.
 # a pseudo device needed for SMBFS
 pseudo-device	nsmb			# experimental - SMB requester
 
+# iSCSI initiator
+#pseudo-device	iscsi
+
 # wscons pseudo-devices
 pseudo-device	wsmux			# mouse & keyboard multiplexor
 pseudo-device	wsfont

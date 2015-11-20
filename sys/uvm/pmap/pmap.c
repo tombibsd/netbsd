@@ -109,9 +109,6 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/atomic.h>
 #include <sys/mutex.h>
 #include <sys/atomic.h>
-#ifdef SYSVSHM
-#include <sys/shm.h>
-#endif
 #include <sys/socketvar.h>	/* XXX: for sock_loan_thresh */
 
 #include <uvm/uvm.h>

@@ -59,7 +59,9 @@ typedef	__uint32_t	__fd_mask;
 #define	FD_SETSIZE	256
 #endif
 
-#define	__NFD_SIZE	(((FD_SETSIZE) + (__NFDBITS - 1)) / __NFDBITS)
+#define	__NFD_LEN(a)	(((a) + (__NFDBITS - 1)) / __NFDBITS)
+#define	__NFD_SIZE	__NFD_LEN(FD_SETSIZE)
+#define	__NFD_BYTES(a)	(__NFD_LEN(a) * sizeof(__fd_mask))
 
 typedef	struct fd_set {
 	__fd_mask	fds_bits[__NFD_SIZE];

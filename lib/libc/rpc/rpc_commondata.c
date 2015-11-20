@@ -41,14 +41,19 @@ __RCSID("$NetBSD$");
 #endif
 
 #include <rpc/rpc.h>
+#include "svc_fdset.h"
 
 /*
  * This file should only contain common data (global data) that is exported
  * by public interfaces 
  */
 struct opaque_auth _null_auth;
-fd_set svc_fdset;
+#ifdef _LIBC
+#undef svc_fdset
+__fd_set_256 svc_fdset;
+#undef svc_maxfd
 int svc_maxfd = -1;
+#endif
 #ifndef _REENTRANT
 #undef rpc_createerr
 struct rpc_createerr rpc_createerr;

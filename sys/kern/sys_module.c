@@ -184,6 +184,7 @@ sys_modctl(struct lwp *l, const struct sys_modctl_args *uap,
 			ms->ms_class = mi->mi_class;
 			ms->ms_refcnt = mod->mod_refcnt;
 			ms->ms_source = mod->mod_source;
+			ms->ms_flags = mod->mod_flags;
 			ms++;
 		}
 		TAILQ_FOREACH(mod, &module_builtins, mod_chain) {

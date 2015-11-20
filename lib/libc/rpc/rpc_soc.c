@@ -255,17 +255,19 @@ svc_com_create(int fd, u_int sendsize, u_int recvsize, const char *netid)
 	memset(&sccsin, 0, sizeof sccsin);
 	sccsin.sin_family = AF_INET;
 	(void)bindresvport(fd, &sccsin);
-	listen(fd, SOMAXCONN);
+	if (listen(fd, SOMAXCONN) == -1)
+		goto out;
 	svc = svc_tli_create(fd, nconf, NULL, sendsize, recvsize);
 	(void) freenetconfigent(nconf);
-	if (svc == NULL) {
-		if (madefd)
-			(void) close(fd);
-		return (NULL);
-	}
+	if (svc == NULL)
+		goto out;
 	port = (((struct sockaddr_in *)svc->xp_ltaddr.buf)->sin_port);
 	svc->xp_port = ntohs(port);
-	return (svc);
+	return svc;
+out:
+	if (madefd)
+		(void) close(fd);
+	return NULL;
 }
 
 SVCXPRT *

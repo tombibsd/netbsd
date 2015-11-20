@@ -36,7 +36,7 @@ SUBDIR+= \
 	xf86-video-cirrus_laguna \
 	xf86-video-glint \
 	xf86-video-i128 \
-	xf86-video-i740 \
+	xf86-video-i740
 
 # needs porting for xorg-server 1.6
 #	xf86-video-imstt \
@@ -106,6 +106,11 @@ SUBDIR+= \
 #	xf86-video-imstt
 .endif	# ${MACHINE} == "alpha"
 
+.if ${MACHINE} == "amiga"
+SUBDIR+= \
+	xf86-video-wsfb
+.endif	# ${MACHINE} == "amiga"
+
 .if ${MACHINE} == "bebox"
 SUBDIR+= \
 	xf86-video-cirrus \
@@ -151,6 +156,7 @@ SUBDIR+= \
 
 .if ${MACHINE} == "evbarm"
 SUBDIR+= \
+	xf86-video-modesetting \
 	xf86-video-wsfb
 .endif # ${MACHINE} == "evbarm"
 

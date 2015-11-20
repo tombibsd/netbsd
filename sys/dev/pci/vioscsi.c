@@ -186,6 +186,7 @@ vioscsi_attach(device_t parent, device_t self, void *aux)
 	chan->chan_ntargets = max_target;
 	chan->chan_nluns = max_lun;
 	chan->chan_id = 0;
+	chan->chan_flags = SCSIPI_CHAN_NOSETTLE;
 
 	config_found(sc->sc_dev, &sc->sc_channel, scsiprint);
 }

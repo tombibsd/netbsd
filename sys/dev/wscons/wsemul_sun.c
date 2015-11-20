@@ -151,11 +151,11 @@ wsemul_sun_cnattach(const struct wsscreen_descr *type, void *cookie,
 		res = (*edp->emulops->allocattr)(cookie, 0, 0,
 					    WS_KERNEL_MONOATTR,
 					    &edp->kernattr);
-	if (res)
 #else
-	res = 0; /* XXX gcc */
+	res = EINVAL;
 #endif
-	edp->kernattr = defattr;
+	if (res)
+		edp->kernattr = defattr;
 
 	edp->cbcookie = NULL;
 

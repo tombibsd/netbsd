@@ -166,7 +166,7 @@ _END_DECLS
 
 #ifdef RUMP_SYS_IOCTL
 #define ioctl(...) rump_sys_ioctl(__VA_ARGS__)
-#define fnctl(...) rump_sys_fcntl(__VA_ARGS__)
+#define fcntl(...) rump_sys_fcntl(__VA_ARGS__)
 #endif /* RUMP_SYS_IOCTL */
 
 #ifdef RUMP_SYS_CLOSE

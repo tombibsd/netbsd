@@ -415,12 +415,18 @@ tegra_device_register(device_t self, void *aux)
 		tegra_cpuinit();
 	}
 
-	if (device_is_a(self, "tegradc")
+	if (device_is_a(self, "tegrafb")
 	    && tegra_bootconf_match("console", "fb")) {
 		prop_dictionary_set_bool(dict, "is_console", true);
 #if NUKBD > 0
 		ukbd_cnattach();
 #endif
+	}
+
+	if (device_is_a(self, "tegradrm")) {
+		if (tegra_bootconf_match("hdmi.forcemode", "dvi")) {
+			prop_dictionary_set_bool(dict, "force-dvi", true);
+		}
 	}
 
 	if (device_is_a(self, "tegracec")) {
@@ -481,15 +487,11 @@ tegra_device_register(device_t self, void *aux)
 		}
 	}
 
-	if (device_is_a(self, "tegrahdmi")) {
+	if (device_is_a(self, "tegradrm")) {
 		prop_dictionary_set_cstring(dict, "hpd-gpio", "N7");
 		prop_dictionary_set_cstring(dict, "pll-gpio", "H7");
 		prop_dictionary_set_cstring(dict, "power-gpio", "K6");
 		prop_dictionary_set_cstring(dict, "ddc-device", "ddc0");
-		prop_dictionary_set_cstring(dict, "display-device", "tegradc1");
-		if (tegra_bootconf_match("hdmi.forcemode", "dvi")) {
-			prop_dictionary_set_bool(dict, "force-dvi", true);
-		}
 	}
 #endif
 
@@ -517,12 +519,11 @@ tegra_device_register(device_t self, void *aux)
 		}
 	}
 
-	if (device_is_a(self, "tegrahdmi")) {
+	if (device_is_a(self, "tegradrm")) {
 		prop_dictionary_set_cstring(dict, "hpd-gpio", "N7");
 		prop_dictionary_set_cstring(dict, "pll-gpio", "H7");
 		prop_dictionary_set_cstring(dict, "power-gpio", "K6");
 		prop_dictionary_set_cstring(dict, "ddc-device", "ddc0");
-		prop_dictionary_set_cstring(dict, "display-device", "tegradc1");
 	}
 #endif
 }

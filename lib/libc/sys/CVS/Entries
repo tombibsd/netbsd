@@ -102,7 +102,7 @@
 /mlockall.2/1.13/Wed Apr 30 13:10:51 2008/-kk/
 /mmap.2/1.48/Sat Mar 21 02:29:26 2015/-kk/
 /mmap.c/1.15/Tue Mar 20 16:26:12 2012/-kk/
-/modctl.2/1.11/Wed May 13 03:32:18 2015/-kk/
+/modctl.2/1.12/Fri Nov 20 02:13:49 2015/-kk/
 /mount.2/1.49/Fri Nov 18 21:04:21 2011/-kk/
 /mprotect.2/1.24/Sun Apr  3 06:54:30 2011/-kk/
 /mremap.2/1.4/Thu Apr 28 12:00:55 2011/-kk/
@@ -162,7 +162,7 @@
 /shmctl.2/1.21/Mon Mar 22 19:30:55 2010/-kk/
 /shmget.2/1.22/Mon Oct 27 16:49:10 2008/-kk/
 /shutdown.2/1.17/Thu May 13 10:20:58 2004/-kk/
-/sigaction.2/1.46/Fri Nov 20 01:29:26 2015/-kk/
+/sigaction.2/1.47/Fri Nov 20 02:13:49 2015/-kk/
 /sigaltstack.2/1.24/Fri Oct  3 10:04:46 2014/-kk/
 /sigpending.2/1.15/Fri Oct 24 15:40:21 2008/-kk/
 /sigprocmask.2/1.22/Sat Jan  7 20:11:30 2006/-kk/

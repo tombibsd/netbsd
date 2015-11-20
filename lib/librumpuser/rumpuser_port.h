@@ -12,6 +12,7 @@
  */
 #if !defined(RUMPUSER_CONFIG)
 
+#define HAVE_ALIGNED_ALLOC 1
 #define HAVE_ARC4RANDOM_BUF 1
 #define HAVE_CHFLAGS 1
 #define HAVE_CLOCKID_T 1

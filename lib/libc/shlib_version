@@ -41,5 +41,7 @@
 # - redo stdin/stdout/stderr to not require copy relocations
 # - move gethostbyname to a compat library
 # - remove arc4random(3) API
+# - decide whether soft-float should support fenv.h, including thread-local contett
+# - stop all math functions from setting errno
 major=12
-minor=198
+minor=199

@@ -122,13 +122,13 @@ SRCS.main= \
 	version.c \
 	viewport.c \
 	vtxfmt.c \
-	es1_conversion.c \
+	es1_conversion.c
 
 # Build files
 .PATH:	${X11SRCDIR.MesaLib}/../src/mesa/main
 SRCS.main+= \
 	enums.c \
-	api_exec.c \
+	api_exec.c
 
 # XXX  avoid source name clashes with glx
 .PATH:		${X11SRCDIR.MesaLib}/src/mesa/main

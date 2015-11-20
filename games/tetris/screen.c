@@ -330,8 +330,8 @@ scr_update(void)
 		putstr("Next shape:");
 						
 		/* draw */
-		putpad(enter_standout_mode);
 		setcolor(nextshape->color);
+		putpad(enter_standout_mode);
 		moveto(r, 2*c);
 		putstr("  ");
 		for(i=0; i<3; i++) {

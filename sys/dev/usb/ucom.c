@@ -219,6 +219,8 @@ ucom_attach(device_t parent, device_t self, void *aux)
 		aprint_normal(": %s", uca->info);
 	aprint_normal("\n");
 
+	prop_dictionary_set_int32(device_properties(self), "port", uca->portno);
+
 	sc->sc_dev = self;
 	sc->sc_udev = uca->device;
 	sc->sc_iface = uca->iface;

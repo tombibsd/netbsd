@@ -20,7 +20,7 @@ SUBDIR=	ac accton acpitools altq apm apmd arp \
 	ndbootd ndiscvt netgroup_mkdb nfsd \
 	ofctl \
 	paxctl pcictl perfused psrset pstat pwd_mkdb postinstall \
-	powerd \
+	powerd puffs \
 	quot quotacheck quotaon quotarestore \
 	rarpd rbootd rdate repquota rmt rpc.bootparamd rpc.lockd \
 	rpc.pcnfsd rpc.statd rpcbind rwhod \
@@ -39,10 +39,6 @@ SUBDIR+= makemandb
 
 .if (${MKYP} != "no")
 SUBDIR+= rpc.yppasswdd ypbind yppoll ypserv ypset
-.endif
-
-.if (${MKRUMP} != "no")
-SUBDIR+= puffs
 .endif
 
 .if ${TOOLCHAIN_MISSING} != "no"

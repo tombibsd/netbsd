@@ -1169,4 +1169,5 @@ nfs_vfs_done(void)
 	nfs_node_done();
 	nfs_kqfini();
 	nfs_iodfini();
+	nfs_fini();
 }

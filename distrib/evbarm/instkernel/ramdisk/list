@@ -22,6 +22,7 @@ PROG	bin/sync
 
 PROG	sbin/chown	bin/chgrp
 PROG	sbin/disklabel
+PROG	sbin/dkctl
 PROG	sbin/drvctl
 PROG	sbin/fdisk
 PROG	sbin/fsck

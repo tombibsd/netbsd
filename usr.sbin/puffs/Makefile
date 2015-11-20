@@ -4,6 +4,7 @@
 
 SUBDIR=	mount_9p mount_psshfs mount_sysctlfs
 
+.if (${MKRUMP} != "no")
 SUBDIR+=rump_cd9660 rump_efs rump_ext2fs rump_ffs rump_hfs rump_lfs
 SUBDIR+=rump_msdos rump_nfs rump_ntfs rump_syspuffs rump_sysvbfs
 SUBDIR+=rump_tmpfs rump_udf rump_v7fs
@@ -29,5 +30,7 @@ SUBDIR+=rump_smbfs
 # rump_au-naturel presents lets you access '/' for a rump kernel.
 # mostly for debugging.
 #SUBDIR+=rump_au-naturel
+
+.endif
 
 .include <bsd.subdir.mk>

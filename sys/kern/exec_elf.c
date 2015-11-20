@@ -927,12 +927,19 @@ netbsd_elf_signature(struct lwp *l, struct exec_package *epp,
 			}
 
 			/*
-			 * Ignore SuSE tags; SuSE's n_type is the same as NetBSD's
-			 * one.
+			 * Ignore SuSE tags; SuSE's n_type is the same the
+			 * NetBSD one.
 			 */
 			if (np->n_namesz == ELF_NOTE_SUSE_NAMESZ &&
 			    memcmp(ndata, ELF_NOTE_SUSE_NAME,
 			    ELF_NOTE_SUSE_NAMESZ) == 0)
+				break;
+			/*
+			 * Ignore old GCC
+			 */
+			if (np->n_namesz == ELF_NOTE_OGCC_NAMESZ &&
+			    memcmp(ndata, ELF_NOTE_OGCC_NAME,
+			    ELF_NOTE_OGCC_NAMESZ) == 0)
 				break;
 			BADNOTE("NetBSD tag");
 			goto bad;
@@ -997,6 +1004,9 @@ netbsd_elf_signature(struct lwp *l, struct exec_package *epp,
 			break;
 
 		case ELF_NOTE_TYPE_SUSE_VERSION_TAG:
+			break;
+
+		case ELF_NOTE_TYPE_GO_BUILDID_TAG:
 			break;
 
 		default:

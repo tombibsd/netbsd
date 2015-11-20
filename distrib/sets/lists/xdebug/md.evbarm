@@ -25,6 +25,7 @@
 ./usr/libdata/debug/usr/X11R7/lib/modules/drivers/libmouse_drv.so.1.debug	obsolete	xorg,obsolete
 ./usr/libdata/debug/usr/X11R7/lib/modules/drivers/libws_drv.so.1.debug	obsolete	xorg,obsolete
 ./usr/libdata/debug/usr/X11R7/lib/modules/drivers/libwsfb_drv.so.0.debug	obsolete	xorg,obsolete
+./usr/libdata/debug/usr/X11R7/lib/modules/drivers/modesetting_drv.so.0.debug	-unknown-	xorg,debug
 ./usr/libdata/debug/usr/X11R7/lib/modules/drivers/mouse_drv.so.1.debug	-unknown-	xorg,debug
 ./usr/libdata/debug/usr/X11R7/lib/modules/drivers/ws_drv.so.1.debug	-unknown-	xorg,debug
 ./usr/libdata/debug/usr/X11R7/lib/modules/drivers/wsfb_drv.so.0.debug	-unknown-	xorg,debug

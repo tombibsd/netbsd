@@ -72,15 +72,6 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/ksyms.h>
 #include <sys/module.h>
 #include <sys/cpu.h>
-#ifdef SYSVMSG
-#include <sys/msg.h>
-#endif
-#ifdef SYSVSEM
-#include <sys/sem.h>
-#endif
-#ifdef SYSVSHM
-#include <sys/shm.h>
-#endif
 #include <sys/kgdb.h>
 
 #include <machine/db_machdep.h>

@@ -1,6 +1,6 @@
 /Makefile/1.8/Wed Sep 23 08:04:35 2015/-kk/
 /makerumpdefs.sh/1.28/Wed Sep 23 08:04:35 2015/-kk/
-/rump.h/1.63/Wed Jun 18 08:43:12 2014/-kk/
+/rump.h/1.64/Fri Nov 20 02:19:54 2015/-kk/
 /rump_namei.h/1.27/Fri May  1 11:32:37 2015/-kk/
 /rump_syscalls.h/1.91/Sun Oct 11 09:01:39 2015/-kk/
 /rump_syscalls_compat.h/1.13/Thu Oct 24 10:28:58 2013/-kk/

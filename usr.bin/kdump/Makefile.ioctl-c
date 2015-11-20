@@ -20,7 +20,7 @@ SETFILES:= ${SETFILES} ${sb}/${md}
 .endif
 .endfor
 .endfor
-.if ${MKDTRACE} != 'no"
+.if ${MKDTRACE} != "no"
 EXTRAS=	${NETBSDSRCDIR}/external/cddl/osnet/dist/uts/common/sys/dtrace.h
 .endif
 

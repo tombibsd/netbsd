@@ -483,9 +483,11 @@ pci_attach_hook(device_t parent, device_t self, struct pcibus_attach_args *pba)
 	if (pci_has_msi_quirk(id, PCI_QUIRK_DISABLE_MSI)) {
 		pba->pba_flags &= ~PCI_FLAGS_MSI_OKAY;
 		pba->pba_flags &= ~PCI_FLAGS_MSIX_OKAY;
+		aprint_verbose_dev(self, "This pci host supports neither MSI nor MSI-X.\n");
 	} else if (pci_has_msi_quirk(id, PCI_QUIRK_DISABLE_MSIX)) {
 		pba->pba_flags |= PCI_FLAGS_MSI_OKAY;
 		pba->pba_flags &= ~PCI_FLAGS_MSIX_OKAY;
+		aprint_verbose_dev(self, "This pci host does not support MSI-X.\n");
 	} else {
 		pba->pba_flags |= PCI_FLAGS_MSI_OKAY;
 		pba->pba_flags |= PCI_FLAGS_MSIX_OKAY;

@@ -59,7 +59,6 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <ufs/ufs/quota.h>
 #include <sys/kernel.h>
 #include <sys/utsname.h>
-#include <sys/ksem.h>
 #include <sys/lwp.h>
 #ifdef SYSVSHM
 #include <machine/vmparam.h>
@@ -218,8 +217,3 @@ struct	msginfo msginfo = {
  */
 const	int msize = MSIZE;
 const	int mclbytes = MCLBYTES;
-
-/*
- * Values in support of POSIX semaphores.
- */
-int	ksem_max = KSEM_MAX;

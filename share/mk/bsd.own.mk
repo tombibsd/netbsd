@@ -1037,6 +1037,7 @@ ${var}?=	${${var}.${MACHINE_ARCH}:Uno}
 #
 .if ${MACHINE} == "alpha"	|| \
     ${MACHINE} == "amd64"	|| \
+    ${MACHINE} == "amiga"	|| \
     ${MACHINE} == "bebox"	|| \
     ${MACHINE} == "cats"	|| \
     ${MACHINE} == "dreamcast"	|| \
@@ -1298,7 +1299,8 @@ X11SRCDIR.xf86-input-${_i}?=	${X11SRCDIRMIT}/xf86-input-${_i}/dist
 
 .for _v in \
 	ag10e apm ark ast ati ati-kms chips cirrus crime \
-	geode glint i128 i740 igs imstt intel intel-old mach64 mga \
+	geode glint i128 i740 igs imstt intel intel-old \
+	modesetting mach64 mga \
 	neomagic newport nouveau nsc nv nvxbox openchrome pnozz \
 	r128 radeonhd rendition \
 	s3 s3virge savage siliconmotion sis suncg14 \

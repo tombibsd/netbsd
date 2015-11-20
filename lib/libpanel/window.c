@@ -40,4 +40,3 @@ panel_window(PANEL *p)
 
 	return p->win;
 }
-

@@ -99,7 +99,7 @@
 /ubsavar.h/1.9/Fri Dec 23 00:51:45 2011/-kk/
 /ubt.c/1.51/Tue Jun  3 02:54:39 2014/-kk/
 /uchcom.c/1.13/Tue Mar 25 02:35:40 2014/-kk/
-/ucom.c/1.109/Wed Apr 22 07:37:01 2015/-kk/
+/ucom.c/1.110/Fri Nov 20 02:19:09 2015/-kk/
 /ucomvar.h/1.20/Mon Dec 19 19:34:52 2011/-kk/
 /ucycom.c/1.42/Sat Mar 21 02:37:52 2015/-kk/
 /udl.c/1.12/Sat Dec 27 03:35:50 2014/-kk/
@@ -142,7 +142,7 @@
 /umassvar.h/1.35/Wed Jan  1 02:45:33 2014/-kk/
 /umcs.c/1.8/Fri Oct  3 09:43:37 2014/-kk/
 /umcs.h/1.1/Sun Mar 16 09:34:45 2014/-kk/
-/umct.c/1.32/Fri Dec 23 00:51:47 2011/-kk/
+/umct.c/1.33/Fri Nov 20 02:19:09 2015/-kk/
 /umct.h/1.2/Mon Apr 28 20:24:00 2008/-kk/
 /umidi.c/1.68/Mon Jan 12 06:48:54 2015/-kk/
 /umidi_quirks.c/1.19/Fri Jan  2 11:21:41 2015/-kk/
@@ -151,7 +151,7 @@
 /umodem_common.c/1.22/Wed Nov  3 22:34:24 2010/-kk/
 /umodemvar.h/1.8/Wed Nov  3 22:34:24 2010/-kk/
 /ums.c/1.87/Thu Feb 13 15:22:32 2014/-kk/
-/uplcom.c/1.75/Wed Jun  3 06:55:03 2015/-kk/
+/uplcom.c/1.76/Fri Nov 20 02:19:10 2015/-kk/
 /urio.c/1.42/Fri Oct  3 09:09:20 2014/-kk/
 /urio.h/1.4/Sun Sep 13 01:31:38 2015/-kk/
 /usb.c/1.160/Fri Nov 20 01:31:19 2015/-kk/
@@ -160,14 +160,14 @@
 /usb_mem.h/1.30/Thu Oct 24 10:28:58 2013/-kk/
 /usb_quirks.c/1.83/Sun Apr 12 03:35:09 2015/-kk/
 /usb_quirks.h/1.26/Tue Nov 30 11:35:30 2010/-kk/
-/usb_subr.c/1.203/Fri Nov 20 01:31:19 2015/-kk/
+/usb_subr.c/1.204/Fri Nov 20 02:19:10 2015/-kk/
 /usb_verbose.c/1.7/Fri Oct  3 10:05:17 2014/-kk/
 /usb_verbose.h/1.4/Fri Oct  3 10:05:17 2014/-kk/
 /usbcdc.h/1.11/Mon Apr 28 20:24:00 2008/-kk/
 /usbdevices.config/1.24/Tue Mar 25 02:35:40 2014/-kk/
-/usbdevs.h/1.694/Sun Nov 15 13:36:14 2015/-kk/
-/usbdevs/1.702/Sun Nov 15 13:36:14 2015/-kk/
-/usbdevs_data.h/1.695/Sun Nov 15 13:36:15 2015/-kk/
+/usbdevs.h/1.695/Fri Nov 20 02:19:10 2015/-kk/
+/usbdevs/1.703/Fri Nov 20 02:19:10 2015/-kk/
+/usbdevs_data.h/1.696/Fri Nov 20 02:19:10 2015/-kk/
 /usbdi.c/1.165/Fri Oct  2 14:11:57 2015/-kk/
 /usbdi.h/1.90/Sun Jul 20 13:58:50 2014/-kk/
 /usbdi_util.c/1.64/Thu Apr  2 02:28:04 2015/-kk/

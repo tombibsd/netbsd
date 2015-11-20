@@ -25,6 +25,6 @@ SUBDIR+= \
 	xkb \
 	xtest \
 	xv \
-	xvmc \
+	xvmc
 
 .include <bsd.subdir.mk>

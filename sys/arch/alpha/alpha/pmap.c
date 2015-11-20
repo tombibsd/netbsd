@@ -149,7 +149,6 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/malloc.h>
 #include <sys/pool.h>
 #include <sys/buf.h>
-#include <sys/shm.h>
 #include <sys/atomic.h>
 #include <sys/cpu.h>
 
@@ -778,9 +777,6 @@ pmap_bootstrap(paddr_t ptaddr, u_int maxasn, u_long ncpuids)
 		 bufsz + 16 * NCARGS + pager_map_size) / PAGE_SIZE +
 		(maxproc * UPAGES) + nkmempages;
 
-#ifdef SYSVSHM
-	lev3mapsize += shminfo.shmall;
-#endif
 	lev3mapsize = roundup(lev3mapsize, NPTEPG);
 
 	/*

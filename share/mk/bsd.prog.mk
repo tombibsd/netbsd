@@ -124,6 +124,7 @@ LIBCRTI=	${DESTDIR}/usr/lib/${MLIBDIR:D${MLIBDIR}/}crti.o
 	edit \
 	event \
 	expat \
+	execinfo \
 	fetch \
 	fl \
 	form \

@@ -121,7 +121,7 @@ options 	BUFQ_PRIOCSCAN
 # Development and Debugging options
 
 #options 	PERFCTRS	# performance counters
-#options 	DIAGNOSTIC	# internal consistency checks
+options 	DIAGNOSTIC	# internal consistency checks
 #options 	DEBUG
 #options 	LOCKDEBUG
 #options 	PMAP_DEBUG	# Enable pmap_debug_level code

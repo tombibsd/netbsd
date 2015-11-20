@@ -43,6 +43,11 @@ CPPFLAGS+=		${RUMPCOMP_CPPFLAGS.rumpdev_pci}
 # XXX: messy
 .undef RUMPKERN_ONLY
 
+.ifdef RUMPCOMP_MAKEFILEINC.rumpdev_pci
+.warning RUMPCOMP_MAKEFILEINC interface is unstable and may change
+.include "${RUMPCOMP_MAKEFILEINC.rumpdev_pci}"
+.endif
+
 .include "${RUMPTOP}/Makefile.rump"
 .include <bsd.lib.mk>
 .include <bsd.klinks.mk>

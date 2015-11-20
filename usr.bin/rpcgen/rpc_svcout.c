@@ -652,7 +652,6 @@ write_timeout_func(void)
 	f_print(fout, "closedown(void)\n");
 	f_print(fout, "{\n");
 	f_print(fout, "\tif (_rpcsvcdirty == 0) {\n");
-	f_print(fout, "\t\textern fd_set svc_fdset;\n");
 	f_print(fout, "\t\tstatic int size;\n");
 	f_print(fout, "\t\tint i, openfd;\n");
 	if (tirpcflag && pmflag) {
@@ -738,8 +737,6 @@ write_pm_most(char *infile, int netflag)
 	}
 	if (timerflag)
 		f_print(fout, "\t\tint pmclose;\n");
-/* not necessary, defined in /usr/include/stdlib */
-/*	f_print(fout, "\t\textern char *getenv();\n");*/
 	f_print(fout, "\n");
 	f_print(fout, "\t\t_rpcpmstart = 1;\n");
 	if (logflag)

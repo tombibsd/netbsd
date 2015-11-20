@@ -1435,6 +1435,10 @@ config_devalloc(const device_t parent, const cfdata_t cf, const int *locs)
 	    "device-driver", dev->dv_cfdriver->cd_name);
 	prop_dictionary_set_uint16(dev->dv_properties,
 	    "device-unit", dev->dv_unit);
+	if (parent != NULL) {
+		prop_dictionary_set_cstring(dev->dv_properties,
+		    "device-parent", device_xname(parent));
+	}
 
 	if (dev->dv_cfdriver->cd_attrs != NULL)
 		config_add_attrib_dict(dev);

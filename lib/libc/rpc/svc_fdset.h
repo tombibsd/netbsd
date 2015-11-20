@@ -1,12 +1,5 @@
 /*	$NetBSD$	*/
 
-#ifndef _LIBC
-
-void init_fdsets(void);
-void alloc_fdset(void);
-fd_set *get_fdset(void);
-int *get_fdsetmax(void);
-
 # ifdef RUMP_RPC
 #  include <rump/rump.h>
 #  include <rump/rump_syscalls.h>
@@ -24,7 +17,8 @@ int *get_fdsetmax(void);
 #  define	select(a, b, c, d, e)	rump_sys_select(a, b, c, d, e)
 # endif
 
-#else
-# define	get_fdset()	(&svc_fdset)
-# define	get_fdsetmax()	(&svc_maxfd)
+#ifdef _LIBC
+typedef struct __fd_set_256 {
+	__fd_mask fds_bits[__NFD_LEN(256)];
+} __fd_set_256;
 #endif

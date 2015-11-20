@@ -394,7 +394,8 @@ drm_lastclose(struct drm_device *dev)
 		drm_irq_uninstall(dev);
 
 	mutex_lock(&dev->struct_mutex);
-	drm_agp_clear_hook(dev);
+	if (dev->agp)
+		drm_agp_clear_hook(dev);
 	drm_legacy_sg_cleanup(dev);
 	list_for_each_entry_safe(vma, vma_temp, &dev->vmalist, head) {
 		list_del(&vma->head);

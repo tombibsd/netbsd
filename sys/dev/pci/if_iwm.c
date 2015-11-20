@@ -6603,9 +6603,6 @@ iwm_attach(device_t parent, device_t self, void *aux)
 	struct pci_attach_args *pa = aux;
 	struct ieee80211com *ic = &sc->sc_ic;
 	struct ifnet *ifp = &sc->sc_ec.ec_if;
-#ifndef __HAVE_PCI_MSI_MSIX
-	pci_intr_handle_t ih;
-#endif
 	pcireg_t reg, memtype;
 	char intrbuf[PCI_INTRSTR_LEN];
 	const char *intrstr;
@@ -6655,7 +6652,6 @@ iwm_attach(device_t parent, device_t self, void *aux)
 	}
 
 	/* Install interrupt handler. */
-#ifdef __HAVE_PCI_MSI_MSIX
 	error = pci_intr_alloc(pa, &sc->sc_pihp, NULL, 0);
 	if (error != 0) {
 		aprint_error_dev(self, "can't allocate interrupt\n");
@@ -6665,14 +6661,6 @@ iwm_attach(device_t parent, device_t self, void *aux)
 	    sizeof(intrbuf));
 	sc->sc_ih = pci_intr_establish(sc->sc_pct, sc->sc_pihp[0], IPL_NET,
 	    iwm_intr, sc);
-#else	/* !__HAVE_PCI_MSI_MSIX */
-	if (pci_intr_map(pa, &ih)) {
-		aprint_error_dev(self, "can't map interrupt\n");
-		return;
-	}
-	intrstr = pci_intr_string(sc->sc_pct, ih, intrbuf, sizeof(intrbuf));
-	sc->sc_ih = pci_intr_establish(sc->sc_pct, ih, IPL_NET, iwm_intr, sc);
-#endif	/* __HAVE_PCI_MSI_MSIX */
 	if (sc->sc_ih == NULL) {
 		aprint_error_dev(self, "can't establish interrupt");
 		if (intrstr != NULL)

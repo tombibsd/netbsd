@@ -102,13 +102,13 @@ static struct clnt_ops *clnt_raw_ops(void);
 CLIENT *
 clnt_raw_create(rpcprog_t prog, rpcvers_t vers)
 {
-	struct clntraw_private *clp = clntraw_private;
+	struct clntraw_private *clp;
 	struct rpc_msg call_msg;
-	XDR *xdrs = &clp->xdr_stream;
-	CLIENT	*client = &clp->client_object;
+	XDR *xdrs;
+	CLIENT *client;
 
 	mutex_lock(&clntraw_lock);
-	if (clp == NULL) {
+	if ((clp = clntraw_private) == NULL) {
 		clp = calloc((size_t)1, sizeof (*clp));
 		if (clp == NULL)
 			goto out;
@@ -120,6 +120,10 @@ clnt_raw_create(rpcprog_t prog, rpcvers_t vers)
 		clp->_raw_buf = __rpc_rawcombuf;
 		clntraw_private = clp;
 	}
+
+	xdrs = &clp->xdr_stream;
+	client = &clp->client_object;
+
 	/*
 	 * pre-serialize the static part of the call msg and stash it away
 	 */
@@ -193,7 +197,7 @@ call_again:
 	 * We have to call server input routine here because this is
 	 * all going on in one process. Yuk.
 	 */
-	svc_getreq_common(FD_SETSIZE);
+	svc_getreq_common(-1);
 
 	/*
 	 * get results

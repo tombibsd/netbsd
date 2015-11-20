@@ -37,23 +37,24 @@ __RCSID("$NetBSD$");
 static PANEL *
 _new_panel(WINDOW *w)
 {
-    PANEL *p;
+	PANEL *p;
 
-    p = (PANEL *)malloc(sizeof(PANEL));
-    if (p == NULL)
-	return NULL;
+	p = (PANEL *)malloc(sizeof(PANEL));
+	if (__predict_false(p == NULL))
+		return NULL;
 
-    p->win = w;
-    p->user = NULL;
+	p->win = w;
+	p->user = NULL;
 
-    DECK_INSERT_TOP(p);
-    return p;
+	DECK_INSERT_TOP(p);
+	return p;
 }
 
 
 PANEL *
 new_panel(WINDOW *w)
 {
+
 	if (__predict_false(w == NULL))
 		return NULL;
 

@@ -49,7 +49,7 @@
 /osf1_syscall.c/1.35/Sat Mar 21 02:37:31 2015/-kk/
 /pal.s/1.15/Mon May 13 21:38:30 2002/-kk/
 /patch.c/1.4/Mon Apr 28 20:23:10 2008/-kk/
-/pmap.c/1.259/Tue Jan 14 16:04:51 2014/-kk/
+/pmap.c/1.260/Fri Nov 20 02:17:03 2015/-kk/
 /process_machdep.c/1.29/Tue Jun  3 02:53:40 2014/-kk/
 /procfs_machdep.c/1.5/Sat Apr 19 05:36:37 2014/-kk/
 /prom.c/1.48/Mon Feb  6 02:14:12 2012/-kk/

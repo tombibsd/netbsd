@@ -4,7 +4,7 @@
 /Lint_labs.c/1.2/Wed Jun 14 06:49:07 2000/-kk/
 /Lint_ldiv.c/1.2/Wed Jun 14 06:49:07 2000/-kk/
 /Lint_llabs.c/1.2/Tue Mar  7 20:02:00 2000/-kk/
-/Makefile.inc/1.90/Wed May 13 03:32:18 2015/-kk/
+/Makefile.inc/1.91/Fri Nov 20 02:13:46 2015/-kk/
 /_env.c/1.9/Mon Jan 26 07:10:04 2015/-kk/
 /_rand48.c/1.7/Sun Jun 12 05:21:27 2005/-kk/
 /a64l.3/1.10/Thu May  6 18:55:34 2010/-kk/
@@ -13,6 +13,7 @@
 /abort.c/1.15/Fri Jun  8 11:15:26 2012/-kk/
 /abs.3/1.14/Wed Apr 13 06:56:50 2011/-kk/
 /abs.c/1.8/Fri Jun  8 11:15:26 2012/-kk/
+/aligned_alloc.c/1.1/Sat Nov  7 16:21:42 2015/-kk/
 /alloca.3/1.16/Wed Oct 24 22:56:27 2012/-kk/
 /at_quick_exit.3/1.2/Thu Oct 24 10:28:53 2013/-kk/
 /atexit.3/1.11/Thu Oct 24 10:28:53 2013/-kk/
@@ -63,14 +64,14 @@
 /lrand48.c/1.9/Sun Oct 27 08:19:44 2013/-kk/
 /lsearch.3/1.3/Tue Jul 12 08:28:42 2005/-kk/
 /lsearch.c/1.7/Mon Jun 25 22:32:45 2012/-kk/
-/malloc.3/1.44/Sun Aug  2 04:02:22 2015/-kk/
+/malloc.3/1.46/Fri Nov 20 02:13:46 2015/-kk/
 /malloc.c/1.56/Fri Oct  3 09:57:25 2014/-kk/
 /memory.3/1.11/Sun Sep 11 10:05:23 2011/-kk/
 /merge.c/1.14/Tue Mar 13 21:13:48 2012/-kk/
 /mi_vector_hash.3/1.2/Tue Jul 21 12:40:52 2009/-kk/
 /mrand48.c/1.8/Sun Oct 27 08:19:44 2013/-kk/
 /nrand48.c/1.10/Sun Oct 27 08:19:44 2013/-kk/
-/posix_memalign.3/1.1/Mon Nov 19 14:48:43 2007/-kk/
+/posix_memalign.3/1.3/Fri Nov 20 02:13:46 2015/-kk/
 /posix_openpt.3/1.6/Thu May  5 07:36:44 2011/-kk/
 /posix_openpt.c/1.2/Mon Apr 28 20:23:00 2008/-kk/
 /ptsname.3/1.9/Tue Jan 14 16:04:42 2014/-kk/

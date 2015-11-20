@@ -172,11 +172,14 @@ extern int shm_nused;
 
 struct vmspace;
 
-void	shminit(void);
+void	shminit(struct sysctllog **);
 int	shmfini(void);
 void	shmfork(struct vmspace *, struct vmspace *);
 void	shmexit(struct vmspace *);
 int	shmctl1(struct lwp *, int, int, struct shmid_ds *);
+
+extern void (*uvm_shmexit)(struct vmspace *);
+extern void (*uvm_shmfork)(struct vmspace *, struct vmspace *);
 
 #define SYSCTL_FILL_SHM(src, dst) do { \
 	SYSCTL_FILL_PERM((src).shm_perm, (dst).shm_perm); \

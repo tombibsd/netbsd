@@ -206,6 +206,7 @@
 ./usr/lib/librumpnet_agr_g.a			comp-c-debuglib		debuglib,rump
 ./usr/lib/librumpnet_bpfjit_g.a			comp-c-debuglib		debuglib,rump,sljit
 ./usr/lib/librumpnet_bridge_g.a			comp-c-debuglib		debuglib,rump
+./usr/lib/librumpnet_gif_g.a			comp-c-debuglib		debuglib,rump
 ./usr/lib/librumpnet_g.a			comp-c-debuglib		debuglib,compatfile,rump
 ./usr/lib/librumpnet_local_g.a			comp-c-debuglib		debuglib,rump
 ./usr/lib/librumpnet_net80211_g.a		comp-c-debuglib		debuglib,rump
@@ -1113,10 +1114,10 @@
 ./usr/libdata/debug/usr/sbin/mopd.debug		comp-bootserver-debug	debug
 ./usr/libdata/debug/usr/sbin/mopprobe.debug	comp-bootserver-debug	debug
 ./usr/libdata/debug/usr/sbin/moptrace.debug	comp-bootserver-debug	debug
-./usr/libdata/debug/usr/sbin/mount_9p.debug	comp-puffs-debug	debug,rump
-./usr/libdata/debug/usr/sbin/mount_psshfs.debug	comp-puffs-debug	debug,rump
+./usr/libdata/debug/usr/sbin/mount_9p.debug	comp-puffs-debug	debug
+./usr/libdata/debug/usr/sbin/mount_psshfs.debug	comp-puffs-debug	debug
 ./usr/libdata/debug/usr/sbin/mount_puffsportal.debug	comp-obsolete	obsolete
-./usr/libdata/debug/usr/sbin/mount_sysctlfs.debug	comp-puffs-debug	debug,rump
+./usr/libdata/debug/usr/sbin/mount_sysctlfs.debug	comp-puffs-debug	debug
 ./usr/libdata/debug/usr/sbin/mountd.debug	comp-nfsserver-debug	debug
 ./usr/libdata/debug/usr/sbin/moused.debug	comp-sysutil-debug	debug
 ./usr/libdata/debug/usr/sbin/mrinfo.debug	comp-router-debug	debug

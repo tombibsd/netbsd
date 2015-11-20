@@ -18,12 +18,12 @@
 /wsdisplay_glyphcachevar.h/1.4/Thu Oct  4 10:26:32 2012/-kk/
 /wsdisplay_usl_io.h/1.4/Sun Sep 13 01:31:38 2015/-kk/
 /wsdisplay_util.c/1.2/Thu Oct 24 10:28:58 2013/-kk/
-/wsdisplay_vcons.c/1.34/Sat Jul 25 01:52:23 2015/-kk/
+/wsdisplay_vcons.c/1.35/Fri Nov 20 02:19:11 2015/-kk/
 /wsdisplay_vcons_util.c/1.2/Wed May 25 06:01:39 2011/-kk/
 /wsdisplay_vconsvar.h/1.23/Tue Mar 25 02:35:40 2014/-kk/
 /wsdisplayvar.h/1.51/Thu Feb 13 15:22:32 2014/-kk/
 /wsemul_dumb.c/1.15/Thu Jan 28 22:36:19 2010/-kk/
-/wsemul_sun.c/1.28/Fri Mar 12 08:40:50 2010/-kk/
+/wsemul_sun.c/1.29/Fri Nov 20 02:19:11 2015/-kk/
 /wsemul_vt100.c/1.37/Sun Sep 13 01:07:16 2015/-kk/
 /wsemul_vt100_chars.c/1.14/Thu Feb 25 11:20:09 2010/-kk/
 /wsemul_vt100_keys.c/1.11/Wed Feb 10 19:39:39 2010/-kk/

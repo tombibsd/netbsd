@@ -37,6 +37,7 @@
 #include <string.h>
 #include <syslog.h>
 #include <unistd.h>
+#include <rpc/rpc.h>
 
 void *mountd_main(void *);
 void *rpcbind_main(void *);
@@ -87,7 +88,7 @@ main(int argc, char *argv[])
 	}
 
 	rump_init();
-	init_fdsets();
+	svc_fdset_init(SVC_FDSET_MT);
 
 	rv = rump_pub_etfs_register("/etc/exports", "./exports", RUMP_ETFS_REG);
 	if (rv) {

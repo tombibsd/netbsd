@@ -65,6 +65,10 @@ static const char *sources[] = {
 };
 const unsigned int source_max = __arraycount(sources);
 
+static const char *modflags[] = {
+	"-", "f", "a", "af"
+};
+
 int
 main(int argc, char **argv)
 {
@@ -175,9 +179,9 @@ main(int argc, char **argv)
 		if (maxnamelen < namelen)
 			maxnamelen = namelen;
 	}
-	printf("%-*s %-10s %-10s %-5s %-16s %-8s %s \n",
-	    (int)maxnamelen, "NAME", "CLASS", "SOURCE", "REFS", "ADDRESS",
-	    "SIZE", "REQUIRES");
+	printf("%-*s %-8s %-8s %-4s %-5s %-16s %-7s %s \n",
+	    (int)maxnamelen, "NAME", "CLASS", "SOURCE", "FLAG", "REFS",
+	    "ADDRESS", "SIZE", "REQUIRES");
 	for (ms = iov.iov_base; len != 0; ms++, len--) {
 		const char *class;
 		const char *source;
@@ -204,9 +208,10 @@ main(int argc, char **argv)
 		else
 			source = "UNKNOWN";
 
-		printf("%-*s %-10s %-10s %-5d %-16" PRIx64 " %-8s %s\n",
-		    (int)maxnamelen, ms->ms_name, class, source, ms->ms_refcnt,
-		    ms->ms_addr, sbuf, ms->ms_required);
+		printf("%-*s %-8s %-8s %-4s %-5d %-16" PRIx64 " %-7s %s\n",
+		    (int)maxnamelen, ms->ms_name, class, source, 
+		    modflags[ms->ms_flags & (__arraycount(modflags) - 1)],
+		    ms->ms_refcnt, ms->ms_addr, sbuf, ms->ms_required);
 	}
 
 	exit(EXIT_SUCCESS);

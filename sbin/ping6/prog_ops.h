@@ -36,6 +36,7 @@ struct prog_ops {
 	int (*op_init)(void);
 
 	int (*op_socket)(int, int, int);
+	int (*op_bind)(int, const struct sockaddr *, socklen_t);
 	int (*op_setsockopt)(int, int, int, const void *, socklen_t);
 	int (*op_getsockname)(int, struct sockaddr * restrict,
 	    socklen_t * restrict);
@@ -56,6 +57,7 @@ extern const struct prog_ops prog_ops;
 
 #define prog_init prog_ops.op_init
 #define prog_socket prog_ops.op_socket
+#define prog_bind prog_ops.op_bind
 #define prog_setsockopt prog_ops.op_setsockopt
 #define prog_getsockname prog_ops.op_getsockname
 #define prog_shutdown prog_ops.op_shutdown
@@ -70,6 +72,7 @@ extern const struct prog_ops prog_ops;
 #else
 #define prog_init ((int (*)(void))NULL)
 #define prog_socket socket
+#define prog_bind bind
 #define prog_setsockopt setsockopt
 #define prog_getsockname getsockname
 #define prog_shutdown shutdown

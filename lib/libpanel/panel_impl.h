@@ -42,7 +42,7 @@
  */
 struct __panel {
 	WINDOW *win;
-	void *user;
+	char *user;
 	DECK_ENTRY zorder;
 };
 

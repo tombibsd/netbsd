@@ -20,7 +20,7 @@ CPPFLAGS+=	-I${X11SRCDIR.xorg-server}/include \
 		-I${X11SRCDIR.xorg-server}/miext/damage \
 		-I${DESTDIR}${X11INCDIR}/X11 \
 		-I${DESTDIR}${X11INCDIR}/pixman-1 \
-		-I${X11SRCDIR.xorg-server}/../include \
+		-I${X11SRCDIR.xorg-server}/../include
 
 # XXX
 COPTS.compwindow.c=	-Wno-error

@@ -4027,7 +4027,7 @@ pmap_protect(pmap_t pm, vaddr_t sva, vaddr_t eva, vm_prot_t prot)
 
 					pmap_acquire_page_lock(md);
 #ifndef ARM_MMU_EXTENDED
-					f = 
+					f =
 #endif
 					    pmap_modify_pv(md, pa, pm, sva,
 					       clr_mask, 0);

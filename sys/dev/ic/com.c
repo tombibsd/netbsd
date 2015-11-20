@@ -377,7 +377,7 @@ com_enable_debugport(struct com_softc *sc)
 {
 
 	/* Turn on line break interrupt, set carrier. */
-	sc->sc_ier = IER_ERXRDY;
+	sc->sc_ier = IER_ERLS;
 	if (sc->sc_type == COM_TYPE_PXA2x0)
 		sc->sc_ier |= IER_EUART | IER_ERXTOUT;
 	if (sc->sc_type == COM_TYPE_INGENIC ||
@@ -812,7 +812,7 @@ com_shutdown(struct com_softc *sc)
 
 	/* Turn off interrupts. */
 	if (ISSET(sc->sc_hwflags, COM_HW_CONSOLE)) {
-		sc->sc_ier = IER_ERXRDY; /* interrupt on break */
+		sc->sc_ier = IER_ERLS; /* interrupt on line break */
 		if ((sc->sc_type == COM_TYPE_PXA2x0) ||
 		    (sc->sc_type == COM_TYPE_INGENIC) ||
 		    (sc->sc_type == COM_TYPE_TEGRA))

@@ -36,7 +36,7 @@ CPPFLAGS+=	-I${X11SRCDIR.xorg-server}/include \
 		-I${X11SRCDIR.xorg-server}/fb \
 		-I${X11SRCDIR.xorg-server}/mi \
 		-I${X11SRCDIR.xorg-server}/render \
-		-I${DESTDIR}${X11INCDIR}/X11 \
+		-I${DESTDIR}${X11INCDIR}/X11
 
 CPPFLAGS+=	-UXFree86LOADER -UXF86VIDMODE -UXFreeXDGA -UXF86MISC \
 		-UXF86DRI -UXF86BIGFONT

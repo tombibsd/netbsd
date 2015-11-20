@@ -12,7 +12,7 @@ SRCS+=	auth_none.c auth_unix.c authunix_prot.c bindresvport.c \
 	pmap_prot2.c pmap_rmt.c rpc_prot.c rpc_commondata.c rpc_callmsg.c \
 	rpc_generic.c rpc_soc.c rpcb_clnt.c rpcb_prot.c rpcb_st_xdr.c \
 	svc.c svc_auth.c svc_dg.c svc_auth_unix.c svc_generic.c svc_raw.c \
-	svc_run.c svc_simple.c svc_vc.c \
+	svc_run.c svc_simple.c svc_vc.c svc_fdset.c \
 	xdr.c xdr_array.c xdr_float.c xdr_mem.c xdr_rec.c xdr_reference.c \
 	xdr_stdio.c xdr_sizeof.c __rpc_getxid.c
 

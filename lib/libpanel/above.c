@@ -35,8 +35,12 @@ PANEL *
 panel_above(PANEL *p)
 {
 
-	if (__predict_false(p == NULL))
-		return NULL;
+	if (p == NULL) {
+		if (TAILQ_EMPTY(&_deck))
+			return NULL;
+
+		return PANEL_ABOVE(&_stdscr_panel);
+	}
 
 	if (__predict_false(PANEL_HIDDEN(p)))
 		return NULL;

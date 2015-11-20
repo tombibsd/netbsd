@@ -127,28 +127,29 @@ struct	msginfo msginfo = {
 
 MODULE(MODULE_CLASS_EXEC, sysv_ipc, NULL);
  
-#ifdef _MODULE
 SYSCTL_SETUP_PROTO(sysctl_ipc_setup);
-SYSCTL_SETUP_PROTO(sysctl_ipc_shm_setup);
-SYSCTL_SETUP_PROTO(sysctl_ipc_sem_setup);
-SYSCTL_SETUP_PROTO(sysctl_ipc_msg_setup);
 
 static struct sysctllog *sysctl_sysvipc_clog = NULL;
-#endif
 
 static const struct syscall_package sysvipc_syscalls[] = {
+#ifdef SYSVSHM
 	{ SYS___shmctl50, 0, (sy_call_t *)sys___shmctl50 },
 	{ SYS_shmat, 0, (sy_call_t *)sys_shmat },
 	{ SYS_shmdt, 0, (sy_call_t *)sys_shmdt },
 	{ SYS_shmget, 0, (sy_call_t *)sys_shmget },
+#endif
+#ifdef SYSVSEM
 	{ SYS_____semctl50, 0, (sy_call_t *)sys_____semctl50 },
 	{ SYS_semget, 0, (sy_call_t *)sys_semget },
 	{ SYS_semop, 0, (sy_call_t *)sys_semop },
 	{ SYS_semconfig, 0, (sy_call_t *)sys_semconfig },
+#endif
+#ifdef SYSVMSG
 	{ SYS___msgctl50, 0, (sy_call_t *)sys___msgctl50 },
 	{ SYS_msgget, 0, (sy_call_t *)sys_msgget },
 	{ SYS_msgsnd, 0, (sy_call_t *)sys_msgsnd },
 	{ SYS_msgrcv, 0, (sy_call_t *)sys_msgrcv },
+#endif
 	{ 0, 0, NULL }
 };
 
@@ -159,35 +160,35 @@ sysv_ipc_modcmd(modcmd_t cmd, void *arg)
 
 	switch (cmd) {
 	case MODULE_CMD_INIT:
+		/* Set up the kauth listener */
+		sysvipcinit();
+
+#ifdef _MODULE
+		/* Set up the common sysctl tree */
+		sysctl_ipc_setup(&sysctl_sysvipc_clog);
+#endif
+
 		/* Link the system calls */
 		error = syscall_establish(NULL, sysvipc_syscalls);
+		if (error)
+			sysvipcfini();
 
-		/* Initialize all sysctl sub-trees */
-#ifdef _MODULE
-		sysctl_ipc_setup(&sysctl_sysvipc_clog);
-#ifdef	SYSVMSG
-		sysctl_ipc_msg_setup(&sysctl_sysvipc_clog);
-#endif
-#ifdef	SYSVSHM
-		sysctl_ipc_shm_setup(&sysctl_sysvipc_clog);
-#endif
-#ifdef	SYSVSEM
-		sysctl_ipc_sem_setup(&sysctl_sysvipc_clog);
-#endif
 		/* Assume no compat sysctl routine for now */
 		kern_sysvipc50_sysctl_p = NULL;
 
-		/* Initialize each sub-component */
+		/*
+		 * Initialize each sub-component, including their
+		 * sysctl data
+		 */
 #ifdef SYSVSHM
-		shminit();
+		shminit(&sysctl_sysvipc_clog);
 #endif
 #ifdef SYSVSEM
-		seminit();
+		seminit(&sysctl_sysvipc_clog);
 #endif
 #ifdef SYSVMSG
-		msginit();
+		msginit(&sysctl_sysvipc_clog);
 #endif
-#endif /* _MODULE */
 		break;
 	case MODULE_CMD_FINI:
 		/*
@@ -206,7 +207,7 @@ sysv_ipc_modcmd(modcmd_t cmd, void *arg)
 #ifdef SYSVSEM
 		if (semfini()) {
 #ifdef SYSVSHM
-			shminit();
+			shminit(NULL);
 #endif
 			return EBUSY;
 		}
@@ -214,10 +215,10 @@ sysv_ipc_modcmd(modcmd_t cmd, void *arg)
 #ifdef SYSVMSG
 		if (msgfini()) {
 #ifdef SYSVSEM
-			seminit();
+			seminit(NULL);
 #endif
 #ifdef SYSVSHM
-			shminit();
+			shminit(NULL);
 #endif
 			return EBUSY;
 		}
@@ -231,7 +232,7 @@ sysv_ipc_modcmd(modcmd_t cmd, void *arg)
 #ifdef _MODULE
 		/* Remove the sysctl sub-trees */
 		sysctl_teardown(&sysctl_sysvipc_clog);
-#endif  
+#endif
 
 		/* Remove the kauth listener */
 		sysvipcfini();
@@ -339,8 +340,7 @@ void
 sysvipcinit(void)
 {
 
-	if (sysvipc_listener != NULL)
-		return;
+	KASSERT(sysvipc_listener == NULL);
 
 	sysvipc_listener = kauth_listen_scope(KAUTH_SCOPE_SYSTEM,
 	    sysvipc_listener_cb, NULL);

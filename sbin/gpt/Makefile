@@ -2,7 +2,7 @@
 # $FreeBSD: src/sbin/gpt/Makefile,v 1.7 2005/09/01 02:49:20 marcel Exp $
 
 PROG=	gpt
-SRCS=	add.c biosboot.c create.c destroy.c gpt.c label.c map.c \
+SRCS=	add.c biosboot.c create.c destroy.c gpt.c header.c label.c map.c \
 	migrate.c recover.c remove.c resize.c resizedisk.c \
 	set.c show.c type.c unset.c gpt_uuid.c
 MAN=	gpt.8

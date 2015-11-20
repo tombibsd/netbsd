@@ -220,6 +220,9 @@ mvpex*	at mvsoc? offset ? irq ?
 # On-chip IDMA Controller
 gtidmac* at mvsoc? offset ? irq ?
 
+# On-chip Thermal Sensor
+mvsocts* at mvsoc? offset ? irq ?
+
 # On-chip Timers
 mvsoctmr* at mvsoc? offset ? irq ?
 

@@ -196,9 +196,6 @@ pmap_bootstrap(vaddr_t startkernel, vaddr_t endkernel,
 	    + 16 * NCARGS
 	    + pager_map_size
 	    + maxproc * USPACE
-#ifdef SYSVSHM
-	    + NBPG * shminfo.shmall
-#endif
 	    + NBPG * nkmempages) >> SEGSHIFT;
 
 	/*

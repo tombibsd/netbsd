@@ -223,7 +223,8 @@ typedef struct modstat {
 	modclass_t	ms_class;
 	u_int		ms_size;
 	u_int		ms_refcnt;
-	u_int		ms_reserved[4];
+	u_int		ms_flags;
+	u_int		ms_reserved[3];
 } modstat_t;
 
 int	modctl(int, void *);

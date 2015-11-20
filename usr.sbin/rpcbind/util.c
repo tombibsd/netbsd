@@ -48,6 +48,11 @@
 #include <arpa/inet.h>
 #include <err.h>
 
+#ifdef RPCBIND_RUMP
+#include <rump/rump.h>
+#include <rump/rump_syscalls.h>
+#endif
+
 #include "rpcbind.h"
 
 static struct sockaddr_in *local_in4;

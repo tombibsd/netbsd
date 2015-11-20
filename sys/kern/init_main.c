@@ -179,15 +179,6 @@ extern void *_binary_splash_image_end;
 #ifdef IPSEC
 #include <netipsec/ipsec.h>
 #endif
-#ifdef SYSVSHM
-#include <sys/shm.h>
-#endif
-#ifdef SYSVSEM
-#include <sys/sem.h>
-#endif
-#ifdef SYSVMSG
-#include <sys/msg.h>
-#endif
 #include <sys/domain.h>
 #include <sys/namei.h>
 #include <sys/rnd.h>
@@ -525,25 +516,10 @@ main(void)
 	kprintf_init_callout();
 #endif
 
-#ifdef SYSVSHM
-	/* Initialize System V style shared memory. */
-	shminit();
-#endif
-
 	vmem_rehash_start();	/* must be before exec_init */
 
 	/* Initialize exec structures */
 	exec_init(1);		/* seminit calls exithook_establish() */
-
-#ifdef SYSVSEM
-	/* Initialize System V style semaphores. */
-	seminit();
-#endif
-
-#ifdef SYSVMSG
-	/* Initialize System V style message queues. */
-	msginit();
-#endif
 
 #if NVERIEXEC > 0
 	/*

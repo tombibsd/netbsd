@@ -142,12 +142,7 @@ static const struct tegra_locators tegra_host1x_locators[] = {
 };
 
 static const struct tegra_locators tegra_ghost_locators[] = {
-  { "tegradc",
-    TEGRA_DISPLAYA_OFFSET, TEGRA_DISPLAYA_SIZE, 0, TEGRA_INTR_DISPLAYA },
-  { "tegradc",
-    TEGRA_DISPLAYB_OFFSET, TEGRA_DISPLAYB_SIZE, 1, TEGRA_INTR_DISPLAYB },
-  { "tegrahdmi",
-    TEGRA_HDMI_OFFSET, TEGRA_HDMI_SIZE, NOPORT, TEGRA_INTR_HDMI },
+  { "tegradrm", 0, 0, NOPORT, NOINTR },
 };
 
 static const struct tegra_locators tegra_gpu_locators[] = {

@@ -139,7 +139,7 @@ int dovndcluster = 1;
 #define VDB_INIT	0x02
 #define VDB_IO		0x04
 #define VDB_LABEL	0x08
-int vnddebug = 0x00;
+int vnddebug = 0;
 #endif
 
 #define vndunit(x)	DISKUNIT(x)
@@ -1049,7 +1049,7 @@ vnddoclear(struct vnd_softc *vnd, int pmask, int minor, bool force)
 	vndclear(vnd, minor);
 #ifdef DEBUG
 	if (vnddebug & VDB_INIT)
-		printf("vndioctl: CLRed\n");
+		printf("%s: CLRed\n", __func__);
 #endif
 
 	/* Destroy the xfer and buffer pools. */
@@ -1059,6 +1059,29 @@ vnddoclear(struct vnd_softc *vnd, int pmask, int minor, bool force)
 	disk_detach(&vnd->sc_dkdev);
 
 	return 0;
+}
+
+static int
+vndioctl_get(struct lwp *l, void *data, int unit, struct vattr *va)
+{
+	int error;
+
+	KASSERT(l);
+
+	/* the first member is always int vnd_unit in all the versions */
+	if (*(int *)data >= vnd_cd.cd_ndevs)
+		return ENXIO;
+
+	switch (error = vnd_cget(l, unit, (int *)data, va)) {
+	case -1:
+		/* unused is not an error */
+		memset(&va, 0, sizeof(va));
+		/*FALLTHROUGH*/
+	case 0:
+		return 0;
+	default:
+		return error;
+	}
 }
 
 /* ARGSUSED */
@@ -1084,15 +1107,46 @@ vndioctl(dev_t dev, u_long cmd, void *data, int flag, struct lwp *l)
 		printf("vndioctl(0x%"PRIx64", 0x%lx, %p, 0x%x, %p): unit %d\n",
 		    dev, cmd, data, flag, l->l_proc, unit);
 #endif
-	vnd = device_lookup_private(&vnd_cd, unit);
-	if (vnd == NULL &&
+	/* Do the get's first; they don't need initialization or verification */
+	switch (cmd) {
 #ifdef COMPAT_30
-	    cmd != VNDIOCGET30 &&
+	case VNDIOCGET30: {
+		if ((error = vndioctl_get(l, data, unit, &vattr)) != 0)
+			return error;
+
+		struct vnd_user30 *vnu = data;
+		vnu->vnu_dev = vattr.va_fsid;
+		vnu->vnu_ino = vattr.va_fileid;
+		return 0;
+	}
 #endif
 #ifdef COMPAT_50
-	    cmd != VNDIOCGET50 &&
+	case VNDIOCGET50: {
+		if ((error = vndioctl_get(l, data, unit, &vattr)) != 0)
+			return error;
+
+		struct vnd_user50 *vnu = data;
+		vnu->vnu_dev = vattr.va_fsid;
+		vnu->vnu_ino = vattr.va_fileid;
+		return 0;
+	}
 #endif
-	    cmd != VNDIOCGET)
+
+	case VNDIOCGET: {
+		if ((error = vndioctl_get(l, data, unit, &vattr)) != 0)
+			return error;
+
+		struct vnd_user *vnu = data;
+		vnu->vnu_dev = vattr.va_fsid;
+		vnu->vnu_ino = vattr.va_fileid;
+		return 0;
+	}
+	default:
+		break;
+	}
+
+	vnd = device_lookup_private(&vnd_cd, unit);
+	if (vnd == NULL)
 		return ENXIO;
 	vio = (struct vnd_ioctl *)data;
 
@@ -1435,72 +1489,6 @@ unlock_and_exit:
 
 		break;
 
-#ifdef COMPAT_30
-	case VNDIOCGET30: {
-		struct vnd_user30 *vnu;
-		struct vattr va;
-		vnu = (struct vnd_user30 *)data;
-		KASSERT(l);
-		switch (error = vnd_cget(l, unit, &vnu->vnu_unit, &va)) {
-		case 0:
-			vnu->vnu_dev = va.va_fsid;
-			vnu->vnu_ino = va.va_fileid;
-			break;
-		case -1:
-			/* unused is not an error */
-			vnu->vnu_dev = 0;
-			vnu->vnu_ino = 0;
-			break;
-		default:
-			return error;
-		}
-		break;
-	}
-#endif
-
-#ifdef COMPAT_50
-	case VNDIOCGET50: {
-		struct vnd_user50 *vnu;
-		struct vattr va;
-		vnu = (struct vnd_user50 *)data;
-		KASSERT(l);
-		switch (error = vnd_cget(l, unit, &vnu->vnu_unit, &va)) {
-		case 0:
-			vnu->vnu_dev = va.va_fsid;
-			vnu->vnu_ino = va.va_fileid;
-			break;
-		case -1:
-			/* unused is not an error */
-			vnu->vnu_dev = 0;
-			vnu->vnu_ino = 0;
-			break;
-		default:
-			return error;
-		}
-		break;
-	}
-#endif
-
-	case VNDIOCGET: {
-		struct vnd_user *vnu;
-		struct vattr va;
-		vnu = (struct vnd_user *)data;
-		KASSERT(l);
-		switch (error = vnd_cget(l, unit, &vnu->vnu_unit, &va)) {
-		case 0:
-			vnu->vnu_dev = va.va_fsid;
-			vnu->vnu_ino = va.va_fileid;
-			break;
-		case -1:
-			/* unused is not an error */
-			vnu->vnu_dev = 0;
-			vnu->vnu_ino = 0;
-			break;
-		default:
-			return error;
-		}
-		break;
-	}
 
 	case DIOCWDINFO:
 	case DIOCSDINFO:

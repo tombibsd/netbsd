@@ -17,7 +17,7 @@
 /libgcc-glibc.ver/1.1.1.1/Sat Mar  1 08:41:47 2014/-kk/
 /libgcc-sol2.ver/1.1.1.2/Fri Mar 14 04:26:08 2014/-kk/
 /linux-unwind.h/1.1.1.1/Sat Mar  1 08:41:47 2014/-kk/
-/morestack.S/1.1.1.1/Sat Mar  1 08:41:47 2014/-kk/
+/morestack.S/1.2/Fri Nov 20 02:03:20 2015/-kk/
 /sfp-exceptions.c/1.1.1.1/Sat Mar  1 08:41:47 2014/-kk/
 /sfp-machine.h/1.1.1.2/Wed Oct 29 08:11:07 2014/-kk/
 /sol2-c1.S/1.1.1.1/Sat Mar  1 08:41:47 2014/-kk/

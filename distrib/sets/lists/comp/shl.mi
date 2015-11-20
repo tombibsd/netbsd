@@ -213,6 +213,7 @@
 ./usr/lib/librumpnet_agr_pic.a			comp-c-piclib		picinstall,rump
 ./usr/lib/librumpnet_bpfjit_pic.a		comp-c-piclib		picinstall,rump,sljit
 ./usr/lib/librumpnet_bridge_pic.a		comp-c-piclib		picinstall,rump
+./usr/lib/librumpnet_gif_pic.a			comp-c-piclib		picinstall,rump
 ./usr/lib/librumpnet_local_pic.a		comp-c-piclib		picinstall,rump
 ./usr/lib/librumpnet_net80211_pic.a		comp-c-piclib		picinstall,rump
 ./usr/lib/librumpnet_net_pic.a			comp-c-piclib		picinstall,rump

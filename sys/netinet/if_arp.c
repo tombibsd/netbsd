@@ -202,7 +202,7 @@ static struct	ifnet *myip_ifp = NULL;
 #ifdef DDB
 static void db_print_sa(const struct sockaddr *);
 static void db_print_ifa(struct ifaddr *);
-static void db_print_llinfo(void *);
+static void db_print_llinfo(struct llentry *);
 static int db_show_rtentry(struct rtentry *, void *);
 #endif
 
@@ -621,7 +621,7 @@ arp_rtrequest(int req, struct rtentry *rt, const struct rt_addrinfo *info)
 		 * add with a LL address.
 		 */
 		flags = LLE_EXCLUSIVE;
-		if ((rt->rt_flags & RTF_CLONED) == 0)
+		if ((rt->rt_flags & RTF_CLONING) != 0)
 			flags |= LLE_IFADDR;
 
 		IF_AFDATA_WLOCK(ifp);
@@ -2069,15 +2069,13 @@ db_print_ifa(struct ifaddr *ifa)
 }
 
 static void
-db_print_llinfo(void *li)
+db_print_llinfo(struct llentry *la)
 {
-	struct llinfo_arp *la;
-
-	if (li == NULL)
+	if (la == NULL)
 		return;
-	la = (struct llinfo_arp *)li;
-	db_printf("  la_rt=%p la_hold=%p, la_asked=0x%lx\n",
+	db_printf("  la_rt=%p la_hold=%p, la_asked=%d\n",
 			  la->la_rt, la->la_hold, la->la_asked);
+	db_printf("  la_flags=0x%x\n", la->la_flags);
 }
 
 /*

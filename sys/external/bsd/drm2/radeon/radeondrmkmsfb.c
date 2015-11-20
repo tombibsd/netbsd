@@ -168,8 +168,8 @@ radeonfb_setconfig_task(struct radeon_task *task)
 	KASSERT(sc->sc_scheduled);
 
 	/* XXX Ugh...  Pass these parameters some other way!  */
-	prop_dictionary_set_uint32(dict, "width", sizes->fb_width);
-	prop_dictionary_set_uint32(dict, "height", sizes->fb_height);
+	prop_dictionary_set_uint32(dict, "width", sizes->surface_width);
+	prop_dictionary_set_uint32(dict, "height", sizes->surface_height);
 	prop_dictionary_set_uint8(dict, "depth", sizes->surface_bpp);
 	prop_dictionary_set_uint16(dict, "linebytes", rfa->rfa_fb_linebytes);
 	prop_dictionary_set_uint32(dict, "address", 0); /* XXX >32-bit */
