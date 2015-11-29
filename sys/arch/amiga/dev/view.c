@@ -405,7 +405,7 @@ viewmmap(dev_t dev, off_t off, int prot)
 	bmd_size = bm->bytes_per_row*bm->rows*bm->depth;
 
 	if (off >= 0 && off < bmd_size)
-		return(((paddr_t)bmd_start + off) >> PGSHIFT);
+		return MD_BTOP((paddr_t)bmd_start + off);
 
 	return(-1);
 }

@@ -3,8 +3,7 @@
 
 MISC_FILES=	runbootblock.README
 UUDECODE_FILES=	device-streams.tar.gz \
-		loadbsd loadbsd-2.14 loadbsd-2.16 \
-		rdbinfo runbootblock xstreamtodev
+		loadbsd rdbinfo runbootblock xstreamtodev
 
 .include <bsd.files.mk>
 .include <bsd.hostprog.mk>

@@ -72,7 +72,7 @@ static const struct tegra_locators tegra_ppsb_locators[] = {
 
 static const struct tegra_locators tegra_apb_locators[] = {
   { "tegramc",
-    TEGRA_MC_OFFSET, TEGRA_MC_SIZE, NOPORT, NOINTR },
+    TEGRA_MC_OFFSET, TEGRA_MC_SIZE, NOPORT, TEGRA_INTR_MC },
   { "tegrapmc",
     TEGRA_PMC_OFFSET, TEGRA_PMC_SIZE, NOPORT, NOINTR },
   { "tegraxusbpad",
@@ -118,17 +118,11 @@ static const struct tegra_locators tegra_apb_locators[] = {
 };
 
 static const struct tegra_locators tegra_ahb_a2_locators[] = {
-  { "tegrausbphy",
-    TEGRA_USB1_OFFSET, TEGRA_USB1_SIZE, 0, NOINTR },
-  { "ehci",
+  { "tegraehci",
     TEGRA_USB1_OFFSET, TEGRA_USB1_SIZE, 0, TEGRA_INTR_USB1 },
-  { "tegrausbphy",
-    TEGRA_USB2_OFFSET, TEGRA_USB2_SIZE, 1, NOINTR },
-  { "ehci",
+  { "tegraehci",
     TEGRA_USB2_OFFSET, TEGRA_USB2_SIZE, 1, TEGRA_INTR_USB2 },
-  { "tegrausbphy",
-    TEGRA_USB3_OFFSET, TEGRA_USB3_SIZE, 2, NOINTR },
-  { "ehci",
+  { "tegraehci",
     TEGRA_USB3_OFFSET, TEGRA_USB3_SIZE, 2, TEGRA_INTR_USB3 },
 };
 
@@ -169,7 +163,7 @@ tegraio_attach(device_t parent, device_t self, void *aux)
 	    tegra_ppsb_locators, __arraycount(tegra_ppsb_locators));
 	tegraio_scan(self, tegra_apb_bsh,
 	    tegra_apb_locators, __arraycount(tegra_apb_locators));
-	tegraio_scan(self, tegra_ahb_a2_bsh,
+	tegraio_scan(self, (bus_space_handle_t)NULL,
 	    tegra_ahb_a2_locators, __arraycount(tegra_ahb_a2_locators));
 	tegraio_scan(self, (bus_space_handle_t)NULL,
 	    tegra_host1x_locators, __arraycount(tegra_host1x_locators));
@@ -192,8 +186,7 @@ tegraio_scan(device_t self, bus_space_handle_t bsh,
 			.tio_bst = &armv7_generic_bs_tag,
 			.tio_a4x_bst = &armv7_generic_a4x_bs_tag,
 			.tio_bsh = bsh,
-			.tio_dmat = &tegra_dma_tag,
-			.tio_coherent_dmat = &tegra_coherent_dma_tag,
+			.tio_dmat = &tegra_dma_tag
 		};
 		cfdata_t cf = config_search_ia(tegraio_find, self,
 		    "tegraio", &tio);

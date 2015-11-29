@@ -583,6 +583,10 @@ awin_debe_ioctl(device_t self, u_long cmd, void *data)
 		enable = *(int *)data;
 		val = DEBE_READ(sc, AWIN_DEBE_MODCTL_REG);
 		if (enable) {
+			if (val & AWIN_DEBE_MODCTL_LAY0_EN) {
+				/* already enabled */
+				return 0;
+			}
 			val |= AWIN_DEBE_MODCTL_LAY0_EN;
 			if (sc->sc_cursor_enable) {
 				val |= AWIN_DEBE_MODCTL_HWC_EN;
@@ -590,10 +594,16 @@ awin_debe_ioctl(device_t self, u_long cmd, void *data)
 				val &= ~AWIN_DEBE_MODCTL_HWC_EN;
 			}
 		} else {
+			if ((val & AWIN_DEBE_MODCTL_LAY0_EN) == 0) {
+				/* already disabled */
+				return 0;
+			}
 			val &= ~AWIN_DEBE_MODCTL_LAY0_EN;
 			val &= ~AWIN_DEBE_MODCTL_HWC_EN;
 		}
 		DEBE_WRITE(sc, AWIN_DEBE_MODCTL_REG, val);
+		/* debe0 always connected to tcon0, debe1 to tcon1*/
+		awin_tcon_setvideo(device_unit(sc->sc_dev), enable);
 		return 0;
 	case WSDISPLAYIO_GVIDEO:
 		val = DEBE_READ(sc, AWIN_DEBE_MODCTL_REG);

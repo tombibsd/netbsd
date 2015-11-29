@@ -4,12 +4,17 @@
 .include <bsd.own.mk>
 
 RUMPKERNCOMPS=	crypto sysproxy tty z
+RUMPSYSEMUS=	sys_cygwin sys_linux sys_sunos
 
-.if ${MKSLJIT} != "no"
+.if make(rumpdescribe)
+RUMPKERNCOMPS+=	${RUMPSYSEMUS}
+.endif
+
+.if ${MKSLJIT} != "no" || make(rumpdescribe)
 RUMPKERNCOMPS+=	sljit
 .endif
 
-.if ${MKZFS} != "no"
+.if ${MKZFS} != "no" || make(rumpdescribe)
 RUMPKERNCOMPS+=    solaris
 .endif
 

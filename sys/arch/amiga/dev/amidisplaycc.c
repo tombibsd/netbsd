@@ -1183,7 +1183,7 @@ amidisplaycc_mmap(void *dp, void *vs, off_t off, int prot)
 	rv = (paddr_t)bm->hardware_address;
 	rv += off;
 
-	return (rv >> PGSHIFT);
+	return MD_BTOP(rv);
 }
 
 

@@ -48,11 +48,7 @@ paddr_t
 bus_space_mmap(bus_space_tag_t t, bus_addr_t addr, off_t off, int prot,
 	int flags)
 {
-#if defined(__m68k__)
-	return m68k_btop(addr + off);
-#else
-	return -1; /* FIXME */
-#endif
+	return MD_BTOP(addr + off);
 }
 
 void *
@@ -63,4 +59,3 @@ bus_space_vaddr(bus_space_tag_t space, bus_space_handle_t handle)
 
 	return va;
 }
-

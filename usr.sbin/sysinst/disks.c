@@ -1314,9 +1314,9 @@ bootxx_name(void)
 		}
 		break;
 #endif
-#ifdef BOOTXX_LFS
+#ifdef BOOTXX_LFSV2
 	case FS_BSDLFS:
-		bootxxname = BOOTXX_LFS;
+		bootxxname = BOOTXX_LFSV2;
 		break;
 #endif
 	default:

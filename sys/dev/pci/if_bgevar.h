@@ -266,9 +266,7 @@ struct bge_softc {
 	bus_space_tag_t		bge_apetag;
 	bus_size_t		bge_apesize;
 	void			*bge_intrhand;
-#ifdef __HAVE_PCI_MSI_MSIX
 	pci_intr_handle_t	*bge_pihp;
-#endif
 	pci_chipset_tag_t	sc_pc;
 	pcitag_t		sc_pcitag;
 

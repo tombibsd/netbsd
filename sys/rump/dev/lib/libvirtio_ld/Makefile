@@ -12,7 +12,6 @@ COMMENT=VirtIO block device driver
 IOCONF=	VIRTIO_LD.ioconf
 
 SRCS=	ld_at_virtio.c
-
 SRCS+=	ld_virtio.c
 
 # XXX: ld.c does not really belong here, but placing it in libdisk

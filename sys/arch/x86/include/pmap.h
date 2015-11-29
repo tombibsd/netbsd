@@ -109,6 +109,7 @@
 
 #if defined(_KERNEL)
 #include <sys/kcpuset.h>
+#include <uvm/pmap/pmap_pvt.h>
 
 /*
  * pmap data structures: see pmap.c for details of locking.

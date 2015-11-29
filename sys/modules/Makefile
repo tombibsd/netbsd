@@ -110,6 +110,7 @@ SUBDIR+=	usbverbose
 SUBDIR+=	vcoda
 SUBDIR+=	v7fs
 SUBDIR+=	vnd
+SUBDIR+=	wapbl
 SUBDIR+=	zlib
 SUBDIR+=	tprof
 .if (defined(NOTYET))

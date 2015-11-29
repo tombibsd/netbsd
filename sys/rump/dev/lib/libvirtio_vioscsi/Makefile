@@ -9,8 +9,7 @@ LIB=	rumpdev_virtio_vioscsi
 COMMENT=VirtIO SCSI driver
 
 IOCONF=	VIRTIO_VIOSCSI.ioconf
-
-SRCS=	vioscsi_at_virtio.c
+RUMP_COMPONENT=ioconf
 
 SRCS+=	vioscsi.c
 

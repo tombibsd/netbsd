@@ -90,7 +90,7 @@ typedef	unsigned char bitstr_t;
 				/* clear bits start ... stop in bitstring */
 #define	bit_nclear(name, start, stop) do { \
 	bitstr_t *_name = name; \
-	int _start = start, _stop = stop; \
+	size_t _start = start, _stop = stop; \
 	while (_start <= _stop) { \
 		bit_clear(_name, _start); \
 		_start++; \
@@ -100,7 +100,7 @@ typedef	unsigned char bitstr_t;
 				/* set bits start ... stop in bitstring */
 #define	bit_nset(name, start, stop) do { \
 	bitstr_t *_name = name; \
-	int _start = start, _stop = stop; \
+	size_t _start = start, _stop = stop; \
 	while (_start <= _stop) { \
 		bit_set(_name, _start); \
 		_start++; \
@@ -109,8 +109,9 @@ typedef	unsigned char bitstr_t;
 
 				/* find first bit clear in name */
 #define	bit_ffc(name, nbits, value) do { \
-	bitstr_t *_name = name; \
-	int _bit, _nbits = nbits, _value = -1; \
+	const bitstr_t *_name = name; \
+	size_t _bit, _nbits = nbits; \
+	int _value = -1; \
 	for (_bit = 0; _bit < _nbits; ++_bit) \
 		if (!bit_test(_name, _bit)) { \
 			_value = _bit; \
@@ -121,8 +122,9 @@ typedef	unsigned char bitstr_t;
 
 				/* find first bit set in name */
 #define	bit_ffs(name, nbits, value) do { \
-	bitstr_t *_name = name; \
-	int _bit, _nbits = nbits, _value = -1; \
+	const bitstr_t *_name = name; \
+	size_t _bit, _nbits = nbits; \
+	int _value = -1; \
 	for (_bit = 0; _bit < _nbits; ++_bit) \
 		if (bit_test(_name, _bit)) { \
 			_value = _bit; \

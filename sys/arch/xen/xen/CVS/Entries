@@ -2,7 +2,7 @@
 /clock.c/1.63/Fri Oct  3 10:05:10 2014/-kk/
 /evtchn.c/1.71/Sat Mar 21 02:47:08 2015/-kk/
 /hypervisor.c/1.65/Thu Feb 13 15:35:57 2014/-kk/
-/if_xennet_xenbus.c/1.64/Wed Apr 22 07:36:40 2015/-kk/
+/if_xennet_xenbus.c/1.65/Sun Nov 29 09:10:27 2015/-kk/
 /isa_machdep.c/1.26/Thu Sep  1 15:10:31 2011/-kk/
 /pci_intr_machdep.c/1.17/Sat Mar 21 02:47:08 2015/-kk/
 /pciback.c/1.9/Fri Apr 11 02:03:40 2014/-kk/
@@ -10,7 +10,7 @@
 /privcmd.c/1.49/Wed Oct 29 08:13:15 2014/-kk/
 /shutdown_xenbus.c/1.7/Tue Sep 20 00:12:24 2011/-kk/
 /xbd_xenbus.c/1.75/Fri Nov 20 01:31:05 2015/-kk/
-/xbdback_xenbus.c/1.60/Fri Oct  3 10:05:10 2014/-kk/
+/xbdback_xenbus.c/1.61/Sun Nov 29 09:10:27 2015/-kk/
 /xen_acpi_machdep.c/1.5/Tue Aug 18 16:41:03 2009/-kk/
 /xen_debug.c/1.8/Sun Jul 17 20:54:49 2011/-kk/
 /xen_machdep.c/1.13/Sat Jul 28 02:08:51 2012/-kk/
@@ -19,6 +19,6 @@
 /xenevt.c/1.44/Tue Aug 25 04:51:13 2015/-kk/
 /xengnt.c/1.25/Wed Oct 24 13:07:46 2012/-kk/
 /xennet_checksum.c/1.3/Thu Nov 22 16:17:10 2007/-kk/
-/xennetback_xenbus.c/1.52/Thu Oct 24 10:28:57 2013/-kk/
+/xennetback_xenbus.c/1.53/Sun Nov 29 09:10:27 2015/-kk/
 /xpci_xenbus.c/1.14/Thu Oct 24 10:28:57 2013/-kk/
 D

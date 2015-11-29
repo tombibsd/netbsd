@@ -9,8 +9,7 @@ LIB=	rumpdev_miiphy
 COMMENT=MII and PHY drivers (for networking)
 
 IOCONF=	MIIPHY.ioconf
-
-SRCS=	phy_at_mii.c
+RUMP_COMPONENT=ioconf
 
 SRCS+= mii.c mii_ethersubr.c mii_physubr.c ukphy.c ukphy_subr.c
 SRCS+= acphy.c amhphy.c atphy.c bmtphy.c brgphy.c ciphy.c dmphy.c etphy.c \

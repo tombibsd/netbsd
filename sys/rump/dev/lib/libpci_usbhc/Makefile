@@ -9,7 +9,7 @@ LIB=	rumpdev_pci_usbhc
 COMMENT=PCI USB host controller drivers
 
 IOCONF=	PCI_USBHC.ioconf
-SRCS=	usbhc_at_pci.c
+RUMP_COMPONENT=ioconf
 
 SRCS+=	ohci_pci.c ohci.c
 SRCS+=	uhci_pci.c uhci.c

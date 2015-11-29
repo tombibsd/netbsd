@@ -992,9 +992,9 @@ lwp_startup(struct lwp *prev, struct lwp *new_lwp)
 		prev->l_ctxswtch = 0;
 	}
 	KPREEMPT_DISABLE(new_lwp);
-	spl0();
 	if (__predict_true(new_lwp->l_proc->p_vmspace))
 		pmap_activate(new_lwp);
+	spl0();
 
 	/* Note trip through cpu_switchto(). */
 	pserialize_switchpoint();

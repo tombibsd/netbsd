@@ -350,7 +350,7 @@ nd6_ns_input(struct mbuf *m, int off, int icmp6len)
 void
 nd6_ns_output(struct ifnet *ifp, const struct in6_addr *daddr6,
     const struct in6_addr *taddr6,
-    struct llinfo_nd6 *ln,	/* for source address determination */
+    struct in6_addr *hsrc,
     int dad			/* duplicate address detection */)
 {
 	struct mbuf *m;
@@ -439,21 +439,6 @@ nd6_ns_output(struct ifnet *ifp, const struct in6_addr *daddr6,
 		 * - hsrc belongs to the outgoing interface.
 		 * Otherwise, we perform the source address selection as usual.
 		 */
-		struct ip6_hdr *hip6;		/* hold ip6 */
-		struct in6_addr *hsrc = NULL;
-
-		if (ln && ln->ln_hold) {
-			/*
-			 * assuming every packet in ln_hold has the same IP
-			 * header
-			 */
-			hip6 = mtod(ln->ln_hold, struct ip6_hdr *);
-			/* XXX pullup? */
-			if (sizeof(*hip6) < ln->ln_hold->m_len)
-				hsrc = &hip6->ip6_src;
-			else
-				hsrc = NULL;
-		}
 		if (hsrc && in6ifa_ifpwithaddr(ifp, hsrc))
 			src = hsrc;
 		else {

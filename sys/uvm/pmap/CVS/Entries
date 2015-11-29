@@ -1,5 +1,7 @@
 /pmap.c/1.13/Fri Nov 20 02:20:00 2015/-kk/
 /pmap.h/1.5/Mon Jun 22 02:35:14 2015/-kk/
+/pmap_pvt.c/1.2/Wed Nov 11 08:22:36 2015/-kk/
+/pmap_pvt.h/1.1/Wed Nov 11 08:20:22 2015/-kk/
 /pmap_segtab.c/1.2/Mon Jun 22 02:35:14 2015/-kk/
 /pmap_synci.c/1.2/Thu Oct 24 10:28:58 2013/-kk/
 /pmap_tlb.c/1.12/Mon Jun 22 02:35:16 2015/-kk/

@@ -40,6 +40,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include "ukbd.h"
 #include "genfb.h"
 #include "ether.h"
+#include "as3722pmic.h"
 
 #include <sys/param.h>
 #include <sys/systm.h>
@@ -89,6 +90,10 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <dev/usb/ukbdvar.h>
 #include <net/if_ether.h>
 
+#if NAS3722PMIC > 0
+#include <dev/i2c/as3722.h>
+#endif
+
 #ifndef TEGRA_MAX_BOOT_STRING
 #define TEGRA_MAX_BOOT_STRING 1024
 #endif
@@ -104,6 +109,7 @@ extern char KERNEL_BASE_phys[];
 #define KERNEL_BASE_PHYS ((paddr_t)KERNEL_BASE_phys)
 
 static void tegra_device_register(device_t, void *);
+static void tegra_powerdown(void);
 
 bs_protos(bs_notimpl);
 
@@ -111,13 +117,6 @@ bs_protos(bs_notimpl);
 #define	_S(s)	(((s) + L1_S_SIZE - 1) & ~(L1_S_SIZE-1))
 
 static const struct pmap_devmap devmap[] = {
-	{
-		.pd_va = _A(TEGRA_HOST1X_VBASE),
-		.pd_pa = _A(TEGRA_HOST1X_BASE),
-		.pd_size = _S(TEGRA_HOST1X_SIZE),
-		.pd_prot = VM_PROT_READ|VM_PROT_WRITE,
-		.pd_cache = PTE_NOCACHE
-	},
 	{
 		.pd_va = _A(TEGRA_PPSB_VBASE),
 		.pd_pa = _A(TEGRA_PPSB_BASE),
@@ -129,13 +128,6 @@ static const struct pmap_devmap devmap[] = {
 		.pd_va = _A(TEGRA_APB_VBASE),
 		.pd_pa = _A(TEGRA_APB_BASE),
 		.pd_size = _S(TEGRA_APB_SIZE),
-		.pd_prot = VM_PROT_READ|VM_PROT_WRITE,
-		.pd_cache = PTE_NOCACHE
-	},
-	{
-		.pd_va = _A(TEGRA_AHB_A2_VBASE),
-		.pd_pa = _A(TEGRA_AHB_A2_BASE),
-		.pd_size = _S(TEGRA_AHB_A2_SIZE),
 		.pd_prot = VM_PROT_READ|VM_PROT_WRITE,
 		.pd_cache = PTE_NOCACHE
 	},
@@ -253,6 +245,7 @@ initarm(void *arg)
 #endif
 
 	cpu_reset_address = tegra_pmc_reset;
+	cpu_powerdown_address = tegra_powerdown;
 
 	/* Talk to the user */
 	DPRINTF("\nNetBSD/evbarm (tegra) booting ...\n");
@@ -424,13 +417,19 @@ tegra_device_register(device_t self, void *aux)
 	}
 
 	if (device_is_a(self, "tegradrm")) {
+		const char *video = tegra_bootconf_strdup("video");
+
 		if (tegra_bootconf_match("hdmi.forcemode", "dvi")) {
 			prop_dictionary_set_bool(dict, "force-dvi", true);
+		}
+
+		if (video) {
+			prop_dictionary_set_cstring(dict, "HDMI-A-1", video);
 		}
 	}
 
 	if (device_is_a(self, "tegracec")) {
-		prop_dictionary_set_cstring(dict, "hdmi-device", "tegrahdmi0");
+		prop_dictionary_set_cstring(dict, "hdmi-device", "tegradrm0");
 	}
 
 	if (device_is_a(self, "nouveau")) {
@@ -475,14 +474,12 @@ tegra_device_register(device_t self, void *aux)
 		prop_dictionary_set_cstring(dict, "power-gpio", "EE2");
 	}
 
-	if (device_is_a(self, "ehci")
-	    && device_is_a(device_parent(self), "tegraio")) {
-		struct tegraio_attach_args * const tio = aux;
-		const struct tegra_locators * const loc = &tio->tio_loc;
+	if (device_is_a(self, "tegrausbphy")) {
+		struct tegrausbphy_attach_args * const tup = aux;
 
-		if (loc->loc_port == 0) {
+		if (tup->tup_port == 0) {
 			prop_dictionary_set_cstring(dict, "vbus-gpio", "N4");
-		} else if (loc->loc_port == 2) {
+		} else if (tup->tup_port == 2) {
 			prop_dictionary_set_cstring(dict, "vbus-gpio", "N5");
 		}
 	}
@@ -507,14 +504,12 @@ tegra_device_register(device_t self, void *aux)
 		}
 	}
 
-	if (device_is_a(self, "ehci")
-	    && device_is_a(device_parent(self), "tegraio")) {
-		struct tegraio_attach_args * const tio = aux;
-		const struct tegra_locators * const loc = &tio->tio_loc;
+	if (device_is_a(self, "tegrausbphy")) {
+		struct tegrausbphy_attach_args * const tup = aux;
 
-		if (loc->loc_port == 0) {
+		if (tup->tup_port == 0) {
 			prop_dictionary_set_cstring(dict, "vbus-gpio", "N4");
-		} else if (loc->loc_port == 2) {
+		} else if (tup->tup_port == 2) {
 			prop_dictionary_set_cstring(dict, "vbus-gpio", "N5");
 		}
 	}
@@ -524,6 +519,21 @@ tegra_device_register(device_t self, void *aux)
 		prop_dictionary_set_cstring(dict, "pll-gpio", "H7");
 		prop_dictionary_set_cstring(dict, "power-gpio", "K6");
 		prop_dictionary_set_cstring(dict, "ddc-device", "ddc0");
+	}
+#endif
+}
+
+static void
+tegra_powerdown(void)
+{
+#if NAS3722PMIC > 0
+	device_t pmic = device_find_by_driver_unit("as3722pmic", 0);
+	if (pmic != NULL) {
+		delay(1000000);
+		if (as3722_poweroff(pmic) != 0) {
+			printf("WARNING: AS3722 poweroff failed\n");
+			return;
+		}
 	}
 #endif
 }

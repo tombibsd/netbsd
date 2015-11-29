@@ -278,7 +278,7 @@ filemon_ioctl(struct file * fp, u_long cmd, void *data)
 {
 	int error = 0;
 	struct filemon *filemon;
-	struct proc *tp;
+	struct proc *tp, *lp, *p;
 
 #ifdef DEBUG
 	log(logLevel, "filemon_ioctl(%lu)", cmd);;
@@ -308,10 +308,31 @@ filemon_ioctl(struct file * fp, u_long cmd, void *data)
 		mutex_enter(proc_lock);
 		tp = proc_find(*((pid_t *) data));
 		mutex_exit(proc_lock);
-		if (tp == NULL) {
+		if (tp == NULL ||
+		    tp->p_emul != &emul_netbsd) {
 			error = ESRCH;
 			break;
 		}
+
+		/* Ensure that target proc is a descendant of curproc */
+		p = tp;
+		while (p) {
+			/*
+			 * make sure p cannot exit
+			 * until we have moved on to p_pptr
+			 */
+			rw_enter(&p->p_reflock, RW_READER);
+			if (p == curproc) {
+				rw_exit(&p->p_reflock);
+				break;
+			}
+			lp = p;
+			p = p->p_pptr;
+			rw_exit(&lp->p_reflock);
+		}
+		if (p == NULL)
+			return EPERM;
+
 		error = kauth_authorize_process(curproc->p_cred,
 		    KAUTH_PROCESS_CANSEE, tp,
 		    KAUTH_ARG(KAUTH_REQ_PROCESS_CANSEE_ENTRY), NULL, NULL);
@@ -344,7 +365,14 @@ filemon_load(void *dummy __unused)
 void
 filemonattach(int num)
 {
-    filemon_load(NULL);
+
+	/*
+	 * Don't call filemon_load() here - it will be called from
+	 * filemon_modcmd() during module initialization.
+	 */
+#if 0
+	filemon_load(NULL);
+#endif
 }
 
 

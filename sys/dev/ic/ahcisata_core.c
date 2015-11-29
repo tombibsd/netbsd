@@ -1714,11 +1714,13 @@ ahci_atapi_complete(struct ata_channel *chp, struct ata_xfer *xfer, int irq)
 	}
 
 	chp->ch_queue->active_xfer = NULL;
-	bus_dmamap_sync(sc->sc_dmat, achp->ahcic_datad[slot], 0,
-	    achp->ahcic_datad[slot]->dm_mapsize,
-	    (sc_xfer->xs_control & XS_CTL_DATA_IN) ? BUS_DMASYNC_POSTREAD :
-	    BUS_DMASYNC_POSTWRITE);
-	bus_dmamap_unload(sc->sc_dmat, achp->ahcic_datad[slot]);
+	if (xfer->c_bcount > 0) {
+		bus_dmamap_sync(sc->sc_dmat, achp->ahcic_datad[slot], 0,
+		    achp->ahcic_datad[slot]->dm_mapsize,
+		    (sc_xfer->xs_control & XS_CTL_DATA_IN) ?
+		    BUS_DMASYNC_POSTREAD : BUS_DMASYNC_POSTWRITE);
+		bus_dmamap_unload(sc->sc_dmat, achp->ahcic_datad[slot]);
+	}
 
 	if (chp->ch_drive[drive].drive_flags & ATA_DRIVE_WAITDRAIN) {
 		ahci_atapi_kill_xfer(chp, xfer, KILL_GONE);

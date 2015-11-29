@@ -634,6 +634,14 @@ exynos_device_register(device_t self, void *aux)
 			mpcaa->mpcaa_off2 = EXYNOS5_GIC_IOP_CONTROLLER_OFFSET;
 #endif
 			break;
+		case 0xe5422: {
+			struct mpcore_attach_args * const mpcaa = aux;
+
+			mpcaa->mpcaa_memh = EXYNOS_CORE_VBASE;
+			mpcaa->mpcaa_off1 = EXYNOS5_GIC_IOP_DISTRIBUTOR_OFFSET;
+			mpcaa->mpcaa_off2 = EXYNOS5_GIC_IOP_CONTROLLER_OFFSET;
+			break;
+		}
 #endif
 #ifdef EXYNOS4
 		case 0xe4410:

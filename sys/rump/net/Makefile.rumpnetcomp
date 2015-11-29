@@ -6,11 +6,11 @@
 RUMPNETCOMP=	agr bridge net net80211 netbt netinet netinet6
 RUMPNETCOMP+=	gif netmpls npf local shmif tap
 
-.if ${MKSLJIT} != "no"
+.if ${MKSLJIT} != "no" || make(rumpdescribe)
 RUMPNETCOMP+=	bpfjit
 .endif
 
-.if ${RUMP_VIRTIF:Uyes} == "yes"
+.if ${RUMP_VIRTIF:Uyes} == "yes" || make(rumpdescribe)
 RUMPNETCOMP+=	virtif
 .endif
 

@@ -152,8 +152,9 @@ union u_spcl {
 #define DR_NEWINODEFMT	0x0002	/* new format inodes on tape */
 #define DR_EXTATTRIBUTES 0x8000	/* linux: extended attributes */
 
-#define	DUMPOUTFMT	"%-16s %c %s"		/* for printf */
+/* 511 == NAME_MAX */
+#define	DUMPOUTFMT	"%-511s %c %s"		/* for printf */
 						/* name, level, ctime(date) */
-#define	DUMPINFMT	"%16s %c %[^\n]\n"	/* inverse for scanf */
+#define	DUMPINFMT	"%511s %c %[^\n]\n"	/* inverse for scanf */
 
 #endif /* !_PROTOCOLS_DUMPRESTORE_H_ */

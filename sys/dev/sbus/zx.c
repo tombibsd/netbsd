@@ -388,7 +388,7 @@ zxioctl(dev_t dev, u_long cmd, void *data, int flags, struct lwp *l)
 	struct fbcmap *cm;
 	struct fbcursor *cu;
 	uint32_t curbits[2][32];
-	int rv, v, count, i;
+	int rv, v, count, i, error;
 
 	sc = device_lookup_private(&zx_cd, minor(dev));
 
@@ -537,20 +537,23 @@ zxioctl(dev_t dev, u_long cmd, void *data, int flags, struct lwp *l)
 				return (rv);
 		}
 		if (cu->cmap.red != NULL) {
-			if (cu->cmap.index > 2 ||
-			    cu->cmap.count > 2 - cu->cmap.index)
-				return (EINVAL);
-			for (i = 0; i < cu->cmap.count; i++) {
-				v = sc->sc_curcmap[i + cu->cmap.index + 0];
-				if (subyte(&cu->cmap.red[i], v))
-					return (EFAULT);
-				v = sc->sc_curcmap[i + cu->cmap.index + 2];
-				if (subyte(&cu->cmap.green[i], v))
-					return (EFAULT);
-				v = sc->sc_curcmap[i + cu->cmap.index + 4];
-				if (subyte(&cu->cmap.blue[i], v))
-					return (EFAULT);
+			uint8_t red[2], green[2], blue[2];
+			const uint8_t *ccm = sc->sc_curcmap;
+			cm = &cu->cmap;
+
+			if (cm->index > 2 || cm->count > 2 - cm->index)
+				return EINVAL;
+
+			for (i = 0; i < cm->count; i++) {
+				red[i] = ccm[i + cm->index + 0];
+				green[i] = ccm[i + cm->index + 2];
+				blue[i] = ccm[i + cm->index + 4];
 			}
+
+			if ((error = copyout(red, cm->red, cm->count)) ||
+			    (error = copyout(green, cm->green, cm->count)) ||
+			    (error = copyout(blue, cm->blue, cm->count)))
+				return error;
 		} else {
 			cu->cmap.index = 0;
 			cu->cmap.count = 2;

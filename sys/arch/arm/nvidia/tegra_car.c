@@ -96,12 +96,12 @@ tegra_car_attach(device_t parent, device_t self, void *aux)
 
 	tegra_car_init(sc);
 
-	aprint_verbose_dev(self, "PLLX = %u Hz\n", tegra_car_pllx_rate());
-	aprint_verbose_dev(self, "PLLC = %u Hz\n", tegra_car_pllc_rate());
-	aprint_verbose_dev(self, "PLLE = %u Hz\n", tegra_car_plle_rate());
-	aprint_verbose_dev(self, "PLLU = %u Hz\n", tegra_car_pllu_rate());
-	aprint_verbose_dev(self, "PLLP0 = %u Hz\n", tegra_car_pllp0_rate());
-	aprint_verbose_dev(self, "PLLD2 = %u Hz\n", tegra_car_plld2_rate());
+	aprint_debug_dev(self, "PLLX = %u Hz\n", tegra_car_pllx_rate());
+	aprint_debug_dev(self, "PLLC = %u Hz\n", tegra_car_pllc_rate());
+	aprint_debug_dev(self, "PLLE = %u Hz\n", tegra_car_plle_rate());
+	aprint_debug_dev(self, "PLLU = %u Hz\n", tegra_car_pllu_rate());
+	aprint_debug_dev(self, "PLLP0 = %u Hz\n", tegra_car_pllp0_rate());
+	aprint_debug_dev(self, "PLLD2 = %u Hz\n", tegra_car_plld2_rate());
 
 	config_interrupts(self, tegra_car_rnd_attach);
 }

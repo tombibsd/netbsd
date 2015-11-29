@@ -369,9 +369,12 @@ adosfs_statvfs(struct mount *mp, struct statvfs *sbp)
 int
 adosfs_vget(struct mount *mp, ino_t an, struct vnode **vpp)
 {
+	u_long block;
 	int error;
 
-	error = vcache_get(mp, &an, sizeof(an), vpp);
+	block = an;
+	KASSERT(block == an);
+	error = vcache_get(mp, &block, sizeof(block), vpp);
 	if (error)
 		return error;
 	error = vn_lock(*vpp, LK_EXCLUSIVE);
@@ -394,7 +397,7 @@ adosfs_loadvnode(struct mount *mp, struct vnode *vp,
 	struct adosfsmount *amp;
 	struct anode *ap;
 	struct buf *bp;
-	ino_t an;
+	u_long an;
 	char *nam, *tmp;
 	int namlen, error;
 

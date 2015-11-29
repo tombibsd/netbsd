@@ -3,7 +3,7 @@
 /config.1/1.19/Sun Sep 13 01:32:18 2015/-kk/
 /config.5/1.34/Sun Sep 13 01:32:18 2015/-kk/
 /config.samples.5/1.6/Fri Mar 14 04:28:31 2014/-kk/
-/defs.h/1.93/Sun Sep 13 01:32:18 2015/-kk/
+/defs.h/1.94/Sun Nov 29 09:11:13 2015/-kk/
 /files.c/1.35/Sun Sep 13 01:32:18 2015/-kk/
 /gram.y/1.52/Sun Sep 13 01:32:18 2015/-kk/
 /hash.c/1.11/Tue Dec  9 04:16:26 2014/-kk/
@@ -11,7 +11,7 @@
 /main.c/1.89/Sun Sep 13 01:32:18 2015/-kk/
 /mkdevsw.c/1.14/Sun Sep 13 01:32:18 2015/-kk/
 /mkheaders.c/1.29/Sun Sep 13 01:32:19 2015/-kk/
-/mkioconf.c/1.32/Sun Sep 13 01:32:19 2015/-kk/
+/mkioconf.c/1.33/Sun Nov 29 09:11:13 2015/-kk/
 /mkmakefile.c/1.68/Sun Sep 13 01:32:19 2015/-kk/
 /mkswap.c/1.10/Sun Sep 13 01:32:19 2015/-kk/
 /pack.c/1.10/Wed Sep 23 08:04:47 2015/-kk/

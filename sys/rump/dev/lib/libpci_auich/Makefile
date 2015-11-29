@@ -9,7 +9,8 @@ LIB=	rumpdev_pci_auich
 COMMENT=AC97 Intel Audio driver
 
 IOCONF=	PCI_AUICH.ioconf
-SRCS=	auich_at_pci.c
+RUMP_COMPONENT=ioconf
+
 SRCS+=	auich.c
 
 CPPFLAGS+= -I${RUMPTOP}/librump/rumpkern -I${RUMPTOP}/../dev

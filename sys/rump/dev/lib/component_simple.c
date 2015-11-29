@@ -1,7 +1,7 @@
 /*	$NetBSD$	*/
 
 /*
- * Copyright (c) 2010 Antti Kantee.  All Rights Reserved.
+ * Copyright (c) 2015 Antti Kantee.  All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -37,9 +37,13 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include "ioconf.c"
 
+#define CONFIG_INIT_COMPONENT(a) config_init_component(			\
+    __CONCAT(cfdriver_ioconf_,a),					\
+    __CONCAT(cfattach_ioconf_,a),					\
+    __CONCAT(cfdata_ioconf_,a));
+
 RUMP_COMPONENT(RUMP_COMPONENT_DEV)
 {
 
-	config_init_component(cfdriver_ioconf_pci_if_iwn,
-	    cfattach_ioconf_pci_if_iwn, cfdata_ioconf_pci_if_iwn);
+	CONFIG_INIT_COMPONENT(IOCONF);
 }

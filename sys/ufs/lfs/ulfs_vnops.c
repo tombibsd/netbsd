@@ -90,7 +90,6 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/dirent.h>
 #include <sys/lockf.h>
 #include <sys/kauth.h>
-#include <sys/wapbl.h>
 #include <sys/fstrans.h>
 
 #include <miscfs/specfs/specdev.h>

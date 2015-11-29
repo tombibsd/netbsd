@@ -56,7 +56,7 @@
 .\" any improvements or extensions that they make and grant Carnegie Mellon
 .\" the rights to redistribute these changes.
 .\"
-.Dd June 12, 2014
+.Dd November 13, 2015
 .Dt DDB 4
 .Os
 .Sh NAME
@@ -149,6 +149,8 @@ Abort switch on CPU card.
 rcons console.
 .It ""
 \*[Lt]Break\*[Gt] on serial console.
+.It sandpoint
+\*[Lt]Break\*[Gt] on serial console.
 .It sparc
 \*[Lt]L1\*[Gt]-A, or \*[Lt]Stop\*[Gt]-A on a
 .Tn Sun
@@ -208,7 +210,6 @@ or by setting
 with
 .Xr sysctl 8 .
 Multiple commands can be separated by a semi-colon.
-
 .Sh COMMAND SYNTAX
 The general command syntax is:
 .Bd -ragged -offset indent

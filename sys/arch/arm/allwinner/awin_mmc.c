@@ -380,6 +380,7 @@ awin_mmc_set_clock(struct awin_mmc_softc *sc, u_int freq)
 	clk |= __SHIFTIN(sdly, AWIN_SD_CLK_PHASE_CTR);
 	clk |= AWIN_PLL_CFG_ENABLE;
 	bus_space_write_4(sc->sc_bst, sc->sc_clk_bsh, 0, clk);
+	delay(20000);
 
 	return 0;
 }

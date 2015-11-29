@@ -21,7 +21,7 @@
 /callout.h/1.32/Mon Feb 16 03:14:31 2015/-kk/
 /cctr.h/1.3/Mon Apr 28 20:24:10 2008/-kk/
 /cdbr.h/1.1/Wed Dec 11 01:24:08 2013/-kk/
-/cdefs.h/1.127/Sun Nov 15 13:36:36 2015/-kk/
+/cdefs.h/1.128/Sun Nov 29 09:11:00 2015/-kk/
 /cdefs_aout.h/1.20/Thu May 18 17:55:38 2006/-kk/
 /cdefs_elf.h/1.49/Wed May 13 03:33:21 2015/-kk/
 /cdio.h/1.34/Sun Sep 13 01:32:01 2015/-kk/
@@ -54,7 +54,7 @@
 /dir.h/1.11/Sun Dec 11 12:25:20 2005/-kk/
 /dirent.h/1.29/Sat Mar 21 02:30:01 2015/-kk/
 /dirhash.h/1.6/Thu Oct 24 10:28:58 2013/-kk/
-/disk.h/1.65/Tue Aug 25 04:51:28 2015/-kk/
+/disk.h/1.66/Sun Nov 29 09:11:00 2015/-kk/
 /disklabel.h/1.118/Mon Jan 12 06:49:24 2015/-kk/
 /disklabel_acorn.h/1.6/Sun Dec 11 12:25:20 2005/-kk/
 /disklabel_gpt.h/1.12/Tue Dec 17 04:05:16 2013/-kk/

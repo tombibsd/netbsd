@@ -1013,9 +1013,10 @@ intr_establish_xname(int legacy_irq, struct pic *pic, int pin, int type,
 	 * device's pci_intr_alloc() or this function.
 	 */
 	if (source->is_handlers != NULL) {
-		struct intrsource *isp;
+		struct intrsource *isp, *nisp;
 
-		SIMPLEQ_FOREACH(isp, &io_interrupt_sources, is_list) {
+		SIMPLEQ_FOREACH_SAFE(isp, &io_interrupt_sources,
+		    is_list, nisp) {
 			if (strncmp(intrstr, isp->is_intrid, INTRIDBUF - 1) == 0
 			    && isp->is_handlers == NULL)
 				intr_free_io_intrsource_direct(isp);

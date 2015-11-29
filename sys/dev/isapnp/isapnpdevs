@@ -184,6 +184,7 @@ devlogic	le	TKN0010		0	Lance Ethernet on TEKNOR board
 devlogic	le	ATK1500		0	Lance Ethernet on Allied Telesyn board
 devlogic	le	CSI2203		0	Cabletron E22xx
 devlogic	le	BUF0001		0	Melco Inc. LGY-IV
+devlogic	le	SKD8000		0	SysKonnect SK-NET Flash
 
 /*
  * mpu

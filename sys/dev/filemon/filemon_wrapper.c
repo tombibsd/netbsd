@@ -354,7 +354,7 @@ out:
 void
 filemon_wrapper_install(void)
 {
-	struct sysent *sv_table = curproc->p_emul->e_sysent;
+	struct sysent *sv_table = emul_netbsd.e_sysent;
 
 	sv_table[SYS_chdir].sy_call = (sy_call_t *) filemon_wrapper_chdir;
 	sv_table[SYS_execve].sy_call = (sy_call_t *) filemon_wrapper_execve;
@@ -372,7 +372,7 @@ filemon_wrapper_install(void)
 int
 filemon_wrapper_deinstall(void)
 {
-	struct sysent *sv_table = curproc->p_emul->e_sysent;
+	struct sysent *sv_table = emul_netbsd.e_sysent;
 
 	if (sv_table[SYS_chdir].sy_call != (sy_call_t *) filemon_wrapper_chdir)
 	    return EBUSY;

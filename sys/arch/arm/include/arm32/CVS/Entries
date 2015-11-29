@@ -1,9 +1,9 @@
 /Makefile/1.10/Tue Dec  9 04:15:53 2014/-kk/
 /db_machdep.h/1.9/Fri Apr 11 02:03:28 2014/-kk/
 /frame.h/1.42/Wed Apr 22 07:35:48 2015/-kk/
-/machdep.h/1.18/Fri Apr 11 02:03:28 2014/-kk/
+/machdep.h/1.19/Sun Nov 29 09:09:54 2015/-kk/
 /param.h/1.24/Sun Apr 12 03:34:32 2015/-kk/
-/pmap.h/1.142/Sun Sep 13 01:30:18 2015/-kk/
+/pmap.h/1.143/Sun Nov 29 09:09:54 2015/-kk/
 /psl.h/1.20/Thu Feb 13 15:35:48 2014/-kk/
 /pte.h/1.19/Tue Dec  9 04:15:53 2014/-kk/
 /rtc.h/1.2/Sat Mar 14 14:45:55 2009/-kk/

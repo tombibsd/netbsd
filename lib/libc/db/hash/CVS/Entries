@@ -1,13 +1,13 @@
 /Makefile.inc/1.9/Tue Sep 13 01:44:09 2005/-kk/
 /README/1.5/Tue Feb 16 17:59:18 1999/-kk/
 /extern.h/1.9/Tue Aug 26 21:18:38 2008/-kk/
-/hash.c/1.35/Thu Jul  2 04:13:23 2015/-kk/
-/hash.h/1.15/Tue Aug 26 21:18:38 2008/-kk/
-/hash_bigkey.c/1.24/Tue Mar 13 21:13:32 2012/-kk/
+/hash.c/1.38/Sun Nov 29 09:09:21 2015/-kk/
+/hash.h/1.16/Sun Nov 29 09:09:21 2015/-kk/
+/hash_bigkey.c/1.25/Sun Nov 29 09:09:21 2015/-kk/
 /hash_buf.c/1.18/Thu Apr 23 22:09:23 2009/-kk/
 /hash_func.c/1.13/Wed Sep 10 17:52:35 2008/-kk/
 /hash_log2.c/1.13/Thu Sep 11 12:33:55 2008/-kk/
-/hash_page.c/1.26/Tue Dec 17 04:13:15 2013/-kk/
+/hash_page.c/1.28/Sun Nov 29 09:09:21 2015/-kk/
 /ndbm.c/1.23/Thu Sep 11 12:58:00 2008/-kk/
 /ndbmdatum.c/1.5/Tue Mar 13 21:13:33 2012/-kk/
 /page.h/1.8/Tue Aug 26 21:18:38 2008/-kk/

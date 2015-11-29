@@ -59,6 +59,7 @@
 #include "timer.h"
 #include "if.h"
 #include "dump.h"
+#include "prog_ops.h"
 
 static FILE *fp;
 
@@ -101,7 +102,7 @@ if_dump(void)
 	char prefixbuf[INET6_ADDRSTRLEN];
 	struct timespec now;
 
-	clock_gettime(CLOCK_MONOTONIC, &now); /* XXX: unused in most cases */
+	prog_clock_gettime(CLOCK_MONOTONIC, &now); /* XXX: unused in most cases */
 	TAILQ_FOREACH(rai, &ralist, next) {
 		fprintf(fp, "%s:\n", rai->ifname);
 

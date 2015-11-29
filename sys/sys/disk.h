@@ -519,6 +519,8 @@ struct disk_strategy {
 
 #define	DK_BSIZE2BLKSHIFT(b)	((ffs((b) / DEV_BSIZE)) - 1)
 #define	DK_BSIZE2BYTESHIFT(b)	(ffs((b)) - 1)
+#define DK_DEV_BSIZE_OK(b) \
+    ((b) >= DEV_BSIZE && ((b) & ((b) - 1)) == 0 && (b) <= MAXPHYS)
 
 #ifdef _KERNEL
 extern	int disk_count;			/* number of disks in global disklist */

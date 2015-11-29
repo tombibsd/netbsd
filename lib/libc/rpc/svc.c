@@ -130,33 +130,41 @@ static void __xprt_do_unregister(SVCXPRT *xprt, bool_t dolock);
 static bool_t
 xprt_alloc(int sock)
 {
-	int maxset;
-	char *newxports;
+	int oldmaxxports, newmaxxports;
+	SVCXPRT **oldxports, **newxports;
 
 	if (++sock < 0)
 		return FALSE;
 
-	maxset = svc_fdset_getsize(sock);
-	if (maxset == -1)
+	newmaxxports = svc_fdset_getsize(sock);
+	if (newmaxxports == -1)
 		return FALSE;
 
-	if (__svc_xports != NULL && maxset <= __svc_maxxports)
+	if (__svc_xports != NULL && newmaxxports < __svc_maxxports)
 		return TRUE;
 
-	if (__svc_xports != NULL)
-		--__svc_xports;
-	newxports = realloc(__svc_xports, maxset * sizeof(SVCXPRT *));
+	oldxports = __svc_xports;
+	oldmaxxports = __svc_maxxports;
+	if (oldxports != NULL) {
+		/* revert saving [-1] slot */
+		--oldxports;
+		++oldmaxxports;
+	}
+
+	/* reserve an extra slot for [-1] */
+	newmaxxports++;
+	newxports = realloc(oldxports, newmaxxports * sizeof(SVCXPRT *));
 	if (newxports == NULL) {
 		warn("%s: out of memory", __func__);
 		return FALSE;
 	}
 
-	memset(newxports + __svc_maxxports * sizeof(SVCXPRT *), 0,
-	    (maxset - __svc_maxxports) * sizeof(SVCXPRT *));
+	memset(&newxports[oldmaxxports], 0,
+	    (newmaxxports - oldmaxxports) * sizeof(SVCXPRT *));
 
-	__svc_xports = (void *)newxports;
-	__svc_xports++;
-	__svc_maxxports = maxset;
+	/* save one slot for [-1] */
+	__svc_xports = newxports + 1;
+	__svc_maxxports = newmaxxports - 1;
 
 	return TRUE;
 }

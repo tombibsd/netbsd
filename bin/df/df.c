@@ -379,13 +379,13 @@ prtstat(struct statvfs *sfsp, int maxwidth)
 		 */
 		(void)printf("%10s (%-12s): %7ld block size %12ld frag size\n",
 		    sfsp->f_mntonname, sfsp->f_mntfromname,
-		    sfsp->f_iosize,	/* On UFS/FFS systems this is
+		    sfsp->f_bsize,	/* On UFS/FFS systems this is
 					 * also called the "optimal
 					 * transfer block size" but it
 					 * is of course the file
 					 * system's block size too.
 					 */
-		    sfsp->f_bsize);	/* not so surprisingly the
+		    sfsp->f_frsize);	/* not so surprisingly the
 					 * "fundamental file system
 					 * block size" is the frag
 					 * size.

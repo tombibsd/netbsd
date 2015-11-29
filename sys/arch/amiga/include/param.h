@@ -56,6 +56,9 @@
 
 #define	NPTEPG		(NBPG/(sizeof (pt_entry_t)))
 
+/* We need the same btop macro in device drivers for m68k and powerpc */
+#define MD_BTOP(pa)	m68k_btop(pa)
+
 /*
  * Minimum and maximum sizes of the kernel malloc arena in PAGE_SIZE-sized
  * logical pages.

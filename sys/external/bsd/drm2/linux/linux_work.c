@@ -850,7 +850,7 @@ linux_worker_intr(void *arg)
 	}
 
 	/* Either way, the callout is done.  */
-	TAILQ_REMOVE(&dw->work.w_wq->wq_delayed, dw, dw_entry);
+	TAILQ_REMOVE(&wq->wq_delayed, dw, dw_entry);
 	callout_destroy(&dw->dw_callout);
 
 	mutex_exit(&wq->wq_lock);

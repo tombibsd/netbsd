@@ -6,8 +6,9 @@ COMMENT=USB host controller using /dev/ugen
 
 .if ${MACHINE} == "i386" || ${MACHINE} == "amd64"
 IOCONF= UGENHC.ioconf
+RUMP_COMPONENT=ioconf
 
-SRCS=	ugenhc.c ugenhc_at_mainbus.c ugenhc_dma.c
+SRCS=	ugenhc.c ugenhc_dma.c
 
 CPPFLAGS+=	-I${RUMPTOP}/librump/rumpkern
 

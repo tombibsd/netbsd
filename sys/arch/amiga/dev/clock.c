@@ -475,7 +475,7 @@ clockioctl(dev_t dev, u_long cmd, void *data, int flag, struct proc *p)
 void
 clockmap(dev_t dev, int off, int prot)
 {
-	return((off + (INTIOBASE+CLKBASE+CLKSR-1)) >> PGSHIFT);
+	return MD_BTOP(off + (INTIOBASE+CLKBASE+CLKSR-1));
 }
 
 int

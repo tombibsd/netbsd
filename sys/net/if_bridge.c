@@ -893,6 +893,8 @@ bridge_ioctl_add(struct bridge_softc *sc, void *arg)
 
 	switch (ifs->if_type) {
 	case IFT_ETHER:
+		if ((error = ether_enable_vlan_mtu(ifs)) > 0)
+			goto out;
 		/*
 		 * Place the interface into promiscuous mode.
 		 */
@@ -970,6 +972,7 @@ bridge_ioctl_del(struct bridge_softc *sc, void *arg)
 		 * Don't call it with holding a spin lock.
 		 */
 		(void) ifpromisc(ifs, 0);
+		(void) ether_disable_vlan_mtu(ifs);
 		break;
 	default:
 #ifdef DIAGNOSTIC

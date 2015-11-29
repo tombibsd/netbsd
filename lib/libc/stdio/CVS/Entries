@@ -89,7 +89,7 @@
 /open_memstream.c/1.1/Mon Oct 13 00:40:36 2014/-kk/
 /open_wmemstream.c/1.1/Mon Oct 13 00:40:36 2014/-kk/
 /perror.c/1.24/Thu Jan 26 11:13:42 2006/-kk/
-/printf.3/1.64/Fri Oct  3 10:04:45 2014/-kk/
+/printf.3/1.65/Sun Nov 29 09:09:23 2015/-kk/
 /printf.c/1.13/Thu Oct 24 10:28:53 2013/-kk/
 /putc.3/1.12/Thu May  6 09:01:34 2010/-kk/
 /putc.c/1.12/Thu Mar 15 18:22:30 2012/-kk/

@@ -842,11 +842,13 @@ ARM_APCS_FLAGS+=${${ACTIVE_CC} == "clang":? -target ${MACHINE_GNU_ARCH}--netbsde
 GENASSYM_CPPFLAGS+=	${${ACTIVE_CC} == "clang":? -no-integrated-as :}
 
 TARGETS+=	all clean cleandir depend dependall includes \
-		install lint obj regress tags html analyze describe
+		install lint obj regress tags html analyze describe \
+		rumpdescribe
 PHONY_NOTMAIN =	all clean cleandir depend dependall distclean includes \
 		install lint obj regress beforedepend afterdepend \
 		beforeinstall afterinstall realinstall realdepend realall \
-		html subdir-all subdir-install subdir-depend analyze describe
+		html subdir-all subdir-install subdir-depend analyze describe \
+		rumpdescribe
 .PHONY:		${PHONY_NOTMAIN}
 .NOTMAIN:	${PHONY_NOTMAIN}
 

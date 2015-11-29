@@ -43,3 +43,6 @@
 #endif /* _KERNEL && !_MODULE */
 
 #include <powerpc/param.h>
+
+/* We need the same btop macro in device drivers for m68k and powerpc */
+#define MD_BTOP(pa)		(pa)

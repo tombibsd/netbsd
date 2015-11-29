@@ -34,11 +34,11 @@
 /ip6_var.h/1.64/Mon Jan 26 07:10:31 2015/-kk/
 /ip6protosw.h/1.22/Tue Jun  3 02:54:45 2014/-kk/
 /ipsec.h/1.54/Thu Mar 22 20:34:41 2012/-kk/
-/mld6.c/1.63/Sun Sep 13 01:07:53 2015/-kk/
+/mld6.c/1.64/Sun Nov 29 09:10:56 2015/-kk/
 /mld6_var.h/1.10/Sat Nov 19 22:51:29 2011/-kk/
-/nd6.c/1.177/Wed Sep 23 08:04:32 2015/-kk/
-/nd6.h/1.66/Sat Jul 25 01:52:33 2015/-kk/
-/nd6_nbr.c/1.110/Sun Sep 13 01:07:54 2015/-kk/
+/nd6.c/1.180/Sun Nov 29 09:10:56 2015/-kk/
+/nd6.h/1.67/Sun Nov 29 09:10:56 2015/-kk/
+/nd6_nbr.c/1.111/Sun Nov 29 09:10:56 2015/-kk/
 /nd6_rtr.c/1.104/Sun Oct 11 09:01:38 2015/-kk/
 /pim6.h/1.5/Sat Dec 10 23:39:56 2005/-kk/
 /pim6_var.h/1.14/Tue Apr 15 05:40:15 2008/-kk/

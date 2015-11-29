@@ -255,8 +255,22 @@ svc_com_create(int fd, u_int sendsize, u_int recvsize, const char *netid)
 	memset(&sccsin, 0, sizeof sccsin);
 	sccsin.sin_family = AF_INET;
 	(void)bindresvport(fd, &sccsin);
-	if (listen(fd, SOMAXCONN) == -1)
-		goto out;
+
+	switch (nconf->nc_semantics) {
+	case NC_TPI_COTS:
+	case NC_TPI_COTS_ORD:
+		if (listen(fd, SOMAXCONN) == -1) {
+			(void) syslog(LOG_ERR,
+			    "svc%s_create: listen(2) failed: %s",
+			    netid, strerror(errno));
+			(void) freenetconfigent(nconf);
+			goto out;
+		}
+		break;
+	default:
+		break;
+	}
+
 	svc = svc_tli_create(fd, nconf, NULL, sendsize, recvsize);
 	(void) freenetconfigent(nconf);
 	if (svc == NULL)

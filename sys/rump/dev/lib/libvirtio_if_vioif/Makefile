@@ -9,8 +9,7 @@ LIB=	rumpdev_virtio_if_vioif
 COMMENT=VirtIO network interface driver
 
 IOCONF=	VIRTIO_IF_VIOIF.ioconf
-
-SRCS=	vioif_at_virtio.c
+RUMP_COMPONENT=ioconf
 
 SRCS+=	if_vioif.c
 

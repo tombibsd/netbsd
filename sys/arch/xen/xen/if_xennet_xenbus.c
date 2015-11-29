@@ -362,6 +362,7 @@ xennet_xenbus_attach(device_t parent, device_t self, void *aux)
 	    ether_sprintf(sc->sc_enaddr));
 	/* Initialize ifnet structure and attach interface */
 	strlcpy(ifp->if_xname, device_xname(self), IFNAMSIZ);
+	sc->sc_ethercom.ec_capabilities |= ETHERCAP_VLAN_MTU;
 	ifp->if_softc = sc;
 	ifp->if_start = xennet_start;
 	ifp->if_ioctl = xennet_ioctl;

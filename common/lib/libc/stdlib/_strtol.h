@@ -105,8 +105,14 @@ INT_FUNCNAME(_int_, _FUNCNAME, _l)(const char *nptr, char **endptr,
 		c = s[1];
 		s += 2;
 		base = 16;
-	}
-	if (base == 0)
+#if 0
+	} else if ((base == 0 || base == 2) &&
+	    c == '0' && (*s == 'b' || *s == 'B')) {
+		c = s[1];
+		s += 2;
+		base = 2;
+#endif
+	} else if (base == 0)
 		base = (c == '0' ? 8 : 10);
 
 	/*

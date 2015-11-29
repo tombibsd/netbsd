@@ -213,6 +213,7 @@
 #include <sys/kernhist.h>
 
 #include <uvm/uvm.h>
+#include <uvm/pmap/pmap_pvt.h>
 
 #include <arm/locore.h>
 
@@ -757,6 +758,7 @@ static void		pmap_flush_page(struct vm_page_md *, paddr_t, enum pmap_flush_op);
 #endif
 #endif
 static void		pmap_page_remove(struct vm_page_md *, paddr_t);
+static void		pmap_pv_remove(paddr_t);
 
 #ifndef ARM_MMU_EXTENDED
 static void		pmap_init_l1(struct l1_ttable *, pd_entry_t *);
@@ -3118,15 +3120,20 @@ pmap_enter(pmap_t pm, vaddr_t va, paddr_t pa, vm_prot_t prot, u_int flags)
 		 * If the physical address is different, lookup the
 		 * vm_page.
 		 */
-		if (l2pte_pa(opte) != pa)
+		if (l2pte_pa(opte) != pa) {
+			KASSERT(!pmap_pv_tracked(pa));
 			opg = PHYS_TO_VM_PAGE(l2pte_pa(opte));
-		else
+		} else
 			opg = pg;
 	} else
 		opg = NULL;
 
-	if (pg) {
-		struct vm_page_md *md = VM_PAGE_TO_MD(pg);
+	struct pmap_page *pp = pmap_pv_tracked(pa);
+
+	if (pg || pp) {
+		KASSERT((pg != NULL) != (pp != NULL));
+		struct vm_page_md *md = (pg != NULL) ? VM_PAGE_TO_MD(pg) :
+		    PMAP_PAGE_TO_MD(pp);
 
 		/*
 		 * This is to be a managed mapping.
@@ -3180,7 +3187,7 @@ pmap_enter(pmap_t pm, vaddr_t va, paddr_t pa, vm_prot_t prot, u_int flags)
 		} else
 			npte |= pte_l2_s_cache_mode;
 
-		if (pg == opg) {
+		if (pg != NULL && pg == opg) {
 			/*
 			 * We're changing the attrs of an existing mapping.
 			 */
@@ -3947,6 +3954,34 @@ pmap_extract(pmap_t pm, vaddr_t va, paddr_t *pap)
 		*pap = pa;
 
 	return true;
+}
+
+/*
+ * pmap_pv_remove: remove an unmanaged pv-tracked page from all pmaps
+ *	that map it
+ */
+
+static void
+pmap_pv_remove(paddr_t pa)
+{
+	struct pmap_page *pp;
+
+	pp = pmap_pv_tracked(pa);
+	if (pp == NULL)
+		panic("pmap_pv_protect: page not pv-tracked: 0x%"PRIxPADDR,
+		    pa);
+
+	struct vm_page_md *md = PMAP_PAGE_TO_MD(pp);
+	pmap_page_remove(md, pa);
+}
+
+void
+pmap_pv_protect(paddr_t pa, vm_prot_t prot)
+{
+
+	/* the only case is remove at the moment */
+	KASSERT(prot == VM_PROT_NONE);
+	pmap_pv_remove(pa);
 }
 
 void
@@ -4974,7 +5009,13 @@ pmap_update(pmap_t pm)
 
 	if (pm->pm_remove_all) {
 #ifdef ARM_MMU_EXTENDED
-		KASSERTMSG(curcpu()->ci_pmap_cur != pm || pm->pm_pai[0].pai_asid == curcpu()->ci_pmap_asid_cur, "pmap/asid %p/%#x != %s cur pmap/asid %p/%#x", pm, pm->pm_pai[0].pai_asid, curcpu()->ci_data.cpu_name, curcpu()->ci_pmap_cur, curcpu()->ci_pmap_asid_cur);
+		KASSERT(pm != pmap_kernel());
+
+		KASSERTMSG(curcpu()->ci_pmap_cur != pm
+		    || pm->pm_pai[0].pai_asid == curcpu()->ci_pmap_asid_cur,
+		    "pmap/asid %p/%#x != %s cur pmap/asid %p/%#x", pm,
+		    pm->pm_pai[0].pai_asid, curcpu()->ci_data.cpu_name,
+		    curcpu()->ci_pmap_cur, curcpu()->ci_pmap_asid_cur);
 		/*
 		 * Finish up the pmap_remove_all() optimisation by flushing
 		 * all our ASIDs.
@@ -5003,7 +5044,12 @@ pmap_update(pmap_t pm)
 		PMAP_COUNT(shootdown_ipis);
 	}
 #endif
-	KASSERTMSG(curcpu()->ci_pmap_cur != pm || pm->pm_pai[0].pai_asid == curcpu()->ci_pmap_asid_cur, "pmap/asid %p/%#x != %s cur pmap/asid %p/%#x", pm, pm->pm_pai[0].pai_asid, curcpu()->ci_data.cpu_name, curcpu()->ci_pmap_cur, curcpu()->ci_pmap_asid_cur);
+	KASSERTMSG(pm == pmap_kernel()
+	    || curcpu()->ci_pmap_cur != pm
+	    || pm->pm_pai[0].pai_asid == curcpu()->ci_pmap_asid_cur,
+	    "pmap/asid %p/%#x != %s cur pmap/asid %p/%#x", pm,
+	    pm->pm_pai[0].pai_asid, curcpu()->ci_data.cpu_name,
+	    curcpu()->ci_pmap_cur, curcpu()->ci_pmap_asid_cur);
 #else
 	if (pmap_is_current(pm)) {
 		/*

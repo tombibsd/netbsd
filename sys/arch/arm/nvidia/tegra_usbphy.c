@@ -79,19 +79,17 @@ static void
 tegra_usbphy_attach(device_t parent, device_t self, void *aux)
 {
 	struct tegra_usbphy_softc * const sc = device_private(self);
-	struct tegraio_attach_args * const tio = aux;
-	const struct tegra_locators * const loc = &tio->tio_loc;
+	struct tegrausbphy_attach_args * const tup = aux;
 	prop_dictionary_t prop = device_properties(self);
 	const char *pin;
 
 	sc->sc_dev = self;
-	sc->sc_bst = tio->tio_bst;
-	bus_space_subregion(tio->tio_bst, tio->tio_bsh,
-	    loc->loc_offset, loc->loc_size, &sc->sc_bsh);
-	sc->sc_port = loc->loc_port;
+	sc->sc_bst = tup->tup_bst;
+	sc->sc_bsh = tup->tup_bsh;
+	sc->sc_port = tup->tup_port;
 
 	aprint_naive("\n");
-	aprint_normal(": USB PHY%d\n", loc->loc_port + 1);
+	aprint_normal(": USB PHY%d\n", sc->sc_port + 1);
 
 	if (tegra_usbphy_parse_properties(sc) != 0)
 		return;

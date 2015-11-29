@@ -337,6 +337,8 @@ uint32_t ether_crc32_le(const uint8_t *, size_t);
 uint32_t ether_crc32_be(const uint8_t *, size_t);
 
 int	ether_aton_r(u_char *, size_t, const char *);
+int	ether_enable_vlan_mtu(struct ifnet *);
+int	ether_disable_vlan_mtu(struct ifnet *);
 #else
 /*
  * Prototype ethers(3) functions.

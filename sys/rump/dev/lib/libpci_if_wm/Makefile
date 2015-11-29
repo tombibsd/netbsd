@@ -9,8 +9,7 @@ LIB=	rumpdev_pci_if_wm
 COMMENT=Intel GigE device driver
 
 IOCONF=	PCI_IF_WM.ioconf
-
-SRCS=	wm_at_pci.c
+RUMP_COMPONENT=ioconf
 
 SRCS+=	if_wm.c
 

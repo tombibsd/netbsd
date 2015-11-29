@@ -48,28 +48,10 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <arm/nvidia/tegra_mcreg.h>
 #include <arm/nvidia/tegra_var.h>
 
-bus_space_handle_t tegra_host1x_bsh;
 bus_space_handle_t tegra_ppsb_bsh;
 bus_space_handle_t tegra_apb_bsh;
-bus_space_handle_t tegra_ahb_a2_bsh;
 
 struct arm32_bus_dma_tag tegra_dma_tag = {
-	_BUS_DMAMAP_FUNCS,
-	_BUS_DMAMEM_FUNCS,
-	_BUS_DMATAG_FUNCS,
-};
-
-static struct arm32_dma_range tegra_coherent_dma_ranges[] = {
-	[0] = {
-		.dr_sysbase = TEGRA_EXTMEM_BASE,
-		.dr_busbase = TEGRA_EXTMEM_BASE,
-		.dr_flags = _BUS_DMAMAP_COHERENT,
-	},
-};
-
-struct arm32_bus_dma_tag tegra_coherent_dma_tag = {
-	._ranges = tegra_coherent_dma_ranges,
-	._nranges = __arraycount(tegra_coherent_dma_ranges),
 	_BUS_DMAMAP_FUNCS,
 	_BUS_DMAMEM_FUNCS,
 	_BUS_DMATAG_FUNCS,
@@ -81,10 +63,6 @@ void
 tegra_bootstrap(void)
 {
 	if (bus_space_map(&armv7_generic_bs_tag,
-	    TEGRA_HOST1X_BASE, TEGRA_HOST1X_SIZE, 0,
-	    &tegra_host1x_bsh) != 0)
-		panic("couldn't map HOST1X");
-	if (bus_space_map(&armv7_generic_bs_tag,
 	    TEGRA_PPSB_BASE, TEGRA_PPSB_SIZE, 0,
 	    &tegra_ppsb_bsh) != 0)
 		panic("couldn't map PPSB");
@@ -92,10 +70,6 @@ tegra_bootstrap(void)
 	    TEGRA_APB_BASE, TEGRA_APB_SIZE, 0,
 	    &tegra_apb_bsh) != 0)
 		panic("couldn't map APB");
-	if (bus_space_map(&armv7_generic_bs_tag,
-	    TEGRA_AHB_A2_BASE, TEGRA_AHB_A2_SIZE, 0,
-	    &tegra_ahb_a2_bsh) != 0)
-		panic("couldn't map AHB A2");
 
 	curcpu()->ci_data.cpu_cc_freq = tegra_car_pllx_rate();
 
@@ -105,7 +79,6 @@ tegra_bootstrap(void)
 void
 tegra_dma_bootstrap(psize_t psize)
 {
-	tegra_coherent_dma_ranges[0].dr_len = psize;
 }
 
 void

@@ -9,8 +9,7 @@ LIB=	rumpdev_pci_virtio
 COMMENT=VirtIO bus support
 
 IOCONF=	PCI_VIRTIO.ioconf
-
-SRCS=	virtio_at_pci.c
+RUMP_COMPONENT=ioconf
 
 SRCS+=	virtio.c
 

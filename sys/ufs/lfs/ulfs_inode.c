@@ -43,7 +43,6 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #if defined(_KERNEL_OPT)
 #include "opt_lfs.h"
 #include "opt_quota.h"
-#include "opt_wapbl.h"
 #endif
 
 #include <sys/param.h>
@@ -54,7 +53,6 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/kernel.h>
 #include <sys/namei.h>
 #include <sys/kauth.h>
-#include <sys/wapbl.h>
 #include <sys/fstrans.h>
 #include <sys/kmem.h>
 

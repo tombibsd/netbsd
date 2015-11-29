@@ -13,6 +13,7 @@ TESTS_C+=	t_pktinfo
 TESTS_C+=	t_raw
 TESTS_SH=	t_forwarding
 TESTS_SH+=	t_ipaddress
+TESTS_SH+=	t_ipv6address
 TESTS_SH+=	t_ipv6_lifetime
 .endif
 

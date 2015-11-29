@@ -136,11 +136,19 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <arm/locore.h>
 #include <arm/arm32/machdep.h>
 
+void (*cpu_powerdown_address)(void);
+
 static int
 docpureset(int howto)
 {
-	if (howto & RB_POWERDOWN)
-		printf("WARNING: powerdown not supported\r\n");
+	if ((howto & RB_POWERDOWN) == RB_POWERDOWN) {
+		if (cpu_powerdown_address) {
+			cpu_powerdown_address();
+			printf("WARNING: powerdown failed\r\n");
+		} else {
+			printf("WARNING: powerdown not supported\r\n");
+		}
+	}
 
 	if (howto & RB_HALT) {
 		printf("The operating system has halted.\r\n");

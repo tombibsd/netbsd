@@ -493,9 +493,9 @@ msix_set_vecctl_mask(struct pic *pic, int msix_vec, int flag)
 	vecctl = bus_space_read_4(bstag, bshandle,
 	    entry_base + PCI_MSIX_TABLE_ENTRY_VECTCTL);
 	if (flag == MSIX_VECCTL_HWMASK)
-		vecctl |= PCI_MSIX_VECTCTL_HWMASK_MASK;
+		vecctl |= PCI_MSIX_VECTCTL_MASK;
 	else
-		vecctl &= ~PCI_MSIX_VECTCTL_HWMASK_MASK;
+		vecctl &= ~PCI_MSIX_VECTCTL_MASK;
 
 	bus_space_write_4(bstag, bshandle,
 	    entry_base + PCI_MSIX_TABLE_ENTRY_VECTCTL, vecctl);

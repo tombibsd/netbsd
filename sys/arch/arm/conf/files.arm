@@ -213,6 +213,9 @@ file	arch/arm/arm32/cortex_pmc.c		cortex_pmc
 file	arch/arm/arm32/arm32_tlb.c		(cpu_armv7 | cpu_arm11) & (!arm11_compat_mmu & !cpu_pre_armv6)
 file	uvm/pmap/pmap_tlb.c			(cpu_armv7 | cpu_arm11) & (!arm11_compat_mmu & !cpu_pre_armv6)
 
+# generic pmap files for arm32 implementations
+file	uvm/pmap/pmap_pvt.c			arm32
+
 # arm32 library functions
 file	arch/arm/arm32/bcopy_page.S		arm32
 

@@ -410,6 +410,7 @@ awin_hdmiaudio_halt_output(void *priv)
 
 	sc->sc_pint = NULL;
 	sc->sc_pintarg = NULL;
+	awin_hdmi_poweron(false);
 
 	return 0;
 }
@@ -638,6 +639,7 @@ awin_hdmiaudio_trigger_output(void *priv, void *start, void *end, int blksize,
 	sc->sc_pstart = sc->sc_pcur = pstart;
 	sc->sc_pend = sc->sc_pstart + psize;
 	sc->sc_pblksize = blksize;
+	awin_hdmi_poweron(true);
 
 	dmacfg = 0;
 	dmacfg |= __SHIFTIN(AWIN_DMA_CTL_DATA_WIDTH_32,

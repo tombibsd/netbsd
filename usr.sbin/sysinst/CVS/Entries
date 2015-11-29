@@ -7,7 +7,7 @@
 /checkrc.c/1.1/Sat Jul 26 19:30:44 2014/-kk/
 /configmenu.c/1.5/Thu May 28 03:26:09 2015/-kk/
 /defs.h/1.9/Thu May 28 03:26:09 2015/-kk/
-/disks.c/1.10/Sun Aug  2 04:03:08 2015/-kk/
+/disks.c/1.11/Sun Nov 29 09:11:28 2015/-kk/
 /disks_lfs.c/1.1/Sat Jul 26 19:30:44 2014/-kk/
 /endian.h/1.1/Sat Jul 26 19:30:44 2014/-kk/
 /factor.c/1.1/Sat Jul 26 19:30:44 2014/-kk/

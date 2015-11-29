@@ -50,17 +50,25 @@ static const struct drm_mode_config_funcs tegra_mode_config_funcs = {
 	.fb_create = tegra_fb_create
 };
 
+static int	tegra_framebuffer_create_handle(struct drm_framebuffer *,
+		    struct drm_file *, unsigned int *);
 static void	tegra_framebuffer_destroy(struct drm_framebuffer *);
 
 static const struct drm_framebuffer_funcs tegra_framebuffer_funcs = {
+	.create_handle = tegra_framebuffer_create_handle,
 	.destroy = tegra_framebuffer_destroy
 };
 
 static int	tegra_crtc_init(struct drm_device *, int);
 static void	tegra_crtc_destroy(struct drm_crtc *);
+static int	tegra_crtc_cursor_set(struct drm_crtc *, struct drm_file *,
+		    uint32_t, uint32_t, uint32_t);
+static int	tegra_crtc_cursor_move(struct drm_crtc *, int, int);
 static int	tegra_crtc_intr(void *);
 
 static const struct drm_crtc_funcs tegra_crtc_funcs = {
+	.cursor_set = tegra_crtc_cursor_set,
+	.cursor_move = tegra_crtc_cursor_move,
 	.set_config = drm_crtc_helper_set_config,
 	.destroy = tegra_crtc_destroy
 };
@@ -195,11 +203,19 @@ tegra_drm_mode_init(struct drm_device *ddev)
 	return 0;
 }
 
+int
+tegra_drm_framebuffer_init(struct drm_device *ddev,
+    struct tegra_framebuffer *fb)
+{
+	return drm_framebuffer_init(ddev, &fb->base, &tegra_framebuffer_funcs);
+}
+
 static struct drm_framebuffer *
 tegra_fb_create(struct drm_device *ddev, struct drm_file *file,
     struct drm_mode_fb_cmd2 *cmd)
 {
 	struct tegra_framebuffer *fb;
+	struct drm_gem_object *gem_obj;
 	int error;
 
 	if (cmd->flags)
@@ -209,10 +225,15 @@ tegra_fb_create(struct drm_device *ddev, struct drm_file *file,
 		return NULL;
 	}
 
-	fb = kmem_zalloc(sizeof(*fb), KM_SLEEP);
-	if (fb == NULL)
+	gem_obj = drm_gem_object_lookup(ddev, file, cmd->handles[0]);
+	if (gem_obj == NULL)
 		return NULL;
 
+	fb = kmem_zalloc(sizeof(*fb), KM_SLEEP);
+	if (fb == NULL)
+		goto unref;
+
+	fb->obj = to_tegra_gem_obj(gem_obj);
 	fb->base.pitches[0] = cmd->pitches[0];
 	fb->base.offsets[0] = cmd->offsets[0];
 	fb->base.width = cmd->width;
@@ -221,7 +242,7 @@ tegra_fb_create(struct drm_device *ddev, struct drm_file *file,
 	drm_fb_get_bpp_depth(cmd->pixel_format, &fb->base.depth,
 	    &fb->base.bits_per_pixel);
 
-	error = drm_framebuffer_init(ddev, &fb->base, &tegra_framebuffer_funcs);
+	error = tegra_drm_framebuffer_init(ddev, fb);
 	if (error)
 		goto dealloc;
 
@@ -230,7 +251,19 @@ tegra_fb_create(struct drm_device *ddev, struct drm_file *file,
 	drm_framebuffer_cleanup(&fb->base);
 dealloc:
 	kmem_free(fb, sizeof(*fb));
+unref:
+	drm_gem_object_unreference_unlocked(gem_obj);
+
 	return NULL;
+}
+
+static int
+tegra_framebuffer_create_handle(struct drm_framebuffer *fb,
+    struct drm_file *file, unsigned int *handle)
+{
+	struct tegra_framebuffer *tegra_fb = to_tegra_framebuffer(fb);
+
+	return drm_gem_handle_create(file, &tegra_fb->obj->base, handle);
 }
 
 static void
@@ -239,6 +272,7 @@ tegra_framebuffer_destroy(struct drm_framebuffer *fb)
 	struct tegra_framebuffer *tegra_fb = to_tegra_framebuffer(fb);
 
 	drm_framebuffer_cleanup(fb);
+	drm_gem_object_unreference_unlocked(&tegra_fb->obj->base);
 	kmem_free(tegra_fb, sizeof(*tegra_fb));
 }
 
@@ -285,6 +319,12 @@ tegra_crtc_init(struct drm_device *ddev, int index)
 	if (crtc->ih == NULL) {
 		DRM_ERROR("failed to establish interrupt for crtc %d\n", index);
 	}
+	const size_t cursor_size = 256 * 256 * 4;
+	crtc->cursor_obj = tegra_drm_obj_alloc(ddev, cursor_size);
+	if (crtc->cursor_obj == NULL) {
+		kmem_free(crtc, sizeof(*crtc));
+		return -ENOMEM;
+	}
 
 	tegra_car_dc_enable(crtc->index);
 
@@ -292,6 +332,166 @@ tegra_crtc_init(struct drm_device *ddev, int index)
 
 	drm_crtc_init(ddev, &crtc->base, &tegra_crtc_funcs);
 	drm_crtc_helper_add(&crtc->base, &tegra_crtc_helper_funcs);
+
+	return 0;
+}
+
+static int
+tegra_crtc_cursor_set(struct drm_crtc *crtc, struct drm_file *file_priv,
+    uint32_t handle, uint32_t width, uint32_t height)
+{
+	struct tegra_crtc *tegra_crtc = to_tegra_crtc(crtc);
+	struct drm_gem_object *gem_obj = NULL;
+	struct tegra_gem_object *obj;
+	uint32_t cfg, opt;
+	int error;
+
+	if (tegra_crtc->enabled == false)
+		return 0;
+
+	if (handle == 0) {
+		/* hide cursor */
+		opt = DC_READ(tegra_crtc, DC_DISP_DISP_WIN_OPTIONS_REG);
+		if ((opt & DC_DISP_DISP_WIN_OPTIONS_CURSOR_ENABLE) != 0) {
+			opt &= ~DC_DISP_DISP_WIN_OPTIONS_CURSOR_ENABLE;
+			DC_WRITE(tegra_crtc, DC_DISP_DISP_WIN_OPTIONS_REG, opt);
+			/* Commit settings */
+			DC_WRITE(tegra_crtc, DC_CMD_STATE_CONTROL_REG,
+			    DC_CMD_STATE_CONTROL_GENERAL_UPDATE);
+			DC_WRITE(tegra_crtc, DC_CMD_STATE_CONTROL_REG,
+			    DC_CMD_STATE_CONTROL_GENERAL_ACT_REQ);
+		}
+		error = 0;
+		goto done;
+	}
+
+	if ((width != height) ||
+	    (width != 32 && width != 64 && width != 128 && width != 256)) {
+		DRM_ERROR("Cursor dimension %ux%u not supported\n",
+		    width, height);
+		error = -EINVAL;
+		goto done;
+	}
+
+	gem_obj = drm_gem_object_lookup(crtc->dev, file_priv, handle);
+	if (gem_obj == NULL) {
+		DRM_ERROR("Cannot find cursor object %#x for crtc %d\n",
+		    handle, tegra_crtc->index);
+		error = -ENOENT;
+		goto done;
+	}
+	obj = to_tegra_gem_obj(gem_obj);
+
+	if (obj->base.size < width * height * 4) {
+		DRM_ERROR("Cursor buffer is too small\n");
+		error = -ENOMEM;
+		goto done;
+	}
+
+	cfg = __SHIFTIN(DC_DISP_CURSOR_START_ADDR_CLIPPING_DISPLAY,
+			DC_DISP_CURSOR_START_ADDR_CLIPPING);
+	switch (width) {
+	case 32:
+		cfg |= __SHIFTIN(DC_DISP_CURSOR_START_ADDR_SIZE_32,
+				 DC_DISP_CURSOR_START_ADDR_SIZE);
+		break;
+	case 64:
+		cfg |= __SHIFTIN(DC_DISP_CURSOR_START_ADDR_SIZE_64,
+				 DC_DISP_CURSOR_START_ADDR_SIZE);
+		break;
+	case 128:
+		cfg |= __SHIFTIN(DC_DISP_CURSOR_START_ADDR_SIZE_128,
+				 DC_DISP_CURSOR_START_ADDR_SIZE);
+		break;
+	case 256:
+		cfg |= __SHIFTIN(DC_DISP_CURSOR_START_ADDR_SIZE_256,
+				 DC_DISP_CURSOR_START_ADDR_SIZE);
+		break;
+	}
+
+	/* copy cursor (argb -> rgba) */
+	struct tegra_gem_object *cursor_obj = tegra_crtc->cursor_obj;
+	uint32_t off, *cp = obj->dmap, *crtc_cp = cursor_obj->dmap;
+	for (off = 0; off < width * height; off++) {
+		crtc_cp[off] = (cp[off] << 8) | (cp[off] >> 24);
+	}
+
+	cfg |= __SHIFTIN((cursor_obj->dmasegs[0].ds_addr >> 10) & 0x3fffff,
+			 DC_DISP_CURSOR_START_ADDR_ADDRESS_LO);
+	const uint32_t ocfg =
+	    DC_READ(tegra_crtc, DC_DISP_CURSOR_START_ADDR_REG);
+	if (cfg != ocfg) {
+		DC_WRITE(tegra_crtc, DC_DISP_CURSOR_START_ADDR_REG, cfg);
+	}
+
+	cfg = DC_READ(tegra_crtc, DC_DISP_BLEND_CURSOR_CONTROL_REG);
+	cfg &= ~DC_DISP_BLEND_CURSOR_CONTROL_DST_BLEND_FACTOR_SEL;
+	cfg |= __SHIFTIN(2, DC_DISP_BLEND_CURSOR_CONTROL_DST_BLEND_FACTOR_SEL);
+	cfg &= ~DC_DISP_BLEND_CURSOR_CONTROL_SRC_BLEND_FACTOR_SEL;
+	cfg |= __SHIFTIN(1, DC_DISP_BLEND_CURSOR_CONTROL_SRC_BLEND_FACTOR_SEL);
+	cfg &= ~DC_DISP_BLEND_CURSOR_CONTROL_ALPHA;
+	cfg |= __SHIFTIN(255, DC_DISP_BLEND_CURSOR_CONTROL_ALPHA);
+	cfg |= DC_DISP_BLEND_CURSOR_CONTROL_MODE_SEL;
+	DC_WRITE(tegra_crtc, DC_DISP_BLEND_CURSOR_CONTROL_REG, cfg);
+
+	/* set cursor position */
+	DC_WRITE(tegra_crtc, DC_DISP_CURSOR_POSITION_REG,
+	    __SHIFTIN(tegra_crtc->cursor_x, DC_DISP_CURSOR_POSITION_H) |
+	    __SHIFTIN(tegra_crtc->cursor_y, DC_DISP_CURSOR_POSITION_V));
+
+	/* Commit settings */
+	DC_WRITE(tegra_crtc, DC_CMD_STATE_CONTROL_REG,
+	    DC_CMD_STATE_CONTROL_CURSOR_UPDATE);
+	DC_WRITE(tegra_crtc, DC_CMD_STATE_CONTROL_REG,
+	    DC_CMD_STATE_CONTROL_CURSOR_ACT_REQ);
+
+	/* show cursor */
+	opt = DC_READ(tegra_crtc, DC_DISP_DISP_WIN_OPTIONS_REG);
+	if ((opt & DC_DISP_DISP_WIN_OPTIONS_CURSOR_ENABLE) == 0) {
+		opt |= DC_DISP_DISP_WIN_OPTIONS_CURSOR_ENABLE;
+		DC_WRITE(tegra_crtc, DC_DISP_DISP_WIN_OPTIONS_REG, opt);
+
+		/* Commit settings */
+		DC_WRITE(tegra_crtc, DC_CMD_STATE_CONTROL_REG,
+		    DC_CMD_STATE_CONTROL_GENERAL_UPDATE);
+		DC_WRITE(tegra_crtc, DC_CMD_STATE_CONTROL_REG,
+		    DC_CMD_STATE_CONTROL_GENERAL_ACT_REQ);
+	}
+
+	error = 0;
+
+done:
+	if (error == 0) {
+		/* Wait for activation request to complete */
+		while (DC_READ(tegra_crtc, DC_CMD_STATE_CONTROL_REG) &
+		    DC_CMD_STATE_CONTROL_GENERAL_ACT_REQ)
+			;
+	}
+
+	if (gem_obj) {
+		drm_gem_object_unreference_unlocked(gem_obj);
+	}
+
+	return error;
+}
+
+static int
+tegra_crtc_cursor_move(struct drm_crtc *crtc, int x, int y)
+{
+	struct tegra_crtc *tegra_crtc = to_tegra_crtc(crtc);
+
+	tegra_crtc->cursor_x = x & 0x3fff;
+	tegra_crtc->cursor_y = y & 0x3fff;
+
+	DC_WRITE(tegra_crtc, DC_DISP_CURSOR_POSITION_REG,
+	    __SHIFTIN(x & 0x3fff, DC_DISP_CURSOR_POSITION_H) |
+	    __SHIFTIN(y & 0x3fff, DC_DISP_CURSOR_POSITION_V));
+
+	/* Commit settings */
+	DC_WRITE(tegra_crtc, DC_CMD_STATE_CONTROL_REG,
+	    DC_CMD_STATE_CONTROL_CURSOR_UPDATE);
+	DC_WRITE(tegra_crtc, DC_CMD_STATE_CONTROL_REG,
+	    DC_CMD_STATE_CONTROL_CURSOR_ACT_REQ);
 
 	return 0;
 }
@@ -304,6 +504,7 @@ tegra_crtc_destroy(struct drm_crtc *crtc)
 	if (tegra_crtc->ih) {
 		intr_disestablish(tegra_crtc->ih);
 	}
+	tegra_drm_obj_free(tegra_crtc->cursor_obj);
 	bus_space_unmap(tegra_crtc->bst, tegra_crtc->bsh, tegra_crtc->size);
 	kmem_free(tegra_crtc, sizeof(*tegra_crtc));
 }
@@ -433,17 +634,14 @@ static int
 tegra_crtc_do_set_base(struct drm_crtc *crtc, struct drm_framebuffer *fb,
     int x, int y, int atomic)
 {
-	struct tegra_drm_softc * const sc = tegra_drm_private(crtc->dev);
 	struct tegra_crtc *tegra_crtc = to_tegra_crtc(crtc);
-#if 0
 	struct tegra_framebuffer *tegra_fb = atomic ?
 	    to_tegra_framebuffer(fb) :
 	    to_tegra_framebuffer(crtc->primary->fb);
-#endif
 
 	/* Framebuffer start address */
 	DC_WRITE(tegra_crtc, DC_WINBUF_A_START_ADDR_REG,
-	    (uint32_t)sc->sc_dmamap->dm_segs[0].ds_addr);
+	    (uint32_t)tegra_fb->obj->dmamap->dm_segs[0].ds_addr);
 
 	/* Offsets */
 	DC_WRITE(tegra_crtc, DC_WINBUF_A_ADDR_H_OFFSET_REG, x);
@@ -461,14 +659,34 @@ static int
 tegra_crtc_mode_set_base(struct drm_crtc *crtc, int x, int y,
     struct drm_framebuffer *old_fb)
 {
-	return tegra_crtc_do_set_base(crtc, old_fb, x, y, 0);
+	struct tegra_crtc *tegra_crtc = to_tegra_crtc(crtc);
+	
+	tegra_crtc_do_set_base(crtc, old_fb, x, y, 0);
+
+	/* Commit settings */
+	DC_WRITE(tegra_crtc, DC_CMD_STATE_CONTROL_REG,
+	    DC_CMD_STATE_CONTROL_WIN_A_UPDATE);
+	DC_WRITE(tegra_crtc, DC_CMD_STATE_CONTROL_REG,
+	    DC_CMD_STATE_CONTROL_WIN_A_ACT_REQ);
+
+	return 0;
 }
 
 static int
 tegra_crtc_mode_set_base_atomic(struct drm_crtc *crtc,
     struct drm_framebuffer *fb, int x, int y, enum mode_set_atomic state)
 {
-	return tegra_crtc_do_set_base(crtc, fb, x, y, 1);
+	struct tegra_crtc *tegra_crtc = to_tegra_crtc(crtc);
+
+	tegra_crtc_do_set_base(crtc, fb, x, y, 1);
+
+	/* Commit settings */
+	DC_WRITE(tegra_crtc, DC_CMD_STATE_CONTROL_REG,
+	    DC_CMD_STATE_CONTROL_WIN_A_UPDATE);
+	DC_WRITE(tegra_crtc, DC_CMD_STATE_CONTROL_REG,
+	    DC_CMD_STATE_CONTROL_WIN_A_ACT_REQ);
+
+	return 0;
 }
 
 static void
@@ -482,8 +700,8 @@ tegra_crtc_prepare(struct drm_crtc *crtc)
 	struct tegra_crtc *tegra_crtc = to_tegra_crtc(crtc);
 
 	/* Access control */
-	DC_WRITE(tegra_crtc, DC_CMD_STATE_ACCESS_REG,
-	    DC_CMD_STATE_ACCESS_READ_MUX);
+	DC_WRITE(tegra_crtc, DC_CMD_STATE_ACCESS_REG, 0);
+
 	/* Enable window A programming */
 	DC_WRITE(tegra_crtc, DC_CMD_DISPLAY_WINDOW_HEADER_REG,
 	    DC_CMD_DISPLAY_WINDOW_HEADER_WINDOW_A_SELECT);
@@ -517,6 +735,8 @@ tegra_crtc_commit(struct drm_crtc *crtc)
 	DC_WRITE(tegra_crtc, DC_CMD_STATE_CONTROL_REG,
 	    DC_CMD_STATE_CONTROL_GENERAL_ACT_REQ |
 	    DC_CMD_STATE_CONTROL_WIN_A_ACT_REQ);
+
+	tegra_crtc->enabled = true;
 }
 
 static int
@@ -911,6 +1131,8 @@ tegra_connector_detect(struct drm_connector *connector, bool force)
 	if (con) {
 		return connector_status_connected;
 	} else {
+		prop_dictionary_t prop = device_properties(connector->dev->dev);
+		prop_dictionary_remove(prop, "physical-address");
 		tegra_connector->has_hdmi_sink = false;
 		tegra_connector->has_audio = false;
 		return connector_status_disconnected;
@@ -929,6 +1151,7 @@ tegra_connector_get_modes(struct drm_connector *connector)
 {
 	struct tegra_connector *tegra_connector = to_tegra_connector(connector);
 	struct tegra_drm_softc * const sc = tegra_drm_private(connector->dev);
+	prop_dictionary_t prop = device_properties(connector->dev->dev);
 	char edid[EDID_LENGTH * 4];
 	struct edid *pedid = NULL;
 	int error, block;
@@ -959,8 +1182,13 @@ tegra_connector_get_modes(struct drm_connector *connector)
 			    drm_detect_monitor_audio(pedid);
 		}
 		drm_mode_connector_update_edid_property(connector, pedid);
-		return drm_add_edid_modes(connector, pedid);
-		    
+		error = drm_add_edid_modes(connector, pedid);
+		drm_edid_to_eld(connector, pedid);
+		if (drm_detect_hdmi_monitor(pedid)) {
+			prop_dictionary_set_uint16(prop, "physical-address",
+			    connector->physical_address);
+		}
+		return error;
 	} else {
 		drm_mode_connector_update_edid_property(connector, NULL);
 		return 0;

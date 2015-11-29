@@ -28,7 +28,7 @@
 /aha.c/1.61/Sat Nov 13 13:52:00 2010/-kk/
 /ahareg.h/1.15/Sat May 10 11:52:20 2008/-kk/
 /ahavar.h/1.15/Mon Sep 21 08:12:47 2009/-kk/
-/ahcisata_core.c/1.54/Wed Jun  3 06:54:57 2015/-kk/
+/ahcisata_core.c/1.55/Sun Nov 29 09:10:32 2015/-kk/
 /ahcisatareg.h/1.12/Wed Oct 17 23:40:42 2012/-kk/
 /ahcisatavar.h/1.17/Wed Jun  3 06:54:57 2015/-kk/
 /aic6360.c/1.99/Mon Nov 23 02:13:46 2009/-kk/
@@ -103,7 +103,7 @@
 /ath_netbsd.c/1.22/Sat Mar  1 06:04:41 2014/-kk/
 /ath_netbsd.h/1.15/Thu Oct 24 10:28:57 2013/-kk/
 /athioctl.h/1.16/Sun Sep 13 01:31:27 2015/-kk/
-/athn.c/1.11/Fri Oct  2 14:11:53 2015/-kk/
+/athn.c/1.12/Sun Nov 29 09:10:32 2015/-kk/
 /athnreg.h/1.1/Thu Oct 24 10:28:57 2013/-kk/
 /athnvar.h/1.4/Thu Oct 24 10:28:57 2013/-kk/
 /athrate-amrr.c/1.12/Thu Nov  8 20:43:55 2012/-kk/

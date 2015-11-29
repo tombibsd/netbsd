@@ -1699,6 +1699,7 @@ in_lltable_rtcheck(struct ifnet *ifp, u_int flags, const struct sockaddr *l3addr
 
 	error = 0;
 error:
+	rtfree(rt);
 	return error;
 }
 

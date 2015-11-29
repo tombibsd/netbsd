@@ -756,6 +756,9 @@ if_detach(struct ifnet *ifp)
 
 	s = splnet();
 
+	ifindex2ifnet[ifp->if_index] = NULL;
+	TAILQ_REMOVE(&ifnet_list, ifp, if_list);
+
 	if (ifp->if_slowtimo != NULL) {
 		ifp->if_slowtimo = NULL;
 		callout_halt(ifp->if_slowtimo_ch, NULL);
@@ -889,10 +892,6 @@ again:
 
 	/* Announce that the interface is gone. */
 	rt_ifannouncemsg(ifp, IFAN_DEPARTURE);
-
-	ifindex2ifnet[ifp->if_index] = NULL;
-
-	TAILQ_REMOVE(&ifnet_list, ifp, if_list);
 
 	ifioctl_detach(ifp);
 

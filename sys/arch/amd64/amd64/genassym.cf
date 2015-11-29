@@ -145,6 +145,8 @@ define	L1_SLOT_KERNBASE	pl1_pi(KERNBASE)
 
 define	PDIR_SLOT_PTE		PDIR_SLOT_PTE
 
+define	PDE_SIZE		sizeof(pd_entry_t)
+
 define	VM_MAXUSER_ADDRESS	(unsigned long long)VM_MAXUSER_ADDRESS
 
 define	L_PCB			offsetof(struct lwp, l_addr)

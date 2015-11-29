@@ -93,6 +93,8 @@ mkioconf(void)
 	}
 
 	fprintf(fp, "#include \"ioconf.h\"\n");
+	if (ioconfname)
+		fprintf(fp, "#define IOCONF %s\n", ioconfname);
 
 	emithdr(fp);
 	emitcfdrivers(fp);

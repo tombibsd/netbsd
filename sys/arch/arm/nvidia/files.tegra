@@ -72,12 +72,14 @@ attach	tegrartc at tegraio with tegra_rtc
 file	arch/arm/nvidia/tegra_rtc.c		tegra_rtc
 
 # USB PHY
+define	tegrausbphybus { }
 device	tegrausbphy
-attach	tegrausbphy at tegraio with tegra_usbphy
+attach	tegrausbphy at tegrausbphybus with tegra_usbphy
 file	arch/arm/nvidia/tegra_usbphy.c		tegra_usbphy
 
 # USB 2.0
-attach	ehci at tegraio with tegra_ehci
+device	tegraehci: usbus, usbroothub, usb_dma, ehci, tegrausbphybus
+attach	tegraehci at tegraio with tegra_ehci
 file	arch/arm/nvidia/tegra_ehci.c		tegra_ehci
 
 # SDMMC
@@ -114,6 +116,7 @@ attach	tegradrm at tegraio with tegra_drm
 file	arch/arm/nvidia/tegra_drm.c		tegra_drm
 file	arch/arm/nvidia/tegra_drm_mode.c	tegra_drm
 file	arch/arm/nvidia/tegra_drm_fb.c		tegra_drm
+file	arch/arm/nvidia/tegra_drm_gem.c		tegra_drm
 
 # Framebuffer console
 device	tegrafb: tegrafbbus, drmfb, wsemuldisplaydev

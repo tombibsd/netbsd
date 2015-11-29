@@ -12,6 +12,7 @@ BINDIR=		${TESTSDIR}
 MKMAN=		no
 
 PROGS+=		h_db
+PROGS+=		h_lfsr
 
 FILESDIR=	${TESTSDIR}
 

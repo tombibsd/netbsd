@@ -430,6 +430,32 @@ nd6_llinfo_settimer(struct llinfo_nd6 *ln, long xtick)
 	splx(s);
 }
 
+/*
+ * Gets source address of the first packet in hold queue
+ * and stores it in @src.
+ * Returns pointer to @src (if hold queue is not empty) or NULL.
+ */
+static struct in6_addr *
+nd6_llinfo_get_holdsrc(struct llinfo_nd6 *ln, struct in6_addr *src)
+{
+	struct ip6_hdr *hip6;
+
+	if (ln == NULL || ln->ln_hold == NULL)
+		return NULL;
+
+	/*
+	 * assuming every packet in ln_hold has the same IP header
+	 */
+	hip6 = mtod(ln->ln_hold, struct ip6_hdr *);
+	/* XXX pullup? */
+	if (sizeof(*hip6) < ln->ln_hold->m_len)
+		*src = hip6->ip6_src;
+	else
+		src = NULL;
+
+	return src;
+}
+
 static void
 nd6_llinfo_timer(void *arg)
 {
@@ -438,6 +464,8 @@ nd6_llinfo_timer(void *arg)
 	const struct sockaddr_in6 *dst;
 	struct ifnet *ifp;
 	struct nd_ifinfo *ndi = NULL;
+	bool send_ns = false;
+	const struct in6_addr *daddr6 = NULL;
 
 	mutex_enter(softnet_lock);
 	KERNEL_LOCK(1, NULL);
@@ -470,8 +498,7 @@ nd6_llinfo_timer(void *arg)
 	case ND6_LLINFO_INCOMPLETE:
 		if (ln->ln_asked < nd6_mmaxtries) {
 			ln->ln_asked++;
-			nd6_llinfo_settimer(ln, (long)ndi->retrans * hz / 1000);
-			nd6_ns_output(ifp, NULL, &dst->sin6_addr, ln, 0);
+			send_ns = true;
 		} else {
 			struct mbuf *m = ln->ln_hold;
 			if (m) {
@@ -483,14 +510,14 @@ nd6_llinfo_timer(void *arg)
 				 */
 				m0 = m->m_nextpkt;
 				m->m_nextpkt = NULL;
-				icmp6_error2(m, ICMP6_DST_UNREACH,
-				    ICMP6_DST_UNREACH_ADDR, 0, rt->rt_ifp);
-
 				ln->ln_hold = m0;
 				clear_llinfo_pqueue(ln);
  			}
 			(void)nd6_free(rt, 0);
 			ln = NULL;
+			if (m != NULL)
+				icmp6_error2(m, ICMP6_DST_UNREACH,
+				    ICMP6_DST_UNREACH_ADDR, 0, ifp);
 		}
 		break;
 	case ND6_LLINFO_REACHABLE:
@@ -514,9 +541,8 @@ nd6_llinfo_timer(void *arg)
 			/* We need NUD */
 			ln->ln_asked = 1;
 			ln->ln_state = ND6_LLINFO_PROBE;
-			nd6_llinfo_settimer(ln, (long)ndi->retrans * hz / 1000);
-			nd6_ns_output(ifp, &dst->sin6_addr,
-			    &dst->sin6_addr, ln, 0);
+			daddr6 = &dst->sin6_addr;
+			send_ns = true;
 		} else {
 			ln->ln_state = ND6_LLINFO_STALE; /* XXX */
 			nd6_llinfo_settimer(ln, (long)nd6_gctimer * hz);
@@ -525,14 +551,21 @@ nd6_llinfo_timer(void *arg)
 	case ND6_LLINFO_PROBE:
 		if (ln->ln_asked < nd6_umaxtries) {
 			ln->ln_asked++;
-			nd6_llinfo_settimer(ln, (long)ndi->retrans * hz / 1000);
-			nd6_ns_output(ifp, &dst->sin6_addr,
-			    &dst->sin6_addr, ln, 0);
+			daddr6 = &dst->sin6_addr;
+			send_ns = true;
 		} else {
 			(void)nd6_free(rt, 0);
 			ln = NULL;
 		}
 		break;
+	}
+
+	if (send_ns) {
+		struct in6_addr src, *psrc;
+
+		nd6_llinfo_settimer(ln, (long)ndi->retrans * hz / 1000);
+		psrc = nd6_llinfo_get_holdsrc(ln, &src);
+		nd6_ns_output(ifp, daddr6, &dst->sin6_addr, psrc, 0);
 	}
 
 	KERNEL_UNLOCK_ONE(NULL);
@@ -2380,10 +2413,13 @@ nd6_output(struct ifnet *ifp, struct ifnet *origifp, struct mbuf *m0,
 	 * INCOMPLETE state, send the first solicitation.
 	 */
 	if (!ND6_LLINFO_PERMANENT(ln) && ln->ln_asked == 0) {
+		struct in6_addr src, *psrc;
+
 		ln->ln_asked++;
 		nd6_llinfo_settimer(ln,
 		    (long)ND_IFINFO(ifp)->retrans * hz / 1000);
-		nd6_ns_output(ifp, NULL, &dst->sin6_addr, ln, 0);
+		psrc = nd6_llinfo_get_holdsrc(ln, &src);
+		nd6_ns_output(ifp, NULL, &dst->sin6_addr, psrc, 0);
 	}
 	error = 0;
 	goto exit;

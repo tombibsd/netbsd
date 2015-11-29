@@ -17,9 +17,9 @@
 /if_tr_isapnp.c/1.21/Sat Oct 27 17:18:26 2012/-kk/
 /isapnp.c/1.59/Sun Aug 23 15:56:56 2009/-kk/
 /isapnpdebug.c/1.12/Sat Mar 14 15:36:18 2009/-kk/
-/isapnpdevs.c/1.71/Mon Apr 28 20:23:53 2008/-kk/
-/isapnpdevs.h/1.66/Mon Apr 28 20:23:53 2008/-kk/
-/isapnpdevs/1.68/Wed Jan 21 14:22:46 2009/-kk/
+/isapnpdevs.c/1.72/Sun Nov 29 09:10:33 2015/-kk/
+/isapnpdevs.h/1.67/Sun Nov 29 09:10:33 2015/-kk/
+/isapnpdevs/1.69/Sun Nov 29 09:10:33 2015/-kk/
 /isapnpreg.h/1.10/Mon Apr 28 20:23:53 2008/-kk/
 /isapnpres.c/1.21/Sat Mar 14 21:04:20 2009/-kk/
 /isapnpvar.h/1.28/Sun Mar 15 15:45:48 2009/-kk/

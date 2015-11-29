@@ -2359,6 +2359,7 @@
 ./usr/tests/lib/libc/db/Kyuafile		tests-lib-tests		compattestfile,atf,kyua
 ./usr/tests/lib/libc/db/README			tests-lib-tests		compattestfile,atf
 ./usr/tests/lib/libc/db/h_db			tests-lib-tests		compattestfile,atf
+./usr/tests/lib/libc/db/h_lfsr			tests-lib-tests		compattestfile,atf
 ./usr/tests/lib/libc/db/t_db			tests-lib-tests		compattestfile,atf
 ./usr/tests/lib/libc/db/t_db_hash_seq		tests-lib-tests		compattestfile,atf
 ./usr/tests/lib/libc/gen			tests-lib-tests	compattestfile,atf
@@ -3186,11 +3187,13 @@
 ./usr/tests/net/ndp/Kyuafile			tests-net-tests		atf,rump,kyua
 ./usr/tests/net/ndp/t_dad			tests-net-tests		atf,rump
 ./usr/tests/net/ndp/t_ndp			tests-net-tests		atf,rump
+./usr/tests/net/ndp/t_ra			tests-net-tests		atf,rump
 ./usr/tests/net/net				tests-net-tests		compattestfile,atf
 ./usr/tests/net/net/Atffile			tests-net-tests		compattestfile,atf
 ./usr/tests/net/net/Kyuafile			tests-net-tests		compattestfile,atf,kyua
 ./usr/tests/net/net/t_forwarding		tests-net-tests		atf,rump
 ./usr/tests/net/net/t_ipaddress			tests-net-tests		atf,rump
+./usr/tests/net/net/t_ipv6address		tests-net-tests		atf,rump
 ./usr/tests/net/net/t_ipv6_lifetime		tests-net-tests		atf,rump
 ./usr/tests/net/net/t_pktinfo			tests-net-tests		compattestfile,atf
 ./usr/tests/net/net/t_raw			tests-net-tests		atf,rump

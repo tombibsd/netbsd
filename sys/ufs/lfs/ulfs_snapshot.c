@@ -61,7 +61,6 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/vnode.h>
 #include <sys/kauth.h>
 #include <sys/fstrans.h>
-#include <sys/wapbl.h>
 
 #include <miscfs/specfs/specdev.h>
 

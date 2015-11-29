@@ -9,8 +9,7 @@ LIB=	rumpdev_virtio_viornd
 COMMENT=VirtIO entropy driver
 
 IOCONF=	VIRTIO_VIORND.ioconf
-
-SRCS=	viornd_at_virtio.c
+RUMP_COMPONENT=ioconf
 
 SRCS+=	viornd.c
 

@@ -109,7 +109,11 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <ufs/ffs/fs.h>
 #include <ufs/ffs/ffs_extern.h>
 
+#ifdef WAPBL
+MODULE(MODULE_CLASS_VFS, ffs, "wapbl");
+#else
 MODULE(MODULE_CLASS_VFS, ffs, NULL);
+#endif
 
 static int ffs_vfs_fsync(vnode_t *, int);
 static int ffs_superblock_validate(struct fs *);

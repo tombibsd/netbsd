@@ -43,11 +43,14 @@
 
 struct tegra_framebuffer;
 
+struct tegra_gem_object;
+
 struct tegra_drm_softc {
 	device_t		sc_dev;
 	struct drm_device	*sc_ddev;
 
 	bus_space_tag_t		sc_bst;
+	bus_dma_tag_t		sc_dmat;
 
 	device_t		sc_ddcdev;
 	struct tegra_gpio_pin	*sc_pin_hpd;
@@ -55,12 +58,6 @@ struct tegra_drm_softc {
 	struct tegra_gpio_pin	*sc_pin_power;
 
 	bool			sc_force_dvi;
-
-	bus_dma_tag_t		sc_dmat;
-	bus_dma_segment_t	sc_dmasegs[1];
-	bus_size_t		sc_dmasize;
-	bus_dmamap_t		sc_dmamap;
-	void			*sc_dmap;
 
 	uint32_t		sc_vbl_received[2];
 };
@@ -81,6 +78,11 @@ struct tegra_crtc {
 	int			intr;
 	int			index;
 	void			*ih;
+	bool			enabled;
+
+	struct tegra_gem_object	*cursor_obj;
+	int			cursor_x;
+	int			cursor_y;
 };
 
 struct tegra_encoder {
@@ -93,14 +95,25 @@ struct tegra_encoder {
 struct tegra_connector {
 	struct drm_connector	base;
 	device_t		ddcdev;
+	struct i2c_adapter	*adapter;
 	struct tegra_gpio_pin	*hpd;
 
 	bool			has_hdmi_sink;
 	bool			has_audio;
 };
 
+struct tegra_gem_object {
+	struct drm_gem_object	base;
+	bus_dma_tag_t		dmat;
+	bus_dma_segment_t	dmasegs[1];
+	bus_size_t		dmasize;
+	bus_dmamap_t		dmamap;
+	void			*dmap;
+};
+
 struct tegra_framebuffer {
 	struct drm_framebuffer	base;
+	struct tegra_gem_object *obj;
 };
 
 struct tegra_fbdev {
@@ -129,11 +142,21 @@ struct tegra_fbdev {
 #define to_tegra_connector(x)	container_of(x, struct tegra_connector, base)
 #define to_tegra_framebuffer(x)	container_of(x, struct tegra_framebuffer, base)
 #define to_tegra_fbdev(x)	container_of(x, struct tegra_fbdev, helper)
+#define to_tegra_gem_obj(x)	container_of(x, struct tegra_gem_object, base)
 
 int	tegra_drm_mode_init(struct drm_device *);
 int	tegra_drm_fb_init(struct drm_device *);
 u32	tegra_drm_get_vblank_counter(struct drm_device *, int);
 int	tegra_drm_enable_vblank(struct drm_device *, int);
 void	tegra_drm_disable_vblank(struct drm_device *, int);
+int	tegra_drm_framebuffer_init(struct drm_device *,
+	    struct tegra_framebuffer *);
+
+struct tegra_gem_object *tegra_drm_obj_alloc(struct drm_device *, size_t);
+void	tegra_drm_obj_free(struct tegra_gem_object *);
+
+int	tegra_drm_gem_fault(struct uvm_faultinfo *, vaddr_t, struct vm_page **,
+	    int, int, vm_prot_t, int);
+void	tegra_drm_gem_free_object(struct drm_gem_object *);
 
 #endif /* _ARM_TEGRA_DRM_H */

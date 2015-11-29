@@ -4,7 +4,7 @@
 /ar.h/1.5/Thu Aug  7 09:44:09 2003/-kk/
 /assert.h/1.21/Fri Aug 26 01:10:49 2011/-kk/
 /atomic.h/1.1/Wed May 28 12:28:12 2008/-kk/
-/bitstring.h/1.9/Thu May  6 18:54:22 2010/-kk/
+/bitstring.h/1.12/Sun Nov 29 09:09:15 2015/-kk/
 /bm.h/1.5/Thu Feb  3 04:39:32 2005/-kk/
 /cdbw.h/1.2/Sun Jun  3 21:21:45 2012/-kk/
 /complex.h/1.4/Thu Oct 24 10:28:53 2013/-kk/
@@ -88,7 +88,7 @@
 /time.h/1.45/Fri Nov 20 01:29:12 2015/-kk/
 /ttyent.h/1.15/Thu Oct 24 10:28:53 2013/-kk/
 /tzfile.h/1.8/Sat Jul 25 01:51:31 2015/-kk/
-/ucontext.h/1.7/Sat Nov  5 09:27:06 2011/-kk/
+/ucontext.h/1.9/Sun Nov 29 09:09:15 2015/-kk/
 /ulimit.h/1.3/Mon Apr 28 20:22:54 2008/-kk/
 /unistd.h/1.145/Thu Apr  2 02:27:29 2015/-kk/
 /util.h/1.68/Fri Oct  2 14:11:15 2015/-kk/

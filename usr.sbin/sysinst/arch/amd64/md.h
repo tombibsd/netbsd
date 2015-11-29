@@ -66,6 +66,7 @@
 #define	BOOTXXDIR	"/usr/mdec"
 #define	BOOTXX_FFSV1	"bootxx_ffsv1"
 #define	BOOTXX_FFSV2	"bootxx_ffsv2"
+#define	BOOTXX_LFSV2	"bootxx_lfsv2"
 
 
 /*

@@ -40,7 +40,7 @@
 /rpc_internal.h/1.8/Fri Nov 20 02:13:46 2015/-kk/
 /rpc_prot.c/1.21/Thu Oct 24 10:28:53 2013/-kk/
 /rpc_soc.3/1.14/Thu Oct 24 10:28:53 2013/-kk/
-/rpc_soc.c/1.21/Fri Nov 20 02:13:46 2015/-kk/
+/rpc_soc.c/1.23/Sun Nov 29 09:09:23 2015/-kk/
 /rpc_svc_calls.3/1.12/Mon Mar 22 19:30:54 2010/-kk/
 /rpc_svc_create.3/1.11/Mon Mar 22 19:30:54 2010/-kk/
 /rpc_svc_err.3/1.6/Wed Apr 16 13:34:43 2003/-kk/
@@ -50,7 +50,7 @@
 /rpcb_prot.c/1.11/Thu Oct 24 10:28:53 2013/-kk/
 /rpcb_st_xdr.c/1.10/Thu Oct 24 10:28:53 2013/-kk/
 /rpcbind.3/1.11/Sat Apr 11 16:07:20 2009/-kk/
-/svc.c/1.36/Fri Nov 20 02:13:46 2015/-kk/
+/svc.c/1.39/Sun Nov 29 09:09:23 2015/-kk/
 /svc_auth.c/1.17/Thu Oct 24 10:28:53 2013/-kk/
 /svc_auth_unix.c/1.21/Thu Oct 24 10:28:53 2013/-kk/
 /svc_dg.c/1.17/Thu Oct 24 10:28:53 2013/-kk/

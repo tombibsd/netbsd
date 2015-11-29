@@ -9,7 +9,8 @@ LIB=	rumpdev_pci_eap
 COMMENT=Ensoniq AudioPCI driver
 
 IOCONF=	PCI_EAP.ioconf
-SRCS=	eap_at_pci.c
+RUMP_COMPONENT=ioconf
+
 SRCS+=	eap.c
 
 CPPFLAGS+= -I${RUMPTOP}/librump/rumpkern -I${RUMPTOP}/../dev

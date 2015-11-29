@@ -642,15 +642,18 @@ sysvbfs_readdir(void *v)
 	if ((i + n) > bfs->n_dirent)
 		n = bfs->n_dirent - i;
 
-	for (file = &bfs->dirent[i]; i < n; file++) {
-		if (file->inode == 0)
-			continue;
+	DPRINTF("%s 1: %d %d %d\n", __func__, i, n, bfs->n_dirent);
+	for (file = &bfs->dirent[i]; n > 0; file++, i++) {
 		if (i == bfs->max_dirent) {
 			DPRINTF("%s: file system inconsistent.\n",
 			    __func__);
 			break;
 		}
-		i++;
+		if (file->inode == 0)
+			continue;
+
+		/* ok, we have a live one here */
+		n--;
 		memset(dp, 0, sizeof(struct dirent));
 		dp->d_fileno = file->inode;
 		dp->d_type = file->inode == BFS_ROOT_INODE ? DT_DIR : DT_REG;
@@ -663,7 +666,7 @@ sysvbfs_readdir(void *v)
 			return error;
 		}
 	}
-	DPRINTF("%s: %d %d %d\n", __func__, i, n, bfs->n_dirent);
+	DPRINTF("%s 2: %d %d %d\n", __func__, i, n, bfs->n_dirent);
 	*ap->a_eofflag = (i == bfs->n_dirent);
 
 	free(dp, M_BFS);

@@ -25,7 +25,7 @@
 /cons.c/1.75/Wed Jun  3 06:54:54 2015/-kk/
 /cons.h/1.27/Tue Feb  8 20:20:26 2011/-kk/
 /dev_verbose.c/1.1/Sun Sep 21 14:30:22 2014/-kk/
-/dev_verbose.h/1.1/Sun Sep 21 14:30:22 2014/-kk/
+/dev_verbose.h/1.2/Sun Nov 29 09:10:31 2015/-kk/
 /devlist2h.awk/1.1/Sun Sep 21 14:30:22 2014/-kk/
 /dksubr.c/1.81/Fri Nov 20 01:31:10 2015/-kk/
 /dkvar.h/1.24/Sun Sep 13 01:07:01 2015/-kk/
@@ -69,7 +69,7 @@
 /verified_exec.c/1.71/Fri May  1 11:32:03 2015/-kk/
 /video.c/1.32/Fri Oct  3 09:09:12 2014/-kk/
 /video_if.h/1.7/Fri Dec 24 20:54:28 2010/-kk/
-/vnd.c/1.252/Fri Nov 20 02:18:50 2015/-kk/
+/vnd.c/1.254/Sun Nov 29 09:10:31 2015/-kk/
 /vndvar.h/1.35/Sun Sep 13 01:31:22 2015/-kk/
 D/acpi////
 D/adb////

@@ -9,8 +9,7 @@ LIB=	rumpdev_pci_if_iwn
 COMMENT=Intel wireless device driver
 
 IOCONF=	PCI_IF_IWN.ioconf
-
-SRCS=	iwn_at_pci.c
+RUMP_COMPONENT=ioconf
 
 SRCS+=	if_iwn.c
 

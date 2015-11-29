@@ -1443,8 +1443,15 @@ out:
 static void arptfree(struct rtentry *rt)
 {
 
+	/* We still need to hold the locks */
+	mutex_enter(softnet_lock);
+	KERNEL_LOCK(1, NULL);
+
 	rtrequest(RTM_DELETE, rt_getkey(rt), NULL, rt_mask(rt), 0, NULL);
 	rtfree(rt);
+
+	KERNEL_UNLOCK_ONE(NULL);
+	mutex_exit(softnet_lock);
 }
 
 /*

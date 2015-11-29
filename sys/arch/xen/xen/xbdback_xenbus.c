@@ -647,7 +647,7 @@ xbdback_connect(struct xbdback_instance *xbdi)
 	hypervisor_enable_event(xbdi->xbdi_evtchn);
 	hypervisor_notify_via_evtchn(xbdi->xbdi_evtchn);
 
-	if (kthread_create(IPL_NONE, KTHREAD_MPSAFE, NULL,
+	if (kthread_create(PRI_NONE, KTHREAD_MPSAFE, NULL,
 	    xbdback_thread, xbdi, NULL, "%s", xbdi->xbdi_name) == 0)
 		return 0;
 

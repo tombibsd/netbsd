@@ -73,6 +73,8 @@ rgephy*		at mii? phy ?
 ukphy*		at mii? phy ?
 
 # Mini-PCIe Wireless
+options 	ATHHAL_AR5212,ATHHAL_RF2425	# AR5BHB63
+ath*		at pci? dev ? function ?	# Atheros IEEE 802.11
 athn*		at pci? dev ? function ?	# Atheros IEEE 802.11
 
 # UART
@@ -93,6 +95,7 @@ iic3		at tegrai2c3
 ddc0		at iic3 addr 0x50		# HDMI DDC
 tegrai2c4	at tegraio? port 4	# I2C5
 iic4		at tegrai2c4
+as3722pmic0	at iic4 addr 0x40		# AMS AS3722 PMIC
 
 # RTC
 tegrartc0	at tegraio?		# RTC
@@ -111,7 +114,7 @@ ahcisata0	at tegraio?		# SATA
 atabus*		at ata?
 atapibus*	at atapi?
 wd*		at atabus? drive ?
-#cd*		at atapibus? drive ?
+cd*		at atapibus? drive ?
 
 # HDA
 hdaudio*	at tegraio?		# HDA
@@ -151,13 +154,11 @@ pseudo-device	wsfont
 #nouveau0	at tegraio?		# GPU
 
 # USB 2.0
-tegrausbphy0	at tegraio? port 0	# USB PHY1
-tegrausbphy1	at tegraio? port 1	# USB PHY2
-tegrausbphy2	at tegraio? port 2	# USB PHY3
-ehci0		at tegraio? port 0	# USB1
-ehci1		at tegraio? port 1	# USB2
-ehci2		at tegraio? port 2	# USB3
-usb*		at ehci?
+tegraehci0	at tegraio? port 0	# USB1
+tegraehci1	at tegraio? port 1	# USB2
+tegraehci2	at tegraio? port 2	# USB3
+tegrausbphy*	at tegrausbphybus?	# USB PHY
+usb*		at tegraehci?
 
 include "dev/usb/usbdevices.config"
 midi*		at midibus?

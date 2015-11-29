@@ -23,17 +23,36 @@
 .\" (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 .\" OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 .\"
-.Dd April 5, 2012
+.Dd November 20, 2015
 .Dt FILEMON 4
 .Os
 .Sh NAME
 .Nm filemon
 .Nd track interesting system calls
 .Sh SYNOPSIS
-.In filemon.h
+.Cd "pseudo-device filemon"
 .Sh DESCRIPTION
+In normal situations,
 .Nm
-provides a means for tracking the successful system calls performed by a process.
+is not built-in to the kernel, and a call to open /dev/filemon will
+auto-load the
+.Nm
+module (see
+.Xr module 7
+for more details).
+.Pp
+(Although not recommended, the
+.Nm
+facility can be included in a kernel build by adding
+.Bd -literal -offset indent
+pseudo-device filemon
+.Ed
+.Pp
+to the kernel configuration file.)
+.Pp
+.Nm
+provides a means for tracking the successful system calls performed by
+a process and its descendants.
 It is used by
 .Xr make 1
 to track the activities of build scripts, for the purpose of automatically
@@ -150,8 +169,8 @@ temp_fd = mkstemp("/tmp/filemon.XXXXXXX");
 /* give filemon the temp file to use */
 ioctl(filemon_fd, FILEMON_SET_FD, &temp_fd);
 /* children do not need these once they exec */
-fcntl(filemon_fd, F_SETFD, 1);
-fcntl(temp_fd, F_SETFD, 1);
+fcntl(filemon_fd, F_SETFD, FD_CLOEXEC);
+fcntl(temp_fd, F_SETFD, FD_CLOEXEC);
 
 pid = fork();
 switch(pid) {
@@ -188,3 +207,13 @@ successful, and is thus more complex to post-process.
 .Sh HISTORY
 .Nm
 was contributed by Juniper Networks.
+.Sh RESTRICTIONS
+The
+.Nm
+facility can only be used to track processes running in the system's
+native emulation.
+Neither processes using any of the COMPAT_xxx compatability layers nor
+any descendants of such processes can be tracked.
+.Pp
+Additionally, the procces_id specified with FILEMON_SET_PID must refer to
+a descendant of the calling process.
