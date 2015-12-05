@@ -5877,6 +5877,7 @@
 ./var/chroot/named/var/tmp			base-bind-root
 ./var/chroot/ntpd				base-ntp-root
 ./var/chroot/ntpd/dev				base-ntp-root
+./var/chroot/ntpd/etc				base-ntp-root
 ./var/chroot/ntpd/var				base-ntp-root
 ./var/chroot/ntpd/var/db			base-ntp-root
 ./var/chroot/ntpd/var/run			base-ntp-root

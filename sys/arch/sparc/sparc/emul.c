@@ -190,17 +190,17 @@ muldiv(struct trapframe *tf,
 		tf->tf_psr &= ~PSR_ICC;
 
 		if (*rd == 0)
-			tf->tf_psr |= PSR_Z << 20;
+			tf->tf_psr |= PSR_Z;
 		else {
 			if (op.bits.sgn && *rd < 0)
-				tf->tf_psr |= PSR_N << 20;
+				tf->tf_psr |= PSR_N;
 			if (op.bits.div) {
 				if (*rd * *rs2 != *rs1)
-					tf->tf_psr |= PSR_O << 20;
+					tf->tf_psr |= PSR_O;
 			}
 			else {
 				if (*rd / *rs2 != *rs1)
-					tf->tf_psr |= PSR_O << 20;
+					tf->tf_psr |= PSR_O;
 			}
 		}
 	}

@@ -140,9 +140,9 @@ rawtest(const char *arg)
 
 	svc = svc_raw_create();
 	if (svc == NULL)
-		ERRX(EXIT_FAILURE, "Can't not create server %d", num);
+		ERRX(EXIT_FAILURE, "Cannot create server %d", num);
 	if (!svc_reg(svc, PROGNUM, VERSNUM, server, NULL))
-		ERRX(EXIT_FAILURE, "Can't not register server %d", num);
+		ERRX(EXIT_FAILURE, "Cannot register server %d", num);
 
 	clnt = clnt_raw_create(PROGNUM, VERSNUM);
 	if (clnt == NULL)
@@ -176,7 +176,7 @@ regtest(const char *hostname, const char *transp, const char *arg, int p)
 
 	svc_fdset_init(p ? SVC_FDSET_POLL : 0);
 	if (!svc_create(server, PROGNUM, VERSNUM, transp))
-		ERRX(EXIT_FAILURE, "Can't not create server %d", num);
+		ERRX(EXIT_FAILURE, "Cannot create server %d", num);
 
 	switch ((pid = fork())) {
 	case 0:

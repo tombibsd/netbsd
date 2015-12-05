@@ -59,6 +59,7 @@ void	amlogic_bootstrap(void);
 void	amlogic_cpufreq_bootstrap(void);
 void	amlogic_cpufreq_init(void);
 
+void	amlogic_wdog_init(void);
 void	amlogic_usbphy_init(int);
 void	amlogic_eth_init(void);
 void	amlogic_rng_init(void);

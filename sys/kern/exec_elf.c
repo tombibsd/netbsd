@@ -413,15 +413,13 @@ elf_load_interp(struct lwp *l, struct exec_package *epp, char *path,
 	p = l->l_proc;
 
 	KASSERT(p->p_vmspace);
-	if (__predict_true(p->p_vmspace != proc0.p_vmspace)) {
-		use_topdown = p->p_vmspace->vm_map.flags & VM_MAP_TOPDOWN;
-	} else {
+	KASSERT(p->p_vmspace != proc0.p_vmspace);
+
 #ifdef __USE_TOPDOWN_VM
-		use_topdown = epp->ep_flags & EXEC_TOPDOWN_VM;
+	use_topdown = epp->ep_flags & EXEC_TOPDOWN_VM;
 #else
-		use_topdown = false;
+	use_topdown = false;
 #endif
-	}
 
 	/*
 	 * 1. open file
@@ -531,9 +529,11 @@ elf_load_interp(struct lwp *l, struct exec_package *epp, char *path,
 		 */
 		addr = (*epp->ep_esch->es_emul->e_vm_default_addr)(p,
 		    epp->ep_daddr,
-		    round_page(limit) - trunc_page(base_ph->p_vaddr));
-	} else
+		    round_page(limit) - trunc_page(base_ph->p_vaddr),
+		    use_topdown);
+	} else {
 		addr = *last; /* may be ELF_LINK_ADDR */
+	}
 
 	/*
 	 * Load all the necessary sections

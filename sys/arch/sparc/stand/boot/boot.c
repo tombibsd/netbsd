@@ -348,7 +348,7 @@ main(void)
 	if (i < BOOTINFO_SIZE / 2) {
 		union {
 			struct btinfo_kernelfile bi_file;
-			char x[i];
+			char x[BOOTINFO_SIZE / 2];
 		} U;
 		strcpy(U.bi_file.name, kernel);
 		bi_add(&U.bi_file, BTINFO_KERNELFILE, i);

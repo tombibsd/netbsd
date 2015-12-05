@@ -2,6 +2,7 @@
 #	@(#)Makefile	8.1 (Berkeley) 6/6/93
 
 .include <bsd.own.mk>
+WARNS=6
 
 USE_FORT?= yes	# setuid
 PROG=	wall

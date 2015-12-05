@@ -86,7 +86,6 @@ extern void platform_init(void);
 void
 cpu_configure(void)
 {
-
 	startrtclock();
 
 #if NBIOS32 > 0

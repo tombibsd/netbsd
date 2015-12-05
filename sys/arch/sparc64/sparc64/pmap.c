@@ -1418,7 +1418,7 @@ pmap_growkernel(vaddr_t maxkvaddr)
 	}
 	DPRINTF(PDB_GROW, ("pmap_growkernel(%lx...%lx)\n", kbreak, maxkvaddr));
 	/* Align with the start of a page table */
-	for (kbreak &= (-1 << PDSHIFT); kbreak < maxkvaddr;
+	for (kbreak &= ((~0ULL) << PDSHIFT); kbreak < maxkvaddr;
 	     kbreak += (1 << PDSHIFT)) {
 		if (pseg_get(pm, kbreak) & TLB_V)
 			continue;

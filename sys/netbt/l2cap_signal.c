@@ -974,6 +974,8 @@ l2cap_recv_info_req(struct mbuf *m, struct hci_link *link)
 		 *   0   1   0x0001 L2CAP Signalling Channel (SET)
 		 *   0   2   0x0002 Connectionless Reception
 		 *   0   3   0x0003 AMP Manager Protocol Channel
+		 *   0   7   0x0007 BR/EDR Security Manager
+		 *   7   7   0x003f AMP Test Manager
 		 */
 		le16enc(rsp + 0, cp.type);
 		le16enc(rsp + 2, L2CAP_SUCCESS);

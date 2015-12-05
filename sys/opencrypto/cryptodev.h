@@ -625,7 +625,7 @@ extern	kmutex_t	crypto_mtx;
  * (This declaration doesnt really belong here but there's no header
  * for the raw framework.)
  */
-void	crypto_init(void);
+int	crypto_init(void);
 
 /*
  * Crypto-related utility routines used mainly by drivers.

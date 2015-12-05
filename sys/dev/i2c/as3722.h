@@ -30,5 +30,6 @@
 #define _DEV_I2C_AS3722_H
 
 int	as3722_poweroff(device_t);
+int	as3722_reboot(device_t);
 
 #endif /* !_DEV_I2C_AS3722_H */

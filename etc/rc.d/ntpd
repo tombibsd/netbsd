@@ -53,6 +53,13 @@ ntpd_precmd()
 	if [ ! -d "${ntpd_chrootdir}/etc" ]; then
 		mkdir "${ntpd_chrootdir}/etc"
 	fi
+
+	for f in resolv.conf; do
+		if ! cmp -s "/etc/$f" "${ntpd_chrootdir}/etc/$f"; then
+			cp -p "/etc/$f" "${ntpd_chrootdir}/etc/$f"
+		fi
+	done
+
 	if [ ! -f "${ntpd_chrootdir}/etc/services" ]; then
 		getent services ntp/udp ntp/tcp \
 			> "${ntpd_chrootdir}/etc/services"

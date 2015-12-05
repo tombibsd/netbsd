@@ -57,7 +57,7 @@ struct utmpentry {
 	struct utmpentry *next;
 };
 
-extern int maxname, maxline, maxhost;
+extern size_t maxname, maxline, maxhost;
 extern int etype;
 
 /*
@@ -72,5 +72,5 @@ extern int etype;
  * endutentries clears and frees the cached data.
  */
 
-int getutentries(const char *, struct utmpentry **);
+size_t getutentries(const char *, struct utmpentry **);
 void endutentries(void);

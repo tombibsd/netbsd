@@ -94,7 +94,6 @@
 __KERNEL_RCSID(0, "$NetBSD$");
 
 #include "arp.h"
-#include "ether.h"
 
 #ifdef _KERNEL_OPT
 #include "opt_inet.h"
@@ -1536,7 +1535,7 @@ in_selectsrc(struct sockaddr_in *sin, struct route *ro,
 	return satosin(&ia->ia_addr);
 }
 
-#if NETHER > 0
+#if NARP > 0
 
 struct in_llentry {
 	struct llentry		base;
@@ -1856,7 +1855,7 @@ in_lltable_lookup(struct lltable *llt, u_int flags, const struct sockaddr *l3add
 	return lle;
 }
 
-#endif /* NETHER > 0 */
+#endif /* NARP > 0 */
 
 static void
 in_sysctl_init(struct sysctllog **clog)
@@ -1891,7 +1890,8 @@ in_sysctl_init(struct sysctllog **clog)
 		       IPCTL_HOSTZEROBROADCAST, CTL_EOL);
 }
 
-#if NETHER > 0
+#if NARP > 0
+
 static struct lltable *
 in_lltattach(struct ifnet *ifp)
 {
@@ -1915,7 +1915,8 @@ in_lltattach(struct ifnet *ifp)
 
 	return (llt);
 }
-#endif /* NETHER > 0 */
+
+#endif /* NARP > 0 */
 
 void *
 in_domifattach(struct ifnet *ifp)
@@ -1925,7 +1926,7 @@ in_domifattach(struct ifnet *ifp)
 	ii = kmem_zalloc(sizeof(struct in_ifinfo), KM_SLEEP);
 	KASSERT(ii != NULL);
 
-#if NETHER > 0
+#if NARP > 0
 	ii->ii_llt = in_lltattach(ifp);
 #endif
 
@@ -1945,7 +1946,7 @@ in_domifdetach(struct ifnet *ifp, void *aux)
 #ifdef IPSELSRC
 	in_selsrc_domifdetach(ifp, ii->ii_selsrc);
 #endif
-#if NETHER > 0
+#if NARP > 0
 	lltable_free(ii->ii_llt);
 #endif
 	kmem_free(ii, sizeof(struct in_ifinfo));

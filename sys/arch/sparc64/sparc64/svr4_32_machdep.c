@@ -673,7 +673,8 @@ svr4_32_sys_sysarch(struct lwp *l, const struct svr4_32_sys_sysarch_args *uap, r
 }
 
 vaddr_t
-svr4_32_vm_default_addr(struct proc *p, vaddr_t base, vsize_t size)
+svr4_32_vm_default_addr(struct proc *p, vaddr_t base, vsize_t size,
+    int topdown)
 {
 	return round_page((vaddr_t)(base) + (vsize_t)MAXDSIZ32);
 }

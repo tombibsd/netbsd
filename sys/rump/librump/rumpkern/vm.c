@@ -700,7 +700,7 @@ ubc_purge(struct uvm_object *uobj)
 }
 
 vaddr_t
-uvm_default_mapaddr(struct proc *p, vaddr_t base, vsize_t sz)
+uvm_default_mapaddr(struct proc *p, vaddr_t base, vsize_t sz, int topdown)
 {
 
 	return 0;

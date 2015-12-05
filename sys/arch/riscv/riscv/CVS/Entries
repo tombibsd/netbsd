@@ -14,7 +14,7 @@
 /kobj_machdep.c/1.1/Sat Mar 28 16:13:56 2015/-kk/
 /locore.S/1.5/Tue Mar 31 11:53:13 2015/-kk/
 /mainbus.c/1.1/Sat Mar 28 16:13:56 2015/-kk/
-/netbsd32_machdep.c/1.1/Sat Mar 28 16:13:56 2015/-kk/
+/netbsd32_machdep.c/1.2/Sat Dec  5 11:19:21 2015/-kk/
 /pmap_machdep.c/1.2/Tue Mar 31 01:14:57 2015/-kk/
 /process_machdep.c/1.1/Sat Mar 28 16:13:56 2015/-kk/
 /procfs_machdep.c/1.1/Sat Mar 28 16:13:56 2015/-kk/

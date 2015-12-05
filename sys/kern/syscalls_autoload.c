@@ -10,10 +10,8 @@
 #include <sys/cdefs.h>
 __KERNEL_RCSID(0, "$NetBSD$");
 
-static struct {
-	u_int		al_code;
-	const char	*al_module;
-} const syscalls_autoload[] = {
+#include <sys/proc.h>
+static struct sc_autoload netbsd_syscalls_autoload[] = {
 	    { SYS_compat_50_wait4, "compat" },
 	    { SYS_compat_43_ocreat, "compat" },
 	    { SYS_compat_50_mknod, "compat" },
@@ -178,4 +176,5 @@ static struct {
 	    { SYS_____semctl50, "sysv_ipc" },
 	    { SYS___shmctl50, "sysv_ipc" },
 	    { SYS___msgctl50, "sysv_ipc" },
+	    { 0, NULL }
 };

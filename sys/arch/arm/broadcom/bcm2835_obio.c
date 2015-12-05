@@ -194,6 +194,20 @@ static const struct ambadev_locators bcm2835_ambadev_locs[] = {
 		.ad_intr = -1,
 	},
 	{
+		/* Clock Manager */
+		.ad_name = "bcmcm",
+		.ad_addr = BCM2835_CM_BASE,
+		.ad_size = BCM2835_CM_SIZE,
+		.ad_intr = -1,
+	},
+	{
+		/* PWM Controller */
+		.ad_name = "bcmpwm",
+		.ad_addr = BCM2835_PWM_BASE,
+		.ad_size = BCM2835_PWM_SIZE,
+		.ad_intr = -1,
+	},
+	{
 		/* Terminator */
 		.ad_name = NULL,
 	}

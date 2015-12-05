@@ -1100,7 +1100,7 @@ int	coredump_netbsd32(struct lwp *, struct coredump_iostate *);
 #include <compat/common/compat_util.h>
 #include <compat/sys/siginfo.h>
 
-vaddr_t netbsd32_vm_default_addr(struct proc *, vaddr_t, vsize_t);
+vaddr_t netbsd32_vm_default_addr(struct proc *, vaddr_t, vsize_t, int);
 void netbsd32_adjust_limits(struct proc *);
 
 void	netbsd32_si_to_si32(siginfo32_t *, const siginfo_t *);

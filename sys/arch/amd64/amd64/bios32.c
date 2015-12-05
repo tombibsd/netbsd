@@ -171,7 +171,7 @@ bios32_init(void)
 		smbios_entry.min = sh->minrev;
 		smbios_entry.count = sh->count;
 
-    		for (; pa < end; pa+= NBPG, eva+= NBPG)
+		for (; pa < end; pa+= NBPG, eva+= NBPG)
 #ifdef XEN
 			pmap_kenter_ma(eva, pa, VM_PROT_READ, 0);
 #else

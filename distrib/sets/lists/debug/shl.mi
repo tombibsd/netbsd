@@ -146,6 +146,7 @@
 ./usr/libdata/debug/usr/lib/libossaudio.so.1.1.debug		comp-sys-debug	debug,compatfile
 ./usr/libdata/debug/usr/lib/libp2k.so.2.0.debug			comp-puffs-debug	debug,compatfile,rump
 ./usr/libdata/debug/usr/lib/libpam.so.4.0.debug			comp-sys-debug	debug,compatfile,pam
+./usr/libdata/debug/usr/lib/libpanel.so.1.0.debug		comp-sys-debug	debug,compatfile
 ./usr/libdata/debug/usr/lib/libpcap.so.5.1.debug		comp-net-debug	debug,compatfile
 ./usr/libdata/debug/usr/lib/libpci.so.2.1.debug			comp-sys-debug	debug,compatfile
 ./usr/libdata/debug/usr/lib/libperfuse.so.0.0.debug		comp-perfuse-debug	debug,compatfile

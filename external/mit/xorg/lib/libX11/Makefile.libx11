@@ -265,8 +265,9 @@ SRCS=	\
 	XlibInt.c \
 	Xrm.c
 
-SRCS+=	\
-	UIThrStubs.c 
+# We have own pthread stubs in src/lib/libc/thread-stub. See PR/50386.
+#SRCS+=	\
+#	UIThrStubs.c 
 
 SRCS+=	\
 	AddDIC.c \

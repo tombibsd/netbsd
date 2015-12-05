@@ -3,7 +3,7 @@
 
 PROG=	gpt
 SRCS=	add.c biosboot.c create.c destroy.c gpt.c header.c label.c map.c \
-	migrate.c recover.c remove.c resize.c resizedisk.c \
+	main.c migrate.c recover.c remove.c resize.c resizedisk.c \
 	set.c show.c type.c unset.c gpt_uuid.c
 MAN=	gpt.8
 
@@ -11,16 +11,6 @@ MAN=	gpt.8
 SRCS+= backup.c restore.c
 LDADD+=	-lprop -lutil
 DPADD+= ${LIBPROP} ${LIBUTIL}
-
-.if ${USE_DRVCTL:Uno} == "yes"
-CPPFLAGS+=-DUSE_DRVCTL
-SRCS+=drvctl.c
-.else
-.PATH: ${.CURDIR}/../fsck
-CPPFLAGS+=-I${.CURDIR}/../fsck
-SRCS+=partutil.c
 .endif
-.endif
-
 
 .include <bsd.prog.mk>

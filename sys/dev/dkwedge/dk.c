@@ -267,7 +267,7 @@ dk_set_geometry(struct dkwedge_softc *sc, struct disk *pdk)
 
 	memset(dg, 0, sizeof(*dg));
 
-	dg->dg_secperunit = sc->sc_size >> pdk->dk_blkshift;
+	dg->dg_secperunit = sc->sc_size;
 	dg->dg_secsize = DEV_BSIZE << pdk->dk_blkshift;
 
 	/* fake numbers, 1 cylinder is 1 MB with default sector size */

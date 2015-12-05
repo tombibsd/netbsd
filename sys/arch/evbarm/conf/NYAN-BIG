@@ -11,7 +11,6 @@ include "arch/evbarm/conf/JETSONTK1"
 
 no options 	BOARD_JETSONTK1
 options 	BOARD_NYAN_BIG
-no options 	CPUFREQ_BOOT
 
 options 	BOOT_ARGS="\"console=fb\""
 

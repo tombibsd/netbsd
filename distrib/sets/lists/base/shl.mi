@@ -416,6 +416,9 @@
 ./usr/lib/libpam.so				base-sys-shlib		compatfile,pam
 ./usr/lib/libpam.so.4				base-sys-shlib		compatfile,pam
 ./usr/lib/libpam.so.4.0				base-sys-shlib		compatfile,pam
+./usr/lib/libpanel.so				base-sys-shlib		compatfile
+./usr/lib/libpanel.so.1				base-sys-shlib		compatfile
+./usr/lib/libpanel.so.1.0			base-sys-shlib		compatfile
 ./usr/lib/libpcap.so				base-net-shlib		compatfile
 ./usr/lib/libpcap.so.5				base-net-shlib		compatfile
 ./usr/lib/libpcap.so.5.1			base-net-shlib		compatfile

@@ -181,6 +181,11 @@ struct exec_entry {
 void	syscall(void);
 #endif
 
+/* NetBSD autoloadable syscalls */
+#ifdef MODULAR
+#include <kern/syscalls_autoload.c>
+#endif
+
 /* NetBSD emul struct */
 struct emul emul_netbsd = {
 	.e_name =		"netbsd",
@@ -194,6 +199,9 @@ struct emul emul_netbsd = {
 	.e_errno =		NULL,
 	.e_nosys =		SYS_syscall,
 	.e_nsysent =		SYS_NSYSENT,
+#endif
+#ifdef MODULAR
+	.e_sc_autoload =	netbsd_syscalls_autoload,
 #endif
 	.e_sysent =		sysent,
 #ifdef SYSCALL_DEBUG
@@ -1919,7 +1927,7 @@ exec_sigcode_map(struct proc *p, const struct emul *e)
 
 	/* Just a hint to uvm_map where to put it. */
 	va = e->e_vm_default_addr(p, (vaddr_t)p->p_vmspace->vm_daddr,
-	    round_page(sz));
+	    round_page(sz), p->p_vmspace->vm_map.flags & VM_MAP_TOPDOWN);
 
 #ifdef __alpha__
 	/*

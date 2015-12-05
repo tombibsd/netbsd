@@ -130,7 +130,7 @@ onum(TERMINAL *term, const char *fmt, int num, unsigned int len)
 		len = LONG_STR_MAX;
 	if (checkbuf(term, len + 2) == NULL)
 		return 0;
-	l = sprintf(term->_buf + term->_bufpos, fmt, num);
+	l = snprintf(term->_buf + term->_bufpos, len + 2, fmt, num);
 	term->_bufpos += l;
 	return l;
 }
@@ -342,7 +342,7 @@ _ti_tiparm(TERMINAL *term, const char *str, int va_type, va_list parms)
 					l = olen;
 				if (checkbuf(term, (size_t)(l + 1)) == NULL)
 					return NULL;
-				l = sprintf(term->_buf + term->_bufpos,
+				l = snprintf(term->_buf + term->_bufpos, l + 1,
 				    fmt, ostr);
 				term->_bufpos += l;
 			}

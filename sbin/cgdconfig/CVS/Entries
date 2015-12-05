@@ -1,13 +1,13 @@
 /Makefile/1.14/Tue Dec 14 17:46:21 2010/-kk/
 /cgdconfig.8/1.35/Sat Dec 27 03:35:24 2014/-kk/
-/cgdconfig.c/1.39/Sat Dec 27 03:35:24 2014/-kk/
-/cgdconfig.h/1.1/Tue Sep  8 22:16:56 2009/-kk/
+/cgdconfig.c/1.40/Sat Dec  5 11:19:05 2015/-kk/
+/cgdconfig.h/1.2/Sat Dec  5 11:19:05 2015/-kk/
 /cgdconfig_hostops.c/1.1/Tue Dec 14 17:46:21 2010/-kk/
 /cgdconfig_rumpops.c/1.1/Tue Dec 14 17:46:21 2010/-kk/
 /cgdlex.l/1.5/Thu Oct 29 14:49:03 2009/-kk/
 /cgdparse.y/1.5/Thu Jul 17 16:24:55 2008/-kk/
 /extern.h/1.2/Sat Feb 16 17:56:11 2008/-kk/
-/params.c/1.26/Mon Jun 22 02:34:36 2015/-kk/
+/params.c/1.28/Sat Dec  5 11:19:05 2015/-kk/
 /params.h/1.11/Sat Dec 27 03:35:24 2014/-kk/
 /pkcs5_pbkdf2.c/1.15/Sat Nov 27 17:08:37 2010/-kk/
 /pkcs5_pbkdf2.h/1.5/Mon Apr 28 20:23:08 2008/-kk/

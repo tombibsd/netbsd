@@ -2761,15 +2761,16 @@ sys_lseek(struct lwp *l, const struct sys_lseek_args *uap, register_t *retval)
 		goto out;
 	}
 
+	vn_lock(vp, LK_SHARED | LK_RETRY);
+
 	switch (SCARG(uap, whence)) {
 	case SEEK_CUR:
 		newoff = fp->f_offset + SCARG(uap, offset);
 		break;
 	case SEEK_END:
-		vn_lock(vp, LK_SHARED | LK_RETRY);
 		error = VOP_GETATTR(vp, &vattr, cred);
-		VOP_UNLOCK(vp);
 		if (error) {
+			VOP_UNLOCK(vp);
 			goto out;
 		}
 		newoff = SCARG(uap, offset) + vattr.va_size;
@@ -2779,8 +2780,10 @@ sys_lseek(struct lwp *l, const struct sys_lseek_args *uap, register_t *retval)
 		break;
 	default:
 		error = EINVAL;
+		VOP_UNLOCK(vp);
 		goto out;
 	}
+	VOP_UNLOCK(vp);
 	if ((error = VOP_SEEK(vp, fp->f_offset, newoff, cred)) == 0) {
 		*(off_t *)retval = fp->f_offset = newoff;
 	}

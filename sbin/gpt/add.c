@@ -180,10 +180,9 @@ add(int fd)
 	gpt_write(fd, lbt);
 	gpt_write(fd, tpg);
 
-	printf("Partition %d added, use:\n", i + 1);
-	printf("\tdkctl %s addwedge <wedgename> %" PRIu64 " %" PRIu64
-	    " <type>\n", device_arg, map->map_start, map->map_size);
-	printf("to create a wedge for it\n");
+	printf("Partition %d added on %s: ", i + 1, device_arg);
+	printf("%s %" PRIu64 " %" PRIu64 "\n", type, map->map_start,
+	    map->map_size);
 }
 
 int
@@ -272,11 +271,9 @@ cmd_add(int argc, char *argv[])
 	}
 
 	while (optind < argc) {
-		fd = gpt_open(argv[optind++]);
-		if (fd == -1) {
-			warn("unable to open device '%s'", device_name);
+		fd = gpt_open(argv[optind++], 0);
+		if (fd == -1)
 			continue;
-		}
 
 		if (alignment % secsz != 0) {
 			warnx("Alignment must be a multiple of sector size;");

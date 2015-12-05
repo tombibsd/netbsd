@@ -99,6 +99,7 @@ amlogicio_attach(device_t parent, device_t self, void *aux)
 	aprint_naive("\n");
 	aprint_normal("\n");
 
+	amlogic_wdog_init();
 	amlogic_usbphy_init(0);
 	amlogic_usbphy_init(1);
 

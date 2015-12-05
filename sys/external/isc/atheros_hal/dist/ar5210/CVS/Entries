@@ -7,7 +7,7 @@
 /ar5210_phy.c/1.2/Thu Dec 11 05:30:29 2008/-kk/
 /ar5210_power.c/1.1.1.1/Thu Dec 11 04:46:27 2008/-kk/
 /ar5210_recv.c/1.1.1.1/Thu Dec 11 04:46:28 2008/-kk/
-/ar5210_reset.c/1.5/Mon Mar  7 11:25:42 2011/-kk/
+/ar5210_reset.c/1.7/Sat Dec  5 11:19:34 2015/-kk/
 /ar5210_xmit.c/1.1.1.1/Thu Dec 11 04:46:29 2008/-kk/
 /ar5210desc.h/1.1.1.1/Thu Dec 11 04:46:29 2008/-kk/
 /ar5210phy.h/1.1.1.1/Thu Dec 11 04:46:29 2008/-kk/

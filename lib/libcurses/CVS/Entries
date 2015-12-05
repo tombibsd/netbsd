@@ -113,11 +113,11 @@
 /refresh.c/1.79/Thu Feb 27 08:55:25 2014/-kk/
 /resize.c/1.20/Wed Jul 22 16:57:15 2009/-kk/
 /scanw.c/1.21/Sun Jul 17 20:54:34 2011/-kk/
-/screen.c/1.23/Thu Jun 10 05:24:55 2010/-kk/
+/screen.c/1.24/Sat Dec  5 11:19:01 2015/-kk/
 /scroll.c/1.22/Wed Feb  3 15:34:40 2010/-kk/
 /scrollok.c/1.5/Mon Apr 28 20:23:01 2008/-kk/
-/setterm.c/1.52/Thu Oct 24 10:28:53 2013/-kk/
-/shlib_version/1.40/Sun Jan 11 03:07:47 2009/-kk/
+/setterm.c/1.53/Sat Dec  5 11:19:01 2015/-kk/
+/shlib_version/1.41/Sat Dec  5 11:19:01 2015/-kk/
 /standout.c/1.16/Wed Feb  3 15:34:40 2010/-kk/
 /timeout.c/1.8/Wed Nov  4 21:24:57 2009/-kk/
 /toucholap.c/1.16/Sun Nov 15 13:35:18 2015/-kk/

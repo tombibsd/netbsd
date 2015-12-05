@@ -100,6 +100,7 @@
 __KERNEL_RCSID(0, "$NetBSD$");
 
 #include "opt_ddb.h"
+#include "opt_inet.h"
 #include "opt_ipsec.h"
 #include "opt_modular.h"
 #include "opt_ntp.h"
@@ -121,7 +122,6 @@ extern void *_binary_splash_image_end;
 #endif
 
 #include "drvctl.h"
-#include "ether.h"
 #include "ksyms.h"
 
 #include "veriexec.h"
@@ -543,7 +543,7 @@ main(void)
 	 */
 	s = splnet();
 	ifinit();
-#if NETHER > 0
+#if defined(INET) || defined(INET6)
 	lltableinit();
 #endif
 	domaininit(true);

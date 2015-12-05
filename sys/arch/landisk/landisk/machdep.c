@@ -147,7 +147,7 @@ cpu_startup(void)
 {
 
 	/* XXX: show model (LANDISK/USL-5P) */
-	cpu_setmodel("Model: I-O DATA LANDISK\n");
+	cpu_setmodel("Model: I-O DATA LANDISK");
 
         sh_startup();
 }

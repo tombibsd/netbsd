@@ -191,6 +191,7 @@ SUBDIR+=	../external/bsd/lutok/lib	# depends on lua and libstdc++
 
 SUBDIR+=	libform		# depends on libcurses
 SUBDIR+=	libmenu		# depends on libcurses
+SUBDIR+=	libpanel	# depends on libcurses
 SUBDIR+=	libradius	# depends on libcrypto if (${MKCRYPTO} != "no")
 .if (${MKRUMP} != "no")
 SUBDIR+=	librump		# depends on librumpuser

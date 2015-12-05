@@ -90,6 +90,9 @@ show(void)
 		putchar(' ');
 		putchar(' ');
 		switch (m->map_type) {
+		case MAP_TYPE_UNUSED:
+			printf("Unused");
+			break;
 		case MAP_TYPE_MBR:
 			if (m->map_start != 0)
 				printf("Extended ");
@@ -144,6 +147,9 @@ show(void)
 			break;
 		case MAP_TYPE_PMBR:
 			printf("PMBR");
+			break;
+		default:
+			printf("Unknown %#x", m->map_type);
 			break;
 		}
 		putchar('\n');
@@ -255,11 +261,9 @@ cmd_show(int argc, char *argv[])
 		usage_show();
 
 	while (optind < argc) {
-		fd = gpt_open(argv[optind++]);
-		if (fd == -1) {
-			warn("unable to open device '%s'", device_name);
+		fd = gpt_open(argv[optind++], 0);
+		if (fd == -1)
 			continue;
-		}
 
 		if (entry > 0)
 			show_one();

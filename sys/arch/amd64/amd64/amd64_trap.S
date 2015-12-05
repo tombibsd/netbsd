@@ -144,7 +144,7 @@ IDTVEC(trap03)
 #else
 	ZTRAP_NJ(T_BPTFLT)
 	INTRENTRY
-  	STI(si)
+	STI(si)
 	/*
 	 * DTrace Function Boundary Trace (fbt) probes are triggered
 	 * by int3 (0xcc).
@@ -378,7 +378,7 @@ END(trap_return_fault_return)
  */
 NENTRY(alltraps)
 	INTRENTRY
-  	STI(si)
+	STI(si)
 
 calltrap:
 #ifdef DIAGNOSTIC
@@ -393,11 +393,11 @@ calltrap:
 .Lalltraps_checkast:
 	movq	CPUVAR(CURLWP),%r14
 	/* Check for ASTs on exit to user mode. */
-  	CLI(si)
+	CLI(si)
 	CHECK_ASTPENDING(%r14)
 	je	3f
 	CLEAR_ASTPENDING(%r14)
-  	STI(si)
+	STI(si)
 	movl	$T_ASTFLT,TF_TRAPNO(%rsp)
 	movq	%rsp,%rdi
 	incq	CPUVAR(NTRAP)
@@ -411,7 +411,7 @@ calltrap:
 6:	cmpl	CPUVAR(ILEVEL),%ebx
 	jne	3f
 	INTRFASTEXIT
-3:  	STI(si)
+3:	STI(si)
 	movabsq	$4f,%rdi
 	movl	CPUVAR(ILEVEL),%esi
 	movl	%ebx,%edx

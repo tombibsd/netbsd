@@ -92,7 +92,7 @@ sflag_print(void)
 	 *		office phone
 	 */
 #define	MAXREALNAME	18
-	(void)printf("%-*s %-*s %s %s\n", maxname, "Login", MAXREALNAME,
+	(void)printf("%-*s %-*s %s %s\n", (int)maxname, "Login", MAXREALNAME,
 	    "Name", " Tty      Idle  Login Time  ", (gflag) ? "" :
 	    (oflag) ? "Office     Office Phone" : "Where");
 

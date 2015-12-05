@@ -145,7 +145,7 @@ main(int argc, char **argv)
 	 */
 
 	while ((c = getopt(argc, argv,
-	    "C:EHI:L:M:P:S:U:VXZ:bc:defhi:np:st:uv:x:z:")) != -1) {
+	    "C:EHI:L:M:P:S:U:VXZ:bc:defhi:np:st:uv:x:")) != -1) {
 		switch (c) {
 
 		case 'L':

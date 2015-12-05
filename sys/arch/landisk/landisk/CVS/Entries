@@ -6,7 +6,7 @@
 /kloader_machdep.c/1.2/Mon Apr 28 20:23:26 2008/-kk/
 /landiskreg.h/1.2/Sat Jan 21 19:44:30 2012/-kk/
 /locore.S/1.4/Mon Apr 28 20:23:26 2008/-kk/
-/machdep.c/1.17/Fri Apr 11 02:03:31 2014/-kk/
+/machdep.c/1.18/Sat Dec  5 11:19:19 2015/-kk/
 /mainbus.c/1.4/Fri Jul  1 19:12:53 2011/-kk/
 /shpcic_machdep.c/1.7/Fri Apr 11 02:03:31 2014/-kk/
 D

@@ -47,6 +47,22 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #define EVP_RESET_VECTOR_0_REG	0x100
 
+#define FUSE_SKU_INFO_REG	0x010
+#define FUSE_CPU_SPEEDO_0_REG	0x014
+#define FUSE_CPU_IDDQ_REG	0x018
+#define FUSE_FT_REV_REG		0x028
+#define FUSE_CPU_SPEEDO_1_REG	0x02c
+#define FUSE_CPU_SPEEDO_2_REG	0x030
+#define FUSE_SOC_SPEEDO_0_REG	0x034
+#define FUSE_SOC_SPEEDO_1_REG	0x038
+#define FUSE_SOC_SPEEDO_2_REG	0x03c
+#define FUSE_SOC_IDDQ_REG	0x040
+#define FUSE_GPU_IDDQ_REG	0x128
+
+static void	tegra124_speedo_init(void);
+static int	tegra124_speedo_init_ids(uint32_t);
+static bool	tegra124_speedo_rate_ok(u_int);
+
 static u_int	tegra124_cpufreq_set_rate(u_int);
 static u_int	tegra124_cpufreq_get_rate(void);
 static size_t	tegra124_cpufreq_get_available(u_int *, size_t);
@@ -74,6 +90,23 @@ static struct tegra124_cpufreq_rate {
 	{ 696, 1, 58, 0 }
 };
 
+static const u_int tegra124_cpufreq_max[] = {
+	2014,
+	2320,
+	2116,
+	2524
+};
+
+static struct tegra124_speedo {
+	u_int cpu_speedo_id;
+	u_int soc_speedo_id;
+	u_int gpu_speedo_id;
+} tegra124_speedo = {
+	.cpu_speedo_id = 0,
+	.soc_speedo_id = 0,
+	.gpu_speedo_id = 0
+};
+
 void
 tegra124_cpuinit(void)
 {
@@ -85,14 +118,84 @@ tegra124_cpuinit(void)
 	tegra_i2c_dvc_write(0x40, (sd0_vsel << 8) | 00, 2);
 	delay(10000);
 
+	tegra124_speedo_init();
+
 	tegra_cpufreq_register(&tegra124_cpufreq_func);
 }
+
+static void
+tegra124_speedo_init(void)
+{
+	uint32_t sku_id;
+
+	sku_id = tegra_fuse_read(FUSE_SKU_INFO_REG);
+	tegra124_speedo_init_ids(sku_id);
+}
+
+static int
+tegra124_speedo_init_ids(uint32_t sku_id)
+{
+	int threshold = 0;
+
+	switch (sku_id) {
+	case 0x00:
+	case 0x0f:
+	case 0x23:
+		break;	/* use default */
+	case 0x83:
+		tegra124_speedo.cpu_speedo_id = 2;
+		break;
+	case 0x1f:
+	case 0x87:
+	case 0x27:
+		tegra124_speedo.cpu_speedo_id = 2;
+		tegra124_speedo.soc_speedo_id = 0;
+		tegra124_speedo.gpu_speedo_id = 1;
+		break;
+	case 0x81:
+	case 0x21:
+	case 0x07:
+		tegra124_speedo.cpu_speedo_id = 1;
+		tegra124_speedo.soc_speedo_id = 1;
+		tegra124_speedo.gpu_speedo_id = 1;
+		threshold = 1;
+		break;
+	case 0x49:
+	case 0x4a:
+	case 0x48:
+		tegra124_speedo.cpu_speedo_id = 4;
+		tegra124_speedo.soc_speedo_id = 2;
+		tegra124_speedo.gpu_speedo_id = 3;
+		threshold = 1;
+		break;
+	default:
+		aprint_error("tegra124: unknown SKU ID %#x\n", sku_id);
+		break;	/* use default */
+	}
+
+	return threshold;
+}
+
+static bool
+tegra124_speedo_rate_ok(u_int rate)
+{
+	u_int tbl = 0;
+
+	if (tegra124_speedo.cpu_speedo_id < __arraycount(tegra124_cpufreq_max))
+		tbl = tegra124_speedo.cpu_speedo_id;
+
+	return rate <= tegra124_cpufreq_max[tbl];
+}
+
 
 static u_int
 tegra124_cpufreq_set_rate(u_int rate)
 {
 	const u_int nrates = __arraycount(tegra124_cpufreq_rates);
 	const struct tegra124_cpufreq_rate *r = NULL;
+
+	if (tegra124_speedo_rate_ok(rate) == false)
+		return EINVAL;
 
 	for (int i = 0; i < nrates; i++) {
 		if (tegra124_cpufreq_rates[i].rate == rate) {
@@ -118,15 +221,17 @@ static size_t
 tegra124_cpufreq_get_available(u_int *pavail, size_t maxavail)
 {
 	const u_int nrates = __arraycount(tegra124_cpufreq_rates);
-	u_int n;
+	u_int n, cnt;
 
 	KASSERT(nrates <= maxavail);
 
-	for (n = 0; n < nrates; n++) {
-		pavail[n] = tegra124_cpufreq_rates[n].rate;
+	for (n = 0, cnt = 0; n < nrates; n++) {
+		if (tegra124_speedo_rate_ok(tegra124_cpufreq_rates[n].rate)) {
+			pavail[cnt++] = tegra124_cpufreq_rates[n].rate;
+		}
 	}
 
-	return nrates;
+	return cnt;
 }
 
 void

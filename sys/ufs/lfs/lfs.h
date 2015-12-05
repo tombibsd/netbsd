@@ -766,7 +766,7 @@ union segsum {
  * 64-bit inode structure we got from ffsv2.
  *
  * In lfs64:
- *   - inode numbers are still 32 bit
+ *   - inode numbers are 64 bit now
  *   - segments may not be larger than 4G (counted in bytes)
  *   - there may not be more than 2^32 (or perhaps 2^31) segments
  *   - the total volume size is limited to 2^63 frags and/or 2^63

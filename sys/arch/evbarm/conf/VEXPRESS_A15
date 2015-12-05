@@ -23,7 +23,6 @@ options 	CPU_CORTEXA15
 
 options 	PMAPCOUNTERS
 options 	BUSDMA_COUNTERS
-#options 	EXYNOS_CONSOLE_EARLY
 #options 	UVMHIST
 #options 	USB_DEBUG
 #options 	USBHIST_SIZE=100000

@@ -680,8 +680,8 @@ mvpex_intr_establish(void *v, pci_intr_handle_t pin, int ipl,
 	pexih->ih_type = ipl;
 	pexih->ih_intrtab = intrtab;
 	mvpex_intr_string(v, pin, pexih->ih_evname, sizeof(pexih->ih_evname));
-	evcnt_attach_dynamic(&pexih->ih_evcnt, EVCNT_TYPE_INTR, NULL, "mvpex",
-	    pexih->ih_evname);
+	evcnt_attach_dynamic(&pexih->ih_evcnt, EVCNT_TYPE_INTR, NULL,
+	    device_xname(sc->sc_dev), pexih->ih_evname);
 
 	s = splhigh();
 

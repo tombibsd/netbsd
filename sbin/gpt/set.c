@@ -174,11 +174,9 @@ cmd_set(int argc, char *argv[])
 		usage_set();
 
 	while (optind < argc) {
-		fd = gpt_open(argv[optind++]);
-		if (fd == -1) {
-			warn("unable to open device '%s'", device_name);
+		fd = gpt_open(argv[optind++], 0);
+		if (fd == -1)
 			continue;
-		}
 
 		set(fd);
 

@@ -143,9 +143,10 @@ compat_16_netbsd32___sigreturn14(struct lwp *l,
 #endif
 
 vaddr_t
-netbsd32_vm_default_addr(struct proc *p, vaddr_t base, vsize_t size)
+netbsd32_vm_default_addr(struct proc *p, vaddr_t base, vsize_t size,
+    int topdown)
 {
-	if (p->p_vmspace->vm_map.flags & VM_MAP_TOPDOWN)
+	if (topdown)
 		return VM_DEFAULT_ADDRESS32_TOPDOWN(base, size);
 	else
 		return VM_DEFAULT_ADDRESS32_BOTTOMUP(base, size);

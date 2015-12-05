@@ -281,5 +281,8 @@ table of contents macros (.XS and .XE),
 and macros to format the optional cover page.
 The code for the \*ms package lives in /usr/lib/tmac/tmac.s,
 and sourced files reside in the directory /usr/ucb/lib/ms.
+.if \nR==0 \
+\{
 .sp
 .tl '''\*(DY'
+.\}

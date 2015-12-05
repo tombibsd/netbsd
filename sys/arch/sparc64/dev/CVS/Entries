@@ -41,7 +41,7 @@
 /power.h/1.2/Fri May 12 23:35:24 2006/-kk/
 /psm.c/1.10/Sat Oct 27 17:18:12 2012/-kk/
 /psmreg.h/1.2/Thu Jun 30 20:09:36 2011/-kk/
-/psycho.c/1.121/Sun Oct 11 09:01:10 2015/-kk/
+/psycho.c/1.123/Sat Dec  5 11:19:22 2015/-kk/
 /psychoreg.h/1.19/Thu Oct 24 10:28:57 2013/-kk/
 /psychovar.h/1.21/Tue Dec 17 04:13:29 2013/-kk/
 /pyro.c/1.16/Sun Oct 11 09:01:10 2015/-kk/
@@ -52,12 +52,12 @@
 /sbus.c/1.93/Mon Jan 30 04:25:15 2012/-kk/
 /sbusreg.h/1.10/Wed Mar 16 05:49:43 2011/-kk/
 /sbusvar.h/1.18/Fri Jul  1 18:48:37 2011/-kk/
-/schizo.c/1.33/Sun Oct 11 09:01:10 2015/-kk/
-/schizoreg.h/1.10/Wed Aug 12 04:14:11 2015/-kk/
-/schizovar.h/1.6/Sun Mar 25 03:13:08 2012/-kk/
+/schizo.c/1.35/Sat Dec  5 11:19:22 2015/-kk/
+/schizoreg.h/1.11/Sat Dec  5 11:19:22 2015/-kk/
+/schizovar.h/1.7/Sat Dec  5 11:19:22 2015/-kk/
 /tda.c/1.10/Fri May  1 11:31:47 2015/-kk/
 /upa.c/1.18/Sun Mar 18 05:26:58 2012/-kk/
-/vpci.c/1.5/Sun Sep 13 01:31:07 2015/-kk/
+/vpci.c/1.6/Sat Dec  5 11:19:22 2015/-kk/
 /vpcivar.h/1.1/Thu Feb 12 04:48:37 2015/-kk/
 /zs.c/1.75/Fri Nov 20 01:30:58 2015/-kk/
 /zsvar.h/1.6/Sat Mar 29 19:15:35 2008/-kk/

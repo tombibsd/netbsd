@@ -421,10 +421,10 @@ db_insert(SCR *sp, db_recno_t lno, CHAR_T *p, size_t len)
  * db_set --
  *	Store a line in the file.
  *
- * PUBLIC: int db_set __P((SCR *, db_recno_t, CHAR_T *, size_t));
+ * PUBLIC: int db_set __P((SCR *, db_recno_t, const CHAR_T *, size_t));
  */
 int
-db_set(SCR *sp, db_recno_t lno, CHAR_T *p, size_t len)
+db_set(SCR *sp, db_recno_t lno, const CHAR_T *p, size_t len)
 {
 	DBT data, key;
 	EXF *ep;

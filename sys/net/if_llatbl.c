@@ -35,6 +35,8 @@
 #include "opt_inet6.h"
 #endif
 
+#include "arp.h"
+
 #include <sys/param.h>
 #include <sys/systm.h>
 #include <sys/malloc.h>
@@ -162,6 +164,8 @@ htable_link_entry(struct lltable *llt, struct llentry *lle)
 	lle->lle_head = lleh;
 	lle->la_flags |= LLE_LINKED;
 	LIST_INSERT_HEAD(lleh, lle, lle_next);
+
+	llt->llt_lle_count++;
 }
 
 static void
@@ -176,6 +180,8 @@ htable_unlink_entry(struct llentry *lle)
 		lle->lle_tbl = NULL;
 		lle->lle_head = NULL;
 #endif
+		KASSERT(lle->lle_tbl->llt_lle_count != 0);
+		lle->lle_tbl->llt_lle_count--;
 	}
 }
 
@@ -352,17 +358,15 @@ lltable_free_cb(struct lltable *llt, struct llentry *lle, void *farg)
 }
 
 /*
- * Free all entries from given table and free itself.
+ * Free all entries from given table.
  */
 void
-lltable_free(struct lltable *llt)
+lltable_purge_entries(struct lltable *llt)
 {
 	struct llentry *lle, *next;
 	struct llentries dchain;
 
 	KASSERTMSG(llt != NULL, "llt is NULL");
-
-	lltable_unlink(llt);
 
 	LIST_INIT(&dchain);
 	IF_AFDATA_WLOCK(llt->llt_ifp);
@@ -394,6 +398,19 @@ lltable_free(struct lltable *llt)
 		llentry_free(lle);
 	}
 
+}
+
+/*
+ * Free all entries from given table and free itself.
+ */
+void
+lltable_free(struct lltable *llt)
+{
+
+	KASSERTMSG(llt != NULL, "llt is NULL");
+
+	lltable_unlink(llt);
+	lltable_purge_entries(llt);
 	llt->llt_free_tbl(llt);
 }
 
@@ -600,13 +617,15 @@ lla_rt_output(struct rt_msghdr *rtm, struct rt_addrinfo *info)
 		laflags = lle->la_flags;
 		LLE_WUNLOCK(lle);
 		IF_AFDATA_WUNLOCK(ifp);
-#ifdef INET
+#if defined(INET) && NARP > 0
 		/* gratuitous ARP */
 		if ((laflags & LLE_PUB) && dst->sa_family == AF_INET)
 			arprequest(ifp,
 			    &((const struct sockaddr_in *)dst)->sin_addr,
 			    &((const struct sockaddr_in *)dst)->sin_addr,
 			    CLLADDR(dl));
+#else
+		(void)laflags;
 #endif
 
 		break;

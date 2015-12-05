@@ -124,6 +124,14 @@ struct pgrp {
 };
 
 /*
+ * Autoloadable syscall definition
+ */
+struct sc_autoload {
+	u_int		al_code;
+	const char	*al_module;
+};
+
+/*
  * One structure allocated per emulation.
  */
 struct exec_package;
@@ -143,6 +151,7 @@ struct emul {
 	struct sysent	*e_sysent;	/* System call array */
 	const char * const *e_syscallnames; /* System call name array */
 					/* Signal sending function */
+	struct sc_auto	*e_sc_autoload;	/* List of autoloadable syscalls */
 	void		(*e_sendsig)(const struct ksiginfo *,
 					  const sigset_t *);
 	void		(*e_trapsignal)(struct lwp *, struct ksiginfo *);
@@ -170,7 +179,8 @@ struct emul {
 	struct sysctlnode *e_sysctlovly;
 	int		(*e_fault)(struct proc *, vaddr_t, int);
 
-	vaddr_t		(*e_vm_default_addr)(struct proc *, vaddr_t, vsize_t);
+	vaddr_t		(*e_vm_default_addr)(struct proc *, vaddr_t, vsize_t,
+			     int);
 
 	/* Emulation-specific hook for userspace page faults */
 	int		(*e_usertrap)(struct lwp *, vaddr_t, void *);

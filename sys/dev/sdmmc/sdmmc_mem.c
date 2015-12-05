@@ -56,6 +56,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/malloc.h>
 #include <sys/systm.h>
 #include <sys/device.h>
+#include <sys/bitops.h>
+#include <sys/evcnt.h>
 
 #include <dev/sdmmc/sdmmcchip.h>
 #include <dev/sdmmc/sdmmcreg.h>
@@ -1595,9 +1597,20 @@ sdmmc_mem_read_block_subr(struct sdmmc_function *sf, bus_dmamap_t dmap,
 	if (ISSET(sc->sc_caps, SMC_CAPS_DMA))
 		cmd.c_dmamap = dmap;
 
+	sc->sc_ev_xfer.ev_count++;
+
 	error = sdmmc_mmc_command(sc, &cmd);
-	if (error)
+	if (error) {
+		sc->sc_ev_xfer_error.ev_count++;
 		goto out;
+	}
+
+	const u_int counter = __builtin_ctz(cmd.c_datalen);
+	if (counter >= 9 && counter <= 16) {
+		sc->sc_ev_xfer_aligned[counter - 9].ev_count++;
+	} else {
+		sc->sc_ev_xfer_unaligned.ev_count++;
+	}
 
 	if (!ISSET(sc->sc_caps, SMC_CAPS_AUTO_STOP)) {
 		if (cmd.c_opcode == MMC_READ_BLOCK_MULTIPLE) {
@@ -1809,9 +1822,20 @@ sdmmc_mem_write_block_subr(struct sdmmc_function *sf, bus_dmamap_t dmap,
 	if (ISSET(sc->sc_caps, SMC_CAPS_DMA))
 		cmd.c_dmamap = dmap;
 
+	sc->sc_ev_xfer.ev_count++;
+
 	error = sdmmc_mmc_command(sc, &cmd);
-	if (error)
+	if (error) {
+		sc->sc_ev_xfer_error.ev_count++;
 		goto out;
+	}
+
+	const u_int counter = __builtin_ctz(cmd.c_datalen);
+	if (counter >= 9 && counter <= 16) {
+		sc->sc_ev_xfer_aligned[counter - 9].ev_count++;
+	} else {
+		sc->sc_ev_xfer_unaligned.ev_count++;
+	}
 
 	if (!ISSET(sc->sc_caps, SMC_CAPS_AUTO_STOP)) {
 		if (cmd.c_opcode == MMC_WRITE_BLOCK_MULTIPLE) {

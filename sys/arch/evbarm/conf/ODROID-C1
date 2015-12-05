@@ -9,7 +9,6 @@ include	"arch/evbarm/conf/GENERIC.common"
 
 options 	CPU_CORTEXA5
 options 	MULTIPROCESSOR
-options 	CPUFREQ=1512
 
 options 	DIAGNOSTIC
 #options 	DEBUG

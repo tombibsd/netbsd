@@ -166,10 +166,8 @@ resize(int fd)
 	gpt_write(fd, lbt);
 	gpt_write(fd, tpg);
 
-	printf("Partition %d resized, use:\n", entry);
-	printf("\tdkctl %s addwedge <wedgename> %" PRIu64 " %" PRIu64
-	    " <type>\n", device_arg, map->map_start, newsize);
-	printf("to create a wedge for it\n");
+	printf("Partition %d resized on %s: ", entry, device_arg);
+	printf("%" PRIu64 " %" PRIu64 "\n", map->map_start, newsize);
 }
 
 int
@@ -236,11 +234,9 @@ cmd_resize(int argc, char *argv[])
 		usage_resize();
 
 	while (optind < argc) {
-		fd = gpt_open(argv[optind++]);
-		if (fd == -1) {
-			warn("unable to open device '%s'", device_name);
+		fd = gpt_open(argv[optind++], 0);
+		if (fd == -1)
 			continue;
-		}
 
 		if (alignment % secsz != 0) {
 			warnx("Alignment must be a multiple of sector size;");

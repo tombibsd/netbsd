@@ -246,7 +246,8 @@ dk_translate(struct dk_softc *dksc, struct buf *bp)
 
 	wlabel = dksc->sc_flags & (DKF_WLABEL|DKF_LABELLING);
 	if (part == RAW_PART) {
-		if (bounds_check_with_mediasize(bp, DEV_BSIZE, numsecs) <= 0)
+		uint64_t numblocks = btodb(numsecs * secsize);
+		if (bounds_check_with_mediasize(bp, DEV_BSIZE, numblocks) <= 0)
 			goto done;
 	} else {
 		if (bounds_check_with_label(&dksc->sc_dkdev, bp, wlabel) <= 0)

@@ -860,3 +860,58 @@ tegra_car_gpu_enable(void)
 	/* Leave reset */
 	bus_space_write_4(bst, bsh, CAR_RST_DEV_X_CLR_REG, CAR_DEV_X_GPU);
 }
+
+void
+tegra_car_fuse_enable(void)
+{
+	bus_space_tag_t bst;
+	bus_space_handle_t bsh;
+
+	tegra_car_get_bs(&bst, &bsh);
+
+	tegra_reg_set_clear(bst, bsh, CAR_CLK_ENB_H_SET_REG, CAR_DEV_H_FUSE, 0);
+}
+
+void
+tegra_car_fuse_disable(void)
+{
+	bus_space_tag_t bst;
+	bus_space_handle_t bsh;
+
+	tegra_car_get_bs(&bst, &bsh);
+
+	tegra_reg_set_clear(bst, bsh, CAR_CLK_ENB_H_SET_REG, 0, CAR_DEV_H_FUSE);
+}
+
+void
+tegra_car_soctherm_enable(void)
+{
+	bus_space_tag_t bst;
+	bus_space_handle_t bsh;
+
+	tegra_car_get_bs(&bst, &bsh);
+
+	bus_space_write_4(bst, bsh, CAR_RST_DEV_U_SET_REG, CAR_DEV_U_SOC_THERM);
+
+	const u_int soctherm_rate = 51000000;
+	const u_int soctherm_div =
+	    howmany(tegra_car_pllp0_rate() * 2, soctherm_rate) - 2;
+	bus_space_write_4(bst, bsh, CAR_CLKSRC_SOC_THERM_REG,
+	    __SHIFTIN(soctherm_div, CAR_CLKSRC_SOC_THERM_DIV) |
+	    __SHIFTIN(CAR_CLKSRC_SOC_THERM_SRC_PLLP_OUT0,
+		      CAR_CLKSRC_SOC_THERM_SRC));
+	delay(20);
+
+	const u_int tsensor_rate = 400000;
+	const u_int tsensor_div =
+	    howmany(TEGRA_REF_FREQ * 2, tsensor_rate) - 2;
+	bus_space_write_4(bst, bsh, CAR_CLKSRC_TSENSOR_REG,
+	    __SHIFTIN(tsensor_div, CAR_CLKSRC_TSENSOR_DIV) |
+	    __SHIFTIN(CAR_CLKSRC_TSENSOR_SRC_CLK_M, CAR_CLKSRC_TSENSOR_SRC));
+	delay(20);
+
+	bus_space_write_4(bst, bsh, CAR_CLK_ENB_V_SET_REG, CAR_DEV_V_TSENSOR);
+	bus_space_write_4(bst, bsh, CAR_CLK_ENB_U_SET_REG, CAR_DEV_U_SOC_THERM);
+
+	bus_space_write_4(bst, bsh, CAR_RST_DEV_U_CLR_REG, CAR_DEV_U_SOC_THERM);
+}

@@ -553,8 +553,11 @@ captoinfo(char *cap)
 			else
 				len += rl;
 			p = realloc(info, len);
-			if (p == NULL)
+			if (p == NULL) {
+				if (fv == 1)
+					free(val);
 				return NULL;
+			}
 			info = p;
 		}
 

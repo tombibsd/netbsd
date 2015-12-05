@@ -159,7 +159,7 @@ BUFRD(struct vnode *vp, struct uio *uio, int ioflag, kauth_cred_t cred)
 	fs = ip->I_FS;
 	error = 0;
 
-	KASSERT(vp->v_type != VLNK || ip->i_size < fs->um_maxsymlinklen);
+	KASSERT(vp->v_type != VLNK || ip->i_size >= fs->um_maxsymlinklen);
 	KASSERT(vp->v_type != VLNK || fs->um_maxsymlinklen != 0 ||
 	    DIP(ip, blocks) == 0);
 	KASSERT(vp->v_type != VREG || vp == fs->lfs_ivnode);

@@ -448,7 +448,7 @@ void
 ohci_free_std(ohci_softc_t *sc, ohci_soft_td_t *std)
 {
 	KASSERT(sc->sc_bus.use_polling || mutex_owned(&sc->sc_lock));
-	
+
 	ohci_hash_rem_td(sc, std);
 	std->nexttd = sc->sc_freetds;
 	sc->sc_freetds = std;
@@ -1312,7 +1312,7 @@ ohci_softintr(void *v)
 	if (ohcidebug > 10) {
 		DPRINTF(("ohci_process_done: TD done:\n"));
 		for (std = sdone; std; std = std->dnext)
-			ohci_dump_td(sc, std);	
+			ohci_dump_td(sc, std);
 	}
 #endif
 
@@ -1390,7 +1390,7 @@ ohci_softintr(void *v)
 	if (ohcidebug > 10) {
 		DPRINTF(("ohci_softintr: ITD done:\n"));
 		for (sitd = sidone; sitd; sitd = sitd->dnext)
-			ohci_dump_itd(sc, sitd);	
+			ohci_dump_itd(sc, sitd);
 	}
 #endif
 
@@ -3047,7 +3047,7 @@ ohci_device_bulk_start(usbd_xfer_handle xfer)
 		  data, &tail);
 	if (err)
 		return err;
-	
+
 	/* We want interrupt at the end of the transfer. */
 	tail->td.td_flags &= HTOO32(~OHCI_TD_INTR_MASK);
 	tail->td.td_flags |= HTOO32(OHCI_TD_SET_DI(1));
@@ -3191,7 +3191,7 @@ ohci_device_intr_start(usbd_xfer_handle xfer)
 	tail->xfer = NULL;
 
 	data->td.td_flags = HTOO32(
-		isread ? OHCI_TD_IN : OHCI_TD_OUT |
+		(isread ? OHCI_TD_IN : OHCI_TD_OUT) |
 		OHCI_TD_NOCC |
 		OHCI_TD_SET_DI(1) | OHCI_TD_TOGGLE_CARRY);
 	if (xfer->flags & USBD_SHORT_XFER_OK)

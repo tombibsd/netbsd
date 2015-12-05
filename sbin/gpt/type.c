@@ -228,11 +228,9 @@ cmd_type(int argc, char *argv[])
 		usage_type();
 
 	while (optind < argc) {
-		fd = gpt_open(argv[optind++]);
-		if (fd == -1) {
-			warn("unable to open device '%s'", device_name);
+		fd = gpt_open(argv[optind++], 0);
+		if (fd == -1)
 			continue;
-		}
 
 		chtype(fd);
 

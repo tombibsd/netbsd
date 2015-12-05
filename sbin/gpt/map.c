@@ -42,6 +42,7 @@ __RCSID("$NetBSD$");
 #include <stdlib.h>
 
 #include "map.h"
+#include "gpt.h"
 
 int lbawidth;
 
@@ -52,7 +53,7 @@ mkmap(off_t start, off_t size, int type)
 {
 	map_t *m;
 
-	m = malloc(sizeof(*m));
+	m = calloc(1, sizeof(*m));
 	if (m == NULL)
 		return (NULL);
 	m->map_start = start;
@@ -64,19 +65,51 @@ mkmap(off_t start, off_t size, int type)
 	return (m);
 }
 
+static const char *maptypes[] = {
+	"unused",
+	"mbr",
+	"mbr partition",
+	"primary gpt header",
+	"secondary gpt header",
+	"primary gpt table",
+	"secondary gpt table",
+	"gpt partition",
+	"protective mbr",
+};
+
+static const char *
+map_type(int t)
+{
+	if ((size_t)t >= __arraycount(maptypes))
+		return "*unknown*";
+	return maptypes[t];
+}
+
 map_t *
 map_add(off_t start, off_t size, int type, void *data)
 {
 	map_t *m, *n, *p;
 
+#ifdef DEBUG
+	printf("add: %s %#jx %#jx\n", map_type(type), (uintmax_t)start,
+	    (uintmax_t)size);
+	for (n = mediamap; n; n = n->map_next)
+		printf("have: %s %#jx %#jx\n", map_type(n->map_type),
+		    (uintmax_t)n->map_start, (uintmax_t)n->map_size);
+#endif
+
 	n = mediamap;
 	while (n != NULL && n->map_start + n->map_size <= start)
 		n = n->map_next;
-	if (n == NULL)
+	if (n == NULL) {
+		if (!quiet)
+			warnx("Can't find map");
 		return (NULL);
+	}
 
 	if (n->map_start + n->map_size < start + size) {
-		warnx("error: map entry doesn't fit media");
+		if (!quiet)
+			warnx("map entry doesn't fit media");
 		return (NULL);
 	}
 
@@ -84,8 +117,9 @@ map_add(off_t start, off_t size, int type, void *data)
 		if (n->map_type != MAP_TYPE_UNUSED) {
 			if (n->map_type != MAP_TYPE_MBR_PART ||
 			    type != MAP_TYPE_GPT_PART) {
-				warnx("warning: partition(%llu,%llu) mirrored",
-				    (long long)start, (long long)size);
+				if (!quiet)
+					warnx("partition(%ju,%ju) mirrored",
+					    (uintmax_t)start, (uintmax_t)size);
 			}
 		}
 		n->map_type = type;
@@ -96,8 +130,9 @@ map_add(off_t start, off_t size, int type, void *data)
 	if (n->map_type != MAP_TYPE_UNUSED) {
 		if (n->map_type != MAP_TYPE_MBR_PART ||
 		    type != MAP_TYPE_GPT_PART) {
-			warnx("error: bogus map");
-			return (0);
+			warnx("bogus map current=%s new=%s",
+			    map_type(n->map_type), map_type(type));
+			return (NULL);
 		}
 		n->map_type = MAP_TYPE_UNUSED;
 	}
@@ -334,7 +369,7 @@ map_init(off_t size)
 	char buf[32];
 
 	mediamap = mkmap(0LL, size, MAP_TYPE_UNUSED);
-	lbawidth = sprintf(buf, "%llu", (long long)size);
+	lbawidth = snprintf(buf, sizeof(buf), "%ju", (uintmax_t)size);
 	if (lbawidth < 5)
 		lbawidth = 5;
 }

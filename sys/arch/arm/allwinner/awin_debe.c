@@ -29,6 +29,7 @@
 #include "opt_allwinner.h"
 #include "genfb.h"
 #include "awin_mp.h"
+#include "awin_tcon.h"
 
 #ifndef AWIN_DEBE_VIDEOMEM
 #define AWIN_DEBE_VIDEOMEM	(16 * 1024 * 1024)
@@ -602,8 +603,10 @@ awin_debe_ioctl(device_t self, u_long cmd, void *data)
 			val &= ~AWIN_DEBE_MODCTL_HWC_EN;
 		}
 		DEBE_WRITE(sc, AWIN_DEBE_MODCTL_REG, val);
+#if NAWIN_TCON > 0
 		/* debe0 always connected to tcon0, debe1 to tcon1*/
 		awin_tcon_setvideo(device_unit(sc->sc_dev), enable);
+#endif
 		return 0;
 	case WSDISPLAYIO_GVIDEO:
 		val = DEBE_READ(sc, AWIN_DEBE_MODCTL_REG);

@@ -31,4 +31,6 @@
 
 int	cgdconfig(int, char **);
 
+#define CGDCONFIG_DIR		"/etc/cgd"
+
 #endif /* _SBIN_CGDCONFIG_H_ */

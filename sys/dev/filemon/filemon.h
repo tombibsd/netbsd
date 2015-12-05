@@ -47,9 +47,15 @@ struct filemon {
 	TAILQ_ENTRY(filemon) fm_link;	/* Link into the in-use list. */
 };
 
+struct hijack { 
+	int hj_index; 
+	sy_call_t *hj_funcs[2];	/* [0] = original, [1] = hijack */ 
+}; 
+
 struct filemon * filemon_lookup(struct proc *);
 void filemon_output(struct filemon *, char *, size_t);
-void filemon_wrapper_install(void);
+int syscall_hijack(struct sysent *, const struct hijack *, bool);
+int filemon_wrapper_install(void);
 int  filemon_wrapper_deinstall(void);
 void filemon_printf(struct filemon *, const char *, ...) __printflike(2, 3);
 #endif

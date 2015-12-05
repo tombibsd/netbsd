@@ -35,6 +35,8 @@ __RCSID("$NetBSD$");
 #endif
 
 #include <sys/types.h>
+#include <sys/param.h>
+#include <sys/stat.h>
 
 #include <err.h>
 #include <errno.h>
@@ -46,6 +48,7 @@ __RCSID("$NetBSD$");
 #include "params.h"
 #include "pkcs5_pbkdf2.h"
 #include "utils.h"
+#include "cgdconfig.h"
 #include "extern.h"
 
 static void	params_init(struct params *);
@@ -618,8 +621,16 @@ params_cget(const char *fn)
 {
 	struct params	*p;
 	FILE		*f;
+	char		filename[MAXPATHLEN];
 
-	if ((f = fopen(fn, "r")) == NULL) {
+	if ((f = fopen(fn, "r")) == NULL && fn[0] != '/') {
+		snprintf(filename, sizeof(filename), "%s/%s",
+		    CGDCONFIG_DIR, fn);
+		fn = filename;
+		f = fopen(fn, "r");
+	}
+
+	if (f == NULL) {
 		warn("failed to open params file \"%s\"", fn);
 		return NULL;
 	}

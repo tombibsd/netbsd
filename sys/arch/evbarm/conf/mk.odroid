@@ -6,6 +6,7 @@ EXTRA_LINKFLAGS+=	--be8
 
 SYSTEM_FIRST_OBJ=	odroid_start.o
 SYSTEM_FIRST_SFILE=	${THISARM}/odroid/odroid_start.S
+AFLAGS.odroid_start.S+=	-Wa,-march=armv7-a+virt
 
 GENASSYM_EXTRAS+=	${THISARM}/odroid/genassym.cf
 

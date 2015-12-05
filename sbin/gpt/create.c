@@ -235,11 +235,9 @@ cmd_create(int argc, char *argv[])
 		usage_create();
 
 	while (optind < argc) {
-		fd = gpt_open(argv[optind++]);
-		if (fd == -1) {
-			warn("unable to open device '%s'", device_name);
+		fd = gpt_open(argv[optind++], force);
+		if (fd == -1)
 			continue;
-		}
 
 		create(fd);
 

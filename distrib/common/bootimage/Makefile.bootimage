@@ -127,6 +127,10 @@
 
 .include "${NETBSDSRCDIR}/distrib/common/Makefile.distrib"
 
+.if ${MKREPRO:Uno} == "yes"
+TIMESTAMP=-T ${NETBSDSRCDIR}/sys/sys/param.h
+.endif
+
 .if empty(IMGBASE)
 .BEGIN:
 	@echo "Error: IMGBASE is not set"
@@ -292,6 +296,7 @@ ${TARGETFS}: prepare_md_post
 	${TOOL_MAKEFS} -M ${FSSIZE} -m ${FSSIZE}			\
 	    -B ${TARGET_ENDIANNESS}					\
 	    -F ${WORKSPEC} -N ${WORKDIR}/etc				\
+	    ${TIMESTAMP}						\
 	    ${IMGMAKEFSOPTIONS}						\
 	    ${WORKFS} ${WORKDIR}
 .if !empty(PRIMARY_BOOT) && ${INSTALLBOOT_AFTER_DISKLABEL} == "no"

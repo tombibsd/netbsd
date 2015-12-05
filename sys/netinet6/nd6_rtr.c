@@ -109,12 +109,12 @@ static inline bool
 nd6_is_llinfo_probreach(struct nd_defrouter *dr)
 {
 	struct rtentry *rt = NULL;
-	struct llinfo_nd6 *ln = NULL;
+	struct llentry *ln = NULL;
 
 	rt = nd6_lookup(&dr->rtaddr, 0, dr->ifp);
 	if (rt == NULL)
 		return false;
-	ln = (struct llinfo_nd6 *)rt->rt_llinfo;
+	ln = rt->rt_llinfo;
 	rtfree(rt);
 	if (ln == NULL || !ND6_IS_LLINFO_PROBREACH(ln))
 		return false;

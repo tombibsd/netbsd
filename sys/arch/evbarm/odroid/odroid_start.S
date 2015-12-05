@@ -50,6 +50,7 @@ RCSID("$NetBSD$")
 
 
 #if defined(VERBOSE_INIT_ARM)
+
 #define	XPUTC(n)	mov r0, n; bl xputc
 #if KERNEL_BASE_VOFFSET == 0
 #define	XPUTC2(n)	mov r0, n; bl xputc
@@ -65,6 +66,7 @@ RCSID("$NetBSD$")
 #endif
 
 #define INIT_MEMSIZE	128
+
 #define	TEMP_L1_TABLE	(KERNEL_BASE - KERNEL_BASE_VOFFSET + INIT_MEMSIZE * L1_S_SIZE - L1_TABLE_SIZE)
 
 #define	MD_CPU_HATCH	_C_LABEL(exynos_cpu_hatch)
@@ -79,19 +81,36 @@ RCSID("$NetBSD$")
 #else
 	.section .start,"ax",%progbits
 #endif
-	
+
 	.global	_C_LABEL(odroid_start)
 _C_LABEL(odroid_start):
 #ifdef __ARMEB__
 	setend	be			/* force big endian */
 #endif
 
-	/* Move into supervisor mode and disable IRQs/FIQs. */
-	cpsid	if, #PSR_SVC32_MODE
+//        .arch_extension virt
+        /* Leave HYP mode */
+        mrs        r0, cpsr
+        and        r0, r0, #(PSR_MODE)   /* Mode is in the low 5 bits of CPSR */
+        teq        r0, #(PSR_HYP32_MODE) /* Hyp Mode? */
+        bne        1f
+        /* Ensure that IRQ, FIQ and Aborts will be disabled after eret */
+        mrs        r0, cpsr
+        bic        r0, r0, #(PSR_MODE)
+        orr        r0, r0, #(PSR_SVC32_MODE)
+        orr        r0, r0, #(I32_bit | F32_bit)
+        msr        spsr_cxsf, r0
+        /* Exit hypervisor mode */
+        adr        lr, 1f
+        msr        elr_hyp, lr
+        eret
+1:
 
+//        /* Move into supervisor mode and disable IRQs/FIQs. */
+//        cpsid        if, #PSR_SVC32_MODE
 	/*
-	 * Save any arguments passed to us.  But since .start is not at
-	 * 0x80000000 * but .text is, we can't directly use the address that
+	 * Save any arguments passed to us.  If .start is not at
+	 * 0x80000000 but .text is, we can't directly use the address that
 	 * the linker gave us directly.  Convert the virtual address to the
 	 * physical address by using KERNEL_BASE_VOFFSET.
 	 */
@@ -101,6 +120,63 @@ _C_LABEL(odroid_start):
 	sub	r4, r4, #KERNEL_BASE_VOFFSET
 #endif
 	stmia	r4, {r0-r3}			// Save the arguments
+
+	/*
+	 * Rescue passed "bootargs" env variable. This is not trivial
+	 * since we can be booted using either `go' or trough `bootm'.
+	 *
+	 * 'go' passes R0 = argc, R1 = argv
+	 * 'bootm' passes R0 = uboot_bootinfo, R3 = bootargs
+	 */
+
+	movw	r4, #:lower16:bootargs
+	movt	r4, #:upper16:bootargs
+	sub	r4, r4, #KERNEL_BASE_VOFFSET
+
+	cmp	r0, #0
+	beq	1f
+	cmp	r0, #MAX_BOOT_STRING
+	bge	1f
+
+	/* `go' method */
+	cmp	r0, #1					// extra argument?
+	beq	3f
+	ldr	r5, [r1, #4]				// load argv[1]
+2:
+	ldrb	r0, [r5], #1
+	strb	r0, [r4], #1
+	teq	r0, #0
+	bne	2b
+
+	b	3f
+1:
+	/* `bootm' method */
+	mov	r6, r0					// save binfo pointer
+
+	cmp	r3, #0
+	beq	1f
+2:
+	ldrb	r0, [r3], #1
+	strb	r0, [r4], #1
+	teq	r0, #0
+	bne	2b
+
+1:
+	cmp	r6, #0					// binfo passed?
+	beq	3f
+
+	add	r6, r6, #0x250				// to eth addr
+
+	movw	r4, #:lower16:uboot_enaddr
+	movt	r4, #:upper16:uboot_enaddr
+	mov	r2, #6
+2:
+	ldrb	r0, [r6], #1
+	strb	r0, [r4], #1
+	subs	r2, r2, #1
+	bne	2b
+
+3:
 
 	/*
 	 * For easy and early SoC / PoP dependency, retrieve the IDs
@@ -160,27 +236,31 @@ _C_LABEL(odroid_start):
 	 */
 	movw	r0, #:lower16:TEMP_L1_TABLE
 	movt	r0, #:upper16:TEMP_L1_TABLE
-	movw	r1, #:lower16:.Lmmu_init_table
-	movt	r1, #:upper16:.Lmmu_init_table
+	movw	r1, #:lower16:mmu_init_table
+	movt	r1, #:upper16:mmu_init_table
 	bl	arm_boot_l1pt_init
-
 	XPUTC(#'D')
 
 	/*
-	 * Turn on the MMU, Caches, etc.
+	 * Turn on the MMU, Caches, etc.  Return to new enabled address space.
 	 */
 	movw	r0, #:lower16:TEMP_L1_TABLE
 	movt	r0, #:upper16:TEMP_L1_TABLE
 #if KERNEL_BASE_VOFFSET == 0
 	bl	arm_cpuinit
 #else
+	/*
+	 * After the MMU is on, we can execute in the normal .text segment
+	 * so setup the lr to be in .text.  Cache the address for xputc
+	 * before we go.
+	 */
 #if defined(VERBOSE_INIT_ARM)
 	adr	r11, xputc		@ for XPUTC2
 #endif
 	movw	lr, #:lower16:1f
 	movt	lr, #:upper16:1f
 	b	arm_cpuinit
-	.pushsection .text,"ax",%progbits
+	.pushsection .text, "ax", %progbits
 1:
 #endif
 	XPUTC2(#'Z')
@@ -188,18 +268,18 @@ _C_LABEL(odroid_start):
 #if defined(MULTIPROCESSOR)
 #endif /* MULTIPROCESSOR */
 
-	XPUTC2(#13)		/* CR */
-	XPUTC2(#10)		/* LF */
+	XPUTC2(#13)
+	XPUTC2(#10)
 
 	/*
 	 * Jump to start in locore.S, which in turn will call initarm and main.
 	 */
 	b	start
 
-#ifndef KERNEL_BASES_EQUAL
-	.popsection				// back to .start
-#endif
 	/* NOTREACHED */
+#ifndef KERNEL_BASES_EQUAL
+	.popsection
+#endif
 
 	.align 0
 	.global _C_LABEL(num_exynos_uarts_entries)
@@ -231,11 +311,9 @@ _C_LABEL(exynos_uarts):
 #if defined(VERBOSE_INIT_ARM)
 	.align 0
 	.global xputc
-	.global _xputc		// for C
 	.type	xputc,%function
 
-	#define TIMO		0x25000
-_xputc:
+#define TIMO		0x25000
 xputc:
 	mov	r2, #TIMO
 	mrc	p15, 0, r3, c13, c0, 3		// TPIDRURO get (uart address)
@@ -278,7 +356,7 @@ xputc:
 #endif
 
 	.align	0
-.Lmmu_init_table:
+mmu_init_table:
 	/* Map KERNEL_BASE VA to SDRAM PA, write-back cacheable, shareable */
 	MMU_INIT(KERNEL_BASE, KERNEL_BASE - KERNEL_BASE_VOFFSET, INIT_MEMSIZE,
 		L1_S_PROTO_armv7 | L1_S_APv7_KRW | L1_S_CACHEABLE)

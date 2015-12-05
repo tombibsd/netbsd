@@ -13,7 +13,7 @@
 /uvm_device.c/1.64/Sat Dec 27 03:35:55 2014/-kk/
 /uvm_device.h/1.13/Sat Dec 27 03:35:55 2014/-kk/
 /uvm_emap.c/1.11/Tue Dec  9 04:43:56 2014/-kk/
-/uvm_extern.h/1.194/Sat Mar 21 02:47:29 2015/-kk/
+/uvm_extern.h/1.195/Sat Dec  5 11:19:37 2015/-kk/
 /uvm_fault.c/1.197/Thu Jul  2 04:14:40 2015/-kk/
 /uvm_fault.h/1.20/Wed Feb  2 15:13:34 2011/-kk/
 /uvm_fault_i.h/1.28/Sun Feb 19 00:05:56 2012/-kk/
@@ -28,8 +28,8 @@
 /uvm_map.c/1.336/Fri Nov 20 02:20:00 2015/-kk/
 /uvm_map.h/1.72/Mon Oct 29 16:00:05 2012/-kk/
 /uvm_meter.c/1.65/Thu Dec 11 09:09:56 2014/-kk/
-/uvm_mmap.c/1.153/Wed Aug 12 04:14:39 2015/-kk/
-/uvm_mremap.c/1.17/Sun Jun 12 03:36:03 2011/-kk/
+/uvm_mmap.c/1.154/Sat Dec  5 11:19:37 2015/-kk/
+/uvm_mremap.c/1.18/Sat Dec  5 11:19:37 2015/-kk/
 /uvm_object.c/1.15/Fri Nov 20 01:31:41 2015/-kk/
 /uvm_object.h/1.33/Fri Sep 14 22:20:50 2012/-kk/
 /uvm_page.c/1.187/Wed Apr 22 07:37:50 2015/-kk/

@@ -300,7 +300,8 @@ vpci_init_iommu(struct vpci_softc *sc, struct vpci_pbm *pbm)
 		    vdma[0], vdma[1]));
 		iobase = vdma[0];
 		iolen = vdma[1];
-		for (tsbsize = 8; (1 << (tsbsize+23)) > iolen; tsbsize--) ;
+		for (tsbsize = 8; (1 << (tsbsize+23)) > iolen;)
+			tsbsize--;
 		DPRINTF(VDB_BUSMAP, ("vpci_init_iommu: iobase=0x%x  iolen = 0x%x  tsbsize=0x%x\n",
 		    iobase, iolen, tsbsize));
 		free(vdma, M_DEVBUF);

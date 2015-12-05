@@ -63,7 +63,7 @@ int svr4_32_copyargs(struct lwp *, struct exec_package *, struct ps_strings *,
 extern struct emul emul_svr4_32;
 
 void svr4_32_setregs(struct lwp *, struct exec_package *, vaddr_t);
-vaddr_t svr4_32_vm_default_addr(struct proc *, vaddr_t, vsize_t);
+vaddr_t svr4_32_vm_default_addr(struct proc *, vaddr_t, vsize_t, int);
 int svr4_32_elf32_probe(struct lwp *, struct exec_package *, void *,
     char *, vaddr_t *);
 

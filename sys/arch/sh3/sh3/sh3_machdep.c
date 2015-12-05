@@ -277,7 +277,7 @@ sh_startup(void)
 
 	printf("%s%s", copyright, version);
 	if (*model != '\0')
-		printf("%s", model);
+		printf("%s\n", model);
 #ifdef DEBUG
 	printf("general exception handler:\t%d byte\n",
 	    sh_vector_generic_end - sh_vector_generic);

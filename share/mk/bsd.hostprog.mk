@@ -41,6 +41,7 @@ LIBMP?=		/usr/lib/libmp.a
 LIBNTP?=	/usr/lib/libntp.a
 LIBOBJC?=	/usr/lib/libobjc.a
 LIBP2K?=	/usr/lib/libp2k.a
+LIBPANEL?=	/usr/lib/libpanel.a
 LIBPC?=		/usr/lib/libpc.a
 LIBPCAP?=	/usr/lib/libpcap.a
 LIBPCI?=	/usr/lib/libpci.a

@@ -196,7 +196,8 @@ uvm_mremap(struct vm_map *oldmap, vaddr_t oldva, vsize_t oldsize,
 	if (!fixed) {
 		KASSERT(&newproc->p_vmspace->vm_map == newmap);
 		newva = newproc->p_emul->e_vm_default_addr(newproc,
-		    (vaddr_t)newproc->p_vmspace->vm_daddr, newsize);
+		    (vaddr_t)newproc->p_vmspace->vm_daddr, newsize,
+		    newproc->p_vmspace->vm_map.flags & VM_MAP_TOPDOWN);
 	}
 	dstva = newva;
 	if (!uvm_map_reserve(newmap, newsize, oldva, align, &dstva, 

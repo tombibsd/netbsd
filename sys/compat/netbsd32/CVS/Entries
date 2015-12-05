@@ -1,6 +1,6 @@
 /Makefile/1.8/Fri Jan 31 08:48:45 2014/-kk/
 /files.netbsd32/1.36/Thu Jul  2 04:14:13 2015/-kk/
-/netbsd32.h/1.108/Wed Aug 12 04:14:17 2015/-kk/
+/netbsd32.h/1.109/Sat Dec  5 11:19:25 2015/-kk/
 /netbsd32_compat_09.c/1.18/Thu May 29 14:51:26 2008/-kk/
 /netbsd32_compat_10.c/1.24/Fri Apr 23 15:19:20 2010/-kk/
 /netbsd32_compat_12.c/1.33/Mon Dec 10 02:21:58 2012/-kk/
@@ -23,7 +23,7 @@
 /netbsd32_ioctl.h/1.52/Thu Jun 18 03:42:24 2015/-kk/
 /netbsd32_ipc.c/1.17/Sat Dec 12 10:30:09 2009/-kk/
 /netbsd32_lwp.c/1.18/Thu May 28 03:25:47 2015/-kk/
-/netbsd32_mod.c/1.9/Sun Oct 11 09:01:16 2015/-kk/
+/netbsd32_mod.c/1.10/Sat Dec  5 11:19:25 2015/-kk/
 /netbsd32_module.c/1.2/Thu Jul  2 04:14:13 2015/-kk/
 /netbsd32_mqueue.c/1.5/Thu Jul  2 04:14:13 2015/-kk/
 /netbsd32_netbsd.c/1.197/Sun Aug  2 04:02:47 2015/-kk/

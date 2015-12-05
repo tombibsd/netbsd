@@ -75,6 +75,8 @@ static const struct tegra_locators tegra_apb_locators[] = {
     TEGRA_MC_OFFSET, TEGRA_MC_SIZE, NOPORT, TEGRA_INTR_MC },
   { "tegrapmc",
     TEGRA_PMC_OFFSET, TEGRA_PMC_SIZE, NOPORT, NOINTR },
+  { "tegrafuse",
+    TEGRA_FUSE_OFFSET, TEGRA_FUSE_SIZE, NOPORT, NOINTR },
   { "tegraxusbpad",
     TEGRA_XUSB_PADCTL_OFFSET, TEGRA_XUSB_PADCTL_SIZE, NOPORT, NOINTR },
   { "tegrampio",
@@ -115,6 +117,8 @@ static const struct tegra_locators tegra_apb_locators[] = {
     TEGRA_HDA_OFFSET, TEGRA_HDA_SIZE, NOPORT, TEGRA_INTR_HDA },
   { "tegracec",
     TEGRA_CEC_OFFSET, TEGRA_CEC_SIZE, NOPORT, TEGRA_INTR_CEC },
+  { "tegrasoctherm",
+    TEGRA_SOC_THERM_OFFSET, TEGRA_SOC_THERM_SIZE, NOPORT, TEGRA_INTR_THERMAL },
 };
 
 static const struct tegra_locators tegra_ahb_a2_locators[] = {

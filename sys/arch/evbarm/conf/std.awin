@@ -23,8 +23,8 @@ options 	GTTWSI_ALLWINNER
 options 	MOTG_ALLWINNER
 options 	AWIN_SYSCONFIG
 
-makeoptions	KERNEL_BASE_PHYS="0x40007800"
-makeoptions	KERNEL_BASE_VIRT="0x80007800"
+makeoptions	KERNEL_BASE_PHYS="0x40008000"
+makeoptions	KERNEL_BASE_VIRT="0x80008000"
 makeoptions	BOARDTYPE="awin"
 makeoptions	BOARDMKFRAG="${THISARM}/conf/mk.awin"
 makeoptions	CPUFLAGS="-mcpu=cortex-a8 -mfpu=neon"

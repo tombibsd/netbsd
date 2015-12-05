@@ -1576,6 +1576,7 @@ DPADD		Additional dependencies for the program.  Usually used for
 		LIBOBJC?=	${DESTDIR}/usr/lib/libobjc.a
 		LIBOSSAUDIO?=	${DESTDIR}/usr/lib/libossaudio.a
 		LIBPAM?=	${DESTDIR}/usr/lib/libpam.a
+		LIBPANEL?=	${DESTDIR}/usr/lib/libpanel.a
 		LIBPCAP?=	${DESTDIR}/usr/lib/libpcap.a
 		LIBPCI?=	${DESTDIR}/usr/lib/libpci.a
 		LIBPMC?=	${DESTDIR}/usr/lib/libpmc.a

@@ -102,7 +102,7 @@
  * model.
  */
 #define VM_DEFAULT_ADDRESS_BOTTOMUP(da, sz) \
-    round_page((vaddr_t)(da) + (vsize_t)max(maxdmap,2UL*1024*1024*1024))
+    round_page((vaddr_t)(da) + (vsize_t)max(maxdmap,1UL*1024*1024*1024))
 #endif
 #ifndef	DFLSSIZ
 #define	DFLSSIZ		(2*1024*1024)		/* initial stack size limit */

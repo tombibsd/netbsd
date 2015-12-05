@@ -573,6 +573,22 @@ vnode_has_strategy(struct vnd_softc *vnd)
 	    vnode_has_op(vnd->sc_vp, VOFFSET(vop_strategy));
 }
 
+static bool
+vnode_has_large_blocks(struct vnd_softc *vnd)
+{
+	u_int32_t vnd_secsize, mnt_secsize;
+	uint64_t numsec;
+	unsigned secsize;
+
+	if (getdisksize(vnd->sc_vp, &numsec, &secsize))
+		return true;
+
+	vnd_secsize = vnd->sc_geom.vng_secsize;
+	mnt_secsize = secsize;
+
+	return vnd_secsize % mnt_secsize != 0;
+}
+
 /* XXX this function needs a reliable check to detect
  * sparse files. Otherwise, bmap/strategy may be used
  * and fail on non-allocated blocks. VOP_READ/VOP_WRITE
@@ -586,6 +602,9 @@ vnode_strategy_probe(struct vnd_softc *vnd)
 	daddr_t nbn;
 
 	if (!vnode_has_strategy(vnd))
+		return false;
+
+	if (vnode_has_large_blocks(vnd))
 		return false;
 
 	/* Convert the first logical block number to its
@@ -617,6 +636,13 @@ vndthread(void *arg)
 	 * which are guaranteed to work with any file system. */
 	if ((vnd->sc_flags & VNF_USE_VN_RDWR) == 0 &&
 	    ! vnode_has_strategy(vnd))
+		vnd->sc_flags |= VNF_USE_VN_RDWR;
+
+	/* VOP_STRATEGY can only be used if the backing vnode allows
+	 * to access blocks as small as defined by the vnd geometry.
+	 */
+	if ((vnd->sc_flags & VNF_USE_VN_RDWR) == 0 &&
+	    vnode_has_large_blocks(vnd))
 		vnd->sc_flags |= VNF_USE_VN_RDWR;
 
 #ifdef DEBUG

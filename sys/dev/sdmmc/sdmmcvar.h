@@ -27,6 +27,7 @@
 #include <sys/queue.h>
 #include <sys/mutex.h>
 #include <sys/callout.h>
+#include <sys/evcnt.h>
 
 #include <sys/bus.h>
 
@@ -266,6 +267,12 @@ struct sdmmc_softc {
 	const char *sc_transfer_mode;	/* current transfer mode */
 
 	callout_t sc_card_detect_ch;	/* polling card insert/remove */
+
+	/* event counters */
+	struct evcnt sc_ev_xfer;	/* xfer count */
+	struct evcnt sc_ev_xfer_aligned[8]; /* aligned xfer counts */
+	struct evcnt sc_ev_xfer_unaligned; /* unaligned xfer count */
+	struct evcnt sc_ev_xfer_error;	/* error xfer count */
 };
 
 /*

@@ -335,12 +335,10 @@ cmd_biosboot(int argc, char *argv[])
 	close:
 		close(fd);
 
-		fd = gpt_open(dev);
+		fd = gpt_open(dev, 0);
 	next:
-		if (fd == -1) {
-			warn("unable to open device '%s'", device_name);
+		if (fd == -1)
 			continue;
-		}
 
 		biosboot(fd);
 

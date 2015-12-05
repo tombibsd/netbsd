@@ -70,6 +70,3 @@ defparam opt_amlogic.h			CONMODE
 
 # Memory parameters
 defparam opt_amlogic.h			MEMSIZE
-
-# CPU parameters
-defparam opt_amlogic.h			CPUFREQ

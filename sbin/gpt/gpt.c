@@ -49,6 +49,7 @@ __RCSID("$NetBSD$");
 #include <fcntl.h>
 #include <paths.h>
 #include <stddef.h>
+#include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -67,7 +68,9 @@ off_t	mediasz;
 u_int	parts;
 u_int	secsz;
 
-int	readonly, verbose;
+int	readonly, verbose, quiet, nosync;
+
+static int modified;
 
 static uint32_t crc32_tab[] = {
 	0x00000000, 0x77073096, 0xee0e612c, 0x990951ba, 0x076dc419, 0x706af48f,
@@ -268,10 +271,11 @@ gpt_write(int fd, map_t *map)
 
 	count = map->map_size * secsz;
 	ofs = map->map_start * secsz;
-	if (lseek(fd, ofs, SEEK_SET) == ofs &&
-	    write(fd, map->map_data, count) == (ssize_t)count)
-		return (0);
-	return (-1);
+	if (lseek(fd, ofs, SEEK_SET) != ofs ||
+	    write(fd, map->map_data, count) != (ssize_t)count)
+		return -1;
+	modified = 1;
+	return 0;
 }
 
 static int
@@ -283,13 +287,15 @@ gpt_mbr(int fd, off_t lba)
 	unsigned int i, pmbr;
 
 	mbr = gpt_read(fd, lba, 1);
-	if (mbr == NULL)
+	if (mbr == NULL) {
+		if (!quiet)
+			warn("%s: read failed", device_name);
 		return (-1);
+	}
 
 	if (mbr->mbr_sig != htole16(MBR_SIG)) {
 		if (verbose)
-			warnx("%s: MBR not found at sector %llu", device_name,
-			    (long long)lba);
+			gpt_msg("MBR not found at sector %ju", (uintmax_t)lba);
 		free(mbr);
 		return (0);
 	}
@@ -309,20 +315,19 @@ gpt_mbr(int fd, off_t lba)
 			break;
 	}
 	if (pmbr && i == 4 && lba == 0) {
-		if (pmbr != 1)
-			warnx("%s: Suspicious PMBR at sector %llu",
-			    device_name, (long long)lba);
+		if (pmbr != 1 && !quiet)
+			warnx("%s: Suspicious PMBR at sector %ju",
+			    device_name, (uintmax_t)lba);
 		else if (verbose > 1)
-			warnx("%s: PMBR at sector %llu", device_name,
-			    (long long)lba);
+			gpt_msg("PMBR at sector %ju", (uintmax_t)lba);
 		p = map_add(lba, 1LL, MAP_TYPE_PMBR, mbr);
 		return ((p == NULL) ? -1 : 0);
 	}
-	if (pmbr)
-		warnx("%s: Suspicious MBR at sector %llu", device_name,
-		    (long long)lba);
+	if (pmbr && !quiet)
+		warnx("%s: Suspicious MBR at sector %ju", device_name,
+		    (uintmax_t)lba);
 	else if (verbose > 1)
-		warnx("%s: MBR at sector %llu", device_name, (long long)lba);
+		gpt_msg("MBR at sector %ju", (uintmax_t)lba);
 
 	p = map_add(lba, 1LL, MAP_TYPE_MBR, mbr);
 	if (p == NULL)
@@ -343,9 +348,9 @@ gpt_mbr(int fd, off_t lba)
 		/* start is relative to the offset of the MBR itself. */
 		start += lba;
 		if (verbose > 2)
-			warnx("%s: MBR part: type=%d, start=%llu, size=%llu",
-			    device_name, mbr->mbr_part[i].part_typ,
-			    (long long)start, (long long)size);
+			gpt_msg("MBR part: type=%d, start=%ju, size=%ju",
+			    mbr->mbr_part[i].part_typ,
+			    (uintmax_t)start, (uintmax_t)size);
 		if (mbr->mbr_part[i].part_typ != MBR_PTYPE_EXT_LBA) {
 			m = map_add(start, size, MAP_TYPE_MBR_PART, p);
 			if (m == NULL)
@@ -461,36 +466,62 @@ gpt_gpt(int fd, off_t lba, int found)
 }
 
 int
-gpt_open(const char *dev)
+gpt_open(const char *dev, int flags)
 {
 	struct stat sb;
 	int fd, mode, found;
+	off_t devsz;
 
 	mode = readonly ? O_RDONLY : O_RDWR|O_EXCL;
 
 	device_arg = device_name = dev;
 	fd = opendisk(dev, mode, device_path, sizeof(device_path), 0);
-	if (fd == -1)
+	if (fd == -1) {
+		if (!quiet)
+			warn("Cannot open `%s'", device_name);
 		return -1;
-	if (strncmp(device_path, _PATH_DEV, strlen(_PATH_DEV)) == 0)
-		device_name = device_path + strlen(_PATH_DEV);
-	else
-		device_name = device_path;
+	}
+	device_name = device_path;
 
-	if (fstat(fd, &sb) == -1)
+	if (fstat(fd, &sb) == -1) {
+		if (!quiet)
+			warn("Cannot stat `%s'", device_name);
 		goto close;
+	}
 
 	if ((sb.st_mode & S_IFMT) != S_IFREG) {
+		if (secsz == 0) {
 #ifdef DIOCGSECTORSIZE
-		if ((secsz == 0 && ioctl(fd, DIOCGSECTORSIZE, &secsz) == -1) ||
-		    (mediasz == 0 && ioctl(fd, DIOCGMEDIASIZE, &mediasz) == -1))
-			goto close;
-#else
-		if (getdisksize(device_name, &secsz, &mediasz) == -1)
-			goto close;
+			if (ioctl(fd, DIOCGSECTORSIZE, &secsz) == -1) {
+				if (!quiet)
+					warn("Cannot get sector size for `%s'",
+					    device_name);
+				goto close;
+			}
 #endif
-		if (secsz == 0 || mediasz == 0)
-			errx(1, "Please specify sector/media size");
+			if (secsz == 0) {
+				if (!quiet)
+					warnx("Sector size for `%s' can't be 0",
+					    device_name);
+				goto close;
+			}
+		}
+		if (mediasz == 0) {
+#ifdef DIOCGMEDIASIZE
+			if (ioctl(fd, DIOCGMEDIASIZE, &mediasz) == -1) {
+				if (!quiet)
+					warn("Cannot get media size for `%s'",
+					device_name);
+				goto close;
+			}
+#endif
+			if (mediasz == 0) {
+				if (!quiet)
+					warnx("Media size for `%s' can't be 0",
+					    device_name);
+				goto close;
+			}
+		}
 	} else {
 		if (secsz == 0)
 			secsz = 512;	/* Fixed size for files. */
@@ -509,23 +540,26 @@ gpt_open(const char *dev)
 	 * user data. Let's catch this extreme border case here so that
 	 * we don't have to worry about it later.
 	 */
-	if (mediasz / secsz < 6) {
-		errno = ENODEV;
+	devsz = mediasz / secsz;
+	if (devsz < 6) {
+		if (!quiet)
+			warnx("Need 6 sectors on '%s' we have %ju",
+			    device_name, (uintmax_t)devsz);
 		goto close;
 	}
 
-	if (verbose)
-		warnx("%s: mediasize=%llu; sectorsize=%u; blocks=%llu",
-		    device_name, (long long)mediasz, secsz,
-		    (long long)(mediasz / secsz));
+	if (verbose) {
+		gpt_msg("mediasize=%ju; sectorsize=%u; blocks=%ju",
+		    (uintmax_t)mediasz, secsz, (uintmax_t)devsz);
+	}
 
-	map_init(mediasz / secsz);
+	map_init(devsz);
 
 	if (gpt_mbr(fd, 0LL) == -1)
 		goto close;
 	if ((found = gpt_gpt(fd, 1LL, 1)) == -1)
 		goto close;
-	if (gpt_gpt(fd, mediasz / secsz - 1LL, found) == -1)
+	if (gpt_gpt(fd, devsz - 1LL, found) == -1)
 		goto close;
 
 	return (fd);
@@ -538,172 +572,23 @@ gpt_open(const char *dev)
 void
 gpt_close(int fd)
 {
+	int bits;
+
+	if (modified && !nosync)
+		if (ioctl(fd, DIOCMWEDGES, &bits) == -1)
+			warn("Can't update wedge information");
+
 	/* XXX post processing? */
 	close(fd);
 }
 
-static struct {
-	int (*fptr)(int, char *[]);
-	const char *name;
-} cmdsw[] = {
-	{ cmd_add, "add" },
-#ifndef HAVE_NBTOOL_CONFIG_H
-	{ cmd_backup, "backup" },
-#endif
-	{ cmd_biosboot, "biosboot" },
-	{ cmd_create, "create" },
-	{ cmd_destroy, "destroy" },
-	{ cmd_header, "header" },
-	{ NULL, "help" },
-	{ cmd_label, "label" },
-	{ cmd_migrate, "migrate" },
-	{ cmd_recover, "recover" },
-	{ cmd_remove, "remove" },
-	{ NULL, "rename" },
-	{ cmd_resize, "resize" },
-	{ cmd_resizedisk, "resizedisk" },
-#ifndef HAVE_NBTOOL_CONFIG_H
-	{ cmd_restore, "restore" },
-#endif
-	{ cmd_set, "set" },
-	{ cmd_show, "show" },
-	{ cmd_type, "type" },
-	{ cmd_unset, "unset" },
-	{ NULL, "verify" },
-	{ NULL, NULL }
-};
-
-__dead static void
-usage(void)
+void
+gpt_msg(const char *fmt, ...)
 {
-	extern const char addmsg1[], addmsg2[], biosbootmsg[];
-	extern const char createmsg[], destroymsg[], headermsg[], labelmsg1[];
-	extern const char labelmsg2[], labelmsg3[], migratemsg[], recovermsg[];
-	extern const char removemsg1[], removemsg2[], resizemsg[];
-	extern const char resizediskmsg[], setmsg[], showmsg[], typemsg1[];
-	extern const char typemsg2[], typemsg3[], unsetmsg[];
-#ifndef HAVE_NBTOOL_CONFIG_H
-	extern const char backupmsg[], restoremsg[];
-#endif
-	const char *p = getprogname();
-	const char *f =
-	    "[-rv] [-m <mediasize>] [-p <partitionnum>] [-s <sectorsize>]";
-
-	fprintf(stderr,
-	    "Usage: %s %s <command> [<args>]\n", p, f);
-	fprintf(stderr, 
-	    "Commands:\n"
-#ifndef HAVE_NBTOOL_CONFIG_H
-	    "       %s\n"
-	    "       %s\n"
-#endif
-	    "       %s\n"
-	    "       %s\n"
-	    "       %s\n"
-	    "       %s\n"
-	    "       %s\n"
-	    "       %s\n"
-	    "       %s\n"
-	    "       %s\n"
-	    "       %s\n"
-	    "       %s\n"
-	    "       %s\n"
-	    "       %s\n"
-	    "       %s\n"
-	    "       %s\n"
-	    "       %s\n"
-	    "       %s\n"
-	    "       %s\n"
-	    "       %s\n"
-	    "       %s\n"
-	    "       %s\n"
-	    "       %s\n",
-	    addmsg1, addmsg2,
-#ifndef HAVE_NBTOOL_CONFIG_H
-	    backupmsg,
-#endif
-	    biosbootmsg, createmsg, destroymsg,
-	    headermsg, labelmsg1, labelmsg2, labelmsg3,
-	    migratemsg, recovermsg,
-	    removemsg1, removemsg2,
-	    resizemsg, resizediskmsg,
-#ifndef HAVE_NBTOOL_CONFIG_H
-	    restoremsg,
-#endif
-	    setmsg, showmsg,
-	    typemsg1, typemsg2, typemsg3,
-	    unsetmsg);
-	exit(1);
-}
-
-static void
-prefix(const char *cmd)
-{
-	char *pfx;
-	const char *prg;
-
-	prg = getprogname();
-	pfx = malloc(strlen(prg) + strlen(cmd) + 2);
-	/* Don't bother failing. It's not important */
-	if (pfx == NULL)
-		return;
-
-	sprintf(pfx, "%s %s", prg, cmd);
-	setprogname(pfx);
-}
-
-int
-main(int argc, char *argv[])
-{
-	char *cmd, *p;
-	int ch, i;
-
-	/* Get the generic options */
-	while ((ch = getopt(argc, argv, "m:p:rs:v")) != -1) {
-		switch(ch) {
-		case 'm':
-			if (mediasz > 0)
-				usage();
-			mediasz = strtoul(optarg, &p, 10);
-			if (*p != 0 || mediasz < 1)
-				usage();
-			break;
-		case 'p':
-			if (parts > 0)
-				usage();
-			parts = strtoul(optarg, &p, 10);
-			if (*p != 0 || parts < 1)
-				usage();
-			break;
-		case 'r':
-			readonly = 1;
-			break;
-		case 's':
-			if (secsz > 0)
-				usage();
-			secsz = strtoul(optarg, &p, 10);
-			if (*p != 0 || secsz < 1)
-				usage();
-			break;
-		case 'v':
-			verbose++;
-			break;
-		default:
-			usage();
-		}
-	}
-	if (!parts)
-		parts = 128;
-
-	if (argc == optind)
-		usage();
-
-	cmd = argv[optind++];
-	for (i = 0; cmdsw[i].name != NULL && strcmp(cmd, cmdsw[i].name); i++);
-
-	if (cmdsw[i].fptr == NULL)
-		errx(1, "unknown command: %s", cmd);
-
-	prefix(cmd);
-	return ((*cmdsw[i].fptr)(argc, argv));
+	va_list ap;
+	printf("%s: ", device_name);
+	va_start(ap, fmt);
+	vprintf(fmt, ap);
+	va_end(ap);
+	printf("\n");
 }

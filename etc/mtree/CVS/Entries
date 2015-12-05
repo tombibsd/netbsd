@@ -1,7 +1,7 @@
 /Makefile/1.30/Sun Oct 11 08:57:25 2015/-kk/
 /NetBSD.dist.Xorg/1.16/Wed Sep 23 07:58:05 2015/-kk/
 /NetBSD.dist.aarch64/1.3/Mon Jun 22 02:28:27 2015/-kk/
-/NetBSD.dist.base/1.149/Sun Sep 13 01:18:30 2015/-kk/
+/NetBSD.dist.base/1.150/Sat Dec  5 11:14:37 2015/-kk/
 /NetBSD.dist.compat.in/1.1/Fri Jun 19 18:16:06 2015/-kk/
 /NetBSD.dist.dtrace/1.1/Fri Oct  9 19:23:18 2015/-kk/
 /NetBSD.dist.earm/1.3/Mon Jun 22 02:28:27 2015/-kk/
@@ -15,5 +15,5 @@
 /NetBSD.dist.xcompat.in/1.1/Wed Jun 24 22:20:25 2015/-kk/
 /mkcompat.awk/1.1/Fri Jun 19 18:16:06 2015/-kk/
 /mkcompattree.awk/1.1/Fri Jun 19 18:16:06 2015/-kk/
-/special/1.152/Thu Apr  2 02:24:35 2015/-kk/
+/special/1.153/Sat Dec  5 11:14:37 2015/-kk/
 D

@@ -489,6 +489,10 @@ CondCvtArg(char *str, double *value)
     unsigned long l_val;
     double d_val;
 
+    if (!*str) {
+	errno = EINVAL;
+	return FALSE;
+    }
     errno = 0;
     l_val = strtoul(str, &eptr, str[1] == 'x' ? 16 : 10);
     ech = *eptr;

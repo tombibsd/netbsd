@@ -207,6 +207,10 @@ newterm(char *type, FILE *outfd, FILE *infd)
 	return new_screen;
 
   error_exit:
+	if (new_screen->term != NULL)
+		(void)del_curterm(new_screen->term);
+	free(new_screen->unget_list);
+
 	free(new_screen);
 	return NULL;
 }
@@ -239,7 +243,7 @@ delscreen(SCREEN *screen)
 	_cursesi_free_keymap(screen->base_keymap);
 
 	free(screen->stdbuf);
-	screen->stdbuf = NULL;
+	free(screen->unget_list);
 	if (_cursesi_screen == screen)
 		_cursesi_screen = NULL;
 	free(screen);

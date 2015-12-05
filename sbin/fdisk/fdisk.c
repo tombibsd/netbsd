@@ -2975,7 +2975,7 @@ string(const char *prompt, int length, char *buf)
 	int len;
 
 	for (;;) {
-		printf("%s: [%.*s] ", prompt, length, buf);
+		printf("%s: [%.*s] (space to clear)", prompt, length, buf);
 
 		if (!fgets(lbuf, LBUF, stdin))
 			errx(1, "EOF");

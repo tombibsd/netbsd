@@ -1085,6 +1085,10 @@ hci_cmd_read_local_extended_features(struct hci_unit *unit, struct mbuf *m)
 	    rp.page, rp.max_page);
 
 	switch (rp.page) {
+	case 2:
+		memcpy(unit->hci_feat2, rp.features, HCI_FEATURES_SIZE);
+		break;
+		
 	case 1:
 		memcpy(unit->hci_feat1, rp.features, HCI_FEATURES_SIZE);
 		break;

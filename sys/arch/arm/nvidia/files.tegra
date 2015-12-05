@@ -32,6 +32,11 @@ device	tegrapmc
 attach	tegrapmc at tegraio with tegra_pmc
 file	arch/arm/nvidia/tegra_pmc.c		tegra_pmc
 
+# eFUSE
+device	tegrafuse
+attach	tegrafuse at tegraio with tegra_fuse
+file	arch/arm/nvidia/tegra_fuse.c		tegra_fuse
+
 # Clock and Reset controller
 device	tegracar
 attach	tegracar at tegraio with tegra_car
@@ -86,6 +91,11 @@ file	arch/arm/nvidia/tegra_ehci.c		tegra_ehci
 attach	sdhc at tegraio with tegra_sdhc
 file	arch/arm/nvidia/tegra_sdhc.c		tegra_sdhc
 
+# Thermal throttling controller
+device	tegrasoctherm: sysmon_envsys
+attach	tegrasoctherm at tegraio with tegra_soctherm
+file	arch/arm/nvidia/tegra_soctherm.c	tegra_soctherm
+
 # PCIE
 device	tegrapcie: pcibus
 attach	tegrapcie at tegraio with tegra_pcie
@@ -134,9 +144,6 @@ defparam opt_tegra.h			CONMODE
 
 # Memory parameters
 defparam opt_tegra.h			MEMSIZE
-
-# CPU parameters
-defparam opt_tegra.h			CPUFREQ_BOOT
 
 # SOC parameters
 defflag	opt_tegra.h			SOC_TEGRAK1

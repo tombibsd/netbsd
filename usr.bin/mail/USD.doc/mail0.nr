@@ -63,7 +63,9 @@ Mark Andrews
 .(l C
 Version 5.5
 
-
+.if \nR==0 \
+\{
 \*(td
 .)l
+.\}
 .pn 2

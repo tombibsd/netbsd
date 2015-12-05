@@ -59,7 +59,7 @@
 /IQ80321_INSTALL/1.2/Thu Feb  9 19:07:37 2012/-kk/
 /IXDP425/1.50/Tue Aug 25 04:51:03 2015/-kk/
 /IXM1200/1.61/Wed Aug 12 04:13:54 2015/-kk/
-/JETSONTK1/1.39/Sun Nov 29 09:09:59 2015/-kk/
+/JETSONTK1/1.41/Sat Dec  5 11:19:14 2015/-kk/
 /JETSONTK1_INSTALL/1.1/Thu May 14 00:07:04 2015/-kk/
 /KOBO/1.7/Sun Apr 12 03:34:36 2015/-kk/
 /KOBO_INSTALL/1.1/Fri Jul 25 11:22:50 2014/-kk/
@@ -85,8 +85,8 @@
 /NITROGEN6X/1.6/Tue Aug 25 04:51:03 2015/-kk/
 /NITROGEN6X_INSTALL/1.1/Sat Sep 27 04:03:24 2014/-kk/
 /NSLU2/1.39/Wed Aug 12 04:13:54 2015/-kk/
-/NYAN-BIG/1.2/Fri Nov 20 02:17:26 2015/-kk/
-/ODROID-C1/1.20/Wed Aug 12 04:13:54 2015/-kk/
+/NYAN-BIG/1.3/Sat Dec  5 11:19:14 2015/-kk/
+/ODROID-C1/1.21/Sat Dec  5 11:19:14 2015/-kk/
 /ODROID-C1_INSTALL/1.1/Mon Mar 16 22:16:42 2015/-kk/
 /ODROID-U/1.19/Fri Nov 20 01:30:20 2015/-kk/
 /ODROID-XU/1.6/Fri Nov 20 01:30:20 2015/-kk/
@@ -131,7 +131,7 @@
 /TS7200_LCD/1.3/Sun Mar  6 02:22:27 2011/-kk/
 /TWINTAIL/1.66/Fri Oct  2 14:11:42 2015/-kk/
 /TWINTAIL_INSTALL/1.4/Mon May 19 16:25:48 2014/-kk/
-/VEXPRESS_A15/1.4/Fri Nov 20 01:30:20 2015/-kk/
+/VEXPRESS_A15/1.5/Sat Dec  5 11:19:15 2015/-kk/
 /VIPER/1.38/Wed Aug 12 04:13:54 2015/-kk/
 /ZAO425/1.58/Tue Aug 25 04:51:03 2015/-kk/
 /ZAO425_MD/1.3/Tue Nov 23 11:13:57 2010/-kk/
@@ -219,7 +219,7 @@
 /mk.netwalker/1.4/Sat Apr 19 05:36:46 2014/-kk/
 /mk.nitrogen6/1.2/Sat Sep 27 04:03:24 2014/-kk/
 /mk.nslu2/1.2/Sun Dec 10 10:08:05 2006/-kk/
-/mk.odroid/1.1/Sun Apr 13 02:26:26 2014/-kk/
+/mk.odroid/1.3/Sat Dec  5 11:19:15 2015/-kk/
 /mk.osk5912/1.2/Sun Apr 27 18:58:46 2008/-kk/
 /mk.rockchip/1.2/Sun Dec 28 16:29:21 2014/-kk/
 /mk.rpi/1.4/Sat Mar 21 02:29:40 2015/-kk/
@@ -234,7 +234,7 @@
 /std.amlogic/1.2/Sat Mar 21 02:29:40 2015/-kk/
 /std.armadaxp/1.3/Fri Apr 11 02:03:29 2014/-kk/
 /std.armadillo9/1.7/Sun Dec 16 23:47:56 2012/-kk/
-/std.awin/1.7/Fri May  1 11:29:02 2015/-kk/
+/std.awin/1.8/Sat Dec  5 11:19:15 2015/-kk/
 /std.bcm53xx/1.14/Sat Mar  1 06:04:25 2014/-kk/
 /std.beagle/1.13/Fri Oct  3 09:43:16 2014/-kk/
 /std.cp3100/1.5/Sun Dec 16 23:47:56 2012/-kk/
@@ -274,7 +274,7 @@
 /std.rpi/1.19/Sat Mar 21 02:29:40 2015/-kk/
 /std.smdk2410/1.7/Sun Dec 16 23:47:56 2012/-kk/
 /std.smdk2800/1.15/Sun Dec 16 23:47:56 2012/-kk/
-/std.tegra/1.9/Sun Nov 15 13:35:43 2015/-kk/
+/std.tegra/1.10/Sat Dec  5 11:19:15 2015/-kk/
 /std.tisdp24xx/1.9/Mon Nov 11 15:21:26 2013/-kk/
 /std.tsarm/1.8/Sun Dec 16 23:47:57 2012/-kk/
 /std.vexpress/1.2/Sat Mar 21 02:20:56 2015/-kk/

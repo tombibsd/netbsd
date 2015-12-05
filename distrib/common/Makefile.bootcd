@@ -74,6 +74,10 @@ _CDMAKEFSOPTIONS=	rockridge,label=${ISO_VOLID},publisher=${PUBLISHER},${CDMAKEFS
 _CDMAKEFSOPTIONS=	rockridge,label=${ISO_VOLID},publisher=${PUBLISHER}
 .endif
 
+.if ${MKREPRO:Uno} == "yes"
+TIMESTAMP=-T ${NETBSDSRCDIR}/sys/sys/param.h
+.endif
+
 .if ${MKUNPRIVED} == "no"
 CD_METALOG.unpriv=
 mtunpriv=
@@ -281,7 +285,7 @@ image:
 .endif
 	if [ -s ${WORKSPEC} ]; then specarg="-F ${WORKSPEC}"; fi;	\
 	${TOOL_MAKEFS} -N ${NETBSDSRCDIR}/etc -t cd9660 $${specarg} 	\
-		${CDMAKEFSEXTRAOPTS} -o ${_CDMAKEFSOPTIONS:Q} ${CDIMAGE} cdrom
+		${TIMESTAMP} ${CDMAKEFSEXTRAOPTS} -o ${_CDMAKEFSOPTIONS:Q} ${CDIMAGE} cdrom
 
 .if ${CDRELEASE} == false
 release: prepare .WAIT prepare_md_post .WAIT copy-releasedir .WAIT image_md_pre .WAIT image .WAIT image_md_post

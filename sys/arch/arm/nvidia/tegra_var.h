@@ -111,6 +111,9 @@ int	tegra_car_dc_enable(u_int);
 void	tegra_car_host1x_enable(void);
 void	tegra_car_wdt_enable(u_int, bool);
 void	tegra_car_gpu_enable(void);
+void	tegra_car_fuse_enable(void);
+void	tegra_car_fuse_disable(void);
+void	tegra_car_soctherm_enable(void);
 
 struct tegra_gpio_pin;
 struct tegra_gpio_pin *tegra_gpio_acquire(const char *, u_int);
@@ -147,6 +150,8 @@ void	tegra_pmc_hdmi_enable(void);
 void	tegra_i2c_dvc_write(uint8_t, uint32_t, size_t);
 
 psize_t	tegra_mc_memsize(void);
+
+uint32_t tegra_fuse_read(u_int);
 
 void	tegra_xusbpad_sata_enable(void);
 

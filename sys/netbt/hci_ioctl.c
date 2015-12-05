@@ -311,6 +311,7 @@ hci_ioctl_pcb(unsigned long cmd, void *data)
 		strlcpy(btr->btr_name, device_xname(unit->hci_dev), HCI_DEVNAME_SIZE);
 		memcpy(btr->btr_features0, unit->hci_feat0, HCI_FEATURES_SIZE);
 		memcpy(btr->btr_features1, unit->hci_feat1, HCI_FEATURES_SIZE);
+		memcpy(btr->btr_features2, unit->hci_feat2, HCI_FEATURES_SIZE);
 		break;
 
 	default:

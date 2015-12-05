@@ -400,6 +400,7 @@
 ./var/chroot/named/var/tmp	type=dir  mode=01775 gname=named
 ./var/chroot/ntpd		type=dir  mode=0755
 ./var/chroot/ntpd/dev		type=dir  mode=0755
+./var/chroot/ntpd/etc		type=dir  mode=0755
 ./var/chroot/ntpd/var		type=dir  mode=0755
 ./var/chroot/ntpd/var/db	type=dir  mode=0775 gname=ntpd
 ./var/chroot/ntpd/var/run	type=dir  mode=0775 gname=ntpd

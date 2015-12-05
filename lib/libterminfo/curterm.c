@@ -139,6 +139,7 @@ del_curterm(TERMINAL *oterm)
 	free(oterm->nums);
 	free(oterm->flags);
 	free(oterm->_userdefs);
+	free(oterm->_buf);
 	free(oterm);
 	return OK;
 }

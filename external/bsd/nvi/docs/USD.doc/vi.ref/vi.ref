@@ -28,9 +28,12 @@ Computer Science Division
 Department of Electrical Engineering and Computer Science
 University of California, Berkeley
 Berkeley, California  94720
+.if \nR==0 \
+\{
 .sp 1
 \*(td
 .)l
+.\}
 .sp 3
 .(l C
 .i Abstract

@@ -136,13 +136,13 @@
 /icp_pci.c/1.22/Fri Apr 11 02:03:43 2014/-kk/
 /if_age.c/1.45/Wed Apr 22 07:36:55 2015/-kk/
 /if_agereg.h/1.3/Tue Jul 28 21:03:46 2009/-kk/
-/if_alc.c/1.15/Sun Sep 13 01:31:32 2015/-kk/
-/if_alcreg.h/1.4/Sun Sep 13 01:31:32 2015/-kk/
+/if_alc.c/1.17/Sat Dec  5 11:19:31 2015/-kk/
+/if_alcreg.h/1.5/Sat Dec  5 11:19:31 2015/-kk/
 /if_ale.c/1.18/Wed Apr 22 07:36:56 2015/-kk/
 /if_alereg.h/1.2/Sat Apr 25 17:04:40 2009/-kk/
 /if_an_pci.c/1.35/Fri Apr 11 02:03:43 2014/-kk/
 /if_ath_pci.c/1.48/Fri Apr 11 02:03:43 2014/-kk/
-/if_athn_pci.c/1.11/Sun Nov 29 09:10:34 2015/-kk/
+/if_athn_pci.c/1.12/Sat Dec  5 11:19:31 2015/-kk/
 /if_atw_pci.c/1.26/Fri Apr 11 02:03:43 2014/-kk/
 /if_bce.c/1.40/Wed Apr 22 07:36:56 2015/-kk/
 /if_bcereg.h/1.4/Sun Dec 11 12:22:49 2005/-kk/

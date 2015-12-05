@@ -1,10 +1,9 @@
 # $NetBSD$
-# $Id$
-# $FreeBSD: /repoman/r/ncvs/src/etc/bluetooth/hosts,v 1.2 2005/11/10 19:09:22 emax Exp $
 #
 # Bluetooth Host Database
 #
-# This file should contain the Bluetooth addresses and aliases for hosts.
+# This file should contain the Bluetooth device addresses and
+# aliases for devices known to the system
 #
 # BD_ADDR               Name [ alias0 alias1 ... ]
 

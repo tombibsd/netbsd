@@ -3165,17 +3165,6 @@ armv7_setup(char *args)
 		cpuctrl |= CPU_CONTROL_VECRELOC;
 #endif
 
-#ifdef TEGRAK1_PMAP_WORKAROUND
-	uint32_t auxctrl = armreg_auxctl_read();
-
-	// u-boot sets this incorrectly on boot cpu
-	auxctrl &= ~CORTEXA15_ACTLR_BTB;
-	auxctrl |= CORTEXA15_ACTLR_IOBEU;
-
-	/* Update auxctlr */
-	armreg_auxctl_write(auxctrl);
-#endif
-
 	/* Clear out the cache */
 	cpu_idcache_wbinv_all();
 

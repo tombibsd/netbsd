@@ -1281,6 +1281,8 @@ cd9660_rrip_move_directory(iso9660_disk *diskStructure, cd9660node *dir)
 		    diskStructure->rootNode, dir);
 		if (diskStructure->rr_moved_dir == NULL)
 			return 0;
+		cd9660_time_915(diskStructure->rr_moved_dir->isoDirRecord->date,
+		    stampst.st_ino ? stampst.st_mtime : start_time.tv_sec);
 	}
 
 	/* Create a file with the same ORIGINAL name */

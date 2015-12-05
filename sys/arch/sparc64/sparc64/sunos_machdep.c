@@ -88,6 +88,7 @@ sunos_sendsig(const ksiginfo_t *ksi, const sigset_t *mask)
 	register struct trapframe64 *tf;
 	register int addr, onstack; 
 	struct rwindow32 *oldsp, *newsp;
+	register32_t sp;
 	int sig = ksi->ksi_signo, error;
 	sig_t catcher = SIGACTION(p, sig).sa_handler;
 	struct sunos_sigframe sf;
@@ -160,9 +161,11 @@ sunos_sendsig(const ksiginfo_t *ksi, const sigset_t *mask)
 	    printf("sunos_sendsig: saving sf to %p, setting stack pointer %p to %p\n",
 		   fp, &(((struct rwindow32 *)newsp)->rw_in[6]), oldsp);
 #endif
+	sp = (register32_t)(uintptr_t)oldsp;
 	error = (rwindow_save(l) || 
 	    copyout((void *)&sf, (void *)fp, sizeof sf) || 
-	    suword(&(((struct rwindow32 *)newsp)->rw_in[6]), (u_long)oldsp));
+	    copyout(&sp, &(((struct rwindow32 *)newsp)->rw_in[6]),
+	        sizeof(sp)));
 	mutex_enter(p->p_lock);
 
 	if (error) {

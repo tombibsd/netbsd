@@ -436,7 +436,8 @@ sys_shmat(struct lwp *l, const struct sys_shmat_args *uap, register_t *retval)
 	} else {
 		/* This is just a hint to uvm_map() about where to put it. */
 		attach_va = p->p_emul->e_vm_default_addr(p,
-		    (vaddr_t)vm->vm_daddr, size);
+		    (vaddr_t)vm->vm_daddr, size,
+		    p->p_vmspace->vm_map.flags & VM_MAP_TOPDOWN);
 	}
 
 	/*

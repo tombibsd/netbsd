@@ -128,10 +128,8 @@ tegra_cpufreq_init(void)
 		goto sysctl_failed;
 	cpufreq_node_available = node->sysctl_num;
 
-#ifdef CPUFREQ_BOOT
-	cpufreq_set_rate(CPUFREQ_BOOT);
+	cpufreq_set_rate(availfreq[0]);
 	tegra_cpufreq_post(NULL, NULL);
-#endif
 
 	return;
 

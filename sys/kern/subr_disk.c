@@ -421,7 +421,7 @@ int
 disk_read_sectors(void (*strat)(struct buf *), const struct disklabel *lp,
     struct buf *bp, unsigned int sector, int count)
 {
-	bp->b_blkno = sector;
+	bp->b_blkno = btodb((off_t)sector * lp->d_secsize);
 	bp->b_bcount = count * lp->d_secsize;
 	bp->b_flags = (bp->b_flags & ~B_WRITE) | B_READ;
 	bp->b_oflags &= ~BO_DONE;

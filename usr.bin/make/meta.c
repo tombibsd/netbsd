@@ -1183,7 +1183,8 @@ meta_oodate(GNode *gn, Boolean oodate)
 		    if ((strstr("tmp", p)))
 			break;
 
-		    if (stat(p, &fs) < 0) {
+		    if ((link_src != NULL && lstat(p, &fs) < 0) ||
+			(link_src == NULL && stat(p, &fs) < 0)) {
 			Lst_AtEnd(missingFiles, bmake_strdup(p));
 		    }
 		    break;
