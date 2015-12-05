@@ -79,7 +79,7 @@ static struct tegra124_cpufreq_rate {
 	u_int divn;
 	u_int divp;
 } tegra124_cpufreq_rates[] = {
-	{ 2292, 1, 191, 0 },
+	{ 2316, 1, 193, 0 },
 	{ 2100, 1, 175, 0 },
 	{ 1896, 1, 158, 0 },
 	{ 1692, 1, 141, 0 },

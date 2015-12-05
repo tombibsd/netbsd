@@ -151,7 +151,7 @@ struct emul {
 	struct sysent	*e_sysent;	/* System call array */
 	const char * const *e_syscallnames; /* System call name array */
 					/* Signal sending function */
-	struct sc_auto	*e_sc_autoload;	/* List of autoloadable syscalls */
+	struct sc_autoload *e_sc_autoload;	/* List of autoloadable syscalls */
 	void		(*e_sendsig)(const struct ksiginfo *,
 					  const sigset_t *);
 	void		(*e_trapsignal)(struct lwp *, struct ksiginfo *);

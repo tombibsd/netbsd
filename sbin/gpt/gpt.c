@@ -58,19 +58,7 @@ __RCSID("$NetBSD$");
 
 #include "map.h"
 #include "gpt.h"
-
-char	device_path[MAXPATHLEN];
-const char *device_arg;
-const char *device_name;
-
-off_t	mediasz;
-
-u_int	parts;
-u_int	secsz;
-
-int	readonly, verbose, quiet, nosync;
-
-static int modified;
+#include "gpt_private.h"
 
 static uint32_t crc32_tab[] = {
 	0x00000000, 0x77073096, 0xee0e612c, 0x990951ba, 0x076dc419, 0x706af48f,
@@ -243,61 +231,61 @@ utf8_to_utf16(const uint8_t *s8, uint16_t *s16, size_t s16len)
 	} while (c != 0);
 }
 
-void*
-gpt_read(int fd, off_t lba, size_t count)
+void *
+gpt_read(gpt_t gpt, off_t lba, size_t count)
 {
 	off_t ofs;
 	void *buf;
 
-	count *= secsz;
+	count *= gpt->secsz;
 	buf = malloc(count);
 	if (buf == NULL)
-		return (NULL);
+		return NULL;
 
-	ofs = lba * secsz;
-	if (lseek(fd, ofs, SEEK_SET) == ofs &&
-	    read(fd, buf, count) == (ssize_t)count)
-		return (buf);
+	ofs = lba * gpt->secsz;
+	if (lseek(gpt->fd, ofs, SEEK_SET) == ofs &&
+	    read(gpt->fd, buf, count) == (ssize_t)count)
+		return buf;
 
 	free(buf);
-	return (NULL);
+	return NULL;
 }
 
 int
-gpt_write(int fd, map_t *map)
+gpt_write(gpt_t gpt, map_t map)
 {
 	off_t ofs;
 	size_t count;
 
-	count = map->map_size * secsz;
-	ofs = map->map_start * secsz;
-	if (lseek(fd, ofs, SEEK_SET) != ofs ||
-	    write(fd, map->map_data, count) != (ssize_t)count)
+	count = map->map_size * gpt->secsz;
+	ofs = map->map_start * gpt->secsz;
+	if (lseek(gpt->fd, ofs, SEEK_SET) != ofs ||
+	    write(gpt->fd, map->map_data, count) != (ssize_t)count)
 		return -1;
-	modified = 1;
+	gpt->flags |= GPT_MODIFIED;
 	return 0;
 }
 
 static int
-gpt_mbr(int fd, off_t lba)
+gpt_mbr(gpt_t gpt, off_t lba)
 {
 	struct mbr *mbr;
-	map_t *m, *p;
+	map_t m, p;
 	off_t size, start;
 	unsigned int i, pmbr;
 
-	mbr = gpt_read(fd, lba, 1);
+	mbr = gpt_read(gpt, lba, 1);
 	if (mbr == NULL) {
-		if (!quiet)
-			warn("%s: read failed", device_name);
-		return (-1);
+		gpt_warn(gpt, "Read failed");
+		return -1;
 	}
 
 	if (mbr->mbr_sig != htole16(MBR_SIG)) {
-		if (verbose)
-			gpt_msg("MBR not found at sector %ju", (uintmax_t)lba);
+		if (gpt->verbose)
+			gpt_msg(gpt,
+			    "MBR not found at sector %ju", (uintmax_t)lba);
 		free(mbr);
-		return (0);
+		return 0;
 	}
 
 	/*
@@ -315,23 +303,23 @@ gpt_mbr(int fd, off_t lba)
 			break;
 	}
 	if (pmbr && i == 4 && lba == 0) {
-		if (pmbr != 1 && !quiet)
-			warnx("%s: Suspicious PMBR at sector %ju",
-			    device_name, (uintmax_t)lba);
-		else if (verbose > 1)
-			gpt_msg("PMBR at sector %ju", (uintmax_t)lba);
-		p = map_add(lba, 1LL, MAP_TYPE_PMBR, mbr);
-		return ((p == NULL) ? -1 : 0);
+		if (pmbr != 1)
+			gpt_warnx(gpt, "Suspicious PMBR at sector %ju",
+			    (uintmax_t)lba);
+		else if (gpt->verbose > 1)
+			gpt_msg(gpt, "PMBR at sector %ju", (uintmax_t)lba);
+		p = map_add(gpt, lba, 1LL, MAP_TYPE_PMBR, mbr);
+		goto out;
 	}
-	if (pmbr && !quiet)
-		warnx("%s: Suspicious MBR at sector %ju", device_name,
-		    (uintmax_t)lba);
-	else if (verbose > 1)
-		gpt_msg("MBR at sector %ju", (uintmax_t)lba);
+	if (pmbr)
+		gpt_warnx(gpt, "Suspicious MBR at sector %ju", (uintmax_t)lba);
+	else if (gpt->verbose > 1)
+		gpt_msg(gpt, "MBR at sector %ju", (uintmax_t)lba);
 
-	p = map_add(lba, 1LL, MAP_TYPE_MBR, mbr);
+	p = map_add(gpt, lba, 1LL, MAP_TYPE_MBR, mbr);
 	if (p == NULL)
-		return (-1);
+		goto out;
+
 	for (i = 0; i < 4; i++) {
 		if (mbr->mbr_part[i].part_typ == MBR_PTYPE_UNUSED ||
 		    mbr->mbr_part[i].part_typ == MBR_PTYPE_PMBR)
@@ -341,44 +329,50 @@ gpt_mbr(int fd, off_t lba)
 		size = le16toh(mbr->mbr_part[i].part_size_hi);
 		size = (size << 16) + le16toh(mbr->mbr_part[i].part_size_lo);
 		if (start == 0 && size == 0) {
-			warnx("%s: Malformed MBR at sector %llu", device_name,
-			    (long long)lba);
+			gpt_warnx(gpt, "Malformed MBR at sector %ju",
+			    (uintmax_t)lba);
 			continue;
 		}
 		/* start is relative to the offset of the MBR itself. */
 		start += lba;
-		if (verbose > 2)
-			gpt_msg("MBR part: type=%d, start=%ju, size=%ju",
+		if (gpt->verbose > 2)
+			gpt_msg(gpt, "MBR part: type=%d, start=%ju, size=%ju",
 			    mbr->mbr_part[i].part_typ,
 			    (uintmax_t)start, (uintmax_t)size);
 		if (mbr->mbr_part[i].part_typ != MBR_PTYPE_EXT_LBA) {
-			m = map_add(start, size, MAP_TYPE_MBR_PART, p);
+			m = map_add(gpt, start, size, MAP_TYPE_MBR_PART, p);
 			if (m == NULL)
-				return (-1);
+				return -1;
 			m->map_index = i + 1;
 		} else {
-			if (gpt_mbr(fd, start) == -1)
-				return (-1);
+			if (gpt_mbr(gpt, start) == -1)
+				return -1;
 		}
 	}
-	return (0);
+	return 0;
+out:
+	if (p == NULL) {
+		free(mbr);
+		return -1;
+	}
+	return 0;
 }
 
 int
-gpt_gpt(int fd, off_t lba, int found)
+gpt_gpt(gpt_t gpt, off_t lba, int found)
 {
 	off_t size;
 	struct gpt_ent *ent;
 	struct gpt_hdr *hdr;
 	char *p;
-	map_t *m;
+	map_t m;
 	size_t blocks, tblsz;
 	unsigned int i;
 	uint32_t crc;
 
-	hdr = gpt_read(fd, lba, 1);
+	hdr = gpt_read(gpt, lba, 1);
 	if (hdr == NULL)
-		return (-1);
+		return -1;
 
 	if (memcmp(hdr->hdr_sig, GPT_HDR_SIG, sizeof(hdr->hdr_sig)))
 		goto fail_hdr;
@@ -386,46 +380,45 @@ gpt_gpt(int fd, off_t lba, int found)
 	crc = le32toh(hdr->hdr_crc_self);
 	hdr->hdr_crc_self = 0;
 	if (crc32(hdr, le32toh(hdr->hdr_size)) != crc) {
-		if (verbose)
-			warnx("%s: Bad CRC in GPT header at sector %llu",
-			    device_name, (long long)lba);
+		if (gpt->verbose)
+			gpt_msg(gpt, "Bad CRC in GPT header at sector %ju",
+			    (uintmax_t)lba);
 		goto fail_hdr;
 	}
 
 	tblsz = le32toh(hdr->hdr_entries) * le32toh(hdr->hdr_entsz);
-	blocks = tblsz / secsz + ((tblsz % secsz) ? 1 : 0);
+	blocks = tblsz / gpt->secsz + ((tblsz % gpt->secsz) ? 1 : 0);
 
 	/* Use generic pointer to deal with hdr->hdr_entsz != sizeof(*ent). */
-	p = gpt_read(fd, le64toh(hdr->hdr_lba_table), blocks);
+	p = gpt_read(gpt, le64toh(hdr->hdr_lba_table), blocks);
 	if (p == NULL) {
 		if (found) {
-			if (verbose)
-				warn("%s: Cannot read LBA table at sector %llu",
-				    device_name, (unsigned long long)
-				    le64toh(hdr->hdr_lba_table));
-			return (-1);
+			if (gpt->verbose)
+				gpt_msg(gpt,
+				    "Cannot read LBA table at sector %ju",
+				    (uintmax_t)le64toh(hdr->hdr_lba_table));
+			return -1;
 		}
 		goto fail_hdr;
 	}
 
 	if (crc32(p, tblsz) != le32toh(hdr->hdr_crc_table)) {
-		if (verbose)
-			warnx("%s: Bad CRC in GPT table at sector %llu",
-			    device_name,
-			    (long long)le64toh(hdr->hdr_lba_table));
+		if (gpt->verbose)
+			gpt_msg(gpt, "Bad CRC in GPT table at sector %ju",
+			    (uintmax_t)le64toh(hdr->hdr_lba_table));
 		goto fail_ent;
 	}
 
-	if (verbose > 1)
-		warnx("%s: %s GPT at sector %llu", device_name,
-		    (lba == 1) ? "Pri" : "Sec", (long long)lba);
+	if (gpt->verbose > 1)
+		gpt_msg(gpt, "%s GPT at sector %ju",
+		    (lba == 1) ? "Pri" : "Sec", (uintmax_t)lba);
 
-	m = map_add(lba, 1, (lba == 1)
+	m = map_add(gpt, lba, 1, (lba == 1)
 	    ? MAP_TYPE_PRI_GPT_HDR : MAP_TYPE_SEC_GPT_HDR, hdr);
 	if (m == NULL)
 		return (-1);
 
-	m = map_add(le64toh(hdr->hdr_lba_table), blocks, (lba == 1)
+	m = map_add(gpt, le64toh(hdr->hdr_lba_table), blocks, (lba == 1)
 	    ? MAP_TYPE_PRI_GPT_TBL : MAP_TYPE_SEC_GPT_TBL, p);
 	if (m == NULL)
 		return (-1);
@@ -440,16 +433,16 @@ gpt_gpt(int fd, off_t lba, int found)
 
 		size = le64toh(ent->ent_lba_end) - le64toh(ent->ent_lba_start) +
 		    1LL;
-		if (verbose > 2) {
+		if (gpt->verbose > 2) {
 			char buf[128];
 			gpt_uuid_snprintf(buf, sizeof(buf), "%s", 
 			    ent->ent_type);
-			warnx("%s: GPT partition: type=%s, start=%llu, "
-			    "size=%llu", device_name, buf,
-			    (long long)le64toh(ent->ent_lba_start),
-			    (long long)size);
+			gpt_msg(gpt, "GPT partition: type=%s, start=%ju, "
+			    "size=%ju", buf,
+			    (uintmax_t)le64toh(ent->ent_lba_start),
+			    (uintmax_t)size);
 		}
-		m = map_add(le64toh(ent->ent_lba_start), size,
+		m = map_add(gpt, le64toh(ent->ent_lba_start), size,
 		    MAP_TYPE_GPT_PART, ent);
 		if (m == NULL)
 			return (-1);
@@ -465,72 +458,73 @@ gpt_gpt(int fd, off_t lba, int found)
 	return (0);
 }
 
-int
-gpt_open(const char *dev, int flags)
+gpt_t
+gpt_open(const char *dev, int flags, int verbose, off_t mediasz, u_int secsz)
 {
-	struct stat sb;
-	int fd, mode, found;
+	int mode, found;
 	off_t devsz;
+	gpt_t gpt;
 
-	mode = readonly ? O_RDONLY : O_RDWR|O_EXCL;
 
-	device_arg = device_name = dev;
-	fd = opendisk(dev, mode, device_path, sizeof(device_path), 0);
-	if (fd == -1) {
-		if (!quiet)
-			warn("Cannot open `%s'", device_name);
-		return -1;
+	if ((gpt = calloc(1, sizeof(*gpt))) == NULL) {
+		if (!(gpt->flags & GPT_QUIET))
+			warn("Cannot allocate `%s'", dev);
+		return NULL;
 	}
-	device_name = device_path;
+	gpt->flags = flags;
+	gpt->verbose = verbose;
+	gpt->mediasz = mediasz;
+	gpt->secsz = secsz;
 
-	if (fstat(fd, &sb) == -1) {
-		if (!quiet)
-			warn("Cannot stat `%s'", device_name);
+	mode = (gpt->flags & GPT_READONLY) ? O_RDONLY : O_RDWR|O_EXCL;
+		
+	gpt->fd = opendisk(dev, mode, gpt->device_name,
+	    sizeof(gpt->device_name), 0);
+	if (gpt->fd == -1) {
+		strlcpy(gpt->device_name, dev, sizeof(gpt->device_name));
+		gpt_warn(gpt, "Cannot open");
 		goto close;
 	}
 
-	if ((sb.st_mode & S_IFMT) != S_IFREG) {
-		if (secsz == 0) {
+	if (fstat(gpt->fd, &gpt->sb) == -1) {
+		gpt_warn(gpt, "Cannot stat");
+		goto close;
+	}
+
+	if ((gpt->sb.st_mode & S_IFMT) != S_IFREG) {
+		if (gpt->secsz == 0) {
 #ifdef DIOCGSECTORSIZE
-			if (ioctl(fd, DIOCGSECTORSIZE, &secsz) == -1) {
-				if (!quiet)
-					warn("Cannot get sector size for `%s'",
-					    device_name);
+			if (ioctl(gpt->fd, DIOCGSECTORSIZE, &gpt->secsz) == -1) {
+				gpt_warn(gpt, "Cannot get sector size");
 				goto close;
 			}
 #endif
-			if (secsz == 0) {
-				if (!quiet)
-					warnx("Sector size for `%s' can't be 0",
-					    device_name);
+			if (gpt->secsz == 0) {
+				gpt_warnx(gpt, "Sector size can't be 0");
 				goto close;
 			}
 		}
-		if (mediasz == 0) {
+		if (gpt->mediasz == 0) {
 #ifdef DIOCGMEDIASIZE
-			if (ioctl(fd, DIOCGMEDIASIZE, &mediasz) == -1) {
-				if (!quiet)
-					warn("Cannot get media size for `%s'",
-					device_name);
+			if (ioctl(gpt->fd, DIOCGMEDIASIZE, &gpt->mediasz) == -1) {
+				gpt_warn(gpt, "Cannot get media size");
 				goto close;
 			}
 #endif
-			if (mediasz == 0) {
-				if (!quiet)
-					warnx("Media size for `%s' can't be 0",
-					    device_name);
+			if (gpt->mediasz == 0) {
+				gpt_warnx(gpt, "Media size can't be 0");
 				goto close;
 			}
 		}
 	} else {
-		if (secsz == 0)
-			secsz = 512;	/* Fixed size for files. */
-		if (mediasz == 0) {
-			if (sb.st_size % secsz) {
+		if (gpt->secsz == 0)
+			gpt->secsz = 512;	/* Fixed size for files. */
+		if (gpt->mediasz == 0) {
+			if (gpt->sb.st_size % gpt->secsz) {
 				errno = EINVAL;
 				goto close;
 			}
-			mediasz = sb.st_size;
+			gpt->mediasz = gpt->sb.st_size;
 		}
 	}
 
@@ -540,55 +534,638 @@ gpt_open(const char *dev, int flags)
 	 * user data. Let's catch this extreme border case here so that
 	 * we don't have to worry about it later.
 	 */
-	devsz = mediasz / secsz;
+	devsz = gpt->mediasz / gpt->secsz;
 	if (devsz < 6) {
-		if (!quiet)
-			warnx("Need 6 sectors on '%s' we have %ju",
-			    device_name, (uintmax_t)devsz);
+		gpt_warnx(gpt, "Need 6 sectorso, we have %ju",
+		    (uintmax_t)devsz);
 		goto close;
 	}
 
-	if (verbose) {
-		gpt_msg("mediasize=%ju; sectorsize=%u; blocks=%ju",
-		    (uintmax_t)mediasz, secsz, (uintmax_t)devsz);
+	if (gpt->verbose) {
+		gpt_msg(gpt, "mediasize=%ju; sectorsize=%u; blocks=%ju",
+		    (uintmax_t)gpt->mediasz, gpt->secsz, (uintmax_t)devsz);
 	}
 
-	map_init(devsz);
+	map_init(gpt, devsz);
 
-	if (gpt_mbr(fd, 0LL) == -1)
+	if (gpt_mbr(gpt, 0LL) == -1)
 		goto close;
-	if ((found = gpt_gpt(fd, 1LL, 1)) == -1)
+	if ((found = gpt_gpt(gpt, 1LL, 1)) == -1)
 		goto close;
-	if (gpt_gpt(fd, devsz - 1LL, found) == -1)
+	if (gpt_gpt(gpt, devsz - 1LL, found) == -1)
 		goto close;
 
-	return (fd);
+	return gpt;
 
  close:
-	close(fd);
-	return (-1);
+	if (gpt->fd != -1)
+		close(gpt->fd);
+	free(gpt);
+	return NULL;
 }
 
 void
-gpt_close(int fd)
+gpt_close(gpt_t gpt)
 {
-	int bits;
 
-	if (modified && !nosync)
-		if (ioctl(fd, DIOCMWEDGES, &bits) == -1)
-			warn("Can't update wedge information");
+	if (!(gpt->flags & GPT_MODIFIED))
+		goto out;
 
-	/* XXX post processing? */
-	close(fd);
+	if (!(gpt->flags & GPT_NOSYNC)) {
+#ifdef DIOCMWEDGES
+		int bits;
+		if (ioctl(gpt->fd, DIOCMWEDGES, &bits) == -1)
+			gpt_warn(gpt, "Can't update wedge information");
+		else
+			goto out;
+#endif
+	}
+	gpt_msg(gpt, "You need to run \"dkctl %s makewedges\""
+	    " for the changes to take effect\n", gpt->device_name);
+
+out:
+	close(gpt->fd);
 }
 
 void
-gpt_msg(const char *fmt, ...)
+gpt_warnx(gpt_t gpt, const char *fmt, ...)
 {
 	va_list ap;
-	printf("%s: ", device_name);
+
+	if (gpt->flags & GPT_QUIET)
+		return;
+	fprintf(stderr, "%s: %s: ", getprogname(), gpt->device_name);
+	va_start(ap, fmt);
+	vfprintf(stderr, fmt, ap);
+	va_end(ap);
+	fprintf(stderr, "\n");
+}
+
+void
+gpt_warn(gpt_t gpt, const char *fmt, ...)
+{
+	va_list ap;
+	int e = errno;
+
+	if (gpt->flags & GPT_QUIET)
+		return;
+	fprintf(stderr, "%s: %s: ", getprogname(), gpt->device_name);
+	va_start(ap, fmt);
+	vfprintf(stderr, fmt, ap);
+	va_end(ap);
+	fprintf(stderr, " (%s)\n", strerror(e));
+	errno = e;
+}
+
+void
+gpt_msg(gpt_t gpt, const char *fmt, ...)
+{
+	va_list ap;
+
+	if (gpt->flags & GPT_QUIET)
+		return;
+	printf("%s: ", gpt->device_name);
 	va_start(ap, fmt);
 	vprintf(fmt, ap);
 	va_end(ap);
 	printf("\n");
+}
+
+struct gpt_hdr *
+gpt_hdr(gpt_t gpt)
+{
+	gpt->gpt = map_find(gpt, MAP_TYPE_PRI_GPT_HDR);
+	if (gpt->gpt == NULL) {
+		gpt_warnx(gpt, "No primary GPT header; run create or recover");
+		return NULL;
+	}
+
+	gpt->tpg = map_find(gpt, MAP_TYPE_SEC_GPT_HDR);
+	if (gpt->tpg == NULL) {
+		gpt_warnx(gpt, "No secondary GPT header; run recover");
+		return NULL;
+	}
+
+	gpt->tbl = map_find(gpt, MAP_TYPE_PRI_GPT_TBL);
+	gpt->lbt = map_find(gpt, MAP_TYPE_SEC_GPT_TBL);
+	if (gpt->tbl == NULL || gpt->lbt == NULL) {
+		gpt_warnx(gpt, "Corrupt maps, run recover");
+		return NULL;
+	}
+
+	return gpt->gpt->map_data;
+}
+
+int
+gpt_write_crc(gpt_t gpt, map_t map, map_t tbl)
+{
+	struct gpt_hdr *hdr = map->map_data;
+
+	hdr->hdr_crc_table = htole32(crc32(tbl->map_data,
+	    le32toh(hdr->hdr_entries) * le32toh(hdr->hdr_entsz)));
+	hdr->hdr_crc_self = 0;
+	hdr->hdr_crc_self = htole32(crc32(hdr, le32toh(hdr->hdr_size)));
+
+	if (gpt_write(gpt, map) == -1) {
+		gpt_warn(gpt, "Error writing crc map");
+		return -1;
+	}
+
+	if (gpt_write(gpt, tbl) == -1) {
+		gpt_warn(gpt, "Error writing crc table");
+		return -1;
+	}
+
+	return 0;
+}
+
+int
+gpt_write_primary(gpt_t gpt)
+{
+	return gpt_write_crc(gpt, gpt->gpt, gpt->tbl);
+}
+
+
+int
+gpt_write_backup(gpt_t gpt)
+{
+	return gpt_write_crc(gpt, gpt->tpg, gpt->lbt);
+}
+
+void
+gpt_create_pmbr_part(struct mbr_part *part, off_t last)
+{
+	part->part_shd = 0x00;
+	part->part_ssect = 0x02;
+	part->part_scyl = 0x00;
+	part->part_typ = MBR_PTYPE_PMBR;
+	part->part_ehd = 0xfe;
+	part->part_esect = 0xff;
+	part->part_ecyl = 0xff;
+	part->part_start_lo = htole16(1);
+	if (last > 0xffffffff) {
+		part->part_size_lo = htole16(0xffff);
+		part->part_size_hi = htole16(0xffff);
+	} else {
+		part->part_size_lo = htole16(last);
+		part->part_size_hi = htole16(last >> 16);
+	}
+}
+
+
+struct gpt_ent *
+gpt_ent(map_t map, map_t tbl, unsigned int i)
+{
+	struct gpt_hdr *hdr = map->map_data;
+	return (void *)((char *)tbl->map_data + i * le32toh(hdr->hdr_entsz));
+}
+
+struct gpt_ent *
+gpt_ent_primary(gpt_t gpt, unsigned int i)
+{
+	return gpt_ent(gpt->gpt, gpt->tbl, i);
+}
+
+struct gpt_ent *
+gpt_ent_backup(gpt_t gpt, unsigned int i)
+{
+	return gpt_ent(gpt->tpg, gpt->lbt, i);
+}
+
+int
+gpt_usage(const char *prefix, const struct gpt_cmd *cmd)
+{
+	const char **a = cmd->help;
+	size_t hlen = cmd->hlen;
+	size_t i;
+
+	if (prefix == NULL) {
+		const char *pname = getprogname();
+		int len = (int)strlen(pname);
+		fprintf(stderr, "Usage: %s %s %s\n", pname, cmd->name, a[0]);
+		for (i = 1; i < hlen; i++) {
+			fprintf(stderr,
+			    "       %*s %s %s\n", len, "", cmd->name, a[i]);
+		}
+	} else {
+		for (i = 0; i < hlen; i++)
+		    fprintf(stderr, "%s%s %s\n", prefix, cmd->name, a[i]);
+	}
+	return -1;
+}
+
+off_t
+gpt_last(gpt_t gpt)
+{
+	return gpt->mediasz / gpt->secsz - 1LL;
+}
+
+int
+gpt_create(gpt_t gpt, off_t last, u_int parts, int primary_only)
+{
+	off_t blocks;
+	map_t map;
+	struct gpt_hdr *hdr;
+	struct gpt_ent *ent;
+	unsigned int i;
+	void *p;
+
+	if (map_find(gpt, MAP_TYPE_PRI_GPT_HDR) != NULL ||
+	    map_find(gpt, MAP_TYPE_SEC_GPT_HDR) != NULL) {
+		gpt_warnx(gpt, "Device already contains a GPT");
+		return -1;
+	}
+
+	/* Get the amount of free space after the MBR */
+	blocks = map_free(gpt, 1LL, 0LL);
+	if (blocks == 0LL) {
+		gpt_warnx(gpt, "No room for the GPT header");
+		return -1;
+	}
+
+	/* Don't create more than parts entries. */
+	if ((uint64_t)(blocks - 1) * gpt->secsz >
+	    parts * sizeof(struct gpt_ent)) {
+		blocks = (parts * sizeof(struct gpt_ent)) / gpt->secsz;
+		if ((parts * sizeof(struct gpt_ent)) % gpt->secsz)
+			blocks++;
+		blocks++;		/* Don't forget the header itself */
+	}
+
+	/* Never cross the median of the device. */
+	if ((blocks + 1LL) > ((last + 1LL) >> 1))
+		blocks = ((last + 1LL) >> 1) - 1LL;
+
+	/*
+	 * Get the amount of free space at the end of the device and
+	 * calculate the size for the GPT structures.
+	 */
+	map = map_last(gpt);
+	if (map->map_type != MAP_TYPE_UNUSED) {
+		gpt_warnx(gpt, "No room for the backup header");
+		return -1;
+	}
+
+	if (map->map_size < blocks)
+		blocks = map->map_size;
+	if (blocks == 1LL) {
+		gpt_warnx(gpt, "No room for the GPT table");
+		return -1;
+	}
+
+	blocks--;		/* Number of blocks in the GPT table. */
+
+	if ((p = calloc(1, gpt->secsz)) == NULL) {
+		gpt_warnx(gpt, "Can't allocate the primary GPT");
+		return -1;
+	}
+	if ((gpt->gpt = map_add(gpt, 1LL, 1LL,
+	    MAP_TYPE_PRI_GPT_HDR, p)) == NULL) {
+		free(p);
+		gpt_warnx(gpt, "Can't add the primary GPT");
+		return -1;
+	}
+
+	if ((p = calloc(blocks, gpt->secsz)) == NULL) {
+		gpt_warnx(gpt, "Can't allocate the primary GPT table");
+		return -1;
+	}
+	if ((gpt->tbl = map_add(gpt, 2LL, blocks,
+	    MAP_TYPE_PRI_GPT_TBL, p)) == NULL) {
+		free(p);
+		gpt_warnx(gpt, "Can't add the primary GPT table");
+		return -1;
+	}
+
+	hdr = gpt->gpt->map_data;
+	memcpy(hdr->hdr_sig, GPT_HDR_SIG, sizeof(hdr->hdr_sig));
+
+	/*
+	 * XXX struct gpt_hdr is not a multiple of 8 bytes in size and thus
+	 * contains padding we must not include in the size.
+	 */
+	hdr->hdr_revision = htole32(GPT_HDR_REVISION);
+	hdr->hdr_size = htole32(GPT_HDR_SIZE);
+	hdr->hdr_lba_self = htole64(gpt->gpt->map_start);
+	hdr->hdr_lba_alt = htole64(last);
+	hdr->hdr_lba_start = htole64(gpt->tbl->map_start + blocks);
+	hdr->hdr_lba_end = htole64(last - blocks - 1LL);
+	if (gpt_uuid_generate(gpt, hdr->hdr_guid) == -1)
+		return -1;
+	hdr->hdr_lba_table = htole64(gpt->tbl->map_start);
+	hdr->hdr_entries = htole32((blocks * gpt->secsz) /
+	    sizeof(struct gpt_ent));
+	if (le32toh(hdr->hdr_entries) > parts)
+		hdr->hdr_entries = htole32(parts);
+	hdr->hdr_entsz = htole32(sizeof(struct gpt_ent));
+
+	ent = gpt->tbl->map_data;
+	for (i = 0; i < le32toh(hdr->hdr_entries); i++) {
+		if (gpt_uuid_generate(gpt, ent[i].ent_guid) == -1)
+			return -1;
+	}
+
+	/*
+	 * Create backup GPT if the user didn't suppress it.
+	 */
+	if (primary_only)
+		return last;
+
+	if ((p = calloc(1, gpt->secsz)) == NULL) {
+		gpt_warnx(gpt, "Can't allocate the secondary GPT");
+		return -1;
+	}
+
+	if ((gpt->tpg = map_add(gpt, last, 1LL,
+	    MAP_TYPE_SEC_GPT_HDR, p)) == NULL) {
+		gpt_warnx(gpt, "Can't add the secondary GPT");
+		return -1;
+	}
+
+	if ((gpt->lbt = map_add(gpt, last - blocks, blocks,
+	    MAP_TYPE_SEC_GPT_TBL, gpt->tbl->map_data)) == NULL) {
+		gpt_warnx(gpt, "Can't add the secondary GPT table");
+		return -1;
+	}
+
+	memcpy(gpt->tpg->map_data, gpt->gpt->map_data, gpt->secsz);
+
+	hdr = gpt->tpg->map_data;
+	hdr->hdr_lba_self = htole64(gpt->tpg->map_start);
+	hdr->hdr_lba_alt = htole64(gpt->gpt->map_start);
+	hdr->hdr_lba_table = htole64(gpt->lbt->map_start);
+	return last;
+}
+
+static int
+gpt_size_get(gpt_t gpt, off_t *size)
+{
+	off_t sectors;
+	int64_t human_num;
+	char *p;
+
+	if (*size > 0)
+		return -1;
+	sectors = strtoll(optarg, &p, 10);
+	if (sectors < 1)
+		return -1;
+	if (*p == '\0' || ((*p == 's' || *p == 'S') && p[1] == '\0')) {
+		*size = sectors * gpt->secsz;
+		return 0;
+	}
+	if ((*p == 'b' || *p == 'B') && p[1] == '\0') {
+		*size = sectors;
+		return 0;
+	}
+	if (dehumanize_number(optarg, &human_num) < 0)
+		return -1;
+	*size = human_num;
+	return 0;
+}
+
+int
+gpt_human_get(off_t *human)
+{
+	int64_t human_num;
+
+	if (*human > 0)
+		return -1;
+	if (dehumanize_number(optarg, &human_num) < 0)
+		return -1;
+	*human = human_num;
+	if (*human < 1)
+		return -1;
+	return 0;
+}
+
+int
+gpt_add_find(gpt_t gpt, struct gpt_find *find, int ch) 
+{
+	switch (ch) {
+	case 'a':
+		if (find->all > 0)
+			return -1;
+		find->all = 1;
+		break;
+	case 'b':
+		if (gpt_human_get(&find->block) == -1)
+			return -1;
+		break;
+	case 'i':
+		if (gpt_entry_get(&find->entry) == -1)
+			return -1;
+		break;
+	case 'L':
+		if (gpt_name_get(gpt, &find->label) == -1)
+			return -1;
+		break;
+	case 's':
+		if (gpt_size_get(gpt, &find->size) == -1)
+			return -1;
+		break;
+	case 't':
+		if (!gpt_uuid_is_nil(find->type))
+			return -1;
+		if (gpt_uuid_parse(optarg, find->type) != 0)
+			return -1;
+		break;
+	default:
+		return -1;
+	}
+	return 0;
+}
+
+int
+gpt_change_ent(gpt_t gpt, const struct gpt_find *find,
+    void (*cfn)(struct gpt_ent *, void *), void *v)
+{
+	map_t m;
+	struct gpt_hdr *hdr;
+	struct gpt_ent *ent;
+	unsigned int i;
+
+	if (!find->all ^
+	    (find->block > 0 || find->entry > 0 || find->label != NULL
+	    || find->size > 0 || !gpt_uuid_is_nil(find->type)))
+		return -1;
+
+	if ((hdr = gpt_hdr(gpt)) == NULL)
+		return -1;
+
+	/* Relabel all matching entries in the map. */
+	for (m = map_first(gpt); m != NULL; m = m->map_next) {
+		if (m->map_type != MAP_TYPE_GPT_PART || m->map_index < 1)
+			continue;
+		if (find->entry > 0 && find->entry != m->map_index)
+			continue;
+		if (find->block > 0 && find->block != m->map_start)
+			continue;
+		if (find->size > 0 && find->size != m->map_size)
+			continue;
+
+		i = m->map_index - 1;
+
+		ent = gpt_ent_primary(gpt, i);
+		if (find->label != NULL)
+			if (strcmp((char *)find->label,
+			    (char *)utf16_to_utf8(ent->ent_name)) != 0)
+				continue;
+
+		if (!gpt_uuid_is_nil(find->type) &&
+		    !gpt_uuid_equal(find->type, ent->ent_type))
+			continue;
+
+		/* Change the primary entry. */
+		(*cfn)(ent, v);
+
+		if (gpt_write_primary(gpt) == -1)
+			return -1;
+
+		ent = gpt_ent_backup(gpt, i);
+		/* Change the secondary entry. */
+		(*cfn)(ent, v);
+
+		if (gpt_write_backup(gpt) == -1)
+			return -1;
+
+		gpt_msg(gpt, "Partition %d %s", m->map_index, find->msg);
+	}
+	return 0;
+}
+
+int
+gpt_add_ais(gpt_t gpt, off_t *alignment, u_int *entry, off_t *size, int ch)
+{
+	switch (ch) {
+	case 'a':
+		if (gpt_human_get(alignment) == -1)
+			return -1;
+		return 0;
+	case 'i':
+		if (gpt_entry_get(entry) == -1)
+			return -1;
+		return 0;
+	case 's':
+		if (gpt_size_get(gpt, size) == -1)
+			return -1;
+		return 0;
+	default:
+		return -1;
+	}
+}
+
+off_t
+gpt_check_ais(gpt_t gpt, off_t alignment, u_int entry, off_t size)
+{
+	if (entry == 0) {
+		gpt_warnx(gpt, "Entry not specified");
+		return -1;
+	}
+	if (alignment % gpt->secsz != 0) {
+		gpt_warnx(gpt, "Alignment (%#jx) must be a multiple of "
+		    "sector size (%#x)", (uintmax_t)alignment, gpt->secsz);
+		return -1;
+	}
+
+	if (size % gpt->secsz != 0) {
+		gpt_warnx(gpt, "Size (%#jx) must be a multiple of "
+		    "sector size (%#x)", (uintmax_t)size, gpt->secsz);
+		return -1;
+	}
+	if (size > 0)
+		return size / gpt->secsz;
+	return 0;
+}
+int
+gpt_attr_get(uint64_t *attributes)
+{
+	if (strcmp(optarg, "biosboot") == 0)
+		*attributes |= GPT_ENT_ATTR_LEGACY_BIOS_BOOTABLE;
+	else if (strcmp(optarg, "bootme") == 0)
+		*attributes |= GPT_ENT_ATTR_BOOTME;
+	else if (strcmp(optarg, "bootonce") == 0)
+		*attributes |= GPT_ENT_ATTR_BOOTONCE;
+	else if (strcmp(optarg, "bootfailed") == 0)
+		*attributes |= GPT_ENT_ATTR_BOOTFAILED;
+	else
+		return -1;
+	return 0;
+}
+int
+gpt_attr_update(gpt_t gpt, u_int entry, uint64_t set, uint64_t clr)
+{
+	struct gpt_hdr *hdr;
+	struct gpt_ent *ent;
+	unsigned int i;
+	
+	if (entry == 0 || (set == 0 && clr == 0))
+		return -1;
+
+	if ((hdr = gpt_hdr(gpt)) == NULL)
+		return -1;
+
+	if (entry > le32toh(hdr->hdr_entries)) {
+		gpt_warnx(gpt, "Index %u out of range (%u max)",
+		    entry, le32toh(hdr->hdr_entries));
+		return -1;
+	}
+
+	i = entry - 1;
+	ent = gpt_ent_primary(gpt, i);
+	if (gpt_uuid_is_nil(ent->ent_type)) {
+		gpt_warnx(gpt, "Entry at index %u is unused", entry);
+		return -1;
+	}
+
+	ent->ent_attr &= ~clr;
+	ent->ent_attr |= set;
+
+	if (gpt_write_primary(gpt) == -1)
+		return -1;
+
+	ent = gpt_ent_backup(gpt, i);
+	ent->ent_attr &= ~clr;
+	ent->ent_attr |= set;
+
+	if (gpt_write_backup(gpt) == -1)
+		return -1;
+	gpt_msg(gpt, "Partition %d attributes updated", entry);
+	return 0;
+}
+
+int
+gpt_entry_get(u_int *entry)
+{
+	char *p;
+	if (*entry > 0)
+		return -1;
+	*entry = strtoul(optarg, &p, 10);
+	if (*p != 0 || *entry < 1)
+		return -1;
+	return 0;
+}
+int
+gpt_uuid_get(gpt_t gpt, gpt_uuid_t *uuid)
+{
+	if (!gpt_uuid_is_nil(*uuid))
+		return -1;
+	if (gpt_uuid_parse(optarg, *uuid) != 0) {
+		gpt_warn(gpt, "Can't parse uuid");
+		return -1;
+	}
+	return 0;
+}
+
+int
+gpt_name_get(gpt_t gpt, void *v)
+{
+	char **name = v;
+	if (*name != NULL)
+		return -1;
+	*name = strdup(optarg);
+	if (*name == NULL) {
+		gpt_warn(gpt, "Can't copy string");
+		return -1;
+	}
+	return 0;
 }

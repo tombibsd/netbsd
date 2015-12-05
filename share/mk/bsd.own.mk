@@ -332,7 +332,9 @@ TOOL_FGEN=		${TOOLDIR}/bin/${_TOOL_PREFIX}fgen
 TOOL_GENASSYM=		${TOOLDIR}/bin/${_TOOL_PREFIX}genassym
 TOOL_GENCAT=		${TOOLDIR}/bin/${_TOOL_PREFIX}gencat
 TOOL_GMAKE=		${TOOLDIR}/bin/${_TOOL_PREFIX}gmake
-TOOL_GREP=		${TOOLDIR}/bin/${_TOOL_PREFIX}grep
+# grep exists in src/tools, but is not hooked up into the build.
+#TOOL_GREP=		${TOOLDIR}/bin/${_TOOL_PREFIX}grep
+TOOL_GREP=		grep
 TOOL_GROFF=		PATH=${TOOLDIR}/lib/groff:$${PATH} ${TOOLDIR}/bin/${_TOOL_PREFIX}groff
 TOOL_HEXDUMP=		${TOOLDIR}/bin/${_TOOL_PREFIX}hexdump
 TOOL_HP300MKBOOT=	${TOOLDIR}/bin/${_TOOL_PREFIX}hp300-mkboot

@@ -45,98 +45,74 @@ __RCSID("$NetBSD$");
 #include "map.h"
 #include "gpt.h"
 
-static struct {
-	int (*fptr)(int, char *[]);
-	const char *name;
-} cmdsw[] = {
-	{ cmd_add, "add" },
+static const struct gpt_cmd c_null;
+
+extern const struct gpt_cmd
+	c_add,
 #ifndef HAVE_NBTOOL_CONFIG_H
-	{ cmd_backup, "backup" },
+	c_backup,
 #endif
-	{ cmd_biosboot, "biosboot" },
-	{ cmd_create, "create" },
-	{ cmd_destroy, "destroy" },
-	{ cmd_header, "header" },
-	{ NULL, "help" },
-	{ cmd_label, "label" },
-	{ cmd_migrate, "migrate" },
-	{ cmd_recover, "recover" },
-	{ cmd_remove, "remove" },
-	{ NULL, "rename" },
-	{ cmd_resize, "resize" },
-	{ cmd_resizedisk, "resizedisk" },
+	c_biosboot,
+	c_create,
+	c_destroy,
+	c_header,
+	c_label,
+	c_migrate,
+	c_recover,
+	c_remove,
+	c_resize,
+	c_resizedisk,
 #ifndef HAVE_NBTOOL_CONFIG_H
-	{ cmd_restore, "restore" },
+	c_restore,
 #endif
-	{ cmd_set, "set" },
-	{ cmd_show, "show" },
-	{ cmd_type, "type" },
-	{ cmd_unset, "unset" },
-	{ NULL, "verify" },
-	{ NULL, NULL }
+	c_set,
+	c_show,
+	c_type,
+	c_unset;
+
+static const struct gpt_cmd *cmdsw[] = {
+	&c_add,
+#ifndef HAVE_NBTOOL_CONFIG_H
+	&c_backup,
+#endif
+	&c_biosboot,
+	&c_create,
+	&c_destroy,
+	&c_header,
+	&c_label,
+	&c_migrate,
+	&c_recover,
+	&c_remove,
+	&c_resize,
+	&c_resizedisk,
+#ifndef HAVE_NBTOOL_CONFIG_H
+	&c_restore,
+#endif
+	&c_set,
+	&c_show,
+	&c_type,
+	&c_unset,
+	&c_null,
 };
 
 __dead static void
 usage(void)
 {
-	extern const char addmsg1[], addmsg2[], biosbootmsg[];
-	extern const char createmsg[], destroymsg[], headermsg[], labelmsg1[];
-	extern const char labelmsg2[], labelmsg3[], migratemsg[], recovermsg[];
-	extern const char removemsg1[], removemsg2[], resizemsg[];
-	extern const char resizediskmsg[], setmsg[], showmsg[], typemsg1[];
-	extern const char typemsg2[], typemsg3[], unsetmsg[];
-#ifndef HAVE_NBTOOL_CONFIG_H
-	extern const char backupmsg[], restoremsg[];
-#endif
 	const char *p = getprogname();
 	const char *f =
-	    "[-nrqv] [-m <mediasize>] [-p <partitionnum>] [-s <sectorsize>]";
+	    "[-nrqv] [-m <mediasize>] [-s <sectorsize>]";
+	size_t i;
 
-	fprintf(stderr,
-	    "Usage: %s %s <command> [<args>]\n", p, f);
-	fprintf(stderr, 
-	    "Commands:\n"
-#ifndef HAVE_NBTOOL_CONFIG_H
-	    "       %s\n"
-	    "       %s\n"
-#endif
-	    "       %s\n"
-	    "       %s\n"
-	    "       %s\n"
-	    "       %s\n"
-	    "       %s\n"
-	    "       %s\n"
-	    "       %s\n"
-	    "       %s\n"
-	    "       %s\n"
-	    "       %s\n"
-	    "       %s\n"
-	    "       %s\n"
-	    "       %s\n"
-	    "       %s\n"
-	    "       %s\n"
-	    "       %s\n"
-	    "       %s\n"
-	    "       %s\n"
-	    "       %s\n"
-	    "       %s\n"
-	    "       %s\n",
-	    addmsg1, addmsg2,
-#ifndef HAVE_NBTOOL_CONFIG_H
-	    backupmsg,
-#endif
-	    biosbootmsg, createmsg, destroymsg,
-	    headermsg, labelmsg1, labelmsg2, labelmsg3,
-	    migratemsg, recovermsg,
-	    removemsg1, removemsg2,
-	    resizemsg, resizediskmsg,
-#ifndef HAVE_NBTOOL_CONFIG_H
-	    restoremsg,
-#endif
-	    setmsg, showmsg,
-	    typemsg1, typemsg2, typemsg3,
-	    unsetmsg);
-	exit(1);
+	if (strcmp(p, "gpt") == 0)
+		fprintf(stderr,
+		    "Usage: %s %s <command> [<args>] <device>\n", p, f);
+	else
+		fprintf(stderr,
+		    "Usage: %s %s <device> <command> [<args>]\n", p, f);
+	fprintf(stderr, "Commands:\n");
+	for (i = 0; i < __arraycount(cmdsw); i++)
+		gpt_usage("\t", cmdsw[i]);
+	exit(EXIT_FAILURE);
 }
 
 static void
@@ -153,11 +129,24 @@ prefix(const char *cmd)
 int
 main(int argc, char *argv[])
 {
-	char *cmd, *p;
+	char *cmd, *p, *dev = NULL;
 	int ch, i;
+	u_int secsz = 0;
+	off_t mediasz = 0;
+	int flags = 0;
+	int verbose = 0;
+	gpt_t gpt;
+
+	setprogname(argv[0]);
+
+	if (strcmp(getprogname(), "gpt") == 0) {
+		if (argc < 3)
+			usage();
+		dev = argv[--argc];
+	}
 
 	/* Get the generic options */
-	while ((ch = getopt(argc, argv, "m:np:qrs:v")) != -1) {
+	while ((ch = getopt(argc, argv, "m:nqrs:v")) != -1) {
 		switch(ch) {
 		case 'm':
 			if (mediasz > 0)
@@ -167,20 +156,13 @@ main(int argc, char *argv[])
 				usage();
 			break;
 		case 'n':
-			nosync = 1;
-			break;
-		case 'p':
-			if (parts > 0)
-				usage();
-			parts = strtoul(optarg, &p, 10);
-			if (*p != 0 || parts < 1)
-				usage();
+			flags |= GPT_NOSYNC;
 			break;
 		case 'r':
-			readonly = 1;
+			flags |= GPT_READONLY;
 			break;
 		case 'q':
-			quiet = 1;
+			flags |= GPT_QUIET;
 			break;
 		case 's':
 			if (secsz > 0)
@@ -196,18 +178,32 @@ main(int argc, char *argv[])
 			usage();
 		}
 	}
-	if (!parts)
-		parts = 128;
+
+	if (argc == optind)
+		usage();
+
+	if (dev == NULL)
+		dev = argv[optind++];
 
 	if (argc == optind)
 		usage();
 
 	cmd = argv[optind++];
-	for (i = 0; cmdsw[i].name != NULL && strcmp(cmd, cmdsw[i].name); i++);
+	for (i = 0; cmdsw[i]->name != NULL && strcmp(cmd, cmdsw[i]->name); i++)
+		continue;
 
-	if (cmdsw[i].fptr == NULL)
-		errx(1, "unknown command: %s", cmd);
+	if (cmdsw[i]->fptr == NULL)
+		errx(EXIT_FAILURE, "Unknown command: %s", cmd);
 
 	prefix(cmd);
-	return ((*cmdsw[i].fptr)(argc, argv));
+
+	gpt = gpt_open(dev, flags | cmdsw[i]->flags, verbose, mediasz, secsz);
+	if (gpt == NULL)
+		return EXIT_FAILURE;
+
+	if ((*cmdsw[i]->fptr)(gpt, argc, argv) == -1)
+		return EXIT_FAILURE;
+
+	gpt_close(gpt);
+	return EXIT_SUCCESS;
 }

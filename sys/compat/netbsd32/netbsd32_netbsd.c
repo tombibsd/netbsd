@@ -112,6 +112,10 @@ struct uvm_object *emul_netbsd32_object;
 
 extern struct sysctlnode netbsd32_sysctl_root;
 
+#ifdef MODULAR
+#include <compat/netbsd32/netbsd32_syscalls_autoload.c>
+#endif
+
 struct emul emul_netbsd32 = {
 	.e_name =		"netbsd32",
 	.e_path =		"/emul/netbsd32",
@@ -126,6 +130,9 @@ struct emul emul_netbsd32 = {
 	.e_syscallnames =	netbsd32_syscallnames,
 #else
 	.e_syscallnames =	NULL,
+#endif
+#ifdef MODULAR
+	.e_sc_autoload =	netbsd32_syscalls_autoload,
 #endif
 	.e_sendsig =		netbsd32_sendsig,
 	.e_trapsignal =		trapsignal,

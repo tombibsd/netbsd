@@ -48,6 +48,7 @@ SUBDIR+=	if_npflog
 SUBDIR+=	if_smsc
 SUBDIR+=	iic
 SUBDIR+=	kernfs
+SUBDIR+=	ksem
 SUBDIR+=	layerfs
 SUBDIR+=	lfs
 SUBDIR+=	lua
@@ -210,11 +211,15 @@ SUBDIR+=	wmimsi
 .if ${MACHINE_CPU} == "arm" \
     || (!empty(MACHINE_ARCH:Mmips64*) && !defined(BSD_MK_COMPAT_FILE))
 SUBDIR+=	compat_netbsd32
+SUBDIR+=	compat_netbsd32_nfssrv
+SUBDIR+=	compat_netbsd32_mqueue
 .endif
 
 .if ${MACHINE_ARCH} == "x86_64"
 SUBDIR+=	compat_linux32
 SUBDIR+=	compat_netbsd32
+SUBDIR+=	compat_netbsd32_nfssrv
+SUBDIR+=	compat_netbsd32_mqueue
 .endif
 
 .if ${MACHINE_ARCH} == "i386"

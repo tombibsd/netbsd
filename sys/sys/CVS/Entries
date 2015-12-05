@@ -164,7 +164,7 @@
 /poll.h/1.15/Wed Nov 11 09:48:51 2009/-kk/
 /pool.h/1.79/Sun Aug  2 04:02:59 2015/-kk/
 /power.h/1.20/Mon Jan 12 06:49:24 2015/-kk/
-/proc.h/1.326/Sat Dec  5 11:19:37 2015/-kk/
+/proc.h/1.327/Sat Dec  5 12:23:12 2015/-kk/
 /prot.h/1.2/Tue Apr 29 06:53:03 2008/-kk/
 /protosw.h/1.65/Sun Nov 15 13:36:37 2015/-kk/
 /pserialize.h/1.1/Sat Jul 30 17:01:04 2011/-kk/
@@ -220,9 +220,9 @@
 /stdint.h/1.7/Thu Oct 24 10:28:58 2013/-kk/
 /swap.h/1.8/Wed Jan 14 02:20:45 2009/-kk/
 /syncobj.h/1.8/Wed Oct 21 21:12:07 2009/-kk/
-/syscall.h/1.287/Sat Dec  5 11:19:37 2015/-kk/
+/syscall.h/1.288/Sat Dec  5 12:23:12 2015/-kk/
 /syscall_stats.h/1.4/Wed Nov 12 12:36:28 2008/-kk/
-/syscallargs.h/1.271/Sat Dec  5 11:19:37 2015/-kk/
+/syscallargs.h/1.272/Sat Dec  5 12:23:12 2015/-kk/
 /syscallvar.h/1.11/Fri Oct  2 14:12:06 2015/-kk/
 /sysctl.h/1.217/Fri Oct  2 14:12:06 2015/-kk/
 /syslimits.h/1.28/Sun Sep 13 01:08:00 2015/-kk/

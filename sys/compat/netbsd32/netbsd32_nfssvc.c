@@ -40,6 +40,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/param.h>
 #include <sys/vnode.h>
 #include <sys/filedesc.h>
+#include <sys/module.h>
+#include <sys/syscallvar.h>
 
 #include <compat/netbsd32/netbsd32.h>
 #include <compat/netbsd32/netbsd32_syscall.h>
@@ -50,6 +52,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <nfs/nfsproto.h>
 #include <nfs/nfs.h>
 #include <nfs/nfs_var.h>
+
+extern struct emul emul_netbsd32;
 
 static int nfssvc32_addsock_in(struct nfsd_args *, const void *);
 static int nfssvc32_setexports_in(struct mountd_exports_list *, const void *);
@@ -185,4 +189,32 @@ netbsd32_nfssvc(struct lwp *l, const struct netbsd32_nfssvc_args *uap,
 	void	*argp = SCARG_P32(uap, argp);
 
 	return do_nfssvc(&netbsd32_ops, l, flag, argp, retval);
+}
+
+static const struct syscall_package compat_nfssvc_syscalls[] = {
+	{ NETBSD32_SYS_netbsd32_nfssvc, 0, (sy_call_t *)netbsd32_nfssvc },
+	{ 0, 0, NULL },
+};
+
+MODULE(MODULE_CLASS_EXEC, compat_netbsd32_nfssrv, "nfsserver,compat_netbsd32");
+
+static int      
+compat_netbsd32_nfssrv_modcmd(modcmd_t cmd, void *arg)
+{               
+	int error;      
+                
+	switch (cmd) {
+	case MODULE_CMD_INIT:
+		error = syscall_establish(&emul_netbsd32,
+		    compat_nfssvc_syscalls);
+		break;
+	case MODULE_CMD_FINI:
+		error = syscall_disestablish(&emul_netbsd32,
+		    compat_nfssvc_syscalls);
+		break;
+	default:
+		error = ENOTTY;
+		break;
+	}
+	return error;
 }

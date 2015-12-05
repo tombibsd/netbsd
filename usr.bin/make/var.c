@@ -702,13 +702,15 @@ Var_ExportVars(void)
 	int i;
 
 	val = Var_Subst(NULL, tmp, VAR_GLOBAL, FALSE, TRUE);
-	av = brk_string(val, &ac, FALSE, &as);
-	for (i = 0; i < ac; i++) {
-	    Var_Export1(av[i], 0);
+	if (*val) {
+	    av = brk_string(val, &ac, FALSE, &as);
+	    for (i = 0; i < ac; i++) {
+		Var_Export1(av[i], 0);
+	    }
+	    free(as);
+	    free(av);
 	}
 	free(val);
-	free(as);
-	free(av);
     }
 }
 
@@ -740,35 +742,37 @@ Var_Export(char *str, int isExport)
 	track = VAR_EXPORT_PARENT;
     }
     val = Var_Subst(NULL, str, VAR_GLOBAL, FALSE, TRUE);
-    av = brk_string(val, &ac, FALSE, &as);
-    for (i = 0; i < ac; i++) {
-	name = av[i];
-	if (!name[1]) {
-	    /*
-	     * A single char.
-	     * If it is one of the vars that should only appear in
-	     * local context, skip it, else we can get Var_Subst
-	     * into a loop.
-	     */
-	    switch (name[0]) {
-	    case '@':
-	    case '%':
-	    case '*':
-	    case '!':
-		continue;
+    if (*val) {
+	av = brk_string(val, &ac, FALSE, &as);
+	for (i = 0; i < ac; i++) {
+	    name = av[i];
+	    if (!name[1]) {
+		/*
+		 * A single char.
+		 * If it is one of the vars that should only appear in
+		 * local context, skip it, else we can get Var_Subst
+		 * into a loop.
+		 */
+		switch (name[0]) {
+		case '@':
+		case '%':
+		case '*':
+		case '!':
+		    continue;
+		}
+	    }
+	    if (Var_Export1(name, track)) {
+		if (VAR_EXPORTED_ALL != var_exportedVars)
+		    var_exportedVars = VAR_EXPORTED_YES;
+		if (isExport && track) {
+		    Var_Append(MAKE_EXPORTED, name, VAR_GLOBAL);
+		}
 	    }
 	}
-	if (Var_Export1(name, track)) {
-	    if (VAR_EXPORTED_ALL != var_exportedVars)
-		var_exportedVars = VAR_EXPORTED_YES;
-	    if (isExport && track) {
-		Var_Append(MAKE_EXPORTED, name, VAR_GLOBAL);
-	    }
-	}
+	free(as);
+	free(av);
     }
     free(val);
-    free(as);
-    free(av);
 }
 
 

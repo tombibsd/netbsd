@@ -1910,6 +1910,15 @@ const struct puc_device_description puc_devices[] = {
 	    },
 	},
 
+	/* Intel 100 Series KT */
+	{   "Intel 100 Series KT",
+	    {	PCI_VENDOR_INTEL, PCI_PRODUCT_INTEL_100SERIES_KT, 0, 0 },
+	    {	0xffff,	0xffff,	0,	0	},
+	    {
+		{ PUC_PORT_TYPE_COM, PCI_BAR0, 0x00, COM_FREQ },
+	    },
+	},
+
 	/* Intel C600/X79 Series KT */
 	{   "Intel C600/X79 Series KT",
 	    {	PCI_VENDOR_INTEL, PCI_PRODUCT_INTEL_C600_KT, 0, 0 },

@@ -49,31 +49,36 @@ __RCSID("$NetBSD$");
 
 #include "map.h"
 #include "gpt.h"
+#include "gpt_private.h"
 
 
-const char backupmsg[] = "backup device ...";
+static const char *backuphelp[] = {
+    "",
+};
 
-__dead static void
-usage_backup(void)
-{
+static int cmd_backup(gpt_t, int, char *[]);
 
-	fprintf(stderr,
-	    "usage: %s %s\n", getprogname(), backupmsg);
-	exit(1);
-}
+struct gpt_cmd c_backup = {
+	"backup",
+	cmd_backup,
+	backuphelp, __arraycount(backuphelp),
+	GPT_READONLY,
+};
 
-#define PROP_ERR(x)	if (!(x)) {		\
-		warn("proplib failure");	\
-		return;				\
+#define usage() gpt_usage(NULL, &c_backup)
+
+#define PROP_ERR(x)	if (!(x)) {			\
+		gpt_warnx(gpt, "proplib failure");	\
+		return -1;				\
 	}
 
-static void
-backup(void)
+static int
+backup(gpt_t gpt)
 {
-	map_t *m;
+	map_t m;
 	struct mbr *mbr;
-	struct gpt_ent *ent;
 	struct gpt_hdr *hdr;
+	struct gpt_ent *ent;
 	unsigned int i;
 	prop_dictionary_t props, mbr_dict, gpt_dict, type_dict;
 	prop_array_t mbr_array, gpt_array;
@@ -85,11 +90,11 @@ backup(void)
 
 	props = prop_dictionary_create();
 	PROP_ERR(props);
-	propnum = prop_number_create_integer(secsz);
+	propnum = prop_number_create_integer(gpt->secsz);
 	PROP_ERR(propnum);
 	rc = prop_dictionary_set(props, "sector_size", propnum);
 	PROP_ERR(rc);
-	m = map_first();
+	m = map_first(gpt);
 	while (m != NULL) {
 		switch (m->map_type) {
 		case MAP_TYPE_MBR:
@@ -222,7 +227,7 @@ backup(void)
 			PROP_ERR(gpt_array);
 			for (i = 1, ent = m->map_data;
 			    (char *)ent < (char *)(m->map_data) +
-			    m->map_size * secsz; i++, ent++) {
+			    m->map_size * gpt->secsz; i++, ent++) {
 				gpt_dict = prop_dictionary_create();
 				PROP_ERR(gpt_dict);
 				propnum = prop_number_create_integer(i);
@@ -285,24 +290,14 @@ backup(void)
 	prop_object_release(props);
 	fputs(propext, stdout);
 	free(propext);
+	return 0;
 }
 
-int
-cmd_backup(int argc, char *argv[])
+static int
+cmd_backup(gpt_t gpt, int argc, char *argv[])
 {
-	int fd;
+	if (argc != optind)
+		return usage();
 
-	if (argc == optind)
-		usage_backup();
-
-	while (optind < argc) {
-		fd = gpt_open(argv[optind++], 0);
-		if (fd == -1)
-			continue;
-		backup();
-
-		gpt_close(fd);
-	}
-
-	return (0);
+	return backup(gpt);
 }
