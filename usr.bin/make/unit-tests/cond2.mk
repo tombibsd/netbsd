@@ -21,5 +21,9 @@ Y!= echo TEST_NOT_SET is empty or not defined >&2; echo
 Y= oops
 .endif
 
+.if defined(.NDEF) && ${.NDEF} > 0
+Z= yes
+.endif
+
 all:
 	@echo $@

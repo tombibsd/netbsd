@@ -70,7 +70,7 @@ static void
 change(struct gpt_ent *ent, void *v)
 {
 	uint8_t *name = v;
-	utf8_to_utf16(name, ent->ent_name, 36);
+	utf8_to_utf16(name, ent->ent_name, __arraycount(ent->ent_name));
 }
 
 static int

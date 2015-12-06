@@ -285,7 +285,8 @@ cache_overwriting_body()
 	export RUMP_SERVER=$SOCKSRC
 
 	# Cannot overwrite a permanent cache
-	atf_check -s not-exit:0 -e ignore rump.arp -s $IP4SRC b2:a0:20:00:00:ff
+	atf_check -s not-exit:0 -e match:'File exists' \
+	    rump.arp -s $IP4SRC b2:a0:20:00:00:ff
 	$DEBUG && rump.arp -n -a
 
 	atf_check -s exit:0 -o ignore rump.ping -n -w $TIMEOUT -c 1 $IP4DST
@@ -301,7 +302,8 @@ cache_overwriting_body()
 	atf_check -s exit:0 -o match:'b2:a0:20:00:00:10' rump.arp -n 10.0.1.10
 	atf_check -s exit:0 -o not-match:'permanent' rump.arp -n 10.0.1.10
 	# Cannot overwrite a temp cache
-	atf_check -s not-exit:0 -e ignore rump.arp -s 10.0.1.10 b2:a0:20:00:00:ff
+	atf_check -s not-exit:0 -e match:'File exists' \
+	    rump.arp -s 10.0.1.10 b2:a0:20:00:00:ff
 	$DEBUG && rump.arp -n -a
 
 	return 0

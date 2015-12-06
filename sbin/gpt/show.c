@@ -77,6 +77,7 @@ show(gpt_t gpt)
 	struct mbr *mbr;
 	struct gpt_ent *ent;
 	unsigned int i;
+	uint8_t utfbuf[__arraycount(ent->ent_name) * 3 + 1];
 
 	printf("  %*s", gpt->lbawidth, "start");
 	printf("  %*s", gpt->lbawidth, "size");
@@ -134,8 +135,9 @@ show(gpt_t gpt)
 			printf("GPT part ");
 			ent = m->map_data;
 			if (show_label) {
-				printf("- \"%s\"",
-				    utf16_to_utf8(ent->ent_name));
+				utf16_to_utf8(ent->ent_name, utfbuf,
+				    sizeof(utfbuf));
+				printf("- \"%s\"", (char *)utfbuf);
 			} else if (show_guid) {
 				char buf[128];
 				gpt_uuid_snprintf(
@@ -169,6 +171,7 @@ show_one(gpt_t gpt)
 	map_t m;
 	struct gpt_ent *ent;
 	char s1[128], s2[128];
+	uint8_t utfbuf[__arraycount(ent->ent_name) * 3 + 1];
 #ifdef HN_AUTOSCALE
 	char human_num[5];
 #endif
@@ -212,7 +215,8 @@ show_one(gpt_t gpt)
 	gpt_uuid_snprintf(s2, sizeof(s1), "%d", ent->ent_guid);
 	printf("GUID: %s\n", s2);
 
-	printf("Label: %s\n", utf16_to_utf8(ent->ent_name));
+	utf16_to_utf8(ent->ent_name, utfbuf, sizeof(utfbuf));
+	printf("Label: %s\n", (char *)utfbuf);
 
 	printf("Attributes:\n");
 	if (ent->ent_attr == 0)

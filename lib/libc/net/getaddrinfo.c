@@ -667,7 +667,7 @@ explore_fqdn(const struct addrinfo *pai, const char *hostname,
 		error = EAI_FAIL;
 		goto free;
 	case NS_NOTFOUND:
-		error = EAI_NODATA;
+		error = EAI_NONAME;
 		goto free;
 	case NS_SUCCESS:
 		error = 0;
@@ -1453,7 +1453,9 @@ getanswer(res_state res, const querybuf *answer, int anslen, const char *qname,
 		return sentinel.ai_next;
 	}
 
-	h_errno = NO_RECOVERY;
+	/* We could have walked a CNAME chain, */
+	/* but the ultimate target may not have what we looked for */
+	h_errno = ntohs(hp->ancount) > 0? NO_DATA : NO_RECOVERY;
 	return NULL;
 }
 
@@ -1724,6 +1726,8 @@ _dns_getaddrinfo(void *rv, void *cb_data, va_list ap)
 		if (ai == NULL) {
 			switch (h_errno) {
 			case HOST_NOT_FOUND:
+			case NO_DATA:	// XXX: Perhaps we could differentiate
+					// So that we could return EAI_NODATA?
 				return NS_NOTFOUND;
 			case TRY_AGAIN:
 				return NS_TRYAGAIN;

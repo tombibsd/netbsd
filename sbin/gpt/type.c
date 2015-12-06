@@ -86,10 +86,8 @@ cmd_type(gpt_t gpt, int argc, char *argv[])
 	while ((ch = getopt(argc, argv, GPT_FIND "T:")) != -1) {
 		switch(ch) {
 		case 'T':
-			if (!gpt_uuid_is_nil(newtype))
-				return usage();
-			if (gpt_uuid_parse(optarg, newtype) != 0)
-				return usage();
+			if (gpt_uuid_get(gpt, &newtype) == -1)
+				return -1;
 			break;
 		default:
 			if (gpt_add_find(gpt, &find, ch) == -1)

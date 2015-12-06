@@ -4,7 +4,7 @@
 /buf.c/1.25/Tue Apr 24 20:26:58 2012/-kk/
 /buf.h/1.17/Tue Apr 24 20:26:58 2012/-kk/
 /compat.c/1.101/Sun Nov 15 13:36:52 2015/-kk/
-/cond.c/1.70/Sat Dec  5 11:19:41 2015/-kk/
+/cond.c/1.71/Sun Dec  6 11:01:28 2015/-kk/
 /config.h/1.21/Sat Mar 31 00:12:24 2012/-kk/
 /dir.c/1.67/Thu Oct 24 10:28:59 2013/-kk/
 /dir.h/1.15/Sat Apr  7 18:29:08 2012/-kk/

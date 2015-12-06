@@ -48,7 +48,6 @@ SUBDIR+=	if_npflog
 SUBDIR+=	if_smsc
 SUBDIR+=	iic
 SUBDIR+=	kernfs
-SUBDIR+=	ksem
 SUBDIR+=	layerfs
 SUBDIR+=	lfs
 SUBDIR+=	lua

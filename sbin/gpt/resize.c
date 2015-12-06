@@ -110,14 +110,8 @@ resize(gpt_t gpt)
 		}
 
 	newsize = map_resize(gpt, map, sectors, alignsecs);
-	if (newsize == 0 && alignment > 0) {
-		gpt_warnx(gpt, "Could not resize partition with alignment "
-		      "constraint");
+	if (newsize == -1)
 		return -1;
-	} else if (newsize == 0) {
-		gpt_warnx(gpt, "Could not resize partition");
-		return -1;
-	}
 
 	ent->ent_lba_end = htole64(map->map_start + newsize - 1LL);
 

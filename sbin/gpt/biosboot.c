@@ -76,8 +76,10 @@ static int cmd_biosboot(gpt_t, int, char *[]);
 
 static const char *biosboothelp[] = {
     "[-c bootcode] [-i index] [-L label]",
+#if notyet
     "[-a alignment] [-b blocknr] [-i index] [-l label]",
     "[-s size] [-t type]",
+#endif
 };
 
 struct gpt_cmd c_biosboot = {
@@ -173,6 +175,7 @@ biosboot(gpt_t gpt)
 	struct mbr *mbr, *bootcode;
 	unsigned int i;
 	struct gpt_ent *ent;
+	uint8_t utfbuf[__arraycount(ent->ent_name) * 3 + 1];
 
 	/*
 	 * Parse and validate partition maps
@@ -212,10 +215,11 @@ biosboot(gpt_t gpt)
 		if (entry > 0 && m->map_index == entry)
 			break;
 
-		if (label != NULL)
-			if (strcmp((char *)label,
-			    (char *)utf16_to_utf8(ent->ent_name)) == 0)
+		if (label != NULL) {
+			utf16_to_utf8(ent->ent_name, utfbuf, sizeof(utfbuf));
+			if (strcmp((char *)label, (char *)utfbuf) == 0)
 				break;
+		}
 
 		/* next, partition as could be specified by wedge */
 		if (entry < 1 && label == NULL && size > 0 &&

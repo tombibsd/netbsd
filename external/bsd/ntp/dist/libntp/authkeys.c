@@ -236,7 +236,7 @@ auth_resize_hashtable(void)
 	symkey *	sk;
 
 	totalkeys = authnumkeys + authnumfreekeys;
-	hashbits = auth_log2(totalkeys / 4.0) + 1;
+	hashbits = (totalkeys <= 4 ? 0 : auth_log2(totalkeys / 4.0)) + 1;
 	hashbits = max(4, hashbits);
 	hashbits = min(15, hashbits);
 

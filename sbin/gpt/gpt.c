@@ -121,24 +121,16 @@ crc32(const void *buf, size_t size)
 	return crc ^ ~0U;
 }
 
-uint8_t *
-utf16_to_utf8(uint16_t *s16)
+void
+utf16_to_utf8(const uint16_t *s16, uint8_t *s8, size_t s8len)
 {
-	static uint8_t *s8 = NULL;
-	static size_t s8len = 0;
 	size_t s8idx, s16idx, s16len;
 	uint32_t utfchar;
 	unsigned int c;
 
 	s16len = 0;
 	while (s16[s16len++] != 0)
-		;
-	if (s8len < s16len * 3) {
-		if (s8 != NULL)
-			free(s8);
-		s8len = s16len * 3;
-		s8 = calloc(s16len, 3);
-	}
+		continue;
 	s8idx = s16idx = 0;
 	while (s16idx < s16len) {
 		utfchar = le16toh(s16[s16idx++]);
@@ -150,22 +142,30 @@ utf16_to_utf8(uint16_t *s16)
 				s16idx++;
 		}
 		if (utfchar < 0x80) {
+			if (s8idx + 1 >= s8len)
+				break;
 			s8[s8idx++] = utfchar;
 		} else if (utfchar < 0x800) {
+			if (s8idx + 2 >= s8len)
+				break;
 			s8[s8idx++] = 0xc0 | (utfchar >> 6);
 			s8[s8idx++] = 0x80 | (utfchar & 0x3f);
 		} else if (utfchar < 0x10000) {
+			if (s8idx + 3 >= s8len)
+				break;
 			s8[s8idx++] = 0xe0 | (utfchar >> 12);
 			s8[s8idx++] = 0x80 | ((utfchar >> 6) & 0x3f);
 			s8[s8idx++] = 0x80 | (utfchar & 0x3f);
 		} else if (utfchar < 0x200000) {
+			if (s8idx + 4 >= s8len)
+				break;
 			s8[s8idx++] = 0xf0 | (utfchar >> 18);
 			s8[s8idx++] = 0x80 | ((utfchar >> 12) & 0x3f);
 			s8[s8idx++] = 0x80 | ((utfchar >> 6) & 0x3f);
 			s8[s8idx++] = 0x80 | (utfchar & 0x3f);
 		}
 	}
-	return (s8);
+	s8[s8idx] = 0;
 }
 
 void
@@ -340,6 +340,7 @@ gpt_mbr(gpt_t gpt, off_t lba)
 			    mbr->mbr_part[i].part_typ,
 			    (uintmax_t)start, (uintmax_t)size);
 		if (mbr->mbr_part[i].part_typ != MBR_PTYPE_EXT_LBA) {
+			// XXX: map add with non-allocated memory
 			m = map_add(gpt, start, size, MAP_TYPE_MBR_PART, p);
 			if (m == NULL)
 				return -1;
@@ -442,6 +443,7 @@ gpt_gpt(gpt_t gpt, off_t lba, int found)
 			    (uintmax_t)le64toh(ent->ent_lba_start),
 			    (uintmax_t)size);
 		}
+		// XXX: map add with not allocated memory.
 		m = map_add(gpt, le64toh(ent->ent_lba_start), size,
 		    MAP_TYPE_GPT_PART, ent);
 		if (m == NULL)
@@ -467,7 +469,7 @@ gpt_open(const char *dev, int flags, int verbose, off_t mediasz, u_int secsz)
 
 
 	if ((gpt = calloc(1, sizeof(*gpt))) == NULL) {
-		if (!(gpt->flags & GPT_QUIET))
+		if (!(flags & GPT_QUIET))
 			warn("Cannot allocate `%s'", dev);
 		return NULL;
 	}
@@ -526,6 +528,7 @@ gpt_open(const char *dev, int flags, int verbose, off_t mediasz, u_int secsz)
 			}
 			gpt->mediasz = gpt->sb.st_size;
 		}
+		gpt->flags |= GPT_NOSYNC;
 	}
 
 	/*
@@ -546,7 +549,8 @@ gpt_open(const char *dev, int flags, int verbose, off_t mediasz, u_int secsz)
 		    (uintmax_t)gpt->mediasz, gpt->secsz, (uintmax_t)devsz);
 	}
 
-	map_init(gpt, devsz);
+	if (map_init(gpt, devsz) == -1)
+		goto close;
 
 	if (gpt_mbr(gpt, 0LL) == -1)
 		goto close;
@@ -741,11 +745,21 @@ gpt_usage(const char *prefix, const struct gpt_cmd *cmd)
 
 	if (prefix == NULL) {
 		const char *pname = getprogname();
+		const char *d1, *d2, *d = " <device>";
 		int len = (int)strlen(pname);
-		fprintf(stderr, "Usage: %s %s %s\n", pname, cmd->name, a[0]);
+		if (strcmp(pname, "gpt") == 0) {
+			d1 = "";
+			d2 = d;
+		} else {
+			d2 = "";
+			d1 = d;
+		}
+		fprintf(stderr, "Usage: %s%s %s %s%s\n", pname, 
+		    d1, cmd->name, a[0], d2);
 		for (i = 1; i < hlen; i++) {
 			fprintf(stderr,
-			    "       %*s %s %s\n", len, "", cmd->name, a[i]);
+			    "       %*s%s %s %s%s\n", len, "",
+			    d1, cmd->name, a[i], d2);
 		}
 	} else {
 		for (i = 0; i < hlen; i++)
@@ -983,6 +997,7 @@ gpt_change_ent(gpt_t gpt, const struct gpt_find *find,
 	struct gpt_hdr *hdr;
 	struct gpt_ent *ent;
 	unsigned int i;
+	uint8_t utfbuf[__arraycount(ent->ent_name) * 3 + 1];
 
 	if (!find->all ^
 	    (find->block > 0 || find->entry > 0 || find->label != NULL
@@ -1006,10 +1021,11 @@ gpt_change_ent(gpt_t gpt, const struct gpt_find *find,
 		i = m->map_index - 1;
 
 		ent = gpt_ent_primary(gpt, i);
-		if (find->label != NULL)
-			if (strcmp((char *)find->label,
-			    (char *)utf16_to_utf8(ent->ent_name)) != 0)
+		if (find->label != NULL) {
+			utf16_to_utf8(ent->ent_name, utfbuf, sizeof(utfbuf));
+			if (strcmp((char *)find->label, (char *)utfbuf) == 0)
 				continue;
+		}
 
 		if (!gpt_uuid_is_nil(find->type) &&
 		    !gpt_uuid_equal(find->type, ent->ent_type))
