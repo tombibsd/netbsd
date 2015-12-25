@@ -53,8 +53,9 @@ __RCSID("$NetBSD$");
 static int cmd_label(gpt_t, int, char *[]);
 
 static const char *labelhelp[] = {
-    "-a <-l label | -f file>",
-    "[-b blocknr] [-i index] [-L label] [-s sectors] [-t uuid] <-l label | -f file>",
+	"-a <-l label | -f file>",
+	"[-b blocknr] [-i index] [-L label] [-s sectors] [-t uuid] "
+	    "<-l label | -f file>",
 };
 
 struct gpt_cmd c_label = {
@@ -97,13 +98,12 @@ name_from_file(gpt_t gpt, void *v)
 
 	if ((*name = malloc(maxlen)) == NULL) {
 		gpt_warn(gpt, "Can't copy string");
-		return -1;
+		goto cleanup;
 	}
 	len = fread(*name, 1, maxlen - 1, f);
 	if (ferror(f)) {
-		free(*name);
 		gpt_warn(gpt, "Can't label from `%s'", fn);
-		return -1;
+		goto cleanup;
 	}
 	if (f != stdin)
 		fclose(f);
@@ -113,6 +113,11 @@ name_from_file(gpt_t gpt, void *v)
 	if (p != NULL)
 		*p = '\0';
 	return 0;
+cleanup:
+	free(*name);
+	if (f != stdin)
+		fclose(f);
+	return -1;
 }
 
 static int
@@ -130,21 +135,25 @@ cmd_label(gpt_t gpt, int argc, char *argv[])
 		switch(ch) {
 		case 'f':
 			if (name_from_file(gpt, &name) == -1)
-				return usage();
+				goto usage;
 			break;
 		case 'l':
 			if (gpt_name_get(gpt, &name) == -1)
-				return usage();
+				goto usage;
 			break;
 		default:
 			if (gpt_add_find(gpt, &find, ch) == -1)
-				return usage();
+				goto usage;
 			break;
 		}
 	}
 
 	if (name == NULL || argc != optind)
-		return usage();
+		goto usage;
 
 	return gpt_change_ent(gpt, &find, change, name);
+usage:
+	usage();
+	free(name);
+	return -1;
 }

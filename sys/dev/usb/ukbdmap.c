@@ -626,6 +626,8 @@ const struct wscons_keydesc ukbd_keydesctab[] = {
 	KBD_MAP(KB_US,			0,	ukbd_keydesc_us),
 	KBD_MAP(KB_US | KB_SWAPCTRLCAPS,KB_US,	ukbd_keydesc_swapctrlcaps),
 	KBD_MAP(KB_US | KB_DVORAK,	KB_US,	ukbd_keydesc_us_dvorak),
+	KBD_MAP(KB_US | KB_DVORAK | KB_SWAPCTRLCAPS,	KB_US| KB_DVORAK,
+		ukbd_keydesc_swapctrlcaps),
 	KBD_MAP(KB_US | KB_COLEMAK,	KB_US,	ukbd_keydesc_us_colemak),
 	KBD_MAP(KB_JP,			KB_US,	ukbd_keydesc_jp),
 	KBD_MAP(KB_JP | KB_SWAPCTRLCAPS,KB_JP,	ukbd_keydesc_swapctrlcaps),

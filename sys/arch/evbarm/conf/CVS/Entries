@@ -90,7 +90,7 @@
 /ODROID-C1_INSTALL/1.1/Mon Mar 16 22:16:42 2015/-kk/
 /ODROID-U/1.19/Fri Nov 20 01:30:20 2015/-kk/
 /ODROID-XU/1.6/Fri Nov 20 01:30:20 2015/-kk/
-/ODROID-XU4/1.1/Sat Nov 14 07:15:58 2015/-kk/
+/ODROID-XU4/1.3/Fri Dec 25 05:40:10 2015/-kk/
 /ODROID-XU4_INSTALL/1.1/Sat Nov 14 07:15:58 2015/-kk/
 /ODROID-XU_INSTALL/1.1/Fri Sep 26 15:33:58 2014/-kk/
 /OLIMEXLIME2/1.1/Wed Jun  3 10:01:56 2015/-kk/
@@ -147,6 +147,7 @@
 /files.cp3100/1.2/Mon Dec  3 15:33:29 2007/-kk/
 /files.devkit8000/1.1/Wed Sep  8 22:53:53 2010/-kk/
 /files.evbarm/1.25/Thu Dec 11 09:09:36 2014/-kk/
+/files.exynos/1.1/Sun Dec  6 00:31:24 2015/-kk/
 /files.g42xxeb/1.7/Thu Sep 23 07:08:57 2010/-kk/
 /files.gemini/1.1/Fri Oct 24 04:23:18 2008/-kk/
 /files.goldengate/1.1/Thu Oct 24 10:28:57 2013/-kk/
@@ -195,6 +196,7 @@
 /mk.awin/1.4/Wed Oct 29 08:13:00 2014/-kk/
 /mk.bcm53xx/1.4/Thu Oct 31 07:00:01 2013/-kk/
 /mk.beagle/1.11/Fri Apr 11 02:03:29 2014/-kk/
+/mk.exynos/1.1/Sun Dec  6 00:31:24 2015/-kk/
 /mk.g42xxeb/1.3/Thu Jun 30 18:20:24 2011/-kk/
 /mk.gemini/1.4/Sat Mar  1 06:04:25 2014/-kk/
 /mk.goldengate/1.1/Thu Oct 24 10:28:57 2013/-kk/
@@ -239,6 +241,7 @@
 /std.beagle/1.13/Fri Oct  3 09:43:16 2014/-kk/
 /std.cp3100/1.5/Sun Dec 16 23:47:56 2012/-kk/
 /std.evbarm/1.4/Wed May 13 03:32:42 2015/-kk/
+/std.exynos/1.1/Sun Dec  6 00:31:24 2015/-kk/
 /std.g42xxeb/1.8/Sun Dec 16 23:47:56 2012/-kk/
 /std.gemini/1.8/Mon Nov 11 15:21:26 2013/-kk/
 /std.goldengate/1.2/Mon Nov 11 15:21:26 2013/-kk/

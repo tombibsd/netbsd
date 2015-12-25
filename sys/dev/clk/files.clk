@@ -1,0 +1,4 @@
+# $NetBSD$
+
+define	clk
+file	dev/clk/clk.c			clk

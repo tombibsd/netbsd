@@ -373,7 +373,7 @@ const struct cpu_cpuid_nameclass i386_cpuid_cpus[] = {
 				[0x57] = "Next gen Xeon Phi",
 				[0x5a] = "Atom E3500",
 				[0x5d] = "Atom X3-C3000 (Silvermont)",
-				[0x5e] = "Next gen Core (Skylake)",
+				[0x5e] = "6th gen Core, Xeon E3-1500 v5 (Skylake)",
 			},
 			"Pentium Pro, II or III",	/* Default */
 			NULL,

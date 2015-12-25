@@ -51,10 +51,8 @@ __RCSID("$NetBSD$");
 #include "gpt.h"
 #include "gpt_private.h"
 
-static const char *outfile = "/dev/stdout";
-
 static const char *backuphelp[] = {
-    "[-o outfile]",
+	"[-o outfile]",
 };
 
 static int cmd_backup(gpt_t, int, char *[]);
@@ -68,10 +66,7 @@ struct gpt_cmd c_backup = {
 
 #define usage() gpt_usage(NULL, &c_backup)
 
-#define PROP_ERR(x)	if (!(x)) {			\
-		gpt_warnx(gpt, "proplib failure");	\
-		return -1;				\
-	}
+#define PROP_ERR(x)	if (!(x)) goto cleanup
 
 #define prop_uint(a) prop_number_create_unsigned_integer(a)
 
@@ -147,6 +142,11 @@ store_mbr(gpt_t gpt, unsigned int i, const struct mbr *mbr,
 	rc = prop_array_add(*mbr_array, mbr_dict);
 	PROP_ERR(rc);
 	return 0;
+cleanup:
+	if (mbr_dict)
+		prop_object_release(mbr_dict);
+	gpt_warnx(gpt, "proplib failure");
+	return -1;
 }
 
 static int
@@ -173,6 +173,10 @@ store_gpt(gpt_t gpt, const struct gpt_hdr *hdr, prop_dictionary_t *type_dict)
 	rc = prop_dictionary_set(*type_dict, "entries", propnum);
 	PROP_ERR(rc);
 	return 0;
+cleanup:
+	if (*type_dict)
+		prop_object_release(*type_dict);
+	return -1;
 }
 
 static int
@@ -188,12 +192,15 @@ store_tbl(gpt_t gpt, const map_t m, prop_dictionary_t *type_dict)
 	uint8_t utfbuf[__arraycount(ent->ent_name) * 3 + 1];
 	bool rc;
 
+	*type_dict = NULL;
+
+	gpt_array = prop_array_create();
+	PROP_ERR(gpt_array);
+
 	*type_dict = prop_dictionary_create();
 	PROP_ERR(*type_dict);
 
 	ent = m->map_data;
-	gpt_array = prop_array_create();
-	PROP_ERR(gpt_array);
 	for (i = 1, ent = m->map_data;
 	    (const char *)ent < (const char *)(m->map_data) +
 	    m->map_size * gpt->secsz; i++, ent++) {
@@ -238,10 +245,16 @@ store_tbl(gpt_t gpt, const map_t m, prop_dictionary_t *type_dict)
 	PROP_ERR(rc);
 	prop_object_release(gpt_array);
 	return 0;
+cleanup:
+	if (*type_dict)
+		prop_object_release(*type_dict);
+	if (gpt_array)
+		prop_object_release(gpt_array);
+	return -1;
 }
 
 static int
-backup(gpt_t gpt)
+backup(gpt_t gpt, const char *outfile)
 {
 	map_t m;
 	struct mbr *mbr;
@@ -276,7 +289,7 @@ backup(gpt_t gpt)
 			mbr_array = NULL;
 			for (i = 0; i < 4; i++) {
 				if (store_mbr(gpt, i, mbr, &mbr_array) == -1)
-					return -1;
+					goto cleanup;
 			}
 			if (mbr_array != NULL) {
 				rc = prop_dictionary_set(type_dict,
@@ -290,7 +303,7 @@ backup(gpt_t gpt)
 			break;
 		case MAP_TYPE_PRI_GPT_HDR:
 			if (store_gpt(gpt, m->map_data, &type_dict) == -1)
-				return -1;
+				goto cleanup;
 
 			rc = prop_dictionary_set(props, "GPT_HDR", type_dict);
 			PROP_ERR(rc);
@@ -298,7 +311,7 @@ backup(gpt_t gpt)
 			break;
 		case MAP_TYPE_PRI_GPT_TBL:
 			if (store_tbl(gpt, m, &type_dict) == -1)
-				return -1;
+				goto cleanup;
 			rc = prop_dictionary_set(props, "GPT_TBL", type_dict);
 			PROP_ERR(rc);
 			prop_object_release(type_dict);
@@ -309,20 +322,28 @@ backup(gpt_t gpt)
 	propext = prop_dictionary_externalize(props);
 	PROP_ERR(propext);
 	prop_object_release(props);
-	if ((fp = fopen(outfile, "w")) == NULL) {
+	fp = strcmp(outfile, "-") == 0 ? stdout : fopen(outfile, "w");
+	if (fp == NULL) {
 		gpt_warn(gpt, "Can't open `%s'", outfile);
-		return -1;
+		free(propext);
+		goto cleanup;
 	}
 	fputs(propext, fp);
-	fclose(fp);
+	if (fp != stdout)
+		fclose(fp);
 	free(propext);
 	return 0;
+cleanup:
+	if (props)
+		prop_object_release(props);
+	return -1;
 }
 
 static int
 cmd_backup(gpt_t gpt, int argc, char *argv[])
 {
 	int ch;
+	const char *outfile = "-";
 
 	while ((ch = getopt(argc, argv, "o:")) != -1) {
 		switch(ch) {
@@ -336,5 +357,5 @@ cmd_backup(gpt_t gpt, int argc, char *argv[])
 	if (argc != optind)
 		return usage();
 
-	return backup(gpt);
+	return backup(gpt, outfile);
 }

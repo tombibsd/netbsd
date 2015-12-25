@@ -1306,7 +1306,7 @@ fdioctl(dev_t dev, u_long cmd, void *addr, int flag, struct lwp *l)
 
 	switch (cmd) {
 	case DIOCGDINFO:
-	case DIOCGPART:
+	case DIOCGPARTINFO:
 		fdgetdisklabel(fd, dev);
 		break;
 	}

@@ -121,7 +121,6 @@ extern void *_binary_splash_image_start;
 extern void *_binary_splash_image_end;
 #endif
 
-#include "drvctl.h"
 #include "ksyms.h"
 
 #include "veriexec.h"
@@ -713,9 +712,6 @@ configure(void)
 	config_twiddle_init();
 
 	pmf_init();
-#if NDRVCTL > 0
-	drvctl_init();
-#endif
 
 	/* Initialize driver modules */
 	module_init_class(MODULE_CLASS_DRIVER);
@@ -798,7 +794,7 @@ configure3(void)
 static void
 rootconf_handle_wedges(void)
 {
-	struct partinfo dpart;
+	struct disklabel label;
 	struct partition *p;
 	struct vnode *vp;
 	daddr_t startblk;
@@ -831,7 +827,7 @@ rootconf_handle_wedges(void)
 		if (vp == NULL)
 			return;
 
-		error = VOP_IOCTL(vp, DIOCGPART, &dpart, FREAD, NOCRED);
+		error = VOP_IOCTL(vp, DIOCGDINFO, &label, FREAD, NOCRED);
 		VOP_CLOSE(vp, FREAD, NOCRED);
 		vput(vp);
 		if (error)
@@ -840,7 +836,7 @@ rootconf_handle_wedges(void)
 		KASSERT(booted_partition >= 0
 			&& booted_partition < MAXPARTITIONS);
 
-		p = &dpart.disklab->d_partitions[booted_partition];
+		p = &label.d_partitions[booted_partition];
 
 		dev      = booted_device;
 		startblk = p->p_offset;

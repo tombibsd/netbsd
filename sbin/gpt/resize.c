@@ -49,13 +49,10 @@ __RCSID("$NetBSD$");
 #include "gpt.h"
 #include "gpt_private.h"
 
-static off_t alignment, sectors, size;
-static unsigned int entry;
-
 static int cmd_resize(gpt_t, int, char *[]);
 
 static const char *resizehelp[] = {
-    "-i index [-a alignment] [-s size]",
+	"-i index [-a alignment] [-s size]",
 };
 
 struct gpt_cmd c_resize = {
@@ -68,19 +65,18 @@ struct gpt_cmd c_resize = {
 #define usage() gpt_usage(NULL, &c_resize)
 
 static int
-resize(gpt_t gpt)
+resize(gpt_t gpt, u_int entry, off_t alignment, off_t sectors, off_t size)
 {
 	map_t map;
 	struct gpt_hdr *hdr;
 	struct gpt_ent *ent;
 	unsigned int i;
 	off_t alignsecs, newsize;
+	uint64_t end;
 	
 
 	if ((hdr = gpt_hdr(gpt)) == NULL)
 		return -1;
-
-	ent = NULL;
 
 	i = entry - 1;
 	ent = gpt_ent_primary(gpt, i);
@@ -113,18 +109,19 @@ resize(gpt_t gpt)
 	if (newsize == -1)
 		return -1;
 
-	ent->ent_lba_end = htole64(map->map_start + newsize - 1LL);
+	end = htole64((uint64_t)(map->map_start + newsize - 1LL));
+	ent->ent_lba_end = end;
 
 	if (gpt_write_primary(gpt) == -1)
 		return -1;
 
 	ent = gpt_ent(gpt->gpt, gpt->lbt, i);
-	ent->ent_lba_end = htole64(map->map_start + newsize - 1LL);
+	ent->ent_lba_end = end;
 
 	if (gpt_write_backup(gpt) == -1)
 		return -1;
 
-	gpt_msg(gpt, "Partition %d resized: %" PRIu64 " %" PRIu64 "\n", entry,
+	gpt_msg(gpt, "Partition %d resized: %" PRIu64 " %" PRIu64, entry,
 	    map->map_start, newsize);
 
 	return 0;
@@ -134,6 +131,8 @@ static int
 cmd_resize(gpt_t gpt, int argc, char *argv[])
 {
 	int ch;
+	off_t alignment = 0, sectors, size = 0;
+	unsigned int entry = 0;
 
 	while ((ch = getopt(argc, argv, GPT_AIS)) != -1) {
 		if (gpt_add_ais(gpt, &alignment, &entry, &size, ch) == -1)
@@ -146,5 +145,5 @@ cmd_resize(gpt_t gpt, int argc, char *argv[])
 	if ((sectors = gpt_check_ais(gpt, alignment, entry, size)) == -1)
 		return -1;
 
-	return resize(gpt);
+	return resize(gpt, entry, alignment, sectors, size);
 }

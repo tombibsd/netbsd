@@ -31,6 +31,11 @@
 #include <sys/cdefs.h>
 __KERNEL_RCSID(0, "$NetBSD$");
 
+#ifdef _KERNEL_OPT
+#include "opt_sysv.h"
+#include "opt_compat_netbsd.h"
+#endif
+
 #include <sys/param.h>
 #include <sys/ipc.h>
 #include <sys/systm.h>
@@ -41,20 +46,12 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/sem.h>
 #include <sys/shm.h>
 
-#ifndef	SYSVMSG
-#define	SYSVMSG
-#endif
-#ifndef	SYSVSEM
-#define	SYSVSEM
-#endif
-#ifndef	SYSVSHM
-#define	SYSVSHM
-#endif
-
 #include <sys/syscallargs.h>
 #include <compat/netbsd32/netbsd32.h>
 #include <compat/netbsd32/netbsd32_syscallargs.h>
 #include <compat/sys/shm.h>
+
+#if defined(COMPAT_14)
 
 static inline void
 netbsd32_ipc_perm14_to_native(struct netbsd32_ipc_perm14 *, struct ipc_perm *);
@@ -207,6 +204,7 @@ native_to_netbsd32_shmid_ds14(struct shmid_ds *shmbuf, struct netbsd32_shmid_ds1
 /*
  * the compat_14 system calls
  */
+#if defined(SYSVMSG)
 int
 compat_14_netbsd32_msgctl(struct lwp *l, const struct compat_14_netbsd32_msgctl_args *uap, register_t *retval)
 {
@@ -240,7 +238,9 @@ compat_14_netbsd32_msgctl(struct lwp *l, const struct compat_14_netbsd32_msgctl_
 
 	return (error);
 }
+#endif
 
+#if defined(SYSVSEM)
 int
 compat_14_netbsd32___semctl(struct lwp *l, const struct compat_14_netbsd32___semctl_args *uap, register_t *retval)
 {
@@ -294,7 +294,9 @@ compat_14_netbsd32___semctl(struct lwp *l, const struct compat_14_netbsd32___sem
 
 	return (error);
 }
+#endif
 
+#if defined(SYSVSHM)
 int
 compat_14_netbsd32_shmctl(struct lwp *l, const struct compat_14_netbsd32_shmctl_args *uap, register_t *retval)
 {
@@ -326,3 +328,5 @@ compat_14_netbsd32_shmctl(struct lwp *l, const struct compat_14_netbsd32_shmctl_
 
 	return (error);
 }
+#endif
+#endif /* COMPAT_14 */

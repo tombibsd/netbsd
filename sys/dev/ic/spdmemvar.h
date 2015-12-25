@@ -806,8 +806,8 @@ struct spdmem_ddr4 {				/* Dual Data Rate 4 SDRAM */
 	uint8_t	ddr4_tRFC4min_lsb;
 	uint8_t	ddr4_tRFC4min_msb;
 	SPD_BITFIELD(				\
-		uint8_t	ddr4_tFAW_mtb_msb,	\
-		uint8_t	ddr4_unused14, ,	\
+		uint8_t	ddr4_tFAW_mtb_msb:4,	\
+		uint8_t	ddr4_unused14:4, ,	\
 	);
 	uint8_t	ddr4_tFAWmin_mtb_lsb;
 	uint8_t	ddr4_tRRD_Smin_mtb;
@@ -885,7 +885,7 @@ struct spdmem {
 #define SPDMEM_TYPE_MAXLEN 24
 
 struct spdmem_softc {
-	uint8_t		(*sc_read)(struct spdmem_softc *, uint8_t);
+	uint8_t		(*sc_read)(struct spdmem_softc *, uint16_t);
 	struct spdmem	sc_spd_data;
 	struct sysctllog *sc_sysctl_log;
 	char		sc_type[SPDMEM_TYPE_MAXLEN];

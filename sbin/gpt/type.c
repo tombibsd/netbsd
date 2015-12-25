@@ -52,8 +52,9 @@ __RCSID("$NetBSD$");
 static int cmd_type(gpt_t, int, char *[]);
 
 static const char *typehelp[] = {
-"-a -T newtype",
-"[-b blocknr] [-i index] [-L label] [-s sectors] [-t type] -T newtype",
+	"-a -T newtype",
+	"[-b blocknr] [-i index] [-L label] [-s sectors] [-t type] -T newtype",
+	"-l",
 };
 
 struct gpt_cmd c_type = {
@@ -80,11 +81,15 @@ cmd_type(gpt_t gpt, int argc, char *argv[])
 	struct gpt_find find;
 
 	memset(&find, 0, sizeof(find));
+	gpt_uuid_copy(newtype, gpt_uuid_nil);
 	find.msg = "type changed";
 
 	/* Get the type options */
-	while ((ch = getopt(argc, argv, GPT_FIND "T:")) != -1) {
+	while ((ch = getopt(argc, argv, GPT_FIND "T:l")) != -1) {
 		switch(ch) {
+		case 'l':
+			gpt_uuid_help("\t");
+			return 0;
 		case 'T':
 			if (gpt_uuid_get(gpt, &newtype) == -1)
 				return -1;

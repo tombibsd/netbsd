@@ -75,14 +75,15 @@ uint32_t crc32(const void *, size_t);
 void	gpt_close(gpt_t);
 int	gpt_gpt(gpt_t, off_t, int);
 gpt_t	gpt_open(const char *, int, int, off_t, u_int);
-#define GPT_READONLY	1
-#define GPT_MODIFIED	2
-#define GPT_QUIET	4
-#define GPT_NOSYNC	8
+#define GPT_READONLY	0x01
+#define GPT_MODIFIED	0x02
+#define GPT_QUIET	0x04
+#define GPT_NOSYNC	0x08
+#define GPT_FILE	0x10
 
 void*	gpt_read(gpt_t, off_t, size_t);
 off_t	gpt_last(gpt_t);
-int	gpt_create(gpt_t, off_t, u_int, int);
+off_t	gpt_create(gpt_t, off_t, u_int, int);
 int	gpt_write(gpt_t, map_t);
 int	gpt_write_crc(gpt_t, map_t, map_t);
 int	gpt_write_primary(gpt_t);
@@ -118,11 +119,15 @@ int	gpt_add_find(gpt_t, struct gpt_find *, int);
 int	gpt_add_ais(gpt_t, off_t *, u_int *, off_t *, int);
 off_t	gpt_check_ais(gpt_t, off_t, u_int, off_t);
 
-int	gpt_attr_get(uint64_t *);
+int	gpt_attr_get(gpt_t, uint64_t *);
+const char *gpt_attr_list(char *, size_t, uint64_t);
+void	gpt_attr_help(const char *);
 int	gpt_attr_update(gpt_t, u_int, uint64_t, uint64_t);
-int	gpt_entry_get(u_int *);
+int	gpt_uint_get(u_int *);
 int	gpt_human_get(off_t *);
 int	gpt_uuid_get(gpt_t, gpt_uuid_t *);
 int	gpt_name_get(gpt_t, void *);
+int	gpt_add_hdr(gpt_t, int, off_t);
+void	gpt_show_num(const char *, uintmax_t);
 
 #endif /* _GPT_H_ */

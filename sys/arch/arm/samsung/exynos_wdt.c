@@ -203,7 +203,7 @@ exynos_wdt_attach(device_t parent, device_t self, void *aux)
 		sc->sc_wdog_wtdat = exynos_wdt_wdog_read(sc, EXYNOS_WDT_WTDAT);
 		sc->sc_wdog_period = (sc->sc_wdog_wtdat + 1) / sc->sc_freq;
 	} else {
-		sc->sc_wdog_period = EXYNOS_WDT_PERIOD_DEFAULT;
+		sc->sc_wdog_period = EXYNOS_WDT_DEFAULT_PERIOD;
 		sc->sc_wdog_prescaler = 1;
 		/*
 		 * Let's see what clock select we should use.

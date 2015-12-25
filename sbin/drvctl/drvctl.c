@@ -55,7 +55,7 @@ usage(void)
 	fprintf(stderr, "Usage: %s -r [-a attribute] busdevice [locator ...]\n"
 	    "       %s -d device\n"
 	    "       %s [-nt] -l [device]\n"
-	    "       %s [-n] -p device [prop]\n"
+	    "       %s [-n] -p device [property]\n"
 	    "       %s -Q device\n"
 	    "       %s -R device\n"
 	    "       %s -S device\n",

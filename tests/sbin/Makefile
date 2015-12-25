@@ -5,6 +5,6 @@
 
 TESTSDIR=	${TESTSBASE}/sbin
 
-TESTS_SUBDIRS+=	fsck_ffs ifconfig newfs newfs_msdos resize_ffs route sysctl
+TESTS_SUBDIRS+=	fsck_ffs gpt ifconfig newfs newfs_msdos resize_ffs route sysctl
 
 .include <bsd.test.mk>

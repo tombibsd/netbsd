@@ -50,16 +50,15 @@ __RCSID("$NetBSD$");
 #include "gpt.h"
 #include "gpt_private.h"
 
-static off_t sector, size;
 
 static int cmd_resizedisk(gpt_t, int, char *[]);
 
 static const char *resizediskhelp[] = {
-    "[-s size]",
+	"[-s size]",
 };
 
 struct gpt_cmd c_resizedisk = {
-	"resize",
+	"resizedisk",
 	cmd_resizedisk,
 	resizediskhelp, __arraycount(resizediskhelp),
 	0,
@@ -79,7 +78,7 @@ struct gpt_cmd c_resizedisk = {
  * - when shrinking, verify that table fits
  */
 static int 
-resizedisk(gpt_t gpt)
+resizedisk(gpt_t gpt, off_t sector, off_t size)
 {
 	map_t mbrmap;
 	struct gpt_hdr *hdr;
@@ -87,14 +86,15 @@ resizedisk(gpt_t gpt)
 	struct mbr *mbr;
 	off_t last, oldloc, newloc, lastdata, gpt_size;
 	int i;
-	void *p;
 	
 	last = gpt->mediasz / gpt->secsz - 1;
 	lastdata = 0;
 	newloc = 0;
 
 	if (sector > last) {
-		gpt_warnx(gpt, "specified size is larger then the disk");
+		gpt_warnx(gpt, "specified number of sectors %jd"
+		    " is larger then the disk %jd", (uintmax_t)sector,
+		    (uintmax_t)last);
 		return -1;
 	}
 
@@ -106,22 +106,39 @@ resizedisk(gpt_t gpt)
         mbr = mbrmap->map_data;
 
 	gpt->gpt = map_find(gpt, MAP_TYPE_PRI_GPT_HDR);
-	ent = NULL;
 	if (gpt == NULL) {
 		gpt_warnx(gpt, "No primary GPT header; run create or recover");
 		return -1;
 	}
-	hdr = gpt->gpt->map_data;
-	oldloc = le64toh(hdr->hdr_lba_alt);
-
-	gpt->tpg = map_find(gpt, MAP_TYPE_SEC_GPT_HDR);
-	if (gpt->tpg == NULL)
-		if (gpt_gpt(gpt, oldloc, 1))
-			gpt->tpg = map_find(gpt, MAP_TYPE_SEC_GPT_HDR);
 
 	gpt->tbl = map_find(gpt, MAP_TYPE_PRI_GPT_TBL);
 	if (gpt->tbl == NULL) {
-		gpt_warnx(gpt, "Run recover");
+		gpt_warnx(gpt, "No primary GPT table; Run recover");
+		return -1;
+	}
+
+	hdr = gpt->gpt->map_data;
+	oldloc = (off_t)le64toh((uint64_t)hdr->hdr_lba_alt);
+
+	gpt->tpg = map_find(gpt, MAP_TYPE_SEC_GPT_HDR);
+	gpt->lbt = map_find(gpt, MAP_TYPE_SEC_GPT_TBL);
+	if (gpt->tpg == NULL || gpt->lbt == NULL) {
+		if (gpt_gpt(gpt, oldloc, 1) == -1) {
+			gpt_warnx(gpt,
+			    "Error reading backup GPT information at %#jx",
+			    oldloc);
+			return -1;
+		}
+	}
+
+	gpt->tpg = map_find(gpt, MAP_TYPE_SEC_GPT_HDR);
+	if (gpt->tpg == NULL) {
+		gpt_warnx(gpt, "No secondary GPT header; Run recover");
+		return -1;
+	}
+	gpt->lbt = map_find(gpt, MAP_TYPE_SEC_GPT_TBL);
+	if (gpt->lbt == NULL) {
+		gpt_warnx(gpt, "No secondary GPT table; Run recover");
 		return -1;
 	}
 
@@ -130,6 +147,7 @@ resizedisk(gpt_t gpt)
 		gpt_warnx(gpt, "Device is already the specified size");
 		return 0;
 	}
+
 	if (sector == 0 && last == oldloc) {
 		gpt_warnx(gpt, "Device hasn't changed size");
 		return 0;
@@ -140,14 +158,16 @@ resizedisk(gpt_t gpt)
 	    le32toh(hdr->hdr_entries) * le32toh(hdr->hdr_entsz)); ent++) {
 		if (!gpt_uuid_is_nil(ent->ent_type) &&
 		    ((off_t)le64toh(ent->ent_lba_end) > lastdata)) {
-			lastdata = le64toh(ent->ent_lba_end);
+			lastdata = (off_t)le64toh((uint64_t)ent->ent_lba_end);
 		}
 	}
+
 	if (sector - gpt_size <= lastdata) {
 		gpt_warnx(gpt, "Not enough space at %" PRIu64
 		    " for secondary GPT table", sector);
 		return -1;
 	}
+
 	if (last - gpt_size <= lastdata) {
 		gpt_warnx(gpt, "Not enough space for new secondary GPT table");
 		return -1;
@@ -159,6 +179,7 @@ resizedisk(gpt_t gpt)
 		newloc = sector;
 	if (sector == 0 && last > oldloc)
 		newloc = last;
+
 	if (newloc > 0) {
 		if (gpt->tpg == NULL) {
 			gpt_warnx(gpt, "No secondary GPT header; run recover");
@@ -175,22 +196,12 @@ resizedisk(gpt_t gpt)
 			newloc = sector;
 		else
 			newloc = last;
-		if ((p = calloc(1, gpt->secsz)) == NULL) {
-			gpt_warn(gpt, "Error allocating secondary GPT");
+
+		if (gpt_add_hdr(gpt, MAP_TYPE_SEC_GPT_HDR, newloc) == -1)
 			return -1;
-		}
-		if (gpt->lbt == NULL) {
-			gpt_warn(gpt, "Error adding secondary GPT");
-			return -1;
-		}
-		gpt->tpg = map_add(gpt, newloc, 1LL, MAP_TYPE_SEC_GPT_HDR, p);
-		if (gpt->lbt == NULL) {
-			gpt_warn(gpt, "Error adding secondary GPT");
-			return -1;
-		}
-		// XXX: map add with non-allocated memory
+
 		gpt->lbt = map_add(gpt, newloc - gpt_size, gpt_size,
-		    MAP_TYPE_SEC_GPT_TBL, gpt->tbl->map_data);
+		    MAP_TYPE_SEC_GPT_TBL, gpt->tbl->map_data, 0);
 		if (gpt->lbt == NULL) {
 			gpt_warn(gpt, "Error adding secondary GPT table");
 			return -1;
@@ -199,18 +210,18 @@ resizedisk(gpt_t gpt)
 	}
 
 	hdr = gpt->gpt->map_data;
-	hdr->hdr_lba_alt = gpt->tpg->map_start;
+	hdr->hdr_lba_alt = (uint64_t)gpt->tpg->map_start;
 	hdr->hdr_crc_self = 0;
-	hdr->hdr_lba_end = htole64(gpt->lbt->map_start - 1);
+	hdr->hdr_lba_end = htole64((uint64_t)(gpt->lbt->map_start - 1));
 	hdr->hdr_crc_self =
 	    htole32(crc32(gpt->gpt->map_data, GPT_HDR_SIZE));
 	gpt_write(gpt, gpt->gpt);
 
 	hdr = gpt->tpg->map_data;
-	hdr->hdr_lba_self = htole64(gpt->tpg->map_start);
-	hdr->hdr_lba_alt = htole64(gpt->gpt->map_start);
-	hdr->hdr_lba_end = htole64(gpt->lbt->map_start - 1);
-	hdr->hdr_lba_table = htole64(gpt->lbt->map_start);
+	hdr->hdr_lba_self = htole64((uint64_t)gpt->tpg->map_start);
+	hdr->hdr_lba_alt = htole64((uint64_t)gpt->gpt->map_start);
+	hdr->hdr_lba_end = htole64((uint64_t)(gpt->lbt->map_start - 1));
+	hdr->hdr_lba_table = htole64((uint64_t)gpt->lbt->map_start);
 
 	if (gpt_write_backup(gpt) == -1)
 		return -1;
@@ -226,8 +237,8 @@ resizedisk(gpt_t gpt)
 		mbr->mbr_part[0].part_size_lo = htole16(0xffff);
 		mbr->mbr_part[0].part_size_hi = htole16(0xffff);
 	} else {
-		mbr->mbr_part[0].part_size_lo = htole16(last);
-		mbr->mbr_part[0].part_size_hi = htole16(last >> 16);
+		mbr->mbr_part[0].part_size_lo = htole16((uint16_t)last);
+		mbr->mbr_part[0].part_size_hi = htole16((uint16_t)(last >> 16));
 	}
 	if (gpt_write(gpt, mbrmap) == -1) {
 		gpt_warnx(gpt, "Error writing PMBR");
@@ -241,6 +252,7 @@ static int
 cmd_resizedisk(gpt_t gpt, int argc, char *argv[])
 {
 	int ch;
+	off_t sector, size = gpt->mediasz;
 
 	while ((ch = getopt(argc, argv, "s:")) != -1) {
 		switch(ch) {
@@ -256,8 +268,13 @@ cmd_resizedisk(gpt_t gpt, int argc, char *argv[])
 	if (argc != optind)
 		return usage();
 
-	if ((sector = gpt_check_ais(gpt, 0, ~0, size)) == -1)
+	if ((sector = gpt_check_ais(gpt, 0, (u_int)~0, size)) == -1)
 		return -1;
 
-	return resizedisk(gpt);
+	if (--sector == 0) {
+		gpt_warnx(gpt, "New size %ju too small", (uintmax_t)size);
+		return -1;
+	}
+
+	return resizedisk(gpt, sector, size);
 }

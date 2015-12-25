@@ -223,6 +223,10 @@ const struct cdevsw scif_cdevsw = {
 	.d_flag = D_TTY
 };
 
+#ifndef SCIFCONSOLE
+#define SCIFCONSOLE	0
+#endif
+int scifconsole = SCIFCONSOLE;	/* patchable */
 
 /* struct tty */
 static void scifstart(struct tty *);
@@ -1424,11 +1428,10 @@ scifcnprobe(struct consdev *cp)
 
 	/* Initialize required fields. */
 	cp->cn_dev = makedev(maj, 0);
-#ifdef SCIFCONSOLE
-	cp->cn_pri = CN_REMOTE;
-#else
-	cp->cn_pri = CN_NORMAL;
-#endif
+	if (scifconsole)
+		cp->cn_pri = CN_REMOTE;
+	else
+		cp->cn_pri = CN_NORMAL;
 }
 
 void

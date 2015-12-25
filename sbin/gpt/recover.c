@@ -49,12 +49,10 @@ __RCSID("$NetBSD$");
 #include "gpt.h"
 #include "gpt_private.h"
 
-static int recoverable;
-
 static int cmd_recover(gpt_t, int, char *[]);
 
 static const char *recoverhelp[] = {
-    "",
+	"",
 };
 
 struct gpt_cmd c_recover = {
@@ -70,9 +68,11 @@ static int
 recover_gpt_hdr(gpt_t gpt, int type, off_t last)
 {
 	const char *name, *origname;
-	void *p;
 	map_t *dgpt, dtbl, sgpt, stbl;
 	struct gpt_hdr *hdr;
+
+	if (gpt_add_hdr(gpt, type, last) == -1)
+		return -1;
 
 	switch (type) {
 	case MAP_TYPE_PRI_GPT_HDR:
@@ -96,19 +96,11 @@ recover_gpt_hdr(gpt_t gpt, int type, off_t last)
 		return -1;
 	}
 
-	if ((p = calloc(1, gpt->secsz)) == NULL) {
-		gpt_warn(gpt, "Cannot allocate %s GPT header", name);
-		return -1;
-	}
-	if ((*dgpt = map_add(gpt, last, 1LL, type, p)) == NULL) {
-		gpt_warnx(gpt, "Cannot add %s GPT header", name);
-		return -1;
-	}
 	memcpy((*dgpt)->map_data, sgpt->map_data, gpt->secsz);
 	hdr = (*dgpt)->map_data;
-	hdr->hdr_lba_self = htole64((*dgpt)->map_start);
-	hdr->hdr_lba_alt = htole64(stbl->map_start);
-	hdr->hdr_lba_table = htole64(dtbl->map_start);
+	hdr->hdr_lba_self = htole64((uint64_t)(*dgpt)->map_start);
+	hdr->hdr_lba_alt = htole64((uint64_t)stbl->map_start);
+	hdr->hdr_lba_table = htole64((uint64_t)dtbl->map_start);
 	hdr->hdr_crc_self = 0;
 	hdr->hdr_crc_self = htole32(crc32(hdr, le32toh(hdr->hdr_size)));
 	if (gpt_write(gpt, *dgpt) == -1) {
@@ -143,8 +135,7 @@ recover_gpt_tbl(gpt_t gpt, int type, off_t start)
 		return -1;
 	}
 
-	// XXX: non allocated memory
-	*dtbl = map_add(gpt, start, stbl->map_size, type, stbl->map_data);
+	*dtbl = map_add(gpt, start, stbl->map_size, type, stbl->map_data, 0);
 	if (*dtbl == NULL) {
 		gpt_warnx(gpt, "Adding %s GPT table failed", name);
 		return -1;
@@ -158,7 +149,7 @@ recover_gpt_tbl(gpt_t gpt, int type, off_t start)
 }
 
 static int
-recover(gpt_t gpt)
+recover(gpt_t gpt, int recoverable)
 {
 	uint64_t last;
 
@@ -183,7 +174,7 @@ recover(gpt_t gpt)
 		return -1;
 	}
 
-	last = gpt->mediasz / gpt->secsz - 1LL;
+	last = (uint64_t)(gpt->mediasz / gpt->secsz - 1LL);
 
 	if (gpt->gpt != NULL &&
 	    ((struct gpt_hdr *)(gpt->gpt->map_data))->hdr_lba_alt != last) {
@@ -194,7 +185,7 @@ recover(gpt_t gpt)
 
 	if (gpt->tbl != NULL && gpt->lbt == NULL) {
 		if (recover_gpt_tbl(gpt, MAP_TYPE_SEC_GPT_TBL,
-		    last - gpt->tbl->map_size) == -1)
+		    (off_t)last - gpt->tbl->map_size) == -1)
 			return -1;
 	} else if (gpt->tbl == NULL && gpt->lbt != NULL) {
 		if (recover_gpt_tbl(gpt, MAP_TYPE_PRI_GPT_TBL, 2LL) == -1)
@@ -202,7 +193,8 @@ recover(gpt_t gpt)
 	}
 
 	if (gpt->gpt != NULL && gpt->tpg == NULL) {
-		if (recover_gpt_hdr(gpt, MAP_TYPE_SEC_GPT_HDR, last) == -1)
+		if (recover_gpt_hdr(gpt, MAP_TYPE_SEC_GPT_HDR,
+		    (off_t)last) == -1)
 			return -1;
 	} else if (gpt->gpt == NULL && gpt->tpg != NULL) {
 		if (recover_gpt_hdr(gpt, MAP_TYPE_PRI_GPT_HDR, 1LL) == -1)
@@ -215,6 +207,7 @@ static int
 cmd_recover(gpt_t gpt, int argc, char *argv[])
 {
 	int ch;
+	int recoverable = 0;
 
 	while ((ch = getopt(argc, argv, "r")) != -1) {
 		switch(ch) {
@@ -229,5 +222,5 @@ cmd_recover(gpt_t gpt, int argc, char *argv[])
 	if (argc != optind)
 		return usage();
 
-	return recover(gpt);
+	return recover(gpt, recoverable);
 }

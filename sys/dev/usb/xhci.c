@@ -760,7 +760,7 @@ xhci_init(struct xhci_softc *sc)
 		    &sc->sc_spbufarray_dma);
 		if (err)
 			return err;
-		
+
 		sc->sc_spbuf_dma = kmem_zalloc(sizeof(*sc->sc_spbuf_dma) * sc->sc_maxspbuf, KM_SLEEP);
 		uint64_t *spbufarray = KERNADDR(&sc->sc_spbufarray_dma, 0);
 		for (i = 0; i < sc->sc_maxspbuf; i++) {
@@ -775,7 +775,7 @@ xhci_init(struct xhci_softc *sc)
 			    BUS_DMASYNC_PREREAD|BUS_DMASYNC_PREWRITE);
 		}
 
-		usb_syncmem(&sc->sc_spbufarray_dma, 0, 
+		usb_syncmem(&sc->sc_spbufarray_dma, 0,
 		    sizeof(uint64_t) * sc->sc_maxspbuf, BUS_DMASYNC_PREWRITE);
 	}
 
@@ -984,27 +984,28 @@ xhci_configure_endpoint(usbd_pipe_handle pipe)
 	cp[3] = htole32(0);
 
 	cp = xhci_slot_get_icv(sc, xs, xhci_dci_to_ici(dci));
+	uint8_t eptype = xhci_ep_get_type(pipe->endpoint->edesc);
 	if (xfertype == UE_INTERRUPT) {
-	cp[0] = htole32(
-	    XHCI_EPCTX_0_IVAL_SET(3) /* XXX */
-	    );
-	cp[1] = htole32(
-	    XHCI_EPCTX_1_CERR_SET(3) |
-	    XHCI_EPCTX_1_EPTYPE_SET(xhci_ep_get_type(pipe->endpoint->edesc)) |
-	    XHCI_EPCTX_1_MAXB_SET(0) |
-	    XHCI_EPCTX_1_MAXP_SIZE_SET(8) /* XXX */
-	    );
-	cp[4] = htole32(
-		XHCI_EPCTX_4_AVG_TRB_LEN_SET(8)
-		);
+		cp[0] = htole32(
+		    XHCI_EPCTX_0_IVAL_SET(3) /* XXX */
+		    );
+		cp[1] = htole32(
+		    XHCI_EPCTX_1_CERR_SET(3) |
+		    XHCI_EPCTX_1_EPTYPE_SET(eptype) |
+		    XHCI_EPCTX_1_MAXB_SET(0) |
+		    XHCI_EPCTX_1_MAXP_SIZE_SET(8) /* XXX */
+		    );
+		cp[4] = htole32(
+		    XHCI_EPCTX_4_AVG_TRB_LEN_SET(8)
+		    );
 	} else {
-	cp[0] = htole32(0);
-	cp[1] = htole32(
-	    XHCI_EPCTX_1_CERR_SET(3) |
-	    XHCI_EPCTX_1_EPTYPE_SET(xhci_ep_get_type(pipe->endpoint->edesc)) |
-	    XHCI_EPCTX_1_MAXB_SET(0) |
-	    XHCI_EPCTX_1_MAXP_SIZE_SET(512) /* XXX */
-	    );
+		cp[0] = htole32(0);
+		cp[1] = htole32(
+		    XHCI_EPCTX_1_CERR_SET(3) |
+		    XHCI_EPCTX_1_EPTYPE_SET(eptype) |
+		    XHCI_EPCTX_1_MAXB_SET(0) |
+		    XHCI_EPCTX_1_MAXP_SIZE_SET(512) /* XXX */
+		    );
 	}
 	*(uint64_t *)(&cp[2]) = htole64(
 	    xhci_ring_trbp(&xs->xs_ep[dci].xe_tr, 0) |
@@ -1922,10 +1923,8 @@ xhci_init_slot(struct xhci_softc * const sc, uint32_t slot, int depth,
 	uint32_t xspeed;
 
 	XHCIHIST_FUNC(); XHCIHIST_CALLED();
-	DPRINTFN(4, "slot %u depth %d speed %d",
-	    slot, depth, speed, 0);
-	DPRINTFN(4, " port %d rhport %d",
-	    port, rhport, 0, 0);
+	DPRINTFN(4, "slot %u depth %d speed %d", slot, depth, speed, 0);
+	DPRINTFN(4, " port %d rhport %d", port, rhport, 0, 0);
 
 	switch (speed) {
 	case USB_SPEED_LOW:

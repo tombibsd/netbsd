@@ -16,16 +16,17 @@ SUBDIR+=	ccd
 SUBDIR+=	cd9660
 SUBDIR+=	cgd
 SUBDIR+=	chfs
+SUBDIR+=	clockctl
 SUBDIR+=	crypto
 SUBDIR+=	coda
 SUBDIR+=	coda5
 SUBDIR+=	compat
-SUBDIR+=	compat_sysv
 SUBDIR+=	compat_ossaudio
 SUBDIR+=	coredump
 SUBDIR+=	dbcool
 SUBDIR+=	des
 SUBDIR+=	dk_subr
+SUBDIR+=	drvctl
 SUBDIR+=	efs
 SUBDIR+=	ext2fs
 SUBDIR+=	exec_script
@@ -212,6 +213,7 @@ SUBDIR+=	wmimsi
 SUBDIR+=	compat_netbsd32
 SUBDIR+=	compat_netbsd32_nfssrv
 SUBDIR+=	compat_netbsd32_mqueue
+SUBDIR+=	compat_netbsd32_sysvipc
 .endif
 
 .if ${MACHINE_ARCH} == "x86_64"
@@ -219,6 +221,7 @@ SUBDIR+=	compat_linux32
 SUBDIR+=	compat_netbsd32
 SUBDIR+=	compat_netbsd32_nfssrv
 SUBDIR+=	compat_netbsd32_mqueue
+SUBDIR+=	compat_netbsd32_sysvipc
 .endif
 
 .if ${MACHINE_ARCH} == "i386"

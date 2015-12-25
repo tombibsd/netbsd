@@ -36,7 +36,7 @@
 /unique.c/1.1.1.1/Fri Aug  7 18:33:14 2009/-kk/
 /vdev.c/1.4/Sun Nov 20 02:54:25 2011/-kk/
 /vdev_cache.c/1.1.1.2/Sat Feb 27 22:31:10 2010/-kk/
-/vdev_disk.c/1.5/Sun Nov 20 02:54:25 2011/-kk/
+/vdev_disk.c/1.6/Fri Dec 25 05:38:42 2015/-kk/
 /vdev_file.c/1.2/Thu Oct 24 10:28:50 2013/-kk/
 /vdev_label.c/1.1.1.2/Sat Feb 27 22:31:12 2010/-kk/
 /vdev_mirror.c/1.1.1.2/Sat Feb 27 22:31:06 2010/-kk/

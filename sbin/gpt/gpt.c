@@ -144,25 +144,25 @@ utf16_to_utf8(const uint16_t *s16, uint8_t *s8, size_t s8len)
 		if (utfchar < 0x80) {
 			if (s8idx + 1 >= s8len)
 				break;
-			s8[s8idx++] = utfchar;
+			s8[s8idx++] = (uint8_t)utfchar;
 		} else if (utfchar < 0x800) {
 			if (s8idx + 2 >= s8len)
 				break;
-			s8[s8idx++] = 0xc0 | (utfchar >> 6);
-			s8[s8idx++] = 0x80 | (utfchar & 0x3f);
+			s8[s8idx++] = (uint8_t)(0xc0 | (utfchar >> 6));
+			s8[s8idx++] = (uint8_t)(0x80 | (utfchar & 0x3f));
 		} else if (utfchar < 0x10000) {
 			if (s8idx + 3 >= s8len)
 				break;
-			s8[s8idx++] = 0xe0 | (utfchar >> 12);
-			s8[s8idx++] = 0x80 | ((utfchar >> 6) & 0x3f);
-			s8[s8idx++] = 0x80 | (utfchar & 0x3f);
+			s8[s8idx++] = (uint8_t)(0xe0 | (utfchar >> 12));
+			s8[s8idx++] = (uint8_t)(0x80 | ((utfchar >> 6) & 0x3f));
+			s8[s8idx++] = (uint8_t)(0x80 | (utfchar & 0x3f));
 		} else if (utfchar < 0x200000) {
 			if (s8idx + 4 >= s8len)
 				break;
-			s8[s8idx++] = 0xf0 | (utfchar >> 18);
-			s8[s8idx++] = 0x80 | ((utfchar >> 12) & 0x3f);
-			s8[s8idx++] = 0x80 | ((utfchar >> 6) & 0x3f);
-			s8[s8idx++] = 0x80 | (utfchar & 0x3f);
+			s8[s8idx++] = (uint8_t)(0xf0 | (utfchar >> 18));
+			s8[s8idx++] = (uint8_t)(0x80 | ((utfchar >> 12) & 0x3f));
+			s8[s8idx++] = (uint8_t)(0x80 | ((utfchar >> 6) & 0x3f));
+			s8[s8idx++] = (uint8_t)(0x80 | (utfchar & 0x3f));
 		}
 	}
 	s8[s8idx] = 0;
@@ -211,18 +211,18 @@ utf8_to_utf16(const uint8_t *s8, uint16_t *s16, size_t s16len)
 				utfchar = (utfchar << 6) + (c & 0x3f);
 				utfbytes--;
 			} else if (utfbytes == 0)
-				utfbytes = -1;
+				utfbytes = (u_int)~0;
 		}
 		if (utfbytes == 0) {
 			if (utfchar >= 0x10000 && s16idx + 2 >= s16len)
 				utfchar = 0xfffd;
 			if (utfchar >= 0x10000) {
-				s16[s16idx++] =
-				    htole16(0xd800 | ((utfchar>>10)-0x40));
-				s16[s16idx++] =
-				    htole16(0xdc00 | (utfchar & 0x3ff));
+				s16[s16idx++] = htole16((uint16_t)
+				    (0xd800 | ((utfchar>>10) - 0x40)));
+				s16[s16idx++] = htole16((uint16_t)
+				    (0xdc00 | (utfchar & 0x3ff)));
 			} else
-				s16[s16idx++] = htole16(utfchar);
+				s16[s16idx++] = htole16((uint16_t)utfchar);
 			if (s16idx == s16len) {
 				s16[--s16idx] = 0;
 				return;
@@ -257,7 +257,7 @@ gpt_write(gpt_t gpt, map_t map)
 	off_t ofs;
 	size_t count;
 
-	count = map->map_size * gpt->secsz;
+	count = (size_t)(map->map_size * gpt->secsz);
 	ofs = map->map_start * gpt->secsz;
 	if (lseek(gpt->fd, ofs, SEEK_SET) != ofs ||
 	    write(gpt->fd, map->map_data, count) != (ssize_t)count)
@@ -308,7 +308,7 @@ gpt_mbr(gpt_t gpt, off_t lba)
 			    (uintmax_t)lba);
 		else if (gpt->verbose > 1)
 			gpt_msg(gpt, "PMBR at sector %ju", (uintmax_t)lba);
-		p = map_add(gpt, lba, 1LL, MAP_TYPE_PMBR, mbr);
+		p = map_add(gpt, lba, 1LL, MAP_TYPE_PMBR, mbr, 1);
 		goto out;
 	}
 	if (pmbr)
@@ -316,7 +316,7 @@ gpt_mbr(gpt_t gpt, off_t lba)
 	else if (gpt->verbose > 1)
 		gpt_msg(gpt, "MBR at sector %ju", (uintmax_t)lba);
 
-	p = map_add(gpt, lba, 1LL, MAP_TYPE_MBR, mbr);
+	p = map_add(gpt, lba, 1LL, MAP_TYPE_MBR, mbr, 1);
 	if (p == NULL)
 		goto out;
 
@@ -340,8 +340,7 @@ gpt_mbr(gpt_t gpt, off_t lba)
 			    mbr->mbr_part[i].part_typ,
 			    (uintmax_t)start, (uintmax_t)size);
 		if (mbr->mbr_part[i].part_typ != MBR_PTYPE_EXT_LBA) {
-			// XXX: map add with non-allocated memory
-			m = map_add(gpt, start, size, MAP_TYPE_MBR_PART, p);
+			m = map_add(gpt, start, size, MAP_TYPE_MBR_PART, p, 0);
 			if (m == NULL)
 				return -1;
 			m->map_index = i + 1;
@@ -391,7 +390,7 @@ gpt_gpt(gpt_t gpt, off_t lba, int found)
 	blocks = tblsz / gpt->secsz + ((tblsz % gpt->secsz) ? 1 : 0);
 
 	/* Use generic pointer to deal with hdr->hdr_entsz != sizeof(*ent). */
-	p = gpt_read(gpt, le64toh(hdr->hdr_lba_table), blocks);
+	p = gpt_read(gpt, (off_t)le64toh((uint64_t)hdr->hdr_lba_table), blocks);
 	if (p == NULL) {
 		if (found) {
 			if (gpt->verbose)
@@ -415,12 +414,13 @@ gpt_gpt(gpt_t gpt, off_t lba, int found)
 		    (lba == 1) ? "Pri" : "Sec", (uintmax_t)lba);
 
 	m = map_add(gpt, lba, 1, (lba == 1)
-	    ? MAP_TYPE_PRI_GPT_HDR : MAP_TYPE_SEC_GPT_HDR, hdr);
+	    ? MAP_TYPE_PRI_GPT_HDR : MAP_TYPE_SEC_GPT_HDR, hdr, 1);
 	if (m == NULL)
 		return (-1);
 
-	m = map_add(gpt, le64toh(hdr->hdr_lba_table), blocks, (lba == 1)
-	    ? MAP_TYPE_PRI_GPT_TBL : MAP_TYPE_SEC_GPT_TBL, p);
+	m = map_add(gpt, (off_t)le64toh((uint64_t)hdr->hdr_lba_table),
+	    (off_t)blocks,
+	    lba == 1 ? MAP_TYPE_PRI_GPT_TBL : MAP_TYPE_SEC_GPT_TBL, p, 1);
 	if (m == NULL)
 		return (-1);
 
@@ -432,8 +432,8 @@ gpt_gpt(gpt_t gpt, off_t lba, int found)
 		if (gpt_uuid_is_nil(ent->ent_type))
 			continue;
 
-		size = le64toh(ent->ent_lba_end) - le64toh(ent->ent_lba_start) +
-		    1LL;
+		size = (off_t)(le64toh((uint64_t)ent->ent_lba_end) -
+		    le64toh((uint64_t)ent->ent_lba_start) + 1LL);
 		if (gpt->verbose > 2) {
 			char buf[128];
 			gpt_uuid_snprintf(buf, sizeof(buf), "%s", 
@@ -443,9 +443,8 @@ gpt_gpt(gpt_t gpt, off_t lba, int found)
 			    (uintmax_t)le64toh(ent->ent_lba_start),
 			    (uintmax_t)size);
 		}
-		// XXX: map add with not allocated memory.
-		m = map_add(gpt, le64toh(ent->ent_lba_start), size,
-		    MAP_TYPE_GPT_PART, ent);
+		m = map_add(gpt, (off_t)le64toh((uint64_t)ent->ent_lba_start),
+		    size, MAP_TYPE_GPT_PART, ent, 0);
 		if (m == NULL)
 			return (-1);
 		m->map_index = i + 1;
@@ -519,6 +518,7 @@ gpt_open(const char *dev, int flags, int verbose, off_t mediasz, u_int secsz)
 			}
 		}
 	} else {
+		gpt->flags |= GPT_FILE;
 		if (gpt->secsz == 0)
 			gpt->secsz = 512;	/* Fixed size for files. */
 		if (gpt->mediasz == 0) {
@@ -539,7 +539,7 @@ gpt_open(const char *dev, int flags, int verbose, off_t mediasz, u_int secsz)
 	 */
 	devsz = gpt->mediasz / gpt->secsz;
 	if (devsz < 6) {
-		gpt_warnx(gpt, "Need 6 sectorso, we have %ju",
+		gpt_warnx(gpt, "Need 6 sectors, we have %ju",
 		    (uintmax_t)devsz);
 		goto close;
 	}
@@ -584,8 +584,9 @@ gpt_close(gpt_t gpt)
 			goto out;
 #endif
 	}
-	gpt_msg(gpt, "You need to run \"dkctl %s makewedges\""
-	    " for the changes to take effect\n", gpt->device_name);
+	if (!(gpt->flags & GPT_FILE))
+		gpt_msg(gpt, "You need to run \"dkctl %s makewedges\""
+		    " for the changes to take effect\n", gpt->device_name);
 
 out:
 	close(gpt->fd);
@@ -711,11 +712,10 @@ gpt_create_pmbr_part(struct mbr_part *part, off_t last)
 		part->part_size_lo = htole16(0xffff);
 		part->part_size_hi = htole16(0xffff);
 	} else {
-		part->part_size_lo = htole16(last);
-		part->part_size_hi = htole16(last >> 16);
+		part->part_size_lo = htole16((uint16_t)last);
+		part->part_size_hi = htole16((uint16_t)(last >> 16));
 	}
 }
-
 
 struct gpt_ent *
 gpt_ent(map_t map, map_t tbl, unsigned int i)
@@ -774,7 +774,7 @@ gpt_last(gpt_t gpt)
 	return gpt->mediasz / gpt->secsz - 1LL;
 }
 
-int
+off_t
 gpt_create(gpt_t gpt, off_t last, u_int parts, int primary_only)
 {
 	off_t blocks;
@@ -800,7 +800,7 @@ gpt_create(gpt_t gpt, off_t last, u_int parts, int primary_only)
 	/* Don't create more than parts entries. */
 	if ((uint64_t)(blocks - 1) * gpt->secsz >
 	    parts * sizeof(struct gpt_ent)) {
-		blocks = (parts * sizeof(struct gpt_ent)) / gpt->secsz;
+		blocks = (off_t)((parts * sizeof(struct gpt_ent)) / gpt->secsz);
 		if ((parts * sizeof(struct gpt_ent)) % gpt->secsz)
 			blocks++;
 		blocks++;		/* Don't forget the header itself */
@@ -829,23 +829,15 @@ gpt_create(gpt_t gpt, off_t last, u_int parts, int primary_only)
 
 	blocks--;		/* Number of blocks in the GPT table. */
 
-	if ((p = calloc(1, gpt->secsz)) == NULL) {
-		gpt_warnx(gpt, "Can't allocate the primary GPT");
+	if (gpt_add_hdr(gpt, MAP_TYPE_PRI_GPT_HDR, 1) == -1)
 		return -1;
-	}
-	if ((gpt->gpt = map_add(gpt, 1LL, 1LL,
-	    MAP_TYPE_PRI_GPT_HDR, p)) == NULL) {
-		free(p);
-		gpt_warnx(gpt, "Can't add the primary GPT");
-		return -1;
-	}
 
-	if ((p = calloc(blocks, gpt->secsz)) == NULL) {
+	if ((p = calloc((size_t)blocks, gpt->secsz)) == NULL) {
 		gpt_warnx(gpt, "Can't allocate the primary GPT table");
 		return -1;
 	}
 	if ((gpt->tbl = map_add(gpt, 2LL, blocks,
-	    MAP_TYPE_PRI_GPT_TBL, p)) == NULL) {
+	    MAP_TYPE_PRI_GPT_TBL, p, 1)) == NULL) {
 		free(p);
 		gpt_warnx(gpt, "Can't add the primary GPT table");
 		return -1;
@@ -860,15 +852,15 @@ gpt_create(gpt_t gpt, off_t last, u_int parts, int primary_only)
 	 */
 	hdr->hdr_revision = htole32(GPT_HDR_REVISION);
 	hdr->hdr_size = htole32(GPT_HDR_SIZE);
-	hdr->hdr_lba_self = htole64(gpt->gpt->map_start);
-	hdr->hdr_lba_alt = htole64(last);
-	hdr->hdr_lba_start = htole64(gpt->tbl->map_start + blocks);
-	hdr->hdr_lba_end = htole64(last - blocks - 1LL);
+	hdr->hdr_lba_self = htole64((uint64_t)gpt->gpt->map_start);
+	hdr->hdr_lba_alt = htole64((uint64_t)last);
+	hdr->hdr_lba_start = htole64((uint64_t)(gpt->tbl->map_start + blocks));
+	hdr->hdr_lba_end = htole64((uint64_t)(last - blocks - 1LL));
 	if (gpt_uuid_generate(gpt, hdr->hdr_guid) == -1)
 		return -1;
-	hdr->hdr_lba_table = htole64(gpt->tbl->map_start);
-	hdr->hdr_entries = htole32((blocks * gpt->secsz) /
-	    sizeof(struct gpt_ent));
+	hdr->hdr_lba_table = htole64((uint64_t)(gpt->tbl->map_start));
+	hdr->hdr_entries = htole32((uint32_t)(((uint64_t)blocks * gpt->secsz) /
+	    sizeof(struct gpt_ent)));
 	if (le32toh(hdr->hdr_entries) > parts)
 		hdr->hdr_entries = htole32(parts);
 	hdr->hdr_entsz = htole32(sizeof(struct gpt_ent));
@@ -885,19 +877,11 @@ gpt_create(gpt_t gpt, off_t last, u_int parts, int primary_only)
 	if (primary_only)
 		return last;
 
-	if ((p = calloc(1, gpt->secsz)) == NULL) {
-		gpt_warnx(gpt, "Can't allocate the secondary GPT");
+	if (gpt_add_hdr(gpt, MAP_TYPE_SEC_GPT_HDR, last) == -1)
 		return -1;
-	}
-
-	if ((gpt->tpg = map_add(gpt, last, 1LL,
-	    MAP_TYPE_SEC_GPT_HDR, p)) == NULL) {
-		gpt_warnx(gpt, "Can't add the secondary GPT");
-		return -1;
-	}
 
 	if ((gpt->lbt = map_add(gpt, last - blocks, blocks,
-	    MAP_TYPE_SEC_GPT_TBL, gpt->tbl->map_data)) == NULL) {
+	    MAP_TYPE_SEC_GPT_TBL, gpt->tbl->map_data, 0)) == NULL) {
 		gpt_warnx(gpt, "Can't add the secondary GPT table");
 		return -1;
 	}
@@ -905,9 +889,9 @@ gpt_create(gpt_t gpt, off_t last, u_int parts, int primary_only)
 	memcpy(gpt->tpg->map_data, gpt->gpt->map_data, gpt->secsz);
 
 	hdr = gpt->tpg->map_data;
-	hdr->hdr_lba_self = htole64(gpt->tpg->map_start);
-	hdr->hdr_lba_alt = htole64(gpt->gpt->map_start);
-	hdr->hdr_lba_table = htole64(gpt->lbt->map_start);
+	hdr->hdr_lba_self = htole64((uint64_t)gpt->tpg->map_start);
+	hdr->hdr_lba_alt = htole64((uint64_t)gpt->gpt->map_start);
+	hdr->hdr_lba_table = htole64((uint64_t)gpt->lbt->map_start);
 	return last;
 }
 
@@ -966,7 +950,7 @@ gpt_add_find(gpt_t gpt, struct gpt_find *find, int ch)
 			return -1;
 		break;
 	case 'i':
-		if (gpt_entry_get(&find->entry) == -1)
+		if (gpt_uint_get(&find->entry) == -1)
 			return -1;
 		break;
 	case 'L':
@@ -1058,7 +1042,7 @@ gpt_add_ais(gpt_t gpt, off_t *alignment, u_int *entry, off_t *size, int ch)
 			return -1;
 		return 0;
 	case 'i':
-		if (gpt_entry_get(entry) == -1)
+		if (gpt_uint_get(entry) == -1)
 			return -1;
 		return 0;
 	case 's':
@@ -1092,21 +1076,90 @@ gpt_check_ais(gpt_t gpt, off_t alignment, u_int entry, off_t size)
 		return size / gpt->secsz;
 	return 0;
 }
+
+static const struct nvd {
+	const char *name;
+	uint64_t mask;
+	const char *description;
+} gpt_attr[] = {
+	{
+		"biosboot",
+		GPT_ENT_ATTR_LEGACY_BIOS_BOOTABLE,
+		"Legacy BIOS boot partition",
+	},
+	{
+		"bootme",
+		GPT_ENT_ATTR_BOOTME,
+		"Bootable partition",
+	},
+	{
+		"bootfailed",
+		GPT_ENT_ATTR_BOOTFAILED,
+		"Partition that marked bootonce failed to boot",
+	},
+	{
+		"bootonce",
+		GPT_ENT_ATTR_BOOTONCE,
+		"Attempt to boot this partition only once",
+	},
+	{
+		"noblockio",
+		GPT_ENT_ATTR_NO_BLOCK_IO_PROTOCOL,
+		"UEFI won't recognize file system for block I/O",
+	},
+	{
+		"required",
+		GPT_ENT_ATTR_REQUIRED_PARTITION,
+		"Partition required for platform to function",
+	},
+};
+
 int
-gpt_attr_get(uint64_t *attributes)
+gpt_attr_get(gpt_t gpt, uint64_t *attributes)
 {
-	if (strcmp(optarg, "biosboot") == 0)
-		*attributes |= GPT_ENT_ATTR_LEGACY_BIOS_BOOTABLE;
-	else if (strcmp(optarg, "bootme") == 0)
-		*attributes |= GPT_ENT_ATTR_BOOTME;
-	else if (strcmp(optarg, "bootonce") == 0)
-		*attributes |= GPT_ENT_ATTR_BOOTONCE;
-	else if (strcmp(optarg, "bootfailed") == 0)
-		*attributes |= GPT_ENT_ATTR_BOOTFAILED;
-	else
-		return -1;
-	return 0;
+	size_t i;
+	int rv = 0;
+	char *ptr;
+
+	*attributes = 0;
+
+	for (ptr = strtok(optarg, ","); ptr; ptr = strtok(NULL, ",")) {
+		for (i = 0; i < __arraycount(gpt_attr); i++)
+			if (strcmp(gpt_attr[i].name, ptr) == 0)
+				break;
+		if (i == __arraycount(gpt_attr)) {
+			gpt_warnx(gpt, "Unregognized attribute `%s'", ptr);
+			rv = -1;
+		} else
+			*attributes |= gpt_attr[i].mask;
+	}
+	return rv;
 }
+
+void
+gpt_attr_help(const char *prefix)
+{
+	size_t i;
+
+	for (i = 0; i < __arraycount(gpt_attr); i++)
+		printf("%s%10.10s\t%s\n", prefix, gpt_attr[i].name,
+		    gpt_attr[i].description);
+}
+
+const char *
+gpt_attr_list(char *buf, size_t len, uint64_t attributes)
+{
+	size_t i;
+	strlcpy(buf, "", len);	
+
+	for (i = 0; i < __arraycount(gpt_attr); i++)
+		if (attributes & gpt_attr[i].mask) {
+			strlcat(buf, buf[0] ? "," : "", len); 
+			strlcat(buf, gpt_attr[i].name, len);
+		}
+	return buf;
+}
+
 int
 gpt_attr_update(gpt_t gpt, u_int entry, uint64_t set, uint64_t clr)
 {
@@ -1150,12 +1203,12 @@ gpt_attr_update(gpt_t gpt, u_int entry, uint64_t set, uint64_t clr)
 }
 
 int
-gpt_entry_get(u_int *entry)
+gpt_uint_get(u_int *entry)
 {
 	char *p;
 	if (*entry > 0)
 		return -1;
-	*entry = strtoul(optarg, &p, 10);
+	*entry = (u_int)strtoul(optarg, &p, 10);
 	if (*p != 0 || *entry < 1)
 		return -1;
 	return 0;
@@ -1181,6 +1234,58 @@ gpt_name_get(gpt_t gpt, void *v)
 	*name = strdup(optarg);
 	if (*name == NULL) {
 		gpt_warn(gpt, "Can't copy string");
+		return -1;
+	}
+	return 0;
+}
+
+void
+gpt_show_num(const char *prompt, uintmax_t num)
+{
+#ifdef HN_AUTOSCALE
+	char human_num[5];
+	if (humanize_number(human_num, 5, (int64_t)num ,
+	    "", HN_AUTOSCALE, HN_NOSPACE|HN_B) < 0)
+		human_num[0] = '\0';
+#endif
+	printf("%s: %ju", prompt, num);
+#ifdef HN_AUTOSCALE
+	if (human_num[0] != '\0')
+		printf(" (%s)", human_num);
+#endif
+	printf("\n");
+}
+
+int
+gpt_add_hdr(gpt_t gpt, int type, off_t loc)
+{
+	void *p;
+	map_t *t;
+	const char *msg;
+
+	switch (type) {
+	case MAP_TYPE_PRI_GPT_HDR:
+		t = &gpt->gpt;
+		msg = "primary";
+		break;
+	case MAP_TYPE_SEC_GPT_HDR:
+		t = &gpt->tpg;
+		msg = "secondary";
+		break;
+	default:
+		gpt_warnx(gpt, "Unknown GPT header type %d", type);
+		return -1;
+	}
+
+	if ((p = calloc(1, gpt->secsz)) == NULL) {
+		gpt_warn(gpt, "Error allocating %s GPT header", msg);
+		return -1;
+	}
+
+	*t = map_add(gpt, loc, 1LL, type, p, 1);
+	if (*t == NULL) {
+		gpt_warn(gpt, "Error adding %s GPT header", msg);
+		free(p);
 		return -1;
 	}
 	return 0;

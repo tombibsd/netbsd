@@ -51,15 +51,11 @@ __RCSID("$NetBSD$");
 #include "gpt.h"
 #include "gpt_private.h"
 
-static gpt_uuid_t type;
-static off_t alignment, block, sectors, size;
-static unsigned int entry;
-static uint8_t *name;
 static int cmd_add(gpt_t, int, char *[]);
 
 static const char *addhelp[] = {
-    "[-a alignment] [-b blocknr] [-i index] [-l label]",
-    "[-s size] [-t type]",
+	"[-a alignment] [-b blocknr] [-i index] [-l label]",
+	"[-s size] [-t type]",
 };
 
 struct gpt_cmd c_add = {
@@ -76,15 +72,17 @@ ent_set(struct gpt_ent *ent, const map_t map, const gpt_uuid_t xtype,
     const uint8_t *xname)
 {
 	gpt_uuid_copy(ent->ent_type, xtype);
-	ent->ent_lba_start = htole64(map->map_start);
-	ent->ent_lba_end = htole64(map->map_start + map->map_size - 1LL);
+	ent->ent_lba_start = htole64((uint64_t)map->map_start);
+	ent->ent_lba_end = htole64((uint64_t)(map->map_start +
+	    map->map_size - 1LL));
 	if (xname == NULL)
 		return;
 	utf8_to_utf16(xname, ent->ent_name, __arraycount(ent->ent_name));
 }
 
 static int
-add(gpt_t gpt)
+add(gpt_t gpt, off_t alignment, off_t block, off_t sectors, off_t size,
+    u_int entry, uint8_t *name, gpt_uuid_t type)
 {
 	map_t map;
 	struct gpt_hdr *hdr;
@@ -141,11 +139,13 @@ add(gpt_t gpt)
 	}
 
 	ent_set(ent, map, type, name);
-	gpt_write_primary(gpt);
+	if (gpt_write_primary(gpt) == -1)
+		return -1;
 
 	ent = gpt_ent_backup(gpt, i);
 	ent_set(ent, map, type, name);
-	gpt_write_backup(gpt);
+	if (gpt_write_backup(gpt) == -1)
+		return -1;
 
 	gpt_uuid_snprintf(buf, sizeof(buf), "%d", type);
 	gpt_msg(gpt, "Partition %d added: %s %" PRIu64 " %" PRIu64, i + 1,
@@ -157,25 +157,31 @@ static int
 cmd_add(gpt_t gpt, int argc, char *argv[])
 {
 	int ch;
+	off_t alignment = 0, block = 0, sectors = 0, size = 0;
+	unsigned int entry = 0;
+	uint8_t *name = NULL;
+	gpt_uuid_t type;
+
+	gpt_uuid_copy(type, gpt_uuid_nil);
 
 	while ((ch = getopt(argc, argv, GPT_AIS "b:l:t:")) != -1) {
 		switch(ch) {
 		case 'b':
 			if (gpt_human_get(&block) == -1)
-				return usage();
+				goto usage;
 			break;
 		case 'l':
 			if (gpt_name_get(gpt, &name) == -1)
-				return usage();
+				goto usage;
 			break;
 		case 't':
 			if (gpt_uuid_get(gpt, &type) == -1)
-				return usage();
+				goto usage;
 			break;
 		default:
 			if (gpt_add_ais(gpt, &alignment, &entry, &size, ch)
 			    == -1)
-				return usage();
+				goto usage;
 			break;
 		}
 	}
@@ -188,10 +194,15 @@ cmd_add(gpt_t gpt, int argc, char *argv[])
 		gpt_uuid_create(GPT_TYPE_NETBSD_FFS, type, NULL, 0);
 
 	if (optind != argc)
-		return usage();
+		goto cleanup;
 
-	if ((sectors = gpt_check_ais(gpt, alignment, ~0, size)) == -1)
-		return -1;
+	if ((sectors = gpt_check_ais(gpt, alignment, ~0U, size)) == -1)
+		goto cleanup;
 
-	return add(gpt);
+	return add(gpt, alignment, block, sectors, size, entry, name, type);
+usage:
+	return usage();
+cleanup:
+	free(name);
+	return -1;
 }

@@ -1,9 +1,9 @@
-/maple.c/1.51/Fri Oct  3 09:08:55 2014/-kk/
+/maple.c/1.52/Fri Dec 25 05:40:10 2015/-kk/
 /maple.h/1.12/Sun Oct 17 14:13:44 2010/-kk/
 /mapleconf.h/1.6/Fri Dec  6 15:49:32 2002/-kk/
 /mapleio.h/1.1/Sat May 26 19:04:39 2001/-kk/
 /maplereg.h/1.5/Sun Dec 11 12:17:06 2005/-kk/
-/maplevar.h/1.14/Sat Oct 27 17:17:45 2012/-kk/
+/maplevar.h/1.15/Fri Dec 25 05:40:10 2015/-kk/
 /mkbd.c/1.29/Tue Jul 19 15:52:30 2011/-kk/
 /mkbdmap.h/1.6/Fri Jul  5 14:29:06 2002/-kk/
 /mkbdvar.h/1.7/Sun Oct 17 14:13:44 2010/-kk/

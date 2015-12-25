@@ -899,19 +899,24 @@ sunos32_sys_ioctl(struct lwp *l, const struct sunos32_sys_ioctl_args *uap, regis
 	case SUN_DKIOCGPART:
             {
 		struct partinfo pi;
+		struct disklabel label;
+		int fd = SCARG(&bsd_ua, fd);
 
-		error = sunos32_do_ioctl(SCARG(&bsd_ua, fd), DIOCGPART, &pi, l);
+		error = sunos32_do_ioctl(fd, DIOCGPARTINFO, &pi, l);
 		if (error)
-			return (error);
+			return error;
+		error = sunos32_do_ioctl(fd, DIOCGDINFO, &label, l);
+		if (error)
+			return error;
 
-		if (pi.disklab->d_secpercyl == 0)
-			return (ERANGE);	/* XXX */
-		if (pi.part->p_offset % pi.disklab->d_secpercyl != 0)
-			return (ERANGE);	/* XXX */
+		if (label.d_secpercyl == 0)
+			return ERANGE;	/* XXX */
+		if (pi.pi_offset % label.d_secpercyl != 0)
+			return ERANGE;	/* XXX */
 		/* XXX can't do direct writes to a user address (dsl) */
 #define datapart	((struct sun_dkpart *)SCARG_P32(uap, data))
-		datapart->sdkp_cyloffset = pi.part->p_offset / pi.disklab->d_secpercyl;
-		datapart->sdkp_nsectors = pi.part->p_size;
+		datapart->sdkp_cyloffset = pi.pi_offset / label.d_secpercyl;
+		datapart->sdkp_nsectors = pi.pi_size;
 #undef datapart
 	    }
 

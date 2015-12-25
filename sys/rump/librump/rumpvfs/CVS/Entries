@@ -5,7 +5,7 @@
 /rump_etfs.3/1.4/Mon Jun 22 02:35:13 2015/-kk/
 /rump_vfs.c/1.83/Sun Aug  2 04:02:58 2015/-kk/
 /rump_vfs_private.h/1.19/Thu Jun 18 03:42:36 2015/-kk/
-/rumpblk.c/1.60/Wed Jun  3 06:55:55 2015/-kk/
+/rumpblk.c/1.62/Fri Dec 25 05:40:33 2015/-kk/
 /rumpfs.4/1.1/Sun Nov  9 17:39:38 2014/-kk/
 /rumpfs.c/1.135/Thu Jul  2 04:14:38 2015/-kk/
 /rumpvfs.ifspec/1.10/Fri May  1 11:32:38 2015/-kk/

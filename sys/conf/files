@@ -1436,7 +1436,7 @@ file	dev/kttcp.c			kttcp		needs-flag
 # Veriexec
 defpseudo veriexec
 file	kern/kern_veriexec.c	veriexec
-file	dev/verified_exec.c		veriexec	needs-flag
+file	dev/veriexec.c		veriexec	needs-flag
 
 # driver attach / detach user interface
 defpseudo drvctl
@@ -1565,3 +1565,8 @@ include "dev/iscsi/files.iscsi"
 # athn
 #
 include "dev/ic/files.athn"
+
+#
+# MI clk api
+#
+include "dev/clk/files.clk"

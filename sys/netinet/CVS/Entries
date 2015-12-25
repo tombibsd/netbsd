@@ -51,7 +51,7 @@
 /ip_carp.h/1.7/Fri Oct  3 09:09:30 2014/-kk/
 /ip_ecn.c/1.16/Sun Sep 13 01:07:52 2015/-kk/
 /ip_ecn.h/1.12/Wed Nov 12 12:36:28 2008/-kk/
-/ip_encap.c/1.46/Sun Sep 13 01:07:52 2015/-kk/
+/ip_encap.c/1.47/Fri Dec 25 05:40:32 2015/-kk/
 /ip_encap.h/1.13/Tue Nov 25 18:28:05 2008/-kk/
 /ip_etherip.c/1.15/Sun Sep 13 01:07:52 2015/-kk/
 /ip_etherip.h/1.1/Thu Nov 23 04:07:07 2006/-kk/

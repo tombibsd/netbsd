@@ -48,7 +48,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <compat/netbsd32/netbsd32_sysctl.h>
 #include <compat/netbsd32/netbsd32_exec.h>
 
-# define	DEPS1	"compat,compat_sysv,ksem"
+# define	DEPS1	"compat,sysv_ipc,ksem"
 
 #if defined(EXEC_ELF32)
 # define	DEPS2	",exec_elf32"

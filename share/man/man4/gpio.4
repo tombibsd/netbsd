@@ -15,7 +15,7 @@
 .\" ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 .\" OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 .\"
-.Dd June 10, 2013
+.Dd December 6, 2015
 .Dt GPIO 4
 .Os
 .Sh NAME
@@ -168,6 +168,15 @@ invert input
 invert output
 .It Dv GPIO_PIN_PULSATE
 pulsate output
+.It Dv GPIO_PIN_ALT0 -
+.It Dv GPIO_PIN_ALT7
+select alternate pin function 0 to 7
+.It Dv GPIO_PIN_EVENTS
+deliver events
+.It Dv GPIO_PIN_LEVEL
+trigger on pin level instead of edge
+.It Dv GPIO_PIN_FALLING
+trigger on falling instead of rising edge
 .El
 .Pp
 Note that the GPIO controller

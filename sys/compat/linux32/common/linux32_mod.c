@@ -51,7 +51,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <compat/linux32/common/linux32_exec.h>
 
 #if defined(EXEC_ELF32)
-# define	MD1	",exec_elf32,compat_netbsd32"
+# define	MD1	",exec_elf32,compat_netbsd32,compat_netbsd32_sysvipc"
 #else
 # define	MD1	""
 #endif

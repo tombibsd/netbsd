@@ -124,18 +124,6 @@ static const struct syscall_package compat_syscalls[] = {
 	{ SYS_compat_09_ouname, 0, (sy_call_t *)compat_09_sys_uname },
 #endif
 
-#if defined(COMPAT_10) && !defined(_LP64)
-# if defined(SYSVMSG)
-	{ SYS_compat_10_omsgsys, 0, (sy_call_t *)compat_10_sys_msgsys },
-# endif
-# if defined(SYSVSEM)
-	{ SYS_compat_10_osemsys, 0, (sy_call_t *)compat_10_sys_semsys },
-# endif
-# if defined(SYSVSHM)
-	{ SYS_compat_10_oshmsys, 0, (sy_call_t *)compat_10_sys_shmsys },
-# endif
-#endif	/* defined(COMPAT_10) && !defined(_LP64) */
-
 #if defined(COMPAT_12)
 	{ SYS_compat_12_fstat12, 0, (sy_call_t *)compat_12_sys_fstat },
 	{ SYS_compat_12_getdirentries, 0, (sy_call_t *)compat_12_sys_getdirentries },

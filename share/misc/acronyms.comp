@@ -701,6 +701,7 @@ MAC	medium access control
 MAC	message authentication {check,code}
 MADT	multiple APIC descriptor table
 MB	megabyte
+MBA	multi-boot agent
 MBR	master boot record
 MBS	megabits per second
 MC	memory controller

@@ -871,8 +871,12 @@ sunos_sys_ioctl(struct lwp *l, const struct sunos_sys_ioctl_args *uap, register_
 	case SUN_DKIOCGPART:
             {
 		struct partinfo pi;
+		struct disklabel label;
 
-		error = (*ctl)(fp, DIOCGPART, &pi);
+		error = (*ctl)(fp, DIOCGDINFO, &label);
+		if (error)
+			break;
+		error = (*ctl)(fp, DIOCGPARTINFO, &pi);
 		if (error)
 			break;
 
@@ -880,14 +884,14 @@ sunos_sys_ioctl(struct lwp *l, const struct sunos_sys_ioctl_args *uap, register_
 			error = ERANGE;	/* XXX */
 			break;
 		}
-		if (pi.part->p_offset % pi.disklab->d_secpercyl != 0) {
+		if (pi.pi_offset % label.d_secpercyl != 0) {
 			error = ERANGE;	/* XXX */
 			break;
 		}
 
 #define datapart	((struct sun_dkpart *)SCARG(uap, data))
-		datapart->sdkp_cyloffset = pi.part->p_offset / pi.disklab->d_secpercyl;
-		datapart->sdkp_nsectors = pi.part->p_size;
+		datapart->sdkp_cyloffset = pi.pi_offset / label.d_secpercyl;
+		datapart->sdkp_nsectors = pi.pi_size;
 #undef datapart
 		break;
 	    }

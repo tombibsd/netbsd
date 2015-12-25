@@ -52,6 +52,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/protosw.h>
 #include <sys/cpu.h>
 #include <sys/intr.h>
+#include <sys/kmem.h>
 
 #include <net/if.h>
 #include <net/if_types.h>
@@ -94,6 +95,10 @@ LIST_HEAD(, gif_softc) gif_softc_list;	/* XXX should be static */
 
 static int	gif_clone_create(struct if_clone *, int);
 static int	gif_clone_destroy(struct ifnet *);
+static int	gif_check_nesting(struct ifnet *, struct mbuf *);
+
+static int	gif_encap_attach(struct gif_softc *);
+static int	gif_encap_detach(struct gif_softc *);
 
 static struct if_clone gif_cloner =
     IF_CLONE_INITIALIZER("gif", gif_clone_create, gif_clone_destroy);
@@ -125,7 +130,8 @@ gif_clone_create(struct if_clone *ifc, int unit)
 {
 	struct gif_softc *sc;
 
-	sc = malloc(sizeof(struct gif_softc), M_DEVBUF, M_WAITOK|M_ZERO);
+	sc = kmem_zalloc(sizeof(struct gif_softc), KM_SLEEP);
+	KASSERT(sc != NULL);
 
 	if_initname(&sc->gif_if, ifc->ifc_name, unit);
 
@@ -160,20 +166,14 @@ gif_clone_destroy(struct ifnet *ifp)
 {
 	struct gif_softc *sc = (void *) ifp;
 
-	gif_delete_tunnel(&sc->gif_if);
 	LIST_REMOVE(sc, gif_list);
-#ifdef INET6
-	encap_detach(sc->encap_cookie6);
-#endif
-#ifdef INET
-	encap_detach(sc->encap_cookie4);
-#endif
 
+	gif_delete_tunnel(&sc->gif_if);
 	bpf_detach(ifp);
 	if_detach(ifp);
 	rtcache_free(&sc->gif_ro);
 
-	free(sc, M_DEVBUF);
+	kmem_free(sc, sizeof(struct gif_softc));
 
 	return (0);
 }
@@ -239,31 +239,56 @@ gif_encapcheck(struct mbuf *m, int off, int proto, void *arg)
 }
 #endif
 
+/*
+ * gif may cause infinite recursion calls when misconfigured.
+ * We'll prevent this by introducing upper limit.
+ */
+static int
+gif_check_nesting(struct ifnet *ifp, struct mbuf *m)
+{
+	struct m_tag *mtag;
+	int *count;
+
+	mtag = m_tag_find(m, PACKET_TAG_TUNNEL_INFO, NULL);
+	if (mtag != NULL) {
+		count = (int *)(mtag + 1);
+		if (++(*count) > max_gif_nesting) {
+			log(LOG_NOTICE,
+			    "%s: recursively called too many times(%d)\n",
+			    if_name(ifp),
+			    *count);
+			return EIO;
+		}
+	} else {
+		mtag = m_tag_get(PACKET_TAG_TUNNEL_INFO, sizeof(*count),
+		    M_NOWAIT);
+		if (mtag != NULL) {
+			m_tag_prepend(m, mtag);
+			count = (int *)(mtag + 1);
+			*count = 0;
+		} else {
+			log(LOG_DEBUG,
+			    "%s: m_tag_get() failed, recursion calls are not prevented.\n",
+			    if_name(ifp));
+		}
+	}
+
+	return 0;
+}
+
 int
 gif_output(struct ifnet *ifp, struct mbuf *m, const struct sockaddr *dst,
     struct rtentry *rt)
 {
 	struct gif_softc *sc = ifp->if_softc;
 	int error = 0;
-	static int called = 0;	/* XXX: MUTEX */
 	ALTQ_DECL(struct altq_pktattr pktattr;)
 	int s;
 
 	IFQ_CLASSIFY(&ifp->if_snd, m, dst->sa_family, &pktattr);
 
-	/*
-	 * gif may cause infinite recursion calls when misconfigured.
-	 * We'll prevent this by introducing upper limit.
-	 * XXX: this mechanism may introduce another problem about
-	 *      mutual exclusion of the variable CALLED, especially if we
-	 *      use kernel thread.
-	 */
-	if (++called > max_gif_nesting) {
-		log(LOG_NOTICE,
-		    "gif_output: recursively called too many times(%d)\n",
-		    called);
-		m_freem(m);
-		error = EIO;	/* is there better errno? */
+	if ((error = gif_check_nesting(ifp, m)) != 0) {
+		m_free(m);
 		goto end;
 	}
 
@@ -301,7 +326,6 @@ gif_output(struct ifnet *ifp, struct mbuf *m, const struct sockaddr *dst,
 	error = 0;
 
   end:
-	called = 0;		/* reset recursion counter */
 	if (error)
 		ifp->if_oerrors++;
 	return error;
@@ -658,71 +682,13 @@ gif_ioctl(struct ifnet *ifp, u_long cmd, void *data)
 	return error;
 }
 
-int
-gif_set_tunnel(struct ifnet *ifp, struct sockaddr *src, struct sockaddr *dst)
+static int
+gif_encap_attach(struct gif_softc *sc)
 {
-	struct gif_softc *sc = ifp->if_softc;
-	struct gif_softc *sc2;
-	struct sockaddr *osrc, *odst;
-	int s;
 	int error;
 
-	s = splsoftnet();
-
-	LIST_FOREACH(sc2, &gif_softc_list, gif_list) {
-		if (sc2 == sc)
-			continue;
-		if (!sc2->gif_pdst || !sc2->gif_psrc)
-			continue;
-		/* can't configure same pair of address onto two gifs */
-		if (sockaddr_cmp(sc2->gif_pdst, dst) == 0 &&
-		    sockaddr_cmp(sc2->gif_psrc, src) == 0) {
-			error = EADDRNOTAVAIL;
-			/* continue to use the old configureation. */
-			goto out;
-		}
-
-		/* XXX both end must be valid? (I mean, not 0.0.0.0) */
-	}
-
-	if (sc->gif_si) {
-		softint_disestablish(sc->gif_si);
-		sc->gif_si = NULL;
-	}
-
-	/* XXX we can detach from both, but be polite just in case */
-	if (sc->gif_psrc)
-		switch (sc->gif_psrc->sa_family) {
-#ifdef INET
-		case AF_INET:
-			(void)in_gif_detach(sc);
-			break;
-#endif
-#ifdef INET6
-		case AF_INET6:
-			(void)in6_gif_detach(sc);
-			break;
-#endif
-		}
-
-	osrc = sc->gif_psrc;
-	odst = sc->gif_pdst;
-	sc->gif_psrc = sc->gif_pdst = NULL;
-	sc->gif_si = softint_establish(SOFTINT_NET, gifintr, sc);
-	if (sc->gif_si == NULL) {
-		error = ENOMEM;
-		goto rollback;
-	}
-
-	if ((sc->gif_psrc = sockaddr_dup(src, M_WAITOK)) == NULL) {
-		error = ENOMEM;
-		goto rollback;
-	}
-
-	if ((sc->gif_pdst = sockaddr_dup(dst, M_WAITOK)) == NULL) {
-		error = ENOMEM;
-		goto rollback;
-	}
+	if (sc == NULL || sc->gif_psrc == NULL)
+		return EINVAL;
 
 	switch (sc->gif_psrc->sa_family) {
 #ifdef INET
@@ -739,31 +705,132 @@ gif_set_tunnel(struct ifnet *ifp, struct sockaddr *src, struct sockaddr *dst)
 		error = EINVAL;
 		break;
 	}
-	if (error)
-		goto rollback;
+
+	return error;
+}
+
+static int
+gif_encap_detach(struct gif_softc *sc)
+{
+	int error;
+
+	if (sc == NULL || sc->gif_psrc == NULL)
+		return EINVAL;
+
+	switch (sc->gif_psrc->sa_family) {
+#ifdef INET
+	case AF_INET:
+		error = in_gif_detach(sc);
+		break;
+#endif
+#ifdef INET6
+	case AF_INET6:
+		error = in6_gif_detach(sc);
+		break;
+#endif
+	default:
+		error = EINVAL;
+		break;
+	}
+
+	return error;
+}
+
+int
+gif_set_tunnel(struct ifnet *ifp, struct sockaddr *src, struct sockaddr *dst)
+{
+	struct gif_softc *sc = ifp->if_softc;
+	struct gif_softc *sc2;
+	struct sockaddr *osrc, *odst;
+	struct sockaddr *nsrc, *ndst;
+	int s;
+	int error;
+
+	s = splsoftnet();
+
+	LIST_FOREACH(sc2, &gif_softc_list, gif_list) {
+		if (sc2 == sc)
+			continue;
+		if (!sc2->gif_pdst || !sc2->gif_psrc)
+			continue;
+		/* can't configure same pair of address onto two gifs */
+		if (sockaddr_cmp(sc2->gif_pdst, dst) == 0 &&
+		    sockaddr_cmp(sc2->gif_psrc, src) == 0) {
+			/* continue to use the old configureation. */
+			splx(s);
+			return EADDRNOTAVAIL;
+		}
+
+		/* XXX both end must be valid? (I mean, not 0.0.0.0) */
+	}
+
+	if ((nsrc = sockaddr_dup(src, M_WAITOK)) == NULL) {
+		splx(s);
+		return ENOMEM;
+	}
+	if ((ndst = sockaddr_dup(dst, M_WAITOK)) == NULL) {
+		sockaddr_free(nsrc);
+		splx(s);
+		return ENOMEM;
+	}
+
+	/* Firstly, clear old configurations. */
+	if (sc->gif_si) {
+		softint_disestablish(sc->gif_si);
+		sc->gif_si = NULL;
+	}
+	/* XXX we can detach from both, but be polite just in case */
+	if (sc->gif_psrc)
+		(void)gif_encap_detach(sc);
+
+	/*
+	 * Secondly, try to set new configurations.
+	 * If the setup failed, rollback to old configurations.
+	 */
+	do {
+		osrc = sc->gif_psrc;
+		odst = sc->gif_pdst;
+		sc->gif_psrc = nsrc;
+		sc->gif_pdst = ndst;
+
+		error = gif_encap_attach(sc);
+		if (error) {
+			/* rollback to the last configuration. */
+			nsrc = osrc;
+			ndst = odst;
+			osrc = sc->gif_psrc;
+			odst = sc->gif_pdst;
+
+			continue;
+		}
+
+		sc->gif_si = softint_establish(SOFTINT_NET, gifintr, sc);
+		if (sc->gif_si == NULL) {
+			(void)gif_encap_detach(sc);
+
+			/* rollback to the last configuration. */
+			nsrc = osrc;
+			ndst = odst;
+			osrc = sc->gif_psrc;
+			odst = sc->gif_pdst;
+
+			error = ENOMEM;
+			continue;
+		}
+	} while (error != 0 && (nsrc != NULL && ndst != NULL));
+	/* Thirdly, even rollback failed, clear configurations. */
+	if (error) {
+		osrc = sc->gif_psrc;
+		odst = sc->gif_pdst;
+		sc->gif_psrc = NULL;
+		sc->gif_pdst = NULL;
+	}
 
 	if (osrc)
 		sockaddr_free(osrc);
 	if (odst)
 		sockaddr_free(odst);
 
-	error = 0;
-	goto out;
-
-rollback:
-	if (sc->gif_psrc != NULL)
-		sockaddr_free(sc->gif_psrc);
-	if (sc->gif_pdst != NULL)
-		sockaddr_free(sc->gif_pdst);
-	sc->gif_psrc = osrc;
-	sc->gif_pdst = odst;
-
-	if (sc->gif_si) {
-		softint_disestablish(sc->gif_si);
-		sc->gif_si = NULL;
-	}
-
-out:
 	if (sc->gif_psrc && sc->gif_pdst)
 		ifp->if_flags |= IFF_RUNNING;
 	else

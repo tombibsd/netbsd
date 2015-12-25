@@ -1114,7 +1114,7 @@ raidioctl(dev_t dev, u_long cmd, void *data, int flag, struct lwp *l)
 	case ODIOCSDINFO:
 	case ODIOCGDEFLABEL:
 #endif
-	case DIOCGPART:
+	case DIOCGPARTINFO:
 	case DIOCWLABEL:
 	case DIOCGDEFLABEL:
 	case DIOCAWEDGE:

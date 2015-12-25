@@ -72,6 +72,7 @@ void    clockctlattach(int);
 int     clockctlopen(dev_t, int, int, struct lwp *);
 int     clockctlclose(dev_t, int, int, struct lwp *);
 int     clockctlioctl(dev_t, u_long, void *, int, struct lwp *);
+int	clockctl_init(void);
 #endif
 
 #endif /* _SYS_CLOCKCTL_H_ */

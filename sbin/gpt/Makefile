@@ -3,6 +3,7 @@
 
 .include <bsd.own.mk>
 
+WARNS=6
 PROG=	gpt
 SRCS=	add.c biosboot.c create.c destroy.c gpt.c header.c label.c map.c \
 	main.c migrate.c recover.c remove.c resize.c resizedisk.c \

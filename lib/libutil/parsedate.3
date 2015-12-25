@@ -27,7 +27,7 @@
 .\" ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 .\" POSSIBILITY OF SUCH DAMAGE.
 .\"
-.Dd November 25, 2015
+.Dd December 7, 2015
 .Dt PARSEDATE 3
 .Os
 .Sh NAME
@@ -74,39 +74,68 @@ The following words have the indicated numeric meanings:
 \-1,
 .Dv this =
 0,
-.Dv first, next, or one =
+.Dv first , next ,
+or
+.Dv one =
 1,
 .Dv second
 is unused so that it is not confused with
 .Dq seconds ,
 .Dv two =
 2,
-.Dv third or three =
+.Dv third
+or
+.Dv three =
 3,
-.Dv fourth or four =
+.Dv fourth
+or
+.Dv four =
 4,
-.Dv fifth or five  =
+.Dv fifth
+or
+.Dv five  =
 5,
-.Dv sixth or six  =
+.Dv sixth
+or
+.Dv six  =
 6,
-.Dv seventh or seven =
+.Dv seventh
+or
+.Dv seven =
 7,
-.Dv eighth or eight =
+.Dv eighth
+or
+.Dv eight =
 8,
-.Dv ninth or nine =
+.Dv ninth
+or
+.Dv nine =
 9,
-.Dv tenth or ten =
+.Dv tenth
+or
+.Dv ten =
 10,
-.Dv eleventh or eleven =
+.Dv eleventh
+or
+.Dv eleven =
 11,
-.Dv twelfth or twelve =
+.Dv twelfth
+or
+.Dv twelve =
 12.
 .Pp
 The following words are recognized in English only:
 .Dv AM ,
 .Dv PM ,
 .Dv a.m. ,
-.Dv p.m.
+.Dv p.m. ,
+.Dv midnight ,
+.Dv mn ,
+.Dv noon ,
+.Dv dawn ,
+.Dv sunup ,
+.Dv sunset ,
+.Dv sundown .
 .Pp
 The months:
 .Dv january ,
@@ -191,11 +220,11 @@ Timezone names:
 .Dv zp5 (+0500) ,
 .Dv ist (+0550) ,
 .Dv zp6 (+0600) ,
-.Dv wast (+0700) ,
-.Dv wadt (+0800) ,
-.Dv awst (+0700) ,
-.Dv awdt (+0800) ,
 .Dv ict (+0700) ,
+.Dv wast (+0800) ,
+.Dv wadt (+0900) ,
+.Dv awst (+0800) ,
+.Dv awdt (+0900) ,
 .Dv cct (+0800) ,
 .Dv sgt (+0800) ,
 .Dv hkt (+0800) ,
@@ -229,7 +258,7 @@ An ISO-8601 date.
 The year in an ISO-8601 date is always taken literally,
 so this is the year 69, not 2069.
 .It 10/1/2000
-October 10, 2000; the common US format.
+October 1, 2000; the common, but bizarre, US format.
 .It 20 Jun 1994
 .It 23jun2001
 .It 1-sep-06
@@ -253,6 +282,7 @@ As well as times:
 .It 12:11:01.000012
 .It 12:21-0500
 .El
+Fractions of seconds (after a decimal point) are parsed, but ignored.
 .Pp
 Relative items are also supported:
 .Bl -tag -compact -width "this thursday"
@@ -263,6 +293,14 @@ Relative items are also supported:
 .It next sunday
 .It +2 years
 .El
+.Pp
+Note that, as a special case for
+.Dv midnight
+with the name of a day only,
+.Dq "midnight tuesday"
+implies 00:00 at the beginning of Tuesday, whereas
+.Dq "Sat mn"
+implies 00:00 at the end of Saturday (i.e. early Sunday morning.)
 .Pp
 Seconds since epoch, UTC, (also known as UNIX time) are also supported:
 .Bl -tag -compact -width "@735275209"

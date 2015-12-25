@@ -72,8 +72,8 @@ linux_ioctl_hdio(struct lwp *l, const struct linux_sys_ioctl_args *uap,
 	struct file *fp;
 	int (*ioctlf)(struct file *, u_long, void *);
 	struct atareq req;
-	struct disklabel label, *labp;
-	struct partinfo partp;
+	struct disklabel label;
+	struct partinfo pi;
 	struct linux_hd_geometry hdg;
 	struct linux_hd_big_geometry hdg_big;
 
@@ -107,17 +107,16 @@ linux_ioctl_hdio(struct lwp *l, const struct linux_sys_ioctl_args *uap,
 		error = linux_machdepioctl(l, uap, retval);
 		if (error == 0)
 			break;
-		error = ioctlf(fp, DIOCGDEFLABEL, &label);
-		error1 = ioctlf(fp, DIOCGPART, &partp);
+		error = ioctlf(fp, DIOCGDINFO, &label);
+		error1 = ioctlf(fp, DIOCGPARTINFO, &pi);
 		if (error != 0 && error1 != 0) {
 			error = error1;
 			break;
 		}
-		labp = error != 0 ? &label : partp.disklab;
-		hdg.start = error1 != 0 ? partp.part->p_offset : 0;
-		hdg.heads = labp->d_ntracks;
-		hdg.cylinders = labp->d_ncylinders;
-		hdg.sectors = labp->d_nsectors;
+		hdg.start = error1 != 0 ? pi.pi_offset : 0;
+		hdg.heads = label.d_ntracks;
+		hdg.cylinders = label.d_ncylinders;
+		hdg.sectors = label.d_nsectors;
 		error = copyout(&hdg, SCARG(uap, data), sizeof hdg);
 		break;
 	case LINUX_HDIO_GETGEO_BIG:
@@ -125,17 +124,16 @@ linux_ioctl_hdio(struct lwp *l, const struct linux_sys_ioctl_args *uap,
 		if (error == 0)
 			break;
 	case LINUX_HDIO_GETGEO_BIG_RAW:
-		error = ioctlf(fp, DIOCGDEFLABEL, &label);
-		error1 = ioctlf(fp, DIOCGPART, &partp);
+		error = ioctlf(fp, DIOCGDINFO, &label);
+		error1 = ioctlf(fp, DIOCGPARTINFO, &pi);
 		if (error != 0 && error1 != 0) {
 			error = error1;
 			break;
 		}
-		labp = error != 0 ? &label : partp.disklab;
-		hdg_big.start = error1 != 0 ? partp.part->p_offset : 0;
-		hdg_big.heads = labp->d_ntracks;
-		hdg_big.cylinders = labp->d_ncylinders;
-		hdg_big.sectors = labp->d_nsectors;
+		hdg_big.start = error1 != 0 ? pi.pi_offset : 0;
+		hdg_big.heads = label.d_ntracks;
+		hdg_big.cylinders = label.d_ncylinders;
+		hdg_big.sectors = label.d_nsectors;
 		error = copyout(&hdg_big, SCARG(uap, data), sizeof hdg_big);
 		break;
 	case LINUX_HDIO_GET_UNMASKINTR:

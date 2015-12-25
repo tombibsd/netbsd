@@ -71,13 +71,6 @@
 /* from <sys/dkio.h> */
 typedef netbsd32_pointer_t netbsd32_disklabel_tp_t;
 typedef netbsd32_pointer_t netbsd32_partition_tp_t;
-struct netbsd32_partinfo {
-	netbsd32_disklabel_tp_t disklab;
-	netbsd32_partition_tp_t part;
-};
-#if 1
-#define DIOCGPART32	_IOW('d', 104, struct netbsd32_partinfo)	/* get partition */
-#endif
 
 #if 0	/* not implemented by anything */
 struct netbsd32_format_op {

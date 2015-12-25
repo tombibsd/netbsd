@@ -1101,7 +1101,7 @@ rfioctl(dev_t dev, u_long cmd, void *data, int fflag, struct lwp *l)
 		return error;
 
 	switch (cmd) {
-	/* get and set disklabel; DIOCGPART used internally */
+	/* get and set disklabel; DIOCGPARTINFO used internally */
 	case DIOCSDINFO: /* set */
 		return(0);
 	case DIOCWDINFO: /* set, update disk */

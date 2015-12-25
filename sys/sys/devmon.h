@@ -31,6 +31,6 @@
 #ifndef _SYS_DEVMON_H_
 #define _SYS_DEVMON_H_
 
-void devmon_insert(const char *, prop_dictionary_t);
+int devmon_insert(const char *, prop_dictionary_t);
 
 #endif /*_SYS_DEVMON_H_*/

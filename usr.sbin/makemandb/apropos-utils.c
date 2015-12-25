@@ -910,6 +910,9 @@ term_fix_seq(TERMINAL *ti, const char *seq)
 	char *res = estrdup(seq);
 	struct nv nv;
 
+	if (ti == NULL)
+	    return res;
+
 	nv.s = res;
 	nv.l = 0;
 	ti_puts(ti, seq, 1, term_putc, &nv);

@@ -569,10 +569,9 @@ cache_lookup(struct vnode *dvp, const char *name, size_t namelen,
 		} else {
 			COUNT(cpup, ncs_badhits);
 			/*
-			 * Last component and we are renaming or
-			 * deleting, the cache entry is invalid,
-			 * or otherwise don't want cache entry to
-			 * exist.
+			 * Last component and we are preparing to create
+			 * the named object, so flush the negative cache
+			 * entry.
 			 */
 			cache_invalidate(ncp);
 			/* found nothing */

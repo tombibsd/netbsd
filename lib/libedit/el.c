@@ -135,7 +135,8 @@ el_end(EditLine *el)
 	terminal_end(el);
 	keymacro_end(el);
 	map_end(el);
-	tty_end(el);
+	if (!(el->el_flags & NO_TTY))
+		tty_end(el);
 	ch_end(el);
 	search_end(el);
 	hist_end(el);

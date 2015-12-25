@@ -52,8 +52,8 @@ __RCSID("$NetBSD$");
 static int cmd_remove(gpt_t, int, char *[]);
 
 static const char *removehelp[] = {
-    "-a",
-    "[-b blocknr] [-i index] [-L label] [-s sectors] [-t type]",
+	"-a",
+	"[-b blocknr] [-i index] [-L label] [-s sectors] [-t type]",
 };
 
 struct gpt_cmd c_remove = {

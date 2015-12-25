@@ -188,6 +188,7 @@ ichsmb_attach(device_t parent, device_t self, void *aux)
 
 	sc->sc_i2c_device = NULL;
 	flags = 0;
+	mutex_init(&sc->sc_i2c_mutex, MUTEX_DEFAULT, IPL_NONE);
 	ichsmb_rescan(self, "i2cbus", &flags);
 
 out:	if (!pmf_device_register(self, NULL, NULL))
@@ -207,7 +208,6 @@ ichsmb_rescan(device_t self, const char *ifattr, const int *flags)
 		return 0;
 
 	/* Attach I2C bus */
-	mutex_init(&sc->sc_i2c_mutex, MUTEX_DEFAULT, IPL_NONE);
 	sc->sc_i2c_tag.ic_cookie = sc;
 	sc->sc_i2c_tag.ic_acquire_bus = ichsmb_i2c_acquire_bus;
 	sc->sc_i2c_tag.ic_release_bus = ichsmb_i2c_release_bus;

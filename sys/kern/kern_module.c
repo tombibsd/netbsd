@@ -950,7 +950,7 @@ module_do_load(const char *name, bool isdep, int flags,
 				depth--;
 				return 0;
 			}
-		}				
+		}
 		mod = module_newmodule(MODULE_SOURCE_FILESYS);
 		if (mod == NULL) {
 			module_error("out of memory for `%s'", name);
@@ -1050,10 +1050,10 @@ module_do_load(const char *name, bool isdep, int flags,
 			continue;
 		}
 		if (strcmp(mod2->mod_info->mi_name, mi->mi_name) == 0) {
-		    	error = EDEADLK;
+			error = EDEADLK;
 			module_error("circular dependency detected for `%s'",
 			    mi->mi_name);
-		    	goto fail;
+			goto fail;
 		}
 	}
 

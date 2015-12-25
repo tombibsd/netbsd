@@ -580,6 +580,9 @@ protected void
 /*ARGSUSED*/
 tty_end(EditLine *el)
 {
+	if (el->el_flags & EDIT_DISABLED)
+		return;
+
 	if (tty_setty(el, TCSAFLUSH, &el->el_tty.t_or) == -1) {
 #ifdef DEBUG_TTY
 		(void) fprintf(el->el_errfile,

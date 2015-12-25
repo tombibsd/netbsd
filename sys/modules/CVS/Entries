@@ -1,6 +1,6 @@
 /Makefile.assym/1.5/Thu May 28 03:25:57 2015/-kk/
 /Makefile.inc/1.6/Sun Sep 11 18:38:02 2011/-kk/
-/Makefile/1.160/Sun Dec  6 11:01:22 2015/-kk/
+/Makefile/1.164/Fri Dec 25 05:40:32 2015/-kk/
 /README/1.1/Thu Nov 13 10:06:46 2008/-kk/
 D/accf_dataready////
 D/accf_httpready////
@@ -44,6 +44,7 @@ D/cd9660////
 D/cgd////
 D/chfs////
 D/cir////
+D/clockctl////
 D/coda////
 D/coda5////
 D/compat////
@@ -55,11 +56,11 @@ D/compat_linux32////
 D/compat_netbsd32////
 D/compat_netbsd32_mqueue////
 D/compat_netbsd32_nfssrv////
+D/compat_netbsd32_sysvipc////
 D/compat_ossaudio////
 D/compat_sunos////
 D/compat_sunos32////
 D/compat_svr4////
-D/compat_sysv////
 D/coram////
 D/coredump////
 D/coretemp////
@@ -75,6 +76,7 @@ D/drm////
 D/drmkms////
 D/drmkms_linux////
 D/drmkms_pci////
+D/drvctl////
 D/dtrace////
 D/dtv////
 D/dtv_math////

@@ -1,4 +1,4 @@
-/linux_blkio.c/1.17/Fri Mar 21 21:54:58 2008/-kk/
+/linux_blkio.c/1.18/Fri Dec 25 05:40:20 2015/-kk/
 /linux_blkio.h/1.2/Thu Jan 18 17:48:04 2001/-kk/
 /linux_break.c/1.56/Mon Apr 28 20:23:43 2008/-kk/
 /linux_cdrom.c/1.27/Mon Apr 28 20:23:43 2008/-kk/
@@ -23,7 +23,7 @@
 /linux_file64.c/1.55/Wed Jan  1 02:45:27 2014/-kk/
 /linux_futex.c/1.33/Thu Feb 27 08:55:56 2014/-kk/
 /linux_futex.h/1.7/Thu Oct 24 10:28:57 2013/-kk/
-/linux_hdio.c/1.16/Fri Mar 21 21:54:58 2008/-kk/
+/linux_hdio.c/1.17/Fri Dec 25 05:40:20 2015/-kk/
 /linux_hdio.h/1.1/Sun Dec 10 14:12:17 2000/-kk/
 /linux_ioctl.c/1.58/Fri Apr 11 02:03:40 2014/-kk/
 /linux_ioctl.h/1.27/Thu Oct 24 10:28:57 2013/-kk/
@@ -38,7 +38,7 @@
 /linux_misc.h/1.24/Tue Nov 26 03:29:51 2013/-kk/
 /linux_misc_notalpha.c/1.109/Tue Dec  9 04:23:58 2014/-kk/
 /linux_mmap.h/1.21/Mon Apr 28 20:23:43 2008/-kk/
-/linux_mod.c/1.5/Sun Oct 11 09:01:16 2015/-kk/
+/linux_mod.c/1.6/Fri Dec 25 05:40:20 2015/-kk/
 /linux_msg.h/1.13/Wed Nov 18 15:19:24 2009/-kk/
 /linux_mtio.c/1.7/Fri Mar 21 21:54:58 2008/-kk/
 /linux_mtio.h/1.2/Sun Dec 11 12:20:19 2005/-kk/

@@ -32,7 +32,7 @@
 /accept.2/1.31/Thu Oct 24 10:28:53 2013/-kk/
 /access.2/1.32/Thu Oct 24 10:28:53 2013/-kk/
 /acct.2/1.19/Mon May 31 12:16:20 2010/-kk/
-/adjtime.2/1.20/Thu May 13 10:20:57 2004/-kk/
+/adjtime.2/1.21/Fri Dec 25 05:39:57 2015/-kk/
 /adjtime.c/1.12/Sat Oct 15 23:00:02 2011/-kk/
 /bind.2/1.29/Sun Apr 12 03:34:08 2015/-kk/
 /brk.2/1.32/Thu May 13 10:20:57 2004/-kk/
@@ -41,7 +41,7 @@
 /chmod.2/1.47/Thu Oct 24 10:28:53 2013/-kk/
 /chown.2/1.36/Thu Oct 24 10:28:53 2013/-kk/
 /chroot.2/1.23/Mon May 31 12:16:20 2010/-kk/
-/clock_settime.2/1.22/Fri Apr 11 02:03:14 2014/-kk/
+/clock_settime.2/1.24/Fri Dec 25 05:39:57 2015/-kk/
 /clock_settime.c/1.12/Sat Oct 15 23:00:02 2011/-kk/
 /clone.2/1.13/Sun Jan 29 11:44:54 2012/-kk/
 /close.2/1.17/Tue Jun  1 16:14:10 2004/-kk/
@@ -74,14 +74,14 @@
 /getsid.2/1.11/Mon Apr  4 08:00:53 2011/-kk/
 /getsockname.2/1.24/Mon Jul  9 21:22:21 2012/-kk/
 /getsockopt.2/1.35/Wed Jan 25 00:28:35 2012/-kk/
-/gettimeofday.2/1.27/Tue May 18 07:14:18 2010/-kk/
+/gettimeofday.2/1.29/Fri Dec 25 05:39:57 2015/-kk/
 /getuid.2/1.17/Mon Apr  5 07:44:28 2010/-kk/
 /getvfsstat.2/1.3/Fri May 19 17:59:28 2006/-kk/
 /intro.2/1.57/Fri May  1 11:28:01 2015/-kk/
 /ioctl.2/1.23/Sun Dec 19 22:19:27 2010/-kk/
 /issetugid.2/1.12/Sat Apr 21 12:27:27 2012/-kk/
 /kill.2/1.23/Sun Jul 20 13:58:22 2014/-kk/
-/kqueue.2/1.34/Sat Mar 21 02:37:23 2015/-kk/
+/kqueue.2/1.35/Fri Dec 25 05:39:57 2015/-kk/
 /ktrace.2/1.18/Tue Dec  9 04:34:28 2014/-kk/
 /lfs_bmapv.2/1.10/Wed Apr 30 13:10:51 2008/-kk/
 /lfs_markv.2/1.11/Wed Apr 30 13:10:51 2008/-kk/
@@ -115,7 +115,7 @@
 /munmap.2/1.21/Tue Jun  3 03:08:58 2014/-kk/
 /nanosleep.2/1.17/Sun Oct 11 09:00:38 2015/-kk/
 /nfssvc.2/1.24/Tue Mar 10 21:00:47 2009/-kk/
-/ntp_adjtime.2/1.10/Mon May 18 09:28:51 2009/-kk/
+/ntp_adjtime.2/1.11/Fri Dec 25 05:39:57 2015/-kk/
 /ntp_adjtime.c/1.13/Tue Mar 20 16:26:12 2012/-kk/
 /open.2/1.56/Thu Oct 24 10:28:53 2013/-kk/
 /pathconf.2/1.28/Sat Jun 14 03:56:12 2014/-kk/

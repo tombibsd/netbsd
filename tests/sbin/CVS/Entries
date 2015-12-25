@@ -1,6 +1,7 @@
 /Makefile.inc/1.1/Tue Nov 30 23:17:27 2010/-kk/
-/Makefile/1.6/Sat Jul 28 16:08:40 2012/-kk/
+/Makefile/1.7/Fri Dec 25 05:40:36 2015/-kk/
 D/fsck_ffs////
+D/gpt////
 D/ifconfig////
 D/newfs////
 D/newfs_msdos////

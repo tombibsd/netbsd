@@ -100,15 +100,15 @@ usage(void)
 {
 	const char *p = getprogname();
 	const char *f =
-	    "[-nrqv] [-m <mediasize>] [-s <sectorsize>]";
+	    "[-nrqv] [-m mediasize] [-s sectorsize]";
 	size_t i;
 
 	if (strcmp(p, "gpt") == 0)
 		fprintf(stderr,
-		    "Usage: %s %s <command> [<args>] <device>\n", p, f);
+		    "Usage: %s %s command device\n", p, f);
 	else
 		fprintf(stderr,
-		    "Usage: %s %s <device> <command> [<args>]\n", p, f);
+		    "Usage: %s %s device command\n", p, f);
 	fprintf(stderr, "Commands:\n");
 	for (i = 0; i < __arraycount(cmdsw); i++)
 		gpt_usage("\t", cmdsw[i]);
@@ -151,7 +151,7 @@ main(int argc, char *argv[])
 		case 'm':
 			if (mediasz > 0)
 				usage();
-			mediasz = strtoul(optarg, &p, 10);
+			mediasz = strtol(optarg, &p, 10);
 			if (*p != 0 || mediasz < 1)
 				usage();
 			break;
@@ -165,10 +165,7 @@ main(int argc, char *argv[])
 			flags |= GPT_QUIET;
 			break;
 		case 's':
-			if (secsz > 0)
-				usage();
-			secsz = strtoul(optarg, &p, 10);
-			if (*p != 0 || secsz < 1)
+			if (gpt_uint_get(&secsz) == -1)
 				usage();
 			break;
 		case 'v':

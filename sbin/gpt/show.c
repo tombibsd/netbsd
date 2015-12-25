@@ -49,16 +49,15 @@ __RCSID("$NetBSD$");
 #include "gpt.h"
 #include "gpt_private.h"
 
-static int show_label = 0;
-static int show_uuid = 0;
-static int show_guid = 0;
-static unsigned int entry = 0;
-
 static int cmd_show(gpt_t, int, char *[]);
 
 static const char *showhelp[] = {
-    "[-glu] [-i index]",
+	"[-glu] [-i index]",
 };
+
+#define SHOW_UUID  1
+#define SHOW_GUID  2
+#define SHOW_LABEL 4
 
 struct gpt_cmd c_show = {
 	"show",
@@ -70,13 +69,14 @@ struct gpt_cmd c_show = {
 #define usage() gpt_usage(NULL, &c_show)
 
 static int
-show(gpt_t gpt)
+show(gpt_t gpt, int show)
 {
 	off_t start;
 	map_t m, p;
 	struct mbr *mbr;
 	struct gpt_ent *ent;
 	unsigned int i;
+	char buf[128], *b = buf;
 	uint8_t utfbuf[__arraycount(ent->ent_name) * 3 + 1];
 
 	printf("  %*s", gpt->lbawidth, "start");
@@ -134,23 +134,21 @@ show(gpt_t gpt)
 		case MAP_TYPE_GPT_PART:
 			printf("GPT part ");
 			ent = m->map_data;
-			if (show_label) {
+			if (show & SHOW_LABEL) {
 				utf16_to_utf8(ent->ent_name, utfbuf,
 				    sizeof(utfbuf));
-				printf("- \"%s\"", (char *)utfbuf);
-			} else if (show_guid) {
-				char buf[128];
-				gpt_uuid_snprintf(
-				    buf, sizeof(buf), "%d", ent->ent_guid);
-				printf("- %s", buf);
+				b = (char *)utfbuf;
+			} else if (show & SHOW_GUID) {
+				gpt_uuid_snprintf( buf, sizeof(buf), "%d",
+				    ent->ent_guid);
+			} else if (show & SHOW_UUID) {
+				gpt_uuid_snprintf(buf, sizeof(buf),
+				    "%d", ent->ent_type);
 			} else {
-				char buf[128];
-				if (show_uuid || gpt_uuid_snprintf(buf,
-				    sizeof(buf), "%ls", ent->ent_type) == -1)
-					gpt_uuid_snprintf(buf, sizeof(buf),
-					    "%d", ent->ent_type);
-				printf("- %s", buf);
+				gpt_uuid_snprintf(buf, sizeof(buf), "%ls",
+				    ent->ent_type);
 			}
+			printf("- %s", b);
 			break;
 		case MAP_TYPE_PMBR:
 			printf("PMBR");
@@ -166,15 +164,12 @@ show(gpt_t gpt)
 }
 
 static int
-show_one(gpt_t gpt)
+show_one(gpt_t gpt, unsigned int entry)
 {
 	map_t m;
 	struct gpt_ent *ent;
 	char s1[128], s2[128];
 	uint8_t utfbuf[__arraycount(ent->ent_name) * 3 + 1];
-#ifdef HN_AUTOSCALE
-	char human_num[5];
-#endif
 
 	for (m = map_first(gpt); m != NULL; m = m->map_next)
 		if (entry == m->map_index)
@@ -186,25 +181,8 @@ show_one(gpt_t gpt)
 	ent = m->map_data;
 
 	printf("Details for index %d:\n", entry);
-#ifdef HN_AUTOSCALE
-	if (humanize_number(human_num, 5, (int64_t)(m->map_start * gpt->secsz),
-	    "", HN_AUTOSCALE, HN_NOSPACE|HN_B) < 0)
-		human_num[0] = '\0';
-	if (human_num[0] != '\0')
-		printf("Start: %llu (%s)\n", (long long)m->map_start,
-		    human_num);
-	else
-#endif
-		printf("Start: %llu\n", (long long)m->map_start);
-#ifdef HN_AUTOSCALE
-	if (humanize_number(human_num, 5, (int64_t)(m->map_size * gpt->secsz),
-	    "", HN_AUTOSCALE, HN_NOSPACE|HN_B) < 0)
-		human_num[0] = '\0';
-	if (human_num[0] != '\0')
-		printf("Size: %llu (%s)\n", (long long)m->map_size, human_num);
-	else
-#endif
-		printf("Size: %llu\n", (long long)m->map_size);
+	gpt_show_num("Start", (uintmax_t)(m->map_start * gpt->secsz));
+	gpt_show_num("Size", (uintmax_t)(m->map_size * gpt->secsz));
 
 	gpt_uuid_snprintf(s1, sizeof(s1), "%s", ent->ent_type);
 	gpt_uuid_snprintf(s2, sizeof(s2), "%d", ent->ent_type);
@@ -218,23 +196,14 @@ show_one(gpt_t gpt)
 	utf16_to_utf8(ent->ent_name, utfbuf, sizeof(utfbuf));
 	printf("Label: %s\n", (char *)utfbuf);
 
-	printf("Attributes:\n");
-	if (ent->ent_attr == 0)
-		printf("  None\n");
-	else {
-		if (ent->ent_attr & GPT_ENT_ATTR_REQUIRED_PARTITION)
-			printf("  required for platform to function\n");
-		if (ent->ent_attr & GPT_ENT_ATTR_NO_BLOCK_IO_PROTOCOL)
-			printf("  UEFI won't recognize file system\n");
-		if (ent->ent_attr & GPT_ENT_ATTR_LEGACY_BIOS_BOOTABLE)
-			printf("  legacy BIOS boot partition\n");
-		if (ent->ent_attr & GPT_ENT_ATTR_BOOTME)
-			printf("  indicates a bootable partition\n");
-		if (ent->ent_attr & GPT_ENT_ATTR_BOOTONCE)
-			printf("  attempt to boot this partition only once\n");
-		if (ent->ent_attr & GPT_ENT_ATTR_BOOTFAILED)
-			printf("  partition that was marked bootonce but failed to boot\n");
+	printf("Attributes: ");
+	if (ent->ent_attr == 0) {
+		printf("None\n");
+	} else  {	
+		char buf[1024];
+		printf("%s\n", gpt_attr_list(buf, sizeof(buf), ent->ent_attr));
 	}
+
 	return 0;
 }
 
@@ -242,21 +211,23 @@ static int
 cmd_show(gpt_t gpt, int argc, char *argv[])
 {
 	int ch;
+	int xshow = 0;
+	unsigned int entry = 0;
 
 	while ((ch = getopt(argc, argv, "gi:lu")) != -1) {
 		switch(ch) {
 		case 'g':
-			show_guid = 1;
+			xshow |= SHOW_GUID;
 			break;
 		case 'i':
-			if (gpt_entry_get(&entry) == -1)
+			if (gpt_uint_get(&entry) == -1)
 				return usage();
 			break;
 		case 'l':
-			show_label = 1;
+			xshow |= SHOW_LABEL;
 			break;
 		case 'u':
-			show_uuid = 1;
+			xshow |= SHOW_UUID;
 			break;
 		default:
 			return usage();
@@ -266,5 +237,5 @@ cmd_show(gpt_t gpt, int argc, char *argv[])
 	if (argc != optind)
 		return usage();
 
-	return entry > 0 ? show_one(gpt) : show(gpt);
+	return entry > 0 ? show_one(gpt, entry) : show(gpt, xshow);
 }

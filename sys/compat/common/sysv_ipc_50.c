@@ -215,4 +215,4 @@ sysctl_kern_sysvipc50(SYSCTLFN_ARGS)
 		free(bf, M_TEMP);
 	return error;
 }
-#endif
+#endif /* COMPAT_50 */

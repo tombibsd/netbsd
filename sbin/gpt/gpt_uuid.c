@@ -136,7 +136,7 @@ gpt_uuid_symbolic(char *buf, size_t bufsiz, const struct dce_uuid *u)
 
 	for (i = 0; i < __arraycount(gpt_nv); i++)
 		if (memcmp(&gpt_nv[i].u, u, sizeof(*u)) == 0)
-			return strlcpy(buf, gpt_nv[i].n, bufsiz);
+			return (int)strlcpy(buf, gpt_nv[i].n, bufsiz);
 	return -1;
 }
 
@@ -147,7 +147,7 @@ gpt_uuid_descriptive(char *buf, size_t bufsiz, const struct dce_uuid *u)
 
 	for (i = 0; i < __arraycount(gpt_nv); i++)
 		if (memcmp(&gpt_nv[i].u, u, sizeof(*u)) == 0)
-			return strlcpy(buf, gpt_nv[i].d, bufsiz);
+			return (int)strlcpy(buf, gpt_nv[i].d, bufsiz);
 	return -1;
 }
 
@@ -231,6 +231,15 @@ gpt_uuid_parse(const char *s, gpt_uuid_t uuid)
 }
 
 void
+gpt_uuid_help(const char *prefix)
+{
+	size_t i;
+
+	for (i = 0; i < __arraycount(gpt_nv); i++)
+		printf("%s%18.18s\t%s\n", prefix, gpt_nv[i].n, gpt_nv[i].d);
+}
+
+void
 gpt_uuid_create(gpt_type_t t, gpt_uuid_t u, uint16_t *b, size_t s)
 {
 	gpt_dce_to_uuid(&gpt_nv[t].u, u);
@@ -253,7 +262,7 @@ gpt_uuid_generate(gpt_t gpt, gpt_uuid_t t)
 		gpt_warn(gpt, "Can't open `/dev/urandom'");
 		return -1;
 	}
-	for (p = (void *)&u, n = sizeof u; 0 < n; p += nread, n -= nread) {
+	for (p = (void *)&u, n = sizeof u; n > 0; p += nread, n -= (size_t)nread) {
 		nread = read(fd, p, n);
 		if (nread < 0) {
 			gpt_warn(gpt, "Can't read `/dev/urandom'");
@@ -271,11 +280,11 @@ gpt_uuid_generate(gpt_t gpt, gpt_uuid_t t)
 	(void)close(fd);
 
 	/* Set the version number to 4.  */
-	u.time_hi_and_version &= ~(uint32_t)0xf000;
+	u.time_hi_and_version &= (uint16_t)~0xf000;
 	u.time_hi_and_version |= 0x4000;
 
 	/* Fix the reserved bits.  */
-	u.clock_seq_hi_and_reserved &= ~(uint8_t)0x40;
+	u.clock_seq_hi_and_reserved &= (uint8_t)~0x40;
 	u.clock_seq_hi_and_reserved |= 0x80;
 
 	gpt_dce_to_uuid(&u, t);

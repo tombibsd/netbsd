@@ -34,14 +34,16 @@
 ./@MODULEDIR@/cgd/cgd.kmod			base-kernel-modules	kmod
 ./@MODULEDIR@/chfs				base-kernel-modules	kmod
 ./@MODULEDIR@/chfs/chfs.kmod			base-kernel-modules	kmod
+./@MODULEDIR@/clockctl				base-kernel-modules	kmod
+./@MODULEDIR@/clockctl/clockctl.kmod		base-kernel-modules	kmod
 ./@MODULEDIR@/coda				base-kernel-modules	kmod
 ./@MODULEDIR@/coda/coda.kmod			base-kernel-modules	kmod
 ./@MODULEDIR@/coda5				base-kernel-modules	kmod
 ./@MODULEDIR@/coda5/coda5.kmod			base-kernel-modules	kmod
 ./@MODULEDIR@/compat				base-kernel-modules	kmod
 ./@MODULEDIR@/compat/compat.kmod		base-kernel-modules	kmod
-./@MODULEDIR@/compat_sysv			base-kernel-modules	kmod
-./@MODULEDIR@/compat_sysv/compat_sysv.kmod	base-kernel-modules	kmod
+./@MODULEDIR@/compat_sysv			base-obsolete		obsolete
+./@MODULEDIR@/compat_sysv/compat_sysv.kmod	base-obsolete		obsolete
 ./@MODULEDIR@/compat_ossaudio			base-kernel-modules	kmod
 ./@MODULEDIR@/compat_ossaudio/compat_ossaudio.kmod	base-kernel-modules	kmod
 ./@MODULEDIR@/coredump				base-kernel-modules	kmod
@@ -60,6 +62,8 @@
 ./@MODULEDIR@/dk_subr/dk_subr.kmod		base-kernel-modules	kmod
 ./@MODULEDIR@/dm				base-kernel-modules	lvm,kmod
 ./@MODULEDIR@/dm/dm.kmod			base-kernel-modules	lvm,kmod
+./@MODULEDIR@/drvctl				base-kernel-modules	lvm,kmod
+./@MODULEDIR@/drvctl/drvctl.kmod		base-kernel-modules	lvm,kmod
 ./@MODULEDIR@/dtrace				base-kernel-modules	kmod,dtrace
 ./@MODULEDIR@/dtrace/dtrace.kmod		base-kernel-modules	kmod,dtrace
 ./@MODULEDIR@/dtrace_fbt				base-kernel-modules	kmod,dtrace

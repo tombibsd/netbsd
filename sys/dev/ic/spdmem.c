@@ -230,7 +230,7 @@ spdmem_common_probe(struct spdmem_softc *sc)
 		if ((unsigned int)spd_len > __arraycount(spd_rom_sizes))
 			return 0;
 		spd_len = spd_rom_sizes[spd_len];
-		spd_crc_cover=128;
+		spd_crc_cover = 125; /* For byte 0 to 125 */
 		if (spd_crc_cover > spd_len)
 			return 0;
 		crc_calc = spdcrc16(sc, spd_crc_cover);
@@ -526,7 +526,9 @@ decode_voltage_refresh(device_t self, struct spdmem *s)
 }
 
 static void
-decode_edofpm(const struct sysctlnode *node, device_t self, struct spdmem *s) {
+decode_edofpm(const struct sysctlnode *node, device_t self, struct spdmem *s)
+{
+
 	aprint_naive("\n");
 	aprint_normal("\n");
 	aprint_normal_dev(self, "%s", spdmem_basic_types[s->sm_type]);
@@ -539,7 +541,9 @@ decode_edofpm(const struct sysctlnode *node, device_t self, struct spdmem *s) {
 }
 
 static void
-decode_rom(const struct sysctlnode *node, device_t self, struct spdmem *s) {
+decode_rom(const struct sysctlnode *node, device_t self, struct spdmem *s)
+{
+
 	aprint_naive("\n");
 	aprint_normal("\n");
 	aprint_normal_dev(self, "%s", spdmem_basic_types[s->sm_type]);
@@ -551,7 +555,8 @@ decode_rom(const struct sysctlnode *node, device_t self, struct spdmem *s) {
 
 static void
 decode_sdram(const struct sysctlnode *node, device_t self, struct spdmem *s,
-	     int spd_len) {
+	     int spd_len)
+{
 	int dimm_size, cycle_time, bits, tAA, i, speed, freq;
 
 	aprint_naive("\n");
@@ -615,7 +620,8 @@ decode_sdram(const struct sysctlnode *node, device_t self, struct spdmem *s,
 }
 
 static void
-decode_ddr(const struct sysctlnode *node, device_t self, struct spdmem *s) {
+decode_ddr(const struct sysctlnode *node, device_t self, struct spdmem *s)
+{
 	int dimm_size, cycle_time, bits, tAA, i;
 
 	aprint_naive("\n");
@@ -663,7 +669,8 @@ decode_ddr(const struct sysctlnode *node, device_t self, struct spdmem *s) {
 }
 
 static void
-decode_ddr2(const struct sysctlnode *node, device_t self, struct spdmem *s) {
+decode_ddr2(const struct sysctlnode *node, device_t self, struct spdmem *s)
+{
 	int dimm_size, cycle_time, bits, tAA, i;
 
 	aprint_naive("\n");
@@ -711,7 +718,8 @@ decode_ddr2(const struct sysctlnode *node, device_t self, struct spdmem *s) {
 }
 
 static void
-decode_ddr3(const struct sysctlnode *node, device_t self, struct spdmem *s) {
+decode_ddr3(const struct sysctlnode *node, device_t self, struct spdmem *s)
+{
 	int dimm_size, cycle_time, bits;
 
 	aprint_naive("\n");
@@ -779,7 +787,8 @@ decode_ddr3(const struct sysctlnode *node, device_t self, struct spdmem *s) {
 }
 
 static void
-decode_fbdimm(const struct sysctlnode *node, device_t self, struct spdmem *s) {
+decode_fbdimm(const struct sysctlnode *node, device_t self, struct spdmem *s)
+{
 	int dimm_size, cycle_time, bits;
 
 	aprint_naive("\n");
@@ -810,8 +819,7 @@ decode_fbdimm(const struct sysctlnode *node, device_t self, struct spdmem *s) {
 
 	aprint_verbose_dev(self, LATENCY, __FBDIMM_CYCLES(fbdimm_tAAmin),
 		__FBDIMM_CYCLES(fbdimm_tRCDmin), __FBDIMM_CYCLES(fbdimm_tRPmin), 
-		(s->sm_fbd.fbdimm_tRAS_msb * 256 +
-			s->sm_fbd.fbdimm_tRAS_lsb) /
+		(s->sm_fbd.fbdimm_tRAS_msb * 256 + s->sm_fbd.fbdimm_tRAS_lsb) /
 		    s->sm_fbd.fbdimm_tCKmin);
 
 #undef	__FBDIMM_CYCLES
@@ -820,7 +828,8 @@ decode_fbdimm(const struct sysctlnode *node, device_t self, struct spdmem *s) {
 }
 
 static void
-decode_ddr4(const struct sysctlnode *node, device_t self, struct spdmem *s) {
+decode_ddr4(const struct sysctlnode *node, device_t self, struct spdmem *s)
+{
 	int dimm_size, cycle_time;
 	int tAA_clocks, tRCD_clocks,tRP_clocks, tRAS_clocks;
 
@@ -862,31 +871,33 @@ decode_ddr4(const struct sysctlnode *node, device_t self, struct spdmem *s) {
 	default:
 		dimm_size = -1;		/* flag invalid value */
 	}
-	if (dimm_size >=0) {				
+	if (dimm_size >= 0) {				
 		dimm_size = (1 << dimm_size) *
 		    (s->sm_ddr4.ddr4_package_ranks + 1); /* log.ranks/DIMM */
 		if (s->sm_ddr4.ddr4_signal_loading == 2) {
-			dimm_size *= s->sm_ddr4.ddr4_diecount;
+			dimm_size *= (s->sm_ddr4.ddr4_diecount + 1);
 		}
 	}
 
+#define	__DDR4_VALUE(field) ((s->sm_ddr4.ddr4_##field##_mtb * 125 +	\
+			     s->sm_ddr4.ddr4_##field##_ftb) - 		\
+			    ((s->sm_ddr4.ddr4_##field##_ftb > 127)?256:0))
 	/*
 	 * For now, the only value for mtb is 1 = 125ps, and ftp = 1ps 
 	 * so we don't need to figure out the time-base units - just
 	 * hard-code them for now.
 	 */
-	cycle_time = 125 * s->sm_ddr4.ddr4_tCKAVGmin_mtb + 
-			   s->sm_ddr4.ddr4_tCKAVGmin_ftb;
-	aprint_normal("%d MB, %d.%03dns cycle time (%dMHz)\n", dimm_size,
-	    cycle_time/1000, cycle_time % 1000, 1000000 / cycle_time);
+	cycle_time = __DDR4_VALUE(tCKAVGmin);
+	aprint_normal("%d.%03dns cycle time (%dMHz), ", cycle_time/1000,
+	    cycle_time % 1000, 1000000 / cycle_time);
 
 	decode_size_speed(self, node, dimm_size, cycle_time, 2,
-			  1 << (s->sm_ddr4.ddr4_device_width + 3),
+			  1 << (s->sm_ddr4.ddr4_primary_bus_width + 3),
 			  TRUE, "PC4", 0);
 
 	aprint_verbose_dev(self,
 	    "%d rows, %d cols, %d banks, %d bank groups\n",
-	    s->sm_ddr3.ddr3_rows + 9, s->sm_ddr3.ddr3_cols + 12,
+	    s->sm_ddr4.ddr4_rows + 9, s->sm_ddr4.ddr4_cols + 12,
 	    1 << (2 + s->sm_ddr4.ddr4_logbanks),
 	    1 << s->sm_ddr4.ddr4_bankgroups);
 
@@ -894,13 +905,10 @@ decode_ddr4(const struct sysctlnode *node, device_t self, struct spdmem *s) {
  * Note that the ddr4_xxx_ftb fields are actually signed offsets from
  * the corresponding mtb value, so we might have to subtract 256!
  */
-#define	__DDR4_VALUE(field) (s->sm_ddr4.ddr4_##field##_mtb * 256 +	\
-			     s->sm_ddr4.ddr4_##field##_ftb) - 		\
-			     ((s->sm_ddr4.ddr4_##field##_ftb > 127)?256:0)
 
-	tAA_clocks =  (__DDR4_VALUE(tAAmin)  * 1000 ) / cycle_time;
-	tRP_clocks =  (__DDR4_VALUE(tRPmin)  * 1000 ) / cycle_time;
-	tRCD_clocks = (__DDR4_VALUE(tRCDmin) * 1000 ) / cycle_time;
+	tAA_clocks =  __DDR4_VALUE(tAAmin)  * 1000 / cycle_time;
+	tRCD_clocks = __DDR4_VALUE(tRCDmin) * 1000 / cycle_time;
+	tRP_clocks =  __DDR4_VALUE(tRPmin)  * 1000 / cycle_time;
 	tRAS_clocks = (s->sm_ddr4.ddr4_tRASmin_msb * 256 +
 		       s->sm_ddr4.ddr4_tRASmin_lsb) * 125 * 1000 / cycle_time;
 
@@ -915,8 +923,8 @@ decode_ddr4(const struct sysctlnode *node, device_t self, struct spdmem *s) {
 #define	__DDR4_ROUND(value) ((value - 10) / 1000 + 1)
 
 	aprint_verbose_dev(self, LATENCY, __DDR4_ROUND(tAA_clocks),
-			   __DDR4_ROUND(tRP_clocks),
 			   __DDR4_ROUND(tRCD_clocks),
+			   __DDR4_ROUND(tRP_clocks),
 			   __DDR4_ROUND(tRAS_clocks));
 
 #undef	__DDR4_VALUE

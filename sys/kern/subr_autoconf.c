@@ -242,6 +242,9 @@ static callout_t config_twiddle_ch;
 
 static void sysctl_detach_setup(struct sysctllog **);
 
+int no_devmon_insert(const char *, prop_dictionary_t);
+int (*devmon_insert_vec)(const char *, prop_dictionary_t) = no_devmon_insert;
+
 typedef int (*cfdriver_fn)(struct cfdriver *);
 static int
 frob_cfdrivervec(struct cfdriver * const *cfdriverv,
@@ -517,14 +520,25 @@ config_finalize_mountroot(void)
 /*
  * Announce device attach/detach to userland listeners.
  */
+
+int
+no_devmon_insert(const char *name, prop_dictionary_t p)
+{
+
+	return ENODEV;
+}
+
 static void
 devmon_report_device(device_t dev, bool isattach)
 {
-#if NDRVCTL > 0
 	prop_dictionary_t ev;
 	const char *parent;
 	const char *what;
 	device_t pdev = device_parent(dev);
+
+	/* If currently no drvctl device, just return */
+	if (devmon_insert_vec == no_devmon_insert)
+		return;
 
 	ev = prop_dictionary_create();
 	if (ev == NULL)
@@ -538,8 +552,8 @@ devmon_report_device(device_t dev, bool isattach)
 		return;
 	}
 
-	devmon_insert(what, ev);
-#endif
+	if ((*devmon_insert_vec)(what, ev) != 0)
+		prop_object_release(ev);
 }
 
 /*

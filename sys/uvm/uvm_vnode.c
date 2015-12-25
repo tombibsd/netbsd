@@ -348,15 +348,19 @@ uvm_vnp_setsize(struct vnode *vp, voff_t newsize)
 	 * toss some pages...
 	 */
 
-	KASSERT(newsize != VSIZENOTSET);
+	KASSERT(newsize != VSIZENOTSET && newsize >= 0);
 	KASSERT(vp->v_size <= vp->v_writesize);
 	KASSERT(vp->v_size == vp->v_writesize ||
 	    newsize == vp->v_writesize || newsize <= vp->v_size);
 
 	oldsize = vp->v_writesize;
-	KASSERT(oldsize != VSIZENOTSET || pgend > oldsize);
 
-	if (oldsize > pgend) {
+	/*
+	 * check whether size shrinks
+	 * if old size hasn't been set, there are no pages to drop
+	 * if there was an integer overflow in pgend, then this is no shrink
+	 */
+	if (oldsize > pgend && oldsize != VSIZENOTSET && pgend >= 0) {
 		(void) uvn_put(uobj, pgend, 0, PGO_FREE | PGO_SYNCIO);
 		mutex_enter(uobj->vmobjlock);
 	}
@@ -369,7 +373,7 @@ uvm_vnp_setwritesize(struct vnode *vp, voff_t newsize)
 {
 
 	mutex_enter(vp->v_interlock);
-	KASSERT(newsize != VSIZENOTSET);
+	KASSERT(newsize != VSIZENOTSET && newsize >= 0);
 	KASSERT(vp->v_size != VSIZENOTSET);
 	KASSERT(vp->v_writesize != VSIZENOTSET);
 	KASSERT(vp->v_size <= vp->v_writesize);
