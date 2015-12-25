@@ -275,7 +275,7 @@ toplevel_dpb(const char *buf)
 	}
 	buf = cvt_number(buf, &startaddr);
 	if (*buf != '\0' && !isspace(*buf)) {
-		printf("bad character '%c' in starting address\n");
+		printf("bad character '%c' in starting address\n", *buf);
 		return;
 	}
 
@@ -283,7 +283,7 @@ toplevel_dpb(const char *buf)
 	if (buf != NULL) {
 		buf = cvt_number(buf, &count);
 		if (*buf != '\0' && !isspace(*buf)) {
-			printf("bad character '%c' in count\n");
+			printf("bad character '%c' in count\n", *buf);
 			return;
 		}
 		buf = advance_past_space(buf);

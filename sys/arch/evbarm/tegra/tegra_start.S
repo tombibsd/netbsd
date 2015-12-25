@@ -92,7 +92,6 @@ _C_LABEL(tegra_start):
 	/* Move into supervisor mode and disable IRQs/FIQs. */
 	cpsid	if, #PSR_SVC32_MODE
 
-#ifdef TEGRA_UBOOT
 	/*
 	 * Save any arguments passed to us.
 	 */
@@ -101,23 +100,6 @@ _C_LABEL(tegra_start):
 	sub	r4, r4, #KERNEL_BASE_VOFFSET
 
 	stmia	r4, {r0-r3}		// Save the arguments
-
-	/*
-	 * Copy the value of the "bootargs" environment variable from r3.
-	 */
-	movw	r4, #:lower16:bootargs
-	movt	r4, #:upper16:bootargs
-	sub	r4, r4, #KERNEL_BASE_VOFFSET
-
-	cmp	r3, #0
-	beq	1f
-2:
-	ldrb	r0, [r3], #1
-	strb	r0, [r4], #1
-	teq	r0, #0
-	bne	2b
-1:
-#endif
 
 	/*
 	 * Turn on the SMP bit

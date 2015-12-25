@@ -1,13 +1,13 @@
 /Makefile.in/1.1.1.7/Fri Mar 14 04:22:47 2014/-kk/
-/rndc.8/1.7/Thu Dec 11 09:05:46 2014/-kk/
-/rndc.c/1.12/Sat Jul 25 01:18:58 2015/-kk/
+/rndc.8/1.8/Fri Dec 25 06:15:29 2015/-kk/
+/rndc.c/1.13/Fri Dec 25 06:15:29 2015/-kk/
 /rndc.conf.5/1.6/Thu Dec 11 09:05:46 2014/-kk/
 /rndc.conf.docbook/1.1.1.5/Sun Jul 20 13:23:17 2014/-kk/
 /rndc.conf.html/1.1.1.7/Thu Dec 11 09:05:46 2014/-kk/
 /rndc.conf/1.1.1.5/Sun Jul 20 13:23:17 2014/-kk/
-/rndc.docbook/1.1.1.7/Thu Dec 11 09:05:46 2014/-kk/
-/rndc.html/1.1.1.8/Thu Dec 11 09:05:46 2014/-kk/
-/util.c/1.4/Thu Dec 11 09:05:46 2014/-kk/
+/rndc.docbook/1.1.1.8/Fri Dec 25 06:15:29 2015/-kk/
+/rndc.html/1.1.1.9/Fri Dec 25 06:15:29 2015/-kk/
+/util.c/1.5/Fri Dec 25 06:15:29 2015/-kk/
 /util.h/1.6/Thu Dec 11 09:05:46 2014/-kk/
 D/include////
 D/win32////

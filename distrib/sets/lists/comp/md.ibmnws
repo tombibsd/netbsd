@@ -16,6 +16,7 @@
 ./usr/include/ibmnws/elf_machdep.h		comp-c-include
 ./usr/include/ibmnws/endian.h			comp-c-include
 ./usr/include/ibmnws/endian_machdep.h		comp-c-include
+./usr/include/ibmnws/fenv.h			comp-c-include
 ./usr/include/ibmnws/float.h			comp-c-include
 ./usr/include/ibmnws/fpu.h			comp-c-include
 ./usr/include/ibmnws/frame.h			comp-c-include

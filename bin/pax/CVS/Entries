@@ -2,7 +2,7 @@
 /ar_io.c/1.56/Sat Mar 21 02:33:03 2015/-kk/
 /ar_subs.c/1.56/Wed Aug 31 16:24:54 2011/-kk/
 /buf_subs.c/1.28/Sun Apr 29 20:23:34 2007/-kk/
-/cpio.1/1.13/Sun Jun 19 07:34:24 2011/-kk/
+/cpio.1/1.14/Fri Dec 25 06:15:07 2015/-kk/
 /cpio.c/1.22/Thu Aug  9 08:09:21 2012/-kk/
 /cpio.h/1.6/Mon Oct 13 07:41:22 2003/-kk/
 /dumptar.c/1.2/Mon Apr 28 20:22:51 2008/-kk/
@@ -12,19 +12,19 @@
 /ftree.h/1.5/Mon Oct 13 07:41:22 2003/-kk/
 /gen_subs.c/1.36/Thu Aug  9 08:09:21 2012/-kk/
 /getoldopt.c/1.23/Thu Aug  9 11:05:59 2012/-kk/
-/options.c/1.116/Wed Apr 22 07:24:16 2015/-kk/
+/options.c/1.118/Fri Dec 25 06:15:07 2015/-kk/
 /options.h/1.11/Mon Apr 23 18:40:22 2007/-kk/
 /pat_rep.c/1.29/Tue Apr  7 19:52:35 2009/-kk/
 /pat_rep.h/1.7/Sun Feb 24 20:42:46 2008/-kk/
-/pax.1/1.65/Fri Nov 20 01:57:27 2015/-kk/
+/pax.1/1.67/Fri Dec 25 06:15:07 2015/-kk/
 /pax.c/1.47/Mon Aug 29 14:47:48 2011/-kk/
 /pax.h/1.31/Thu Aug  9 08:09:21 2012/-kk/
 /sel_subs.c/1.24/Wed Aug 31 16:24:54 2011/-kk/
 /sel_subs.h/1.6/Mon Oct 13 07:41:22 2003/-kk/
 /tables.c/1.31/Thu Oct 24 10:28:41 2013/-kk/
 /tables.h/1.10/Sun Apr 29 20:23:34 2007/-kk/
-/tar.1/1.35/Wed Apr 22 07:24:16 2015/-kk/
-/tar.c/1.72/Mon Jun 22 02:27:51 2015/-kk/
+/tar.1/1.36/Fri Dec 25 06:15:07 2015/-kk/
+/tar.c/1.73/Fri Dec 25 06:15:07 2015/-kk/
 /tar.h/1.10/Thu Oct 24 10:28:41 2013/-kk/
 /tty_subs.c/1.19/Mon Apr 23 18:40:22 2007/-kk/
 D

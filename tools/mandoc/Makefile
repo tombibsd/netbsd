@@ -16,7 +16,7 @@ DPSRCS+=	config.h
 
 CLEANFILES+=	config.log config.h
 
-config.h: configure config.h.pre config.h.post
-	SRCDIR=${DISTDIR} ${HOST_SH} -x ${DISTDIR}/configure
+config.h: configure 
+	SRCDIR=${DISTDIR} ${HOST_SH} ${DISTDIR}/configure
 
 .include "${.CURDIR}/../Makefile.host"

@@ -81,7 +81,7 @@ static struct sysmon_opvec sysmon_wdog_opvec = {
         NULL, NULL, NULL
 };
 
-MODULE(MODULE_CLASS_MISC, sysmon_wdog, "sysmon");
+MODULE(MODULE_CLASS_DRIVER, sysmon_wdog, "sysmon");
 
 ONCE_DECL(once_wdog);
 

@@ -1,5 +1,6 @@
 /check-secure-delegation.pl.in/1.1.1.1/Fri Feb 28 17:40:10 2014/-kk/
 /check5011.pl/1.1.1.1/Fri Feb 28 17:40:10 2014/-kk/
+/dnssec-keyset.sh/1.1.1.1/Thu Dec 17 03:22:01 2015/-kk/
 /named-bootconf.sh/1.1.1.1/Fri Feb 28 17:40:10 2014/-kk/
 /nanny.pl/1.1.1.1/Fri Feb 28 17:40:10 2014/-kk/
 /zone-edit.sh.in/1.1.1.1/Fri Feb 28 17:40:10 2014/-kk/

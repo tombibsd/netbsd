@@ -49,7 +49,7 @@
 /pci_fixup.c/1.1/Thu Oct 24 10:28:57 2013/-kk/
 /pci_fixup.h/1.1/Thu Oct 24 10:28:57 2013/-kk/
 /pci_machdep.c/1.21/Sun Oct 11 09:01:09 2015/-kk/
-/pmap.c/1.359/Sun Oct 11 09:01:09 2015/-kk/
+/pmap.c/1.360/Fri Dec 25 06:18:18 2015/-kk/
 /process_machdep.c/1.18/Tue Jan 14 16:05:01 2014/-kk/
 /procfs_machdep.c/1.5/Sat Apr 19 05:36:50 2014/-kk/
 /promlib.c/1.44/Fri Apr 11 02:03:39 2014/-kk/
@@ -66,7 +66,7 @@
 /timer_sun4m.c/1.30/Fri Jan 31 08:48:43 2014/-kk/
 /timerreg.h/1.9/Wed Nov 16 03:00:23 2005/-kk/
 /timervar.h/1.12/Fri Jan 31 08:48:43 2014/-kk/
-/trap.c/1.193/Sun Oct 11 09:01:09 2015/-kk/
+/trap.c/1.195/Fri Dec 25 06:18:18 2015/-kk/
 /vaddrs.h/1.11/Mon Dec 10 23:10:34 2001/-kk/
 /vm_machdep.c/1.107/Sun Feb 19 21:06:30 2012/-kk/
 D

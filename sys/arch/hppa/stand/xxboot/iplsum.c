@@ -54,9 +54,11 @@ main(int argc, char *argv[])
 		return 1;
 	}
 	if ((len = fread(bootblk, 1, sizeof bootblk, fp)) <= IPLOFF) {
+		fclose(fp);
 		fprintf(stderr, "%s: too short\n", argv[1]);
 		return 1;
 	} else if (len > BOOTSIZE) {
+		fclose(fp);
 		fprintf(stderr, "%s: too long (%d vs %d)\n", argv[1], len, BOOTSIZE);
 		return 1;
 	}

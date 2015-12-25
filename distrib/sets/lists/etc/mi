@@ -209,6 +209,7 @@
 ./etc/rc.d/identd				etc-net-rc
 ./etc/rc.d/ifwatchd				etc-net-rc
 ./etc/rc.d/inetd				etc-net-rc
+./etc/rc.d/ip6addrctl				etc-net-rc
 ./etc/rc.d/ipfilter				etc-ipf-rc
 ./etc/rc.d/ipfs					etc-ipf-rc
 ./etc/rc.d/ipmon				etc-ipf-rc

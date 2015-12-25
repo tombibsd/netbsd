@@ -94,7 +94,7 @@ struct exyo_attach_args {
 };
 
 struct exynos_gpio_pinset {
-	char pinset_group[10];
+	char pinset_bank[10];
 	uint8_t pinset_func;
 	uint8_t pinset_mask;
 };
@@ -115,6 +115,8 @@ extern struct bus_space exynos_a4x_bs_tag;
 extern struct arm32_bus_dma_tag exynos_bus_dma_tag;
 extern struct arm32_bus_dma_tag exynos_coherent_bus_dma_tag;
 
+extern struct bus_space armv7_generic_bs_tag;
+extern struct bus_space armv7_generic_a4x_bs_tag;
 extern bus_space_handle_t exynos_core_bsh;
 extern bus_space_handle_t exynos_wdt_bsh;
 extern bus_space_handle_t exynos_pmu_bsh;
@@ -123,7 +125,8 @@ extern bus_space_handle_t exynos_sysreg_bsh;
 
 extern void exynos_bootstrap(vaddr_t, vaddr_t);
 extern void exynos_dma_bootstrap(psize_t memsize);
-extern void exynos_gpio_bootstrap(void);
+struct exynos_pinctrl_softc;
+extern void exynos_gpio_bank_config(struct exynos_pinctrl_softc *, int);
 extern void exynos_wdt_reset(void);
 
 extern void exynos_init_clkout_for_usb(void);	// board specific

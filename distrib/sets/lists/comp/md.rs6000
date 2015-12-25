@@ -13,6 +13,7 @@
 ./usr/include/rs6000/elf_machdep.h		comp-c-include
 ./usr/include/rs6000/endian.h			comp-c-include
 ./usr/include/rs6000/endian_machdep.h		comp-c-include
+./usr/include/rs6000/fenv.h			comp-c-include
 ./usr/include/rs6000/float.h			comp-c-include
 ./usr/include/rs6000/fpu.h			comp-c-include
 ./usr/include/rs6000/frame.h			comp-c-include

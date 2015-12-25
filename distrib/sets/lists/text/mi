@@ -32,6 +32,7 @@
 ./usr/bin/psroff				text-obsolete		obsolete
 ./usr/bin/refer					text-groff-bin		groff
 ./usr/bin/soelim				text-groff-bin	
+./usr/bin/sortinfo				text-texinfo-bin
 ./usr/bin/tbl					text-groff-bin		groff
 ./usr/bin/texi2dvi				text-texinfo-bin
 ./usr/bin/texindex				text-texinfo-bin

@@ -87,24 +87,6 @@ _C_LABEL(exynos_start):
 	setend	be			/* force big endian */
 #endif
 
-	/* Leave HYP (hypervisor or monitor) mode and move into supervisor mode
-	 * with IRQs/FIQs disabled. */
-	mrs	r0, cpsr
-	and	r0, r0, #(PSR_MODE)	/* Mode is in the low 5 bits of CPSR */
-	teq	r0, #(PSR_HYP32_MODE)	/* Hyp Mode? */
-	bne	1f
-	/* Ensure that IRQ, and FIQ will be disabled after eret */
-	mrs	r0, cpsr
-	bic	r0, r0, #(PSR_MODE)
-	orr	r0, r0, #(PSR_SVC32_MODE)
-	orr	r0, r0, #(I32_bit | F32_bit)
-	msr	spsr_cxsf, r0
-	/* Exit hypervisor mode */
-	adr	lr, 1f
-	msr	elr_hyp, lr
-	eret
-1:
-
 	/*
 	 * Save any arguments passed to us.  If .start is not at
 	 * 0x80000000 but .text is, we can't directly use the address that
@@ -117,22 +99,6 @@ _C_LABEL(exynos_start):
 	sub	r4, r4, #KERNEL_BASE_VOFFSET
 #endif
 	stmia	r4, {r0-r3}			// Save the arguments
-
-	movw	r4, #:lower16:bootargs
-	movt	r4, #:upper16:bootargs
-#if KERNEL_BASE_VOFFSET != 0
-	sub	r4, r4, #KERNEL_BASE_VOFFSET
-#endif
-
-	cmp	r3, #0
-	beq	1f
-2:
-	ldrb	r0, [r3], #1
-	strb	r0, [r4], #1
-	teq	r0, #0
-	bne	2b
-
-1:
 
 	/*
 	 * For easy and early SoC / PoP dependency, retrieve the IDs

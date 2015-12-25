@@ -182,7 +182,7 @@ bsd_to_svr4_speed(u_long sp, u_long mask)
 {
 	switch (sp) {
 #undef getval
-#define getval(a,b)	case __CONCAT(a,b):	sp = __CONCAT3(SVR4_,a,b)
+#define getval(a,b)	case __CONCAT(a,b): sp = __CONCAT3(SVR4_,a,b); break
 	getval(B,0);
 	getval(B,50);
 	getval(B,75);

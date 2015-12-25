@@ -960,9 +960,11 @@ kfault:
 		case EINVAL:
 			ksi.ksi_signo = SIGBUS;
 			ksi.ksi_code = BUS_ADRERR;
+			break;
 		case EACCES:
 			ksi.ksi_signo = SIGSEGV;
 			ksi.ksi_code = SEGV_ACCERR;
+			break;
 		default:
 			ksi.ksi_signo = SIGSEGV;
 			ksi.ksi_code = SEGV_MAPERR;
@@ -1254,9 +1256,11 @@ kfault:
 		case EINVAL:
 			ksi.ksi_signo = SIGBUS;
 			ksi.ksi_code = BUS_ADRERR;
+			break;
 		case EACCES:
 			ksi.ksi_signo = SIGSEGV;
 			ksi.ksi_code = SEGV_ACCERR;
+			break;
 		default:
 			ksi.ksi_signo = SIGSEGV;
 			ksi.ksi_code = SEGV_MAPERR;

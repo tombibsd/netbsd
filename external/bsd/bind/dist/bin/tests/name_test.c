@@ -1,7 +1,7 @@
 /*	$NetBSD$	*/
 
 /*
- * Copyright (C) 2004, 2005, 2007, 2009  Internet Systems Consortium, Inc. ("ISC")
+ * Copyright (C) 2004, 2005, 2007, 2009, 2015  Internet Systems Consortium, Inc. ("ISC")
  * Copyright (C) 1998-2001, 2003  Internet Software Consortium.
  *
  * Permission to use, copy, modify, and/or distribute this software for any
@@ -24,6 +24,7 @@
 #include <stdlib.h>
 
 #include <isc/commandline.h>
+#include <isc/print.h>
 #include <isc/string.h>
 #include <isc/util.h>
 

@@ -95,10 +95,12 @@ struct token_rif {
 #define ISO88025_MTU 2002
 
 /*
- * This assumes that route information fields are appended to
- * existing structures like llinfo_arp and token_header
+ * This assumes that route information fields are appended to token_header.
  */
 #define TOKEN_RIF(x) ((struct token_rif *) ((x) + 1))
+
+#define TOKEN_RIF_LLE(lle) ((struct token_rif *) (lle)->la_opaque)
+#define TOKEN_RIF_LLE_ASSERT(lle) KASSERT((lle)->la_opaque != NULL)
 
 /*
  * This is a kludge to get at the token ring mac header and the source route

@@ -185,6 +185,7 @@ jziic_attach(device_t parent, device_t self, void *aux)
 	sc->sc_i2c.ic_write_byte = NULL;
 	sc->sc_i2c.ic_exec = jziic_i2c_exec;
 
+	memset(&iba, 0, sizeof(iba));
 	iba.iba_tag = &sc->sc_i2c;
 	(void) config_found_ia(sc->sc_dev, "i2cbus", &iba, iicbus_print);
 

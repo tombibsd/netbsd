@@ -43,6 +43,7 @@
 ./usr/include/powerpc/elf_machdep.h		comp-c-include
 ./usr/include/powerpc/endian.h			comp-c-include
 ./usr/include/powerpc/endian_machdep.h		comp-c-include
+./usr/include/powerpc/fenv.h			comp-c-include
 ./usr/include/powerpc/float.h			comp-c-include
 ./usr/include/powerpc/fpu.h			comp-c-include
 ./usr/include/powerpc/frame.h			comp-c-include

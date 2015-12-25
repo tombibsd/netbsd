@@ -5,8 +5,8 @@ PROG=		pmap
 SRCS=		main.c pmap.c
 BINGRP=		kmem
 BINMODE=	2555
-LDADD=		-lkvm
-DPADD=		${LIBKVM}
+LDADD=		-lutil -lkvm
+DPADD=		${LIBUTIL} ${LIBKVM}
 
 CWARNFLAGS.clang+=	-Wno-format-extra-args
 

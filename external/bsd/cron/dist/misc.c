@@ -497,41 +497,6 @@ log_close(void) {
 #endif /*SYSLOG*/
 }
 
-/* char *first_word(char *s, char *t)
- *	return pointer to first word
- * parameters:
- *	s - string we want the first word of
- *	t - terminators, implicitly including \0
- * warnings:
- *	(1) this routine is fairly slow
- *	(2) it returns a pointer to static storage
- */
-char *
-first_word(char *s, const char *t) {
-	static char retbuf[2][MAX_TEMPSTR + 1];	/* sure wish C had GC */
-	static int retsel = 0;
-	char *rb, *rp;
-
-	/* select a return buffer */
-	retsel = 1-retsel;
-	rb = &retbuf[retsel][0];
-	rp = rb;
-
-	/* skip any leading terminators */
-	while (*s && (NULL != strchr(t, *s))) {
-		s++;
-	}
-
-	/* copy until next terminator or full buffer */
-	while (*s && (NULL == strchr(t, *s)) && (rp < &rb[MAX_TEMPSTR])) {
-		*rp++ = *s++;
-	}
-
-	/* finish the return-string and return it */
-	*rp = '\0';
-	return (rb);
-}
-
 /* warning:
  *	heavily ascii-dependent.
  */

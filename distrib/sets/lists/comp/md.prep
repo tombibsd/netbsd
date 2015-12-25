@@ -18,6 +18,7 @@
 ./usr/include/prep/elf_machdep.h		comp-c-include
 ./usr/include/prep/endian.h			comp-c-include
 ./usr/include/prep/endian_machdep.h		comp-c-include
+./usr/include/prep/fenv.h			comp-c-include
 ./usr/include/prep/float.h			comp-c-include
 ./usr/include/prep/fpu.h			comp-c-include
 ./usr/include/prep/frame.h			comp-c-include

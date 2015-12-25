@@ -162,7 +162,7 @@ findroot(void)
 		return;
 	p += 2;
 	part = (*p++) - '0';
-	if (p != '\0')
+	if (*p != '\0')
 		return;
 
 	booted_partition = part;

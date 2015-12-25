@@ -3,7 +3,7 @@
 /Makefile.gnuwrap/1.9/Fri Mar 14 05:22:51 2003/-kk/
 /Makefile.host/1.31/Thu Oct 24 10:28:58 2013/-kk/
 /Makefile.nbincludes/1.4/Thu Feb  5 08:41:21 2015/-kk/
-/Makefile/1.182/Sun Aug  2 04:03:01 2015/-kk/
+/Makefile/1.184/Fri Dec 25 06:18:34 2015/-kk/
 /README/1.4/Mon Jan 12 06:49:32 2015/-kk/
 /headerlist/1.13/Fri Oct  3 09:58:01 2014/-kk/
 /mkheaderlist.sh/1.2/Sat Feb  5 13:30:26 2011/-kk/
@@ -99,6 +99,7 @@ D/rpcgen////
 D/sed////
 D/sgivol////
 D/slc////
+D/sortinfo////
 D/sparkcrc////
 D/stat////
 D/strfile////

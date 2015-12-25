@@ -200,7 +200,17 @@ hookup(const char *host, const char *port)
 		}
 		if (verbose && res0->ai_next) {
 				/* if we have multiple possibilities */
-			fprintf(ttyout, "Trying %s:%s ...\n", hname, sname);
+#ifdef INET6
+			if(res->ai_family == AF_INET6) {
+				fprintf(ttyout, "Trying [%s]:%s ...\n", hname,
+				    sname);
+			} else {
+#endif
+				fprintf(ttyout, "Trying %s:%s ...\n", hname,
+				    sname);
+#ifdef INET6
+			}
+#endif
 		}
 		s = socket(res->ai_family, SOCK_STREAM, res->ai_protocol);
 		if (s < 0) {

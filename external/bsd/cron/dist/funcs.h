@@ -59,7 +59,6 @@ size_t		strlens(const char *, ...);
 char		*env_get(const char *, char **),
 		*arpadate(time_t *),
 		*mkprints(char *, size_t),
-		*first_word(char *, const char *),
 		**env_init(void),
 		**env_copy(char **),
 		**env_set(char **, char *);

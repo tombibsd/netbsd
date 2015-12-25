@@ -1445,6 +1445,7 @@ esc_postaction(struct esc_softc *dev, esc_regmap_p rp, struct nexus *nexus)
 			switch(dev->sc_msg_in[0]) {
 			case 0x00:	/* COMMAND COMPLETE */
 				nexus->state = ESC_NS_DONE;
+				break;
 			case 0x04:	/* DISCONNECT */
 				nexus->state = ESC_NS_DISCONNECTING;
 				break;

@@ -1074,7 +1074,7 @@ nlm_find_host_by_addr(const struct sockaddr *addr, int vers)
 		break;
 #endif
 	default:
-		strcmp(tmp, "<unknown>");
+		strcpy(tmp, "<unknown>");
 	}
 
 

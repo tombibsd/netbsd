@@ -40,7 +40,7 @@
 /svr4_32_syscallargs.h/1.24/Fri Oct  2 14:11:53 2015/-kk/
 /svr4_32_syscalls.c/1.24/Fri Oct  2 14:11:53 2015/-kk/
 /svr4_32_sysent.c/1.25/Fri Oct  2 14:11:53 2015/-kk/
-/svr4_32_termios.c/1.17/Mon Apr 28 20:23:46 2008/-kk/
+/svr4_32_termios.c/1.18/Fri Dec 25 06:18:21 2015/-kk/
 /svr4_32_termios.h/1.4/Mon Apr 28 20:23:46 2008/-kk/
 /svr4_32_time.h/1.2/Mon Apr 28 20:23:46 2008/-kk/
 /svr4_32_timod.h/1.4/Mon Apr 28 20:23:46 2008/-kk/

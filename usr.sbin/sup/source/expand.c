@@ -78,6 +78,7 @@
 static jmp_buf sjbuf;
 
 static char pathbuf[MAXPATHLEN];
+static size_t maxpathlen;
 static char *path, *pathp, *lastpathp;
 
 static const char globchars[] = "{[*?";/* meta characters */
@@ -104,7 +105,8 @@ expand(char *spec, char **buffer, int bufsize)
 {
 	pathp = path = pathbuf;
 	*pathp = 0;
-	lastpathp = &path[MAXPATHLEN - 2];
+	maxpathlen = sizeof(pathbuf) - 1;
+	lastpathp = &path[maxpathlen];
 	BUFFER = buffer;
 	BUFSIZE = bufsize;
 	bufcnt = 0;
@@ -131,12 +133,11 @@ glob(char *as)
 		if (!*cs || *cs == '/') {
 			if (pathp != path + 1) {
 				*pathp = 0;
-				if (gethdir(path + 1, sizeof path - 1))
+				if (gethdir(path + 1, maxpathlen))
 					goto endit;
-				strncpy(path, path + 1, sizeof path - 1);
+				strlcpy(path, path + 1, maxpathlen);
 			} else
-				strncpy(path, (char *) getenv("HOME"), sizeof path - 1);
-			path[sizeof path - 1] = '\0';
+				strlcpy(path, getenv("HOME"), maxpathlen);
 			pathp = path + strlen(path);
 		}
 	}
@@ -398,7 +399,6 @@ gethdir(char *home, size_t homelen)
 
 	if (pp == 0)
 		return (1);
-	strncpy(home, pp->pw_dir, homelen - 1);
-	home[homelen - 1] = '\0';
+	strlcpy(home, pp->pw_dir, homelen);
 	return (0);
 }

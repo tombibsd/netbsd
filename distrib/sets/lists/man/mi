@@ -522,6 +522,7 @@
 ./usr/share/man/cat1/smbutil.0			man-util-catman		.cat
 ./usr/share/man/cat1/sntp.0			man-ntp-catman		.cat
 ./usr/share/man/cat1/sockstat.0			man-util-catman		.cat
+./usr/share/man/cat1/sortinfo.0			man-texinfo-catman	.cat
 ./usr/share/man/cat1/sort.0			man-util-catman		.cat
 ./usr/share/man/cat1/source.0			man-util-catman		.cat
 ./usr/share/man/cat1/spell.0			man-util-catman		.cat
@@ -720,6 +721,7 @@
 ./usr/share/man/cat4/adbkbd.0			man-sys-catman		.cat
 ./usr/share/man/cat4/adbms.0			man-sys-catman		.cat
 ./usr/share/man/cat4/adc.0			man-sys-catman		.cat
+./usr/share/man/cat4/adm1026hm.0		man-sys-catman		.cat
 ./usr/share/man/cat4/adm1027.0			man-sys-catman		.cat
 ./usr/share/man/cat4/adm1030.0			man-sys-catman		.cat
 ./usr/share/man/cat4/admtemp.0			man-sys-catman		.cat
@@ -2553,6 +2555,7 @@
 ./usr/share/man/cat8/intro.0			man-sys-catman		.cat
 ./usr/share/man/cat8/iopctl.0			man-sysutil-catman	.cat
 ./usr/share/man/cat8/iostat.0			man-sysutil-catman	.cat
+./usr/share/man/cat8/ip6addrctl.0		man-netutil-catman	inet6,.cat
 ./usr/share/man/cat8/ipf.0			man-ipf-catman		ipfilter,.cat
 ./usr/share/man/cat8/ipfs.0			man-ipf-catman		ipfilter,.cat
 ./usr/share/man/cat8/ipfstat.0			man-ipf-catman		ipfilter,.cat
@@ -3650,6 +3653,7 @@
 ./usr/share/man/html1/smbutil.html		man-util-htmlman	html
 ./usr/share/man/html1/sntp.html			man-ntp-htmlman		html
 ./usr/share/man/html1/sockstat.html		man-util-htmlman	html
+./usr/share/man/html1/sortinfo.html		man-texinfo-htmlman	html
 ./usr/share/man/html1/sort.html			man-util-htmlman	html
 ./usr/share/man/html1/source.html		man-util-htmlman	html
 ./usr/share/man/html1/spell.html		man-util-htmlman	html
@@ -3827,6 +3831,7 @@
 ./usr/share/man/html4/adbkbd.html		man-sys-htmlman		html
 ./usr/share/man/html4/adbms.html		man-sys-htmlman		html
 ./usr/share/man/html4/adc.html			man-sys-htmlman		html
+./usr/share/man/html4/adm1026hm.html		man-sys-htmlman		html
 ./usr/share/man/html4/adm1027.html		man-sys-htmlman		html
 ./usr/share/man/html4/adm1030.html		man-sys-htmlman		html
 ./usr/share/man/html4/admtemp.html		man-sys-htmlman		html
@@ -5434,6 +5439,7 @@
 ./usr/share/man/html8/intro.html		man-sys-htmlman		html
 ./usr/share/man/html8/iopctl.html		man-sysutil-htmlman	html
 ./usr/share/man/html8/iostat.html		man-sysutil-htmlman	html
+./usr/share/man/html8/ip6addrctl.html		man-netutil-htmlman	inet6,html
 ./usr/share/man/html8/ipf.html			man-ipf-htmlman		ipfilter,html
 ./usr/share/man/html8/ipfs.html			man-ipf-htmlman		ipfilter,html
 ./usr/share/man/html8/ipfstat.html		man-ipf-htmlman		ipfilter,html
@@ -5554,11 +5560,11 @@
 ./usr/share/man/html8/mount_overlay.html	man-miscfs-htmlman	html
 ./usr/share/man/html8/mount_portal.html		man-miscfs-htmlman	html
 ./usr/share/man/html8/mount_procfs.html		man-sysutil-htmlman	html
-./usr/share/man/html8/mount_psshfs.html		man-puffs-htmlman	html,rump
+./usr/share/man/html8/mount_psshfs.html		man-puffs-htmlman	html
 ./usr/share/man/html8/mount_ptyfs.html		man-sysutil-htmlman	html
 ./usr/share/man/html8/mount_puffs.html		man-sysutil-htmlman	html
 ./usr/share/man/html8/mount_smbfs.html		man-smbfs-htmlman	html
-./usr/share/man/html8/mount_sysctlfs.html	man-puffs-htmlman	html,rump
+./usr/share/man/html8/mount_sysctlfs.html	man-puffs-htmlman	html
 ./usr/share/man/html8/mount_sysvbfs.html	man-sysutil-htmlman	html
 ./usr/share/man/html8/mount_tmpfs.html		man-sysutil-htmlman	html
 ./usr/share/man/html8/mount_udf.html		man-sysutil-htmlman	html
@@ -6430,6 +6436,7 @@
 ./usr/share/man/man1/smbutil.1			man-util-man		.man
 ./usr/share/man/man1/sntp.1			man-ntp-man		.man
 ./usr/share/man/man1/sockstat.1			man-util-man		.man
+./usr/share/man/man1/sortinfo.1			man-texinfo-man		.man
 ./usr/share/man/man1/sort.1			man-util-man		.man
 ./usr/share/man/man1/source.1			man-util-man		.man
 ./usr/share/man/man1/spell.1			man-util-man		.man
@@ -6628,6 +6635,7 @@
 ./usr/share/man/man4/adbkbd.4			man-sys-man		.man
 ./usr/share/man/man4/adbms.4			man-sys-man		.man
 ./usr/share/man/man4/adc.4			man-sys-man		.man
+./usr/share/man/man4/adm1026hm.4		man-sys-man		.man
 ./usr/share/man/man4/adm1027.4			man-sys-man		.man
 ./usr/share/man/man4/adm1030.4			man-sys-man		.man
 ./usr/share/man/man4/admtemp.4			man-sys-man		.man
@@ -8461,6 +8469,7 @@
 ./usr/share/man/man8/intro.8			man-sys-man		.man
 ./usr/share/man/man8/iopctl.8			man-sysutil-man		.man
 ./usr/share/man/man8/iostat.8			man-sysutil-man		.man
+./usr/share/man/man8/ip6addrctl.8		man-netutil-man		inet6,.man
 ./usr/share/man/man8/ipf.8			man-ipf-man		ipfilter,.man
 ./usr/share/man/man8/ipfs.8			man-ipf-man		ipfilter,.man
 ./usr/share/man/man8/ipfstat.8			man-ipf-man		ipfilter,.man

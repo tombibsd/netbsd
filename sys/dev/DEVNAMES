@@ -39,9 +39,7 @@ adb			mac68k
 adb			macppc
 adc			hpcsh
 ade			alpha
-adt7463c		MI
-adt7467c		MI
-adm1030c		MI
+adm1026hm		MI
 adv			MI
 adw			MI
 ae			evbmips

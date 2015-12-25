@@ -15,6 +15,7 @@
 ./usr/include/ofppc/elf_machdep.h		comp-c-include
 ./usr/include/ofppc/endian.h			comp-c-include
 ./usr/include/ofppc/endian_machdep.h		comp-c-include
+./usr/include/ofppc/fenv.h			comp-c-include
 ./usr/include/ofppc/float.h			comp-c-include
 ./usr/include/ofppc/fpu.h			comp-c-include
 ./usr/include/ofppc/frame.h			comp-c-include

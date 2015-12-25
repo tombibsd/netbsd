@@ -1,4 +1,4 @@
-/DEVNAMES/1.294/Sun Sep 13 01:07:01 2015/-kk/
+/DEVNAMES/1.296/Fri Dec 25 06:18:21 2015/-kk/
 /Makefile/1.37/Wed Aug 12 04:14:18 2015/-kk/
 /auconv.c/1.25/Wed Nov 23 23:07:31 2011/-kk/
 /auconv.h/1.16/Wed Nov 23 23:07:31 2011/-kk/
@@ -91,6 +91,7 @@ D/drm////
 D/dtv////
 D/ebus////
 D/eisa////
+D/fdt////
 D/filemon////
 D/flash////
 D/gpib////

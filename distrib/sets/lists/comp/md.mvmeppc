@@ -17,6 +17,7 @@
 ./usr/include/mvmeppc/elf_machdep.h		comp-c-include
 ./usr/include/mvmeppc/endian.h			comp-c-include
 ./usr/include/mvmeppc/endian_machdep.h		comp-c-include
+./usr/include/mvmeppc/fenv.h			comp-c-include
 ./usr/include/mvmeppc/float.h			comp-c-include
 ./usr/include/mvmeppc/fpu.h			comp-c-include
 ./usr/include/mvmeppc/frame.h			comp-c-include

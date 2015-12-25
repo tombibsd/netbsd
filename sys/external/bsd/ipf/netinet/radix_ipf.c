@@ -1480,6 +1480,8 @@ random_add(rnh)
 		add_addr(rnh, i, order[i]);
 		checktree(rnh);
 	}
+
+	free(order);
 }
 
 
@@ -1497,5 +1499,7 @@ random_delete(rnh)
 		delete_addr(rnh, i);
 		checktree(rnh);
 	}
+
+	free(order);
 }
 #endif /* RDX_DEBUG */

@@ -273,6 +273,10 @@ in6_control1(struct socket *so, u_long cmd, void *data, struct ifnet *ifp)
 	int error;
 
 	switch (cmd) {
+	case SIOCAADDRCTL_POLICY:
+	case SIOCDADDRCTL_POLICY:
+		/* Privileged. */
+		return in6_src_ioctl(cmd, data);
 	/*
 	 * XXX: Fix me, once we fix SIOCSIFADDR, SIOCIFDSTADDR, etc.
 	 */
@@ -725,6 +729,10 @@ in6_control(struct socket *so, u_long cmd, void *data, struct ifnet *ifp)
 	case OSIOCAIFADDR_IN6:
 #endif
 	case SIOCAIFADDR_IN6:
+
+	case SIOCAADDRCTL_POLICY:
+	case SIOCDADDRCTL_POLICY:
+
 		if (kauth_authorize_network(curlwp->l_cred,
 		    KAUTH_NETWORK_SOCKET,
 		    KAUTH_REQ_NETWORK_SOCKET_SETPRIV,

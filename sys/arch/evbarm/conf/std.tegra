@@ -6,6 +6,7 @@ include 	"arch/evbarm/conf/std.evbarm"
 
 include		"arch/evbarm/conf/files.tegra"
 
+options 	FDT				# Flattened Device Tree support
 options 	MODULAR
 options 	MODULAR_DEFAULT_AUTOLOAD
 options 	__HAVE_CPU_COUNTER

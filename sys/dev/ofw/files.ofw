@@ -5,11 +5,12 @@
 
 define	ofbus {}
 define	of_network_dev
+define	ofw_subr
 
 defpseudo openfirm
 file	dev/ofw/openfirmio.c		openfirm needs-flag
 
-file	dev/ofw/ofw_subr.c		ofbus | openfirm
+file	dev/ofw/ofw_subr.c		ofbus | openfirm | ofw_subr
 
 file	dev/ofw/ofw_network_subr.c	of_network_dev
 

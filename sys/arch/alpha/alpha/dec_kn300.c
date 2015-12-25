@@ -431,8 +431,8 @@ kn300_softerr(unsigned long mces, unsigned long type, unsigned long logout, stru
 
 	printf("kn300: CPU ID %d %s correctable error corrected by %s\n", whami,
 	    (type == ALPHA_SYS_ERROR)?  sys : proc,
-	    ((hdr->mcheck_code & 0xff00) == (EV5_CORRECTED << 16))? proc :
-	    (((hdr->mcheck_code & 0xff00) == (CAP_ERR_CRDX << 16)) ?
+	    ((hdr->mcheck_code & 0xff00) == (EV5_CORRECTED << 8))? proc :
+	    (((hdr->mcheck_code & 0xff00) == (CAP_ERR_CRDX << 8)) ?
 		"I/O Bridge Module" : sys));
 
 	printf("    Machine Check Code 0x%lx\n", hdr->mcheck_code);

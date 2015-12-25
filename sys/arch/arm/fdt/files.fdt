@@ -1,0 +1,5 @@
+# $NetBSD$
+
+device  gic
+attach  gic at fdt with gic_fdt
+file    arch/arm/fdt/gic_fdt.c             	gic_fdt

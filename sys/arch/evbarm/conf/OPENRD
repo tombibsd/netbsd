@@ -23,3 +23,9 @@ no options 	COMPAT_LINUX
 
 vga*		at pci? dev ? function ?
 wsdisplay*	at vga? console ?
+
+
+# mvsdio doesn't currently function on OPENRD
+# Tested on OpenRD-Client
+no mvsdio
+

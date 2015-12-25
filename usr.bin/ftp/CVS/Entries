@@ -4,10 +4,10 @@
 /complete.c/1.46/Sun Apr 12 10:18:52 2009/-kk/
 /domacro.c/1.22/Sun Apr 12 10:18:52 2009/-kk/
 /extern.h/1.80/Wed Jul  4 06:09:37 2012/-kk/
-/fetch.c/1.207/Wed Sep 23 08:04:48 2015/-kk/
+/fetch.c/1.219/Fri Dec 25 06:18:34 2015/-kk/
 /ftp.1/1.135/Fri May  1 11:32:56 2015/-kk/
-/ftp.c/1.164/Wed Jul  4 06:09:37 2012/-kk/
-/ftp_var.h/1.83/Mon Jan 26 07:10:36 2015/-kk/
+/ftp.c/1.166/Fri Dec 25 06:18:34 2015/-kk/
+/ftp_var.h/1.84/Fri Dec 25 06:18:34 2015/-kk/
 /main.c/1.123/Fri May  1 11:32:56 2015/-kk/
 /progressbar.c/1.22/Wed Jun 27 22:07:36 2012/-kk/
 /progressbar.h/1.8/Sun Apr 12 10:18:52 2009/-kk/

@@ -33,6 +33,7 @@
 #include <isc/md5.h>
 #include <isc/sha1.h>
 #include <isc/util.h>
+#include <isc/print.h>
 #include <isc/string.h>
 
 /*
@@ -42,7 +43,7 @@
 unsigned char digest[ISC_SHA512_DIGESTLENGTH];
 unsigned char buffer[1024];
 const char *s;
-char str[2 * ISC_SHA512_DIGESTLENGTH + 1];
+char str[2 * ISC_SHA512_DIGESTLENGTH + 3];
 unsigned char key[20];
 
 isc_result_t

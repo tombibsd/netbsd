@@ -603,7 +603,7 @@ static int  IsIrresponsive(struct eflash_softc *sc)
     if (Status & ST_READY)
         return FALSE;
 
-    if ((Status & ST_ERASE_MASK) == 
+    if ((Status & ST_MASK) == 
         (ST_LOCK_BIT_ERROR|ST_ERASE_SUSPENDED|ST_ERASE_ERROR)) {
         /* yes, looks that way */
         return TRUE;

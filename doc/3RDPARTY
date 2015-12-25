@@ -114,8 +114,8 @@ Notes:
 bc includes dc, both of which are in the NetBSD tree.
 
 Package:	bind [named and utils]
-Version:	9.10.2-P4
-Current Vers:	9.10.2-P4
+Version:	9.10.3-P2
+Current Vers:	9.10.3-P2
 Maintainer:	Paul Vixie <vixie@vix.com>
 Archive Site:	ftp://ftp.isc.org/isc/bind9/
 Home Page:	http://www.isc.org/software/bind/
@@ -827,7 +827,7 @@ Location:	external/apache2/mDNSResponder/dist
 Notes:
 
 Package:	mdocml
-Version:	1.12.1
+Version:	1.13.3
 Current Vers:	1.13.3
 Maintainer:	Kristaps Džonsons
 Archive Site:	http://mdocml.bsd.lv/snapshots/

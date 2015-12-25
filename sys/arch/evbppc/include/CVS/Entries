@@ -15,6 +15,7 @@
 /endian.h/1.1/Mon Dec  9 12:16:02 2002/-kk/
 /endian_machdep.h/1.1/Mon Dec  9 12:16:02 2002/-kk/
 /explora.h/1.3/Mon Oct 23 06:49:17 2006/-kk/
+/fenv.h/1.1/Sun Dec 20 16:23:39 2015/-kk/
 /float.h/1.1/Mon Dec  9 12:16:02 2002/-kk/
 /fpu.h/1.1/Mon Dec  9 12:16:03 2002/-kk/
 /frame.h/1.3/Sun Feb  2 20:43:19 2003/-kk/

@@ -93,7 +93,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <dev/sysmon/sysmonvar.h>
 #include <prop/proplib.h>
 
-MODULE(MODULE_CLASS_MISC, sysmon_power, "sysmon");
+MODULE(MODULE_CLASS_DRIVER, sysmon_power, "sysmon");
 
 /*
  * Singly linked list for dictionaries to be stored/sent.

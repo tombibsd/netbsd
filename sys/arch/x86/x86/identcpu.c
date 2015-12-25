@@ -858,6 +858,15 @@ cpu_probe(struct cpu_info *ci)
 		memcpy(cpu_brand_string, ((char *) brand) + i, 48 - i);
 	}
 
+	/*
+	 * Get the structured extended features.
+	 */
+	if (cpuid_level >= 7) {
+		x86_cpuid(7, descs);
+		ci->ci_feat_val[5] = descs[1]; /* %ebx */
+		ci->ci_feat_val[6] = descs[2]; /* %ecx */
+	}
+
 	cpu_probe_intel(ci);
 	cpu_probe_k5(ci);
 	cpu_probe_k678(ci);

@@ -1549,7 +1549,6 @@ ehci_dump_regs(ehci_softc_t *sc)
 	}
 }
 
-#ifdef EHCI_DEBUG
 #define ehci_dump_link(link, type) do {					\
 	USBHIST_LOG(ehcidebug, "    link 0x%08x (T = %d):",		\
 	    link,							\
@@ -1563,9 +1562,6 @@ ehci_dump_regs(ehci_softc_t *sc)
 		    EHCI_LINK_TYPE(link) == EHCI_LINK_FSTN ? 1 : 0);	\
 	}								\
 } while(0)
-#else
-#define ehci_dump_link(link, type)
-#endif
 
 Static void
 ehci_dump_sqtds(ehci_soft_qtd_t *sqtd)

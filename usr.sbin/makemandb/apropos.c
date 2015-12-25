@@ -188,11 +188,15 @@ main(int argc, char *argv[])
 		concat(&str, *argv++);
 	/* Eliminate any stopwords from the query */
 	query = remove_stopwords(lower(str));
-	free(str);
 
-	/* if any error occured in remove_stopwords, exit */
+	/*
+	 * If the query consisted only of stopwords and we removed all of
+	 * them, use the original query.
+	 */
 	if (query == NULL)
-		errx(EXIT_FAILURE, "Try using more relevant keywords");
+		query = str;
+	else
+		free(str);
 
 	if ((db = init_db(MANDB_READONLY, MANCONF)) == NULL)
 		exit(EXIT_FAILURE);

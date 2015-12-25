@@ -454,7 +454,7 @@ child_process(entry *e) {
 				(void)fprintf(mail, "To: %s\n", mailto);
 				(void)fprintf(mail,
 				    "Subject: Cron <%s@%s> %s\n",
-				    usernm, first_word(hostname, "."), e->cmd);
+				    usernm, hostname, e->cmd);
 				(void)fprintf(mail,
 				    "Auto-Submitted: auto-generated\n");
 #ifdef MAIL_DATE

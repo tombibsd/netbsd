@@ -176,6 +176,11 @@ device	admtemp: sysmon_envsys
 attach	admtemp at iic
 file	dev/i2c/adm1021.c		admtemp
 
+# ADM1026 hardware monitor
+device	adm1026hm: sysmon_envsys
+attach	adm1026hm at iic
+file	dev/i2c/adm1026.c		adm1026hm
+
 # SMSC LPC47M192 hardware monitor
 device	smscmon: sysmon_envsys
 attach	smscmon at iic

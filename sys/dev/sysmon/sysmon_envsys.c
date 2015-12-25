@@ -103,7 +103,7 @@ static void sme_initial_refresh(void *);
 static uint32_t sme_get_max_value(struct sysmon_envsys *,
      bool (*)(const envsys_data_t*), bool);
 
-MODULE(MODULE_CLASS_MISC, sysmon_envsys, "sysmon,sysmon_taskq,sysmon_power");
+MODULE(MODULE_CLASS_DRIVER, sysmon_envsys, "sysmon,sysmon_taskq,sysmon_power");
 
 static struct sysmon_opvec sysmon_envsys_opvec = {    
         sysmonopen_envsys, sysmonclose_envsys, sysmonioctl_envsys,
@@ -1656,8 +1656,8 @@ sme_update_sensor_dictionary(prop_object_t dict, envsys_data_t *edata,
 
 	sdt = sme_find_table_entry(SME_DESC_STATES, edata->state);
 	if (sdt == NULL) {
-		printf("sme_update_sensor_dictionary: can not update sensor "
-		    "state %d unknown\n", edata->state);
+		printf("sme_update_sensor_dictionary: cannot update sensor %d "
+		    "state %d unknown\n", edata->sensor, edata->state);
 		return EINVAL;
 	}
 

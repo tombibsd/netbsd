@@ -172,12 +172,14 @@ struct cpu_info phycpu_info_primary __aligned(CACHE_LINE_SIZE) = {
 struct cpu_info *cpu_info_list = &cpu_info_primary;
 struct cpu_info *phycpu_info_list = &phycpu_info_primary;
 
-uint32_t cpu_feature[5]; /* X86 CPUID feature bits
+uint32_t cpu_feature[7]; /* X86 CPUID feature bits
 			  *	[0] basic features %edx
 			  *	[1] basic features %ecx
 			  *	[2] extended features %edx
 			  *	[3] extended features %ecx
 			  *	[4] VIA padlock features
+			  *	[5] structured extended features cpuid.7:%ebx
+			  *	[6] structured extended features cpuid.7:%ecx
 			  */
 
 bool x86_mp_online;

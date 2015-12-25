@@ -51,6 +51,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <netinet/in_systm.h>
 #include <netinet/in.h>
+#include <netinet6/in6_var.h>
 #include <netinet/ip.h>
 #include <netinet/ip6.h>
 #include <netinet/tcp.h>
@@ -747,7 +748,7 @@ npf_addr_dump(const npf_addr_t *addr, int alen)
 		memcpy(&ip, addr, alen);
 		return inet_ntoa(ip);
 	}
-	return "[IPv6]"; // XXX
+	return ip6_sprintf(addr);
 }
 
 #endif

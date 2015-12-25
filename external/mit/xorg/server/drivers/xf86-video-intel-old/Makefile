@@ -21,7 +21,8 @@ SRCS+=		i830_dri.c
 .PATH:	${X11SRCDIR.${DRIVER}}/uxa
 SRCS+=		uxa-accel.c uxa-unaccel.c uxa-glyphs.c uxa-render.c uxa.c
 
-MAN=		intel.4
+MAN=		intel_old.4
+CLEANFILES+=	intel_old.man
 
 CPPFLAGS+=      -I${DESTDIR}${X11INCDIR}/X11
 CPPFLAGS+=      -I${DESTDIR}${X11INCDIR}/X11/dri
@@ -41,3 +42,7 @@ CWARNFLAGS.clang+=	-Wno-parentheses -Wno-tautological-compare \
 			-Wno-empty-body -Wno-error
 
 .include <bsd.subdir.mk>
+
+intel_old.man:	intel.man
+	${_MKTARGET_CREATE}
+	${TOOL_SED} -e 's/[[:<:]]intel[[:>:]]/intel_old/g' ${.ALLSRC} > ${.TARGET}

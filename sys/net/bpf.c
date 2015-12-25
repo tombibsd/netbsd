@@ -721,7 +721,8 @@ bpf_write(struct file *fp, off_t *offp, struct uio *uio,
 	if (mc != NULL) {
 		if (error == 0)
 			(*ifp->if_input)(ifp, mc);
-		m_freem(mc);
+		else
+			m_freem(mc);
 	}
 	splx(s);
 	KERNEL_UNLOCK_ONE(NULL);

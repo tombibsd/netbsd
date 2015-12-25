@@ -48,6 +48,7 @@ __RCSID("$NetBSD$");
 #include <limits.h>
 #include <string.h>
 #include <signal.h>
+#include <util.h>
 
 #include "pmap.h"
 #include "main.h"
@@ -468,18 +469,19 @@ load_name_cache(kvm_t *kd)
 {
 	struct namecache _ncp, *ncp, *oncp;
 	struct nchashhead _ncpp, *ncpp; 
-	u_long nchash, i;
+	u_long lnchash;
+	size_t nchash, i;
 
 	LIST_INIT(&lcache);
 
-	_KDEREF(kd, nchash_addr, &nchash, sizeof(nchash));
-	nchashtbl = malloc(sizeof(nchashtbl) * (int)(nchash + 1));
-	_KDEREF(kd, nchashtbl_addr, nchashtbl,
-		sizeof(nchashtbl) * (int)(nchash + 1));
+	_KDEREF(kd, nchash_addr, &lnchash, sizeof(lnchash));
+	nchash = (size_t)lnchash + 1;
+	nchashtbl = ecalloc(nchash, sizeof(*nchashtbl));
+	_KDEREF(kd, nchashtbl_addr, nchashtbl, sizeof(*nchashtbl) * nchash);
 
 	ncpp = &_ncpp;
 
-	for (i = 0; i <= nchash; i++) {
+	for (i = 0; i < nchash; i++) {
 		ncpp = &nchashtbl[i];
 		oncp = NULL;
 		LIST_FOREACH(ncp, ncpp, nc_hash) {
@@ -511,7 +513,7 @@ cache_enter(u_long i, struct namecache *ncp)
 		       i, ncp->nc_vp, ncp->nc_dvp,
 		       ncp->nc_nlen, ncp->nc_nlen, ncp->nc_name);
 
-	ce = malloc(sizeof(struct cache_entry));
+	ce = emalloc(sizeof(struct cache_entry));
 	
 	ce->ce_vp = ncp->nc_vp;
 	ce->ce_pvp = ncp->nc_dvp;

@@ -1,5 +1,5 @@
 /Makefile/1.32/Sat Oct 27 22:36:14 2012/-kk/
-/bpf.c/1.192/Sun Nov 15 13:36:27 2015/-kk/
+/bpf.c/1.193/Fri Dec 25 06:18:30 2015/-kk/
 /bpf.h/1.67/Sun Sep 13 01:31:56 2015/-kk/
 /bpf_filter.c/1.70/Sat Mar 21 02:21:19 2015/-kk/
 /bpf_stub.c/1.6/Mon Jan 30 23:31:27 2012/-kk/
@@ -33,8 +33,8 @@
 /if_faith.h/1.3/Sun Dec 11 23:05:25 2005/-kk/
 /if_fddi.h/1.14/Tue Dec 25 18:33:45 2007/-kk/
 /if_fddisubr.c/1.95/Sun Nov 15 13:36:27 2015/-kk/
-/if_gif.c/1.100/Fri Dec 25 05:40:32 2015/-kk/
-/if_gif.h/1.19/Wed Nov 12 12:36:28 2008/-kk/
+/if_gif.c/1.102/Fri Dec 25 06:18:30 2015/-kk/
+/if_gif.h/1.20/Fri Dec 25 06:18:30 2015/-kk/
 /if_gre.c/1.167/Sun Sep 13 01:07:49 2015/-kk/
 /if_gre.h/1.43/Sun Sep 13 01:31:57 2015/-kk/
 /if_hippi.h/1.13/Mon Apr 28 20:24:09 2008/-kk/
@@ -42,7 +42,7 @@
 /if_ieee1394.h/1.9/Mon Apr 28 20:24:09 2008/-kk/
 /if_ieee1394subr.c/1.51/Sun Nov 15 13:36:27 2015/-kk/
 /if_llatbl.c/1.9/Sat Dec  5 11:19:35 2015/-kk/
-/if_llatbl.h/1.6/Sat Dec  5 11:19:35 2015/-kk/
+/if_llatbl.h/1.7/Fri Dec 25 06:18:30 2015/-kk/
 /if_llc.h/1.21/Fri Oct  3 09:51:01 2014/-kk/
 /if_loop.c/1.83/Sun Sep 13 01:07:49 2015/-kk/
 /if_media.c/1.30/Mon Oct  5 21:27:36 2009/-kk/
@@ -67,8 +67,8 @@
 /if_stripvar.h/1.19/Sat Jul 14 21:02:42 2007/-kk/
 /if_tap.c/1.82/Tue Aug 25 04:51:26 2015/-kk/
 /if_tap.h/1.6/Sun Sep 13 01:31:57 2015/-kk/
-/if_token.h/1.16/Wed Feb 20 17:05:53 2008/-kk/
-/if_tokensubr.c/1.71/Sun Sep 13 01:07:49 2015/-kk/
+/if_token.h/1.17/Fri Dec 25 06:18:30 2015/-kk/
+/if_tokensubr.c/1.72/Fri Dec 25 06:18:30 2015/-kk/
 /if_tun.c/1.123/Sun Sep 13 01:07:49 2015/-kk/
 /if_tun.h/1.19/Sun Sep 13 01:31:57 2015/-kk/
 /if_types.h/1.26/Sun Aug  5 21:21:41 2012/-kk/

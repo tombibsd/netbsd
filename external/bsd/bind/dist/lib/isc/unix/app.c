@@ -727,7 +727,7 @@ isc__app_ctxrun(isc_appctx_t *ctx0) {
 				return (ISC_R_UNEXPECTED);
 			}
 #endif
-			result = sigsuspend(&sset);
+			(void)sigsuspend(&sset);
 		} else {
 			/*
 			 * External, or BIND9 using multiple contexts:

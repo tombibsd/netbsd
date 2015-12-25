@@ -40,6 +40,9 @@ SETSCMD=	cd ${.CURDIR} && \
 		${HOST_SH}
 
 MAKETARS_FLAGS=
+.if ${MKREPRO_TIMESTAMP:Uno} != "no"
+MAKETARS_FLAGS+= -T "${MKREPRO_TIMESTAMP}"
+.endif
 .if ${MKX11} != "no"
 MAKESRCTARS_X11_FLAGS=	-x ${X11SRCDIR}
 .endif

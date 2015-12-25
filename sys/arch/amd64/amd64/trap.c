@@ -515,6 +515,14 @@ kernelfault:
 		}
 
 		cr2 = rcr2();
+
+		if (frame->tf_err & PGEX_X) {
+			/* SMEP might have brought us here */
+			if (cr2 > VM_MIN_ADDRESS && cr2 <= VM_MAXUSER_ADDRESS)
+				panic("prevented execution of %p (SMEP)",
+				    (void *)cr2);
+		}
+
 		goto faultcommon;
 
 	case T_PAGEFLT|T_USER: {	/* page fault */

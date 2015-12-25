@@ -56,7 +56,6 @@ static int sflag;
 /*
  * what
  */
-/* ARGSUSED */
 int
 main(int argc, char **argv)
 {

@@ -46,7 +46,7 @@ SUBDIR+= mdsetimage
 .endif
 
 .if (${MKINET6} != "no")
-SUBDIR+=faithd ifmcstat ndp rip6query rtsold
+SUBDIR+=faithd ifmcstat ip6addrctl ndp rip6query rtsold
 .endif
 .if (${USE_INET6} != "no")
 SUBDIR+=mld6query route6d rtadvd traceroute6 

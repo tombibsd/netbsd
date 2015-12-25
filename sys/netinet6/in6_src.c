@@ -885,8 +885,9 @@ struct sel_walkarg {
 	void *w_limit;
 };
 
+int sysctl_net_inet6_addrctlpolicy(SYSCTLFN_ARGS);
 int
-in6_src_sysctl(void *oldp, size_t *oldlenp, void *newp, size_t newlen)
+sysctl_net_inet6_addrctlpolicy(SYSCTLFN_ARGS)
 {
 	int error = 0;
 	int s;

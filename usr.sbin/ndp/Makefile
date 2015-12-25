@@ -15,7 +15,8 @@ CPPFLAGS+=	-DINET6
 CPPFLAGS+=	-I. -I${TCPDUMP}
 
 .PATH:		${.CURDIR}/../../lib/libc/net
-RUMPSRCS=	getifaddrs.c getnameinfo.c if_indextoname.c if_nametoindex.c
+RUMPSRCS=	getaddrinfo.c getifaddrs.c getnameinfo.c
+RUMPSRCS+=	if_indextoname.c if_nametoindex.c
 .if (${MKRUMP} != "no")
 CPPFLAGS+= 	-DRUMP_ACTION
 .endif

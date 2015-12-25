@@ -223,13 +223,20 @@ in_gif_input(struct mbuf *m, ...)
 		return;
 	}
 #ifndef GIF_ENCAPCHECK
-	if (!gif_validate4(ip, gifp->if_softc, m->m_pkthdr.rcvif)) {
+	struct gif_softc *sc = (struct gif_softc *)gifp->if_softc;
+	/* other CPU do delete_tunnel */
+	if (sc->gif_psrc == NULL || sc->gif_pdst == NULL) {
+		m_freem(m);
+		ip_statinc(IP_STAT_NOGIF);
+		return;
+	}
+
+	if (!gif_validate4(ip, sc, m->m_pkthdr.rcvif)) {
 		m_freem(m);
 		ip_statinc(IP_STAT_NOGIF);
 		return;
 	}
 #endif
-
 	otos = ip->ip_tos;
 	m_adj(m, off);
 

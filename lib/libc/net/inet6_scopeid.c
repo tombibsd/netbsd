@@ -71,7 +71,7 @@ inet6_putscopeid(struct sockaddr_in6 *sin6, int flags)
 	    (flags & INET6_IS_ADDR_MC_LINKLOCAL)) ||
 	    (IN6_IS_ADDR_SITELOCAL(&sin6->sin6_addr) &&
 	    (flags & INET6_IS_ADDR_SITELOCAL))) {
-	    uint16_t scope = htons(sin6->sin6_scope_id);
+		uint16_t scope = htons(sin6->sin6_scope_id);
 		memcpy(&sin6->sin6_addr.s6_addr[2], &scope, sizeof(scope));
 		sin6->sin6_scope_id = 0;
 	}

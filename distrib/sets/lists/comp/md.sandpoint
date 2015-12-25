@@ -18,6 +18,7 @@
 ./usr/include/sandpoint/elf_machdep.h		comp-c-include
 ./usr/include/sandpoint/endian.h		comp-c-include
 ./usr/include/sandpoint/endian_machdep.h	comp-c-include
+./usr/include/sandpoint/fenv.h			comp-c-include
 ./usr/include/sandpoint/float.h			comp-c-include
 ./usr/include/sandpoint/fpu.h			comp-c-include
 ./usr/include/sandpoint/frame.h			comp-c-include

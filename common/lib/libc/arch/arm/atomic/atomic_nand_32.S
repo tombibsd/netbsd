@@ -36,8 +36,8 @@
 ENTRY_NP(_atomic_nand_32)
 	mov	ip, r0
 1:	ldrex	r0, [ip]		/* load old value (to be returned) */
-	mvns	r3, r0			/* complement source */
-	ands	r3, r3, r1		/* calculate new value */
+	ands	r3, r0, r1		/* calculate new value step 1 */
+	mvns	r3, r3			/* ... complement for new value */
 	strex	r2, r3, [ip]		/* try to store */
 	cmp	r2, #0			/*   succeed? */
 	bne	1b			/*     no, try again */
@@ -59,8 +59,8 @@ STRONG_ALIAS(_atomic_nand_ulong,_atomic_nand_32)
 ENTRY_NP(_atomic_nand_32_nv)
 	mov	ip, r0			/* need r0 for return value */
 1:	ldrex	r0, [ip]		/* load old value */
-	mvns	r0, r0			/* complement source */
-	ands	r0, r0, r1		/* calculate new value (return value) */
+	ands	r0, r0, r1		/* calculate new value step 1 */
+	mvns	r0, r0			/* ... complement for new value */
 	strex	r2, r0, [ip]		/* try to store */
 	cmp	r2, #0			/*   succeed? */
 	bne	1b			/*     no, try again? */

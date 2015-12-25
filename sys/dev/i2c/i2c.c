@@ -217,11 +217,17 @@ iic_attach(device_t parent, device_t self, void *aux)
 	if (!pmf_device_register(self, NULL, NULL))
 		aprint_error_dev(self, "couldn't establish power handler\n");
 
-	props = device_properties(parent);
-	if (!prop_dictionary_get_bool(props, "i2c-indirect-config",
-	    &indirect_config))
-		indirect_config = true;
-	child_devices = prop_dictionary_get(props, "i2c-child-devices");
+	if (iba->iba_child_devices) {
+		child_devices = iba->iba_child_devices;
+		indirect_config = false;
+	} else {
+		props = device_properties(parent);
+		if (!prop_dictionary_get_bool(props, "i2c-indirect-config",
+		    &indirect_config))
+			indirect_config = true;
+		child_devices = prop_dictionary_get(props, "i2c-child-devices");
+	}
+
 	if (child_devices) {
 		unsigned int i, count;
 		prop_dictionary_t dev;

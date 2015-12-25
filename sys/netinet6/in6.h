@@ -576,7 +576,8 @@ struct ip6_mtuinfo {
 #define IPV6CTL_LOWPORTMAX	31	/* maximum reserved port */
 /* 32 to 34: reserved */
 #define IPV6CTL_AUTO_LINKLOCAL	35	/* automatic link-local addr assign */
-/* 36 to 38: reserved */
+/* 36 to 37: reserved */
+#define IPV6CTL_ADDRCTLPOLICY	38	/* get/set address selection policy */
 #define IPV6CTL_USE_DEFAULTZONE	39	/* use default scope zone */
 /* 40: reserved */
 #define IPV6CTL_MAXFRAGS	41	/* max fragments */
@@ -708,9 +709,6 @@ extern void in6_if_link_down(struct ifnet *);
 extern void in6_if_link_state_change(struct ifnet *, int);
 extern void in6_if_up(struct ifnet *);
 extern void in6_if_down(struct ifnet *);
-#ifndef __FreeBSD__
-extern int in6_src_sysctl(void *, size_t *, void *, size_t);
-#endif
 extern void addrsel_policy_init(void);
 extern	u_char	ip6_protox[];
 

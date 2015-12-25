@@ -846,9 +846,9 @@ sunos32_sys_ioctl(struct lwp *l, const struct sunos32_sys_ioctl_args *uap, regis
 	    {
 		int tmp = 0;
 		switch ((intptr_t)SCARG_P32(uap, data)) {
-		case SUNOS_S_FLUSHR:	tmp = FREAD;
-		case SUNOS_S_FLUSHW:	tmp = FWRITE;
-		case SUNOS_S_FLUSHRW:	tmp = FREAD|FWRITE;
+		case SUNOS_S_FLUSHR:	tmp = FREAD; break;
+		case SUNOS_S_FLUSHW:	tmp = FWRITE; break;
+		case SUNOS_S_FLUSHRW:	tmp = FREAD|FWRITE; break;
 		}
                 return sunos32_do_ioctl(SCARG(&bsd_ua, fd), TIOCFLUSH, &tmp, l);
 	    }

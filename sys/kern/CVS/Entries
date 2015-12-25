@@ -90,7 +90,7 @@
 /makesyscalls.sh/1.162/Sat Dec  5 12:23:00 2015/-kk/
 /sched_4bsd.c/1.30/Thu Jun 26 06:46:35 2014/-kk/
 /sched_m2.c/1.32/Thu Jun 26 06:46:35 2014/-kk/
-/subr_autoconf.c/1.237/Fri Dec 25 05:40:29 2015/-kk/
+/subr_autoconf.c/1.238/Fri Dec 25 06:18:29 2015/-kk/
 /subr_blist.c/1.12/Tue Dec 17 04:13:38 2013/-kk/
 /subr_bufq.c/1.21/Sat Mar  1 06:05:14 2014/-kk/
 /subr_callback.c/1.7/Tue Nov 24 20:11:50 2009/-kk/
@@ -141,7 +141,7 @@
 /sys_descrip.c/1.30/Fri Oct  3 09:51:00 2014/-kk/
 /sys_generic.c/1.130/Fri Oct  3 09:51:00 2014/-kk/
 /sys_lwp.c/1.57/Sun Aug  2 04:02:57 2015/-kk/
-/sys_module.c/1.20/Fri Nov 20 02:19:28 2015/-kk/
+/sys_module.c/1.21/Fri Dec 25 06:18:29 2015/-kk/
 /sys_mqueue.c/1.39/Thu Jul  2 04:14:28 2015/-kk/
 /sys_pipe.c/1.140/Fri Oct  3 09:51:01 2014/-kk/
 /sys_pmc.c/1.11/Thu Feb 13 15:22:33 2014/-kk/

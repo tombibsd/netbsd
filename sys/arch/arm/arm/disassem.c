@@ -151,10 +151,10 @@ static const struct arm32_insn arm32_i[] = {
     { 0xfe000000, 0xfa000000, "blx",	"t" },		/* Before b and bl */
     { 0xfe100090, 0xfc000000, "stc2",	"L#v" },
     { 0x0e100090, 0x0c000000, "stc",	"L#v" },
-    { 0xfe100090, 0xfc100000, "ldc2",	"L#v" },
-    { 0x0e100090, 0x0c100000, "ldc",	"L#v" },
     { 0x0ff00000, 0x0c400000, "mcrr",	"#&" },
     { 0x0ff00000, 0x0c500000, "mrrc",	"#&" },
+    { 0xfe100090, 0xfc100000, "ldc2",	"L#v" },
+    { 0x0e100090, 0x0c100000, "ldc",	"L#v" },
     { 0xff000010, 0xfe000000, "cdp2",	"#y" },
     { 0x0f000010, 0x0e000000, "cdp",	"#y" },
     { 0xff100010, 0xfe000010, "mcr2",	"#z" },

@@ -900,7 +900,7 @@ int
 free_field(FIELD *field)
 {
 	FIELD *flink;
-	int i;
+	unsigned int i;
 	_formi_tab_t *ts, *nts;
 	
 	if (field == NULL)
@@ -913,7 +913,7 @@ free_field(FIELD *field)
 		  /* no it is not - release the buffers */
 		free(field->buffers);
 		  /* free the tab structures */
-		for (i = 0; i < field->row_count - 1; i++) {
+		for (i = 0; i + 1 < field->row_count; i++) {
 			if (field->alines[i].tabs != NULL) {
 				ts = field->alines[i].tabs;
 				while (ts != NULL) {

@@ -79,6 +79,7 @@ struct llentry {
 	struct lltable		 *lle_tbl;
 	struct llentries	 *lle_head;
 	void			(*lle_free)(struct llentry *);
+	void			(*lle_ll_free)(struct llentry *);
 	struct mbuf		 *la_hold;
 	int			 la_numheld;  /* # of packets currently held */
 	time_t			 la_expire;
@@ -202,9 +203,11 @@ struct llentry {
 } while (0)
 
 #define	LLE_FREE_LOCKED(lle) do {				\
-	if ((lle)->lle_refcnt == 1)				\
+	if ((lle)->lle_refcnt == 1) {				\
+		if ((lle)->lle_ll_free != NULL)			\
+			(lle)->lle_ll_free(lle);		\
 		(lle)->lle_free(lle);				\
-	else {							\
+	} else {						\
 		LLE_REMREF(lle);				\
 		LLE_WUNLOCK(lle);				\
 	}							\

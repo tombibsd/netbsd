@@ -224,3 +224,9 @@ Changes from NetBSD 7.0 to NetBSD 8.0:
 		[mrg 20151115]
 	dhcpcd: Import dhcpcd 6.9.4. [roy 20151130]
 	openssl: Import openssl 1.0.1q [christos 20151206]
+	ip6addrctl: Import from FreeBSD [christos 20151212]
+	adm1026hm(4): Add driver for ADM1026 i2c hardware monitor
+		[jdc 20151216]
+	bind: Import version 9.10.3-P2. [christos 20151216]
+	mdocml: Import 1.13.3. [christos 20151217]
+	sortinfo(1): Add utility to sort texinfo dir files [christos 20151218]

@@ -56,18 +56,22 @@ dos2errno(void)
 	int err;
 
 	switch (doserrno) {
-	    case 1:
-	    case 4:
-	    case 12:
+	    case 1: /* invalid function number */
+	    case 4: /* too many open files */
+	    case 12: /* invalid access mode */
 	    default:
 		err = EIO;
-	    case 2:
-	    case 3:
+		break;
+	    case 2: /* file not found */
+	    case 3: /* path not found */
 		err = ENOENT;
-	    case 5:
+		break;
+	    case 5: /* access denied */
 		err = EPERM;
-	    case 6:
+		break;
+	    case 6: /* invalid handle */
 		err = EINVAL;
+		break;
 	}
 	return err;
 }

@@ -112,7 +112,8 @@ SUBDIR += .WAIT texinfo \
 	${DTRACE_BITS} \
 		asn1_compile cksum compile_et db \
 		file lint1 slc \
-		makefs .WAIT menuc mkcsmapper mkesdb mklocale mknod msgc \
+		makefs sortinfo \
+		.WAIT menuc mkcsmapper mkesdb mklocale mknod msgc \
 		.WAIT disklabel gpt \
 		.WAIT paxctl \
 		.WAIT fdisk \

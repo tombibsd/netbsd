@@ -15,6 +15,7 @@
 /elf_machdep.h/1.1/Sun Feb  4 18:32:12 2001/-kk/
 /endian.h/1.1/Sun Feb  4 18:32:13 2001/-kk/
 /endian_machdep.h/1.1/Sun Feb  4 18:32:13 2001/-kk/
+/fenv.h/1.1/Sun Dec 20 16:23:39 2015/-kk/
 /float.h/1.1/Sun Feb  4 18:32:13 2001/-kk/
 /fpu.h/1.1/Sun Feb  4 18:32:13 2001/-kk/
 /frame.h/1.1/Sun Feb  4 18:32:13 2001/-kk/

@@ -12,13 +12,13 @@ file	arch/arm/arm32/arm32_boot.c
 file	arch/arm/arm32/arm32_kvminit.c
 file	arch/arm/arm32/arm32_reboot.c
 file	arch/arm/arm32/irq_dispatch.S
+file	arch/arm/arm32/armv7_generic_space.c
+file	arch/arm/arm/bus_space_a4x.S
 
 file	arch/arm/samsung/exynos_soc.c
 file	arch/arm/samsung/exynos_space.c
-file	arch/arm/samsung/exynos_dma.c
+#file	arch/arm/samsung/exynos_dma.c
 file	arch/arm/samsung/exynos_smc.S		arm_trustzone_firmware
-
-file	arch/arm/arm/bus_space_a4x.S		exyo
 
 # Console parameters
 defparam opt_exynos.h				CONADDR
@@ -44,6 +44,11 @@ defflag opt_exynos.h				EXYNOS5420: EXYNOS5
 defflag opt_exynos.h				EXYNOS5440: EXYNOS5
 defflag opt_exynos.h				EXYNOS5422: EXYNOS5
 
+# On-board I/O
+device	exynosfdt : bus_space_generic, fdtbus
+attach	exynosfdt at mainbus with exynos_fdt
+file	arch/arm/samsung/exynos_fdt.c		exynos_fdt
+
 # SoC I/O attach point
 device exyo { [port=-1], [intr=-1] } : bus_space_generic
 attach exyo at mainbus with exyo_io
@@ -58,21 +63,27 @@ file	arch/arm/samsung/mct.c		exyo_mct
 
 # Watchdog
 device	exyowdt : sysmon_wdog
-attach	exyowdt at exyo with exynos_wdt
+attach	exyowdt at fdt with exynos_wdt
 file	arch/arm/samsung/exynos_wdt.c	exynos_wdt | exyo_io needs-flag
 
 # UARTs
 device	sscom { } : bus_space_generic
-attach	sscom at exyo with exynos_sscom
+attach	sscom at fdt with exynos_sscom
 file	arch/arm/samsung/sscom.c	sscom needs-flag
 file	arch/arm/samsung/exynos_sscom.c	exynos_sscom 
 defflag opt_sscom.h     SSCOM0CONSOLE SSCOM1CONSOLE
 defparam opt_sscom.h    SSCOM_FREQ 
 
+# PINCTL
+device  exyopctl : gpiobus
+attach  exyopctl at fdt with exynos_pinctrl
+file	arch/arm/samsung/exynos_pinctrl.c	exynos_pinctl | exyo_io needs-flag
+file	arch/arm/samsung/exynos_gpio.c		exynos_pinctl | exyo_io needs-flag
+
 # GPIO
-device	exyogpio : gpiobus
-attach	exyogpio at exyo with exynos_gpio
-file	arch/arm/samsung/exynos_gpio.c		exynos_gpio | exyo_io needs-flag
+#device	exyogpio : gpiobus
+#attach	exyogpio at fdt with exynos_gpio
+#file	arch/arm/samsung/exynos_gpio.c		exynos_gpio | exyo_io needs-flag
 
 # USB2 Host Controller (EHCI/OHCI)
 device	exyousb { }
@@ -86,4 +97,8 @@ device	exyoiic: i2cbus, i2c_bitbang
 attach	exyoiic at exyo with exynos_iic
 file	arch/arm/samsung/exynos_i2c.c		exynos_iic | exyo_io needs-flag
 
-include "arch/arm/samsung/files.exynos5422"
+file	arch/arm/samsung/exynos5422_dma.c
+
+device	exy5422clk: clk
+attach	exy5422clk at exyo with exynos5422_clock
+file	arch/arm/samsung/exynos5422_clock.c	exynos5422_clock

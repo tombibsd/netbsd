@@ -1,5 +1,5 @@
 /Makefile.inc/1.10/Wed Mar 21 05:47:53 2012/-kk/
-/Makefile/1.221/Thu Jun 18 03:42:38 2015/-kk/
+/Makefile/1.222/Fri Dec 25 06:18:34 2015/-kk/
 D/apply////
 D/apropos////
 D/asa////
@@ -185,6 +185,7 @@ D/skeyinit////
 D/sockstat////
 D/soelim////
 D/sort////
+D/sortinfo////
 D/spell////
 D/split////
 D/stat////

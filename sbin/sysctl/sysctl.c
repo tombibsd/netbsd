@@ -212,6 +212,8 @@ static const struct handlespec {
 
 	{ "/net/inet6?/tcp6?/ident",		printother, NULL, "identd" },
 	{ "/net/inet6/icmp6/nd6_[dp]rlist",	printother, NULL, "ndp" },
+	{ "/net/inet6/ip6/addctlpolicy",	printother, NULL,
+						"ip6addrctl" },
 	{ "/net/key/dumps[ap]",			printother, NULL, "setkey" },
 	{ "/net/[^/]+/[^/]+/pcblist",		printother, NULL,
 						"netstat' or 'sockstat" },

@@ -67,6 +67,19 @@ MKISOFS_FLAGS+= -J -l -hide-joliet-trans-tbl -r -T \
 MKISOFS_FLAGS+=	-quiet
 .endif
  
+# Reproducible build parameters
+.if ${MKREPRO:Uno} == "no"
+BUILDER!=	echo $${USER-root}@$$(hostname)
+.else
+BUILDER=	builder@localhost.NetBSD.org
+.endif
+.if ${MKREPRO_TIMESTAMP:Uno} == "no"
+PAX_TIMESTAMP=
+BUILD_DATE!=	date -u
+.else
+PAX_TIMESTAMP=--timestamp "${MKREPRO_TIMESTAMP}"
+BUILD_DATE!=	date -u -r "${MKREPRO_TIMESTAMP}"
+.endif
 
 # MD Makefile.inc may append MD targets to BIN[123].  Make sure all
 # are empty, to preserve the old semantics of setting them below with "+=".
@@ -185,6 +198,7 @@ MAKEDEV: ${.CURDIR}/MAKEDEV.awk ${.CURDIR}/MAKEDEV.tmpl \
 	    > ${.TARGET}
 
 .include "${NETBSDSRCDIR}/etc/Makefile.params"
+
 CLEANFILES+=	etc-release
 etc-release: .EXEC .MAKE
 	${_MKTARGET_CREATE}
@@ -193,8 +207,8 @@ etc-release: .EXEC .MAKE
 		cat ${NETBSDSRCDIR}/sys/conf/copyright; \
 		echo ; \
 		echo "Build information:"; \
-		printf "%20s   %s\n" "Build date" "$$(date -u)"; \
-		printf "%20s   %s\n"  "Built by" "$${USER-root}@$$(hostname)"; \
+		printf "%20s   %s\n" "Build date" "${BUILD_DATE}"; \
+		printf "%20s   %s\n"  "Built by" "${BUILDER}"; \
 		if [ -n "${BUILDID}" ]; then \
 		    printf "%20s   %s\n"  "Build ID" "${BUILDID}" ; \
 		fi ; \
@@ -597,7 +611,7 @@ kernset-${configfile}: .PHONY build_kernels snap_pre
 	kerndir=${KERNOBJDIR}/${configfile:C/.*\///}; \
 	kernsuffixes="${KERNEL_SUFFIXES:S/^/./}"; \
 	kern_tgz=${RELEASEDIR}/${RELEASEMACHINEDIR}/binary/sets/kern-${configfile}.tgz; \
-	pax_cmd="GZIP=${GZIP_FLAGS:Q} ${TOOL_PAX} --use-compress-program ${TOOL_GZIP:Q} -O -w -M -N ${NETBSDSRCDIR}/etc -f $${kern_tgz}"; \
+	pax_cmd="GZIP=${GZIP_FLAGS:Q} ${TOOL_PAX} ${PAX_TIMESTAMP} --use-compress-program ${TOOL_GZIP:Q} -O -w -M -N ${NETBSDSRCDIR}/etc -f $${kern_tgz}"; \
 	cd $${kerndir} && { \
 		kernels=; newest=; \
 		for kernel in $${kernlist}; do \

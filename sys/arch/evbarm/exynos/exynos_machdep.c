@@ -101,6 +101,14 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <arm/samsung/sscom_var.h>
 #include <arm/samsung/sscom_reg.h>
 
+/* so we can load the device tree. NOTE: This requires the kernel to be
+ * made into a linux (not netbsd) uboot image.
+ */
+#include <libfdt.h>
+#include <dev/fdt/fdtvar.h>
+#define FDT_BUF_SIZE	(128*1024)
+static uint8_t fdt_data[FDT_BUF_SIZE];
+
 extern const int num_exynos_uarts_entries;
 extern const struct sscom_uart_info exynos_uarts[];
 
@@ -134,6 +142,9 @@ char *boot_args = NULL;				/* MI bootargs */
 char *boot_file = NULL;				/* MI bootfile */
 uint8_t uboot_enaddr[ETHER_ADDR_LEN] = {};
 
+
+void
+odroid_device_register(device_t self, void *aux);
 
 /*
  * kernel start and end from the linker
@@ -201,6 +212,40 @@ static struct boot_physmem bp_highgig = {
 };
 #endif
 
+static struct gpio_pin_entry {
+	const char *pin_name;
+	const char *pin_user;
+} gpio_pin_entries[] = {
+	/* mux@13400000 (muxa) */
+	{ "gpx3-7", "hdmi-hpd-irq"},
+	{ "gpx3-6", "hdmi_cec" },
+	{ "gpx0-7", "dp_hpd_gpio" },
+	{ "gpx0-4", "pmic-irq" },
+	{ "gpx3-2", "audio-irq" },
+	{ "gpx3-4", "b-sess1-irq" },
+	{ "gpx3-5", "b-sess0-irq" },
+	{ "gpx1-1", "id2-irq" },
+	/* mux@134100000 (muxb) */
+	{ "gpc0-0", "sd0-clk" },
+	{ "gpc0-1", "sd0-cmd" },
+	{ "gpc0-7", "sd0-rdqs" },
+	{ "gpd1-3", "sd0-qrdy" },
+	{ "gpc0-3", "sd0-bus-width1" },
+	{ "gpc0-3", "sd0-bus-width4-bit1" },
+	{ "gpc0-4", "sd0-bus-width4-bit2" },
+	{ "gpc0-5", "sd0-bus-width4-bit3" },
+	{ "gpc0-6", "sd0-bus-width4-bit4" },
+	{ "gpc1-0", "sd1-clk" },
+	{ "gpc1-1", "sd1-cmd" },
+	{ "gpc1-3", "sd1-bus-width1" },
+	{ "gpc1-3", "sd1-bus-width4-bit1" },
+	{ "gpc1-4", "sd1-bus-width4-bit2" },
+	{ "gpc1-5", "sd1-bus-width4-bit3" },
+	{ "gpc1-6", "sd1-bus-width4-bit4" },
+	/* TODO: muxc and muxd as needed */
+	{ 0, 0}
+};
+	
 #ifdef VERBOSE_INIT_ARM
 extern void exynos_putchar(int);
 
@@ -238,6 +283,20 @@ exynos_printn(u_int n, int base)
 extern void cortex_mpstart(void);
 
 /*
+ * void init_gpio_dictionary(...)
+ *
+ * Setup the dictionary of gpio pin names for the drivers to use
+ */
+static void init_gpio_dictionary(struct gpio_pin_entry *pins,
+				 prop_dictionary_t dict)
+{
+	while (pins->pin_name) {
+		prop_dictionary_set_cstring(dict, pins->pin_user,
+					    pins->pin_name);
+		pins++;
+	}
+}
+/*
  * u_int initarm(...)
  *
  * Our entry point from the assembly before main() is called.
@@ -271,21 +330,17 @@ initarm(void *arg)
 		panic("Unknown product family %llx",
 		   EXYNOS_PRODUCT_FAMILY(exynos_soc_id));
 	}
-	DPRINT(" devmap");
 	pmap_devmap_register(devmap);
 
 	/* bootstrap soc. uart_address is determined in exynos_start */
 	paddr_t uart_address = armreg_tpidruro_read();
-	DPRINT(" bootstrap");
 	exynos_bootstrap(EXYNOS_CORE_VBASE, EXYNOS_IOPHYSTOVIRT(uart_address));
 
 	/* set up CPU / MMU / TLB functions */
-	DPRINT(" cpufunc");
 	if (set_cpufuncs())
 		panic("cpu not recognized!");
 
 	/* get normal console working */
-	DPRINT(" consinit");
  	consinit();
 
 #ifdef KGDB
@@ -317,6 +372,7 @@ initarm(void *arg)
 	char mi_bootargs[] = BOOT_ARGS;
 	parse_mi_bootargs(mi_bootargs);
 #endif
+
 	boot_args = bootargs;
 	parse_mi_bootargs(boot_args);
 	exynos_extract_mac_adress();
@@ -339,6 +395,22 @@ initarm(void *arg)
 	const bool mapallmem_p = false;
 #endif
 
+	/* Load the dtb */
+	const uint8_t *fdt_addr_r = (const uint8_t *)uboot_args[2];
+	printf("fdt addr 0x%08x\n", (uint)fdt_addr_r);
+	int error = fdt_check_header(fdt_addr_r);
+	printf("fdt check header returns %d\n", error);
+	if (error == 0) {
+		error = fdt_move(fdt_addr_r, fdt_data, sizeof(fdt_data));
+		printf("fdt move returns %d\n", error);
+		if (error != 0) {
+			panic("fdt_move failed: %s", fdt_strerror(error));
+		}
+		fdtbus_set_data(fdt_data);
+	} else {
+		panic("fdt_check_header failed: %s", fdt_strerror(error));
+	}
+
 	/* Fake bootconfig structure for the benefit of pmap.c. */
 	bootconfig.dramblocks = 1;
 	bootconfig.dram[0].address = rambase;
@@ -351,9 +423,8 @@ initarm(void *arg)
 	    mapallmem_p);
 
 	/* we've a specific device_register routine */
-	evbarm_device_register = exynos_device_register;
-	evbarm_device_register_post_config = exynos_device_register_post_config;
-
+	evbarm_device_register = odroid_device_register;
+//	evbarm_device_register_post_config = exynos_device_register_post_config;
 	/*
 	 * If we couldn't map all of memory via TTBR1, limit the memory the
 	 * kernel can allocate from to be from the highest available 1GB.
@@ -456,6 +527,19 @@ exynos_extract_mac_adress(void)
 #undef EXPECT_2HEX
 #undef EXPECT_HEX
 #undef EXPECT_COLON
+}
+
+void
+odroid_device_register(device_t self, void *aux)
+{
+	prop_dictionary_t dict = device_properties(self);
+	exynos_device_register(self, aux);
+	if (device_is_a(self, "exyogpio")) {
+		init_gpio_dictionary(gpio_pin_entries, dict);
+	} else if (device_is_a(self, "exyowdt")) {
+		prop_dictionary_set_uint32(dict, "frequency",
+					   EXYNOS_F_IN_FREQ);
+	}
 }
 
 /*

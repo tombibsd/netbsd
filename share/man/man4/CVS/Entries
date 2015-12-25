@@ -1,4 +1,4 @@
-/Makefile/1.624/Sun Nov 15 13:35:29 2015/-kk/
+/Makefile/1.625/Fri Dec 25 06:18:02 2015/-kk/
 /aac.4/1.14/Sat Feb 19 10:54:31 2011/-kk/
 /ac97.4/1.2/Wed Jun 22 04:19:09 2005/-kk/
 /acardide.4/1.4/Mon Oct 19 18:41:08 2009/-kk/
@@ -24,6 +24,7 @@
 /adbkbd.4/1.4/Mon Mar  9 19:24:28 2009/-kk/
 /adbms.4/1.5/Mon Mar  9 19:24:28 2009/-kk/
 /adc.4/1.1/Tue Oct 21 01:38:27 2003/-kk/
+/adm1026hm.4/1.1/Wed Dec 16 08:24:30 2015/-kk/
 /admtemp.4/1.4/Tue Mar 25 02:35:14 2014/-kk/
 /adv.4/1.10/Sat Oct 13 15:28:34 2012/-kk/
 /adw.4/1.8/Fri Feb 14 15:20:18 2003/-kk/

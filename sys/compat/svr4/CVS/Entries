@@ -48,7 +48,7 @@
 /svr4_sysconfig.h/1.5/Mon Apr 28 20:23:45 2008/-kk/
 /svr4_sysent.c/1.90/Fri Oct  2 14:11:53 2015/-kk/
 /svr4_systeminfo.h/1.7/Mon Apr 28 20:23:45 2008/-kk/
-/svr4_termios.c/1.28/Tue Dec  9 04:23:58 2014/-kk/
+/svr4_termios.c/1.29/Fri Dec 25 06:18:21 2015/-kk/
 /svr4_termios.h/1.7/Mon Apr 28 20:23:45 2008/-kk/
 /svr4_time.h/1.7/Sun Jan 11 02:45:50 2009/-kk/
 /svr4_timod.h/1.8/Mon Apr 28 20:23:45 2008/-kk/

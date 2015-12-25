@@ -950,6 +950,7 @@ iic*		at alipm?
 
 spdmem*		at iic? addr?
 admtemp*	at iic? addr?
+adm1026hm*	at iic? addr?
 ecadc*		at iic? addr?	# envctrl/envctrltwo on E250/E450
 lmtemp*		at iic? addr?
 tda*		at iic? addr?	# fan control on SB1000/2000

@@ -19,6 +19,7 @@
 ./usr/include/macppc/elf_machdep.h		comp-c-include
 ./usr/include/macppc/endian.h			comp-c-include
 ./usr/include/macppc/endian_machdep.h		comp-c-include
+./usr/include/macppc/fenv.h			comp-c-include
 ./usr/include/macppc/float.h			comp-c-include
 ./usr/include/macppc/fpu.h			comp-c-include
 ./usr/include/macppc/frame.h			comp-c-include

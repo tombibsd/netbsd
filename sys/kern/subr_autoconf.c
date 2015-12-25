@@ -2108,6 +2108,7 @@ config_finalize_register(device_t dev, int (*fn)(device_t))
 	if (config_finalize_done) {
 		while ((*fn)(dev) != 0)
 			/* loop */ ;
+		return 0;
 	}
 
 	/* Ensure this isn't already on the list. */

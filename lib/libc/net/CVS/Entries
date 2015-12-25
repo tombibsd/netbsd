@@ -8,8 +8,8 @@
 /ethers.3/1.13/Wed Apr 16 13:34:41 2003/-kk/
 /ethers.c/1.25/Fri Oct  3 09:57:25 2014/-kk/
 /gai_strerror.3/1.5/Mon Mar 22 19:30:54 2010/-kk/
-/getaddrinfo.3/1.57/Thu Oct 24 10:28:53 2013/-kk/
-/getaddrinfo.c/1.111/Sun Dec  6 11:00:51 2015/-kk/
+/getaddrinfo.3/1.58/Fri Dec 25 06:17:57 2015/-kk/
+/getaddrinfo.c/1.113/Fri Dec 25 06:17:57 2015/-kk/
 /gethnamaddr.c/1.92/Fri Oct  2 14:11:18 2015/-kk/
 /gethostbyname.3/1.29/Thu Oct 24 10:28:53 2013/-kk/
 /getifaddrs.3/1.14/Thu Oct 24 10:28:53 2013/-kk/
@@ -47,7 +47,7 @@
 /inet6_option_space.3/1.17/Mon Mar 22 19:30:54 2010/-kk/
 /inet6_rth_space.3/1.2/Tue Jan 14 16:04:41 2014/-kk/
 /inet6_rthdr_space.3/1.16/Mon Mar 22 19:30:54 2010/-kk/
-/inet6_scopeid.c/1.2/Thu Oct 24 10:28:53 2013/-kk/
+/inet6_scopeid.c/1.3/Fri Dec 25 06:17:57 2015/-kk/
 /ip6opt.c/1.15/Thu Feb 13 15:35:38 2014/-kk/
 /iso_addr.c/1.15/Thu Oct 24 10:28:53 2013/-kk/
 /linkaddr.3/1.10/Thu Aug  7 16:43:11 2003/-kk/

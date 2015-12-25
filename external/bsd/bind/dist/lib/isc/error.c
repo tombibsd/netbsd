@@ -1,7 +1,7 @@
 /*	$NetBSD$	*/
 
 /*
- * Copyright (C) 2004, 2005, 2007  Internet Systems Consortium, Inc. ("ISC")
+ * Copyright (C) 2004, 2005, 2007, 2015  Internet Systems Consortium, Inc. ("ISC")
  * Copyright (C) 1998-2001  Internet Software Consortium.
  *
  * Permission to use, copy, modify, and/or distribute this software for any
@@ -28,6 +28,7 @@
 
 #include <isc/error.h>
 #include <isc/msgs.h>
+#include <isc/print.h>
 
 /*% Default unexpected callback. */
 static void

@@ -19,6 +19,7 @@
 ./usr/include/bebox/elf_machdep.h		comp-c-include
 ./usr/include/bebox/endian.h			comp-c-include
 ./usr/include/bebox/endian_machdep.h		comp-c-include
+./usr/include/bebox/fenv.h			comp-c-include
 ./usr/include/bebox/float.h			comp-c-include
 ./usr/include/bebox/fpu.h			comp-c-include
 ./usr/include/bebox/frame.h			comp-c-include

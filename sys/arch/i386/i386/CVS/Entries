@@ -44,7 +44,7 @@
 /svr4_machdep.c/1.99/Sat Mar  1 06:04:31 2014/-kk/
 /svr4_sigcode.S/1.13/Wed Nov 19 18:35:59 2008/-kk/
 /svr4_syscall.c/1.48/Sat Mar 21 02:37:37 2015/-kk/
-/trap.c/1.275/Sat Mar 21 02:29:44 2015/-kk/
+/trap.c/1.276/Fri Dec 25 06:18:13 2015/-kk/
 /vector.S/1.64/Thu Feb 13 15:22:18 2014/-kk/
 /vm86.c/1.51/Sat Nov 21 03:11:00 2009/-kk/
 D

@@ -269,8 +269,22 @@ puffs_vfsop_mount(struct mount *mp, const char *path, void *data,
 
 	/* XXX: check parameters */
 	pmp->pmp_root_cookie = args->pa_root_cookie;
+	switch (args->pa_root_vtype) {
+	case VNON: case VREG: case VDIR: case VBLK:
+	case VCHR: case VLNK: case VSOCK: case VFIFO:
+		break;
+	default:
+		error = EINVAL;
+		goto out;
+	}
 	pmp->pmp_root_vtype = args->pa_root_vtype;
+
+	if (args->pa_root_vsize < 0) {
+		error = EINVAL;
+		goto out;
+	}
 	pmp->pmp_root_vsize = args->pa_root_vsize;
+
 	pmp->pmp_root_rdev = args->pa_root_rdev;
 	pmp->pmp_docompat = args->pa_time32;
 

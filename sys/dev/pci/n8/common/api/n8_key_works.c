@@ -139,7 +139,7 @@ N8_Boolean_t checkKeyForWeakness (key_cblock_t *key_p)
 
    for (i=0; i < NUM_WEAK_KEY; i++)
    {
-      if (memcmp(weak_keys[i], key_p, sizeof(key_p)) == 0)
+      if (memcmp(weak_keys[i], key_p, sizeof(*key_p)) == 0)
       {
          ret = N8_TRUE;
          break;

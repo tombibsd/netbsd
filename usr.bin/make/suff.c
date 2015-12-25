@@ -553,7 +553,20 @@ Suff_ClearSuffixes(void)
 #endif
     sufflist = Lst_Init(FALSE);
     sNum = 0;
-    suffNull = emptySuff;
+    if (suffNull)
+	SuffFree(suffNull);
+    emptySuff = suffNull = bmake_malloc(sizeof(Suff));
+
+    suffNull->name =   	    bmake_strdup("");
+    suffNull->nameLen =     0;
+    suffNull->searchPath =  Lst_Init(FALSE);
+    Dir_Concat(suffNull->searchPath, dirSearchPath);
+    suffNull->children =    Lst_Init(FALSE);
+    suffNull->parents =	    Lst_Init(FALSE);
+    suffNull->ref =	    Lst_Init(FALSE);
+    suffNull->sNum =   	    sNum++;
+    suffNull->flags =  	    SUFF_NULL;
+    suffNull->refCount =    1;
 }
 
 /*-
@@ -2524,32 +2537,18 @@ Suff_SetNull(char *name)
 void
 Suff_Init(void)
 {
-    sufflist = Lst_Init(FALSE);
 #ifdef CLEANUP
     suffClean = Lst_Init(FALSE);
 #endif
     srclist = Lst_Init(FALSE);
     transforms = Lst_Init(FALSE);
 
-    sNum = 0;
     /*
      * Create null suffix for single-suffix rules (POSIX). The thing doesn't
      * actually go on the suffix list or everyone will think that's its
      * suffix.
      */
-    emptySuff = suffNull = bmake_malloc(sizeof(Suff));
-
-    suffNull->name =   	    bmake_strdup("");
-    suffNull->nameLen =     0;
-    suffNull->searchPath =  Lst_Init(FALSE);
-    Dir_Concat(suffNull->searchPath, dirSearchPath);
-    suffNull->children =    Lst_Init(FALSE);
-    suffNull->parents =	    Lst_Init(FALSE);
-    suffNull->ref =	    Lst_Init(FALSE);
-    suffNull->sNum =   	    sNum++;
-    suffNull->flags =  	    SUFF_NULL;
-    suffNull->refCount =    1;
-
+    Suff_ClearSuffixes();
 }
 
 

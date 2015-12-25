@@ -64,10 +64,10 @@ static int devcanon(char *);
 
 #define OPT_MAX PATH_MAX /* way overkill */
 
-static int loadit(char *name, u_long marks[MARK_MAX])
+static int loadit(char *name, u_long *marks)
 {
 	printf("Loading: %s\n", name);
-	memset(marks, 0, sizeof marks);
+	memset(marks, 0, sizeof(*marks) * MARK_MAX);
 	return (loadfile(name, marks, LOAD_ALL));
 }
 

@@ -1,0 +1,10 @@
+#	$NetBSD$
+#
+#       TEGRA_INSTALL -- NVIDIA TEGRA kernel with
+#	installation-sized ramdisk
+#
+
+include "arch/evbarm/conf/TEGRA"
+include "arch/evbarm/conf/INSTALL"
+
+options 	BOOTHOWTO=RB_SINGLE

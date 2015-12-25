@@ -15,6 +15,7 @@
 ./usr/include/amigappc/elf_machdep.h		comp-c-include
 ./usr/include/amigappc/endian.h			comp-c-include
 ./usr/include/amigappc/endian_machdep.h		comp-c-include
+./usr/include/amigappc/fenv.h			comp-c-include
 ./usr/include/amigappc/float.h			comp-c-include
 ./usr/include/amigappc/fpu.h			comp-c-include
 ./usr/include/amigappc/frame.h			comp-c-include

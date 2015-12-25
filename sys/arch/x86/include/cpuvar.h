@@ -125,7 +125,7 @@ void	pat_init(struct cpu_info *);
 extern int cpu_vendor;
 extern bool x86_mp_online;
 
-extern uint32_t cpu_feature[5];
+extern uint32_t cpu_feature[7];
 
 #endif /* _KERNEL */
 

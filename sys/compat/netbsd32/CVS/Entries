@@ -25,7 +25,7 @@
 /netbsd32_ipc.c/1.18/Fri Dec 25 05:40:20 2015/-kk/
 /netbsd32_lwp.c/1.18/Thu May 28 03:25:47 2015/-kk/
 /netbsd32_mod.c/1.13/Fri Dec 25 05:40:20 2015/-kk/
-/netbsd32_module.c/1.2/Thu Jul  2 04:14:13 2015/-kk/
+/netbsd32_module.c/1.4/Fri Dec 25 06:18:20 2015/-kk/
 /netbsd32_mqueue.c/1.6/Sat Dec  5 12:22:45 2015/-kk/
 /netbsd32_netbsd.c/1.198/Sat Dec  5 12:22:45 2015/-kk/
 /netbsd32_nfssvc.c/1.4/Sat Dec  5 12:22:45 2015/-kk/

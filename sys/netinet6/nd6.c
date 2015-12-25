@@ -1138,6 +1138,7 @@ nd6_free(struct rtentry *rt, struct llentry *ln, int gc)
 				nd6_llinfo_settimer_locked(ln,
 				    nd6_gctimer * hz);
 			splx(s);
+			LLE_WUNLOCK(ln);
 			return;
 		}
 

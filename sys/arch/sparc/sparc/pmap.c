@@ -4265,7 +4265,7 @@ pmap_quiet_check(struct pmap *pm)
 			continue;
 		if (CPU_HAS_SUNMMU) {
 			int ctx;
-			if (mmu_has_hole && (vr >= 32 || vr < (256 - 32)))
+			if (mmu_has_hole && (vr >= 32 && vr < (256 - 32)))
 				continue;
 			ctx = getcontext4();
 			setcontext4(pm->pm_ctxnum);

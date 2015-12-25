@@ -26,8 +26,6 @@
  * SUCH DAMAGE.
  */
 
-#include "locators.h"
-
 #include <sys/cdefs.h>
 __KERNEL_RCSID(0, "$NetBSD$");
 
@@ -44,8 +42,38 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <arm/nvidia/tegra_i2creg.h>
 #include <arm/nvidia/tegra_var.h>
 
+#include <dev/fdt/fdtvar.h>
+
+/* XXX */
+static int
+tegra_i2c_addr2port(bus_addr_t addr)
+{
+	switch (addr) {
+	case TEGRA_APB_BASE + TEGRA_I2C1_OFFSET:
+		return 0;
+	case TEGRA_APB_BASE + TEGRA_I2C2_OFFSET:
+		return 1;
+	case TEGRA_APB_BASE + TEGRA_I2C3_OFFSET:
+		return 2;
+	case TEGRA_APB_BASE + TEGRA_I2C4_OFFSET:
+		return 3;
+	case TEGRA_APB_BASE + TEGRA_I2C5_OFFSET:
+		return 4;
+	case TEGRA_APB_BASE + TEGRA_I2C6_OFFSET:
+		return 5;
+	default:
+		return -1;
+	}
+}
+
 static int	tegra_i2c_match(device_t, cfdata_t, void *);
 static void	tegra_i2c_attach(device_t, device_t, void *);
+
+static i2c_tag_t tegra_i2c_get_tag(device_t);
+
+struct fdtbus_i2c_controller_func tegra_i2c_funcs = {
+	.get_tag = tegra_i2c_get_tag
+};
 
 struct tegra_i2c_softc {
 	device_t		sc_dev;
@@ -87,48 +115,64 @@ CFATTACH_DECL_NEW(tegra_i2c, sizeof(struct tegra_i2c_softc),
 static int
 tegra_i2c_match(device_t parent, cfdata_t cf, void *aux)
 {
-	struct tegraio_attach_args * const tio = aux;
-	const struct tegra_locators * const loc = &tio->tio_loc;
+	const char * const compatible[] = { "nvidia,tegra124-i2c", NULL };
+	struct fdt_attach_args * const faa = aux;
 
-	if (loc->loc_port == TEGRAIOCF_PORT_DEFAULT)
-		return 0;
-
-	return 1;
+	return of_match_compatible(faa->faa_phandle, compatible);
 }
 
 static void
 tegra_i2c_attach(device_t parent, device_t self, void *aux)
 {
 	struct tegra_i2c_softc * const sc = device_private(self);
-	struct tegraio_attach_args * const tio = aux;
-	const struct tegra_locators * const loc = &tio->tio_loc;
+	struct fdt_attach_args * const faa = aux;
+	const int phandle = faa->faa_phandle;
 	struct i2cbus_attach_args iba;
+	prop_dictionary_t devs;
+	char intrstr[128];
+	bus_addr_t addr;
+	bus_size_t size;
+	u_int address_cells;
+	int error;
+
+	if (fdtbus_get_reg(phandle, 0, &addr, &size) != 0) {
+		aprint_error(": couldn't get registers\n");
+		return;
+	}
 
 	sc->sc_dev = self;
-	sc->sc_bst = tio->tio_bst;
-	bus_space_subregion(tio->tio_bst, tio->tio_bsh,
-	    loc->loc_offset, loc->loc_size, &sc->sc_bsh);
-	sc->sc_port = loc->loc_port;
+	sc->sc_bst = faa->faa_bst;
+	error = bus_space_map(sc->sc_bst, addr, size, 0, &sc->sc_bsh);
+	if (error) {
+		aprint_error(": couldn't map %#llx: %d", (uint64_t)addr, error);
+		return;
+	}
+	sc->sc_port = tegra_i2c_addr2port(addr);
 	mutex_init(&sc->sc_lock, MUTEX_DEFAULT, IPL_VM);
 	cv_init(&sc->sc_cv, device_xname(self));
 
 	aprint_naive("\n");
-	aprint_normal(": I2C%d\n", loc->loc_port + 1);
+	aprint_normal(": I2C%d\n", sc->sc_port + 1);
 
-	sc->sc_ih = intr_establish(loc->loc_intr, IPL_VM, IST_LEVEL|IST_MPSAFE,
-	    tegra_i2c_intr, sc);
-	if (sc->sc_ih == NULL) {
-		aprint_error_dev(self, "couldn't establish interrupt %d\n",
-		    loc->loc_intr);
+	if (!fdtbus_intr_str(phandle, 0, intrstr, sizeof(intrstr))) {
+		aprint_error_dev(self, "failed to decode interrupt\n");
 		return;
 	}
-	aprint_normal_dev(self, "interrupting on irq %d\n", loc->loc_intr);
+
+	sc->sc_ih = fdtbus_intr_establish(phandle, 0, IPL_VM,
+	    FDT_INTR_MPSAFE, tegra_i2c_intr, sc);
+	if (sc->sc_ih == NULL) {
+		aprint_error_dev(self, "couldn't establish interrupt on %s\n",
+		    intrstr);
+		return;
+	}
+	aprint_normal_dev(self, "interrupting on %s\n", intrstr);
 
 	/*
 	 * Recommended setting for standard mode is to use an I2C source div
 	 * of 20 (Tegra K1 Technical Reference Manual, Table 137)
 	 */
-	tegra_car_periph_i2c_enable(loc->loc_port, 20400000);
+	tegra_car_periph_i2c_enable(sc->sc_port, 20400000);
 
 	tegra_i2c_init(sc);
 
@@ -137,8 +181,33 @@ tegra_i2c_attach(device_t parent, device_t self, void *aux)
 	sc->sc_ic.ic_release_bus = tegra_i2c_release_bus;
 	sc->sc_ic.ic_exec = tegra_i2c_exec;
 
+	fdtbus_register_i2c_controller(self, phandle, &tegra_i2c_funcs);
+
+	devs = prop_dictionary_create();
+
+	if (of_getprop_uint32(phandle, "#address-cells", &address_cells))
+		address_cells = 1;
+
+	of_enter_i2c_devs(devs, faa->faa_phandle, address_cells * 4, 0);
+
 	iba.iba_tag = &sc->sc_ic;
+	iba.iba_child_devices = prop_dictionary_get(devs, "i2c-child-devices");
+	if (iba.iba_child_devices != NULL) {
+		prop_object_retain(iba.iba_child_devices);
+	} else {
+		iba.iba_child_devices = prop_array_create();
+	}
+	prop_object_release(devs);
+
 	sc->sc_i2cdev = config_found_ia(self, "i2cbus", &iba, iicbus_print);
+}
+
+static i2c_tag_t
+tegra_i2c_get_tag(device_t dev)
+{
+	struct tegra_i2c_softc * const sc = device_private(dev);
+
+	return &sc->sc_ic;
 }
 
 static void

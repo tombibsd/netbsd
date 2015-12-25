@@ -748,6 +748,7 @@
 ./usr/libdata/debug/usr/bin/smbutil.debug	comp-util-debug		debug
 ./usr/libdata/debug/usr/bin/sockstat.debug	comp-util-debug		debug
 ./usr/libdata/debug/usr/bin/soelim.debug	comp-groff-debug	debug
+./usr/libdata/debug/usr/bin/sortinfo.debug	comp-texinfo-debug	debug
 ./usr/libdata/debug/usr/bin/sort.debug		comp-util-debug		debug
 ./usr/libdata/debug/usr/bin/split.debug		comp-util-debug		debug
 ./usr/libdata/debug/usr/bin/sqlite3.debug	comp-util-debug		debug
@@ -1060,6 +1061,7 @@
 ./usr/libdata/debug/usr/sbin/intrctl.debug	comp-sysutil-debug	debug
 ./usr/libdata/debug/usr/sbin/iopctl.debug	comp-sysutil-debug	debug
 ./usr/libdata/debug/usr/sbin/iostat.debug	comp-sysutil-debug	debug
+./usr/libdata/debug/usr/sbin/ip6addrctl.debug	comp-netutil-debug	inet6,debug
 ./usr/libdata/debug/usr/sbin/ipfs.debug		comp-ipf-debug		ipfilter,debug
 ./usr/libdata/debug/usr/sbin/ipfstat.debug	comp-ipf-debug		ipfilter,debug
 ./usr/libdata/debug/usr/sbin/ipftest.debug	comp-ipf-debug		ipfilter,debug
