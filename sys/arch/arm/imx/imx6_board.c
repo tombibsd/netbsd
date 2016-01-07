@@ -48,9 +48,9 @@ __KERNEL_RCSID(1, "$NetBSD$");
 #include <arm/imx/imx6_ccmreg.h>
 #include <arm/imx/imxwdogreg.h>
 
-bus_space_tag_t imx6_ioreg_bst = &imx_bs_tag;
+bus_space_tag_t imx6_ioreg_bst = &armv7_generic_bs_tag;
 bus_space_handle_t imx6_ioreg_bsh;
-bus_space_tag_t imx6_armcore_bst = &imx_bs_tag;
+bus_space_tag_t imx6_armcore_bst = &armv7_generic_bs_tag;
 bus_space_handle_t imx6_armcore_bsh;
 
 void

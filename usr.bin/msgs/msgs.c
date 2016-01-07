@@ -800,6 +800,7 @@ ask(const char *prompt)
 			perror(fname);
 			mailing = NO;
 			fseek(newmsg, oldpos, 0);
+			fclose(cpfrom);
 			ask(prompt);
 			return;
 		}

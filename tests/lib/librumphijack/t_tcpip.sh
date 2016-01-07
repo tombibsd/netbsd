@@ -179,6 +179,8 @@ test_nfs()
 	    'echo "/export -noresvport -noresvmnt 10.1.1.100" | \
 		dd of=/rump/etc/exports 2> /dev/null'
 
+	atf_check -s exit:0 rump.sysctl -q -w kern.module.autoload=1
+
 	atf_check -s exit:0 -e ignore mount_ffs /dk /rump/export
 	atf_check -s exit:0 -x "echo ${magicstr} > /rump/export/im_alive"
 

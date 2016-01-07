@@ -16,6 +16,7 @@
 ./usr/include/algor/elf_machdep.h		comp-c-include
 ./usr/include/algor/endian.h			comp-c-include
 ./usr/include/algor/endian_machdep.h		comp-c-include
+./usr/include/algor/fenv.h			comp-c-include
 ./usr/include/algor/float.h			comp-c-include
 ./usr/include/algor/ieee.h			comp-c-include
 ./usr/include/algor/ieeefp.h			comp-c-include

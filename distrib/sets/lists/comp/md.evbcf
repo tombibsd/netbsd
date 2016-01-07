@@ -11,6 +11,7 @@
 ./usr/include/evbcf/elf_machdep.h		comp-c-include
 ./usr/include/evbcf/endian.h			comp-c-include
 ./usr/include/evbcf/endian_machdep.h		comp-c-include
+./usr/include/evbcf/fenv.h			comp-c-include
 ./usr/include/evbcf/float.h			comp-c-include
 ./usr/include/evbcf/frame.h			comp-c-include
 ./usr/include/evbcf/ieee.h			comp-c-include

@@ -1,7 +1,7 @@
 /dwc2_core.c/1.10/Sun Sep 13 01:31:48 2015/-kk/
 /dwc2_core.h/1.6/Sun Sep 13 01:07:30 2015/-kk/
 /dwc2_coreintr.c/1.9/Sun Sep 13 01:07:30 2015/-kk/
-/dwc2_hcd.c/1.16/Sun Sep 13 01:07:30 2015/-kk/
+/dwc2_hcd.c/1.17/Thu Jan  7 06:24:38 2016/-kk/
 /dwc2_hcd.h/1.10/Sun Sep 13 01:07:30 2015/-kk/
 /dwc2_hcdddma.c/1.6/Sat Apr 19 05:37:00 2014/-kk/
 /dwc2_hcdintr.c/1.12/Sun Sep 13 01:07:30 2015/-kk/

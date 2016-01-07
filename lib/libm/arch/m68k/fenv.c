@@ -1,11 +1,11 @@
 /*	$NetBSD$	*/
 
 /*-
- * Copyright (c) 2012 The NetBSD Foundation, Inc.
+ * Copyright (c) 2015 The NetBSD Foundation, Inc.
  * All rights reserved.
  *
  * This code is derived from software contributed to The NetBSD Foundation
- * by Nick Hudson
+ * by Christos Zoulas.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -28,58 +28,24 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-
-#include "opt_exynos.h"
-
 #include <sys/cdefs.h>
-__KERNEL_RCSID(0, "$NetBSD$");
+__RCSID("$NetBSD$");
 
-#define _ARM32_BUS_DMA_PRIVATE
+#define	__fenv_static
+#include "fenv.h"
 
-#include <sys/param.h>
-#include <sys/bus.h>
-
-#include <arm/samsung/exynos_reg.h>
-#include <arm/samsung/exynos_var.h>
-
-struct arm32_bus_dma_tag exynos_bus_dma_tag = {
-	_BUS_DMAMAP_FUNCS,
-	_BUS_DMAMEM_FUNCS,
-	_BUS_DMATAG_FUNCS,
-};
-
-struct arm32_dma_range exynos_coherent_dma_ranges[1] = {
-	[0] = {
-		.dr_sysbase = 0,	/* filled in */
-		.dr_busbase = 0,	/* filled in */
-		.dr_flags = _BUS_DMAMAP_COHERENT,
-	},
-};
-
-struct arm32_bus_dma_tag exynos_coherent_bus_dma_tag = {
-	._ranges  = exynos_coherent_dma_ranges,
-	._nranges = __arraycount(exynos_coherent_dma_ranges),
-	_BUS_DMAMAP_FUNCS,
-	_BUS_DMAMEM_FUNCS,
-	_BUS_DMATAG_FUNCS,
-};
-
-
-#ifndef EXYNOS4
-#	define EXYNOS4_SDRAM_PBASE 0
+#if defined(__GNUC_GNU_INLINE__) && !defined(__lint__)
+#error "This file must be compiled with C99 'inline' semantics"
 #endif
-#ifndef EXYNOS5
-#	define EXYNOS5_SDRAM_PBASE 0
-#endif
-void
-exynos_dma_bootstrap(psize_t memsize)
-{
-	bus_addr_t dram_base = IS_EXYNOS4_P() ?
-		EXYNOS4_SDRAM_PBASE : EXYNOS5_SDRAM_PBASE;
 
-	KASSERT(dram_base);
-	exynos_coherent_dma_ranges[0].dr_sysbase = dram_base;
-	exynos_coherent_dma_ranges[0].dr_busbase = dram_base;
-	exynos_coherent_dma_ranges[0].dr_len = memsize;
-}
-
+extern inline int feclearexcept(int __excepts);
+extern inline int fegetexceptflag(fexcept_t *__flagp, int __excepts);
+extern inline int fesetexceptflag(const fexcept_t *__flagp, int __excepts);
+extern inline int feraiseexcept(int __excepts);
+extern inline int fetestexcept(int __excepts);
+extern inline int fegetround(void);
+extern inline int fesetround(int __round);
+extern inline int fegetenv(fenv_t *__envp);
+extern inline int feholdexcept(fenv_t *__envp);
+extern inline int fesetenv(const fenv_t *__envp);
+extern inline int feupdateenv(const fenv_t *__envp);

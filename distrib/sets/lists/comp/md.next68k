@@ -17,6 +17,7 @@
 ./usr/include/next68k/elf_machdep.h		comp-c-include
 ./usr/include/next68k/endian.h			comp-c-include
 ./usr/include/next68k/endian_machdep.h		comp-c-include
+./usr/include/next68k/fenv.h			comp-c-include
 ./usr/include/next68k/float.h			comp-c-include
 ./usr/include/next68k/frame.h			comp-c-include
 ./usr/include/next68k/ieee.h			comp-c-include

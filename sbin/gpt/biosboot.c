@@ -266,7 +266,7 @@ cmd_biosboot(gpt_t gpt, int argc, char *argv[])
 				goto usage;
 			break;
 		case 'i':
-			if (gpt_uint_get(&entry) == -1)
+			if (gpt_uint_get(gpt, &entry) == -1)
 				goto usage;
 			break;
 		case 'L':

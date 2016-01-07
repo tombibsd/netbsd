@@ -10,7 +10,6 @@ options 	FDT				# Flattened Device Tree support
 options 	MODULAR
 options 	MODULAR_DEFAULT_AUTOLOAD
 options 	__HAVE_CPU_COUNTER
-options 	CORTEX_PMC
 options 	__HAVE_FAST_SOFTINTS		# should be in types.h
 options 	ARM_HAS_VBAR
 #options 	__HAVE_MM_MD_DIRECT_MAPPED_PHYS

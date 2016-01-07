@@ -761,15 +761,19 @@ thunk_getcpuinfo(char *cp, size_t *len)
 
 	fd = open("/proc/cpuinfo", O_RDONLY);
 	if (fd == -1)
-		return -1;
-	rlen = read(fd, cp, *len - 1);
+		goto out;
+	rlen = read(fd, cp, *len);
 	close(fd);
 
 	if (rlen == -1)
-		return -1;
+		goto out;
 
+	cp[rlen ? rlen - 1 : 0] = '\0';
 	*len = rlen;
 	return 0;
+out:
+	*len = 0;
+	return -1;
 }
 
 int

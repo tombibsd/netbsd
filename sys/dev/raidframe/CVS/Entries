@@ -46,8 +46,8 @@
 /rf_diskqueue.h/1.24/Thu May  5 06:04:09 2011/-kk/
 /rf_disks.c/1.87/Wed Oct 29 08:13:22 2014/-kk/
 /rf_disks.h/1.14/Sun Dec 11 12:23:37 2005/-kk/
-/rf_driver.c/1.131/Mon Dec 10 08:36:03 2012/-kk/
-/rf_driver.h/1.19/Sat Apr 30 01:44:36 2011/-kk/
+/rf_driver.c/1.132/Thu Jan  7 06:24:34 2016/-kk/
+/rf_driver.h/1.20/Thu Jan  7 06:24:34 2016/-kk/
 /rf_engine.c/1.50/Wed Oct 29 08:13:22 2014/-kk/
 /rf_engine.h/1.6/Sun Dec 11 12:23:37 2005/-kk/
 /rf_etimer.h/1.11/Wed Jun  7 22:33:37 2006/-kk/
@@ -74,7 +74,7 @@
 /rf_mcpair.c/1.24/Sun May  1 01:09:05 2011/-kk/
 /rf_mcpair.h/1.10/Sun May  1 01:09:05 2011/-kk/
 /rf_netbsd.h/1.30/Thu Oct 24 10:28:58 2013/-kk/
-/rf_netbsdkintf.c/1.326/Fri Dec 25 05:40:26 2015/-kk/
+/rf_netbsdkintf.c/1.330/Thu Jan  7 06:24:34 2016/-kk/
 /rf_nwayxor.c/1.11/Thu Nov 16 01:33:23 2006/-kk/
 /rf_nwayxor.h/1.4/Thu Oct  4 15:58:54 2001/-kk/
 /rf_options.c/1.8/Sun Mar 15 17:17:23 2009/-kk/

@@ -66,6 +66,14 @@ gethrtime(void) {
 
 #else
 
+#ifdef CLOCK_REALTIME
+int clock_gettime(clockid_t, struct timespec *)
+#ifdef __RENAME
+    __RENAME(__clock_gettime50)
+#endif
+;
+#endif
+
 static __inline hrtime_t gethrtime(void) {
 #ifdef CLOCK_REALTIME
 	struct timespec ts;

@@ -4,7 +4,7 @@
 USE_FORT?= yes	# network server
 
 PROG=	mountd
-SRCS=	mountd.c ipsec.c
+SRCS=	mountd.c ipsec.c get_net.c
 MAN=	exports.5 mountd.8
 
 INETDDIR= ${.CURDIR}/../inetd

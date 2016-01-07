@@ -22,13 +22,13 @@
 /CP3100_INSTALL/1.2/Mon May 19 16:25:47 2014/-kk/
 /CUBIEBOARD/1.45/Fri Dec 25 06:18:09 2015/-kk/
 /CUBIEBOARD_INSTALL/1.3/Wed Apr 22 07:35:55 2015/-kk/
-/CUBIETRUCK/1.8/Thu Jun 18 03:42:16 2015/-kk/
+/CUBIETRUCK/1.9/Thu Jan  7 06:24:20 2016/-kk/
 /CUBIETRUCK_INSTALL/1.1/Fri Apr 11 04:19:47 2014/-kk/
-/CUBOX-I/1.4/Wed Aug 12 04:13:54 2015/-kk/
+/CUBOX-I/1.5/Thu Jan  7 06:24:20 2016/-kk/
 /CUBOX-I_INSTALL/1.1/Sat Jul 18 00:57:10 2015/-kk/
 /DEVKIT8000/1.1/Wed Sep  8 22:53:53 2010/-kk/
 /DNS323/1.8/Sun Sep 13 01:05:48 2015/-kk/
-/EXYNOS/1.3/Sat Dec 19 21:42:31 2015/-kk/
+/EXYNOS/1.9/Thu Jan  7 06:24:20 2016/-kk/
 /EXYNOS_INSTALL/1.1/Tue Dec 15 04:38:30 2015/-kk/
 /GEMINI/1.32/Wed Aug 12 04:13:54 2015/-kk/
 /GEMINI_INSTALL/1.2/Mon May 19 16:25:47 2014/-kk/
@@ -79,10 +79,10 @@
 /N900/1.22/Tue Aug 25 04:51:03 2015/-kk/
 /NAPPI/1.57/Wed Aug 12 04:13:54 2015/-kk/
 /NAPPI_MD/1.3/Tue Nov 23 11:13:56 2010/-kk/
-/NETWALKER/1.34/Wed May 13 03:32:42 2015/-kk/
+/NETWALKER/1.35/Thu Jan  7 06:24:21 2016/-kk/
 /NETWALKER_INSTALL/1.3/Mon May 19 16:25:47 2014/-kk/
 /NETWALKER_MD/1.3/Sun Apr 15 08:17:42 2012/-kk/
-/NITROGEN6X/1.6/Tue Aug 25 04:51:03 2015/-kk/
+/NITROGEN6X/1.7/Thu Jan  7 06:24:21 2016/-kk/
 /NITROGEN6X_INSTALL/1.1/Sat Sep 27 04:03:24 2014/-kk/
 /NSLU2/1.39/Wed Aug 12 04:13:54 2015/-kk/
 /ODROID-C1/1.21/Sat Dec  5 11:19:14 2015/-kk/
@@ -119,7 +119,7 @@
 /TEAMASA_NPWR/1.89/Wed Aug 12 04:13:54 2015/-kk/
 /TEAMASA_NPWR_FC/1.49/Wed Aug 12 04:13:54 2015/-kk/
 /TEAMASA_NPWR_INSTALL/1.3/Mon May 19 16:25:48 2014/-kk/
-/TEGRA/1.5/Wed Dec 16 12:26:14 2015/-kk/
+/TEGRA/1.6/Thu Jan  7 06:24:21 2016/-kk/
 /TEGRA_INSTALL/1.1/Sun Dec 13 23:02:56 2015/-kk/
 /TISDP2420/1.33/Wed Aug 12 04:13:54 2015/-kk/
 /TISDP2420_INSTALL/1.2/Mon May 19 16:25:48 2014/-kk/
@@ -168,7 +168,7 @@
 /files.mmnet/1.1/Fri Nov  4 17:40:48 2011/-kk/
 /files.mpcsa/1.2/Thu Jul  3 01:15:38 2008/-kk/
 /files.n900/1.5/Thu Oct 24 10:28:57 2013/-kk/
-/files.netwalker/1.9/Wed May 13 03:32:42 2015/-kk/
+/files.netwalker/1.10/Thu Jan  7 06:24:21 2016/-kk/
 /files.nitrogen6/1.2/Sun Aug  2 04:02:36 2015/-kk/
 /files.npwr_fc/1.3/Thu Oct 24 10:28:57 2013/-kk/
 /files.nslu2/1.3/Mon Dec  3 15:33:32 2007/-kk/
@@ -194,7 +194,7 @@
 /mk.awin/1.4/Wed Oct 29 08:13:00 2014/-kk/
 /mk.bcm53xx/1.4/Thu Oct 31 07:00:01 2013/-kk/
 /mk.beagle/1.11/Fri Apr 11 02:03:29 2014/-kk/
-/mk.exynos/1.1/Sun Dec  6 00:31:24 2015/-kk/
+/mk.exynos/1.2/Thu Jan  7 06:24:21 2016/-kk/
 /mk.g42xxeb/1.3/Thu Jun 30 18:20:24 2011/-kk/
 /mk.gemini/1.4/Sat Mar  1 06:04:25 2014/-kk/
 /mk.goldengate/1.1/Thu Oct 24 10:28:57 2013/-kk/
@@ -273,7 +273,7 @@
 /std.rpi/1.19/Sat Mar 21 02:29:40 2015/-kk/
 /std.smdk2410/1.7/Sun Dec 16 23:47:56 2012/-kk/
 /std.smdk2800/1.15/Sun Dec 16 23:47:56 2012/-kk/
-/std.tegra/1.11/Fri Dec 25 06:18:09 2015/-kk/
+/std.tegra/1.12/Thu Jan  7 06:24:21 2016/-kk/
 /std.tisdp24xx/1.9/Mon Nov 11 15:21:26 2013/-kk/
 /std.tsarm/1.8/Sun Dec 16 23:47:57 2012/-kk/
 /std.vexpress/1.2/Sat Mar 21 02:20:56 2015/-kk/

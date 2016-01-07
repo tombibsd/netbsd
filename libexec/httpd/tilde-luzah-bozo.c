@@ -77,7 +77,7 @@ bozo_user_transform(bozo_httpreq_t *request)
 	debug((httpd, DEBUG_OBESE, "looking for user %s",
 		user));
 	pw = getpwnam(user);
-	request->hr_user = bozostrdup(httpd, user);
+	request->hr_user = bozostrdup(httpd, request, user);
 
 	/* fix this up immediately */
 	if (s) {
@@ -99,21 +99,21 @@ bozo_user_transform(bozo_httpreq_t *request)
 	      pw->pw_uid, pw->pw_gid));
 
 	if (chdir(pw->pw_dir) < 0) {
-		bozo_warn(httpd, "chdir1 error: %s: %s", pw->pw_dir,
+		bozowarn(httpd, "chdir1 error: %s: %s", pw->pw_dir,
 			strerror(errno));
 		(void)bozo_http_error(httpd, 404, request,
 			"can't chdir to homedir");
 		return 0;
 	}
 	if (chdir(httpd->public_html) < 0) {
-		bozo_warn(httpd, "chdir2 error: %s: %s", httpd->public_html,
+		bozowarn(httpd, "chdir2 error: %s: %s", httpd->public_html,
 			strerror(errno));
 		(void)bozo_http_error(httpd, 404, request,
 			"can't chdir to public_html");
 		return 0;
 	}
 	if (s == NULL || *s == '\0') {
-		file = bozostrdup(httpd, "/");
+		file = bozostrdup(httpd, request, "/");
 	} else {
 		file = bozomalloc(httpd, strlen(s) + 2);
 		strcpy(file, "/");

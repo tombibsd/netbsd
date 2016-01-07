@@ -616,7 +616,8 @@ sdmmc_mem_send_op_cond(struct sdmmc_softc *sc, uint32_t ocr, uint32_t *ocrp)
 		memset(&cmd, 0, sizeof(cmd));
 		cmd.c_arg = !ISSET(sc->sc_caps, SMC_CAPS_SPI_MODE) ?
 		    ocr : (ocr & MMC_OCR_HCS);
-		cmd.c_flags = SCF_CMD_BCR | SCF_RSP_R3 | SCF_RSP_SPI_R1;
+		cmd.c_flags = SCF_CMD_BCR | SCF_RSP_R3 | SCF_RSP_SPI_R1
+		    | SCF_TOUT_OK;
 
 		if (ISSET(sc->sc_flags, SMF_SD_MODE)) {
 			cmd.c_opcode = SD_APP_OP_COND;

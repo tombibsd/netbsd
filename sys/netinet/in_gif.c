@@ -96,8 +96,8 @@ in_gif_output(struct ifnet *ifp, int family, struct mbuf *m)
 {
 	struct rtentry *rt;
 	struct gif_softc *sc = ifp->if_softc;
-	struct sockaddr_in *sin_src = (struct sockaddr_in *)sc->gif_psrc;
-	struct sockaddr_in *sin_dst = (struct sockaddr_in *)sc->gif_pdst;
+	struct sockaddr_in *sin_src = satosin(sc->gif_psrc);
+	struct sockaddr_in *sin_dst = satosin(sc->gif_pdst);
 	struct ip iphdr;	/* capsule IP header, host byte ordered */
 	int proto, error;
 	u_int8_t tos;
@@ -297,8 +297,8 @@ gif_validate4(const struct ip *ip, struct gif_softc *sc, struct ifnet *ifp)
 	struct sockaddr_in *src, *dst;
 	struct in_ifaddr *ia4;
 
-	src = (struct sockaddr_in *)sc->gif_psrc;
-	dst = (struct sockaddr_in *)sc->gif_pdst;
+	src = satosin(sc->gif_psrc);
+	dst = satosin(sc->gif_pdst);
 
 	/* check for address match */
 	if (src->sin_addr.s_addr != ip->ip_dst.s_addr ||

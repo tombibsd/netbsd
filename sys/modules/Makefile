@@ -82,6 +82,7 @@ SUBDIR+=	procfs
 SUBDIR+=	ptyfs
 SUBDIR+=	puffs
 SUBDIR+=	putter
+SUBDIR+=	raid
 SUBDIR+=	scsiverbose
 SUBDIR+=	sdtemp
 SUBDIR+=	secmodel_bsd44

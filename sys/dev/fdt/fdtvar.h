@@ -33,6 +33,7 @@
 #include <sys/bus.h>
 
 #include <dev/i2c/i2cvar.h>
+#include <dev/clk/clk.h>
 
 #include <dev/ofw/openfirm.h>
 
@@ -71,8 +72,22 @@ struct fdtbus_gpio_pin {
 struct fdtbus_gpio_controller_func {
 	void *	(*acquire)(device_t, const void *, size_t, int);
 	void	(*release)(device_t, void *);
-	int	(*read)(device_t, void *);
-	void	(*write)(device_t, void *, int);
+	int	(*read)(device_t, void *, bool);
+	void	(*write)(device_t, void *, int, bool);
+};
+
+struct fdtbus_pinctrl_controller;
+
+struct fdtbus_pinctrl_pin {
+	struct fdtbus_pinctrl_controller *pp_pc;
+	void *pp_priv;
+};
+
+struct fdtbus_pinctrl_controller_func {
+	void *	(*acquire)(device_t, const char *);
+	void	(*release)(device_t, void *);
+	void	(*get)(struct fdtbus_pinctrl_pin *, void *);
+	void	(*set)(struct fdtbus_pinctrl_pin *, void *);
 };
 
 struct fdtbus_regulator_controller;
@@ -87,17 +102,42 @@ struct fdtbus_regulator_controller_func {
 	int	(*enable)(device_t, bool);
 };
 
+struct fdtbus_clock_controller_func {
+	struct clk *	(*decode)(device_t, const void *, size_t);
+};
+
+struct fdtbus_reset_controller;
+
+struct fdtbus_reset {
+	struct fdtbus_reset_controller *rst_rc;
+	void *rst_priv;
+};
+
+struct fdtbus_reset_controller_func {
+	void *	(*acquire)(device_t, const void *, size_t);
+	void	(*release)(device_t, void *);
+	int	(*reset_assert)(device_t, void *);
+	int	(*reset_deassert)(device_t, void *);
+};
+
 int		fdtbus_register_interrupt_controller(device_t, int,
 		    const struct fdtbus_interrupt_controller_func *);
 int		fdtbus_register_i2c_controller(device_t, int,
 		    const struct fdtbus_i2c_controller_func *);
 int		fdtbus_register_gpio_controller(device_t, int,
 		    const struct fdtbus_gpio_controller_func *);
+int		fdtbus_register_pinctrl_controller(device_t, int,
+		    const struct fdtbus_pinctrl_controller_func *);
 int		fdtbus_register_regulator_controller(device_t, int,
 		    const struct fdtbus_regulator_controller_func *);
+int		fdtbus_register_clock_controller(device_t, int,
+		    const struct fdtbus_clock_controller_func *);
+int		fdtbus_register_reset_controller(device_t, int,
+		    const struct fdtbus_reset_controller_func *);
 
 int		fdtbus_get_reg(int, u_int, bus_addr_t *, bus_size_t *);
 int		fdtbus_get_phandle(int, const char *);
+int		fdtbus_get_phandle_from_native(int);
 i2c_tag_t	fdtbus_get_i2c_tag(int);
 void *		fdtbus_intr_establish(int, u_int, int, int,
 		    int (*func)(void *), void *arg);
@@ -107,10 +147,25 @@ struct fdtbus_gpio_pin *fdtbus_gpio_acquire(int, const char *, int);
 void		fdtbus_gpio_release(struct fdtbus_gpio_pin *);
 int		fdtbus_gpio_read(struct fdtbus_gpio_pin *);
 void		fdtbus_gpio_write(struct fdtbus_gpio_pin *, int);
+int		fdtbus_gpio_read_raw(struct fdtbus_gpio_pin *);
+void		fdtbus_gpio_write_raw(struct fdtbus_gpio_pin *, int);
+struct fdtbus_pinctrl_pin *fdtbus_pinctrl_acquire(int, const char *);
+void		fdtbus_pinctrl_release(struct fdtbus_pinctrl_pin *);
+void		fdtbus_pinctrl_set_cfg(struct fdtbus_pinctrl_pin *, void *);
+void		fdtbus_pinctrl_get_cfg(struct fdtbus_pinctrl_pin *, void *);
 struct fdtbus_regulator *fdtbus_regulator_acquire(int, const char *);
 void		fdtbus_regulator_release(struct fdtbus_regulator *);
 int		fdtbus_regulator_enable(struct fdtbus_regulator *);
 int		fdtbus_regulator_disable(struct fdtbus_regulator *);
+
+struct clk *	fdtbus_clock_get(int, const char *);
+struct clk *	fdtbus_clock_get_index(int, u_int);
+
+struct fdtbus_reset *fdtbus_reset_get(int, const char *);
+struct fdtbus_reset *fdtbus_reset_get_index(int, u_int);
+void		fdtbus_reset_put(struct fdtbus_reset *);
+int		fdtbus_reset_assert(struct fdtbus_reset *);
+int		fdtbus_reset_deassert(struct fdtbus_reset *);
 
 bool		fdtbus_set_data(const void *);
 const void *	fdtbus_get_data(void);

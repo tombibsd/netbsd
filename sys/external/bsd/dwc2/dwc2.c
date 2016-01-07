@@ -1425,6 +1425,7 @@ dwc2_device_start(usbd_xfer_handle xfer)
 	return USBD_IN_PROGRESS;
 
 fail2:
+	callout_stop(&xfer->timeout_handle);
 	dwc2_urb->priv = NULL;
 	mutex_spin_exit(&hsotg->lock);
 	pool_cache_put(sc->sc_qtdpool, qtd);

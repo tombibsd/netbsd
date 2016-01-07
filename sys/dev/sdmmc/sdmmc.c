@@ -798,7 +798,7 @@ sdmmc_app_command(struct sdmmc_softc *sc, struct sdmmc_function *sf, struct sdmm
 	memset(&acmd, 0, sizeof(acmd));
 	acmd.c_opcode = MMC_APP_CMD;
 	acmd.c_arg = (sf != NULL) ? (sf->rca << 16) : 0;
-	acmd.c_flags = SCF_CMD_AC | SCF_RSP_R1 | SCF_RSP_SPI_R1;
+	acmd.c_flags = SCF_CMD_AC | SCF_RSP_R1 | SCF_RSP_SPI_R1 | (cmd->c_flags & SCF_TOUT_OK);
 
 	error = sdmmc_mmc_command(sc, &acmd);
 	if (error == 0) {

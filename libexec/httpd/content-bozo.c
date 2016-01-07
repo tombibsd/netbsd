@@ -258,7 +258,7 @@ bozo_get_content_map(bozohttpd_t *httpd, const char *name)
 		httpd->dynamic_content_map,
 		(httpd->dynamic_content_map_size + 1) * sizeof *map);
 	if (httpd->dynamic_content_map == NULL)
-		bozo_err(httpd, 1, "out of memory allocating content map");
+		bozoerr(httpd, 1, "out of memory allocating content map");
 	map = &httpd->dynamic_content_map[httpd->dynamic_content_map_size];
 	map->name = map->type = map->encoding = map->encoding11 =
 		map->cgihandler = NULL;

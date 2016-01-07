@@ -33,11 +33,11 @@ __RCSID("$NetBSD$");
 
 #include <atf-c.h>
 
-#ifdef HAVE_FENV_H
+#include <fenv.h>
+#ifdef __HAVE_FENV
 
 #include <ieeefp.h>
 #include <stdlib.h>
-#include <fenv.h>
 
 
 #if __arm__ && !__SOFTFP__

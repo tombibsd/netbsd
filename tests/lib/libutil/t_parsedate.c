@@ -245,10 +245,11 @@ ATF_TC_BODY(relative, tc)
 #define REL_CHECK(s, now, tm) do {					\
 	time_t p, q;							\
 	char pb[30], qb[30];						\
-	ATF_CHECK_EQ_MSG((p = parsedate(s, &now, NULL)),		\
-	    (q = mktime(&tm)),						\
-	    "From %s Expected %jd: %24.24s Obtained %jd: %24.24s", s,	\
-	    (uintmax_t)p, ctime_r(&p, pb), (uintmax_t)q, 		\
+	p = parsedate(s, &now, NULL);					\
+	q = mktime(&tm);						\
+	ATF_CHECK_EQ_MSG(p, q,						\
+	    "From \"%s\", obtained %jd (%24.24s); expected %jd (%24.24s)", \
+	    s, (uintmax_t)p, ctime_r(&p, pb), (uintmax_t)q, 		\
 	    ctime_r(&q, qb));						\
     } while (/*CONSTCOND*/0)
 
@@ -283,7 +284,7 @@ ATF_TC_BODY(relative, tc)
 	REL_CHECK("this thursday", now, tm);
 
 	ATF_CHECK(localtime_r(&now, &tm) != NULL);
-	tm.tm_mday += 14 - tm.tm_wday;
+	tm.tm_mday += 14 - (tm.tm_wday ? tm.tm_wday : 7);
 	tm.tm_sec = tm.tm_min = tm.tm_hour = 0;
 	tm.tm_isdst = -1;
 	REL_CHECK("next sunday", now, tm);
@@ -380,7 +381,7 @@ ATF_TC_BODY(relative, tc)
 	REL_CHECK("midnight Tuesday", now, tm);
 
 	ATF_CHECK(localtime_r(&now, &tm) != NULL);
-	if (tm.tm_wday > 2)
+	if (tm.tm_wday > 2 + 1)
 		tm.tm_mday += 7;
 	tm.tm_mday += 2 - tm.tm_wday;
 	tm.tm_mday++;	/* xxx midnight --> the next day */

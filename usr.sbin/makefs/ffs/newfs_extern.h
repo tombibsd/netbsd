@@ -26,7 +26,7 @@
  */
 
 /* prototypes */
-struct fs	*ffs_mkfs(const char *, const fsinfo_t *);
+struct fs	*ffs_mkfs(const char *, const fsinfo_t *, time_t);
 void		ffs_write_superblock(struct fs *, const fsinfo_t *);
 void		ffs_rdfs(daddr_t, int, void *, const fsinfo_t *);
 void		ffs_wtfs(daddr_t, int, void *, const fsinfo_t *);

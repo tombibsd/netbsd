@@ -18,7 +18,7 @@ SRCS=		ctf_create.c \
 
 OSNETDIR=	${.CURDIR}/../../external/cddl/osnet
 OPENSOLARIS_DISTDIR= ${OSNETDIR}/dist
-LIBELF_DIR=	${.CURDIR}/../../external/bsd/libelf/dist
+LIBELF_DIR=	${.CURDIR}/../../external/bsd/elftoolchain/dist/libelf
 
 CPPFLAGS+=	-DCTF_OLD_VERSIONS
 

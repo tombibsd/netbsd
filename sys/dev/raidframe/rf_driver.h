@@ -42,7 +42,7 @@
 #endif
 
 extern rf_declare_mutex2(rf_printf_mutex);
-int rf_BootRaidframe(void);
+int rf_BootRaidframe(bool);
 int rf_UnbootRaidframe(void);
 int rf_Shutdown(RF_Raid_t *);
 int rf_Configure(RF_Raid_t *, RF_Config_t *, RF_AutoConfig_t *);

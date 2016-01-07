@@ -9,7 +9,7 @@
 /iscsi_main.c/1.17/Tue Aug 25 04:51:16 2015/-kk/
 /iscsi_pdu.h/1.2/Thu Jun 26 06:46:24 2014/-kk/
 /iscsi_rcv.c/1.10/Wed Jun  3 06:54:58 2015/-kk/
-/iscsi_send.c/1.14/Wed Jun  3 06:54:59 2015/-kk/
+/iscsi_send.c/1.15/Thu Jan  7 06:24:32 2016/-kk/
 /iscsi_text.c/1.9/Wed Jun  3 06:54:59 2015/-kk/
 /iscsi_utils.c/1.8/Wed Jun  3 06:54:59 2015/-kk/
 D

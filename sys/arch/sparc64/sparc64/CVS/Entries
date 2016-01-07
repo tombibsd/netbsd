@@ -30,7 +30,7 @@
 /mp_subr.S/1.9/Mon Jun 22 02:34:57 2015/-kk/
 /netbsd32_machdep.c/1.109/Sat Dec  5 11:19:23 2015/-kk/
 /netbsd32_sigcode.s/1.6/Thu May 29 14:51:26 2008/-kk/
-/ofw_machdep.c/1.44/Sat Mar 21 02:37:43 2015/-kk/
+/ofw_machdep.c/1.45/Thu Jan  7 06:24:28 2016/-kk/
 /pmap.c/1.300/Sat Dec  5 11:19:23 2015/-kk/
 /process_machdep.c/1.24/Tue Jan 14 16:05:01 2014/-kk/
 /procfs_machdep.c/1.6/Sat Apr 19 05:36:50 2014/-kk/

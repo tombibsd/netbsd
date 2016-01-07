@@ -55,7 +55,7 @@ tegrafuse*	at fdt?			# FUSE
 tegrapmc*	at fdt?			# PMC
 
 # Clock and Reset controller
-tegracar0	at fdt?			# CAR
+tegra124car*	at fdt?			# CAR
 
 # GPIO controller
 tegragpio*	at fdt?			# GPIO

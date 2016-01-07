@@ -82,7 +82,7 @@ header(gpt_t gpt)
 
 	map = map_find(gpt, MAP_TYPE_PRI_GPT_HDR);
 	if (map == NULL) {
-		printf("- GPT Header not found");
+		printf("- GPT Header not found\n");
 		return 0;
 	}
 

@@ -133,14 +133,14 @@ fixedregulator_enable(device_t dev, bool enable)
 		if (sc->sc_always_on) {
 			return 0;
 		} else {
-			fdtbus_gpio_write(sc->sc_pin, sc->sc_enable_val);
+			fdtbus_gpio_write_raw(sc->sc_pin, sc->sc_enable_val);
 			return 0;
 		}
 	} else {
 		if (sc->sc_always_on) {
 			return EIO;
 		} else {
-			fdtbus_gpio_write(sc->sc_pin, !sc->sc_enable_val);
+			fdtbus_gpio_write_raw(sc->sc_pin, !sc->sc_enable_val);
 			return 0;
 		}
 	}

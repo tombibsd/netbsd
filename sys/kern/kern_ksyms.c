@@ -102,7 +102,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include "ioconf.h"
 #endif
 
-#define KSYMS_MAX_ID	65536
+#define KSYMS_MAX_ID	98304
 #ifdef KDTRACE_HOOKS
 static uint32_t ksyms_nmap[KSYMS_MAX_ID];	/* sorted symbol table map */
 #else

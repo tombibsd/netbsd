@@ -210,39 +210,54 @@ fdt*		at simplebus?
 fregulator*	at fdt?
 
 #interrupt controller
+exyointr0	at fdt?
 gic*		at fdt?
 
-# Exynos SoC
-exyo0		at mainbus?
-
 # Clock controller
-exy5422clk0	at exyo0			# Exynos5422 clock controller
+exy5422clk*	at fdt?				# Exynos5422 clock controller
 
 # Integrated Samsung UARTs
 sscom*		at fdt?				# UART ?
-#sscom2		at fdt?				# console
 
 # Exynos Watchdog Timer
-exyowdt0 	at fdt?				# watchdog
+exyowdt* 	at fdt?				# watchdog
+
+# Exynos chip id
+chipid*		at fdt?
+
+# Exynos RTC
+exyortc* 	at fdt?
+
+# Exynos Multi Core timer (MCT)
+mct*	       at fdt?
 
 # GPIO
-exyopctl0	at fdt?
-exyopctl1	at fdt?
-exyopctl2	at fdt?
-exyopctl3	at fdt?
-exyopctl4	at fdt?
-#gpio*		at exyogpio?
+exyopctl*	at fdt?
+gpio*		at gpiobus?
 
-# On-board USB
-exyousb*	at exyo0
-ohci*		at exyousb?
-ehci*		at exyousb?
+# On-board USB 2.0
+exyousbphy*	at fdt?
+ohci*		at fdt?
+ehci*		at fdt?
 usb*		at ohci?
 usb*		at ehci?
 
+# On-board USB 3.0
+exyousb*       at fdt?
+#xhci*	       at fdt?
+#usb*	       at xhci?
+
 # I2C devices
-exyoiic0	at exyo0
-iic*		at exyoiic?
+exyoi2c*	at fdt?
+#i2c*		at exyoi2c?
+
+# SD/MMC
+dwcmmc*		at fdt?
+sdmmc*		at dwcmmc?
+ld0		at sdmmc0
+ld1		at sdmmc1
+ld2		at sdmmc2
+ld*		at sdmmc?
 
 # MISSING SUPPORT
 # eMMC

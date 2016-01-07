@@ -39,14 +39,10 @@ TESTS_C+=	t_time
 TESTS_C+=	t_ttyname
 TESTS_C+=	t_vis
 
-.if ${MACHINE_CPU} == "aarch64" || ${MACHINE_CPU} == "arm" \
-    || ${MACHINE_ARCH} == "sparc" || ${MACHINE_ARCH} == "sparc64" \
-    || ${MACHINE_ARCH} == "i386" || ${MACHINE_ARCH} == "x86_64"
-CPPFLAGS.t_siginfo.c+=	-DHAVE_FENV
+CPPFLAGS.t_siginfo.c+=-D__TEST_FENV
+
 LDADD.t_siginfo+=	-lm
 DPADD.t_siginfo+=	${LIBM}
-.endif
-
 LDADD.t_fpclassify+=	-lm
 DPADD.t_fpclassify+=	${LIBM}
 LDADD.t_fpsetround+=	-lm

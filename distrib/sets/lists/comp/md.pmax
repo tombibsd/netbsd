@@ -23,6 +23,7 @@
 ./usr/include/pmax/endian_machdep.h		comp-c-include
 ./usr/include/pmax/fbio.h			comp-obsolete		obsolete
 ./usr/include/pmax/fbvar.h			comp-obsolete		obsolete
+./usr/include/pmax/fenv.h			comp-c-include
 ./usr/include/pmax/float.h			comp-c-include
 ./usr/include/pmax/ieee.h			comp-c-include
 ./usr/include/pmax/ieeefp.h			comp-c-include

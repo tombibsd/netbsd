@@ -12,6 +12,7 @@
 ./usr/include/ews4800mips/elf_machdep.h	comp-c-include
 ./usr/include/ews4800mips/endian.h		comp-c-include
 ./usr/include/ews4800mips/endian_machdep.h	comp-c-include
+./usr/include/ews4800mips/fenv.h		comp-c-include
 ./usr/include/ews4800mips/float.h		comp-c-include
 ./usr/include/ews4800mips/ieee.h		comp-c-include
 ./usr/include/ews4800mips/ieeefp.h		comp-c-include

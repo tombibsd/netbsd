@@ -20,6 +20,7 @@
 ./usr/include/hpcmips/elf_machdep.h		comp-c-include
 ./usr/include/hpcmips/endian.h			comp-c-include
 ./usr/include/hpcmips/endian_machdep.h		comp-c-include
+./usr/include/hpcmips/fenv.h			comp-c-include
 ./usr/include/hpcmips/float.h			comp-c-include
 ./usr/include/hpcmips/ieee.h			comp-c-include
 ./usr/include/hpcmips/ieeefp.h			comp-c-include

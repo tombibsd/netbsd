@@ -16,6 +16,7 @@
 ./usr/include/amiga/endian.h			comp-c-include
 ./usr/include/amiga/endian_machdep.h		comp-c-include
 ./usr/include/amiga/fbio.h			comp-obsolete		obsolete
+./usr/include/amiga/fenv.h			comp-c-include
 ./usr/include/amiga/float.h			comp-c-include
 ./usr/include/amiga/frame.h			comp-c-include
 ./usr/include/amiga/ieee.h			comp-c-include

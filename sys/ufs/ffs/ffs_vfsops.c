@@ -192,6 +192,54 @@ static const struct ufs_ops ffs_ufsops = {
 };
 
 static int
+ffs_checkrange(struct mount *mp, uint32_t ino)
+{
+	struct fs *fs = VFSTOUFS(mp)->um_fs;
+
+	if (ino < UFS_ROOTINO || ino >= fs->fs_ncg * fs->fs_ipg) {
+		DPRINTF("out of range %u\n", ino);
+		return ESTALE;
+	}
+
+	/*
+	 * Need to check if inode is initialized because ffsv2 does 
+	 * lazy initialization and we can get here from nfs_fhtovp
+	 */
+	if (fs->fs_magic != FS_UFS2_MAGIC)
+		return 0;
+
+	struct buf *bp;
+	int cg = ino_to_cg(fs, ino);
+	struct ufsmount *ump = VFSTOUFS(mp);
+
+	int error = bread(ump->um_devvp, FFS_FSBTODB(fs, cgtod(fs, cg)),
+	    (int)fs->fs_cgsize, B_MODIFY, &bp);
+	if (error) {
+		DPRINTF("error %d reading cg %d ino %u\n", error, cg, ino);
+		return error;
+	}
+
+	const int needswap = UFS_FSNEEDSWAP(fs);
+
+	struct cg *cgp = (struct cg *)bp->b_data;
+	if (!cg_chkmagic(cgp, needswap)) {
+		brelse(bp, 0);
+		DPRINTF("bad cylinder group magic cg %d ino %u\n", cg, ino);
+		return ESTALE;
+	}
+
+	int32_t initediblk = ufs_rw32(cgp->cg_initediblk, needswap);
+	brelse(bp, 0);
+
+	if (cg * fs->fs_ipg + initediblk < ino) {
+		DPRINTF("cg=%d fs->fs_ipg=%d initediblk=%d ino=%u\n",
+		    cg, fs->fs_ipg, initediblk, ino);
+		return ESTALE;
+	}
+	return 0;
+}
+
+static int
 ffs_snapshot_cb(kauth_cred_t cred, kauth_action_t action, void *cookie,
     void *arg0, void *arg1, void *arg2, void *arg3)
 {
@@ -2181,16 +2229,15 @@ int
 ffs_fhtovp(struct mount *mp, struct fid *fhp, struct vnode **vpp)
 {
 	struct ufid ufh;
-	struct fs *fs;
+	int error;
 
 	if (fhp->fid_len != sizeof(struct ufid))
 		return EINVAL;
 
 	memcpy(&ufh, fhp, sizeof(ufh));
-	fs = VFSTOUFS(mp)->um_fs;
-	if (ufh.ufid_ino < UFS_ROOTINO ||
-	    ufh.ufid_ino >= fs->fs_ncg * fs->fs_ipg)
-		return (ESTALE);
+	if ((error = ffs_checkrange(mp, ufh.ufid_ino)) != 0)
+		return error;
+
 	return (ufs_fhtovp(mp, &ufh, vpp));
 }
 

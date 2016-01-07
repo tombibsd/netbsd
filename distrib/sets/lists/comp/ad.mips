@@ -25,6 +25,7 @@
 ./usr/include/mips/elf_machdep.h		comp-c-include
 ./usr/include/mips/endian.h			comp-c-include
 ./usr/include/mips/endian_machdep.h		comp-c-include
+./usr/include/mips/fenv.h			comp-c-include
 ./usr/include/mips/float.h			comp-c-include
 ./usr/include/mips/ieee.h			comp-c-include
 ./usr/include/mips/ieeefp.h			comp-c-include

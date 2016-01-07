@@ -15,6 +15,7 @@
 ./usr/include/luna68k/elf_machdep.h		comp-c-include
 ./usr/include/luna68k/endian.h			comp-c-include
 ./usr/include/luna68k/endian_machdep.h		comp-c-include
+./usr/include/luna68k/fenv.h			comp-c-include
 ./usr/include/luna68k/float.h			comp-c-include
 ./usr/include/luna68k/frame.h			comp-c-include
 ./usr/include/luna68k/ieee.h			comp-c-include

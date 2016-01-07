@@ -143,12 +143,12 @@ typedef enum {
 	WM_T_I210,			/* I210 */
 	WM_T_I211,			/* I211 */
 	WM_T_80003,			/* i80003 */
-	WM_T_ICH8,			/* ICH8 LAN */
+	WM_T_ICH8,			/* ICH8 (I/O Controller Hub) LAN */
 	WM_T_ICH9,			/* ICH9 LAN */
 	WM_T_ICH10,			/* ICH10 LAN */
-	WM_T_PCH,			/* PCH LAN */
+	WM_T_PCH,			/* PCH (Platform Controller Hub) LAN */
 	WM_T_PCH2,			/* PCH2 LAN */
-	WM_T_PCH_LPT,			/* PCH LPT LAN (I21[78]) */
+	WM_T_PCH_LPT,			/* PCH "Lynx Point" LAN (I217, I218) */
 } wm_chip_type;
 
 typedef enum {

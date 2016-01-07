@@ -16,6 +16,7 @@
 ./usr/include/cobalt/elf_machdep.h		comp-c-include
 ./usr/include/cobalt/endian.h			comp-c-include
 ./usr/include/cobalt/endian_machdep.h		comp-c-include
+./usr/include/cobalt/fenv.h			comp-c-include
 ./usr/include/cobalt/float.h			comp-c-include
 ./usr/include/cobalt/ieee.h			comp-c-include
 ./usr/include/cobalt/ieeefp.h			comp-c-include

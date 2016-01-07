@@ -2,6 +2,9 @@
 
 USE_SHLIBDIR=   yes
 
+CPPFLAGS+=-D_REENTRANT
+DPADD+=${LIBPTHREAD}
+LDADD+=-lpthread
 LIB=blacklist
 SRCS=bl.c blacklist.c
 MAN=libblacklist.3

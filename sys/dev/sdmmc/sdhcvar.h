@@ -58,6 +58,7 @@ struct sdhc_softc {
 #define	SDHC_FLAG_USE_ADMA2	0x00100000
 #define	SDHC_FLAG_POLL_CARD_DET	0x00200000 /* polling card detect */
 #define	SDHC_FLAG_SLOW_SDR50  	0x00400000 /* reduce SDR50 speed */
+#define	SDHC_FLAG_USDHC		0x00800000 /* Freescale uSDHC */
 
 	uint32_t		sc_clkbase;
 	int			sc_clkmsk;	/* Mask for SDCLK */

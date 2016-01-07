@@ -17,6 +17,7 @@
 ./usr/include/sun2/endian.h			comp-c-include
 ./usr/include/sun2/endian_machdep.h		comp-c-include
 ./usr/include/sun2/fbio.h			comp-c-include
+./usr/include/sun2/fenv.h			comp-c-include
 ./usr/include/sun2/float.h			comp-c-include
 ./usr/include/sun2/frame.h			comp-c-include
 ./usr/include/sun2/idprom.h			comp-c-include

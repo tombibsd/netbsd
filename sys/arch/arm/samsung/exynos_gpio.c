@@ -47,27 +47,17 @@ __KERNEL_RCSID(1, "$NetBSD$");
 #include <dev/gpio/gpiovar.h>
 
 #include <arm/samsung/exynos_reg.h>
-#include <arm/samsung/exynos_io.h>
+#include <arm/samsung/exynos_var.h>
 #include <arm/samsung/exynos_intr.h>
 #include <arm/samsung/exynos_pinctrl.h>
 
 #include <dev/fdt/fdtvar.h>
 
-struct exynos_gpio_pin_cfg {
-	uint32_t cfg;
-	uint32_t pud;
-	uint32_t drv;
-	uint32_t conpwd;
-	uint32_t pudpwd;
-};
-
-struct exynos_gpio_softc;
-
 struct exynos_gpio_bank {
 	const char		bank_name[6];
 	device_t		bank_dev;
 	struct gpio_chipset_tag	bank_gc;
-	struct exynos_gpio_softc *bank_softc;
+	struct exynos_gpio_softc *bank_sc;
 	gpio_pin_t		bank_pins[8];
 
 	const bus_addr_t	bank_core_offset;
@@ -80,12 +70,6 @@ struct exynos_gpio_bank {
 	struct exynos_gpio_bank * bank_next;
 };
 
-struct exynos_gpio_softc {
-	device_t		sc_dev;
-	bus_space_tag_t		sc_bst;
-	bus_space_handle_t	sc_bsh;
-};
-
 struct exynos_gpio_pin {
 	struct exynos_gpio_softc *pin_sc;
 	int			  pin_no;
@@ -94,16 +78,72 @@ struct exynos_gpio_pin {
 	const struct exynos_gpio_bank   *pin_bank;
 };
 
-struct exynos_gpio_bank *exynos_gpio_banks;
 
-static void exynos_gpio_pin_ctl(void *cookie, int pin, int flags);
+//#define GPIO_REG(v,s,o) (EXYNOS##v##_GPIO_##s##_OFFSET + (o))
+#define GPIO_REG(v,s,o) ((o))
+#define GPIO_GRP(v, s, o, n, b)	\
+	{ \
+		.bank_name = #n, \
+		.bank_core_offset = GPIO_REG(v,s,o), \
+		.bank_bits = b, \
+	}
+
+static struct exynos_gpio_bank exynos5_banks[] = {
+	GPIO_GRP(5, MUXA, 0x0000, gpy7, 8),
+	GPIO_GRP(5, MUXA, 0x0C00, gpx0, 8),
+	GPIO_GRP(5, MUXA, 0x0C20, gpx1, 8),
+	GPIO_GRP(5, MUXA, 0x0C40, gpx2, 8),
+	GPIO_GRP(5, MUXA, 0x0C60, gpx3, 8),
+
+	GPIO_GRP(5, MUXB, 0x0000, gpc0, 8),
+	GPIO_GRP(5, MUXB, 0x0020, gpc1, 8),
+	GPIO_GRP(5, MUXB, 0x0040, gpc2, 7),
+	GPIO_GRP(5, MUXB, 0x0060, gpc3, 4),
+	GPIO_GRP(5, MUXB, 0x0080, gpc4, 2),
+	GPIO_GRP(5, MUXB, 0x00A0, gpd1, 8),
+	GPIO_GRP(5, MUXB, 0x00C0, gpy0, 6),
+	GPIO_GRP(5, MUXB, 0x00E0, gpy1, 4),
+	GPIO_GRP(5, MUXB, 0x0100, gpy2, 6),
+	GPIO_GRP(5, MUXB, 0x0120, gpy3, 8),
+	GPIO_GRP(5, MUXB, 0x0140, gpy4, 8),
+	GPIO_GRP(5, MUXB, 0x0160, gpy5, 8),
+	GPIO_GRP(5, MUXB, 0x0180, gpy6, 8),
+
+	GPIO_GRP(5, MUXC, 0x0000, gpe0, 8),
+	GPIO_GRP(5, MUXC, 0x0020, gpe1, 2),
+	GPIO_GRP(5, MUXC, 0x0040, gpf0, 6),
+	GPIO_GRP(5, MUXC, 0x0060, gpf1, 8),
+	GPIO_GRP(5, MUXC, 0x0080, gpg0, 8),
+	GPIO_GRP(5, MUXC, 0x00A0, gpg1, 8),
+	GPIO_GRP(5, MUXC, 0x00C0, gpg2, 2),
+	GPIO_GRP(5, MUXC, 0x00E0, gpj4, 4),
+
+	GPIO_GRP(5, MUXD, 0x0000, gpa0, 8),
+	GPIO_GRP(5, MUXD, 0x0020, gpa1, 6),
+	GPIO_GRP(5, MUXD, 0x0040, gpa2, 8),
+	GPIO_GRP(5, MUXD, 0x0060, gpb0, 5),
+	GPIO_GRP(5, MUXD, 0x0080, gpb1, 5),
+	GPIO_GRP(5, MUXD, 0x00A0, gpb2, 4),
+	GPIO_GRP(5, MUXD, 0x00C0, gpb3, 8),
+	GPIO_GRP(5, MUXD, 0x00E0, gpb4, 2),
+	GPIO_GRP(5, MUXD, 0x0100, gph0, 4),
+
+	GPIO_GRP(5, MUXE, 0x0000, gpz, 7),
+
+};
+
+struct exynos_gpio_bank *exynos_gpio_banks = exynos5_banks;
+
+static int exynos_gpio_pin_read(void *, int);
+static void exynos_gpio_pin_write(void *, int, int);
+static void exynos_gpio_pin_ctl(void *, int, int);
 static void *exynos_gpio_fdt_acquire(device_t, const void *,
 				     size_t, int);
 static void exynos_gpio_fdt_release(device_t, void *);
 
-static int exynos_gpio_fdt_read(device_t, void *);
-static void exynos_gpio_fdt_write(device_t, void *, int);
-//static int exynos_gpio_cfprint(void *, const char *);
+static int exynos_gpio_fdt_read(device_t, void *, bool);
+static void exynos_gpio_fdt_write(device_t, void *, int, bool);
+static int exynos_gpio_cfprint(void *, const char *);
 
 struct fdtbus_gpio_controller_func exynos_gpio_funcs = {
 	.acquire = exynos_gpio_fdt_acquire,
@@ -111,8 +151,15 @@ struct fdtbus_gpio_controller_func exynos_gpio_funcs = {
 	.read = exynos_gpio_fdt_read,
 	.write = exynos_gpio_fdt_write
 };
+#define GPIO_WRITE(bank, reg, val) \
+	bus_space_write_4((bank)->bank_sc->sc_bst, \
+	    (bank)->bank_sc->sc_bsh, \
+	    (bank)->bank_core_offset + (reg), (val))
+#define GPIO_READ(bank, reg) \
+	bus_space_read_4((bank)->bank_sc->sc_bst, \
+	    (bank)->bank_sc->sc_bsh, \
+	    (bank)->bank_core_offset + (reg))
 
-#if 0
 static int
 exynos_gpio_cfprint(void *priv, const char *pnp)
 {
@@ -127,45 +174,62 @@ exynos_gpio_cfprint(void *priv, const char *pnp)
 
 	return UNCONF;
 }
-#endif
 
 static void
 exynos_gpio_update_cfg_regs(struct exynos_gpio_bank *bank,
 	const struct exynos_gpio_pin_cfg *ncfg)
 {
-	bus_space_tag_t bst = &exynos_bs_tag;
-
 	if (bank->bank_cfg.cfg != ncfg->cfg) {
-		bus_space_write_4(bst, bank->bank_bsh,
-			EXYNOS_GPIO_CON, ncfg->cfg);
+		GPIO_WRITE(bank, EXYNOS_GPIO_CON, ncfg->cfg);
 		bank->bank_cfg.cfg = ncfg->cfg;
 	}
 	if (bank->bank_cfg.pud != ncfg->pud) {
-		bus_space_write_4(bst, bank->bank_bsh,
-			EXYNOS_GPIO_PUD, ncfg->pud);
+		GPIO_WRITE(bank, EXYNOS_GPIO_PUD, ncfg->pud);
 		bank->bank_cfg.pud = ncfg->pud;
 	}
 
-	/* the following attributes are not yet setable */
-#if 0
 	if (bank->bank_cfg.drv != ncfg->drv) {
-		bus_space_write_4(bst, bank->bank_bsh,
-			EXYNOS_GPIO_DRV, ncfg->drv);
+		GPIO_WRITE(bank, EXYNOS_GPIO_DRV, ncfg->drv);
 		bank->bank_cfg.drv = ncfg->drv;
 	}
 	if (bank->bank_cfg.conpwd != ncfg->conpwd) {
-		bus_space_write_4(bst, bank->bank_bsh,
-			EXYNOS_GPIO_CONPWD, ncfg->conpwd);
+		GPIO_WRITE(bank, EXYNOS_GPIO_CONPWD, ncfg->conpwd);
 		bank->bank_cfg.conpwd = ncfg->conpwd;
 	}
 	if (bank->bank_cfg.pudpwd != ncfg->pudpwd) {
-		bus_space_write_4(bst, bank->bank_bsh,
-			EXYNOS_GPIO_PUDPWD, ncfg->pudpwd);
+		GPIO_WRITE(bank, EXYNOS_GPIO_PUDPWD, ncfg->pudpwd);
 		bank->bank_cfg.pudpwd = ncfg->pudpwd;
 	}
-#endif
 }
 
+static int
+exynos_gpio_pin_read(void *cookie, int pin)
+{
+	struct exynos_gpio_bank * const bank = cookie;
+
+	KASSERT(pin < bank->bank_bits);
+	return (bus_space_read_1(bank->bank_sc->sc_bst,
+				 bank->bank_sc->sc_bsh,
+		EXYNOS_GPIO_DAT) >> pin) & 1;
+}
+
+static void
+exynos_gpio_pin_write(void *cookie, int pin, int value)
+{
+	struct exynos_gpio_bank * const bank = cookie;
+	int val;
+
+	KASSERT(pin < bank->bank_bits);
+	val = bus_space_read_1(bank->bank_sc->sc_bst,
+			       bank->bank_sc->sc_bsh,
+			       EXYNOS_GPIO_DAT);
+	val &= ~__BIT(pin);
+	if (value)
+		val |= __BIT(pin);
+	bus_space_write_1(bank->bank_sc->sc_bst,
+			  bank->bank_sc->sc_bsh,
+		EXYNOS_GPIO_DAT, val);
+}
 
 static void
 exynos_gpio_pin_ctl(void *cookie, int pin, int flags)
@@ -198,37 +262,59 @@ exynos_gpio_pin_ctl(void *cookie, int pin, int flags)
 	exynos_gpio_update_cfg_regs(bank, &ncfg);
 }
 
-void
-exynos_gpio_bank_config(struct exynos_pinctrl_softc * parent, int node)
+void exynos_gpio_pin_ctl_read(const struct exynos_gpio_bank *bank,
+			      struct exynos_gpio_pin_cfg *cfg)
 {
-//	bus_space_tag_t bst = &exynos_bs_tag; /* MJF: This is wrong */
+	cfg->cfg = GPIO_READ(bank, EXYNOS_GPIO_CON);
+	cfg->pud = GPIO_READ(bank, EXYNOS_GPIO_PUD);
+	cfg->drv = GPIO_READ(bank, EXYNOS_GPIO_DRV);
+	cfg->conpwd = GPIO_READ(bank, EXYNOS_GPIO_CONPWD);
+	cfg->pudpwd = GPIO_READ(bank, EXYNOS_GPIO_PUDPWD);
+}
+
+void exynos_gpio_pin_ctl_write(const struct exynos_gpio_bank *bank,
+			       const struct exynos_gpio_pin_cfg *cfg)
+{
+		GPIO_WRITE(bank, EXYNOS_GPIO_CON, cfg->cfg);
+		GPIO_WRITE(bank, EXYNOS_GPIO_PUD, cfg->pud);
+		GPIO_WRITE(bank, EXYNOS_GPIO_DRV, cfg->drv);
+		GPIO_WRITE(bank, EXYNOS_GPIO_CONPWD, cfg->conpwd);
+		GPIO_WRITE(bank, EXYNOS_GPIO_PUDPWD, cfg->pudpwd);
+}
+
+struct exynos_gpio_softc *
+exynos_gpio_bank_config(struct exynos_pinctrl_softc * parent,
+			const struct fdt_attach_args *faa, int node)
+{
 	struct exynos_gpio_bank *bank = kmem_zalloc(sizeof(*bank), KM_SLEEP);
-//	struct exynos_gpio_softc *sc = kmem_zalloc(sizeof(*sc), KM_SLEEP);
-//	struct gpiobus_attach_args gba;
+	struct exynos_gpio_softc *sc = kmem_zalloc(sizeof(*sc), KM_SLEEP);
+	struct gpiobus_attach_args gba;
+	struct gpio_chipset_tag *gc_tag;
 	char result[64];
-//	int data;
-//	int error;
 
-	/*error =*/ OF_getprop(node, "name", result, sizeof(result));
-	printf(" GPIO %s\n", result);
-	if (exynos_gpio_banks)
-		bank->bank_next = exynos_gpio_banks;
-	exynos_gpio_banks = bank;
-	/* MJF: TODO: process all of the node properties */
-#if 0
-//	pincaps = GPIO_PIN_INPUT | GPIO_PIN_OUTPUT |
-//		GPIO_PIN_PULLUP | GPIO_PIN_PULLDOWN;
-
-//	data = bus_space_read_1(sc->sc_bst, bank->bank_bsh,
-//				EXYNOS_GPIO_DAT);
-
-	sc->sc_dev = parent->sc_dev;
-	sc->sc_bst = parent->sc_bst;
+	OF_getprop(node, "name", result, sizeof(result));
+	bank = exynos_gpio_bank_lookup(result);
+	if (bank == NULL) {
+		aprint_error_dev(parent->sc_dev, "no bank found for %s\n",
+		    result);
+		return NULL;
+	}
 	
+	sc->sc_dev = parent->sc_dev;
+	sc->sc_bst = &armv7_generic_bs_tag;
+	sc->sc_bsh = parent->sc_bsh;
+	sc->sc_bank = bank;
+
+	gc_tag = &bank->bank_gc;
+	gc_tag->gp_cookie = bank;
+	gc_tag->gp_pin_read  = exynos_gpio_pin_read;
+	gc_tag->gp_pin_write = exynos_gpio_pin_write;
+	gc_tag->gp_pin_ctl   = exynos_gpio_pin_ctl;
 	memset(&gba, 0, sizeof(gba));
 	gba.gba_gc = &bank->bank_gc;
 	gba.gba_pins = bank->bank_pins;
-//	gba.gba_npins = bit; /* MJF? */
+	gba.gba_npins = bank->bank_bits;
+	bank->bank_sc = sc;
 	bank->bank_dev = config_found_ia(parent->sc_dev, "gpiobus", &gba,
 					 exynos_gpio_cfprint);
 
@@ -237,74 +323,83 @@ exynos_gpio_bank_config(struct exynos_pinctrl_softc * parent, int node)
 
 
 	/* read in our initial settings */
-	bank->bank_cfg.cfg = bus_space_read_4(bst, bank->bank_bsh,
-					      EXYNOS_GPIO_CON);
-	bank->bank_cfg.pud = bus_space_read_4(bst, bank->bank_bsh,
-					      EXYNOS_GPIO_PUD);
-	bank->bank_cfg.drv = bus_space_read_4(bst, bank->bank_bsh,
-					      EXYNOS_GPIO_DRV);
-	bank->bank_cfg.conpwd = bus_space_read_4(bst, bank->bank_bsh,
-						 EXYNOS_GPIO_CONPWD);
-	bank->bank_cfg.pudpwd = bus_space_read_4(bst, bank->bank_bsh,
-						 EXYNOS_GPIO_PUDPWD);
-	/* MJF: TODO: Configure from the node data, if present */
-#endif
+	bank->bank_cfg.cfg = GPIO_READ(bank, EXYNOS_GPIO_CON);
+	bank->bank_cfg.pud = GPIO_READ(bank, EXYNOS_GPIO_PUD);
+	bank->bank_cfg.drv = GPIO_READ(bank, EXYNOS_GPIO_DRV);
+	bank->bank_cfg.conpwd = GPIO_READ(bank, EXYNOS_GPIO_CONPWD);
+	bank->bank_cfg.pudpwd = GPIO_READ(bank, EXYNOS_GPIO_PUDPWD);
+
+	fdtbus_register_gpio_controller(bank->bank_dev, node,
+					&exynos_gpio_funcs);
+	return sc;
 }
 
 /*
- * pinmame = gpLD-N
- *     L = 'a' - 'z' -+
- *     D = '0' - '8' -+ ===== bank name
- *     N = '0' - '8'    ===== pin number
+ * This function is a bit funky.  Given a string that may look like
+ * 'gpAN' or 'gpAN-P' it is meant to find a match to the part before
+ * the '-', or the four character string if the dash is not present.
  */
-
-static const struct exynos_gpio_bank *
-exynos_gpio_pin_lookup(const char *pinname, int *ppin)
+struct exynos_gpio_bank *
+exynos_gpio_bank_lookup(const char *name)
 {
-	char bankname[5];
-	int pin;
 	struct exynos_gpio_bank *bank;
 
-	KASSERT(strlen(pinname) == 2 || strlen(pinname) == 3);
-
-	memset(bankname, 0, sizeof(bankname));
-	bankname[0] = pinname[0]; /* 'g' */
-	bankname[1] = pinname[1]; /* 'p' */
-	bankname[2] = pinname[2]; /*  L  */
-	bankname[3] = pinname[3]; /*  D  */
-	pin = pinname[5] - '0';	  /* skip the '-' */
-
-	for (bank = exynos_gpio_banks; bank; bank = bank->bank_next)
-		if (strcmp(bank->bank_name, bankname) == 0) {
-			*ppin = pin;
+	for (u_int n = 0; n < __arraycount(exynos5_banks); n++) {
+		bank = &exynos_gpio_banks[n];
+		if (!strncmp(bank->bank_name, name,
+			     strlen(bank->bank_name))) {
 			return bank;
 		}
+	}
 
 	return NULL;
 }
 
+#if notyet
+static int
+exynos_gpio_pin_lookup(const char *name)
+{
+	char *p;
+
+	p = strchr(name, '-');
+	if (p == NULL || p[1] < '0' || p[1] > '9')
+		return -1;
+
+	return p[1] - '0';
+}
+#endif
+
 static void *
 exynos_gpio_fdt_acquire(device_t dev, const void *data, size_t len, int flags)
 {
-	/* MJF:  This is wrong.  data is a u_int but I need a name */
-//	const u_int *gpio = data;
-	const char *pinname = data;
-	const struct exynos_gpio_bank *bank;
+	const u_int *cells = data;
+	struct exynos_gpio_bank *bank = NULL;
 	struct exynos_gpio_pin *gpin;
-	int pin;
+	int n;
 
-	bank = exynos_gpio_pin_lookup(pinname, &pin);
+	if (len != 12)
+		return NULL;
+
+	const int pin = be32toh(cells[1]) & 0x0f;
+	const int actlo = be32toh(cells[2]) & 0x01;
+
+	for (n = 0; n < __arraycount(exynos5_banks); n++) {
+		if (exynos_gpio_banks[n].bank_dev == dev) {
+			bank = &exynos_gpio_banks[n];
+			break;
+		}
+	}
 	if (bank == NULL)
 		return NULL;
 
 	gpin = kmem_alloc(sizeof(*gpin), KM_SLEEP);
-	gpin->pin_sc = bank->bank_softc;
+	gpin->pin_sc = bank->bank_sc;
 	gpin->pin_bank = bank;
 	gpin->pin_no = pin;
 	gpin->pin_flags = flags;
-	gpin->pin_actlo = 0;
+	gpin->pin_actlo = actlo;
 
-	exynos_gpio_pin_ctl(&gpin->pin_bank, gpin->pin_no, gpin->pin_flags);
+	exynos_gpio_pin_ctl(bank, gpin->pin_no, gpin->pin_flags);
 
 	return gpin;
 }
@@ -318,7 +413,7 @@ exynos_gpio_fdt_release(device_t dev, void *priv)
 }
 
 static int
-exynos_gpio_fdt_read(device_t dev, void *priv)
+exynos_gpio_fdt_read(device_t dev, void *priv, bool raw)
 {
 	struct exynos_gpio_pin *gpin = priv;
 	int val;
@@ -327,18 +422,18 @@ exynos_gpio_fdt_read(device_t dev, void *priv)
 				 gpin->pin_sc->sc_bsh,
 				 EXYNOS_GPIO_DAT) >> gpin->pin_no) & 1;
 
-	if (gpin->pin_actlo)
+	if (!raw && gpin->pin_actlo)
 		val = !val;
 
 	return val;
 }
 
 static void
-exynos_gpio_fdt_write(device_t dev, void *priv, int val)
+exynos_gpio_fdt_write(device_t dev, void *priv, int val, bool raw)
 {
 	struct exynos_gpio_pin *gpin = priv;
 
-	if (gpin->pin_actlo)
+	if (!raw && gpin->pin_actlo)
 		val = !val;
 
 	val = bus_space_read_1(gpin->pin_sc->sc_bst,

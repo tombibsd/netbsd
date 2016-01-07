@@ -75,7 +75,7 @@ bozo_dir_index(bozo_httpreq_t *request, const char *dirpath, int isindex)
 	if (strlen(dirpath) <= strlen(httpd->index_html))
 		dirpath = ".";
 	else {
-		file = bozostrdup(httpd, dirpath);
+		file = bozostrdup(httpd, request, dirpath);
 
 		file[strlen(file) - strlen(httpd->index_html)] = '\0';
 		dirpath = file;
@@ -110,13 +110,12 @@ bozo_dir_index(bozo_httpreq_t *request, const char *dirpath, int isindex)
 
 #ifndef NO_USER_SUPPORT
 	if (request->hr_user) {
-		if (asprintf(&printname, "~%s/%s", request->hr_user,
-		  request->hr_file) < 0)
-			bozo_err(httpd, 1, "asprintf");
+		bozoasprintf(httpd, &printname, "~%s/%s",
+			     request->hr_user, request->hr_file);
 	} else
-		printname = bozostrdup(httpd, request->hr_file);
+		printname = bozostrdup(httpd, request, request->hr_file);
 #else
-	printname = bozostrdup(httpd, request->hr_file);
+	printname = bozostrdup(httpd, request, request->hr_file);
 #endif /* !NO_USER_SUPPORT */
 
 	bozo_printf(httpd,

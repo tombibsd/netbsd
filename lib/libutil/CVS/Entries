@@ -40,7 +40,7 @@
 /opendisk.c/1.13/Fri Oct  3 10:04:48 2014/-kk/
 /openpty.3/1.17/Fri Jul 27 21:33:46 2012/-kk/
 /parsedate.3/1.20/Fri Dec 25 05:39:59 2015/-kk/
-/parsedate.y/1.24/Fri Dec 25 05:39:59 2015/-kk/
+/parsedate.y/1.27/Thu Jan  7 06:24:09 2016/-kk/
 /passwd.c/1.52/Mon Jun 25 22:32:47 2012/-kk/
 /pidfile.3/1.13/Tue Mar 29 13:55:37 2011/-kk/
 /pidfile.c/1.11/Thu Feb  5 08:40:48 2015/-kk/

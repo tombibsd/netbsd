@@ -31,4 +31,6 @@
 
 #include_next "assert.h"
 
+#ifndef __assert
 #define __assert(a, b, c)       __assert(a, c, b)
+#endif

@@ -323,20 +323,30 @@ usbd_transfer(usbd_xfer_handle xfer)
 			bus->methods->freem(bus, &xfer->dmabuf);
 			xfer->rqflags &= ~URQ_AUTO_DMABUF;
 		}
+		/*
+		 * The transfer made it onto the pipe queue, but didn't get
+		 * accepted by the HCD for some reason.  It needs removing
+		 * from the pipe queue.
+		 */
+		usbd_lock_pipe(pipe);
+		SIMPLEQ_REMOVE_HEAD(&pipe->queue, next);
+		usbd_start_next(pipe);
+		usbd_unlock_pipe(pipe);
 	}
 
 	if (!(flags & USBD_SYNCHRONOUS)) {
-		USBHIST_LOG(usbdebug, "<- done xfer %p, not sync", xfer, 0, 0,
-		    0);
+		USBHIST_LOG(usbdebug, "<- done xfer %p, not sync (err %d)",
+		    xfer, err, 0, 0);
+		return (err);
+	}
+
+	if (err != USBD_IN_PROGRESS) {
+		USBHIST_LOG(usbdebug, "<- done xfer %p, not in progress "
+		    "(err %d)", xfer, err, 0, 0);
 		return (err);
 	}
 
 	/* Sync transfer, wait for completion. */
-	if (err != USBD_IN_PROGRESS) {
-		USBHIST_LOG(usbdebug, "<- done xfer %p, not in progress", xfer,
-		    0, 0, 0);
-		return (err);
-	}
 	usbd_lock_pipe(pipe);
 	while (!xfer->done) {
 		if (pipe->device->bus->use_polling)
@@ -1114,8 +1124,7 @@ usbd_do_request_flags_pipe(usbd_device_handle dev, usbd_pipe_handle pipe,
 
  bad:
 	if (err) {
-		USBHIST_LOG(usbdebug, "returning err = %s",
-		    usbd_errstr(err), 0, 0, 0);
+		USBHIST_LOG(usbdebug, "returning err = %d", err, 0, 0, 0);
 	}
 	usbd_free_xfer(xfer);
 	return (err);

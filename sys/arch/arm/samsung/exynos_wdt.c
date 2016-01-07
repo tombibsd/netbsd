@@ -44,7 +44,6 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <dev/sysmon/sysmonvar.h>
 
-#include <arm/samsung/exynos_io.h>
 #include <arm/samsung/exynos_reg.h>
 #include <arm/samsung/exynos_var.h>
 
@@ -281,7 +280,7 @@ exynos_wdt_attach(device_t parent, device_t self, void *aux)
 void
 exynos_wdt_reset(void)
 {
-	bus_space_tag_t bst = &exynos_bs_tag;
+	bus_space_tag_t bst = &armv7_generic_bs_tag;
 	bus_space_handle_t bsh = exynos_wdt_bsh;
 
 	(void) splhigh();

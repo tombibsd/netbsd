@@ -33,6 +33,9 @@ ATF_TC_HEAD(modautoload, tc)
 static void
 mountkernfs(void)
 {
+	bool old_autoload, new_autoload;
+	size_t old_len, new_len;
+	int error;
 
 	if (!rump_nativeabi_p())
 		atf_tc_skip("host kernel modules not supported");
@@ -41,6 +44,15 @@ mountkernfs(void)
 
 	if (rump_sys_mkdir("/kern", 0777) == -1)
 		atf_tc_fail_errno("mkdir /kern");
+
+	new_autoload = true;
+	new_len = sizeof(new_autoload);
+	error = sysctlbyname("kern.module.autoload",
+				  &old_autoload, &old_len,
+				  &new_autoload, new_len);
+	if (error != 0)
+		atf_tc_fail_errno("could not enable module autoload");
+
 	if (rump_sys_mount(MOUNT_KERNFS, "/kern", 0, NULL, 0) == -1)
 		atf_tc_fail_errno("could not mount kernfs");
 }

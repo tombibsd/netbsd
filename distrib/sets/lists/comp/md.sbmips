@@ -15,6 +15,7 @@
 ./usr/include/sbmips/elf_machdep.h		comp-c-include
 ./usr/include/sbmips/endian.h			comp-c-include
 ./usr/include/sbmips/endian_machdep.h		comp-c-include
+./usr/include/sbmips/fenv.h			comp-c-include
 ./usr/include/sbmips/float.h			comp-c-include
 ./usr/include/sbmips/ieee.h			comp-c-include
 ./usr/include/sbmips/ieeefp.h			comp-c-include

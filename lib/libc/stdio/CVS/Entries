@@ -1,4 +1,4 @@
-/Makefile.inc/1.46/Wed Oct 29 08:12:41 2014/-kk/
+/Makefile.inc/1.47/Thu Jan  7 06:24:08 2016/-kk/
 /clrerr.c/1.11/Thu Mar 15 18:22:30 2012/-kk/
 /dprintf.c/1.2/Thu Oct 24 10:28:53 2013/-kk/
 /fclose.3/1.9/Thu Aug  7 16:43:21 2003/-kk/
@@ -91,6 +91,7 @@
 /perror.c/1.24/Thu Jan 26 11:13:42 2006/-kk/
 /printf.3/1.65/Sun Nov 29 09:09:23 2015/-kk/
 /printf.c/1.13/Thu Oct 24 10:28:53 2013/-kk/
+/printf_l.3/1.1/Tue Dec 29 17:55:23 2015/-kk/
 /putc.3/1.12/Thu May  6 09:01:34 2010/-kk/
 /putc.c/1.12/Thu Mar 15 18:22:30 2012/-kk/
 /putchar.c/1.10/Thu Mar 15 18:22:30 2012/-kk/
@@ -106,6 +107,7 @@
 /rget.c/1.13/Thu Mar 15 18:22:30 2012/-kk/
 /scanf.3/1.27/Fri May 14 03:04:32 2010/-kk/
 /scanf.c/1.14/Thu Oct 24 10:28:53 2013/-kk/
+/scanf_l.3/1.1/Tue Dec 29 17:55:23 2015/-kk/
 /setbuf.3/1.14/Sat Jul 25 01:51:38 2015/-kk/
 /setbuf.c/1.10/Thu Mar 15 18:22:30 2012/-kk/
 /setbuffer.c/1.13/Thu Mar 15 18:22:30 2012/-kk/

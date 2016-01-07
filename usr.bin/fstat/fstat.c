@@ -532,6 +532,9 @@ ftrans(fdfile_t *fp, int i)
 }
 
 static const char dead[] = "dead";
+static const char *vnode_tag[] = {
+	VNODE_TAGS
+};
 
 static const char *
 vfilestat(struct vnode *vp, struct filestat *fsp)
@@ -588,8 +591,9 @@ vfilestat(struct vnode *vp, struct filestat *fsp)
 			break;
 		default: {
 			static char unknown[10];
-			(void)snprintf(unknown, sizeof unknown,
-			    "?(%x)", vp->v_tag);
+			(void)snprintf(unknown, sizeof unknown, "%s(%#x)",
+			    (size_t)vp->v_tag < __arraycount(vnode_tag) ?
+			    vnode_tag[vp->v_tag] : "?", vp->v_tag);
 			badtype = unknown;
 			break;
 		}

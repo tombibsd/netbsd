@@ -76,6 +76,11 @@ __RCSID("$NetBSD$");
 #endif
 
 /*
+ * Number of saved registers to pass to sljit_emit_enter() function.
+ */
+#define NSAVEDS		3
+
+/*
  * Arguments of generated bpfjit_func_t.
  * The first argument is reassigned upon entry
  * to a more frequently used buf argument.
@@ -269,18 +274,6 @@ nscratches(bpfjit_hint_t hints)
 
 	if (hints & BJ_HINT_COPX)
 		rv = 5; /* uses BJ_TMP3REG */
-
-	return rv;
-}
-
-/*
- * Return a number of saved registers to pass
- * to sljit_emit_enter() function.
- */
-static sljit_si
-nsaveds(bpfjit_hint_t hints)
-{
-	sljit_si rv = 3;
 
 	return rv;
 }
@@ -2192,7 +2185,7 @@ bpfjit_generate_code(const bpf_ctx_t *bc,
 #endif
 
 	status = sljit_emit_enter(compiler,
-	    2, nscratches(hints), nsaveds(hints), sizeof(struct bpfjit_stack));
+	    2, nscratches(hints), NSAVEDS, sizeof(struct bpfjit_stack));
 	if (status != SLJIT_SUCCESS)
 		goto fail;
 

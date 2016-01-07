@@ -18,6 +18,9 @@
 
 __BEGIN_DECLS
 
+#if __GNUC__ - 0 >= 4
+__attribute__((__format__ (__printf__, 2, 3)))
+#endif
 int		  mandoc_asprintf(char **, const char *, ...);
 void		 *mandoc_calloc(size_t, size_t);
 void		 *mandoc_malloc(size_t);

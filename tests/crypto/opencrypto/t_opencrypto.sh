@@ -80,7 +80,11 @@ arc4_body() {
 }
 
 arc4_cleanup() {
-	common_cleanup
+	# No cleanup required since test is skipped.  Trying to run rump.halt
+	# at this point fails, causing the ATF environment to erroneously
+	# report a failed test!
+	#
+	# common_cleanup
 }
 
 atf_test_case camellia cleanup

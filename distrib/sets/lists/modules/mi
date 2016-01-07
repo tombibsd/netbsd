@@ -206,6 +206,8 @@
 ./@MODULEDIR@/puffs/puffs.kmod			base-kernel-modules	kmod
 ./@MODULEDIR@/putter				base-kernel-modules	kmod
 ./@MODULEDIR@/putter/putter.kmod		base-kernel-modules	kmod
+./@MODULEDIR@/raid				base-kernel-modules	kmod
+./@MODULEDIR@/raid/raid.kmod			base-kernel-modules	kmod
 ./@MODULEDIR@/scsiverbose			base-kernel-modules	kmod
 ./@MODULEDIR@/scsiverbose/scsiverbose.kmod	base-kernel-modules	kmod
 ./@MODULEDIR@/sdt				base-obsolete		obsolete

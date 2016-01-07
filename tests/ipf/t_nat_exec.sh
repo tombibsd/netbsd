@@ -71,7 +71,7 @@ test_case n8 nattest hex hex -T update_ipid=0
 test_case n9 nattest hex hex -T update_ipid=0
 test_case n10 nattest hex hex -T update_ipid=0
 test_case n11 nattest text text
-failing_test_case n12 nattest "Known to be broken" hex hex -T update_ipid=0 -v
+test_case n12 nattest hex hex -T update_ipid=0
 test_case n13 nattest text text
 test_case n14 nattest text text
 test_case n15 nattest text text -T update_ipid=0

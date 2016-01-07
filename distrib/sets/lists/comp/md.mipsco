@@ -19,6 +19,7 @@
 ./usr/include/mipsco/elf_machdep.h		comp-c-include
 ./usr/include/mipsco/endian.h			comp-c-include
 ./usr/include/mipsco/endian_machdep.h		comp-c-include
+./usr/include/mipsco/fenv.h			comp-c-include
 ./usr/include/mipsco/float.h			comp-c-include
 ./usr/include/mipsco/ieee.h			comp-c-include
 ./usr/include/mipsco/ieeefp.h			comp-c-include

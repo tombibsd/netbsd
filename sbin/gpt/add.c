@@ -167,7 +167,7 @@ cmd_add(gpt_t gpt, int argc, char *argv[])
 	while ((ch = getopt(argc, argv, GPT_AIS "b:l:t:")) != -1) {
 		switch(ch) {
 		case 'b':
-			if (gpt_human_get(&block) == -1)
+			if (gpt_human_get(gpt, &block) == -1)
 				goto usage;
 			break;
 		case 'l':

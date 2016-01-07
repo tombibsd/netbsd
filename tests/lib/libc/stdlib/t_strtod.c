@@ -42,9 +42,7 @@ __RCSID("$NetBSD$");
 
 #include <atf-c.h>
 
-#ifdef HAVE_FENV
 #include <fenv.h>
-#endif
 
 #if !defined(__vax__)
 static const char * const inf_strings[] =
@@ -238,7 +236,7 @@ ATF_TC_HEAD(strtod_round, tc)
 
 ATF_TC_BODY(strtod_round, tc)
 {
-#ifdef HAVE_FENV
+#ifdef __HAVE_FENV
 
 	/*
 	 * Test that strtod(3) honors the current rounding mode.

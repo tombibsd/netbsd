@@ -54,10 +54,12 @@ STATIC int
 my_soo_write(connection_t *conn, struct uio *u)
 {
 	struct socket *so = conn->sock->f_socket;
-	size_t resid = u->uio_resid;
 	int ret;
+#ifdef ISCSI_DEBUG
+	size_t resid = u->uio_resid;
 
 	assert(resid != 0);
+#endif
 
 	ret = sosend(so, NULL, u, NULL, NULL, 0, conn->threadobj);
 

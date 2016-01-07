@@ -30,7 +30,7 @@
 /in.h/1.98/Sun Nov 15 13:36:27 2015/-kk/
 /in4_cksum.c/1.20/Tue Dec  9 04:43:55 2014/-kk/
 /in_cksum.c/1.22/Fri Jan 25 21:12:15 2008/-kk/
-/in_gif.c/1.66/Fri Dec 25 06:18:30 2015/-kk/
+/in_gif.c/1.67/Thu Jan  7 06:24:39 2016/-kk/
 /in_gif.h/1.14/Thu Nov 23 04:07:07 2006/-kk/
 /in_ifattach.h/1.1/Mon Nov 13 05:13:41 2006/-kk/
 /in_offload.c/1.6/Thu Jun 18 03:42:35 2015/-kk/

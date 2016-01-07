@@ -4,17 +4,11 @@
 
 TESTSDIR=	${TESTSBASE}/lib/libm
 
-.if ${MACHINE_CPU} == "aarch64" || ${MACHINE_CPU} == "arm" \
-    || ${MACHINE_ARCH} == "hppa" \
-    || ${MACHINE_ARCH} == "sparc" || ${MACHINE_ARCH} == "sparc64" \
-    || ${MACHINE_ARCH} == "i386" || ${MACHINE_ARCH} == "x86_64"
-CPPFLAGS+=	-DHAVE_FENV_H
-.endif
-
 .if ${MACHINE} == "alpha"
 COPTS+=	-mfloat-ieee -mieee-with-inexact -mfp-trap-mode=sui -mtrap-precision=i
 .endif
 
+CPPFLAGS.t_fenv.c+=	-D__TEST_FENV
 CPPFLAGS.t_fmod.c+=	-I${.CURDIR}/../libc/gen
 
 TESTS_C+=	t_acos

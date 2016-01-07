@@ -14,6 +14,7 @@
 ./usr/include/atari/elf_machdep.h		comp-c-include
 ./usr/include/atari/endian.h			comp-c-include
 ./usr/include/atari/endian_machdep.h		comp-c-include
+./usr/include/atari/fenv.h			comp-c-include
 ./usr/include/atari/float.h			comp-c-include
 ./usr/include/atari/frame.h			comp-c-include
 ./usr/include/atari/grfioctl.h			comp-c-include

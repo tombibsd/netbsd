@@ -124,7 +124,7 @@ __RCSID("$NetBSD$");
 static void cd9660_finalize_PVD(iso9660_disk *);
 static cd9660node *cd9660_allocate_cd9660node(void);
 static void cd9660_set_defaults(iso9660_disk *);
-static int cd9660_arguments_set_string(const char *, const char *, int,
+static int cd9660_arguments_set_string(const char *, const char *, size_t,
     char, char *);
 static void cd9660_populate_iso_dir_record(
     struct _iso_directory_record_cd9660 *, u_char, u_char, u_char,
@@ -339,10 +339,11 @@ cd9660_cleanup_opts(fsinfo_t *fsopts)
 }
 
 static int
-cd9660_arguments_set_string(const char *val, const char *fieldtitle, int length,
-			    char testmode, char * dest)
+cd9660_arguments_set_string(const char *val, const char *fieldtitle,
+    size_t length, char testmode, char * dest)
 {
-	int len, test;
+	size_t len;
+	int test;
 
 	if (val == NULL)
 		warnx("error: The %s requires a string argument", fieldtitle);
@@ -483,7 +484,7 @@ cd9660_parse_opts(const char *option, fsinfo_t *fsopts)
  */
 void
 cd9660_makefs(const char *image, const char *dir, fsnode *root,
-	      fsinfo_t *fsopts)
+    fsinfo_t *fsopts)
 {
 	int64_t startoffset;
 	int numDirectories;
@@ -661,7 +662,7 @@ typedef int (*cd9660node_func)(cd9660node *);
 static void
 cd9660_finalize_PVD(iso9660_disk *diskStructure)
 {
-	time_t tim;
+	time_t tstamp = stampst.st_ino ? stampst.st_mtime : time(NULL);
 
 	/* root should be a fixed size of 34 bytes since it has no name */
 	memcpy(diskStructure->primaryDescriptor.root_directory_record,
@@ -710,23 +711,23 @@ cd9660_finalize_PVD(iso9660_disk *diskStructure)
 		diskStructure->primaryDescriptor.bibliographic_file_id, 37);
 
 	/* Setup dates */
-	time(&tim);
 	cd9660_time_8426(
 	    (unsigned char *)diskStructure->primaryDescriptor.creation_date,
-	    tim);
+	    tstamp);
 	cd9660_time_8426(
 	    (unsigned char *)diskStructure->primaryDescriptor.modification_date,
-	    tim);
+	    tstamp);
 
-	/*
-	cd9660_set_date(diskStructure->primaryDescriptor.expiration_date, now);
-	*/
+#if 0
+	cd9660_set_date(diskStructure->primaryDescriptor.expiration_date,
+	    tstamp);
+#endif
 	memset(diskStructure->primaryDescriptor.expiration_date, '0' ,16);
 	diskStructure->primaryDescriptor.expiration_date[16] = 0;
 
 	cd9660_time_8426(
 	    (unsigned char *)diskStructure->primaryDescriptor.effective_date,
-	    tim);
+	    tstamp);
 }
 
 static void
@@ -821,7 +822,7 @@ cd9660_fill_extended_attribute_record(cd9660node *node)
 static int
 cd9660_translate_node_common(iso9660_disk *diskStructure, cd9660node *newnode)
 {
-	time_t tim;
+	time_t tstamp = stampst.st_ino ? stampst.st_mtime : time(NULL);
 	u_char flag;
 	char temp[ISO_FILENAME_MAXLENGTH_WITH_PADDING];
 
@@ -841,9 +842,8 @@ cd9660_translate_node_common(iso9660_disk *diskStructure, cd9660node *newnode)
 	/* Set the various dates */
 
 	/* If we want to use the current date and time */
-	time(&tim);
 
-	cd9660_time_915(newnode->isoDirRecord->date, tim);
+	cd9660_time_915(newnode->isoDirRecord->date, tstamp);
 
 	cd9660_bothendian_dword(newnode->fileDataLength,
 	    newnode->isoDirRecord->size);
@@ -883,7 +883,8 @@ cd9660_translate_node(iso9660_disk *diskStructure, fsnode *node,
 		return 0;
 
 	/* Finally, overwrite some of the values that are set by default */
-	cd9660_time_915(newnode->isoDirRecord->date, node->inode->st.st_mtime);
+	cd9660_time_915(newnode->isoDirRecord->date,
+	    stampst.st_ino ? stampst.st_mtime : node->inode->st.st_mtime);
 
 	return 1;
 }

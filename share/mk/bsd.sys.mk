@@ -18,6 +18,10 @@ error2:
 CPPFLAGS+=	-Wp,-iremap,${NETBSDSRCDIR}:/usr/src
 CPPFLAGS+=	-Wp,-iremap,${DESTDIR}/:/
 CPPFLAGS+=	-Wp,-iremap,${X11SRCDIR}:/usr/xsrc
+.export NETBSDSRCDIR DESTDIR X11SRCDIR
+CFLAGS+=	-fdebug-prefix-map=\$$NETBSDSRCDIR=/usr/src
+CFLAGS+=	-fdebug-prefix-map=\$$DESTDIR=/
+CFLAGS+=	-fdebug-prefix-map=\$$X11SRCDIR=/usr/xsrc
 .endif
 
 # NetBSD sources use C99 style, with some GCC extensions.

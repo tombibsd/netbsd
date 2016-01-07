@@ -16,6 +16,7 @@
 ./usr/include/news68k/elf_machdep.h		comp-c-include
 ./usr/include/news68k/endian.h			comp-c-include
 ./usr/include/news68k/endian_machdep.h		comp-c-include
+./usr/include/news68k/fenv.h			comp-c-include
 ./usr/include/news68k/float.h			comp-c-include
 ./usr/include/news68k/frame.h			comp-c-include
 ./usr/include/news68k/ieee.h			comp-c-include

@@ -1,4 +1,4 @@
-/Makefile/1.14/Sun Jul 17 20:54:35 2011/-kk/
+/Makefile/1.15/Thu Jan  7 06:24:17 2016/-kk/
 /ansi.h/1.1/Mon May 28 16:22:17 2001/-kk/
 /asm.h/1.1/Mon May 28 16:22:17 2001/-kk/
 /autoconf.h/1.7/Sat Jul  9 16:03:01 2011/-kk/
@@ -14,6 +14,7 @@
 /elf_machdep.h/1.2/Mon Dec 14 00:46:00 2009/-kk/
 /endian.h/1.1/Mon May 28 16:22:18 2001/-kk/
 /endian_machdep.h/1.1/Mon May 28 16:22:18 2001/-kk/
+/fenv.h/1.1/Mon Dec 21 17:02:32 2015/-kk/
 /float.h/1.1/Mon May 28 16:22:18 2001/-kk/
 /ieee.h/1.1/Mon May 28 16:22:18 2001/-kk/
 /ieeefp.h/1.2/Tue Sep  4 06:26:18 2001/-kk/

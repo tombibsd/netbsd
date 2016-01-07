@@ -39,8 +39,6 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include "ioconf.h"
 
-CFDRIVER_DECL(raid, DV_DISK, NULL);
-
 RUMP_COMPONENT(RUMP_COMPONENT_DEV)
 {
 	extern const struct bdevsw raid_bdevsw;
@@ -48,12 +46,16 @@ RUMP_COMPONENT(RUMP_COMPONENT_DEV)
 	devmajor_t bmaj, cmaj;
 	int error;
 
-	config_cfdriver_attach(&raid_cd);
-
 	bmaj = cmaj = -1;
 	if ((error = devsw_attach("raid", &raid_bdevsw, &bmaj,
 	    &raid_cdevsw, &cmaj)) != 0)
 		panic("raid devsw attach failed: %d", error);
+
+	/*
+	 * Now that we have the major numbers, detach.  It will get
+	 * re-attached later during raid's module initialization.
+	 */
+	devsw_detach(&raid_bdevsw, &raid_cdevsw);
 
 	if ((error = rump_vfs_makedevnodes(S_IFBLK, "/dev/raid0", 'a',
 	    bmaj, 0, 7)) != 0)

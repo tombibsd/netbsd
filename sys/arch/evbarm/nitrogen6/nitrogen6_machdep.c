@@ -95,6 +95,7 @@ u_int uboot_args[4] = { 0 };
 #endif
 
 void nitrogen6_setup_iomux(void);
+void nitrogen6_device_register(device_t, void *);
 
 static const bus_addr_t comcnaddr = (bus_addr_t)CONADDR;
 static const int comcnspeed = CONSPEED;
@@ -247,7 +248,7 @@ initarm(void *arg)
 	    mapallmem_p);
 
 	/* we've a specific device_register routine */
-	evbarm_device_register = imx6_device_register;
+	evbarm_device_register = nitrogen6_device_register;
 
 #ifdef PMAP_NEED_ALLOC_POOLPAGE
 	/*
@@ -302,7 +303,7 @@ consinit(void)
 		paddr_t consaddr;
 
 		consaddr = CONADDR;
-		imxuart_cons_attach(&imx_bs_tag, consaddr, consrate, consmode);
+		imxuart_cons_attach(&armv7_generic_bs_tag, consaddr, consrate, consmode);
 		return;
 	}
 # endif /* (NIMXUART > 0) && defined(IMXUARTCONSOLE) */

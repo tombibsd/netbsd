@@ -1,4 +1,4 @@
-/Makefile/1.23/Sun Jul 17 20:54:43 2011/-kk/
+/Makefile/1.24/Thu Jan  7 06:24:24 2016/-kk/
 /adbsys.h/1.13/Mon Feb 14 07:01:48 2000/-kk/
 /ansi.h/1.4/Wed Oct 26 08:46:24 1994/-kk/
 /aout_machdep.h/1.10/Tue Oct  8 13:07:31 1996/-kk/
@@ -13,6 +13,7 @@
 /elf_machdep.h/1.1/Sun Jul 12 01:17:59 1998/-kk/
 /endian.h/1.6/Fri Mar 17 00:09:21 2000/-kk/
 /endian_machdep.h/1.1/Fri Mar 17 00:09:21 2000/-kk/
+/fenv.h/1.1/Thu Dec 24 14:13:36 2015/-kk/
 /float.h/1.7/Tue Feb  3 01:26:28 1998/-kk/
 /frame.h/1.5/Sun May  5 06:17:46 1996/-kk/
 /grfioctl.h/1.15/Sun Sep 13 01:30:48 2015/-kk/

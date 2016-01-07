@@ -4,6 +4,7 @@ INCSDIR= /usr/include/prep
 
 INCS=   bootinfo.h \
 	disklabel.h \
+	fenv.h \
 	intr.h \
 	nvram.h \
 	sljit_machdep.h \

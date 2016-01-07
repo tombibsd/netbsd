@@ -20,6 +20,7 @@
 ./usr/include/sun3/endian.h			comp-c-include
 ./usr/include/sun3/endian_machdep.h		comp-c-include
 ./usr/include/sun3/fbio.h			comp-obsolete		obsolete
+./usr/include/sun3/fenv.h			comp-c-include
 ./usr/include/sun3/float.h			comp-c-include
 ./usr/include/sun3/frame.h			comp-c-include
 ./usr/include/sun3/idprom.h			comp-c-include

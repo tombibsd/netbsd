@@ -70,6 +70,7 @@ tegrafdt_attach(device_t parent, device_t self, void *aux)
 		"pinmux",
 		"gpio",
 		"regulators",
+		"fuse",
 		"dma",
 		"pmc",
 		"memory-controller",
@@ -92,4 +93,6 @@ tegrafdt_attach(device_t parent, device_t self, void *aux)
 		.faa_ninit = __arraycount(tegrafdt_init)
 	};
 	config_found(self, &faa, NULL);
+
+	tegra_cpuinit();
 }

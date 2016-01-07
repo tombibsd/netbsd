@@ -29,12 +29,7 @@ BINDIR=		${TESTSDIR}
 PROGS+=		h_atexit
 PROGS+=		h_getopt h_getopt_long
 
-.if ${MACHINE_CPU} == "aarch64" || ${MACHINE_CPU} == "arm" \
-    || ${MACHINE_ARCH} == "sparc" || ${MACHINE_ARCH} == "sparc64" \
-    || ${MACHINE_ARCH} == "i386" || ${MACHINE_ARCH} == "x86_64"
-CPPFLAGS.t_strtod.c+=	-DHAVE_FENV
-.endif
-
+CPPFLAGS.t_strtod.c+=  -D__TEST_FENV
 LDADD.t_strtod=			-lm
 DPADD.t_strtod+=		${LIBM}
 

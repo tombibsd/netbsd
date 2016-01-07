@@ -158,16 +158,21 @@ static void rf_alloc_mutex_cond(RF_Raid_t *);
 
 /* called at system boot time */
 int
-rf_BootRaidframe(void)
+rf_BootRaidframe(bool boot)
 {
 
-	if (raidframe_booted)
-		return (EBUSY);
-	raidframe_booted = 1;
-	rf_init_mutex2(configureMutex, IPL_NONE);
- 	configureCount = 0;
-	isconfigged = 0;
-	globalShutdown = NULL;
+	if (boot) {
+		if (raidframe_booted)
+			return (EBUSY);
+		raidframe_booted = 1;
+		rf_init_mutex2(configureMutex, IPL_NONE);
+ 		configureCount = 0;
+		isconfigged = 0;
+		globalShutdown = NULL;
+	} else {
+		rf_destroy_mutex2(configureMutex);
+		raidframe_booted = 0;
+	}
 	return (0);
 }
 

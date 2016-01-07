@@ -66,15 +66,10 @@ exynosfdt_attach(device_t parent, device_t self, void *aux)
 {
 	const char *exynosfdt_init[] = {
 		"interrupt-controller",
-		"clock",
-		"pinmux",
-		"gpio",
-		"regulators",
-		"dma",
-		"pmc",
-		"memory-controller",
+		"clock-controller",
+		"pinctrl",
 		"i2c",
-		"usb-phy"
+		"phy"
 	};
 
 	exynosfdt_found = true;

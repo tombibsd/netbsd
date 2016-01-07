@@ -230,6 +230,7 @@ extern unsigned char bcd_to_byte[256];
  */
 #undef howmany
 #define	howmany(x, y)	(((x)+((y)-1))/(y))
+#undef roundup
 #define	roundup(x, y)	((((x)+((y)-1))/(y))*(y))
 
 #endif	/* !__NetBSD__ */

@@ -208,3 +208,14 @@ awin_twi_attach(device_t parent, device_t self, void *aux)
 	 */
 	gttwsi_config_children(self);
 }
+
+struct i2c_controller *
+awin_twi_get_controller(device_t dev)
+{
+	if (!device_is_a(dev, "awiniic"))
+		return NULL;
+
+	struct awin_twi_softc * const sc = device_private(dev);
+
+	return &sc->asc_sc.sc_i2c;
+}

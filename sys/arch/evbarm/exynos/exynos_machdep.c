@@ -81,7 +81,6 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <arm/arm32/machdep.h>
 #include <arm/mainbus/mainbus.h>
 
-#include <arm/samsung/exynos4_reg.h>
 #include <arm/samsung/exynos5_reg.h>
 #include <arm/samsung/exynos_var.h>
 
@@ -450,7 +449,7 @@ consinit(void)
 	consinit_called = true;
 
 #if NSSCOM > 0
-	bus_space_tag_t bst = &exynos_bs_tag;
+	bus_space_tag_t bst = &armv7_generic_bs_tag;
 	bus_addr_t iobase = armreg_tpidruro_read();
 	bus_space_handle_t bsh = EXYNOS_IOPHYSTOVIRT(iobase);
 	u_int i;
@@ -553,7 +552,7 @@ void
 exynos_init_clkout_for_usb(void)
 {
 	/* Select XUSBXTI as source for CLKOUT */
-	bus_space_write_4(&exynos_bs_tag, exynos_pmu_bsh,
+	bus_space_write_4(&armv7_generic_bs_tag, exynos_pmu_bsh,
 		EXYNOS_PMU_DEBUG_CLKOUT, 0x1000);
 }
 

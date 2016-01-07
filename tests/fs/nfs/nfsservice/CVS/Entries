@@ -1,8 +1,7 @@
-/Makefile/1.9/Fri Nov 20 02:20:05 2015/-kk/
+/Makefile/1.11/Thu Jan  7 06:24:40 2016/-kk/
 /README/1.1/Mon Jul 26 15:53:00 2010/-kk/
 /exports/1.2/Fri Dec 31 18:11:27 2010/-kk/
 /getmntinfo.c/1.1/Mon Jul 26 15:53:00 2010/-kk/
-/nfsd.c/1.5/Sun Sep 13 01:08:05 2015/-kk/
 /pathnames.h/1.1/Mon Jul 26 15:53:00 2010/-kk/
 /rumpnfsd.c/1.9/Fri Nov 20 02:20:05 2015/-kk/
 D

@@ -337,7 +337,7 @@ cmd_migrate(gpt_t gpt, int argc, char *argv[])
 			force = 1;
 			break;
 		case 'p':
-			if (gpt_uint_get(&parts) == -1)
+			if (gpt_uint_get(gpt, &parts) == -1)
 				return usage();
 			break;
 		case 's':

@@ -130,11 +130,16 @@ fdtbus_get_phandle(int phandle, const char *prop)
 	phandle_ref = fdt32_to_cpu(buf[0]);
 	kmem_free(buf, len);
 
-	const int off = fdt_node_offset_by_phandle(fdt_data, phandle_ref);
+	return fdtbus_get_phandle_from_native(phandle_ref);
+}
+
+int
+fdtbus_get_phandle_from_native(int phandle)
+{
+	const int off = fdt_node_offset_by_phandle(fdt_data, phandle);
 	if (off < 0) {
 		return -1;
 	}
-
 	return fdtbus_offset2phandle(off);
 }
 

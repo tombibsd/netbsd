@@ -29,6 +29,10 @@
 #ifndef _EVBARM_NETWALKER_NETWALKER_BACKLIGHTVAR_H
 #define _EVBARM_NETWALKER_NETWALKER_BACKLIGHTVAR_H
 
+#include <dev/wscons/wsconsio.h>
+
 int netwalker_lcd_param_ioctl(u_long cmd, struct wsdisplay_param *dp);
+
+void netwalker_backlight_genfb_parameter_set(prop_dictionary_t);
 
 #endif	/* _EVBARM_NETWALKER_NETWALKER_BACKLIGHTVAR_H */

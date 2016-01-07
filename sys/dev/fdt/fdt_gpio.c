@@ -131,7 +131,7 @@ fdtbus_gpio_read(struct fdtbus_gpio_pin *gp)
 {
 	struct fdtbus_gpio_controller *gc = gp->gp_gc;
 
-	return gc->gc_funcs->read(gc->gc_dev, gp->gp_priv);
+	return gc->gc_funcs->read(gc->gc_dev, gp->gp_priv, false);
 }
 
 void
@@ -139,5 +139,21 @@ fdtbus_gpio_write(struct fdtbus_gpio_pin *gp, int val)
 {
 	struct fdtbus_gpio_controller *gc = gp->gp_gc;
 
-	gc->gc_funcs->write(gc->gc_dev, gp->gp_priv, val);
+	gc->gc_funcs->write(gc->gc_dev, gp->gp_priv, val, false);
+}
+
+int
+fdtbus_gpio_read_raw(struct fdtbus_gpio_pin *gp)
+{
+	struct fdtbus_gpio_controller *gc = gp->gp_gc;
+
+	return gc->gc_funcs->read(gc->gc_dev, gp->gp_priv, true);
+}
+
+void
+fdtbus_gpio_write_raw(struct fdtbus_gpio_pin *gp, int val)
+{
+	struct fdtbus_gpio_controller *gc = gp->gp_gc;
+
+	gc->gc_funcs->write(gc->gc_dev, gp->gp_priv, val, true);
 }

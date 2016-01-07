@@ -396,8 +396,11 @@ int dwc2_hcd_urb_enqueue(struct dwc2_hsotg *hsotg,
 		u32 hprt0 = DWC2_READ_4(hsotg, HPRT0);
 		u32 prtspd = (hprt0 & HPRT0_SPD_MASK) >> HPRT0_SPD_SHIFT;
 
-		if (prtspd == HPRT0_SPD_FULL_SPEED)
+		if (prtspd == HPRT0_SPD_FULL_SPEED) {
+			dev_err(hsotg->dev,
+				"DWC OTG HCD URB Enqueue unsupported\n");
 			return -ENODEV;
+		}
 	}
 
 	if (!qtd)

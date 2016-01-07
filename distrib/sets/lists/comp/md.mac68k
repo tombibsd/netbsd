@@ -16,6 +16,7 @@
 ./usr/include/mac68k/elf_machdep.h		comp-c-include
 ./usr/include/mac68k/endian.h			comp-c-include
 ./usr/include/mac68k/endian_machdep.h		comp-c-include
+./usr/include/mac68k/fenv.h			comp-c-include
 ./usr/include/mac68k/float.h			comp-c-include
 ./usr/include/mac68k/frame.h			comp-c-include
 ./usr/include/mac68k/grfioctl.h			comp-c-include

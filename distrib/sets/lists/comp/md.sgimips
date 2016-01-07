@@ -18,6 +18,7 @@
 ./usr/include/sgimips/elf_machdep.h		comp-c-include
 ./usr/include/sgimips/endian.h			comp-c-include
 ./usr/include/sgimips/endian_machdep.h		comp-c-include
+./usr/include/sgimips/fenv.h			comp-c-include
 ./usr/include/sgimips/float.h			comp-c-include
 ./usr/include/sgimips/ieee.h			comp-c-include
 ./usr/include/sgimips/ieeefp.h			comp-c-include

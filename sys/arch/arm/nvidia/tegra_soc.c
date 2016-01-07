@@ -71,8 +71,6 @@ tegra_bootstrap(void)
 	    &tegra_apb_bsh) != 0)
 		panic("couldn't map APB");
 
-	curcpu()->ci_data.cpu_cc_freq = tegra_car_pllx_rate();
-
 	tegra_mpinit();
 }
 

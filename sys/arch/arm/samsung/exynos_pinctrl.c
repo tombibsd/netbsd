@@ -47,7 +47,7 @@ __KERNEL_RCSID(1, "$NetBSD$");
 #include <dev/gpio/gpiovar.h>
 
 #include <arm/samsung/exynos_reg.h>
-#include <arm/samsung/exynos_io.h>
+#include <arm/samsung/exynos_var.h>
 #include <arm/samsung/exynos_intr.h>
 #include <arm/samsung/exynos_pinctrl.h>
 
@@ -56,13 +56,25 @@ __KERNEL_RCSID(1, "$NetBSD$");
 static int exynos_pinctrl_match(device_t, cfdata_t, void *);
 static void exynos_pinctrl_attach(device_t, device_t, void *);
 
+static void *exynos_pinctrl_acquire(device_t, const char *);
+static void  exynos_pinctrl_release(device_t, void *);
+static void  exynos_pinctrl_get_cfg(struct fdtbus_pinctrl_pin *, void *);
+static void  exynos_pinctrl_set_cfg(struct fdtbus_pinctrl_pin *, void *);
+
+static struct fdtbus_pinctrl_controller_func exynos_pinctrl_controller_func = {
+	.acquire = exynos_pinctrl_acquire,
+	.release = exynos_pinctrl_release,
+	.get     = exynos_pinctrl_get_cfg,
+	.set     = exynos_pinctrl_set_cfg,
+};
+
 CFATTACH_DECL_NEW(exynos_pinctrl, sizeof(struct exynos_pinctrl_softc),
 	exynos_pinctrl_match, exynos_pinctrl_attach, NULL, NULL);
 
 static int
 exynos_pinctrl_match(device_t parent, cfdata_t cf, void *aux)
 {
-	const char * const compatible[] = { "samsung,exynos5422-pinctrl",
+	const char * const compatible[] = { "samsung,exynos5420-pinctrl",
 					    NULL };
 	struct fdt_attach_args * const faa = aux;
 	return of_match_compatible(faa->faa_phandle, compatible);
@@ -74,6 +86,7 @@ exynos_pinctrl_attach(device_t parent, device_t self, void *aux)
 	struct exynos_pinctrl_softc * const sc
 		= kmem_zalloc(sizeof(*sc), KM_SLEEP);
 	struct fdt_attach_args * const faa = aux;
+	struct exynos_gpio_softc *child_sc;
 	bus_addr_t addr;
 	bus_size_t size;
 	int error;
@@ -84,7 +97,7 @@ exynos_pinctrl_attach(device_t parent, device_t self, void *aux)
 		return;
 	}
 
-	printf(" pinctl @ 0x%08x\n", (uint)addr);
+	aprint_normal(" pinctl @ 0x%08x ", (uint)addr);
 	sc->sc_dev = self;
 	sc->sc_bst = faa->faa_bst;
 	error = bus_space_map(sc->sc_bst, addr, size, 0, &sc->sc_bsh);
@@ -94,17 +107,48 @@ exynos_pinctrl_attach(device_t parent, device_t self, void *aux)
 		return;
 	}
 
-	for (child = OF_child(faa->faa_phandle); child;
-	     child = OF_peer(child)) {
-		char result[64];
-		error = OF_getprop(child, "gpio-controller", result,
-				   sizeof(result));
-		if (error == -1)
-			continue;
-		exynos_gpio_bank_config(sc,child);
-	}
-
 	aprint_naive("\n");
 	aprint_normal("\n");
 
+	for (child = OF_child(faa->faa_phandle); child;
+	     child = OF_peer(child)) {
+		if (of_getprop_bool(child, "gpio-controller") == false)
+			continue;
+		child_sc = exynos_gpio_bank_config(sc, faa, child);
+		fdtbus_register_pinctrl_controller(child_sc->sc_dev, child,
+					    &exynos_pinctrl_controller_func);
+	}
+}
+
+
+static void *exynos_pinctrl_acquire(device_t self, const char *name)
+{
+	return exynos_gpio_bank_lookup(name);
+}
+
+static void exynos_pinctrl_release(device_t self, void *cookie)
+{
+}
+
+static void exynos_pinctrl_get_cfg(struct fdtbus_pinctrl_pin *pin,
+				   void *cookie)
+{
+	struct exynos_gpio_bank *bank = pin->pp_priv;
+	struct exynos_gpio_pin_cfg *cfg  = cookie;
+	struct exynos_gpio_pin_cfg **cfgp = &cfg;
+	struct exynos_gpio_pin_cfg *newcfg = kmem_zalloc(sizeof(*newcfg),
+							 KM_SLEEP);
+	if (newcfg == NULL)
+		return;
+	exynos_gpio_pin_ctl_read(bank, newcfg);
+	*cfgp = newcfg;
+	return;
+}
+
+static void exynos_pinctrl_set_cfg(struct fdtbus_pinctrl_pin *pin,
+				   void *cookie)
+{
+	struct exynos_gpio_bank *bank = pin->pp_priv;
+	struct exynos_gpio_pin_cfg *cfg = cookie;
+	exynos_gpio_pin_ctl_write(bank, cfg);
 }

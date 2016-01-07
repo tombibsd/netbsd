@@ -442,8 +442,8 @@ softint_disestablish(void *arg)
 			KASSERT(sh->sh_func != NULL);
 			flags |= sh->sh_flags;
 		}
-		/* Inactive on all CPUs? */
-		if ((flags & SOFTINT_ACTIVE) == 0) {
+		/* Neither pending nor active on all CPUs? */
+		if ((flags & (SOFTINT_PENDING | SOFTINT_ACTIVE)) == 0) {
 			break;
 		}
 		/* Oops, still active.  Wait for it to clear. */

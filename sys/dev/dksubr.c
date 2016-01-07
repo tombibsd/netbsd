@@ -94,6 +94,8 @@ dk_init(struct dk_softc *dksc, device_t dev, int dtype)
 void
 dk_attach(struct dk_softc *dksc)
 {
+	KASSERT(dksc->sc_dev != NULL);
+
 	mutex_init(&dksc->sc_iolock, MUTEX_DEFAULT, IPL_VM);
 	dksc->sc_flags |= DKF_READYFORDUMP;
 #ifdef DIAGNOSTIC
@@ -274,8 +276,8 @@ done:
 	return bp->b_error;
 }
 
-void
-dk_strategy(struct dk_softc *dksc, struct buf *bp)
+static int
+dk_strategy1(struct dk_softc *dksc, struct buf *bp)
 {
 	int error;
 
@@ -286,14 +288,26 @@ dk_strategy(struct dk_softc *dksc, struct buf *bp)
 		DPRINTF_FOLLOW(("%s: not inited\n", __func__));
 		bp->b_error  = ENXIO;
 		biodone(bp);
-		return;
+		return 1;
 	}
 
 	error = dk_translate(dksc, bp);
 	if (error >= 0) {
 		biodone(bp);
-		return;
+		return 1;
 	}
+
+	return 0;
+}
+
+void
+dk_strategy(struct dk_softc *dksc, struct buf *bp)
+{
+	int error;
+
+	error = dk_strategy1(dksc, bp);
+	if (error)
+		return;
 
 	/*
 	 * Queue buffer and start unit
@@ -301,11 +315,52 @@ dk_strategy(struct dk_softc *dksc, struct buf *bp)
 	dk_start(dksc, bp);
 }
 
+int
+dk_strategy_defer(struct dk_softc *dksc, struct buf *bp)
+{
+	int error;
+
+	error = dk_strategy1(dksc, bp);
+	if (error)
+		return error;
+
+	/*
+	 * Queue buffer only
+	 */
+	mutex_enter(&dksc->sc_iolock);
+	bufq_put(dksc->sc_bufq, bp);
+	mutex_exit(&dksc->sc_iolock);
+
+	return 0;
+}
+
+int
+dk_strategy_pending(struct dk_softc *dksc)
+{
+	struct buf *bp;
+
+	if (!(dksc->sc_flags & DKF_INITED)) {
+		DPRINTF_FOLLOW(("%s: not inited\n", __func__));
+		return 0;
+	}
+
+	mutex_enter(&dksc->sc_iolock);
+	bp = bufq_peek(dksc->sc_bufq);
+	mutex_exit(&dksc->sc_iolock);
+
+	return bp != NULL;
+}
+
 void
 dk_start(struct dk_softc *dksc, struct buf *bp)
 {
 	const struct dkdriver *dkd = dksc->sc_dkdev.dk_driver;
 	int error;
+
+	if (!(dksc->sc_flags & DKF_INITED)) {
+		DPRINTF_FOLLOW(("%s: not inited\n", __func__));
+		return;
+	}
 
 	mutex_enter(&dksc->sc_iolock);
 

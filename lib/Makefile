@@ -52,7 +52,6 @@ SUBDIR+=	../external/apache2/mDNSResponder/lib
 .endif
 
 SUBDIR+=	../external/bsd/am-utils/lib
-SUBDIR+=	../external/bsd/blacklist/lib
 
 SUBDIR+=	../external/bsd/flex/lib
 SUBDIR+=	../external/bsd/tre/lib
@@ -115,6 +114,7 @@ SUBDIR+=	../crypto/external/bsd/netpgp/libmj
 SUBDIR+=	../crypto/external/bsd/netpgp/lib/verify # depends on libz
 .endif
 
+SUBDIR+=	../external/bsd/blacklist/lib		# depends on libpthread
 SUBDIR+=	../external/bsd/elftoolchain/lib/libdwarf # depends on libelf
 SUBDIR+=	../external/mit/lua/lib # depends on libm
 SUBDIR+=	libcurses	# depends on libterminfo

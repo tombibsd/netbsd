@@ -157,9 +157,6 @@ struct hdaudio_softc {
 	struct hdaudio_stream	sc_stream[HDAUDIO_MAX_STREAMS];
 	uint32_t		sc_stream_mask;
 	kmutex_t		sc_stream_mtx;
-
-	uint32_t		sc_flags;
-#define HDAUDIO_FLAG_NO_STREAM_RESET	0x0001
 };
 
 int	hdaudio_attach(device_t, struct hdaudio_softc *);

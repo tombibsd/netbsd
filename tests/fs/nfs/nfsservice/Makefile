@@ -16,7 +16,7 @@ LDADD+= -L${VFSTESTDIR} -Wl,--whole-archive -lvfstest -Wl,--no-whole-archive
 
 TESTS_C=rumpnfsd
 
-SRCS.rumpnfsd= rumpnfsd.c nfsd.c mountd.c getmntinfo.c
+SRCS.rumpnfsd= rumpnfsd.c nfsd.c mountd.c getmntinfo.c get_net.c
 
 LDADD+=	-lrumpfs_nfsserver -lrumpfs_nfs				# NFS support
 LDADD+=	-lrumpdev_disk -lrumpdev				# disk devices
@@ -27,9 +27,9 @@ LDADD+=	-lrumpnet -lrumpkern_sysproxy -lrump -lrumpuser		# base
 LDADD+=	-lpthread -lutil
 
 CPPFLAGS+=	-DDEBUG -DMOUNT_NOMAIN -D_REENTRANT
-CPPFLAGS+=	-DRUMP_SYS_NETWORKING -DMOUNTD_RUMP
+CPPFLAGS+=	-DRUMP_SYS_NETWORKING -DMOUNTD_RUMP -DNFSD_RUMP
 
-.PATH.c: ${NETBSDSRCDIR}/usr.sbin/mountd
+.PATH.c: ${NETBSDSRCDIR}/usr.sbin/mountd ${NETBSDSRCDIR}/usr.sbin/nfsd
 
 # RPCBIND
 .PATH.c: ${NETBSDSRCDIR}/usr.sbin/rpcbind

@@ -237,9 +237,9 @@
 /if_vtereg.h/1.2/Thu Apr 28 17:32:48 2011/-kk/
 /if_vtevar.h/1.4/Wed Apr 22 07:36:57 2015/-kk/
 /if_wi_pci.c/1.55/Fri Apr 11 02:03:49 2014/-kk/
-/if_wm.c/1.383/Fri Dec 25 06:18:24 2015/-kk/
-/if_wmreg.h/1.87/Fri Nov 20 01:31:17 2015/-kk/
-/if_wmvar.h/1.29/Thu Jun 18 03:42:27 2015/-kk/
+/if_wm.c/1.387/Thu Jan  7 06:24:33 2016/-kk/
+/if_wmreg.h/1.88/Thu Jan  7 06:24:33 2016/-kk/
+/if_wmvar.h/1.30/Thu Jan  7 06:24:33 2016/-kk/
 /if_wpi.c/1.71/Mon Jan 12 06:48:51 2015/-kk/
 /if_wpireg.h/1.13/Sun Jul 20 13:26:25 2014/-kk/
 /if_wpivar.h/1.19/Mon Jan 12 06:48:51 2015/-kk/

@@ -5,7 +5,7 @@
 /cd9660_debug.c/1.13/Thu Oct 24 10:29:01 2013/-kk/
 /cd9660_eltorito.c/1.20/Thu Oct 24 10:29:01 2013/-kk/
 /cd9660_eltorito.h/1.5/Sat Jul  4 14:31:38 2009/-kk/
-/cd9660_strings.c/1.5/Wed Mar 23 13:11:51 2011/-kk/
+/cd9660_strings.c/1.6/Thu Jan  7 06:24:45 2016/-kk/
 /cd9660_write.c/1.17/Thu Oct 24 10:29:01 2013/-kk/
 /iso9660_rrip.c/1.14/Tue Jun  3 03:10:19 2014/-kk/
 /iso9660_rrip.h/1.6/Thu Oct 24 10:29:01 2013/-kk/

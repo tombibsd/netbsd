@@ -1060,9 +1060,10 @@ rtinit(struct ifaddr *ifa, int cmd, int flags)
 		info.rti_info[RTAX_NETMASK] = ifa->ifa_netmask;
 	error = rtrequest1((cmd == RTM_LLINFO_UPD) ? RTM_GET : cmd, &info,
 	    &nrt);
-	if (error != 0 || (rt = nrt) == NULL)
+	if (error != 0)
 		return error;
 
+	rt = nrt;
 	switch (cmd) {
 	case RTM_DELETE:
 		rt_newmsg(cmd, rt);

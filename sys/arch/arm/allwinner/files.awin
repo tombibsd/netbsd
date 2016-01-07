@@ -144,6 +144,11 @@ device	awinhdmi: edid, videomode
 attach	awinhdmi at awinio with awin_hdmi
 file	arch/arm/allwinner/awin_hdmi.c		awin_hdmi
 
+# A20 TV Encoder / VGA output
+device	awintve: edid, videomode
+attach	awintve at awinio with awin_tve
+file	arch/arm/allwinner/awin_tve.c		awin_tve
+
 # A20/A31 HDMI audio (HDMIAUDIO)
 device	awinhdmiaudio: audiobus, auconv, mulaw, aurateconv, auvolconv
 attach	awinhdmiaudio at awinio with awin_hdmiaudio

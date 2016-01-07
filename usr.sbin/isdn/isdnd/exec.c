@@ -368,7 +368,10 @@ upd_callstat_file(char *filename, int rotateflag)
 			nfp = fopen(buf, "w");
 			if (nfp == NULL)
 			{
-				logit(LL_ERR, "ERROR, upd_callstat_file: cannot open for write %s, %s", buf, strerror(errno));
+				logit(LL_ERR, "ERROR, upd_callstat_file: "
+				    "cannot open for write %s, %s", buf,
+				    strerror(errno));
+				fclose(fp);
 				return;
 			}
 

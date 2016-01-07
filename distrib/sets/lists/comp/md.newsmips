@@ -19,6 +19,7 @@
 ./usr/include/newsmips/elf_machdep.h		comp-c-include
 ./usr/include/newsmips/endian.h			comp-c-include
 ./usr/include/newsmips/endian_machdep.h		comp-c-include
+./usr/include/newsmips/fenv.h			comp-c-include
 ./usr/include/newsmips/float.h			comp-c-include
 ./usr/include/newsmips/framebuf.h		comp-obsolete		obsolete
 ./usr/include/newsmips/ieee.h			comp-c-include

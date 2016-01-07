@@ -190,10 +190,10 @@ sscom_attach(device_t parent, device_t self, void *aux)
 		}
 		sc->sc_ioh = bsh;
 	} else {
-		printf(" (console) ");
+		aprint_normal(" (console) ");
 	}
 
-	printf("\n");
+	aprint_normal("\n");
 
 #if 0
 	void *ih = fdtbus_intr_establish(faa->faa_phandle, 0, IPL_SERIAL,

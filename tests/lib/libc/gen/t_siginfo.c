@@ -44,8 +44,8 @@
 #include <setjmp.h>
 #include <float.h>
 
-#ifdef HAVE_FENV
 #include <fenv.h>
+#ifdef __HAVE_FENV
 #include <ieeefp.h>	/* only need for ARM Cortex/Neon hack */
 #elif defined(_FLOAT_IEEE754)
 #include <ieeefp.h>
@@ -325,7 +325,7 @@ ATF_TC_BODY(sigfpe_flt, tc)
 		sa.sa_sigaction = sigfpe_flt_action;
 		sigemptyset(&sa.sa_mask);
 		sigaction(SIGFPE, &sa, NULL);
-#ifdef HAVE_FENV
+#ifdef __HAVE_FENV
 		feenableexcept(FE_ALL_EXCEPT);
 #elif defined(_FLOAT_IEEE754)
 		fpsetmask(FP_X_INV|FP_X_DZ|FP_X_OFL|FP_X_UFL|FP_X_IMP);
@@ -376,7 +376,7 @@ ATF_TC_BODY(sigfpe_int, tc)
 		sa.sa_sigaction = sigfpe_int_action;
 		sigemptyset(&sa.sa_mask);
 		sigaction(SIGFPE, &sa, NULL);
-#ifdef HAVE_FENV
+#ifdef __HAVE_FENV
 		feenableexcept(FE_ALL_EXCEPT);
 #elif defined(_FLOAT_IEEE754)
 		fpsetmask(FP_X_INV|FP_X_DZ|FP_X_OFL|FP_X_UFL|FP_X_IMP);

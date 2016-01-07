@@ -189,4 +189,6 @@ awin_reg_set_clear(bus_space_tag_t bst, bus_space_handle_t bsh,
 	}
 }
 
+struct i2c_controller *awin_twi_get_controller(device_t);
+
 #endif /* _ARM_ALLWINNER_AWIN_VAR_H_ */

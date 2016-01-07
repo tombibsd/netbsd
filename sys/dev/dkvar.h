@@ -92,6 +92,8 @@ int	dk_open(struct dk_softc *, dev_t,
 int	dk_close(struct dk_softc *, dev_t,
 		 int, int, struct lwp *);
 void	dk_strategy(struct dk_softc *, struct buf *);
+int	dk_strategy_defer(struct dk_softc *, struct buf *);
+int	dk_strategy_pending(struct dk_softc *);
 int	dk_discard(struct dk_softc *, dev_t, off_t, off_t);
 void	dk_start(struct dk_softc *, struct buf *);
 void	dk_done(struct dk_softc *, struct buf *);

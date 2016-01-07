@@ -138,7 +138,7 @@ cmd_create(gpt_t gpt, int argc, char *argv[])
 			primary_only = 1;
 			break;
 		case 'p':
-			if (gpt_uint_get(&parts) == -1)
+			if (gpt_uint_get(gpt, &parts) == -1)
 				return -1;
 			break;
 		default:

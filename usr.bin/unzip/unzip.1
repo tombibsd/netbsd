@@ -27,7 +27,7 @@
 .\" $FreeBSD: revision 180125$
 .\" $NetBSD$
 .\"
-.Dd August 18, 2011
+.Dd December 21, 2015
 .Dt UNZIP 1
 .Os
 .Sh NAME
@@ -142,8 +142,8 @@ option should only affect files which are marked as text files in the
 zipfile's central directory.
 Since the
 .Xr archive 3
-library reads zipfiles sequentially, and does not use the central
-directory, that information is not available to the
+library does not provide access to that information, it is not available
+to the
 .Nm
 utility.
 Instead, the
