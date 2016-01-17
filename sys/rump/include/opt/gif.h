@@ -1,3 +1,3 @@
 /*	$NetBSD$	*/
 
-/* dummy */
+#define NGIF 1

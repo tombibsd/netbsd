@@ -895,6 +895,8 @@ again:
 
 	ifioctl_detach(ifp);
 
+	IF_AFDATA_LOCK_DESTROY(ifp);
+
 	/*
 	 * remove packets that came from ifp, from software interrupt queues.
 	 */

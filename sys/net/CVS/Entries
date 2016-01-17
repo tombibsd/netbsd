@@ -13,8 +13,8 @@
 /ethertypes.h/1.18/Sun Sep 23 01:14:19 2012/-kk/
 /files.net/1.8/Sat Dec  5 11:19:35 2015/-kk/
 /files.pf/1.6/Mon Aug 29 09:50:04 2011/-kk/
-/if.c/1.319/Sun Nov 29 09:10:55 2015/-kk/
-/if.h/1.193/Sun Oct 11 09:01:36 2015/-kk/
+/if.c/1.320/Sun Jan 17 10:34:23 2016/-kk/
+/if.h/1.194/Sun Jan 17 10:34:23 2016/-kk/
 /if_arc.h/1.22/Wed Feb 20 17:05:52 2008/-kk/
 /if_arcsubr.c/1.69/Sun Nov 15 13:36:27 2015/-kk/
 /if_arp.h/1.30/Sun Sep 13 01:07:49 2015/-kk/
@@ -33,8 +33,8 @@
 /if_faith.h/1.3/Sun Dec 11 23:05:25 2005/-kk/
 /if_fddi.h/1.14/Tue Dec 25 18:33:45 2007/-kk/
 /if_fddisubr.c/1.95/Sun Nov 15 13:36:27 2015/-kk/
-/if_gif.c/1.102/Fri Dec 25 06:18:30 2015/-kk/
-/if_gif.h/1.20/Fri Dec 25 06:18:30 2015/-kk/
+/if_gif.c/1.104/Sun Jan 17 10:34:23 2016/-kk/
+/if_gif.h/1.21/Sun Jan 17 10:34:23 2016/-kk/
 /if_gre.c/1.167/Sun Sep 13 01:07:49 2015/-kk/
 /if_gre.h/1.43/Sun Sep 13 01:31:57 2015/-kk/
 /if_hippi.h/1.13/Mon Apr 28 20:24:09 2008/-kk/

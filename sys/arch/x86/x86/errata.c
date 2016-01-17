@@ -294,7 +294,7 @@ x86_errata_testmsr(struct cpu_info *ci, errata_t *e)
 
 	(void)ci;
 
-	val = rdmsr_locked(e->e_data1, OPTERON_MSR_PASSCODE);
+	val = rdmsr_locked(e->e_data1);
 	if ((val & e->e_data2) != 0)
 		return FALSE;
 
@@ -309,10 +309,10 @@ x86_errata_setmsr(struct cpu_info *ci, errata_t *e)
 
 	(void)ci;
 
-	val = rdmsr_locked(e->e_data1, OPTERON_MSR_PASSCODE);
+	val = rdmsr_locked(e->e_data1);
 	if ((val & e->e_data2) != 0)
 		return FALSE;
-	wrmsr_locked(e->e_data1, OPTERON_MSR_PASSCODE, val | e->e_data2);
+	wrmsr_locked(e->e_data1, val | e->e_data2);
 	aprint_debug_dev(ci->ci_dev, "erratum %d patched\n",
 	    e->e_num);
 

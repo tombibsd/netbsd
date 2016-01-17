@@ -1,8 +1,8 @@
-/_Noreturn.h/1.3/Sat Jul 25 01:21:11 2015/-kk/
-/compat.h/1.3/Sat Jul 25 01:21:11 2015/-kk/
-/pathfind.c/1.6/Fri Nov 20 01:23:15 2015/-kk/
-/snprintf.c/1.3/Sat Jul 25 01:21:11 2015/-kk/
-/strchr.c/1.3/Sat Jul 25 01:21:11 2015/-kk/
-/strdup.c/1.3/Sat Jul 25 01:21:11 2015/-kk/
-/windows-config.h/1.3/Sat Jul 25 01:21:12 2015/-kk/
+/_Noreturn.h/1.4/Sun Jan 17 10:32:32 2016/-kk/
+/compat.h/1.4/Sun Jan 17 10:32:32 2016/-kk/
+/pathfind.c/1.7/Sun Jan 17 10:32:32 2016/-kk/
+/snprintf.c/1.4/Sun Jan 17 10:32:32 2016/-kk/
+/strchr.c/1.4/Sun Jan 17 10:32:32 2016/-kk/
+/strdup.c/1.4/Sun Jan 17 10:32:32 2016/-kk/
+/windows-config.h/1.4/Sun Jan 17 10:32:32 2016/-kk/
 D

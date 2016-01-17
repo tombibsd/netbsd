@@ -375,6 +375,8 @@ hid_get_item_raw(hid_data_t s, hid_item_t *h)
 				break;
 			case 11: /* Pop */
 				hi = c->next;
+				if (hi == NULL)
+					break;
 				s->cur = *hi;
 				free(hi);
 				break;

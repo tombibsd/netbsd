@@ -280,7 +280,7 @@ diff_and_merge_file() {
 	if cmp -s "${TEMPROOT}${1}" "${DESTDIR}${1}"; then
 		verbose "===> ${1} (ok)"
 		rm -f "${TEMPROOT}${1}"
-		install_checksum "${DESTDIR}${1}"
+		install_checksum "${1}"
 		return
 	fi
 

@@ -131,5 +131,6 @@
 #define RAIDFRAME_PARITYMAP_GET_DISABLE _IOR('r', 38, int)
 #define RAIDFRAME_PARITYMAP_SET_DISABLE _IOW('r', 39, int)
 #define RAIDFRAME_PARITYMAP_SET_PARAMS _IOW('r', 40, struct rf_pmparams)
+#define RAIDFRAME_SET_LAST_UNIT _IOW('r', 41, int)
 
 #endif				/* !_RF_RAIDFRAMEIO_H_ */

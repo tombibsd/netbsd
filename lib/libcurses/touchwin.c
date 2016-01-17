@@ -207,8 +207,8 @@ static int
 _cursesi_touchline_force(WINDOW *win, int y, int sx, int ex, int force)
 {
 #ifdef DEBUG
-	__CTRACE(__CTRACE_LINE, "__touchline: (%p, %d, %d, %d)\n",
-	    win, y, sx, ex);
+	__CTRACE(__CTRACE_LINE, "__touchline: (%p, %d, %d, %d, %d)\n",
+	    win, y, sx, ex, force);
 	__CTRACE(__CTRACE_LINE, "__touchline: first = %d, last = %d\n",
 	    *win->alines[y]->firstchp, *win->alines[y]->lastchp);
 #endif

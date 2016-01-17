@@ -1614,6 +1614,8 @@ xhci_new_device(device_t parent, usbd_bus_handle bus, int depth,
 		dd->bMaxPacketSize, dd->bLength, dd->bNumConfigurations,
 		dev->speed);
 
+	usbd_get_device_strings(dev);
+
 	usbd_add_dev_event(USB_EVENT_DEVICE_ATTACH, dev);
 
 	if ((depth == 0) && (port == 0)) {

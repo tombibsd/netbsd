@@ -301,8 +301,8 @@ fegetexcept(void)
 
 #endif /* _NETBSD_SOURCE || _GNU_SOURCE */
 
-#endif /* !__m68010__ && !__mcoldfire__ */
-
 __END_DECLS
+
+#endif /* !__m68010__ && !__mcoldfire__ */
 
 #endif /* _M68K_FENV_H_ */

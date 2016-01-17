@@ -162,7 +162,7 @@ alloc_res4(void)
 	const size_t	count = INC_RESLIST4;
 	restrict_u *	rl;
 	restrict_u *	res;
-	int		i;
+	size_t		i;
 
 	UNLINK_HEAD_SLIST(res, resfree4, link);
 	if (res != NULL)
@@ -188,7 +188,7 @@ alloc_res6(void)
 	const size_t	count = INC_RESLIST6;
 	restrict_u *	rl;
 	restrict_u *	res;
-	int		i;
+	size_t		i;
 
 	UNLINK_HEAD_SLIST(res, resfree6, link);
 	if (res != NULL)

@@ -57,10 +57,12 @@ hid_get_data(const void *p, const hid_item_t *h)
 	for (i = 0; i < end; i++)
 		data |= buf[offs + i] << (i*8);
 	data >>= hpos % 8;
-	data &= (1 << hsize) - 1;
-	if (h->logical_minimum < 0 && (data & (1<<(hsize-1)))) {
-		/* Need to sign extend */
-		data |= 0xffffffff & ~((1<<hsize)-1);
+	if (hsize < 32) {
+		data &= (1 << hsize) - 1;
+		if (h->logical_minimum < 0 && (data & (1<<(hsize-1)))) {
+			/* Need to sign extend */
+			data |= 0xffffffff & ~((1<<hsize)-1);
+		}
 	}
 	return (int)(data);
 }
@@ -93,7 +95,7 @@ hid_set_data(void *p, const hid_item_t *h, int data)
 	offs = hpos / 8;
 	end = (hpos + hsize) / 8 - offs;
 
-	for (i = 0; i <= end; i++)
+	for (i = 0; i < end; i++)
 		buf[offs + i] = (buf[offs + i] & ((uint32_t)mask >> (i*8))) |
 			(((uint32_t)data >> (i*8)) & 0xff);
 }

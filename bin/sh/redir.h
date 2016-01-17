@@ -44,5 +44,5 @@ void redirect(union node *, int);
 void popredir(void);
 int fd0_redirected_p(void);
 void clearredir(int);
-int copyfd(int, int, int);
+int copyfd(int, int, int, int);
 

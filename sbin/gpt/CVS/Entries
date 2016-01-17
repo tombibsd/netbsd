@@ -5,7 +5,7 @@
 /create.c/1.20/Thu Jan  7 06:24:10 2016/-kk/
 /destroy.c/1.10/Fri Dec 25 05:39:59 2015/-kk/
 /gpt.8/1.45/Thu Jan  7 06:24:10 2016/-kk/
-/gpt.c/1.66/Thu Jan  7 06:24:10 2016/-kk/
+/gpt.c/1.67/Sun Jan 17 10:33:55 2016/-kk/
 /gpt.h/1.32/Thu Jan  7 06:24:10 2016/-kk/
 /gpt_private.h/1.1/Tue Dec  1 09:05:33 2015/-kk/
 /gpt_uuid.c/1.13/Fri Dec 25 05:39:59 2015/-kk/

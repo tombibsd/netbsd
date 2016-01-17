@@ -61,7 +61,7 @@ LIB=	tsan
 SRCS=	${TSAN_SRCS} ${INTERCEPTION_SRCS} ${SANITIZER_SRCS}
 CPPFLAGS+=-I${TSAN}/include -I${TSAN}
 
-LDADD+=	-lstdc++ -lpthread
-DPADD+= ${LIBSTDCXX} ${LIBPTHREAD}
+LIBDPLIBS+=	stdc++	${.CURDIR}/../libstdc++-v3 \
+		pthread	${NETBSDSRCDIR}/lib/libpthread
 
 .include <bsd.lib.mk>

@@ -4,7 +4,7 @@
 
 TESTS_SUBDIRS=	csu libbluetooth libc libcrypt libcurses libevent libexecinfo \
 		libm libobjc libposix libppath libprop libpthread \
-		librt libtre libutil semaphore
+		librt libtre libusbhid libutil semaphore
 
 .if (${MKRUMP} != "no") && !defined(BSD_MK_COMPAT_FILE)
 TESTS_SUBDIRS+= librumpclient librumphijack

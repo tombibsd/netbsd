@@ -1,10 +1,11 @@
 # $NetBSD$
 
+.include <bsd.init.mk>
+
 LIB=		lzma
 USE_SHLIBDIR=	yes
 NOLINT=		yes
 
-.include <bsd.init.mk>
 
 .PATH:	${XZSRCDIR}/src/liblzma/api ${XZSRCDIR}/src/liblzma/api/lzma
 INCS+=	base.h bcj.h block.h check.h container.h delta.h \
@@ -85,7 +86,6 @@ liblzma.pc:	${XZSRCDIR}/src/liblzma/liblzma.pc.in
 
 CLEANFILES+=	liblzma.pc
 
-LDADD+=	-lpthread
-DPADD+=	${LIBPTHREAD}
+LIBDPLIBS+=	pthread ${NETBSDSRCDIR}/lib/libpthread
 
 .include <bsd.lib.mk>

@@ -54,7 +54,7 @@ struct Library {
 struct MemHead {
 	struct MemHead *next;
 	u_int8_t Dmy1[  9-  4];
-	u_int8_t Pri;
+	int8_t Pri;
 	u_int8_t Dmy2[ 14- 10];
 	u_int16_t Attribs;
 	u_int32_t First, Lower, Upper, Free;

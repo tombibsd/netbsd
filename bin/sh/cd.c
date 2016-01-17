@@ -429,7 +429,7 @@ find_curdir(int noerror)
 			(void) close(pip[0]);
 			if (pip[1] != 1) {
 				close(1);
-				copyfd(pip[1], 1, 1);
+				copyfd(pip[1], 1, 1, 0);
 				close(pip[1]);
 			}
 			(void) execl("/bin/pwd", "pwd", (char *)0);

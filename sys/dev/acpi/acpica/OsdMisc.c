@@ -198,16 +198,9 @@ void
 acpi_osd_debugger(void)
 {
 #ifdef ACPI_DEBUG
-	static int beenhere;
 	ACPI_PARSE_OBJECT obj;
 	label_t	acpi_jmpbuf;
 	label_t	*savejmp;
-
-	if (beenhere == 0) {
-		printf("Initializing ACPICA debugger...\n");
-		AcpiDbInitialize();
-		beenhere = 1;
-	}
 
 	printf("Entering ACPICA debugger...\n");
 	savejmp = db_recover;

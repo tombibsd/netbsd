@@ -1258,7 +1258,8 @@ rf_compute_workload_shift(RF_Raid_t *raidPtr, RF_PhysDiskAddr_t *pda)
 	d = pda->col;
 
 	/* assign column of dead disk to f */
-	for (f = 0; ((!RF_DEAD_DISK(raidPtr->Disks[f].status)) && (f < n)); f++);
+	for (f = 0; ((!RF_DEAD_DISK(raidPtr->Disks[f].status)) && (f < n)); f++)
+		continue;
 
 	RF_ASSERT(f < n);
 	RF_ASSERT(f != d);

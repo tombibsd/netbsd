@@ -592,6 +592,7 @@ out:
 	close(gpt->fd);
 }
 
+__printflike(2, 0)
 static void
 gpt_vwarnx(gpt_t gpt, const char *fmt, va_list ap, const char *e)
 {

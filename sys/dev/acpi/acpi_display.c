@@ -1895,7 +1895,7 @@ ranger(uint8_t *a, size_t l, void (*pr)(const char *, ...) __printflike(1, 2))
 	}
 
 	if (l > 1)
-		printf("]");
+		(*pr)("]");
 }
 
 static void

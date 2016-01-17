@@ -69,8 +69,7 @@ LIBDPLIBS=	Xi	${.CURDIR}/../libXi \
 		GL	${.CURDIR}/../libGL \
 		GLU	${.CURDIR}/../libGLU
 
-LDADD+=		-lm
-DPADD+=		${LIBM}
+LIBDPLIBS+=	m ${NETBSDSRCDIR}/lib/libm
 
 PKGCONFIG=	glut
 PKGDIST.glut=	${X11SRCDIR.MesaGLUT}/src/glut/glx

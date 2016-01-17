@@ -230,7 +230,8 @@ openredirect(union node *redir, char memory[10], int flags)
 			if (memory[redir->ndup.dupfd])
 				memory[fd] = 1;
 			else
-				copyfd(redir->ndup.dupfd, fd, 1);
+				copyfd(redir->ndup.dupfd, fd, 1,
+				    (flags & REDIR_PUSH) != 0);
 		}
 		INTON;
 		return;
@@ -243,9 +244,11 @@ openredirect(union node *redir, char memory[10], int flags)
 	}
 
 	if (f != fd) {
-		copyfd(f, fd, 1);
+		copyfd(f, fd, 1, fd > 2);
 		close(f);
-	}
+	} else if (f > 2)
+		(void)fcntl(f, F_SETFD, FD_CLOEXEC);
+
 	INTON;
 	return;
 ecreate:
@@ -316,7 +319,7 @@ popredir(void)
                                 fd0_redirected--;
 			close(i);
 			if (rp->renamed[i] >= 0) {
-				copyfd(rp->renamed[i], i, 1);
+				copyfd(rp->renamed[i], i, 1, 0);
 				close(rp->renamed[i]);
 			}
 		}
@@ -382,14 +385,21 @@ clearredir(int vforked)
  */
 
 int
-copyfd(int from, int to, int equal)
+copyfd(int from, int to, int equal, int cloexec)
 {
 	int newfd;
 
-	if (equal)
-		newfd = dup2(from, to);
-	else
-		newfd = fcntl(from, F_DUPFD, to);
+	if (cloexec && to > 2) {
+	    if (equal)
+		    newfd = dup3(from, to, O_CLOEXEC);
+	    else
+		    newfd = fcntl(from, F_DUPFD_CLOEXEC, to);
+	} else {
+	    if (equal)
+		    newfd = dup2(from, to);
+	    else
+		    newfd = fcntl(from, F_DUPFD, to);
+	}
 	if (newfd < 0) {
 		if (errno == EMFILE)
 			return EMPTY;

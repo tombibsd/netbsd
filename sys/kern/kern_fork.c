@@ -486,6 +486,7 @@ fork1(struct lwp *l1, int flags, int exitsig, void *stack, size_t stacksize,
 				if (!mutex_tryenter(parent1->p_lock)) {
 					mutex_exit(p2->p_lock);
 					mutex_enter(parent1->p_lock);
+					mutex_enter(p2->p_lock);
 				}
 			} else if (parent1->p_lock > p2->p_lock) {
 				mutex_enter(parent1->p_lock);

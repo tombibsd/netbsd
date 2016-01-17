@@ -1,12 +1,11 @@
 /Makefile.inc/1.3/Sat Oct 25 10:10:19 1997/-kk/
-/Makefile/1.139/Fri Oct  3 09:25:01 2014/-kk/
+/Makefile/1.140/Sun Jan 17 10:33:46 2016/-kk/
 D/bc////
 D/c89////
 D/c99////
 D/dc////
 D/diffutils////
 D/gettext////
-D/grep////
 D/groff////
 D/rcs////
 D/send-pr////

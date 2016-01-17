@@ -244,6 +244,8 @@ voyager_attach(device_t parent, device_t self, void *aux)
 		voyager_gpio_dir(sc, 0xffffffff, GPIO_I2C_BITS);
 		
 		/* Fill in the i2c tag */
+		memset(&sc->sc_i2c, 0, sizeof(sc->sc_i2c));
+		memset(&iba, 0, sizeof(iba));
 		sc->sc_i2c.ic_cookie = sc;
 		sc->sc_i2c.ic_acquire_bus = voyager_i2c_acquire_bus;
 		sc->sc_i2c.ic_release_bus = voyager_i2c_release_bus;

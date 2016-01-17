@@ -26,3 +26,6 @@
 
 #undef PIPE_SOCKETPAIR /* would need uipc_usrreq.c */
 #define PIPE_NODIRECT
+
+#define WSEMUL_NO_DUMB
+#define WSEMUL_VT100

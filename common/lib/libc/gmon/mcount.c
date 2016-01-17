@@ -82,6 +82,7 @@ __RCSID("$NetBSD$");
 
 #include <sys/param.h>
 #include <sys/gmon.h>
+#include <sys/lock.h>
 
 #ifndef _KERNEL
 #include "reentrant.h"
@@ -93,22 +94,16 @@ extern struct gmonparam _gmondummy;
 struct gmonparam *_m_gmon_alloc(void);
 #endif
 
+#if defined(_KERNEL) && !defined(_RUMPKERNEL) && defined(MULTIPROCESSOR)
+__cpu_simple_lock_t __mcount_lock;
+#endif
+
 #ifndef __LINT__
 _MCOUNT_DECL(u_long, u_long)
 #ifdef _KERNEL
     __attribute__((__no_instrument_function__))
 #endif
     __used;
-#endif
-
-/* XXX: make these interfaces */
-#ifdef _RUMPKERNEL
-#undef MCOUNT_ENTER
-#define MCOUNT_ENTER
-#undef MCOUNT_EXIT
-#define MCOUNT_EXIT
-#undef MCOUNT
-#define MCOUNT
 #endif
 
 /*
@@ -155,8 +150,12 @@ _MCOUNT_DECL(u_long frompc, u_long selfpc)
 	 */
 	if (p->state != GMON_PROF_ON)
 		return;
-#ifdef _KERNEL
+#if defined(_KERNEL) && !defined(_RUMPKERNEL)
 	MCOUNT_ENTER;
+#ifdef MULTIPROCESSOR
+	__cpu_simple_lock(&__mcount_lock);
+	__insn_barrier();
+#endif
 #endif
 	p->state = GMON_PROF_BUSY;
 	/*
@@ -246,17 +245,25 @@ _MCOUNT_DECL(u_long frompc, u_long selfpc)
 			*frompcindex = (u_short)toindex;
 			goto done;
 		}
-		
 	}
 done:
 	p->state = GMON_PROF_ON;
-#ifdef _KERNEL
+#if defined(_KERNEL) && !defined(_RUMPKERNEL)
+#ifdef MULTIPROCESSOR
+	__insn_barrier();
+	__cpu_simple_unlock(&__mcount_lock);
+#endif
 	MCOUNT_EXIT;
 #endif
 	return;
+
 overflow:
 	p->state = GMON_PROF_ERROR;
-#ifdef _KERNEL
+#if defined(_KERNEL) && !defined(_RUMPKERNEL)
+#ifdef MULTIPROCESSOR
+	__insn_barrier();
+	__cpu_simple_unlock(&__mcount_lock);
+#endif
 	MCOUNT_EXIT;
 #endif
 	return;

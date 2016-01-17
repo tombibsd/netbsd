@@ -554,8 +554,14 @@ cpu_probe_c3(struct cpu_info *ci)
 		    /* Actually do the enables. */
 		    if (rng_enable) {
 			msr = rdmsr(MSR_VIA_RNG);
-			wrmsr(MSR_VIA_RNG, msr | MSR_VIA_RNG_ENABLE);
+			msr |= MSR_VIA_RNG_ENABLE;
+			/* C7 stepping 8 and subsequent CPUs have dual RNG */
+			if (model > 0xA || (model == 0xA && stepping > 0x7)) {
+				msr |= MSR_VIA_RNG_2NOISE;
+			}
+			wrmsr(MSR_VIA_RNG, msr);
 		    }
+
 		    if (ace_enable) {
 			msr = rdmsr(MSR_VIA_ACE);
 			wrmsr(MSR_VIA_ACE, msr | MSR_VIA_ACE_ENABLE);

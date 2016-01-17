@@ -30,21 +30,19 @@ INCSDIR=${X11INCDIR}
 
 PKGDIST=	${LIB}
 
-LDADD+=	-lpci -lz
-DPADD+=	${LIBPCI} ${LIBZ}
+LIBDPLIBS+=	pci	${NETBSDSRCDIR}/lib/libpci \
+		z	${NETBSDSRCDIR}/lib/libz
 
 .if ${XORG_MACHINE_ARCH} == "i386" || ${XORG_MACHINE_ARCH} == "x86_64"
 CPPFLAGS+=	-DHAVE_MTRR
 .endif
 
 .if ${XORG_MACHINE_ARCH} == "i386"
-LDADD+=	-li386
-DPADD+=	${LIBI386}
+LIBDPLIBS+=	i386 ${NETBSDSRCDIR}/lib/libarch
 .endif
 
 .if ${XORG_MACHINE_ARCH} == "x86_64"
-LDADD+=	-lx86_64
-DPADD+=	${LIBX86_64}
+LIBDPLIBS+=	x86_64 ${NETBSDSRCDIR}/lib/libarch
 .endif
 
 .include <bsd.x11.mk>

@@ -124,7 +124,7 @@ _cursesi_setterm(char *type, SCREEN *screen)
 
 #ifdef DEBUG
 	__CTRACE(__CTRACE_INIT,
-	    "setterm: LINES = %d, COLS = %d\n, TABSIZE = %d\n",
+	    "setterm: LINES = %d, COLS = %d, TABSIZE = %d\n",
 	    LINES, COLS, TABSIZE);
 #endif
 

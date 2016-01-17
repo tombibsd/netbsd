@@ -902,8 +902,10 @@ post_fo(POST_ARGS)
 		mandoc_vmsg(MANDOCERR_ARG_EXCESS, mdoc->parse,
 		    n->child->next->line, n->child->next->pos,
 		    "Fo ... %s", n->child->next->string);
-		while (n->child != n->last)
-			mdoc_node_delete(mdoc, n->last);
+		while (n->child != n->last) {
+			struct mdoc_node *p = n->last;
+			mdoc_node_delete(mdoc, p);
+		}
 	}
 
 	post_fname(mdoc);
@@ -1464,7 +1466,8 @@ post_bl(POST_ARGS)
 			assert(NULL == nnext);
 		} else {
 			nbody->child = nnext;
-			nnext->prev = NULL;
+			if (nnext)
+				nnext->prev = NULL;
 		}
 
 		/*

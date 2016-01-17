@@ -15,13 +15,22 @@ error2:
 .endif
 
 .if ${MKREPRO:Uno} == "yes"
-CPPFLAGS+=	-Wp,-iremap,${NETBSDSRCDIR}:/usr/src
-CPPFLAGS+=	-Wp,-iremap,${DESTDIR}/:/
-CPPFLAGS+=	-Wp,-iremap,${X11SRCDIR}:/usr/xsrc
 .export NETBSDSRCDIR DESTDIR X11SRCDIR
-CFLAGS+=	-fdebug-prefix-map=\$$NETBSDSRCDIR=/usr/src
-CFLAGS+=	-fdebug-prefix-map=\$$DESTDIR=/
-CFLAGS+=	-fdebug-prefix-map=\$$X11SRCDIR=/usr/xsrc
+
+.if !empty(DESTDIR)
+CPPFLAGS+=	-Wp,-iremap,${DESTDIR}:
+REPROFLAGS+=	-fdebug-prefix-map=\$$DESTDIR=
+.endif
+
+CPPFLAGS+=	-Wp,-iremap,${NETBSDSRCDIR}:/usr/src
+CPPFLAGS+=	-Wp,-iremap,${X11SRCDIR}:/usr/xsrc
+REPROFLAGS+=	-fdebug-prefix-map=\$$NETBSDSRCDIR=/usr/src
+REPROFLAGS+=	-fdebug-prefix-map=\$$X11SRCDIR=/usr/xsrc
+
+REPROFLAGS+=	-fdebug-regex-map='/usr/src/(.*)/obj.${MACHINE}=/usr/obj/\1'
+
+CFLAGS+=	${REPROFLAGS}
+CXXFLAGS+=	${REPROFLAGS}
 .endif
 
 # NetBSD sources use C99 style, with some GCC extensions.

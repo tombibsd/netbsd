@@ -942,7 +942,7 @@ virtio_free_vq(struct virtio_softc *sc, struct virtqueue *vq)
 	bus_space_write_4(sc->sc_iot, sc->sc_ioh,
 			  VIRTIO_CONFIG_QUEUE_ADDRESS, 0);
 
-	kmem_free(vq->vq_entries, vq->vq_bytesize);
+	kmem_free(vq->vq_entries, sizeof(*vq->vq_entries) * vq->vq_num);
 	bus_dmamap_unload(sc->sc_dmat, vq->vq_dmamap);
 	bus_dmamap_destroy(sc->sc_dmat, vq->vq_dmamap);
 	bus_dmamem_unmap(sc->sc_dmat, vq->vq_vaddr, vq->vq_bytesize);

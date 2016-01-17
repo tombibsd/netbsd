@@ -10,7 +10,7 @@
 /bsd.gcc.mk/1.11/Thu Jun 18 03:42:14 2015/-kk/
 /bsd.host.mk/1.2/Sat Apr 19 08:03:32 2014/-kk/
 /bsd.hostlib.mk/1.19/Thu Dec 11 09:09:30 2014/-kk/
-/bsd.hostprog.mk/1.75/Sat Dec  5 11:19:11 2015/-kk/
+/bsd.hostprog.mk/1.76/Sun Jan 17 10:33:59 2016/-kk/
 /bsd.inc.mk/1.32/Thu Mar 16 18:43:34 2006/-kk/
 /bsd.info.mk/1.41/Fri Dec 25 06:18:04 2015/-kk/
 /bsd.init.mk/1.2/Mon Jul 28 02:38:33 2003/-kk/
@@ -30,7 +30,7 @@
 /bsd.rpc.mk/1.13/Wed Dec 25 07:37:13 2013/-kk/
 /bsd.shlib.mk/1.8/Thu Aug 23 21:21:17 2012/-kk/
 /bsd.subdir.mk/1.52/Wed May 26 00:48:15 2010/-kk/
-/bsd.sys.mk/1.246/Thu Jan  7 06:24:14 2016/-kk/
+/bsd.sys.mk/1.250/Sun Jan 17 10:33:59 2016/-kk/
 /bsd.syscall.mk/1.2/Thu Jan 16 01:19:46 2014/-kk/
 /bsd.test.mk/1.24/Thu Oct 24 10:28:54 2013/-kk/
 /bsd.x11.mk/1.117/Sun Aug  2 04:02:33 2015/-kk/

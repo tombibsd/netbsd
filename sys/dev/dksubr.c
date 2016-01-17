@@ -451,6 +451,7 @@ dk_drain(struct dk_softc *dksc)
 
 	mutex_enter(&dksc->sc_iolock);
 	bp = dksc->sc_deferred;
+	dksc->sc_deferred = NULL;
 	if (bp != NULL) {
 		bp->b_error = EIO;
 		bp->b_resid = bp->b_bcount;

@@ -1,10 +1,11 @@
 # $NetBSD$
 
+.include <bsd.own.mk>
+
 USE_SHLIBDIR=   yes
 
 CPPFLAGS+=-D_REENTRANT
-DPADD+=${LIBPTHREAD}
-LDADD+=-lpthread
+LIBDPLIBS+=pthread ${NETBSDSRCDIR}/lib/libpthread
 LIB=blacklist
 SRCS=bl.c blacklist.c
 MAN=libblacklist.3

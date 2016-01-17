@@ -328,7 +328,8 @@ binstailfree(buf_t *bp, struct bqueue *dp)
 {
 
 	KASSERT(mutex_owned(&bufcache_lock));
-	KASSERT(bp->b_freelistindex == -1);
+	KASSERTMSG(bp->b_freelistindex == -1, "double free of buffer? "
+	    "bp=%p, b_freelistindex=%d\n", bp, bp->b_freelistindex);
 	TAILQ_INSERT_TAIL(&dp->bq_queue, bp, b_freelist);
 	dp->bq_bytes += bp->b_bufsize;
 	bp->b_freelistindex = dp - bufqueues;

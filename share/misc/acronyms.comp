@@ -482,6 +482,7 @@ GID	group identifier
 GIF	graphics interchange format
 GMCH	graphics and memory controller hub
 GNU	GNU's Not Unix
+GOP	graphics output protocol
 GOT	global offset table
 GPE	general purpose event
 GPF	general protection fault
@@ -1267,7 +1268,9 @@ UCS	uniform-cost search
 UDMA	ultra DMA
 UDO	ultra density optical
 UDP	User Datagram Protocol
+UEFI	unified extensible firmware interface
 UFS	Unix File System
+UGA	universal graphics adapter
 UI	unit interval
 UI	user interface
 UID	unique identifier

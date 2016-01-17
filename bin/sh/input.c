@@ -412,7 +412,7 @@ setinputfile(const char *fname, int push)
 	}
 
 	if (fd < 10) {
-		fd2 = copyfd(fd, 10, 0);
+		fd2 = copyfd(fd, 10, 0, 0);
 		close(fd);
 		if (fd2 < 0)
 			error("Out of file descriptors");

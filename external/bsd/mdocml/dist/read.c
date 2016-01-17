@@ -336,6 +336,7 @@ mparse_buf_r(struct mparse *curp, const struct buf blk, size_t i, int start)
 
 	lnn = curp->line;
 	pos = 0;
+	fd = -1;
 
 	while (i < blk.sz) {
 		if (0 == pos && '\0' == blk.buf[i])
@@ -530,8 +531,7 @@ rerun:
 			if ( ! (curp->options & MPARSE_SO) &&
 			    (i >= blk.sz || blk.buf[i] == '\0')) {
 				curp->sodest = mandoc_strdup(ln.buf + of);
-				free(ln.buf);
-				return;
+				goto out;
 			}
 			/*
 			 * We remove `so' clauses from our lookaside
@@ -611,6 +611,7 @@ rerun:
 		pos = 0;
 	}
 
+out:
 	free(ln.buf);
 }
 
@@ -820,6 +821,7 @@ mparse_open(struct mparse *curp, int *fd, const char *file)
 
 	save_errno = errno;
 	if (access(file, R_OK) == -1) {
+		/*coverity[REVERSE_INULL]*/
 		if (cp != NULL)
 			errno = save_errno;
 		free(cp);

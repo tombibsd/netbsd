@@ -142,11 +142,11 @@ cpu0 		at mainbus?
 #wdog0		at mainbus?
 apbus0		at mainbus?
 
-# EFUSE Slave Interface
-efuse* 		at apbus?
-
 # On-chip UARTs
 com*		at apbus?
+
+# EFUSE
+efuse* 		at apbus?
 
 # On-chip USB
 dwctwo* 	at apbus?
@@ -157,12 +157,12 @@ ohci*		at apbus?
 usb* 		at ohci?
 
 # this one doesn't work right just yet
-#ehci*		at apbus?
+ehci*		at apbus?
 #options 	INGENIC_EHCI_DEBUG
 #options 	EHCI_DEBUG
 #options 	USBVERBOSE
-#options 	USB_DEBUG
-#usb* 		at ehci?
+#options 	USBHIST
+usb* 		at ehci?
 
 # onboard ethernet
 dme*		at apbus?
@@ -220,7 +220,8 @@ sd*		at scsibus? target ? lun ?	# SCSI disk drives
 cd*		at scsibus? target ? lun ?	# SCSI CD-ROM drives
 
 # Ethernet
-axe*	at uhub? port ?
+#axe*	at uhub? port ?
+#urtwn*	at uhub? port ?
 
 # Random number generator
 jzrng0	at apbus0
@@ -242,7 +243,7 @@ jzrng0	at apbus0
 #tlphy*		at mii? phy ?		# ThunderLAN PHYs
 #tqphy*		at mii? phy ?		# TDK Semiconductor PHYs
 #rlphy*		at mii? phy ?		# RealTek PHYs
-ukphy*		at mii? phy ?		# generic unknown PHYs
+#ukphy*		at mii? phy ?		# generic unknown PHYs
 
 
 # Pseudo-devices

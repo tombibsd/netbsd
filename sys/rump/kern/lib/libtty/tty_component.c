@@ -38,6 +38,15 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include "ioconf.h"
 
+RUMP_COMPONENT(RUMP_COMPONENT_KERN)
+{
+
+	tty_init();
+	ttyldisc_init();
+
+	rump_ttycomponent = true;
+}
+
 RUMP_COMPONENT(RUMP_COMPONENT_KERN_VFS)
 {
 	extern const struct cdevsw ctty_cdevsw, ptc_cdevsw, pts_cdevsw;
@@ -64,10 +73,5 @@ RUMP_COMPONENT(RUMP_COMPONENT_KERN_VFS)
 	FLAWLESSCALL(rump_vfs_makeonedevnode(S_IFCHR, "/dev/ptmx", cmaj, 0));
 	FLAWLESSCALL(rump_vfs_makeonedevnode(S_IFCHR, "/dev/ptm", cmaj, 1));
 
-	tty_init();
-	ttyldisc_init();
-
 	ptyattach(1);
-
-	rump_ttycomponent = true;
 }

@@ -40,8 +40,8 @@
 #
 
 Package:	acpica
-Version:	20150717
-Current Vers:	20150717
+Version:	20160108
+Current Vers:	20160108
 Maintainer:	Intel
 Archive Site:	http://www.acpica.org/downloads/
 Home Page:	http://www.acpica.org/
@@ -71,7 +71,7 @@ Update date of release in external/bsd/am-utils/man/Makefile (two places).
 
 Package:	Automated Testing Framework (ATF)
 Version:	0.20
-Current Vers:	0.20
+Current Vers:	0.21
 Maintainer:	Julio Merino <jmmv@NetBSD.org>
 Archive site:	https://github.com/jmmv/atf/releases
 Home page:	https://github.com/jmmv/atf
@@ -158,7 +158,7 @@ Todo[5]: Reconcile the doc directory.
 
 Package:	binutils
 Version:	2.23.2
-Current Vers:	2.25
+Current Vers:	2.25.1
 Maintainer:	FSF
 Archive Site:	ftp://ftp.gnu.org/gnu/binutils/
 Home Page:	http://www.gnu.org/software/binutils/
@@ -197,8 +197,8 @@ is a FreeBSD committer who has been helpful with incorporating changes
 in the past.
 
 Package:	byacc
-Version:	20141128
-Current Vers:	20141128
+Version:	20150711
+Current Vers:	20150711
 Maintainer:	Thomas Dickey <dickey@invisible-island.net>
 Archive Site:	http://www.invisible-island.net/byacc/byacc.html
 Home Page:	http://www.invisible-island.net/byacc/byacc.html
@@ -290,7 +290,7 @@ distribution into the netbsd format.  The script can be found in
 src/lib/libc/db/db2netbsd.
 
 Package:	dhcp
-Version:	4.3.0
+Version:	4.3.3
 Current Vers:	4.3.3
 Maintainer:	mellon
 Archive Site:	ftp://ftp.isc.org/isc/dhcp/
@@ -306,8 +306,8 @@ Notes:
 Use the dhcp2netbsd script.
 
 Package:	dhcpcd
-Version:	6.9.4
-Current Vers:	6.9.4
+Version:	6.10.0
+Current Vers:	6.10.0
 Maintainer:	roy
 Archive Site:	ftp://roy.marples.name/pub/dhcpcd/
 Home Page:	http://roy.marples.name/projects/dhcpcd/
@@ -408,8 +408,8 @@ Notes:
 use file2netbsd
 
 Package:	flex
-Version:	2.5.39
-Current Vers:	2.5.39
+Version:	2.6.0
+Current Vers:	2.6.0
 Maintainer:	Will Estes <wlestes@users.sourceforge.net>
 Archive Site:	http://flex.sourceforge.net/
 Home Page:	http://flex.sourceforge.net/
@@ -422,7 +422,7 @@ There is a flex2netbsd script to help newer imports.
 
 Package:	gcc
 Version:	4.8.5
-Current Vers:	4.8.5/5.2
+Current Vers:	4.8.5/5.3
 Maintainer:	FSF
 Archive Site:	ftp://ftp.gnu.org/gnu/gcc/
 Home Page:	http://www.gnu.org/software/gcc/
@@ -718,7 +718,7 @@ Notes:
 
 Package:	llvm
 Version:	3.4rc1 (r195771)
-Current Vers.:	3.4rc1
+Current Vers.:	3.7.1
 Maintainer:	llvmdev@cs.uiuc.edu
 Home Page:	http://llvm.org
 Responsible:	joerg
@@ -775,7 +775,7 @@ into inetd. The provided libwrap2netbsd script handles just libwrap.
 
 Package:	Lua
 Version:	Lua 5.3.1
-Current Vers:	Lua 5.3.1
+Current Vers:	Lua 5.3.2
 Maintainer:	PUC Rio
 Home Page:	http://www.lua.org/
 Mailing List:
@@ -788,10 +788,10 @@ working directory '.' to avoid potential security problems.
 
 Package:	Lutok
 Version:	0.3
-Current Vers:	0.3
+Current Vers:	0.4
 Maintainer:	Julio Merino <jmmv@NetBSD.org>
-Archive site:	http://code.google.com/p/lutok/downloads/list?can=1
-Home page:	http://code.google.com/p/lutok/
+Archive site:	https://github.com/jmmv/lutok/releases
+Home page:	https://github.com/jmmv/lutok
 Mailing List:	lutok-discuss@googlegroups.com
 Responsible:	jmmv
 License:	BSD 3-clause
@@ -922,8 +922,8 @@ and ndbootd-raw.c.  Restore saved config.h, and force it to define
 HAVE_STRICT_ALIGNMENT.  Fix RCS IDs, import.
 
 Package:	ntp
-Version:	4.2.8p4
-Current Vers:	4.2.8p4
+Version:	4.2.8p5
+Current Vers:	4.2.8p5
 Maintainer:	David L. Mills <mills@udel.edu>
 Archive Site:	http://www.ntp.org/
 Home Page:	http://www.ntp.org/, http://support.ntp.org/
@@ -1249,7 +1249,7 @@ original.
 
 Package:	sqlite
 Version:	3.8.3.1
-Current Vers:	3.8.3.1
+Current Vers:	3.10
 Maintainer:	Richard Hipp <drh@sqlite.org>
 Home Page:	http://www.sqlite.org
 Responsible:	joerg
@@ -1299,13 +1299,13 @@ Use src/gnu/dist/texinfo/texinfo2netbsd for preparing the source tree
 for the import.
 
 Package:	tmux
-Version:	1.9a
+Version:	2.1
 Current Vers:	2.1
-Maintainer:	Nicholas Marriott <nicm@users.sourceforge.net>
-Archive site:	http://downloads.sourceforge.net/tmux/
-Home page:	http://tmux.sourceforge.net/
-Mailing List:	tmux-users@lists.sourceforge.net
-Responsible:	jmmv
+Maintainer:	Nicholas Marriott <nicholas.marriott@gmail.com>
+Archive site:	https://github.com/tmux/tmux
+Home page:	http://tmux.github.io
+Mailing List:	tmux-users@googlegroups.com
+Responsible:	christos
 License:	BSD
 Location:	external/bsd/tmux/dist
 Notes:
@@ -1435,7 +1435,7 @@ Notes:
 
 Package:	mpc
 Version:	1.0.1
-Current Vers:	1.0.1
+Current Vers:	1.0.3
 Maintainer:	
 Archive Site:	http://www.multiprecision.org/mpc/download/
 Home Page:	http://www.multiprecision.org/mpc/
@@ -1447,7 +1447,7 @@ Notes:
 
 Package:	mpfr
 Version:	3.1.2
-Current Vers:	3.1.2
+Current Vers:	3.1.3
 Maintainer:	
 Archive Site:	http://www.mpfr.org/mpfr-current/
 Home Page:	http://www.mpfr.org/
@@ -1459,7 +1459,7 @@ Notes:
 
 Package:	GNU MP
 Version:	5.1.3
-Current Vers:	5.1.3
+Current Vers:	6.1.0
 Maintainer:	http://gmplib.org/mailman/listinfo/gmp-devel
 Archive Site:	http://gmplib.org/
 Home Page:	http://gmplib.org/

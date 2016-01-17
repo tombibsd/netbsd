@@ -460,6 +460,31 @@ output_long(u_long it, int as_x)
 		printf(as_x ? "%#lx" : "%ld", it);
 }
 
+static const char *
+fcntlname(u_long cmd)
+{
+#define	FCNTLCASE(a)	case a:	return # a
+	switch (cmd) {
+	FCNTLCASE(F_DUPFD);
+	FCNTLCASE(F_GETFD);
+	FCNTLCASE(F_SETFD);
+	FCNTLCASE(F_GETFL);
+	FCNTLCASE(F_SETFL);
+	FCNTLCASE(F_GETOWN);
+	FCNTLCASE(F_SETOWN);
+	FCNTLCASE(F_GETLK);
+	FCNTLCASE(F_SETLK);
+	FCNTLCASE(F_SETLKW);
+	FCNTLCASE(F_CLOSEM);
+	FCNTLCASE(F_MAXFD);
+	FCNTLCASE(F_DUPFD_CLOEXEC);
+	FCNTLCASE(F_GETNOSIGPIPE);
+	FCNTLCASE(F_SETNOSIGPIPE);
+	default:
+		return NULL;
+	}
+}
+
 static void
 ioctldecode(u_long cmd)
 {
@@ -544,6 +569,19 @@ ktrsyscall(struct ktr_syscall *ktr)
 			argcount--;
 			c = ',';
 
+		} else if (strcmp(sys_name, "fcntl") == 0 && argcount >= 2) {
+			(void)putchar('(');
+			output_long((long)*ap, !(decimal || small(*ap)));
+			ap++;
+			argcount--;
+			if ((cp = fcntlname(*ap)) != NULL)
+				(void)printf(",%s", cp);
+			else {
+				(void)printf(",%#lx", (unsigned long)*ap);
+			}
+			ap++;
+			argcount--;
+			c = ',';
 		} else if ((strstr(sys_name, "sigaction") != NULL ||
 		    strstr(sys_name, "sigvec") != NULL) && argcount >= 1) {
 			(void)printf("(SIG%s", signame(ap[0], 1));

@@ -9,4 +9,8 @@ SUBDIR+= xcvs
 SUBDIR+= lvm2
 .endif
 
+.if ${MKBSDGREP} == "no"
+SUBDIR+= grep
+.endif
+
 .include <bsd.subdir.mk>

@@ -18,8 +18,6 @@ CPPFLAGS+=	-DINET6
 .if (${MKCRYPTO} != "no")
 CPPFLAGS+=	-DWITH_SSL
 
-LDADD=		-lssl -lcrypto
-
 LIBDPLIBS+=	ssl	${NETBSDSRCDIR}/crypto/external/bsd/openssl/lib/libssl \
 		crypto	${NETBSDSRCDIR}/crypto/external/bsd/openssl/lib/libcrypto
 .endif

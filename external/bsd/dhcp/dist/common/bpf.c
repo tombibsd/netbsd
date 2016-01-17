@@ -485,8 +485,8 @@ ssize_t receive_packet (interface, buf, len, from, hfrom)
 
 		/* Decode the IP and UDP headers... */
 		offset = decode_udp_ip_header(interface, interface->rbuf,
-					       interface->rbuf_offset,
-  					       from, hdr.bh_caplen, &paylen);
+					      interface->rbuf_offset,
+                                              from, hdr.bh_caplen, &paylen, 1);
 
 		/* If the IP or UDP checksum was bad, skip the packet... */
 		if (offset < 0) {
@@ -623,6 +623,9 @@ get_hw_addr(const char *name, struct hardware *hw) {
 	 */
         switch (sa->sdl_type) {
                 case IFT_ETHER:
+#if defined (IFT_L2VLAN)
+		case IFT_L2VLAN:
+#endif
                         hw->hlen = sa->sdl_alen + 1;
                         hw->hbuf[0] = HTYPE_ETHER;
                         memcpy(&hw->hbuf[1], LLADDR(sa), sa->sdl_alen);

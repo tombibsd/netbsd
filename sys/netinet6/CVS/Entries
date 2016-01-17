@@ -26,7 +26,7 @@
 /ip6_flow.c/1.24/Thu Apr  2 02:28:09 2015/-kk/
 /ip6_forward.c/1.78/Sun Sep 13 01:07:53 2015/-kk/
 /ip6_id.c/1.18/Wed Aug 12 04:14:35 2015/-kk/
-/ip6_input.c/1.153/Fri Dec 25 06:18:31 2015/-kk/
+/ip6_input.c/1.154/Sun Jan 17 10:34:24 2016/-kk/
 /ip6_mroute.c/1.109/Sun Sep 13 01:07:53 2015/-kk/
 /ip6_mroute.h/1.17/Wed Mar 18 17:06:52 2009/-kk/
 /ip6_output.c/1.166/Sun Sep 13 01:07:53 2015/-kk/
@@ -36,7 +36,7 @@
 /ipsec.h/1.54/Thu Mar 22 20:34:41 2012/-kk/
 /mld6.c/1.64/Sun Nov 29 09:10:56 2015/-kk/
 /mld6_var.h/1.10/Sat Nov 19 22:51:29 2011/-kk/
-/nd6.c/1.183/Fri Dec 25 06:18:31 2015/-kk/
+/nd6.c/1.184/Sun Jan 17 10:34:24 2016/-kk/
 /nd6.h/1.69/Fri Dec 25 05:40:33 2015/-kk/
 /nd6_nbr.c/1.113/Fri Dec 25 05:40:33 2015/-kk/
 /nd6_rtr.c/1.105/Sat Dec  5 11:19:36 2015/-kk/

@@ -1973,7 +1973,7 @@ out:
  * Send a RARP request for the ip address of the specified interface.
  * The request should be RFC 903-compliant.
  */
-void
+static void
 revarprequest(struct ifnet *ifp)
 {
 	struct sockaddr sa;

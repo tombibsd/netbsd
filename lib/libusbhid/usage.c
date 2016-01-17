@@ -86,7 +86,7 @@ hid_init(const char *hidname)
 	if (f == NULL)
 		err(1, "%s", hidname);
 	for (lineno = 1; ; lineno++) {
-		if (fgets(line, sizeof line, f) == NULL)
+		if (fgets(line, (int)sizeof(line), f) == NULL)
 			break;
 		if (line[0] == '#')
 			continue;
@@ -214,28 +214,36 @@ hid_parse_usage_page(const char *name)
 	return -1;
 }
 
-/* XXX handle hex */
 int
 hid_parse_usage_in_page(const char *name)
 {
 	const char *sep;
 	int k, j;
 	unsigned int l;
+	size_t len;
 
 	_DIAGASSERT(name != NULL);
 
 	sep = strchr(name, ':');
 	if (sep == NULL)
 		return -1;
-	l = sep - name;
+	len = sep - name;
 	for (k = 0; k < npages; k++)
-		if (strncmp(pages[k].name, name, l) == 0)
+		if (strncmp(pages[k].name, name, len) == 0)
 			goto found;
+	if (sscanf(name, "%x:%x", &k, &j) == 2) {
+		return (k << 16) | j;
+	}
 	return -1;
  found:
 	sep++;
 	for (j = 0; j < pages[k].pagesize; j++)
-		if (strcmp(pages[k].page_contents[j].name, sep) == 0)
+		if (pages[k].page_contents[j].usage == -1) {
+			if (sscanf(sep, fmtcheck(
+			    pages[k].page_contents[j].name, "%u"), &l) == 1) {
+				return (pages[k].usage << 16) | l;
+			}
+		} else if (strcmp(pages[k].page_contents[j].name, sep) == 0)
 			return (pages[k].usage << 16) | pages[k].page_contents[j].usage;
 	return (-1);
 }

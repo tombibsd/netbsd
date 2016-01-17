@@ -11,7 +11,7 @@ CONFIGURE_ARGS+=--disable-shared
 # PATH needs special treating since "make" tries to expand $PATH
 # when variable is used.
 CONFIGURE_ENV:=	${CONFIGURE_ENV:NPATH=*:NCFLAGS=*:NCXXFLAGS=*} \
-		PATH="${TOOLDIR:Q}/bin:$$$$PATH"
+		PATH="${TOOLDIR:Q}/bin:$$PATH"
 
 # Force avoiding possibly non-executable install-sh.
 CONFIGURE_ENV+=	ac_cv_path_mkdir="${TOOLDIR}/bin/${MACHINE_GNU_PLATFORM}-install -d"

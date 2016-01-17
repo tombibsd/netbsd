@@ -439,6 +439,54 @@ rename_reg_nodir(const atf_tc_t *tc, const char *mp)
 }
 
 static void
+create_many(const atf_tc_t *tc, const char *mp)
+{
+	char buf[64];
+	int nfiles = 2324; /* #Nancy */
+	int i;
+
+	if (FSTYPE_EXT2FS(tc))
+		atf_tc_expect_fail("PR kern/50607");
+
+	if (FSTYPE_UDF(tc))
+		atf_tc_expect_fail("PR kern/50608");
+
+	/* takes forever with many files */
+	if (FSTYPE_MSDOS(tc))
+		nfiles /= 4;
+
+	RL(rump_sys_chdir(mp));
+
+	if (FSTYPE_SYSVBFS(tc)) {
+		/* fs doesn't support many files or subdirectories */
+		nfiles = 5;
+	} else {
+		/* msdosfs doesn't like many entries in the root directory */
+		RL(rump_sys_mkdir("subdir", 0777));
+		RL(rump_sys_chdir("subdir"));
+	}
+
+	/* create them */
+#define TESTFN "testfile"
+	for (i = 0; i < nfiles; i++) {
+		int fd;
+
+		sprintf(buf, TESTFN "%d\n", i);
+		RL(fd = rump_sys_open(buf, O_RDWR|O_CREAT|O_EXCL, 0666));
+		RL(rump_sys_close(fd));
+	}
+
+	/* wipe them out */
+	for (i = 0; i < nfiles; i++) {
+		sprintf(buf, TESTFN "%d\n", i);
+		RL(rump_sys_unlink(buf));
+	}
+#undef TESTFN
+
+	rump_sys_chdir("/");
+}
+
+static void
 create_nametoolong(const atf_tc_t *tc, const char *mp)
 {
 	char *name;
@@ -958,6 +1006,10 @@ ATF_TC_FSAPPLY(access_simple, "access(2)");
 ATF_TC_FSAPPLY(read_directory, "read(2) on directories");
 ATF_TC_FSAPPLY(lstat_symlink, "lstat(2) values for symbolic links");
 
+#undef FSTEST_IMGSIZE
+#define FSTEST_IMGSIZE (1024*1024*64)
+ATF_TC_FSAPPLY(create_many, "create many directory entries");
+
 ATF_TP_ADD_TCS(tp)
 {
 
@@ -969,6 +1021,7 @@ ATF_TP_ADD_TCS(tp)
 	ATF_TP_FSAPPLY(rename_dir);
 	ATF_TP_FSAPPLY(rename_dotdot);
 	ATF_TP_FSAPPLY(rename_reg_nodir);
+	ATF_TP_FSAPPLY(create_many);
 	ATF_TP_FSAPPLY(create_nametoolong);
 	ATF_TP_FSAPPLY(create_exist);
 	ATF_TP_FSAPPLY(rename_nametoolong);

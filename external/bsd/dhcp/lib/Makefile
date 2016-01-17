@@ -1,5 +1,5 @@
 # $NetBSD$
 
-SUBDIR=	common dhcpctl dst omapip
+SUBDIR=	common dhcpctl omapip
 
 .include <bsd.subdir.mk>

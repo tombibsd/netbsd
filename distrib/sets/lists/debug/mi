@@ -1579,6 +1579,7 @@
 ./usr/libdata/debug/usr/tests/dev/md/h_mdserv.debug					tests-fs-debug	debug,atf,rump
 ./usr/libdata/debug/usr/tests/dev/scsipi/t_cd.debug			tests-fs-debug		debug,atf,rump
 ./usr/libdata/debug/usr/tests/dev/sysmon/t_swwdog.debug			tests-fs-debug		debug,atf,rump
+./usr/libdata/debug/usr/tests/dev/usb/t_hid.debug			tests-fs-debug		debug,atf,rump
 ./usr/libdata/debug/usr/tests/fs/ffs/h_ffs_server.debug			tests-fs-debug		debug,atf,rump
 ./usr/libdata/debug/usr/tests/fs/ffs/h_quota2_server.debug		tests-obsolete		obsolete,compattestfile
 ./usr/libdata/debug/usr/tests/fs/ffs/h_quota2_tests.debug		tests-fs-debug		debug,atf,rump
@@ -2149,6 +2150,7 @@
 ./usr/libdata/debug/usr/tests/lib/libtre/h_regex_att.debug		tests-obsolete		obsolete,compattestfile
 ./usr/libdata/debug/usr/tests/lib/libtre/t_exhaust.debug		tests-lib-debug		debug,atf,compattestfile
 ./usr/libdata/debug/usr/tests/lib/libtre/t_regex_att.debug		tests-lib-debug		debug,atf,compattestfile
+./usr/libdata/debug/usr/tests/lib/libusbhid/t_usbhid.debug		tests-lib-debug		debug,atf,compattestfile
 ./usr/libdata/debug/usr/tests/lib/libutil/t_efun.debug			tests-lib-debug		debug,atf,compattestfile
 ./usr/libdata/debug/usr/tests/lib/libutil/t_parsedate.debug		tests-lib-debug		debug,atf,compattestfile
 ./usr/libdata/debug/usr/tests/lib/libutil/t_pidfile.debug		tests-lib-debug		debug,atf,compattestfile

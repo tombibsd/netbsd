@@ -1013,6 +1013,7 @@ spawn_pager(void)
 
 	/* Hand over to the pager. */
 
+	/*coverity[TAINTED_STRING]*/
 	execvp(argv[0], argv);
 	fprintf(stderr, "%s: exec: %s\n",
 	    progname, strerror(errno));

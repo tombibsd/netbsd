@@ -5,11 +5,11 @@
 /arith.y/1.22/Tue Mar 20 18:42:29 2012/-kk/
 /arith_lex.l/1.16/Tue Mar 20 18:42:29 2012/-kk/
 /builtins.def/1.23/Wed May 13 03:27:36 2015/-kk/
-/cd.c/1.44/Wed Aug 31 16:24:54 2011/-kk/
+/cd.c/1.45/Sun Jan 17 10:30:52 2016/-kk/
 /cd.h/1.6/Sat Jun 18 21:18:46 2011/-kk/
 /error.c/1.38/Thu Mar 15 02:02:20 2012/-kk/
 /error.h/1.19/Thu Mar 15 02:02:20 2012/-kk/
-/eval.c/1.110/Mon Jan 12 06:39:52 2015/-kk/
+/eval.c/1.111/Sun Jan 17 10:30:52 2016/-kk/
 /eval.h/1.16/Tue Jun  3 03:03:09 2014/-kk/
 /exec.c/1.45/Mon Nov 11 15:17:45 2013/-kk/
 /exec.h/1.23/Thu Mar 15 02:02:20 2012/-kk/
@@ -17,7 +17,7 @@
 /expand.h/1.19/Sat Dec 22 20:15:22 2012/-kk/
 /histedit.c/1.47/Sun Jun 22 14:28:16 2014/-kk/
 /init.h/1.10/Thu Aug  7 09:05:32 2003/-kk/
-/input.c/1.46/Tue Nov  5 03:34:05 2013/-kk/
+/input.c/1.47/Sun Jan 17 10:30:52 2016/-kk/
 /input.h/1.15/Thu Aug  7 09:05:33 2003/-kk/
 /jobs.c/1.75/Sun Sep 13 00:43:22 2015/-kk/
 /jobs.h/1.20/Sat Jun 18 21:18:46 2011/-kk/
@@ -45,9 +45,9 @@
 /output.h/1.24/Thu Mar 15 02:02:20 2012/-kk/
 /parser.c/1.93/Fri Oct  3 09:40:13 2014/-kk/
 /parser.h/1.18/Thu Oct 24 10:28:41 2013/-kk/
-/redir.c/1.37/Tue Dec  9 04:12:04 2014/-kk/
-/redir.h/1.16/Thu Feb 17 15:13:49 2011/-kk/
-/sh.1/1.115/Wed Jun  3 06:42:49 2015/-kk/
+/redir.c/1.39/Sun Jan 17 10:30:52 2016/-kk/
+/redir.h/1.17/Sun Jan 17 10:30:52 2016/-kk/
+/sh.1/1.117/Sun Jan 17 10:30:52 2016/-kk/
 /shell.h/1.18/Thu Oct 24 10:28:41 2013/-kk/
 /show.c/1.28/Tue Aug 23 10:01:32 2011/-kk/
 /show.h/1.7/Thu Aug  7 09:05:38 2003/-kk/

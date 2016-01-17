@@ -84,6 +84,8 @@ SRCS+= \
 	dtparserparse.c \
 	dtsubtable.c \
 	dttable.c \
+	dttable1.c \
+	dttable2.c \
 	dttemplate.c \
 	dtutils.c \
 	prexpress.c \
@@ -95,6 +97,7 @@ SRCS+= \
 
 .PATH: ${TOPDIR}/../common
 SRCS+= \
+	acfileio.c \
 	adisasm.c \
 	adwalk.c \
 	ahids.c \
@@ -105,6 +108,7 @@ SRCS+= \
 	dmextern.c \
 	dmrestag.c \
 	dmtable.c \
+	dmtables.c \
 	dmtbdump.c \
 	dmtbinfo.c \
 	getopt.c
@@ -183,7 +187,8 @@ SRCS+=	\
 	tbinstal.c \
 	tbprint.c \
 	tbutils.c \
-	tbxface.c
+	tbxface.c \
+	tbxfload.c
 
 .PATH: ${TOPDIR}/../namespace
 SRCS+= \

@@ -639,10 +639,10 @@ true_send(
 
 	pp = peer->procptr;
 	if (!(pp->sloppyclockflag & CLK_FLAG1)) {
-		int len = strlen(cmd);
+		size_t len = strlen(cmd);
 
 		true_debug(peer, "Send '%s'\n", cmd);
-		if (write(pp->io.fd, cmd, (unsigned)len) != len)
+		if (write(pp->io.fd, cmd, len) != (ssize_t)len)
 			refclock_report(peer, CEVNT_FAULT);
 		else
 			pp->polls++;

@@ -1584,15 +1584,6 @@ sysctl_net_inet_ip_setup(struct sysctllog **clog)
 		       sysctl_net_inet_ip_pmtudto, 0, (void *)&ip_mtudisc_timeout, 0,
 		       CTL_NET, PF_INET, IPPROTO_IP,
 		       IPCTL_MTUDISCTIMEOUT, CTL_EOL);
-#if NGIF > 0
-	sysctl_createv(clog, 0, NULL, NULL,
-		       CTLFLAG_PERMANENT|CTLFLAG_READWRITE,
-		       CTLTYPE_INT, "gifttl",
-		       SYSCTL_DESCR("Default TTL for a gif tunnel datagram"),
-		       NULL, 0, &ip_gif_ttl, 0,
-		       CTL_NET, PF_INET, IPPROTO_IP,
-		       IPCTL_GIF_TTL, CTL_EOL);
-#endif /* NGIF */
 #ifndef IPNOPRIVPORTS
 	sysctl_createv(clog, 0, NULL, NULL,
 		       CTLFLAG_PERMANENT|CTLFLAG_READWRITE,

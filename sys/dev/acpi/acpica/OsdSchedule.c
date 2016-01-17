@@ -113,9 +113,6 @@ AcpiOsExecute(ACPI_EXECUTE_TYPE Type, ACPI_OSD_EXEC_CALLBACK Function,
 	case OSL_NOTIFY_HANDLER:
 		pri = 3;
 		break;
-	case OSL_DEBUGGER_THREAD:
-		pri = 0;
-		break;
 	default:
 		return AE_BAD_PARAMETER;
 	}

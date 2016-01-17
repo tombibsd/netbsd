@@ -225,6 +225,9 @@ exyowdt* 	at fdt?				# watchdog
 # Exynos chip id
 chipid*		at fdt?
 
+# Exynos system MMUs
+sysmmu*	 	at fdt?
+
 # Exynos RTC
 exyortc* 	at fdt?
 

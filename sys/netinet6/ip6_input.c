@@ -127,11 +127,6 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <netinet6/ip6protosw.h>
 
 #include "faith.h"
-#include "gif.h"
-
-#if NGIF > 0
-#include <netinet6/in6_gif.h>
-#endif
 
 #include <net/net_osdep.h>
 
@@ -1778,15 +1773,6 @@ sysctl_net_inet6_ip6_setup(struct sysctllog **clog)
 		       NULL, 0, &ip6_defmcasthlim, 0,
 		       CTL_NET, PF_INET6, IPPROTO_IPV6,
 		       IPV6CTL_DEFMCASTHLIM, CTL_EOL);
-#if NGIF > 0
-	sysctl_createv(clog, 0, NULL, NULL,
-		       CTLFLAG_PERMANENT|CTLFLAG_READWRITE,
-		       CTLTYPE_INT, "gifhlim",
-		       SYSCTL_DESCR("Default hop limit for a gif tunnel datagram"),
-		       NULL, 0, &ip6_gif_hlim, 0,
-		       CTL_NET, PF_INET6, IPPROTO_IPV6,
-		       IPV6CTL_GIF_HLIM, CTL_EOL);
-#endif /* NGIF */
 	sysctl_createv(clog, 0, NULL, NULL,
 		       CTLFLAG_PERMANENT,
 		       CTLTYPE_STRING, "kame_version",

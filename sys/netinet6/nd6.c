@@ -1370,7 +1370,7 @@ nd6_rtrequest(int req, struct rtentry *rt, const struct rt_addrinfo *info)
 		 *	   rt->rt_flags |= RTF_CLONING;
 		 */
 		if ((rt->rt_flags & RTF_CLONING) ||
-		    ((rt->rt_flags & RTF_LLINFO) && ln == NULL)) {
+		    ((rt->rt_flags & (RTF_LLINFO | RTF_LOCAL)) && ln == NULL)) {
 			union {
 				struct sockaddr sa;
 				struct sockaddr_dl sdl;

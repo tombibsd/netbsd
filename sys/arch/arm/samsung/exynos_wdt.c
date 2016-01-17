@@ -90,7 +90,7 @@ exynos_wdt_wdog_write(struct exynos_wdt_softc *sc, bus_size_t o, uint32_t v)
 static int
 exynos_wdt_match(device_t parent, cfdata_t cf, void *aux)
 {
-	const char * const compatible[] = { "samsung,s3c2410-wdt", NULL };
+	const char * const compatible[] = { "samsung,exynos5420-wdt", NULL };
 	struct fdt_attach_args * const faa = aux;
 
 	return of_match_compatible(faa->faa_phandle, compatible);

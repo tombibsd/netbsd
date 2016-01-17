@@ -54,6 +54,7 @@ typedef struct bozoheaders {
 	/*const*/ char *h_value;	/* this gets free()'ed etc at times */
 	SIMPLEQ_ENTRY(bozoheaders)	h_next;
 } bozoheaders_t;
+SIMPLEQ_HEAD(qheaders, bozoheaders);
 
 #ifndef NO_LUA_SUPPORT
 typedef struct lua_handler {
@@ -172,8 +173,9 @@ typedef struct bozo_httpreq_t {
 	/*const*/ char *hr_authuser;
 	/*const*/ char *hr_authpass;
 #endif
-	SIMPLEQ_HEAD(, bozoheaders)	hr_headers;
-	int	hr_nheaders;
+	struct qheaders		hr_headers;
+	struct qheaders		hr_replheaders;
+	int			hr_nheaders;
 } bozo_httpreq_t;
 
 /* helper to access the "active" host name from a httpd/request pair */
@@ -355,6 +357,10 @@ int bozo_setup(bozohttpd_t *, bozoprefs_t *, const char *, const char *);
 bozo_httpreq_t *bozo_read_request(bozohttpd_t *);
 void bozo_process_request(bozo_httpreq_t *);
 void bozo_clean_request(bozo_httpreq_t *);
+bozoheaders_t *addmerge_reqheader(bozo_httpreq_t *, const char *,
+				  const char *, ssize_t);
+bozoheaders_t *addmerge_replheader(bozo_httpreq_t *, const char *,
+				   const char *, ssize_t);
 
 /* variables */
 int bozo_set_pref(bozohttpd_t *, bozoprefs_t *, const char *, const char *);

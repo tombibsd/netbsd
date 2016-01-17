@@ -3722,6 +3722,7 @@
 ./usr/libdata/lint/llib-lwrap.ln		comp-c-lintlib		lint
 ./usr/libdata/lint/llib-ly.ln			comp-c-lintlib		lint
 ./usr/libdata/lint/llib-lz.ln			comp-c-lintlib		lint
+./usr/libdata/lint/llib-llzma.ln		comp-c-lintlib		lint
 ./usr/libexec/cc1				comp-c-bin		gcccmds
 ./usr/libexec/cc1obj				comp-objc-bin		gcccmds
 ./usr/libexec/cc1plus				comp-cxx-bin		gcccmds

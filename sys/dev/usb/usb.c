@@ -947,7 +947,7 @@ usbd_add_dev_event(int type, usbd_device_handle udev)
 {
 	struct usb_event *ue = usb_alloc_event();
 
-	usbd_fill_deviceinfo(udev, &ue->u.ue_device, USB_EVENT_IS_ATTACH(type));
+	usbd_fill_deviceinfo(udev, &ue->u.ue_device, false);
 	usb_add_event(type, ue);
 }
 

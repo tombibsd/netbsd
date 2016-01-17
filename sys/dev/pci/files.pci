@@ -1177,3 +1177,8 @@ file	dev/pci/rtsx_pci.c	rtsx_pci
 
 # PCI graphics devices with DRM/KMS
 include "external/bsd/drm2/pci/files.drmkms_pci"
+
+# Intel S1200,C2000 (non-pch) SMBus controller
+device	ismt: i2cbus
+attach	ismt at pci
+file	dev/pci/ismt.c		ismt

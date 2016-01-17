@@ -7,10 +7,6 @@ SUBDIR+=	c89 c99
 SUBDIR+=	dc diffutils
 SUBDIR+=	rcs send-pr texinfo
 
-.if ${MKBSDGREP} == "no"
-SUBDIR+=	grep
-.endif
-
 .if ${MKGROFF} != "no"
 SUBDIR+=	groff
 .endif

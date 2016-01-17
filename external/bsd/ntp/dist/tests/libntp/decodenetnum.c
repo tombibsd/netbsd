@@ -6,6 +6,7 @@
 
 #include "unity.h"
 
+void setUp(void);
 extern void test_IPv4AddressOnly(void);
 extern void test_IPv4AddressWithPort(void);
 //#ifdef ISC_PLATFORM_HAVEIPV6
@@ -14,6 +15,15 @@ extern void test_IPv6AddressWithPort(void);
 //#endif /* ISC_PLATFORM_HAVEIPV6 */
 extern void test_IllegalAddress(void);
 extern void test_IllegalCharInPort(void);
+
+
+void
+setUp(void)
+{
+	init_lib();
+
+	return;
+}
 
 
 void

@@ -32,7 +32,7 @@
 /lpt_ebus.c/1.24/Mon May 19 16:26:13 2014/-kk/
 /mkclock.c/1.12/Sat Oct 27 17:18:12 2012/-kk/
 /pcf8591_envctrl.c/1.6/Sun Mar 18 05:26:58 2012/-kk/
-/pcfiic_ebus.c/1.4/Thu Oct 24 10:28:57 2013/-kk/
+/pcfiic_ebus.c/1.5/Sun Jan 17 10:34:09 2016/-kk/
 /pci_machdep.c/1.77/Fri Apr 11 02:03:39 2014/-kk/
 /pckbc_ebus.c/1.2/Tue Aug 25 04:51:11 2015/-kk/
 /pcons.c/1.34/Fri Oct  3 09:09:07 2014/-kk/

@@ -1,3 +1,5 @@
+/*	$NetBSD$	*/
+
 /*
  * ntp_keyword.h
  * 

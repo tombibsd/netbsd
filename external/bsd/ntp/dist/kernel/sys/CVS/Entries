@@ -1,12 +1,12 @@
 /Makefile.am/1.1.1.2/Wed Jan  1 02:42:41 2014/-kk/
-/Makefile.in/1.1.1.7/Fri Nov 20 01:23:08 2015/-kk/
+/Makefile.in/1.1.1.8/Sun Jan 17 10:32:27 2016/-kk/
 /README/1.1.1.1/Sun Dec 13 16:54:57 2009/-kk/
-/bsd_audioirig.h/1.3/Sat Jul 25 01:20:58 2015/-kk/
-/i8253.h/1.3/Sat Jul 25 01:20:58 2015/-kk/
-/parsestreams.h/1.4/Sat Jul 25 01:20:58 2015/-kk/
-/pcl720.h/1.3/Sat Jul 25 01:20:58 2015/-kk/
-/ppsclock.h/1.3/Sat Jul 25 01:20:58 2015/-kk/
-/timex.h/1.3/Sat Jul 25 01:20:59 2015/-kk/
-/tpro.h/1.3/Sat Jul 25 01:20:59 2015/-kk/
-/tt560_api.h/1.3/Sat Jul 25 01:20:59 2015/-kk/
+/bsd_audioirig.h/1.4/Sun Jan 17 10:32:27 2016/-kk/
+/i8253.h/1.4/Sun Jan 17 10:32:27 2016/-kk/
+/parsestreams.h/1.5/Sun Jan 17 10:32:27 2016/-kk/
+/pcl720.h/1.4/Sun Jan 17 10:32:27 2016/-kk/
+/ppsclock.h/1.4/Sun Jan 17 10:32:27 2016/-kk/
+/timex.h/1.4/Sun Jan 17 10:32:27 2016/-kk/
+/tpro.h/1.4/Sun Jan 17 10:32:27 2016/-kk/
+/tt560_api.h/1.4/Sun Jan 17 10:32:27 2016/-kk/
 D

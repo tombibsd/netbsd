@@ -43,8 +43,6 @@ SRCS+=		activate.c lvmcache.c toolcontext.c config.c btree.c \
 		filter_netbsd.c snapshot.c mirrored.c dev_manager.c fs.c dev.c \
 		lvm-globals.c
 
-LDADD+=		-lprop
-
 .PATH:	${LVM2_DISTDIR}/lib/
 .PATH:	${LVM2_DISTDIR}/lib/activate
 .PATH:	${LVM2_DISTDIR}/lib/cache

@@ -6,8 +6,18 @@
 
 #include "unity.h"
 
+void setUp(void);
 void test_KnownMode(void);
 void test_UnknownMode(void);
+
+
+void
+setUp(void)
+{
+	init_lib();
+
+	return;
+}
 
 
 void

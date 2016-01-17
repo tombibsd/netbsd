@@ -1,11 +1,11 @@
-/hwacpi.c/1.1.1.5/Wed Apr 22 07:37:08 2015/-kk/
-/hwesleep.c/1.4/Wed Apr 22 07:37:08 2015/-kk/
-/hwgpe.c/1.1.1.6/Tue Aug 25 04:51:21 2015/-kk/
-/hwpci.c/1.1.1.5/Tue Aug 25 04:51:21 2015/-kk/
-/hwregs.c/1.1.1.5/Wed Apr 22 07:37:08 2015/-kk/
-/hwsleep.c/1.4/Wed Apr 22 07:37:08 2015/-kk/
-/hwtimer.c/1.1.1.5/Wed Apr 22 07:37:08 2015/-kk/
-/hwvalid.c/1.1.1.5/Wed Apr 22 07:37:08 2015/-kk/
-/hwxface.c/1.1.1.5/Wed Apr 22 07:37:08 2015/-kk/
-/hwxfsleep.c/1.5/Tue Aug 25 04:51:21 2015/-kk/
+/hwacpi.c/1.1.1.6/Sun Jan 17 10:34:19 2016/-kk/
+/hwesleep.c/1.5/Sun Jan 17 10:34:19 2016/-kk/
+/hwgpe.c/1.1.1.7/Sun Jan 17 10:34:19 2016/-kk/
+/hwpci.c/1.1.1.6/Sun Jan 17 10:34:19 2016/-kk/
+/hwregs.c/1.1.1.6/Sun Jan 17 10:34:19 2016/-kk/
+/hwsleep.c/1.5/Sun Jan 17 10:34:19 2016/-kk/
+/hwtimer.c/1.1.1.6/Sun Jan 17 10:34:19 2016/-kk/
+/hwvalid.c/1.1.1.6/Sun Jan 17 10:34:19 2016/-kk/
+/hwxface.c/1.1.1.6/Sun Jan 17 10:34:19 2016/-kk/
+/hwxfsleep.c/1.6/Sun Jan 17 10:34:19 2016/-kk/
 D

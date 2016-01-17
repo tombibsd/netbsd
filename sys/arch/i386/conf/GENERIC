@@ -654,6 +654,10 @@ iic*	at alipm?
 ichsmb* at pci? dev ? function ?
 iic*	at ichsmb?
 
+# Intel S1200,C2000 (non-pch) SMBus controller
+ismt* at pci? dev ? function ?
+iic*	at ismt?
+
 # NVIDIA nForce2/3/4 SMBus controller
 nfsmbc* at pci? dev ? function ?
 nfsmb*	at nfsmbc?

@@ -901,7 +901,7 @@ length(type_t *tp, const char *name)
 	default:
 		elsz = size(tp->t_tspec);
 		if (elsz <= 0)
-			LERROR("length()");
+			LERROR("length(%d)", elsz);
 		break;
 	}
 	return (elem * elsz);

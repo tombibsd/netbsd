@@ -2,8 +2,8 @@
 /OsdHardware.c/1.9/Wed Jan  1 02:45:27 2014/-kk/
 /OsdInterrupt.c/1.8/Tue Aug 18 16:41:02 2009/-kk/
 /OsdMemory.c/1.5/Sun Apr 22 06:33:04 2012/-kk/
-/OsdMisc.c/1.14/Wed Jan  1 02:45:27 2014/-kk/
-/OsdSchedule.c/1.17/Wed Jan  1 02:45:27 2014/-kk/
+/OsdMisc.c/1.15/Sun Jan 17 10:34:12 2016/-kk/
+/OsdSchedule.c/1.18/Sun Jan 17 10:34:12 2016/-kk/
 /OsdStream.c/1.1/Thu Mar 23 13:41:13 2006/-kk/
 /OsdSynch.c/1.13/Tue Aug 18 16:41:02 2009/-kk/
 /README/1.6/Fri Jan 31 08:48:46 2014/-kk/

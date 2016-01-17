@@ -843,7 +843,7 @@ DAGExecutionThread(RF_ThreadArg_t arg)
 
 /*
  * rf_RaidIOThread() -- When I/O to a component begins, raidstrategy()
- * puts the I/O on a buf_queue, and then signals raidPtr->iodone.  If
+ * puts the I/O on a buffer queue, and then signals raidPtr->iodone.  If
  * necessary, this function calls raidstart() to initiate the I/O.
  * When I/O to a component completes, KernelWakeupFunc() puts the
  * completed request onto raidPtr->iodone TAILQ.  This function looks

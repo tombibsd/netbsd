@@ -1022,6 +1022,7 @@ xbdback_co_main_loop(struct xbdback_instance *xbdi, void *obj)
 			req->sector_number = req64->sector_number;
 			break;
 		}
+		__insn_barrier();
 		XENPRINTF(("xbdback op %d req_cons 0x%x req_prod 0x%x "
 		    "resp_prod 0x%x id %" PRIu64 "\n", req->operation,
 			xbdi->xbdi_ring.ring_n.req_cons,

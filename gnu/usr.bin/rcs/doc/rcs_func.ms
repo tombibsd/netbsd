@@ -1,5 +1,3 @@
-.\"	$NetBSD$
-.\"
 .SH
 Functions of RCS (Revision Control System)
 .PP

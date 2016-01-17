@@ -1,5 +1,5 @@
 /Makefile.inc/1.1/Wed Nov  3 16:10:19 2010/-kk/
-/Makefile/1.9/Thu Jul  2 04:14:41 2015/-kk/
+/Makefile/1.10/Sun Jan 17 10:34:27 2016/-kk/
 D/audio////
 D/cgd////
 D/dm////
@@ -7,3 +7,4 @@ D/md////
 D/raidframe////
 D/scsipi////
 D/sysmon////
+D/usb////

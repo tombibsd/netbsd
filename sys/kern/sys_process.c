@@ -782,6 +782,7 @@ sys_ptrace(struct lwp *l, const struct sys_ptrace_args *uap, register_t *retval)
 				if (!mutex_tryenter(parent->p_lock)) {
 					mutex_exit(t->p_lock);
 					mutex_enter(parent->p_lock);
+					mutex_enter(t->p_lock);
 				}
 			} else if (parent->p_lock > t->p_lock) {
 				mutex_enter(parent->p_lock);

@@ -1,4 +1,4 @@
-/Makefile/1.625/Fri Dec 25 06:18:02 2015/-kk/
+/Makefile/1.626/Sun Jan 17 10:33:56 2016/-kk/
 /aac.4/1.14/Sat Feb 19 10:54:31 2011/-kk/
 /ac97.4/1.2/Wed Jun 22 04:19:09 2005/-kk/
 /acardide.4/1.4/Mon Oct 19 18:41:08 2009/-kk/
@@ -25,7 +25,7 @@
 /adbms.4/1.5/Mon Mar  9 19:24:28 2009/-kk/
 /adc.4/1.1/Tue Oct 21 01:38:27 2003/-kk/
 /adm1026hm.4/1.1/Wed Dec 16 08:24:30 2015/-kk/
-/admtemp.4/1.4/Tue Mar 25 02:35:14 2014/-kk/
+/admtemp.4/1.6/Sun Jan 17 10:33:56 2016/-kk/
 /adv.4/1.10/Sat Oct 13 15:28:34 2012/-kk/
 /adw.4/1.8/Fri Feb 14 15:20:18 2003/-kk/
 /age.4/1.4/Tue May  5 09:58:40 2009/-kk/
@@ -81,7 +81,7 @@
 /auvitek.4/1.6/Tue Aug 30 07:23:05 2011/-kk/
 /awi.4/1.28/Fri Jan 15 19:24:49 2010/-kk/
 /axe.4/1.8/Wed Jun 23 21:03:16 2010/-kk/
-/axen.4/1.4/Fri May  1 11:28:29 2015/-kk/
+/axen.4/1.5/Sun Jan 17 10:33:57 2016/-kk/
 /az.4/1.6/Sat Mar 20 04:52:59 2004/-kk/
 /azalia.4/1.7/Tue Mar 13 19:25:39 2012/-kk/
 /battery_pmu.4/1.5/Mon May 18 14:41:41 2009/-kk/
@@ -197,7 +197,7 @@
 /faith.4/1.14/Fri Jan 15 19:24:49 2010/-kk/
 /fast_ipsec.4/1.14/Thu Oct 24 10:28:54 2013/-kk/
 /fd.4/1.6/Wed Jan  1 02:45:17 2014/-kk/
-/filemon.4/1.15/Sat Dec  5 11:19:09 2015/-kk/
+/filemon.4/1.17/Sun Jan 17 10:33:57 2016/-kk/
 /finsio.4/1.2/Thu Apr 28 16:10:37 2011/-kk/
 /flash.4/1.5/Thu Oct 24 10:28:54 2013/-kk/
 /fms.4/1.3/Wed Jun 22 04:19:09 2005/-kk/
@@ -290,6 +290,7 @@
 /isdntel.4/1.7/Tue Mar 25 02:35:15 2014/-kk/
 /isdntrc.4/1.4/Tue Mar 25 02:35:15 2014/-kk/
 /isic.4/1.17/Tue Mar 25 02:35:15 2014/-kk/
+/ismt.4/1.2/Tue Jan  5 14:21:43 2016/-kk/
 /isp.4/1.12/Thu Jun 25 23:45:52 2009/-kk/
 /isv.4/1.7/Tue Mar 25 02:35:15 2014/-kk/
 /iteide.4/1.7/Tue Mar 25 02:35:15 2014/-kk/
@@ -317,7 +318,7 @@
 /lm.4/1.32/Sun Feb 21 05:16:29 2010/-kk/
 /lmc.4/1.22/Tue Mar 25 02:35:15 2014/-kk/
 /lmenv.4/1.1/Thu Oct 24 10:28:54 2013/-kk/
-/lmtemp.4/1.3/Mon Oct  8 17:56:59 2012/-kk/
+/lmtemp.4/1.4/Sun Jan 17 10:33:57 2016/-kk/
 /lo.4/1.10/Sat Sep  2 23:40:22 2006/-kk/
 /lpt.4/1.8/Wed Feb  4 14:27:18 2004/-kk/
 /lua.4/1.5/Fri Oct  3 09:08:50 2014/-kk/

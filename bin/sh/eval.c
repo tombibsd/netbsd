@@ -539,14 +539,14 @@ evalpipe(union node *n)
 			INTON;
 			if (prevfd > 0) {
 				close(0);
-				copyfd(prevfd, 0, 1);
+				copyfd(prevfd, 0, 1, 0);
 				close(prevfd);
 			}
 			if (pip[1] >= 0) {
 				close(pip[0]);
 				if (pip[1] != 1) {
 					close(1);
-					copyfd(pip[1], 1, 1);
+					copyfd(pip[1], 1, 1, 0);
 					close(pip[1]);
 				}
 			}
@@ -610,7 +610,7 @@ evalbackcmd(union node *n, struct backcmd *result)
 			close(pip[0]);
 			if (pip[1] != 1) {
 				close(1);
-				copyfd(pip[1], 1, 1);
+				copyfd(pip[1], 1, 1, 0);
 				close(pip[1]);
 			}
 			eflag = 0;
@@ -926,7 +926,7 @@ normal_fork:
 			close(pip[0]);
 			if (pip[1] != 1) {
 				close(1);
-				copyfd(pip[1], 1, 1);
+				copyfd(pip[1], 1, 1, 0);
 				close(pip[1]);
 			}
 		}

@@ -2,7 +2,7 @@
 /alloc.s/1.10/Mon Apr 28 20:23:13 2008/-kk/
 /amigagraph.h/1.5/Mon Apr 28 20:23:13 2008/-kk/
 /amigaio.h/1.4/Mon Apr 28 20:23:13 2008/-kk/
-/amigatypes.h/1.7/Mon Apr 28 20:23:13 2008/-kk/
+/amigatypes.h/1.8/Sun Jan 17 10:34:00 2016/-kk/
 /ashldi3.s/1.2/Mon Apr 28 20:23:13 2008/-kk/
 /ashrdi3.s/1.7/Mon Apr 28 20:23:13 2008/-kk/
 /bbstart.s/1.13/Tue Jul  6 05:59:57 2010/-kk/
@@ -11,7 +11,7 @@
 /console.c/1.13/Sat Oct 17 11:18:18 2009/-kk/
 /libstubs.h/1.7/Sat Oct 17 11:18:18 2009/-kk/
 /libstubs.s/1.10/Sat Oct 17 11:18:18 2009/-kk/
-/main.c/1.29/Fri Apr 11 02:03:27 2014/-kk/
+/main.c/1.30/Sun Jan 17 10:34:00 2016/-kk/
 /muldi3.s/1.7/Mon Apr 28 20:23:13 2008/-kk/
 /panic.c/1.3/Mon Jan 12 07:42:30 2009/-kk/
 /printf.s/1.10/Fri Apr 11 02:03:27 2014/-kk/

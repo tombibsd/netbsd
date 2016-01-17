@@ -430,7 +430,7 @@ vioif_alloc_mems(struct vioif_softc *sc)
 		C_L1(txhdr_dmamaps[i], rx_hdrs[i],
 		    sizeof(struct virtio_net_hdr), 1,
 		    WRITE, "tx header");
-		C(tx_dmamaps[i], NULL, ETHER_MAX_LEN, 256 /* XXX */, 0,
+		C(tx_dmamaps[i], NULL, ETHER_MAX_LEN, 16 /* XXX */, 0,
 		  "tx payload");
 	}
 

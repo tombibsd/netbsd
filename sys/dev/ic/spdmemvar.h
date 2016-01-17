@@ -891,7 +891,7 @@ struct spdmem {
 #define SPDMEM_TYPE_MAXLEN 40
 
 struct spdmem_softc {
-	uint8_t		(*sc_read)(struct spdmem_softc *, uint16_t);
+	int		(*sc_read)(struct spdmem_softc *, uint16_t, uint8_t *);
 	struct spdmem	sc_spd_data;
 	struct sysctllog *sc_sysctl_log;
 	char		sc_type[SPDMEM_TYPE_MAXLEN];

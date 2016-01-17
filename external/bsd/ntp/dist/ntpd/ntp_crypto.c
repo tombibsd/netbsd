@@ -475,7 +475,7 @@ crypto_recv(
 		}
 
 		/* Check if the declared size fits into the remaining
-		 * buffer.
+		 * buffer. We *know* 'macbytes' > 0 here!
 		 */
 		if (len > (u_int)macbytes) {
 			DPRINTF(1, ("crypto_recv: possible attack detected, associd %d\n",

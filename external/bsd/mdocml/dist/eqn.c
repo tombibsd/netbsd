@@ -448,6 +448,7 @@ again:
 		memmove(start + *sz + diff, start + *sz,
 		    (strlen(start) - *sz) + 1);
 		memcpy(start, def->val, def->valsz);
+		lim++;
 		goto again;
 	}
 
@@ -991,7 +992,7 @@ this_tok:
 		     parent->type == EQN_MATRIX))
 			parent = parent->parent;
 		/* Close out any "singleton" lists. */
-		while (parent->type == EQN_LISTONE &&
+		while (parent && parent->type == EQN_LISTONE &&
 		    parent->args == parent->expectargs)
 			parent = parent->parent;
 		break;

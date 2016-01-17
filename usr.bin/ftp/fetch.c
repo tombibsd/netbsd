@@ -424,6 +424,7 @@ parse_url(const char *url, const char *desc, struct urlinfo *ui,
 	} else if (STRNEQUAL(url, FILE_URL)) {
 		url += sizeof(FILE_URL) - 1;
 		ui->utype = FILE_URL_T;
+		tport = "";
 #ifdef WITH_SSL
 	} else if (STRNEQUAL(url, HTTPS_URL)) {
 		url += sizeof(HTTPS_URL) - 1;

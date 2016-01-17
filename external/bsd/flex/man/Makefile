@@ -4,7 +4,7 @@
 
 .include "${.CURDIR}/../Makefile.inc"
 
-DIST=	${IDIST}/doc
+DIST=	${IDIST}/../doc
 .PATH:	${DIST}
 
 TEXINFO=	flex.texi

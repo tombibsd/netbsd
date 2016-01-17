@@ -265,8 +265,8 @@ rew_scope(enum man_type type, struct man *man, enum mant tok)
 	 * Rewind until the current point.  Warn if we're a roff
 	 * instruction that's mowing over explicit scopes.
 	 */
-
-	man_unscope(man, n);
+	if (n != NULL)
+		man_unscope(man, n);
 }
 
 

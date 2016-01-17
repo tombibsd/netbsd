@@ -697,6 +697,8 @@ isdnctl			MI
 isdntel			MI
 isdntrc			MI
 isic			MI
+ismt			amd64
+ismt			i386
 isp			MI
 itesio			MI
 it8368e			hpcmips
