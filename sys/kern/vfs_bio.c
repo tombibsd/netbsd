@@ -444,7 +444,6 @@ bufinit(void)
 	struct bqueue *dp;
 	int use_std;
 	u_int i;
-	extern void (*biodone_vfs)(buf_t *);
 
 	biodone_vfs = biodone;
 

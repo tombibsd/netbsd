@@ -27,8 +27,8 @@
 /hostapd.vlan/1.1.1.1/Wed Aug  4 10:24:43 2010/-kk/
 /hostapd.wpa_psk/1.1.1.1/Wed Aug  4 10:24:43 2010/-kk/
 /hostapd_cli.1/1.1.1.1/Wed Aug  4 10:24:44 2010/-kk/
-/hostapd_cli.c/1.7/Sun Apr 12 03:30:11 2015/-kk/
-/main.c/1.1.1.5/Sun Apr 12 03:30:11 2015/-kk/
+/hostapd_cli.c/1.8/Thu Jan 28 08:33:38 2016/-kk/
+/main.c/1.2/Thu Jan 28 08:33:38 2016/-kk/
 /nt_password_hash.c/1.1.1.2/Tue Jan 14 16:02:24 2014/-kk/
 /wired.conf/1.1.1.1/Wed Aug  4 10:24:44 2010/-kk/
 /wps-ap-nfc.py/1.1.1.1/Thu Oct 16 19:16:10 2014/-kk/

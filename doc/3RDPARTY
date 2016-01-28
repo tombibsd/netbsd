@@ -114,8 +114,8 @@ Notes:
 bc includes dc, both of which are in the NetBSD tree.
 
 Package:	bind [named and utils]
-Version:	9.10.3-P2
-Current Vers:	9.10.3-P2
+Version:	9.10.3-P3
+Current Vers:	9.10.3-P3
 Maintainer:	Paul Vixie <vixie@vix.com>
 Archive Site:	ftp://ftp.isc.org/isc/bind9/
 Home Page:	http://www.isc.org/software/bind/
@@ -291,7 +291,7 @@ src/lib/libc/db/db2netbsd.
 
 Package:	dhcp
 Version:	4.3.3
-Current Vers:	4.3.3
+Current Vers:	4.3.3-P1
 Maintainer:	mellon
 Archive Site:	ftp://ftp.isc.org/isc/dhcp/
 Home Page:	http://www.isc.org/software/dhcp/
@@ -306,8 +306,8 @@ Notes:
 Use the dhcp2netbsd script.
 
 Package:	dhcpcd
-Version:	6.10.0
-Current Vers:	6.10.0
+Version:	6.10.1
+Current Vers:	6.10.1
 Maintainer:	roy
 Archive Site:	ftp://roy.marples.name/pub/dhcpcd/
 Home Page:	http://roy.marples.name/projects/dhcpcd/
@@ -356,7 +356,7 @@ Location:	external/gpl2/gmake
 Notes:
 
 Package:	diffutils
-Version:	2.8.1
+Version:	2.8.1 (Last GPLv2+ version)
 Current Vers:	3.3
 Maintainer:	FSF
 Archive Site:	ftp://ftp.gnu.org/gnu/diffutils/
@@ -364,9 +364,9 @@ Home Page:	http://www.gnu.org/software/diffutils/
 Mailing List:	bug-diffutils@gnu.org
 Responsible:	
 License:	GPLv2+ (2.8.1), GPLv3+ (2.9 and later)
-Location:	gnu/dist/diffutils
+Location:	external/gpl2/diffutils
 Notes:
-Use src/gnu/dist/diffutils/diffutils2netbsd for preparing the source tree
+Use external/gpl2/diffutils/diffutils2netbsd for preparing the source tree
 for the import.
 
 Package:	ekermit
@@ -481,32 +481,32 @@ No hexadecimal floating-point string conversion for VAX FP yet.
 Only double-precision addressed at this time.
 
 Package:	gettext
-Version:	0.14.4
-Current Vers:	0.18
+Version:	0.16.1 (Last GPLv2+ version)
+Current Vers:	0.19.7
 Maintainer:	FSF
 Archive Site:	ftp://ftp.gnu.org/gnu/gettext/
 Home Page:	http://www.gnu.org/software/gettext/
 Mailing List:	bug-gnu-utils@gnu.org
-Responsible:
-License:	GPLv2
-Location:	gnu/dist/gettext
+Responsible:	christos
+License:	GPLv2+ (0.16.1), GPLv3+ (0.17 and later)
+Location:	external/gpl2/gettext
 Notes:
 GNU gettext is used for userland tools like msgfmt(1) only.  For libintl,
 we use BSD-licensed implementation from Citrus project (see entry for
 "Citrus XPG4DL").  We hope to replace userland tools with BSD-licensed one.
 
 Package:	grep
-Version:	2.5.1
+Version:	2.5.1a (last GPLv2+ version)
 Current Vers:	2.21
 Maintainer:	FSF
 Archive Site:	ftp://ftp.gnu.org/gnu/grep/
 Home Page:	http://www.gnu.org/software/grep/
 Mailing List:	bug-gnu-utils@gnu.org
 Responsible:	simonb
-License:	GPLv2+ (2.5.1), GPLv3+ (2.5.3 and later)
-Location:	gnu/dist/grep
+License:	GPLv2+ (2.5.1a), GPLv3+ (2.5.3 and later)
+Location:	external/gpl2/grep
 Notes:
-Use src/gnu/dist/grep/grep2netbsd for preparing the source tree
+Use external/gpl2/grep//grep2netbsd for preparing the source tree
 for the import.
 On 2 Jan 2004, a non-GNU grep (FreeGrep, https://github.com/howardjp/freegrep;
 see also http://www.monkey.org/openbsd/archive/tech/0306/msg00129.html)
@@ -516,18 +516,18 @@ in src/usr.bin/grep, replacing FreeGrep
 (http://mail-index.NetBSD.org/source-changes/2011/02/16/msg018643.html).
 
 Package:	groff
-Version:	1.19.2
+Version:	1.19.2 (last GPLv2+ version)
 Current Vers:	1.22.3
 Maintainer:	Werner Lemberg/FSF
 Archive Site:	ftp://ftp.gnu.org/gnu/groff/
 Home Page:	http://www.gnu.org/software/groff/
 Mailing List:	bug-groff@gnu.org
 Responsible:	
-License:	GPLv2
-Location:	gnu/dist/groff
+License:	GPLv2+ (1.19.2), GPLv3+ (1.20 and later)
+Location:	external/gpl2/groff
 Notes:
-Use groff2netbsd from src/gnu/dist/groff to prepare the distribution
-for import.
+Use groff2netbsd from external/gpl2/groff/groff2netbsd to prepare the
+distribution for import.
 
 Package:	heimdal
 Version:	1.5.3
@@ -1178,15 +1178,15 @@ TDB code as found in 2.4.x, x>1 is under the GPL.  Therefore, we're
 using the version found in 2.4.1.
 
 Package:	rcs
-Version:	5.7
-Current Vers:	5.9.2
+Version:	5.7 (Last GPLv2+ version)
+Current Vers:	5.9.4
 Maintainer:	FSF
 Archive Site:	ftp://ftp.gnu.org/gnu/rcs/
 Mailing List:	bug-gnu-utils@gnu.org
 Home Page:	http://www.gnu.org/software/rcs/
 Responsible:	agc
 License:	GPLv2+ (5.7), GPLv3+ (5.8 and later)
-Location:	gnu/usr.bin/rcs
+Location:	external/gpl2/rcs
 Notes:
 Old versions are available from Purdue (ftp.cs.purdue.edu:/pub/RCS).
 
@@ -1221,16 +1221,19 @@ We use arc4random
 We use strlcpy/snprintf
 
 Package:	send-pr (part of GNATS)
-Version:	3.95
-Current Vers:	4.1
+Version:	3.2
+Current Vers:	4.2
 Maintainer:	FSF
 Archive Site:	ftp://ftp.gnu.org/gnu/gnats/
 Home Page:	http://www.gnu.org/software/gnats/
 Mailing List:	bug-gnats@gnu.org
-License:	GPLv2
+License:	GPLv2+ (4.1), GPLv3+ (4.2 and later)
 Responsible:
-Location:	gnu/usr.bin/send-pr
+Location:	external/gpl2/send-pr
 Notes:
+We have 3.2 with patches to become 3.95 which was never distributed. This
+is the last "standalone" send-pr version. Newer versions require "query-pr"
+to be installed and many more changes. It is not worth the hassle.
 
 Package:	SoftFloat
 Version:	2a
@@ -1285,18 +1288,55 @@ Location:	regress/lib/libc/ieeefp/testfloat
 Notes:
 
 Package:	texinfo
-Version:	4.8
+Version:	4.8a (Last GPLv2+ version)
 Current Vers:	5.2
 Maintainer:	FSF
 Archive Site:	ftp://ftp.gnu.org/gnu/texinfo/
 Home Page:	http://www.gnu.org/software/texinfo/
 Mailing List:	bug-texinfo@gnu.org
 Responsible:	
-License:	GPLv2+ (4.8), GPLv3+ (4.9 and later)
-Location:	gnu/dist/texinfo
+License:	GPLv2+ (4.8a), GPLv3+ (4.9 and later)
+Location:	external/gpl2/texinfo
 Notes:
-Use src/gnu/dist/texinfo/texinfo2netbsd for preparing the source tree
+Use src/external/gpl2/texinfo/texinfo2netbsd for preparing the source tree
 for the import.
+
+Package:	autoconf 
+Version:	2.69
+Current Vers:	2.69
+Maintainer:	FSF
+Archive Site:	ftp://ftp.gnu.org/gnu/autoconf/
+Home Page:	http://www.gnu.org/software/autoconf/
+Mailing List:	bug-autoconf@gnu.org
+Responsible:	christos
+License:	GPLv3+
+Location:	external/gpl3/autoconf
+Notes:
+This is only used to re-generate the configure files in tools/compat.
+It is not part of the regular build.
+
+Package:	malloc 
+Version:	1995-01-15
+Current Vers:	1995-01-15
+Maintainer:	FSF
+Archive Site:	ftp://prep.ai.mit.edu/old-gnu/malloc.tar.gz
+Home Page:
+Mailing List:
+Responsible:	christos
+License:	GPLv2+
+Location:	external/gpl2/libmalloc
+Notes:
+The original version of gnumalloc was added (not imported) from
+prep.ai.mit.edu in src/gnu/lib/libmalloc in 1993. This is the newest
+version from 1995. It is written by Mike Haertel, and was distributed
+both standalone and as part of glibc. At some point glibc switched
+to use Doug Lea's ptmalloc which is now tightly bound with glibc
+and cannot be separated. The Doug Lea version of malloc is also
+distributed in a standalone form by Wolfram Gloger in
+http://www.malloc.de/en/.  We can consider switching to ptmalloc
+at some point since it will provide an alternative MT malloc, but
+perhaps this implementation should be kept anyway for historical
+purposes.
 
 Package:	tmux
 Version:	2.1

@@ -600,7 +600,7 @@ static void
 fact_perm(const char *fact, FILE *fd, factelem *fe)
 {
 	int		rok, wok, xok, pdirwok;
-	struct stat	*pdir;
+	struct stat	*pdir, dir;
 
 	if (fe->stat->st_uid == geteuid()) {
 		rok = ((fe->stat->st_mode & S_IRUSR) != 0);
@@ -627,7 +627,6 @@ fact_perm(const char *fact, FILE *fd, factelem *fe)
 	if (pdir == NULL && CURCLASS_FLAGS_ISSET(modify)) {
 		size_t		len;
 		char		realdir[MAXPATHLEN], *p;
-		struct stat	dir;
 
 		len = strlcpy(realdir, fe->path, sizeof(realdir));
 		if (len < sizeof(realdir) - 4) {

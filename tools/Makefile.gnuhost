@@ -24,7 +24,11 @@ HOST_CFLAGS+=-O2 -no-cpp-precomp
 .endif
 MAKE_PROGRAM?=	${MAKE}
 
-GNUHOSTDIST?=	${.CURDIR}/../../gnu/dist/${MODULE}
+.for i in 3 2
+.if exists(${.CURDIR}/../../external/gpl${i}/${MODULE}/dist)
+GNUHOSTDIST?=	${.CURDIR}/../../external/gpl${i}/${MODULE}/dist
+.endif
+.endfor
 
 FIND_ARGS+=	\! \( -type d \( \
 			-name 'CVS' -o \

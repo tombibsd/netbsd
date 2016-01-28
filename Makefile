@@ -163,7 +163,7 @@ afterinstall: .PHONY .MAKE
 	${MAKEDIRTARGET} share/man makedb
 .endif
 .if (${MKUNPRIVED} != "no" && ${MKINFO} != "no")
-	${MAKEDIRTARGET} gnu/usr.bin/texinfo/install-info infodir-meta
+	${MAKEDIRTARGET} external/gpl2/texinfo/bin/install-info infodir-meta
 .endif
 .if !defined(NOPOSTINSTALL)
 	${MAKEDIRTARGET} . postinstall-check

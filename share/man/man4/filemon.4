@@ -154,7 +154,7 @@ indicates the version of
 A
 .Nm
 instance is created by opening
-.Dv /dev/filemon .
+.Pa /dev/filemon .
 Then use
 .Fn ioctl filemon_fd FILEMON_SET_PID &pid
 to identify the target process to monitor, and
@@ -218,17 +218,12 @@ successful, and is thus more complex to post-process.
 .Sh HISTORY
 .Nm
 was contributed by Juniper Networks.
-.Sh BUGS
-If the file descriptor to which monitored events are being written is
-numerically lower than the descriptor on which
-.Pa /dev/filemon
-is open, the monitoring process will hang when it calls
-.Xr exit 3
-or an attempt is made to close the output file descriptor.
-To avoid the hang, ensure that the file descriptor on which
-.Pa /dev/filemon
-is open gets closed first.
 .Sh SECURITY CONSIDERATIONS
+If the monitored process exits, and its pid gets reused,
+.Nm
+will continue to report events for the new process (and its
+descendants) without any authorization checks.
+.Pp
 Monitoring of a process enables the target process to write to the
 tracking process's file descriptor.
 .Sh RESTRICTIONS
@@ -244,8 +239,9 @@ any descendants of such processes can be tracked.
 If two processes are monitored, and one is a descendant of the other, events
 related to the descendant process and its further descendants are delivered
 only to the descendant process's monitor.
-If a process is being monitored by two instances of filemon, events will be
-delivered only to the first instance created (when
+If a process is being monitored by two instances of
+.Nm ,
+events will be delivered only to the first instance created (when
 .Pa /dev/filemon
 was opened), regardless of the order in which the monitoring processes
 called

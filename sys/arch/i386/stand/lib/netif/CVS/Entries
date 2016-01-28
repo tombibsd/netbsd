@@ -1,13 +1,13 @@
 /3c509.c/1.10/Sun Dec 14 18:46:33 2008/-kk/
 /3c509.h/1.6/Fri Nov 24 22:52:16 2006/-kk/
 /3c590.c/1.15/Sun Dec 14 18:46:33 2008/-kk/
-/3c90xb.c/1.14/Sun Dec 14 18:46:33 2008/-kk/
+/3c90xb.c/1.15/Thu Jan 28 08:36:05 2016/-kk/
 /Makefile.inc/1.6/Sun Feb 17 20:03:11 2002/-kk/
 /am7990.c/1.7/Sun Dec 14 18:46:33 2008/-kk/
 /dp8390.c/1.6/Sun Dec 14 18:46:33 2008/-kk/
 /dp8390.h/1.6/Sun Dec 14 18:46:33 2008/-kk/
 /elink3.c/1.4/Sun Dec 14 18:46:33 2008/-kk/
-/etherdrv.h/1.9/Sun Dec 14 18:46:33 2008/-kk/
+/etherdrv.h/1.10/Thu Jan 28 08:36:05 2016/-kk/
 /i82557.c/1.11/Sun Dec 14 18:46:33 2008/-kk/
 /lance.h/1.2/Sun Dec 14 18:46:33 2008/-kk/
 /ne.c/1.7/Sun Dec 14 18:46:33 2008/-kk/

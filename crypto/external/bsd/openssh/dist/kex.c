@@ -50,7 +50,6 @@ __RCSID("$NetBSD$");
 #include "dispatch.h"
 #include "monitor.h"
 #include "canohost.h"
-#include "roaming.h"
 
 #include "ssherr.h"
 #include "sshbuf.h"
@@ -648,17 +647,6 @@ kex_choose_conf(struct ssh *ssh)
 	} else {
 		cprop=my;
 		sprop=peer;
-	}
-
-	/* Check whether server offers roaming */
-	if (!kex->server) {
-		char *roaming = match_list(KEX_RESUME,
-		    peer[PROPOSAL_KEX_ALGS], NULL);
-
-		if (roaming) {
-			kex->roaming = 1;
-			free(roaming);
-		}
 	}
 
 	/* Algorithm Negotiation */

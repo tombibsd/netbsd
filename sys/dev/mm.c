@@ -337,6 +337,11 @@ mm_readwrite(dev_t dev, struct uio *uio, int flags)
 			}
 			/* Break directly out of the loop. */
 			return 0;
+		case DEV_FULL:
+			if (uio->uio_rw == UIO_WRITE) {
+				return ENOSPC;
+			}
+			/*FALLTHROUGH*/
 #if defined(COMPAT_16) && defined(__arm)
 		case _DEV_ZERO_oARM:
 #endif

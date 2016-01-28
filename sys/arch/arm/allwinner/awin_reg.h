@@ -2343,7 +2343,9 @@ struct awin_mmc_idma_descriptor {
 #define AWIN_TVE_CONFIG_2		0x00000138
 #define AWIN_TVE_CONFIG_3		0x0000013C
 
-
+/* AWIN_TVE_ENABLE */
+#define AWIN_TVE_CLOCK_GATE_DISABLE	__BIT(31)
+#define AWIN_TVE_EN			__BIT(0)
 
 /*
  * A31 registers

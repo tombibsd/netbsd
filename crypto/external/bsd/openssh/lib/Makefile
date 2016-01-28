@@ -60,7 +60,6 @@ packet.c \
 poly1305.c \
 progressmeter.c \
 readpass.c \
-roaming_dummy.c \
 rsa.c \
 sc25519.c \
 smult_curve25519_ref.c \

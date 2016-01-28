@@ -1614,8 +1614,7 @@ SuffExpandChildren(LstNode cln, GNode *pgn)
 			cp += len - 1;
 		    }
 
-		    if (freeIt)
-			free(freeIt);
+		    free(freeIt);
 		} else if (*cp == '\\' && *cp != '\0') {
 		    /*
 		     * Escaped something -- skip over it
@@ -1933,8 +1932,7 @@ SuffFindArchiveDeps(GNode *gn, Lst slst)
     for (i = (sizeof(copy)/sizeof(copy[0]))-1; i >= 0; i--) {
 	char *p1;
 	Var_Set(copy[i], Var_Value(copy[i], mem, &p1), gn, 0);
-	if (p1)
-	    free(p1);
+	free(p1);
 
     }
 

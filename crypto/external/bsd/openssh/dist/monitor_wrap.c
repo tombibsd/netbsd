@@ -78,7 +78,6 @@ __RCSID("$NetBSD$");
 #include "channels.h"
 #include "session.h"
 #include "servconf.h"
-#include "roaming.h"
 
 #include "ssherr.h"
 

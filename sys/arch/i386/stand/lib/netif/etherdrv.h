@@ -32,6 +32,7 @@ int EtherReceive(char *, int);
 void EtherStop(void);
 
 extern unsigned ether_medium;
+#define ETHERMEDIUM_BAD ((unsigned)-1)
 #define ETHERMEDIUM_BNC 0
 #define ETHERMEDIUM_UTP 1
 #define ETHERMEDIUM_AUI 2

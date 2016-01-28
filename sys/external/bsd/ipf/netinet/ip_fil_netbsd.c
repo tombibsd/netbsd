@@ -1935,7 +1935,7 @@ ipf_inject(fr_info_t *fin, mb_t *m)
 			error = 0;
 		}
 	} else {
-		error = ip_output(m, NULL, NULL, IP_FORWARDING, NULL);
+		error = ip_output(m, NULL, NULL, IP_FORWARDING, NULL, NULL);
 	}
 	return error;
 }

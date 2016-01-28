@@ -37,7 +37,6 @@
 #endif
 #include <sys/stat.h>
 #include <sys/ioctl.h>
-#include <fcntl.h>
 #include <libgen.h>
 #include <errno.h>
 #if !defined(HAVE_CONFIG_H) || defined(HAVE_ERR_H)
@@ -144,8 +143,8 @@ filemon_open(BuildMon *pbm)
 	err(1, "Could not set filemon file descriptor!");
     }
     /* we don't need these once we exec */
-    (void)fcntl(pbm->mon_fd, F_SETFD, 1);
-    (void)fcntl(pbm->filemon_fd, F_SETFD, 1);
+    (void)fcntl(pbm->mon_fd, F_SETFD, FD_CLOEXEC);
+    (void)fcntl(pbm->filemon_fd, F_SETFD, FD_CLOEXEC);
 }
 
 /*
@@ -296,8 +295,7 @@ meta_name(struct GNode *gn, char *mname, size_t mnamelen,
     }
     free(tp);
     for (i--; i >= 0; i--) {
-	if (p[i])
-	    free(p[i]);
+	free(p[i]);
     }
     return (mname);
 }
@@ -349,8 +347,7 @@ is_submake(void *cmdp, void *gnp)
 	    }
 	}
     }
-    if (mp)
-	free(mp);
+    free(mp);
     return (rc);
 }
 
@@ -370,8 +367,7 @@ printCMD(void *cmdp, void *mfpp)
 	cmd = cp = Var_Subst(NULL, cmd, mfp->gn, FALSE, TRUE);
     }
     fprintf(mfp->fp, "CMD %s\n", cmd);
-    if (cp)
-	free(cp);
+    free(cp);
     return 0;
 }
 
@@ -520,8 +516,7 @@ meta_create(BuildMon *pbm, GNode *gn)
     }
  out:
     for (i--; i >= 0; i--) {
-	if (p[i])
-	    free(p[i]);
+	free(p[i]);
     }
 
     return (mf.fp);
@@ -1031,14 +1026,12 @@ meta_oodate(GNode *gn, Boolean oodate)
 			ldir = Var_Value(ldir_vname, VAR_GLOBAL, &tp);
 			if (ldir) {
 			    strlcpy(latestdir, ldir, sizeof(latestdir));
-			    if (tp)
-				free(tp);
+			    free(tp);
 			}
 			ldir = Var_Value(lcwd_vname, VAR_GLOBAL, &tp);
 			if (ldir) {
 			    strlcpy(lcwd, ldir, sizeof(lcwd));
-			    if (tp)
-				free(tp);
+			    free(tp);
 			}
 		    }
 		    /* Skip past the pid. */
@@ -1395,8 +1388,7 @@ meta_oodate(GNode *gn, Boolean oodate)
 	 */
 	Var_Delete(OODATE, gn);
 	Var_Set(OODATE, Var_Value(ALLSRC, gn, &cp), gn, 0);
-	if (cp)
-	    free(cp);
+	free(cp);
     }
     return oodate;
 }
@@ -1423,8 +1415,8 @@ meta_compat_start(void)
     if (pipe(childPipe) < 0)
 	Punt("Cannot create pipe: %s", strerror(errno));
     /* Set close-on-exec flag for both */
-    (void)fcntl(childPipe[0], F_SETFD, 1);
-    (void)fcntl(childPipe[1], F_SETFD, 1);
+    (void)fcntl(childPipe[0], F_SETFD, FD_CLOEXEC);
+    (void)fcntl(childPipe[1], F_SETFD, FD_CLOEXEC);
 }
 
 void

@@ -292,10 +292,8 @@ TargFreeGN(void *gnp)
 
 
     free(gn->name);
-    if (gn->uname)
-	free(gn->uname);
-    if (gn->path)
-	free(gn->path);
+    free(gn->uname);
+    free(gn->path);
     /* gn->fname points to name allocated when file was opened, don't free */
 
     Lst_Destroy(gn->iParents, NULL);

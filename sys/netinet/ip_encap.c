@@ -64,9 +64,6 @@
  *
  * The code assumes that radix table code can handle non-continuous netmask,
  * as it will pass radix table memory region with (src + dst) sockaddr pair.
- *
- * FreeBSD is excluded here as they make max_keylen a static variable, and
- * thus forbid definition of radix table other than proper domains.
  */
 
 #include <sys/cdefs.h>
@@ -127,7 +124,6 @@ static void encap_fillarg(struct mbuf *, const struct encaptab *);
 
 LIST_HEAD(, encaptab) encaptab = LIST_HEAD_INITIALIZER(&encaptab);
 
-extern int max_keylen;	/* radix.c */
 struct radix_node_head *encap_head[2];	/* 0 for AF_INET, 1 for AF_INET6 */
 
 void

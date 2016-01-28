@@ -518,8 +518,12 @@ rlprintf(struct timeval *t, const char *fmt, ...)
 	va_list ap;
 	static const struct timeval msgperiod[1] = {{ 5, 0 }};
 
-	if (ratecheck(t, msgperiod))
-		vprintf(fmt, ap);
+	if (!ratecheck(t, msgperiod))
+		return;
+
+	va_start(ap, fmt);
+	vprintf(fmt, ap);
+	va_end(ap);
 }
 
 const static uint8_t ipl2psl_table[] = {

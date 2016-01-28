@@ -33,7 +33,7 @@ __RCSID("$NetBSD$");
 #define	__fenv_static
 #include "fenv.h"
 
-#if defined(__GNUC_GNU_INLINE__) || defined(__lint__)
+#if defined(__GNUC_GNU_INLINE__) && !defined(__lint__)
 #error "This file must be compiled with C99 'inline' semantics"
 #endif
 

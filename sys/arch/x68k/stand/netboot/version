@@ -5,3 +5,4 @@ file is important - make sure the entries are appended on end, last item
 is taken as the current.
 
 0.1:	Initial netboot
+0.2:	Disable slow gunzip CRC32 calculation.

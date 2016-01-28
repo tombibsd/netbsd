@@ -165,13 +165,6 @@
 
 #define SSH2_EXTENDED_DATA_STDERR			1
 
-/* kex messages for resume@appgate.com */
-#define SSH2_MSG_KEX_ROAMING_RESUME			30
-#define SSH2_MSG_KEX_ROAMING_AUTH_REQUIRED		31
-#define SSH2_MSG_KEX_ROAMING_AUTH			32
-#define SSH2_MSG_KEX_ROAMING_AUTH_OK			33
-#define SSH2_MSG_KEX_ROAMING_AUTH_FAIL			34
-
 /* Certificate types for OpenSSH certificate keys extension */
 #define SSH2_CERT_TYPE_USER				1
 #define SSH2_CERT_TYPE_HOST				2

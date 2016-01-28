@@ -84,6 +84,7 @@
 #include <sys/param.h>
 
 #include <ctype.h>
+#include <fcntl.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -91,6 +92,10 @@
 
 #ifdef BSD4_4
 # include <sys/cdefs.h>
+#endif
+
+#ifndef FD_CLOEXEC
+#define FD_CLOEXEC 1
 #endif
 
 #if defined(__GNUC__)

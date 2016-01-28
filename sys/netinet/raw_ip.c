@@ -311,17 +311,11 @@ rip_ctlinput(int cmd, const struct sockaddr *sa, void *v)
  * Tack on options user may have setup with control call.
  */
 int
-rip_output(struct mbuf *m, ...)
+rip_output(struct mbuf *m, struct inpcb *inp)
 {
-	struct inpcb *inp;
 	struct ip *ip;
 	struct mbuf *opts;
 	int flags;
-	va_list ap;
-
-	va_start(ap, m);
-	inp = va_arg(ap, struct inpcb *);
-	va_end(ap);
 
 	flags =
 	    (inp->inp_socket->so_options & SO_DONTROUTE) | IP_ALLOWBROADCAST

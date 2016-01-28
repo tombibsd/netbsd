@@ -108,7 +108,6 @@ __RCSID("$NetBSD$");
 #include "ssh-gss.h"
 #endif
 #include "monitor_wrap.h"
-#include "roaming.h"
 #include "ssh-sandbox.h"
 #include "version.h"
 #include "ssherr.h"
@@ -438,7 +437,7 @@ sshd_exchange_identification(int sock_in, int sock_out)
 	    options.version_addendum, newline);
 
 	/* Send our protocol version identification. */
-	if (roaming_atomicio(vwrite, sock_out, server_version_string,
+	if (atomicio(vwrite, sock_out, server_version_string,
 	    strlen(server_version_string))
 	    != strlen(server_version_string)) {
 		logit("Could not write ident string to %s", get_remote_ipaddr());
@@ -448,7 +447,7 @@ sshd_exchange_identification(int sock_in, int sock_out)
 	/* Read other sides version identification. */
 	memset(buf, 0, sizeof(buf));
 	for (i = 0; i < sizeof(buf) - 1; i++) {
-		if (roaming_atomicio(read, sock_in, &buf[i], 1) != 1) {
+		if (atomicio(read, sock_in, &buf[i], 1) != 1) {
 			logit("Did not receive identification string from %s",
 			    get_remote_ipaddr());
 			cleanup_exit(255);

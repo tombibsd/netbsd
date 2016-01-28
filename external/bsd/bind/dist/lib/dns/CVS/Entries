@@ -3,7 +3,7 @@
 /acache.c/1.7/Sat Jul 25 01:19:08 2015/-kk/
 /acl.c/1.7/Thu Dec 11 09:05:51 2014/-kk/
 /adb.c/1.12/Fri Dec 25 06:15:31 2015/-kk/
-/api/1.6/Fri Dec 25 06:15:31 2015/-kk/
+/api/1.7/Thu Jan 28 08:32:33 2016/-kk/
 /byaddr.c/1.7/Thu Dec 11 09:05:51 2014/-kk/
 /cache.c/1.9/Fri Dec 25 06:15:31 2015/-kk/
 /callbacks.c/1.6/Fri Dec 25 06:15:31 2015/-kk/
@@ -48,7 +48,7 @@
 /mapapi/1.1.1.2/Sat Jul 25 01:19:09 2015/-kk/
 /master.c/1.15/Fri Dec 25 06:15:31 2015/-kk/
 /masterdump.c/1.11/Sat Jul 25 01:19:09 2015/-kk/
-/message.c/1.16/Fri Dec 25 06:15:31 2015/-kk/
+/message.c/1.17/Thu Jan 28 08:32:34 2016/-kk/
 /name.c/1.12/Fri Dec 25 06:15:31 2015/-kk/
 /ncache.c/1.11/Fri Dec 25 06:15:31 2015/-kk/
 /nsec.c/1.10/Fri Dec 25 06:15:31 2015/-kk/
@@ -82,7 +82,7 @@
 /rdatasetiter.c/1.4/Thu Dec 11 09:05:51 2014/-kk/
 /rdataslab.c/1.11/Sat Jul 25 01:19:09 2015/-kk/
 /request.c/1.10/Fri Dec 25 06:15:31 2015/-kk/
-/resolver.c/1.23/Fri Dec 25 06:15:31 2015/-kk/
+/resolver.c/1.24/Thu Jan 28 08:32:34 2016/-kk/
 /result.c/1.7/Fri Dec 25 06:15:31 2015/-kk/
 /rootns.c/1.10/Fri Dec 25 06:15:31 2015/-kk/
 /rpz.c/1.10/Fri Dec 25 06:15:31 2015/-kk/

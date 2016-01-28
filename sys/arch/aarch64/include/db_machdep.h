@@ -64,7 +64,7 @@ extern db_regs_t ddb_regs;
 static inline bool 
 inst_call(db_expr_t insn)
 {
-	return (insn & 0xfc000000) == 0x92000000	/* bl */
+	return (insn & 0xfc000000) == 0x94000000	/* bl */
 	    || (insn & 0xfffffcef) == 0xd63f0000;	/* blr */
 }
 

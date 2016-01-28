@@ -1,0 +1,47 @@
+/BUG-REPORT/1.1.1.1/Wed Jan 13 18:41:45 2016/-kk/
+/COPYING/1.1.1.1/Wed Jan 13 18:41:45 2016/-kk/
+/ChangeLog.115/1.1.1.1/Wed Jan 13 18:41:45 2016/-kk/
+/ChangeLog.116/1.1.1.1/Wed Jan 13 18:41:45 2016/-kk/
+/ChangeLog.117/1.1.1.1/Wed Jan 13 18:41:45 2016/-kk/
+/ChangeLog.118/1.1.1.1/Wed Jan 13 18:41:45 2016/-kk/
+/ChangeLog/1.1.1.1/Wed Jan 13 18:41:45 2016/-kk/
+/FDL/1.1.1.1/Wed Jan 13 18:41:45 2016/-kk/
+/INSTALL.gen/1.1.1.1/Wed Jan 13 18:41:45 2016/-kk/
+/INSTALL/1.1.1.1/Wed Jan 13 18:41:45 2016/-kk/
+/LICENSE/1.1.1.1/Wed Jan 13 18:41:45 2016/-kk/
+/MANIFEST/1.1.1.1/Wed Jan 13 18:41:45 2016/-kk/
+/MORE.STUFF/1.1.1.1/Wed Jan 13 18:41:45 2016/-kk/
+/Makefile.ccpg/1.1.1.1/Wed Jan 13 18:41:45 2016/-kk/
+/Makefile.comm/1.1.1.1/Wed Jan 13 18:41:45 2016/-kk/
+/Makefile.cpg/1.1.1.1/Wed Jan 13 18:41:45 2016/-kk/
+/Makefile.dev/1.1.1.1/Wed Jan 13 18:41:45 2016/-kk/
+/Makefile.in/1.2/Wed Jan 13 19:01:58 2016/-kk/
+/Makefile.init/1.1.1.1/Wed Jan 13 18:41:45 2016/-kk/
+/Makefile.lib/1.1.1.1/Wed Jan 13 18:41:45 2016/-kk/
+/Makefile.man/1.1.1.1/Wed Jan 13 18:41:45 2016/-kk/
+/Makefile.sub/1.1.1.1/Wed Jan 13 18:41:45 2016/-kk/
+/Makefile/1.1.1.1/Wed Jan 13 18:41:45 2016/-kk/
+/NEWS/1.1.1.1/Wed Jan 13 18:41:45 2016/-kk/
+/PROBLEMS/1.1.1.1/Wed Jan 13 18:41:45 2016/-kk/
+/PROJECTS/1.1.1.1/Wed Jan 13 18:41:45 2016/-kk/
+/README.MinGW/1.1.1.1/Wed Jan 13 18:41:45 2016/-kk/
+/README/1.1.1.1/Wed Jan 13 18:41:45 2016/-kk/
+/REVISION/1.1.1.1/Wed Jan 13 18:41:45 2016/-kk/
+/TODO/1.1.1.1/Wed Jan 13 18:41:45 2016/-kk/
+/VERSION/1.1.1.1/Wed Jan 13 18:41:45 2016/-kk/
+/aclocal.m4/1.1.1.1/Wed Jan 13 18:41:45 2016/-kk/
+/configure.ac/1.2/Wed Jan 13 19:01:58 2016/-kk/
+/configure/1.1.1.1/Wed Jan 13 18:41:45 2016/-kk/
+/gendef.sh/1.1.1.1/Wed Jan 13 18:41:45 2016/-kk/
+/install-sh/1.1.1.1/Wed Jan 13 18:41:45 2016/-kk/
+/mdate.sh/1.2/Wed Jan 13 19:01:58 2016/-kk/
+/mkinstalldirs/1.1.1.1/Wed Jan 13 18:41:45 2016/-kk/
+/stamp-h.in/1.1.1.1/Wed Jan 13 18:41:45 2016/-kk/
+/test-groff.in/1.1.1.1/Wed Jan 13 18:41:45 2016/-kk/
+D/arch////
+D/contrib////
+D/doc////
+D/font////
+D/man////
+D/src////
+D/tmac////

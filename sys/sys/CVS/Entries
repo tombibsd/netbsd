@@ -12,7 +12,7 @@
 /boot_flag.h/1.7/Tue Apr 29 19:16:08 2008/-kk/
 /bootblock.h/1.57/Fri Oct  3 09:57:55 2014/-kk/
 /bswap.h/1.19/Sat Mar 21 02:47:28 2015/-kk/
-/buf.h/1.121/Thu Apr  2 02:28:09 2015/-kk/
+/buf.h/1.125/Thu Jan 28 08:36:23 2016/-kk/
 /bufq.h/1.10/Tue Jan 13 13:35:54 2009/-kk/
 /bufq_impl.h/1.9/Wed Nov  2 13:52:34 2011/-kk/
 /bus.h/1.11/Mon May  7 18:16:38 2012/-kk/
@@ -38,7 +38,7 @@
 /common_lock.h/1.1/Fri Jun 26 14:27:35 2015/-kk/
 /common_wchar_limits.h/1.1/Mon Aug 18 22:21:39 2014/-kk/
 /condvar.h/1.12/Sat Dec  5 22:38:19 2009/-kk/
-/conf.h/1.145/Fri Oct  3 09:09:34 2014/-kk/
+/conf.h/1.146/Thu Jan 28 08:36:23 2016/-kk/
 /core.h/1.12/Thu Aug 20 22:07:49 2009/-kk/
 /cprng.h/1.12/Wed Apr 22 07:37:48 2015/-kk/
 /cpu.h/1.41/Tue Jun  3 02:54:47 2014/-kk/
@@ -139,7 +139,7 @@
 /md5.h/1.9/Mon Dec 26 18:41:36 2005/-kk/
 /midiio.h/1.16/Sun Sep 13 01:32:01 2015/-kk/
 /mman.h/1.48/Fri Oct  3 09:26:22 2014/-kk/
-/module.h/1.39/Fri Nov 20 02:19:58 2015/-kk/
+/module.h/1.40/Thu Jan 28 08:36:23 2016/-kk/
 /mount.h/1.218/Fri Nov 20 01:31:39 2015/-kk/
 /mqueue.h/1.17/Mon Jun 22 02:35:13 2015/-kk/
 /msg.h/1.26/Fri Nov 20 02:19:58 2015/-kk/
@@ -166,7 +166,7 @@
 /power.h/1.20/Mon Jan 12 06:49:24 2015/-kk/
 /proc.h/1.327/Sat Dec  5 12:23:12 2015/-kk/
 /prot.h/1.2/Tue Apr 29 06:53:03 2008/-kk/
-/protosw.h/1.65/Sun Nov 15 13:36:37 2015/-kk/
+/protosw.h/1.66/Thu Jan 28 08:36:23 2016/-kk/
 /pserialize.h/1.1/Sat Jul 30 17:01:04 2011/-kk/
 /pset.h/1.4/Thu Oct 24 10:28:58 2013/-kk/
 /ptrace.h/1.46/Sat Jul 25 01:31:06 2015/-kk/
@@ -224,7 +224,7 @@
 /syscall_stats.h/1.4/Wed Nov 12 12:36:28 2008/-kk/
 /syscallargs.h/1.273/Fri Dec 25 05:40:34 2015/-kk/
 /syscallvar.h/1.11/Fri Oct  2 14:12:06 2015/-kk/
-/sysctl.h/1.217/Fri Oct  2 14:12:06 2015/-kk/
+/sysctl.h/1.219/Thu Jan 28 08:36:23 2016/-kk/
 /syslimits.h/1.28/Sun Sep 13 01:08:00 2015/-kk/
 /syslog.h/1.38/Sun Nov 15 13:36:37 2015/-kk/
 /systm.h/1.269/Fri Nov 20 01:31:40 2015/-kk/

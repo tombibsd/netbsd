@@ -116,9 +116,6 @@ pcfiic_i2c_acquire_bus(void *arg, int flags)
 {
 	struct pcfiic_softc	*sc = arg;
 
-	if (cold || sc->sc_poll || (flags & I2C_F_POLL))
-		return (0);
-
 	rw_enter(&sc->sc_lock, RW_WRITER);
 	return 0;
 }
@@ -127,9 +124,6 @@ void
 pcfiic_i2c_release_bus(void *arg, int flags)
 {
 	struct pcfiic_softc	*sc = arg;
-
-	if (cold || sc->sc_poll || (flags & I2C_F_POLL))
-		return;
 
 	rw_exit(&sc->sc_lock);
 }

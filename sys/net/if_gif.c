@@ -49,7 +49,6 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/socketvar.h>
 #include <sys/syslog.h>
 #include <sys/proc.h>
-#include <sys/protosw.h>
 #include <sys/cpu.h>
 #include <sys/intr.h>
 #include <sys/kmem.h>
@@ -77,7 +76,6 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <netinet/ip6.h>
 #include <netinet6/ip6_var.h>
 #include <netinet6/in6_gif.h>
-#include <netinet6/ip6protosw.h>
 #endif /* INET6 */
 
 #include <netinet/ip_encap.h>

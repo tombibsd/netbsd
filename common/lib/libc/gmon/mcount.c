@@ -106,6 +106,16 @@ _MCOUNT_DECL(u_long, u_long)
     __used;
 #endif
 
+/* XXX: make these interfaces */
+#ifdef _RUMPKERNEL
+#undef MCOUNT_ENTER
+#define MCOUNT_ENTER
+#undef MCOUNT_EXIT
+#define MCOUNT_EXIT
+#undef MCOUNT
+#define MCOUNT
+#endif
+
 /*
  * mcount is called on entry to each function compiled with the profiling
  * switch set.  _mcount(), which is declared in a machine-dependent way

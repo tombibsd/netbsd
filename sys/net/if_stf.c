@@ -165,7 +165,6 @@ static const struct protosw in_stf_protosw =
 	.pr_protocol	= IPPROTO_IPV6,
 	.pr_flags	= PR_ATOMIC|PR_ADDR,
 	.pr_input	= in_stf_input,
-	.pr_output	= rip_output,
 	.pr_ctlinput	= NULL,
 	.pr_ctloutput	= rip_ctloutput,
 	.pr_usrreqs	= &rip_usrreqs,

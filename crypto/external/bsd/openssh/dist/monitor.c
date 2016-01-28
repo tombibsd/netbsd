@@ -84,7 +84,6 @@ __RCSID("$NetBSD$");
 #include "monitor_fdpass.h"
 #include "compat.h"
 #include "ssh2.h"
-#include "roaming.h"
 #include "authfd.h"
 #include "match.h"
 #include "ssherr.h"

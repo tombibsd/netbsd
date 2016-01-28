@@ -401,6 +401,7 @@ ld*	at iop? tid ?			# block devices
 #dpti*	at iop? tid 0			# DPT/Adaptec control interface
 
 # MII/PHY support
+brgphy* at mii? phy ?			# Broadcom BCM5400-family PHYs
 exphy*	at mii? phy ?			# 3Com internal PHYs
 icsphy*	at mii? phy ?			# Integrated Circuit Systems ICS189x
 inphy*	at mii? phy ?			# Intel 82555 PHYs

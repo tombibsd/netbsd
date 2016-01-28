@@ -13,4 +13,10 @@ SUBDIR+= lvm2
 SUBDIR+= grep
 .endif
 
+.if ${MKGROFF} != "no"
+SUBDIR+=        groff
+.endif
+
+SUBDIR+= gettext diffutils texinfo rcs send-pr
+
 .include <bsd.subdir.mk>

@@ -1,7 +1,14 @@
-/Makefile/1.7/Sun Jan 17 10:32:37 2016/-kk/
+/Makefile/1.13/Thu Jan 28 08:33:40 2016/-kk/
+D/diffutils////
 D/dtc////
 D/gawk////
+D/gettext////
 D/gmake////
 D/grep////
+D/groff////
+D/libmalloc////
 D/lvm2////
+D/rcs////
+D/send-pr////
+D/texinfo////
 D/xcvs////

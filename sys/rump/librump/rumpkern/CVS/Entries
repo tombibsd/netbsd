@@ -4,7 +4,7 @@
 /atomic_cas_generic.c/1.2/Fri Dec 18 22:37:18 2009/-kk/
 /cons.c/1.5/Wed Jun  3 06:55:55 2015/-kk/
 /devsw.c/1.7/Fri Feb 25 18:56:20 2011/-kk/
-/emul.c/1.174/Thu Jan  7 06:24:40 2016/-kk/
+/emul.c/1.177/Thu Jan 28 08:36:23 2016/-kk/
 /etfs_wrap.c/1.1/Fri Apr 25 13:10:42 2014/-kk/
 /hyperentropy.c/1.10/Fri May  1 11:32:37 2015/-kk/
 /intr.c/1.53/Tue Aug 25 04:51:28 2015/-kk/
@@ -13,15 +13,15 @@
 /locks.c/1.71/Fri Oct  2 14:12:06 2015/-kk/
 /locks_up.c/1.9/Thu Oct 24 10:28:58 2013/-kk/
 /ltsleep.c/1.33/Thu Oct 24 10:28:58 2013/-kk/
-/lwproc.c/1.35/Wed Apr 22 07:37:47 2015/-kk/
+/lwproc.c/1.36/Thu Jan 28 08:36:23 2016/-kk/
 /rump.3/1.12/Thu Dec 11 09:09:55 2014/-kk/
-/rump.c/1.325/Sun Sep 13 01:07:57 2015/-kk/
+/rump.c/1.326/Thu Jan 28 08:36:23 2016/-kk/
 /rump_atomic_cas_up.c/1.2/Tue Nov 23 12:51:10 2010/-kk/
 /rump_curlwp.h/1.2/Sun Mar 16 15:30:05 2014/-kk/
 /rump_curlwp___thread.h/1.2/Sun Mar 16 15:30:05 2014/-kk/
 /rump_curlwp_hypercall.h/1.2/Sun Mar 16 15:30:05 2014/-kk/
 /rump_lwproc.3/1.2/Thu Apr  2 02:28:09 2015/-kk/
-/rump_private.h/1.92/Fri May  1 11:32:37 2015/-kk/
+/rump_private.h/1.93/Thu Jan 28 08:36:23 2016/-kk/
 /rump_syscalls.c/1.121/Fri Dec 25 05:40:33 2015/-kk/
 /rumpcopy.c/1.20/Wed Apr 22 07:37:47 2015/-kk/
 /rumpkern.ifspec/1.13/Tue May  6 05:50:19 2014/-kk/

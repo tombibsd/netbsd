@@ -77,7 +77,6 @@ wss_acpi_hints_index(const char *idstr)
 	for (idx = 0; idx < __arraycount(wss_acpi_hints); idx++) {
 		if (!strcmp(wss_acpi_hints[idx].idstr, idstr))
 			return idx;
-		++idx;
 	}
 
 	return -1;

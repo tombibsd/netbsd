@@ -221,11 +221,6 @@ ssh_kex2(char *host, struct sockaddr *hostaddr, u_short port)
 
 	dispatch_run(DISPATCH_BLOCK, &kex->done, active_state);
 
-	if (options.use_roaming && !kex->roaming) {
-		debug("Roaming not allowed by server");
-		options.use_roaming = 0;
-	}
-
 	session_id2 = kex->session_id;
 	session_id2_len = kex->session_id_len;
 
@@ -1282,6 +1277,7 @@ pubkey_prepare(Authctxt *authctxt)
 		if (r != SSH_ERR_AGENT_NO_IDENTITIES)
 			debug("%s: ssh_fetch_identitylist: %s",
 			    __func__, ssh_err(r));
+		close(agent_fd);
 	} else {
 		for (j = 0; j < idlist->nkeys; j++) {
 			found = 0;

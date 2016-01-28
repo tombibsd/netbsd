@@ -37,6 +37,7 @@ struct ifaddr;
 struct at_ifaddr;
 struct route;
 struct socket;
+struct ddpcb;
 
 extern struct mowner atalk_rx_mowner;
 extern struct mowner atalk_tx_mowner;
@@ -59,7 +60,7 @@ u_int16_t
 void	ddp_init(void);
 struct ifaddr *
 	at_ifawithnet(const struct sockaddr_at *, struct ifnet *);
-int	ddp_output(struct mbuf *, ...);
+int	ddp_output(struct mbuf *, struct ddpcb *);
 struct ddpcb  *
 	ddp_search(struct sockaddr_at *, struct sockaddr_at *,
     struct at_ifaddr *);

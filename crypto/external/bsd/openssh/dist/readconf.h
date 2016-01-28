@@ -147,8 +147,6 @@ typedef struct {
 	int	permit_local_command;
 	int	visual_host_key;
 
-	int	use_roaming;
-
 	int	request_tty;
 	int	send_version_first;
 

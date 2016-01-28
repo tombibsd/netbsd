@@ -768,7 +768,7 @@ ext2fs_direnter(struct inode *ip, struct vnode *dvp,
 		auio.uio_iovcnt = 1;
 		auio.uio_rw = UIO_WRITE;
 		UIO_SETUP_SYSSPACE(&auio);
-		error = VOP_WRITE(dvp, &auio, IO_SYNC, cnp->cn_cred);
+		error = ext2fs_bufwr(dvp, &auio, IO_SYNC, cnp->cn_cred);
 		if (dirblksiz > dvp->v_mount->mnt_stat.f_bsize)
 			/* XXX should grow with balloc() */
 			panic("ext2fs_direnter: frag size");

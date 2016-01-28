@@ -19,3 +19,4 @@ $NetBSD$
 1.17:	Pull OpenBSD's ite driver reorganization.
 1.18:	Add support for framebuffers on HP362 and HP382.
 1.19:	Add and fix support for HP425e mcclock, sti framebuffer, apci and dnkbd.
+1.20:	Disable slow gunzip CRC32 calculation.

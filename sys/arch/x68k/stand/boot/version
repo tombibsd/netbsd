@@ -12,3 +12,4 @@ is taken as the current.
 1.4:	ffsv2 support.
 1.5:	Make key interrupt to get boot menu works properly even after
 	non ASCII keys (CTRL, OPT.1 etc.) are pressed during boot.
+1.6:	Disable slow gunzip CRC32 calculation.

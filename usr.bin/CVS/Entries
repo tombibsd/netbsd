@@ -1,5 +1,5 @@
 /Makefile.inc/1.10/Wed Mar 21 05:47:53 2012/-kk/
-/Makefile/1.222/Fri Dec 25 06:18:34 2015/-kk/
+/Makefile/1.223/Thu Jan 28 08:36:26 2016/-kk/
 D/apply////
 D/apropos////
 D/asa////
@@ -15,6 +15,8 @@ D/btkey////
 D/btpin////
 D/bzip2////
 D/bzip2recover////
+D/c89////
+D/c99////
 D/cal////
 D/calendar////
 D/cap_mkdb////

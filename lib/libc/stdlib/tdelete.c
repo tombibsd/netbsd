@@ -60,8 +60,7 @@ tdelete(const void *vkey, void **vrootp,
 			q->rlink = (*rootp)->rlink;
 		}
 	}
-	if (p != *rootp)
-		free(*rootp);			/* D4: Free node */
+	free(*rootp);				/* D4: Free node */
 	*rootp = q;				/* link parent to new node */
 	return p;
 }

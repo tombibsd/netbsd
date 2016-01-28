@@ -270,7 +270,6 @@ const struct protosw arpsw[] = {
 	  .pr_protocol = 0,
 	  .pr_flags = 0,
 	  .pr_input = 0,
-	  .pr_output = 0,
 	  .pr_ctlinput = 0,
 	  .pr_ctloutput = 0,
 	  .pr_usrreqs = 0,

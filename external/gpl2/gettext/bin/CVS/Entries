@@ -1,0 +1,19 @@
+/Makefile.inc.prog/1.1/Tue Jan 12 22:58:01 2016/-kk/
+/Makefile/1.1/Tue Jan 12 22:58:01 2016/-kk/
+D/gettext////
+D/gettextize////
+D/msgattrib////
+D/msgcat////
+D/msgcmp////
+D/msgcomm////
+D/msgconv////
+D/msgen////
+D/msgexec////
+D/msgfilter////
+D/msgfmt////
+D/msggrep////
+D/msginit////
+D/msgmerge////
+D/msgunfmt////
+D/msguniq////
+D/xgettext////

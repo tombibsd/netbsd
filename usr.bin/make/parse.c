@@ -129,7 +129,6 @@ __RCSID("$NetBSD$");
 #include <assert.h>
 #include <ctype.h>
 #include <errno.h>
-#include <fcntl.h>
 #include <stdarg.h>
 #include <stdio.h>
 
@@ -1220,8 +1219,7 @@ ParseDoDependency(char *line)
 		void    *freeIt;
 
 		(void)Var_Parse(cp, VAR_CMD, TRUE, TRUE, FALSE, &length, &freeIt);
-		if (freeIt)
-		    free(freeIt);
+		free(freeIt);
 		cp += length-1;
 	    }
 	}
@@ -2325,10 +2323,8 @@ ParseSetIncludedFile(void)
 	fprintf(debug_file, "%s: ${.INCLUDEDFROMDIR} = `%s' "
 	    "${.INCLUDEDFROMFILE} = `%s'\n", __func__, pd, pf);
 
-    if (fp)
-	free(fp);
-    if (dp)
-	free(dp);
+    free(fp);
+    free(dp);
 }
 /*-
  *---------------------------------------------------------------------

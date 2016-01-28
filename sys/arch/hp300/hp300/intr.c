@@ -199,9 +199,12 @@ intr_dispatch(int evec /* format | vector offset */)
 
 	list = &hp300_intr_list[ipl];
 	if (LIST_FIRST(&list->hi_q) == NULL) {
-		printf("intr_dispatch: ipl %d unexpected\n", ipl);
-		if (++unexpected > 10)
-			panic("intr_dispatch: too many unexpected interrupts");
+		if (ipl != 6) {
+			printf("intr_dispatch: ipl %d unexpected\n", ipl);
+			if (++unexpected > 10)
+				panic("intr_dispatch:"
+				    " too many unexpected interrupts");
+		}
 		return;
 	}
 

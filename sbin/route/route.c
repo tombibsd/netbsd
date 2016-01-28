@@ -660,22 +660,22 @@ newroute(int argc, char *const *argv)
 		} else
 			break;
 	}
-	if (*cmd == 'g')
-		return ret != 0;
-	if (!qflag) {
-		oerrno = errno;
-		(void)printf("%s %s %s", cmd, ishost? "host" : "net", dest);
-		if (*gateway) {
-			(void)printf(": gateway %s", gateway);
-			if (attempts > 1 && ret == 0 && af == AF_INET)
-			    (void)printf(" (%s)",
-			        inet_ntoa(soup->so_gate->sin.sin_addr));
-		}
-		if (ret == 0)
-			(void)printf("\n");
-		else
-			(void)printf(": %s\n", route_strerror(oerrno));
+	if (*cmd == 'g' || qflag)
+		goto out;
+
+	oerrno = errno;
+	(void)printf("%s %s %s", cmd, ishost? "host" : "net", dest);
+	if (*gateway) {
+		(void)printf(": gateway %s", gateway);
+		if (attempts > 1 && ret == 0 && af == AF_INET)
+		    (void)printf(" (%s)",
+			inet_ntoa(soup->so_gate->sin.sin_addr));
 	}
+	if (ret == 0)
+		(void)printf("\n");
+	else
+		(void)printf(": %s\n", route_strerror(oerrno));
+out:
 	free(sou.so_dst);
 	free(sou.so_gate);
 	free(sou.so_mask);

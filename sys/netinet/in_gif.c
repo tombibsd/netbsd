@@ -79,13 +79,12 @@ int ip_gif_ttl = GIF_TTL;
 int ip_gif_ttl = 0;
 #endif
 
-const struct protosw in_gif_protosw = {
+static const struct protosw in_gif_protosw = {
 	.pr_type	= SOCK_RAW,
 	.pr_domain	= &inetdomain,
 	.pr_protocol	= 0 /* IPPROTO_IPV[46] */,
 	.pr_flags	= PR_ATOMIC|PR_ADDR,
 	.pr_input	= in_gif_input,
-	.pr_output	= rip_output,
 	.pr_ctlinput	= NULL,
 	.pr_ctloutput	= rip_ctloutput,
 	.pr_usrreqs	= &rip_usrreqs,

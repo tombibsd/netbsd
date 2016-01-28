@@ -86,7 +86,7 @@
 /layout-custom.c/1.1.1.5/Sun Jan 17 10:32:35 2016/-kk/
 /layout-set.c/1.1.1.5/Sun Jan 17 10:32:35 2016/-kk/
 /layout.c/1.1.1.5/Sun Jan 17 10:32:35 2016/-kk/
-/log.c/1.9/Sun Jan 17 10:32:35 2016/-kk/
+/log.c/1.10/Thu Jan 28 08:33:38 2016/-kk/
 /mdoc2man.awk/1.1.1.2/Thu Jul 24 14:28:59 2014/-kk/
 /mode-key.c/1.1.1.5/Sun Jan 17 10:32:35 2016/-kk/
 /names.c/1.1.1.5/Sun Jan 17 10:32:35 2016/-kk/
@@ -118,7 +118,7 @@
 /style.c/1.1.1.2/Sun Jan 17 10:32:35 2016/-kk/
 /tmux.1/1.5/Sun Jan 17 10:32:35 2016/-kk/
 /tmux.c/1.4/Sun Jan 17 10:32:35 2016/-kk/
-/tmux.h/1.6/Sun Jan 17 10:32:35 2016/-kk/
+/tmux.h/1.7/Thu Jan 28 08:33:38 2016/-kk/
 /tty-acs.c/1.5/Sun Jan 17 10:32:35 2016/-kk/
 /tty-keys.c/1.6/Sun Jan 17 10:32:35 2016/-kk/
 /tty-term.c/1.6/Sun Jan 17 10:32:35 2016/-kk/

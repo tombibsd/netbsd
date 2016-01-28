@@ -115,7 +115,8 @@ static __inline int inst_return(u_int ins) {
 	       (ins & 0xfc000000) == 0xe0000000;
 }
 static __inline int inst_trap_return(u_int ins)	{
-	return (ins & 0xfc001fc0) == 0x00000ca0;
+	return (ins & 0xfc001fe0) == 0x00000c00 ||
+	       (ins & 0xfc001fe0) == 0x00000ca0;
 }
 
 #define db_clear_single_step(r)	((r)->tf_ipsw &= ~PSW_R)

@@ -70,7 +70,6 @@ struct keycb {
 	int kp_registered;	/* registered socket */
 };
 
-int key_output (struct mbuf *, ...);
 int key_sendup (struct socket *, struct sadb_msg *, u_int, int);
 int key_sendup_mbuf (struct socket *, struct mbuf *, int);
 #endif /* _KERNEL */

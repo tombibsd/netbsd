@@ -120,9 +120,6 @@ struct ip6protosw {
 /* protocol-protocol hooks */
 	int	(*pr_input)		/* input to protocol (from below) */
 			(struct mbuf **, int *, int);
-	int	(*pr_output)		/* output to protocol (from above) */
-			(struct mbuf *, struct socket *, struct sockaddr_in6 *,
-			 struct mbuf *);
 	void	*(*pr_ctlinput)		/* control input (from below) */
 			(int, const struct sockaddr *, void *);
 	int	(*pr_ctloutput)		/* control output (from above) */

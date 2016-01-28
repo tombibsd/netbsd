@@ -75,7 +75,7 @@ SUBDIR+=	../external/mit/expat/lib
 
 SUBDIR+=	../external/public-domain/sqlite/lib
 
-SUBDIR+=	../gnu/lib/libmalloc
+SUBDIR+=	../external/gpl2/libmalloc
 
 .if (${MKGCC} != "no")
 SUBDIR+=	../external/gpl3/${EXTERNAL_GCC_SUBDIR}/lib/libobjc

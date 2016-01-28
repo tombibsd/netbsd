@@ -137,6 +137,10 @@ size_t	regerror(int, const regex_t * __restrict, char * __restrict, size_t);
 int	regexec(const regex_t * __restrict,
 	    const char * __restrict, size_t, regmatch_t [], int);
 void	regfree(regex_t *);
+#ifdef _NETBSD_SOURCE
+ssize_t regnsub(char *, size_t, const char *, const regmatch_t *, const char *);
+ssize_t regasub(char **buf, const char *, const regmatch_t *, const char *);
+#endif
 __END_DECLS
 
 #endif /* !_REGEX_H_ */

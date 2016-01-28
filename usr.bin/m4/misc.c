@@ -339,6 +339,10 @@ obtain_char(struct input_file *f)
 		return EOF;
 
 	f->c = fgetc(f->file);
+#ifndef REAL_FREEZE
+	if (freezef)
+		fputc(f->c, freezef);
+#endif
 	if (f->c == '\n')
 		f->lineno++;
 

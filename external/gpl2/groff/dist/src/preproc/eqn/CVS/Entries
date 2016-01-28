@@ -1,0 +1,26 @@
+/Makefile.sub/1.2/Wed Jan 13 19:01:58 2016/-kk/
+/TODO/1.1.1.1/Wed Jan 13 18:41:49 2016/-kk/
+/box.cpp/1.1.1.1/Wed Jan 13 18:41:49 2016/-kk/
+/box.h/1.1.1.1/Wed Jan 13 18:41:49 2016/-kk/
+/delim.cpp/1.1.1.1/Wed Jan 13 18:41:49 2016/-kk/
+/eqn.cpp/1.1.1.1/Wed Jan 13 18:41:49 2016/-kk/
+/eqn.h/1.1.1.1/Wed Jan 13 18:41:49 2016/-kk/
+/eqn.man/1.1.1.1/Wed Jan 13 18:41:49 2016/-kk/
+/eqn.y/1.1.1.1/Wed Jan 13 18:41:49 2016/-kk/
+/eqn_tab.h/1.1.1.1/Wed Jan 13 18:41:49 2016/-kk/
+/lex.cpp/1.1.1.1/Wed Jan 13 18:41:49 2016/-kk/
+/limit.cpp/1.1.1.1/Wed Jan 13 18:41:49 2016/-kk/
+/list.cpp/1.1.1.1/Wed Jan 13 18:41:49 2016/-kk/
+/main.cpp/1.1.1.1/Wed Jan 13 18:41:49 2016/-kk/
+/mark.cpp/1.1.1.1/Wed Jan 13 18:41:49 2016/-kk/
+/neqn.man/1.1.1.1/Wed Jan 13 18:41:49 2016/-kk/
+/neqn.sh/1.1.1.1/Wed Jan 13 18:41:49 2016/-kk/
+/other.cpp/1.1.1.1/Wed Jan 13 18:41:49 2016/-kk/
+/over.cpp/1.1.1.1/Wed Jan 13 18:41:49 2016/-kk/
+/pbox.h/1.1.1.1/Wed Jan 13 18:41:49 2016/-kk/
+/pile.cpp/1.1.1.1/Wed Jan 13 18:41:49 2016/-kk/
+/script.cpp/1.1.1.1/Wed Jan 13 18:41:49 2016/-kk/
+/special.cpp/1.1.1.1/Wed Jan 13 18:41:49 2016/-kk/
+/sqrt.cpp/1.1.1.1/Wed Jan 13 18:41:49 2016/-kk/
+/text.cpp/1.1.1.1/Wed Jan 13 18:41:49 2016/-kk/
+D

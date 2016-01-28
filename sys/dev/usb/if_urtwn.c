@@ -4562,7 +4562,7 @@ urtwn_chip_stop(struct urtwn_softc *sc)
 
 	reg = urtwn_read_2(sc, R92C_GPIO_MUXCFG + 2) & ~0x00f0;
 	reg |= (((reg & 0x000f) << 4) | 0x0780);
-	urtwn_write_2(sc, R92C_GPIO_PIN_CTRL+2, reg);
+	urtwn_write_2(sc, R92C_GPIO_MUXCFG + 2, reg);
 
 	/* Disable LED0 & 1 */
 	urtwn_write_2(sc, R92C_LEDCFG0, 0x8080);

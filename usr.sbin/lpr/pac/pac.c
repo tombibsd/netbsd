@@ -255,7 +255,7 @@ dumpit(void)
 
 	hp = hashtab[0];
 	hno = 1;
-	base = (struct hent **) calloc(sizeof hp, hcount);
+	base = calloc(sizeof hp, hcount);
 	if (base == NULL)
 		err(1, "calloc");
 	for (ap = base, c = hcount; c--; ap++) {
@@ -284,6 +284,7 @@ dumpit(void)
 		printf("Sum:%7.2f %4d $%7.2f\n", feet, runs, 
 			feet * price * runs);
 	}
+	free(base);
 }
 
 /*

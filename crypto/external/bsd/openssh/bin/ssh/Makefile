@@ -6,8 +6,7 @@ BINDIR = /usr/bin
 
 PROG=	ssh
 SRCS=	ssh.c readconf.c clientloop.c sshtty.c \
-	sshconnect.c sshconnect1.c sshconnect2.c mux.c \
-	roaming_common.c roaming_client.c
+	sshconnect.c sshconnect1.c sshconnect2.c mux.c
 
 COPTS.sshconnect1.c=	-fno-strict-aliasing
 COPTS.mux.c=		-Wno-pointer-sign

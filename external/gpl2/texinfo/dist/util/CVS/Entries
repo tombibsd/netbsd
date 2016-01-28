@@ -1,0 +1,27 @@
+/Makefile.am/1.1.1.1/Thu Jan 14 00:11:29 2016/-kk/
+/Makefile.in/1.1.1.1/Thu Jan 14 00:11:29 2016/-kk/
+/README/1.1.1.1/Thu Jan 14 00:11:29 2016/-kk/
+/deref.c/1.1.1.1/Thu Jan 14 00:11:29 2016/-kk/
+/dir-example/1.1.1.1/Thu Jan 14 00:11:29 2016/-kk/
+/fix-info-dir/1.1.1.1/Thu Jan 14 00:11:29 2016/-kk/
+/fixfonts/1.1.1.1/Thu Jan 14 00:11:29 2016/-kk/
+/fixref.gawk/1.1.1.1/Thu Jan 14 00:11:29 2016/-kk/
+/gdoc/1.1.1.1/Thu Jan 14 00:11:29 2016/-kk/
+/gen-dir-node/1.1.1.1/Thu Jan 14 00:11:29 2016/-kk/
+/gendocs.sh/1.1.1.1/Thu Jan 14 00:11:29 2016/-kk/
+/gendocs_template/1.1.1.1/Thu Jan 14 00:11:29 2016/-kk/
+/infosrch/1.1.1.1/Thu Jan 14 00:11:29 2016/-kk/
+/install-info-html/1.1.1.1/Thu Jan 14 00:11:29 2016/-kk/
+/install-info.c/1.2/Thu Jan 14 00:34:53 2016/-kk/
+/outline.gawk/1.1.1.1/Thu Jan 14 00:11:29 2016/-kk/
+/prepinfo.awk/1.1.1.1/Thu Jan 14 00:11:29 2016/-kk/
+/tex3patch/1.1.1.1/Thu Jan 14 00:11:29 2016/-kk/
+/texi-docstring-magic.el/1.1.1.1/Thu Jan 14 00:11:29 2016/-kk/
+/texi2dvi/1.2/Thu Jan 14 00:34:53 2016/-kk/
+/texi2pdf/1.1.1.1/Thu Jan 14 00:11:29 2016/-kk/
+/texindex.c/1.2/Thu Jan 14 00:34:53 2016/-kk/
+/texinfo-cat.in/1.1.1.1/Thu Jan 14 00:11:29 2016/-kk/
+/texinfo.dtd/1.1.1.1/Thu Jan 14 00:11:29 2016/-kk/
+/texinfo.xsl/1.1.1.1/Thu Jan 14 00:11:29 2016/-kk/
+/txitextest/1.1.1.1/Thu Jan 14 00:11:29 2016/-kk/
+D

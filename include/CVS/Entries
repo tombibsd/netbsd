@@ -62,7 +62,7 @@
 /randomid.h/1.2/Mon Dec 26 19:01:47 2005/-kk/
 /ranlib.h/1.6/Thu Aug  7 09:44:11 2003/-kk/
 /re_comp.h/1.4/Mon Apr 28 20:22:54 2008/-kk/
-/regex.h/1.13/Tue Sep 13 01:44:32 2005/-kk/
+/regex.h/1.15/Thu Jan 28 08:35:49 2016/-kk/
 /regexp.h/1.7/Thu Feb  3 04:39:32 2005/-kk/
 /res_update.h/1.8/Thu Nov 15 18:49:37 2012/-kk/
 /resolv.h/1.40/Wed Nov  7 15:45:24 2012/-kk/
@@ -96,7 +96,7 @@
 /utmp.h/1.12/Sun Jan 11 03:04:12 2009/-kk/
 /utmpx.h/1.17/Sun Jan 11 19:09:29 2009/-kk/
 /uuid.h/1.2/Wed Apr 23 07:52:32 2008/-kk/
-/vis.h/1.23/Wed Jun  3 06:53:37 2015/-kk/
+/vis.h/1.24/Thu Jan 28 08:35:49 2016/-kk/
 /wchar.h/1.41/Wed Oct 29 08:12:36 2014/-kk/
 /wctype.h/1.9/Thu Oct 24 10:28:53 2013/-kk/
 /wordexp.h/1.2/Tue Apr  1 19:23:28 2008/-kk/

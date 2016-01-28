@@ -1,4 +1,4 @@
-/Makefile/1.52/Thu Apr 24 14:30:08 2014/-kk/
+/Makefile/1.53/Thu Jan 28 08:36:01 2016/-kk/
 /alloc.s/1.10/Mon Apr 28 20:23:13 2008/-kk/
 /amigagraph.h/1.5/Mon Apr 28 20:23:13 2008/-kk/
 /amigaio.h/1.4/Mon Apr 28 20:23:13 2008/-kk/
@@ -8,7 +8,7 @@
 /bbstart.s/1.13/Tue Jul  6 05:59:57 2010/-kk/
 /bcopy.s/1.9/Mon Apr 28 20:23:13 2008/-kk/
 /bzero.s/1.6/Mon Apr 28 20:23:13 2008/-kk/
-/console.c/1.13/Sat Oct 17 11:18:18 2009/-kk/
+/console.c/1.14/Thu Jan 28 08:36:01 2016/-kk/
 /libstubs.h/1.7/Sat Oct 17 11:18:18 2009/-kk/
 /libstubs.s/1.10/Sat Oct 17 11:18:18 2009/-kk/
 /main.c/1.30/Sun Jan 17 10:34:00 2016/-kk/

@@ -37,7 +37,7 @@
 /pmap.c/1.189/Sun Nov 29 09:10:26 2015/-kk/
 /pmap_tlb.c/1.7/Sun Aug  2 04:02:45 2015/-kk/
 /powernow.c/1.8/Mon Nov 18 05:31:36 2013/-kk/
-/procfs_machdep.c/1.7/Wed Apr 22 07:36:39 2015/-kk/
+/procfs_machdep.c/1.10/Thu Jan 28 08:36:12 2016/-kk/
 /sys_machdep.c/1.29/Fri Nov 20 01:31:03 2015/-kk/
 /syscall.c/1.13/Tue Dec  9 04:16:10 2014/-kk/
 /tprof_amdpmi.c/1.4/Mon Nov 18 05:31:36 2013/-kk/

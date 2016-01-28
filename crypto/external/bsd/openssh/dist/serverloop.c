@@ -77,7 +77,6 @@ __RCSID("$NetBSD$");
 #include "dispatch.h"
 #include "auth-options.h"
 #include "serverloop.h"
-#include "roaming.h"
 #include "ssherr.h"
 
 extern ServerOptions options;
@@ -399,11 +398,8 @@ process_input(fd_set *readset)
 
 	/* Read and buffer any input data from the client. */
 	if (FD_ISSET(connection_in, readset)) {
-		int cont = 0;
-		len = roaming_read(connection_in, buf, sizeof(buf), &cont);
+		len = read(connection_in, buf, sizeof(buf));
 		if (len == 0) {
-			if (cont)
-				return;
 			verbose("Connection closed by %.100s",
 			    get_remote_ipaddr());
 			connection_closed = 1;

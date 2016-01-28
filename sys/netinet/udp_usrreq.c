@@ -775,19 +775,14 @@ end:
 
 
 int
-udp_output(struct mbuf *m, ...)
+udp_output(struct mbuf *m, struct inpcb *inp)
 {
-	struct inpcb *inp;
 	struct udpiphdr *ui;
 	struct route *ro;
 	int len = m->m_pkthdr.len;
 	int error = 0;
-	va_list ap;
 
 	MCLAIM(m, &udp_tx_mowner);
-	va_start(ap, m);
-	inp = va_arg(ap, struct inpcb *);
-	va_end(ap);
 
 	/*
 	 * Calculate data length and get a mbuf

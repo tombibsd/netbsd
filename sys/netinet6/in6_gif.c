@@ -79,7 +79,7 @@ int	ip6_gif_hlim = GIF_HLIM;
 
 extern LIST_HEAD(, gif_softc) gif_softc_list;
 
-extern const struct ip6protosw in6_gif_protosw;
+static const struct ip6protosw in6_gif_protosw;
 
 /* 
  * family - family of the packet to be encapsulate. 
@@ -458,13 +458,12 @@ PR_WRAP_CTLOUTPUT(rip6_ctloutput)
 
 extern struct domain inet6domain;
 
-const struct ip6protosw in6_gif_protosw = {
+static const struct ip6protosw in6_gif_protosw = {
 	.pr_type	= SOCK_RAW,
 	.pr_domain	= &inet6domain,
 	.pr_protocol	= 0 /* IPPROTO_IPV[46] */,
 	.pr_flags	= PR_ATOMIC | PR_ADDR,
 	.pr_input	= in6_gif_input,
-	.pr_output	= rip6_output,
 	.pr_ctlinput	= in6_gif_ctlinput,
 	.pr_ctloutput	= rip6_ctloutput,
 	.pr_usrreqs	= &rip6_usrreqs,

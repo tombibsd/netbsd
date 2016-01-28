@@ -954,18 +954,11 @@ dorpc:
 
 	if (NFS_CMPFH(np, fhp, fhsize)) {
 		/*
-		 * as we handle "." lookup locally, this should be
+		 * As we handle "." lookup locally, this is
 		 * a broken server.
 		 */
-		vref(dvp);
-		newvp = dvp;
-#ifndef NFS_V2_ONLY
-		if (v3) {
-			nfsm_postop_attr(newvp, attrflag, 0);
-			nfsm_postop_attr(dvp, attrflag, 0);
-		} else
-#endif
-			nfsm_loadattr(newvp, (struct vattr *)0, 0);
+		m_freem(mrep);
+		return EBADRPC;
 	} else if (flags & ISDOTDOT) {
 		/*
 		 * ".." lookup

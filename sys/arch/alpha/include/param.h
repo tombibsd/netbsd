@@ -57,7 +57,7 @@
 #define	PGOFSET		(NBPG-1)			/* byte off. into pg */
 #define	PGSHIFT		ALPHA_PGSHIFT			/* LOG2(NBPG) */
 
-#define	KERNBASE	0xfffffc0000230000	/* start of kernel virtual */
+#define	KERNBASE	0xfffffc0000a00000	/* start of kernel virtual */
 #define	BTOPKERNBASE	((u_long)KERNBASE >> PGSHIFT)
 
 #define	DEV_BSIZE	512

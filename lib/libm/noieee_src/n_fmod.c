@@ -109,23 +109,34 @@ fmodf(float x, float y)
 }
 
 #ifdef TEST_FMOD
-extern long random();
-extern double fmod();
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 #define	NTEST	10000
 #define	NCASES	3
 
 static int nfail = 0;
+static void
+prf(const char *s, double d)
+{
+	union {
+		double d;
+		unsigned long long u;
+	} x;
+	x.d = d;
+	printf("%s = %#016.16llx (%24.16e)\n", s, x.u, x.d);
+}
 
 static void
 doit(double x, double y)
 {
 	double ro = fmod(x,y),rn = _fmod(x,y);
 	if (ro != rn) {
-		(void)printf(" x    = 0x%08.8x %08.8x (%24.16e)\n",x,x);
-		(void)printf(" y    = 0x%08.8x %08.8x (%24.16e)\n",y,y);
-		(void)printf(" fmod = 0x%08.8x %08.8x (%24.16e)\n",ro,ro);
-		(void)printf("_fmod = 0x%08.8x %08.8x (%24.16e)\n",rn,rn);
+		prf(" x   ", x);
+		prf(" y   ", y);
+		prf(" fmod", ro);
+		prf("_fmod", rn);
 		(void)printf("\n");
 	}
 }

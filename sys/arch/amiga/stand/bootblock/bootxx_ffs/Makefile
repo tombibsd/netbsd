@@ -33,7 +33,7 @@ SOBJS += libstubs.o memcmp.o memmove.o memset.o strncmp.o
 
 OBJS=	$(SOBJS) $(COBJS)
 
-DEFS = -D_STANDALONE -DSA_EXEC_ANYOWNER -D_PRIMARY_BOOT
+DEFS = -D_STANDALONE -DSA_EXEC_ANYOWNER -D_PRIMARY_BOOT -DSERCONSOLE
 
 .NOPATH: ${OBJS} x.out f.out libboot.a xxstart.o
 

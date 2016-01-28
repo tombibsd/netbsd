@@ -67,7 +67,7 @@ lock_stubs.o: assym.h
 ## (5) link settings
 ##
 LINKFORMAT=	-N
-TEXTADDR?=	fffffc0000430000
+TEXTADDR?=	fffffc0000a00000
 ENTRYPOINT=	__transfer
 EXTRA_LINKFLAGS=	-G 4
 STRIPFLAGS=	-g -X

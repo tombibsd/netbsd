@@ -52,15 +52,9 @@ __KERNEL_RCSID(0, "$NetBSD$");
 int ddp_cksum = 1;
 
 int
-ddp_output(struct mbuf *m,...)
+ddp_output(struct mbuf *m, struct ddpcb *ddp)
 {
-	struct ddpcb   *ddp;
 	struct ddpehdr *deh;
-	va_list         ap;
-
-	va_start(ap, m);
-	ddp = va_arg(ap, struct ddpcb *);
-	va_end(ap);
 
 	M_PREPEND(m, sizeof(struct ddpehdr), M_DONTWAIT);
 	if (!m)

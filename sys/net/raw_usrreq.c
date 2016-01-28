@@ -153,7 +153,8 @@ raw_setpeeraddr(struct rawcb *rp, struct sockaddr *nam)
 
 int
 raw_send(struct socket *so, struct mbuf *m, struct sockaddr *nam,
-    struct mbuf *control, struct lwp *l)
+    struct mbuf *control, struct lwp *l,
+    int (*output)(struct mbuf *, struct socket *))
 {
 	struct rawcb *rp = sotorawcb(so);
 	int error = 0;
@@ -186,7 +187,7 @@ raw_send(struct socket *so, struct mbuf *m, struct sockaddr *nam,
 			goto die;
 		}
 	}
-	error = (*so->so_proto->pr_output)(m, so);
+	error = (*output)(m, so);
 	if (nam)
 		raw_disconnect(rp);
 

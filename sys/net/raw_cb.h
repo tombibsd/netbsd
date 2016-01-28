@@ -71,7 +71,8 @@ int	raw_usrreq(struct socket *,
 void	raw_setsockaddr(struct rawcb *, struct sockaddr *);
 void	raw_setpeeraddr(struct rawcb *, struct sockaddr *);
 int	raw_send(struct socket *,
-	    struct mbuf *, struct sockaddr *, struct mbuf *, struct lwp *);
+	    struct mbuf *, struct sockaddr *, struct mbuf *, struct lwp *,
+	    int (*)(struct mbuf *, struct socket *));
 
 #endif /* _KERNEL */
 

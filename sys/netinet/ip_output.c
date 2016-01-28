@@ -332,7 +332,8 @@ exit:
  * The mbuf opt, if present, will not be freed.
  */
 int
-ip_output(struct mbuf *m0, ...)
+ip_output(struct mbuf *m0, struct mbuf *opt, struct route *ro, int flags,
+    struct ip_moptions *imo, struct socket *so)
 {
 	struct rtentry *rt;
 	struct ip *ip;
@@ -344,13 +345,8 @@ ip_output(struct mbuf *m0, ...)
 	const struct sockaddr_in *dst;
 	struct in_ifaddr *ia;
 	int isbroadcast;
-	struct mbuf *opt;
-	struct route *ro;
-	int flags, sw_csum;
+	int sw_csum;
 	u_long mtu;
-	struct ip_moptions *imo;
-	struct socket *so;
-	va_list ap;
 #ifdef IPSEC
 	struct secpolicy *sp = NULL;
 #endif
@@ -365,13 +361,6 @@ ip_output(struct mbuf *m0, ...)
 					 */
 
 	len = 0;
-	va_start(ap, m0);
-	opt = va_arg(ap, struct mbuf *);
-	ro = va_arg(ap, struct route *);
-	flags = va_arg(ap, int);
-	imo = va_arg(ap, struct ip_moptions *);
-	so = va_arg(ap, struct socket *);
-	va_end(ap);
 
 	MCLAIM(m, &ip_tx_mowner);
 

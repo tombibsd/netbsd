@@ -136,7 +136,6 @@ __RCSID("$NetBSD$");
 
 #include    <ar.h>
 #include    <ctype.h>
-#include    <fcntl.h>
 #include    <stdio.h>
 #include    <stdlib.h>
 #include    <utime.h>
@@ -204,8 +203,7 @@ ArchFree(void *ap)
 	free(Hash_GetValue(entry));
 
     free(a->name);
-    if (a->fnametab)
-	free(a->fnametab);
+    free(a->fnametab);
     Hash_DeleteTable(&a->members);
     free(a);
 }
@@ -262,8 +260,8 @@ Arch_ParseArchive(char **linePtr, Lst nodeLst, GNode *ctxt)
 	    char	*result;
 
 	    result = Var_Parse(cp, ctxt, TRUE, TRUE, FALSE, &length, &freeIt);
-	    if (freeIt)
-		free(freeIt);
+	    free(freeIt);
+
 	    if (result == var_Error) {
 		return(FAILURE);
 	    } else {
@@ -303,8 +301,8 @@ Arch_ParseArchive(char **linePtr, Lst nodeLst, GNode *ctxt)
 		char	*result;
 
 		result = Var_Parse(cp, ctxt, TRUE, TRUE, FALSE, &length, &freeIt);
-		if (freeIt)
-		    free(freeIt);
+		free(freeIt);
+
 		if (result == var_Error) {
 		    return(FAILURE);
 		} else {
@@ -711,8 +709,7 @@ ArchStatMember(char *archive, char *member, Boolean hash)
 badarch:
     fclose(arch);
     Hash_DeleteTable(&ar->members);
-    if (ar->fnametab)
-	free(ar->fnametab);
+    free(ar->fnametab);
     free(ar);
     return NULL;
 }
@@ -997,10 +994,10 @@ Arch_Touch(GNode *gn)
     arch = ArchFindMember(Var_Value(ARCHIVE, gn, &p1),
 			  Var_Value(MEMBER, gn, &p2),
 			  &arh, "r+");
-    if (p1)
-	free(p1);
-    if (p2)
-	free(p2);
+
+    free(p1);
+    free(p2);
+
     snprintf(arh.ar_date, sizeof(arh.ar_date), "%-12ld", (long) now);
 
     if (arch != NULL) {
@@ -1079,10 +1076,9 @@ Arch_MTime(GNode *gn)
     arhPtr = ArchStatMember(Var_Value(ARCHIVE, gn, &p1),
 			     Var_Value(MEMBER, gn, &p2),
 			     TRUE);
-    if (p1)
-	free(p1);
-    if (p2)
-	free(p2);
+
+    free(p1);
+    free(p2);
 
     if (arhPtr != NULL) {
 	modTime = (time_t)strtol(arhPtr->ar_date, NULL, 10);

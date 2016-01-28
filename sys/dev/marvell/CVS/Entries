@@ -3,7 +3,7 @@
 /files.armada/1.3/Wed Jun  3 04:20:02 2015/-kk/
 /files.discovery/1.22/Thu Oct 24 10:28:58 2013/-kk/
 /gt.c/1.27/Sat Jul 25 01:52:18 2015/-kk/
-/gtbrgreg.h/1.2/Wed Apr 28 13:51:56 2010/-kk/
+/gtbrgreg.h/1.3/Thu Jan 28 08:36:14 2016/-kk/
 /gtbrgvar.h/1.1/Wed Apr 28 13:51:56 2010/-kk/
 /gtdevbusvar.h/1.1/Wed Apr 28 13:51:56 2010/-kk/
 /gtethreg.h/1.5/Wed Apr 28 13:51:56 2010/-kk/
@@ -13,13 +13,13 @@
 /gtintrreg.h/1.5/Wed Apr 28 13:51:56 2010/-kk/
 /gtintrvar.h/1.1/Wed Apr 28 13:51:56 2010/-kk/
 /gtmpsc.c/1.46/Tue Dec  9 04:34:58 2014/-kk/
-/gtmpscreg.h/1.4/Wed Apr 28 13:51:56 2010/-kk/
+/gtmpscreg.h/1.5/Thu Jan 28 08:36:14 2016/-kk/
 /gtmpscvar.h/1.8/Wed Apr 28 13:51:56 2010/-kk/
 /gtpci.c/1.32/Sun Oct 11 09:01:20 2015/-kk/
 /gtpcireg.h/1.6/Wed Jun  2 06:02:20 2010/-kk/
 /gtpcivar.h/1.11/Fri Sep  7 04:25:37 2012/-kk/
 /gtreg.h/1.5/Wed Jun  9 02:19:51 2010/-kk/
-/gtsdmareg.h/1.5/Wed Apr 28 13:51:56 2010/-kk/
+/gtsdmareg.h/1.6/Thu Jan 28 08:36:14 2016/-kk/
 /gtsdmavar.h/1.1/Wed Apr 28 13:51:56 2010/-kk/
 /gttwsi.c/1.11/Thu Oct 24 10:28:58 2013/-kk/
 /gtvar.h/1.15/Wed Apr 28 13:51:56 2010/-kk/

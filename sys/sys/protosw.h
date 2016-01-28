@@ -77,8 +77,6 @@ struct protosw {
 /* protocol-protocol hooks */
 	void	(*pr_input)		/* input to protocol (from below) */
 			(struct mbuf *, ...);
-	int	(*pr_output)		/* output to protocol (from above) */
-			(struct mbuf *, ...);
 	void	*(*pr_ctlinput)		/* control input (from below) */
 			(int, const struct sockaddr *, void *);
 	int	(*pr_ctloutput)		/* control output (from above) */

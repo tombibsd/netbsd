@@ -272,6 +272,9 @@ bus_space_unmap(bus_space_tag_t bst, bus_space_handle_t bsh,
 	bus_size_t size)
 {
 
+	if (bst == 0)
+		return;
+
 	panic("%s: unimplemented", __func__);
 }
 

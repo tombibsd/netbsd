@@ -18,7 +18,7 @@
 /Lint_modf.c/1.2/Wed Jun 14 06:49:05 2000/-kk/
 /Lint_resumecontext.c/1.3/Mon Sep 19 21:24:58 2011/-kk/
 /Lint_swapcontext.c/1.2/Sat Jan 18 11:38:47 2003/-kk/
-/Makefile.inc/1.192/Fri Nov 20 01:29:21 2015/-kk/
+/Makefile.inc/1.193/Thu Jan 28 08:35:50 2016/-kk/
 /_errno.c/1.13/Mon Apr 28 20:22:59 2008/-kk/
 /_lwp_makecontext.3/1.4/Wed Apr 30 13:10:50 2008/-kk/
 /alarm.3/1.22/Thu Aug  7 16:42:45 2003/-kk/
@@ -81,7 +81,7 @@
 /floatunsidf_ieee754.c/1.1/Thu Oct 24 10:28:53 2013/-kk/
 /floatunsisf_ieee754.c/1.1/Thu Oct 24 10:28:53 2013/-kk/
 /fmtcheck.3/1.8/Wed Jun 18 08:42:14 2014/-kk/
-/fmtcheck.c/1.9/Wed Jun 18 08:42:14 2014/-kk/
+/fmtcheck.c/1.10/Thu Jan 28 08:35:51 2016/-kk/
 /fmtmsg.3/1.7/Mon Apr 11 05:59:11 2011/-kk/
 /fmtmsg.c/1.6/Fri Oct  3 09:57:25 2014/-kk/
 /fnmatch.3/1.22/Tue Nov 30 21:03:07 2010/-kk/
@@ -311,8 +311,8 @@
 /verr.c/1.16/Fri Jan 31 08:48:24 2014/-kk/
 /verrc.c/1.3/Sat Jun 14 03:56:11 2014/-kk/
 /verrx.c/1.15/Sun Jul 17 20:54:34 2011/-kk/
-/vis.3/1.43/Wed Jun  3 06:53:44 2015/-kk/
-/vis.c/1.70/Wed Jun  3 06:53:44 2015/-kk/
+/vis.3/1.44/Thu Jan 28 08:35:51 2016/-kk/
+/vis.c/1.71/Thu Jan 28 08:35:51 2016/-kk/
 /vwarn.c/1.16/Fri Jan 31 08:48:24 2014/-kk/
 /vwarnc.c/1.3/Sat Jun 14 03:56:11 2014/-kk/
 /vwarnx.c/1.15/Sun Jul 17 20:54:34 2011/-kk/

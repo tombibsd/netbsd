@@ -291,7 +291,7 @@ ex_probemedia(void)
 	}
 	printf("unknown connector\n");
 bad:
-	ether_medium = -1;
+	ether_medium = ETHERMEDIUM_BAD;
 }
 
 int
@@ -346,7 +346,7 @@ found:
 		ether_medium = ETHERMEDIUM_MII;
 	else {
 		ex_probemedia();
-		if (ether_medium < 0)
+		if (ether_medium == ETHERMEDIUM_BAD)
 			return 0;
 	}
 

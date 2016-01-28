@@ -143,8 +143,8 @@ CompatInterrupt(int signo)
 	if (!noExecute && eunlink(file) != -1) {
 	    Error("*** %s removed", file);
 	}
-	if (p1)
-	    free(p1);
+
+	free(p1);
 
 	/*
 	 * Run .INTERRUPT only if hit with interrupt signal
@@ -371,10 +371,10 @@ again:
 	execError("exec", av[0]);
 	_exit(1);
     }
-    if (mav)
-	free(mav);
-    if (bp)
-	free(bp);
+
+    free(mav);
+    free(bp);
+
     Lst_Replace(cmdNode, NULL);
 
 #ifdef USE_META
@@ -513,8 +513,7 @@ Compat_Make(void *gnp, void *pgnp)
 	if (Lst_Member(gn->iParents, pgn) != NULL) {
 	    char *p1;
 	    Var_Set(IMPSRC, Var_Value(TARGET, gn, &p1), pgn, 0);
-	    if (p1)
-		free(p1);
+	    free(p1);
 	}
 
 	/*
@@ -617,8 +616,7 @@ Compat_Make(void *gnp, void *pgnp)
 	if (Lst_Member(gn->iParents, pgn) != NULL) {
 	    char *p1;
 	    Var_Set(IMPSRC, Var_Value(TARGET, gn, &p1), pgn, 0);
-	    if (p1)
-		free(p1);
+	    free(p1);
 	}
 	switch(gn->made) {
 	    case BEINGMADE:

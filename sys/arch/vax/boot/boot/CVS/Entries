@@ -1,4 +1,4 @@
-/Makefile/1.42/Tue Jun  3 03:09:38 2014/-kk/
+/Makefile/1.44/Thu Jan 28 08:36:11 2016/-kk/
 /autoconf.c/1.28/Wed Mar 18 10:22:37 2009/-kk/
 /boot.c/1.33/Thu Jun 18 03:42:24 2015/-kk/
 /conf.c/1.16/Thu Oct 24 10:28:57 2013/-kk/
@@ -19,5 +19,5 @@
 /rom.c/1.9/Wed Mar 18 16:00:15 2009/-kk/
 /tmscp.c/1.8/Tue Mar 17 18:19:15 2009/-kk/
 /vaxstand.h/1.8/Sun Dec 11 12:19:30 2005/-kk/
-/version/1.7/Wed Oct 29 08:13:14 2014/-kk/
+/version/1.8/Thu Jan 28 08:36:11 2016/-kk/
 D

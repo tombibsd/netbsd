@@ -5,7 +5,7 @@
 
 SUBDIR= apply asa at audio audiocfg \
 	banner basename biff bthset btkey btpin \
-	bzip2 bzip2recover cal calendar cap_mkdb cdplay \
+	bzip2 bzip2recover c89 c99 cal calendar cap_mkdb cdplay \
 	checknr chflags chpass cksum cmp cleantags col colcrt colrm \
 	column comm compress config crunch csplit ctags cut \
 	deroff db dirname du \

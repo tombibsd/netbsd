@@ -1,0 +1,37 @@
+/ChangeLog/1.1.1.1/Tue Jan 12 19:50:42 2016/-kk/
+/Makefile.am/1.1.1.1/Tue Jan 12 19:50:41 2016/-kk/
+/Makefile.in/1.1.1.1/Tue Jan 12 19:50:41 2016/-kk/
+/README/1.1.1.1/Tue Jan 12 19:50:41 2016/-kk/
+/aclocal.m4/1.1.1.1/Tue Jan 12 19:50:41 2016/-kk/
+/configure.ac/1.1.1.1/Tue Jan 12 19:50:41 2016/-kk/
+/configure/1.1.1.1/Tue Jan 12 19:50:42 2016/-kk/
+/installpaths.in/1.1.1.1/Tue Jan 12 19:50:41 2016/-kk/
+D/hello-c++-gnome////
+D/hello-c++-kde////
+D/hello-c++-qt////
+D/hello-c++-wxwidgets////
+D/hello-c++////
+D/hello-c-gnome////
+D/hello-c////
+D/hello-clisp////
+D/hello-csharp-forms////
+D/hello-csharp////
+D/hello-gawk////
+D/hello-guile////
+D/hello-java-awt////
+D/hello-java-swing////
+D/hello-java////
+D/hello-librep////
+D/hello-objc-gnome////
+D/hello-objc-gnustep////
+D/hello-objc////
+D/hello-pascal////
+D/hello-perl////
+D/hello-php////
+D/hello-python////
+D/hello-sh////
+D/hello-smalltalk////
+D/hello-tcl-tk////
+D/hello-tcl////
+D/hello-ycp////
+D/po////

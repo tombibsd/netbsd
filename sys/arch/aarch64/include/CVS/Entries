@@ -10,7 +10,7 @@
 /cdefs.h/1.1/Sun Aug 10 05:47:38 2014/-kk/
 /cpu.h/1.1/Sun Aug 10 05:47:38 2014/-kk/
 /cpu_counter.h/1.1/Sun Aug 10 05:47:38 2014/-kk/
-/db_machdep.h/1.1/Sun Aug 10 05:47:38 2014/-kk/
+/db_machdep.h/1.2/Thu Jan 28 08:36:00 2016/-kk/
 /disklabel.h/1.1/Sun Aug 10 05:47:38 2014/-kk/
 /elf_machdep.h/1.1/Sun Aug 10 05:47:38 2014/-kk/
 /endian.h/1.1/Sun Aug 10 05:47:38 2014/-kk/

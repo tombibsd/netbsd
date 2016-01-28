@@ -55,7 +55,6 @@ const struct protosw atalksw[] = {
 	.pr_domain = &atalkdomain,
 	.pr_protocol = ATPROTO_DDP,
 	.pr_flags = PR_ATOMIC|PR_ADDR,
-	.pr_output = ddp_output,
 	.pr_usrreqs = &ddp_usrreqs,
 	.pr_init = ddp_init,
     },

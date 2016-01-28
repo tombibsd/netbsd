@@ -16,3 +16,4 @@ is taken as the current.
 	controller number and target ID to specify the boot disk.
 1.9:	Parse boot flags and pass boothowto and bootdev info to kernel.
 1.10:	Use booted device unit by default if no unit number is specified.
+1.11:	Disable slow gunzip CRC32 calculation.

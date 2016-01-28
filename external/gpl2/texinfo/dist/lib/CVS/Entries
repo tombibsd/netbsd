@@ -1,0 +1,27 @@
+/Makefile.am/1.1.1.1/Thu Jan 14 00:11:29 2016/-kk/
+/Makefile.in/1.1.1.1/Thu Jan 14 00:11:29 2016/-kk/
+/README/1.1.1.1/Thu Jan 14 00:11:29 2016/-kk/
+/alloca.c/1.1.1.1/Thu Jan 14 00:11:29 2016/-kk/
+/getopt.c/1.2/Thu Jan 14 00:34:53 2016/-kk/
+/getopt.h/1.1.1.1/Thu Jan 14 00:11:29 2016/-kk/
+/getopt1.c/1.1.1.1/Thu Jan 14 00:11:29 2016/-kk/
+/getopt_.h/1.1.1.1/Thu Jan 14 00:11:29 2016/-kk/
+/getopt_int.h/1.1.1.1/Thu Jan 14 00:11:29 2016/-kk/
+/gettext.h/1.1.1.1/Thu Jan 14 00:11:29 2016/-kk/
+/memcpy.c/1.1.1.1/Thu Jan 14 00:11:29 2016/-kk/
+/memmove.c/1.1.1.1/Thu Jan 14 00:11:29 2016/-kk/
+/mkstemp.c/1.1.1.1/Thu Jan 14 00:11:29 2016/-kk/
+/strcase.h/1.1.1.1/Thu Jan 14 00:11:29 2016/-kk/
+/strcasecmp.c/1.1.1.1/Thu Jan 14 00:11:29 2016/-kk/
+/strdup.c/1.1.1.1/Thu Jan 14 00:11:29 2016/-kk/
+/strdup.h/1.1.1.1/Thu Jan 14 00:11:29 2016/-kk/
+/strerror.c/1.1.1.1/Thu Jan 14 00:11:29 2016/-kk/
+/strncasecmp.c/1.1.1.1/Thu Jan 14 00:11:29 2016/-kk/
+/substring.c/1.1.1.1/Thu Jan 14 00:11:29 2016/-kk/
+/system.h/1.2/Thu Jan 14 00:34:53 2016/-kk/
+/tempname.c/1.1.1.1/Thu Jan 14 00:11:29 2016/-kk/
+/xalloc.h/1.1.1.1/Thu Jan 14 00:11:29 2016/-kk/
+/xexit.c/1.1.1.1/Thu Jan 14 00:11:29 2016/-kk/
+/xmalloc.c/1.1.1.1/Thu Jan 14 00:11:29 2016/-kk/
+/xstrdup.c/1.1.1.1/Thu Jan 14 00:11:29 2016/-kk/
+D

@@ -291,8 +291,7 @@ CondGetArg(char **linePtr, char **argPtr, const char *func)
 
 	    cp2 = Var_Parse(cp, VAR_CMD, TRUE, TRUE, FALSE, &len, &freeIt);
 	    Buf_AddBytes(&buf, strlen(cp2), cp2);
-	    if (freeIt)
-		free(freeIt);
+	    free(freeIt);
 	    cp += len;
 	    continue;
 	}
@@ -346,8 +345,8 @@ CondDoDefined(int argLen MAKE_ATTR_UNUSED, const char *arg)
     } else {
 	result = FALSE;
     }
-    if (p1)
-	free(p1);
+
+    free(p1);
     return (result);
 }
 
@@ -805,10 +804,8 @@ do_string_compare:
     }
 
 done:
-    if (lhsFree)
-	free(lhsFree);
-    if (rhsFree)
-	free(rhsFree);
+    free(lhsFree);
+    free(rhsFree);
     return t;
 }
 
@@ -848,8 +845,7 @@ get_mpt_arg(char **linePtr, char **argPtr, const char *func MAKE_ATTR_UNUSED)
      * true/false here.
      */
     length = *val ? 2 : 1;
-    if (freeIt)
-	free(freeIt);
+    free(freeIt);
     return length;
 }
 
@@ -900,8 +896,7 @@ compare_function(Boolean doEval)
 	}
 	/* Evaluate the argument using the required function. */
 	t = !doEval || fn_def->fn_proc(arglen, arg);
-	if (arg)
-	    free(arg);
+	free(arg);
 	condExpr = cp;
 	return t;
     }
@@ -933,8 +928,7 @@ compare_function(Boolean doEval)
      * be empty - even if it contained a variable expansion.
      */
     t = !doEval || if_info->defProc(arglen, arg) != if_info->doNot;
-    if (arg)
-	free(arg);
+    free(arg);
     return t;
 }
 

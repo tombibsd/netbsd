@@ -125,7 +125,6 @@ __RCSID("$NetBSD$");
 #include <sys/wait.h>
 
 #include <errno.h>
-#include <fcntl.h>
 #include <signal.h>
 #include <stdarg.h>
 #include <stdio.h>
@@ -665,8 +664,7 @@ Main_ParseArgLine(const char *line)
 
 	buf = bmake_malloc(len = strlen(line) + strlen(argv0) + 2);
 	(void)snprintf(buf, len, "%s %s", argv0, line);
-	if (p1)
-		free(p1);
+	free(p1);
 
 	argv = brk_string(buf, &argc, TRUE, &args);
 	if (argv == NULL) {
@@ -716,8 +714,7 @@ Main_SetObjdir(const char *path)
 		}
 	}
 
-	if (p)
-		free(p);
+	free(p);
 	return rc;
 }
 
@@ -788,8 +785,8 @@ MakeMode(const char *mode)
 	    meta_mode_init(mode);
 #endif
     }
-    if (mp)
-	free(mp);
+
+    free(mp);
 }
 
 /*-
@@ -1241,8 +1238,7 @@ main(int argc, char **argv)
 	MakeMode(NULL);
 
 	Var_Append("MFLAGS", Var_Value(MAKEFLAGS, VAR_GLOBAL, &p1), VAR_GLOBAL);
-	if (p1)
-	    free(p1);
+	free(p1);
 
 	if (!compatMake)
 	    Job_ServerStart(maxJobTokens, jp_0, jp_1);
@@ -1329,8 +1325,7 @@ main(int argc, char **argv)
 				value = Var_Value(var, VAR_GLOBAL, &p1);
 			}
 			printf("%s\n", value ? value : "");
-			if (p1)
-				free(p1);
+			free(p1);
 		}
 	} else {
 		/*
@@ -1454,8 +1449,7 @@ ReadMakefile(const void *p, const void *q MAKE_ATTR_UNUSED)
 			name = Dir_FindFile(fname,
 				Lst_IsEmpty(sysIncPath) ? defIncPath : sysIncPath);
 		if (!name || (fd = open(name, O_RDONLY)) == -1) {
-			if (name)
-				free(name);
+			free(name);
 			free(path);
 			return(-1);
 		}
