@@ -12,7 +12,6 @@ SRCS=	iconv.c smb_conn.c smb_crypt.c smb_dev.c smb_iod.c smb_rq.c	\
 
 SRCS+=	netsmb_component.c
 
-CPPFLAGS+=	-I${RUMPTOP}/librump/rumpvfs
 #CPPFLAGS+=	-DSMB_SOCKET_DEBUG -DSMB_IOD_DEBUG
 
 SRCS+=	netsmb_iconv.c

@@ -49,9 +49,9 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/stat.h>
 #include <sys/termios.h>
 
-#include <rump/rumpuser.h>
+#include <rump-sys/kern.h>
 
-#include "rump_private.h"
+#include <rump/rumpuser.h>
 
 static int rumpcons_write(struct file *, off_t *, struct uio *,
 			  kauth_cred_t, int);

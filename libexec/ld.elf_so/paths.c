@@ -49,7 +49,6 @@ __RCSID("$NetBSD$");
 #include <sys/gmon.h>
 #include <sys/socket.h>
 #include <sys/mount.h>
-#include <sys/mbuf.h>
 #include <sys/resource.h>
 #include <machine/cpu.h>
 

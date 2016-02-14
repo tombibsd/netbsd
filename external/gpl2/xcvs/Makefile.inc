@@ -11,7 +11,7 @@ CWARNFLAGS.clang+=	-Wno-tautological-compare -Wno-parentheses \
 			-Wno-tautological-constant-out-of-range-compare
 
 BINDIR?= /usr/bin
-IDIST=	${NETBSDSRCDIR}/external/gpl2/xcvs/dist
+IDIST:=	${.PARSEDIR}/dist
 
 .if !defined(SUBDIR)
 CPPFLAGS+= -DSETXID_SUPPORT -DHAVE_CONFIG_H \

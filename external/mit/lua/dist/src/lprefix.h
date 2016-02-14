@@ -31,7 +31,7 @@
 #endif
 
 #endif				/* } */
-#endif
+#endif /* _KERNEL */
 
 
 /*

@@ -115,7 +115,9 @@ typedef int		boolean_t;
 typedef longlong_t      hrtime_t;
 typedef int32_t		t_scalar_t;
 typedef uint32_t	t_uscalar_t;
+#if defined(_KERNEL) || defined(_KERNTYPES)
 typedef vsize_t		pgcnt_t;
+#endif
 typedef u_longlong_t	len_t;
 typedef int		major_t;
 typedef int		minor_t;

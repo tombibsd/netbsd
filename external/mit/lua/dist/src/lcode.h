@@ -31,7 +31,7 @@ typedef enum BinOpr {
   OPR_DIV,
 #else /* _KERNEL */
   OPR_ADD, OPR_SUB, OPR_MUL, OPR_MOD,
-#endif
+#endif /* _KERNEL */
   OPR_IDIV,
   OPR_BAND, OPR_BOR, OPR_BXOR,
   OPR_SHL, OPR_SHR,

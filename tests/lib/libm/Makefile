@@ -22,6 +22,7 @@ TESTS_C+=	t_erf
 TESTS_C+=	t_exp
 TESTS_C+=	t_fenv
 TESTS_C+=	t_fmod
+TESTS_C+=	t_hypot
 TESTS_C+=	t_infinity
 TESTS_C+=	t_ldexp
 TESTS_C+=	t_log

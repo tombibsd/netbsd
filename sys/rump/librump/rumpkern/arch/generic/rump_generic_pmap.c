@@ -32,7 +32,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <uvm/uvm_extern.h>
 
-#include "rump_private.h"
+#include <rump-sys/kern.h>
 
 /*
  * This is the MI pmap implementation for rump kernels.  It's used only by

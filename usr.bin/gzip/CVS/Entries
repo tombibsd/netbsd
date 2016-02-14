@@ -5,7 +5,7 @@
 /gzip.c/1.109/Fri Nov 20 01:31:49 2015/-kk/
 /unbzip2.c/1.13/Sat Dec  5 03:23:37 2009/-kk/
 /unpack.c/1.2/Sat Nov  6 21:42:32 2010/-kk/
-/unxz.c/1.5/Fri Sep 30 01:32:21 2011/-kk/
+/unxz.c/1.6/Sun Feb 14 12:56:05 2016/-kk/
 /zdiff.1/1.5/Wed Apr 14 19:52:05 2010/-kk/
 /zdiff/1.5/Wed Apr 14 20:30:28 2010/-kk/
 /zforce.1/1.2/Sun Dec 28 12:43:43 2003/-kk/

@@ -47,6 +47,7 @@
 #include <dev/pud/pud_msgif.h>
 
 #include <rump/rump.h>
+#include <rump/rumpvnode_if.h>
 
 #include <assert.h>
 #include <err.h>

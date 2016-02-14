@@ -34,7 +34,7 @@ LDADD+=		-L${DWARFOBJ} -ldwarf
 LDADD+=		-L${ELFOBJ} -lelf
 
 # need native pthread support
-LDADD+=		-lpthread
+HOST_CFLAGS+=	-pthread
 
 .PATH:		${OPENSOLARIS_DISTDIR}/tools/ctf/common
 .PATH:		${OPENSOLARIS_DISTDIR}/tools/ctf/cvt

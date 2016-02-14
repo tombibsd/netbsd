@@ -34,7 +34,9 @@
 
 #include <sys/mutex.h>
 
+#if defined(_KERNEL) || defined(_KMEMUSER)
 #include <miscfs/specfs/specdev.h>
+#endif
 
 /* This header file describes the api and data structures for
  * write ahead physical block logging (WAPBL) support.

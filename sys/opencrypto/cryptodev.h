@@ -87,6 +87,7 @@
 
 #include <sys/ioccom.h>
 #include <sys/condvar.h>
+#include <sys/time.h>
 
 /* Some initial values */
 #define CRYPTO_DRIVERS_INITIAL	4

@@ -1880,7 +1880,7 @@ config_detach_all(int how)
 	device_t curdev;
 	bool progress = false;
 
-	if ((how & RB_NOSYNC) != 0)
+	if ((how & (RB_NOSYNC|RB_DUMP)) != 0)
 		return false;
 
 	for (curdev = shutdown_first(&s); curdev != NULL;

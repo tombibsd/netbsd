@@ -756,10 +756,11 @@ udf_root(struct mount *mp, struct vnode **vpp)
 	dir_loc = &ump->fileset_desc->rootdir_icb;
 	error = udf_get_node(ump, dir_loc, &root_dir);
 
-	if (!root_dir)
-		error = ENOENT;
 	if (error)
 		return error;
+
+	if (!root_dir)
+		error = ENOENT;
 
 	vp = root_dir->vnode;
 	KASSERT(vp->v_vflag & VV_ROOT);

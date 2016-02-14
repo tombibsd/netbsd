@@ -37,7 +37,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/syncobj.h>
 #include <sys/atomic.h>
 
-#include "rump_private.h"
+#include <rump-sys/kern.h>
 
 syncobj_t sleep_syncobj;
 static kcondvar_t sq_cv;

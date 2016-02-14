@@ -35,7 +35,7 @@
 
 #ifndef _KERNEL
 #include <limits.h>
-#endif
+#endif /* _KERNEL */
 
 #include "llimits.h"
 

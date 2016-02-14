@@ -19,6 +19,7 @@ MOUNTDIR=	${.CURDIR}/../../../sbin
 MOUNT=		${MOUNTDIR}/mount
 
 CPPFLAGS+=	-I${MOUNTDIR}/mount_${MOUNTNAME} -I${MOUNT} -DMOUNT_NOMAIN
+CPPFLAGS+=	-D_KERNTYPES
 SRCS+=		mount_${MOUNTNAME}.c rump_${MOUNTNAME}.c pathadj.c fattr.c
 
 # on select archs use the kernel module directly, otherwise fallback

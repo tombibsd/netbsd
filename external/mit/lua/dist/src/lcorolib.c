@@ -14,7 +14,7 @@
 
 #ifndef _KERNEL
 #include <stdlib.h>
-#endif
+#endif /* _KERNEL */
 
 #include "lua.h"
 

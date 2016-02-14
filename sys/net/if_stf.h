@@ -37,6 +37,6 @@
 #define	STF_MTU_MIN	(1280)	/* Minimum MTU */
 #define	STF_MTU_MAX	(8192)	/* Maximum MTU */
 
-void	in_stf_input(struct mbuf *, ...);
+void	in_stf_input(struct mbuf *, int, int);
 
 #endif /* !_NET_IF_STF_H_ */

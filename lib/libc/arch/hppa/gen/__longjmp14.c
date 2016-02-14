@@ -50,8 +50,8 @@ __longjmp14(jmp_buf env, int val)
 {
 	ucontext_t uc;
 	struct sigcontext *sc = (void *)env;
-	register_t *regs = (void *)(sc + 1);
-	register register_t dp __asm("r27");
+	__register_t *regs = (void *)(sc + 1);
+	register __register_t dp __asm("r27");
 
 	/* Ensure non-zero SP */
 	if (sc->sc_sp == 0)

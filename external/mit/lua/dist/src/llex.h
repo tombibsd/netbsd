@@ -39,7 +39,7 @@ enum RESERVED {
   TK_FLT, TK_INT, TK_NAME, TK_STRING
 #else /* _KERNEL */
   TK_INT, TK_NAME, TK_STRING
-#endif
+#endif /* _KERNEL */
 };
 
 /* number of reserved words */

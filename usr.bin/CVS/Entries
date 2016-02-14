@@ -1,5 +1,5 @@
 /Makefile.inc/1.10/Wed Mar 21 05:47:53 2012/-kk/
-/Makefile/1.223/Thu Jan 28 08:36:26 2016/-kk/
+/Makefile/1.224/Sun Feb 14 12:56:04 2016/-kk/
 D/apply////
 D/apropos////
 D/asa////
@@ -38,6 +38,7 @@ D/crunch////
 D/csplit////
 D/ctags////
 D/cut////
+D/cvslatest////
 D/db////
 D/deroff////
 D/dirname////

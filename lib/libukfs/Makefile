@@ -7,7 +7,7 @@ LIB=		ukfs
 LIBDPLIBS+=	rump	${.CURDIR}/../librump		\
 		rumpvfs	${.CURDIR}/../librumpvfs \
 		pthread	${.CURDIR}/../libpthread
-CPPFLAGS+=	-I${.CURDIR}
+CPPFLAGS+=	-I${.CURDIR} -D_KERNTYPES
 
 INCS=		ukfs.h
 INCSDIR=	/usr/include/rump

@@ -38,6 +38,11 @@
 #define BTINFO_MODULELIST	11
 #define BTINFO_FRAMEBUFFER	12
 #define BTINFO_USERCONFCOMMANDS	13
+#define BTINFO_EFI		14
+
+#define BTINFO_STR "bootpath", "rootdevice", "bootdisk", "netif", \
+    "console", "biosgeom", "symtab", "memmap", "bootwedge", "modulelist", \
+    "framebuffer", "userconfcommands", "efi",
 
 #ifndef _LOCORE
 
@@ -213,6 +218,12 @@ struct btinfo_userconfcommands {
 	/* bi_userconfcommand list follows */
 };
 
+/* EFI Information */
+struct btinfo_efi {
+	struct btinfo_common common;
+	paddr_t bi_systbl;	/* Physical address of the EFI System Table */
+};
+
 #endif /* _LOCORE */
 
 #ifdef _KERNEL
@@ -237,6 +248,7 @@ struct bootinfo {
 extern struct bootinfo bootinfo;
 
 void *lookup_bootinfo(int);
+void  aprint_bootinfo(void);
 #endif /* _LOCORE */
 
 #endif /* _KERNEL */

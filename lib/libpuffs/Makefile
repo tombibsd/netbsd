@@ -16,6 +16,7 @@ MAN=		puffs.3 puffs_cc.3 puffs_cred.3 puffs_flush.3		\
 		puffs_framebuf.3 puffs_node.3 puffs_ops.3 puffs_path.3
 INCS=		puffs.h puffsdump.h
 INCSDIR=	/usr/include
+CPPFLAGS+=	-D_KERNTYPES
 LINTFLAGS+=-S -w
 
 .include <bsd.lib.mk>

@@ -9,6 +9,7 @@ SRCS=           perfused.c msg.c debug.c
 MAN=		perfused.8
 WARNS=          4
 
+CPPFLAGS+=	-D_KERNTYPES
 LDADD+= -lperfuse -lpuffs
 DPADD+= ${LIBPUFFS}
 

@@ -39,7 +39,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/kmem.h>
 #include <sys/uio.h>
 
-#include "rump_private.h"
+#include <rump-sys/kern.h>
 
 struct uio *
 rump_uio_setup(void *buf, size_t bufsize, off_t offset, enum rump_uiorw rw)

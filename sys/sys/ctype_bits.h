@@ -40,6 +40,8 @@
 #ifndef _SYS_CTYPE_BITS_H_
 #define _SYS_CTYPE_BITS_H_
 
+#include <sys/cdefs.h>
+
 #define	_CTYPE_A	0x0001	/* Alpha     */
 #define	_CTYPE_C	0x0002	/* Control   */
 #define	_CTYPE_D	0x0004	/* Digit     */

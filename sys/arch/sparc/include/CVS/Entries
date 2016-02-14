@@ -69,7 +69,7 @@
 /svr4_machdep.h/1.13/Mon Apr 28 20:23:36 2008/-kk/
 /tctrl.h/1.5/Sun Sep 13 01:31:05 2015/-kk/
 /trap.h/1.18/Sun Mar 27 18:47:08 2011/-kk/
-/types.h/1.64/Sun Oct 11 09:01:09 2015/-kk/
+/types.h/1.66/Sun Feb 14 12:55:11 2016/-kk/
 /userret.h/1.8/Mon Nov  5 20:37:48 2007/-kk/
 /vmparam.h/1.43/Thu Oct 24 10:28:57 2013/-kk/
 /vuid_event.h/1.3/Tue Aug 27 09:47:44 2002/-kk/

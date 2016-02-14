@@ -69,6 +69,8 @@
 #ifndef _RANDOMID_H_
 #define _RANDOMID_H_
 
+#include <stdint.h>
+
 struct randomid_ctx;
 
 typedef struct randomid_ctx *randomid_t;

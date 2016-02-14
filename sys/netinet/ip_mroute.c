@@ -190,17 +190,14 @@ extern int rsvp_on;
 #endif /* RSVP_ISI */
 
 /* vif attachment using sys/netinet/ip_encap.c */
-static void vif_input(struct mbuf *, ...);
+static void vif_input(struct mbuf *, int, int);
 static int vif_encapcheck(struct mbuf *, int, int, void *);
 
-static const struct protosw vif_protosw = {
-	.pr_type	= SOCK_RAW,
-	.pr_domain	= &inetdomain,
-	.pr_protocol	= IPPROTO_IPV4,
-	.pr_flags	= PR_ATOMIC|PR_ADDR,
-	.pr_input	= vif_input,
-	.pr_ctloutput	= rip_ctloutput,
-	.pr_usrreqs	= &rip_usrreqs,
+static const struct encapsw vif_encapsw = {
+	.encapsw4 = {
+		.pr_input	= vif_input,
+		.pr_ctlinput	= NULL,
+	}
 };
 
 #define		EXPIRE_TIMEOUT	(hz / 4)	/* 4x / second */
@@ -837,7 +834,7 @@ add_vif(struct vifctl *vifcp)
 		 * function to check, and this is not supported yet.
 		 */
 		vifp->v_encap_cookie = encap_attach_func(AF_INET, IPPROTO_IPV4,
-		    vif_encapcheck, &vif_protosw, vifp);
+		    vif_encapcheck, &vif_encapsw, vifp);
 		if (!vifp->v_encap_cookie)
 			return (EINVAL);
 
@@ -1873,16 +1870,9 @@ encap_send(struct ip *ip, struct vif *vifp, struct mbuf *m)
  * De-encapsulate a packet and feed it back through ip input.
  */
 static void
-vif_input(struct mbuf *m, ...)
+vif_input(struct mbuf *m, int off, int proto)
 {
-	int off, proto;
-	va_list ap;
 	struct vif *vifp;
-
-	va_start(ap, m);
-	off = va_arg(ap, int);
-	proto = va_arg(ap, int);
-	va_end(ap);
 
 	vifp = (struct vif *)encap_getarg(m);
 	if (!vifp || proto != ENCAP_PROTO) {

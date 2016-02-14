@@ -30,7 +30,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <sys/param.h>
 
-#include "rump_private.h"
+#include <rump-sys/kern.h>
 
 rump_etfs_register_withsize_fn rump__etfs_register	= (void *)enosys;
 rump_etfs_remove_fn rump__etfs_remove			= (void *)enosys;

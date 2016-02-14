@@ -17,7 +17,7 @@
 /BIO_read.pod/1.1.1.2/Fri Dec 25 05:37:17 2015/-kk/
 /BIO_s_accept.pod/1.2/Wed Oct 29 08:08:45 2014/-kk/
 /BIO_s_bio.pod/1.1.1.1/Sun Jul 19 23:01:56 2009/-kk/
-/BIO_s_connect.pod/1.1.1.1/Sun Jul 19 23:01:56 2009/-kk/
+/BIO_s_connect.pod/1.1.1.2/Sun Feb 14 11:24:35 2016/-kk/
 /BIO_s_fd.pod/1.1.1.1/Sun Jul 19 23:01:56 2009/-kk/
 /BIO_s_file.pod/1.1.1.2/Sun Jun  5 14:56:40 2011/-kk/
 /BIO_s_mem.pod/1.1.1.1/Sun Jul 19 23:01:56 2009/-kk/

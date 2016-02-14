@@ -38,7 +38,7 @@
 extern int ip_gif_ttl;
 
 struct gif_softc;
-void in_gif_input(struct mbuf *, ...);
+void in_gif_input(struct mbuf *, int, int);
 int in_gif_output(struct ifnet *, int, struct mbuf *);
 #ifdef GIF_ENCAPCHECK
 int gif_encapcheck4(struct mbuf *, int, int, void *);

@@ -12,7 +12,7 @@ SRCS+=		pathfs.c
 
 NOMAN=		# defined
 
-.include <bsd.own.mk>
+.include <bsd.init.mk>
 
 CFLAGS+=	-Wall -Wno-main
 CFLAGS+=	-Wmissing-prototypes -Wstrict-prototypes -Wpointer-arith

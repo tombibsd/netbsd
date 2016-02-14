@@ -28,6 +28,9 @@
 #ifndef _REFUSE_PERFUSE_WRAPPER_H
 #define _REFUSE_PERFUSE_WRAPPER_H
 
+#include <sys/cdefs.h>
+#include <sys/types.h>
+
 __BEGIN_DECLS
 
 int perfuse_open(const char *, int, mode_t);

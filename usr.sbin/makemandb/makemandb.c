@@ -945,11 +945,21 @@ set_section(const struct mdoc *md, const struct man *m, mandb_rec *rec)
 {
 	if (md) {
 		const struct mdoc_meta *md_meta = mdoc_meta(md);
-		rec->section[0] = md_meta->msec[0];
+		if (md_meta->msec == NULL) {
+			rec->section[0] = '?';
+		} else
+			rec->section[0] = md_meta->msec[0];
 	} else if (m) {
 		const struct man_meta *m_meta = man_meta(m);
-		rec->section[0] = m_meta->msec[0];
-	}
+		if (m_meta->msec == NULL)
+			rec->section[0] = '?';
+		else
+			rec->section[0] = m_meta->msec[0];
+	} else
+		return;
+
+	if (rec->section[0] == '?' && mflags.verbosity == 2)
+		warnx("%s: Missing section number", rec->file_path);
 }
 
 /*

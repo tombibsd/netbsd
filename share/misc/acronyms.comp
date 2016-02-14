@@ -690,6 +690,7 @@ LTO	link time optimization
 LTR	left to right
 LTR	load task register
 LTR	letter(-sized paper)
+LTS	long term support
 LUA	Lua Uppercase Accident
 LUN	logical unit number
 LV	logical volume
@@ -800,6 +801,7 @@ ND	neighbor discovery
 NDFA	nondeterministic finite automaton
 NE	numeric error
 NFA	nondeterministic finite automaton
+NFC	near-field communication
 NFS	network file system
 NIA	next instruction address
 NIC	network information center

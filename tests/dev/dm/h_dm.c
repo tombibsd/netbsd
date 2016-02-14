@@ -83,6 +83,7 @@ dm_test_versions(void) {
 	dict_out = prop_dictionary_internalize(prefp.pref_plist);
 	
 	xml = prop_dictionary_externalize(dict_out);
+	__USE(xml);
 
 	rump_sys_close(fd);
 
@@ -122,6 +123,7 @@ dm_test_targets(void) {
 	dict_out = prop_dictionary_internalize(prefp.pref_plist);
 	
 	xml = prop_dictionary_externalize(dict_out);
+	__USE(xml);
 
 	rump_sys_close(fd);
 

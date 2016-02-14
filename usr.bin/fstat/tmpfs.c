@@ -37,9 +37,7 @@ __RCSID("$NetBSD$");
 #include <sys/vnode.h>
 #include <sys/mount.h>
 
-#define	_KMEMUSER
 #include <fs/tmpfs/tmpfs.h>
-#undef _KMEMUSER
 
 #include <err.h>
 #include <kvm.h>

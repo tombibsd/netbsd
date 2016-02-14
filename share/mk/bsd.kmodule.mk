@@ -5,6 +5,13 @@ MKPIE=no
 
 .include <bsd.init.mk>
 .include <bsd.klinks.mk>
+
+.if ${MKCTF:Uno} == "yes"
+CFLAGS+=	-g
+# Only need symbols for ctf, strip them after converting to CTF
+CTFFLAGS=	-L VERSION
+.endif
+
 .include <bsd.sys.mk>
 
 ##### Basic targets

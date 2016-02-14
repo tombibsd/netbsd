@@ -33,6 +33,7 @@ SRCS+=	makecontext.c resumecontext.c _resumecontext.S swapcontext.S _lwp.c
 SRCS+=	cacheflush.c
 
 CPPFLAGS._lwp.c	+= -D_LIBC_SOURCE
+CPPFLAGS.cacheflush.c	+= -D_KERNTYPES
 
 LSRCS.mips.gen=	Lint__setjmp.c Lint_bswap16.c Lint_bswap32.c Lint_swapcontext.c
 LSRCS+=		${LSRCS.mips.gen}

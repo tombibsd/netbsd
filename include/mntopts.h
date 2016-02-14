@@ -33,6 +33,8 @@
 #ifndef _MNTOPTS_H_
 #define _MNTOPTS_H_
 
+#include <sys/cdefs.h>
+
 struct mntopt {
 	const char *m_option;	/* option name */
 	int m_inverse;		/* if a negative option, eg "dev" */

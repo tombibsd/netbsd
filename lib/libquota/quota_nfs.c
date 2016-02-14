@@ -179,7 +179,8 @@ __quota_nfs_get(struct quotahandle *qh, const struct quotakey *qk,
 	ret = callaurpc(host, RQUOTAPROG, EXT_RQUOTAVERS,
 	    RQUOTAPROC_GETQUOTA, (xdrproc_t)xdr_ext_getquota_args,
 	    &ext_gq_args, (xdrproc_t)xdr_getquota_rslt, &gq_rslt);
-	if (ret == RPC_PROGVERSMISMATCH && rpcqtype == RQUOTA_USRQUOTA) {
+	if ((ret == RPC_PROGVERSMISMATCH || ret == RPC_PROGNOTREGISTERED)
+	    && rpcqtype == RQUOTA_USRQUOTA) {
 		/* try RQUOTAVERS */
 		gq_args.gqa_pathp = path;
 		gq_args.gqa_uid = qk->qk_id;

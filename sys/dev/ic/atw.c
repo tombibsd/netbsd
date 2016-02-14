@@ -988,9 +988,11 @@ atw_wcsr_init(struct atw_softc *sc)
 	uint32_t wcsr;
 
 	wcsr = ATW_READ(sc, ATW_WCSR);
-	wcsr &= ~(ATW_WCSR_BLN_MASK|ATW_WCSR_LSOE|ATW_WCSR_MPRE|ATW_WCSR_LSOE);
+	wcsr &= ~ATW_WCSR_BLN_MASK;
 	wcsr |= __SHIFTIN(7, ATW_WCSR_BLN_MASK);
-	ATW_WRITE(sc, ATW_WCSR, wcsr);	/* XXX resets wake-up status bits */
+	/* We always want to wake up on link loss or TSFT out of range */
+	wcsr |= ATW_WCSR_LSOE|ATW_WCSR_TSFTWE;
+	ATW_WRITE(sc, ATW_WCSR, wcsr);
 
 	DPRINTF(sc, ("%s: %s reg[WCSR] = %08x\n",
 	    device_xname(sc->sc_dev), __func__, ATW_READ(sc, ATW_WCSR)));

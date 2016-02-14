@@ -29,6 +29,8 @@
 #ifndef _RPCSVC_YP_PROT_H_
 #define _RPCSVC_YP_PROT_H_
 
+#include <rpc/rpc.h> /* for XDR */
+
 /*
  * YPSERV PROTOCOL:
  * 

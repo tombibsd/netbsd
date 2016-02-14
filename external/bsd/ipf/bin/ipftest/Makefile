@@ -12,7 +12,7 @@ MAN=		ipftest.1
 
 CPPFLAGS+=	-DIPFILTER_LOG -DIPFILTER_LOOKUP \
 		-DIPFILTER_SYNC -DIPFILTER_CKSUM \
-		-I.
+		-I. -D_KERNTYPES
 
 COPTS.radix.c=	-Wno-error
 COPTS+=		-fno-strict-aliasing

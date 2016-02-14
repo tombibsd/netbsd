@@ -4,6 +4,7 @@ D/all////
 D/alpha////
 D/arc////
 D/arm////
+D/avr////
 D/bfin////
 D/cfi////
 D/cr16////
@@ -16,6 +17,7 @@ D/elf////
 D/epiphany////
 D/fr30////
 D/frv////
+D/ft32////
 D/h8300////
 D/hppa////
 D/i386////
@@ -33,6 +35,8 @@ D/mach-o////
 D/macros////
 D/mcore////
 D/mep////
+D/metag////
+D/microblaze////
 D/mips////
 D/mmix////
 D/mn10200////
@@ -40,11 +44,14 @@ D/mn10300////
 D/mri////
 D/msp430////
 D/mt////
-D/openrisc////
+D/nds32////
+D/nios2////
+D/or1k////
 D/pdp11////
 D/pe////
 D/pj////
 D/ppc////
+D/rl78////
 D/rx////
 D/s390////
 D/score////
@@ -60,6 +67,7 @@ D/tilegx////
 D/tilepro////
 D/v850////
 D/vax////
+D/visium////
 D/xc16x////
 D/xgate////
 D/xstormy16////

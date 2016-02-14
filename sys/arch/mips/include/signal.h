@@ -106,7 +106,7 @@ struct sigcontext { \
 _SIGCONTEXT_DEFINE(sigcontext, int, int);
 #endif
 #ifdef _LIBC
-_SIGCONTEXT_DEFINE(sigcontext, register_t, fpregister_t);
+_SIGCONTEXT_DEFINE(sigcontext, __register_t, __fpregister_t);
 #endif
 
 #endif /* _LIBC || _KERNEL */

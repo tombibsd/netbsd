@@ -43,15 +43,15 @@
 
 
 struct reg {
-	mips_reg_t	r_regs[38];
+	__register_t	r_regs[38];
 };
 
 struct fpreg {
-	mips_fpreg_t	r_regs[33];
+	__fpregister_t	r_regs[33];
 };
 
 struct dspreg {
-	mips_reg_t	r_regs[8];
+	__register_t	r_regs[8];
 };
 
 #if defined(__mips_n32) || defined(__mips_n64)

@@ -159,10 +159,8 @@ ip4_input6(struct mbuf **m, int *offp, int proto)
  * Really only a wrapper for ipip_input(), for use with IPv4.
  */
 void
-ip4_input(struct mbuf *m, ...)
+ip4_input(struct mbuf *m, int off, int proto)
 {
-	va_list ap;
-	int iphlen;
 
 #if 0
 	/* If we do not accept IP-in-IP explicitly, drop.  */
@@ -173,11 +171,8 @@ ip4_input(struct mbuf *m, ...)
 		return;
 	}
 #endif
-	va_start(ap, m);
-	iphlen = va_arg(ap, int);
-	va_end(ap);
 
-	_ipip_input(m, iphlen, NULL);
+	_ipip_input(m, off, NULL);
 }
 #endif /* INET */
 
@@ -682,43 +677,19 @@ static struct xformsw ipe4_xformsw = {
 };
 
 #ifdef INET
-PR_WRAP_CTLOUTPUT(rip_ctloutput)
-#define	rip_ctloutput	rip_ctloutput_wrapper
-
-extern struct domain inetdomain;
-static struct ipprotosw ipe4_protosw = {
- .pr_type = SOCK_RAW,
- .pr_domain = &inetdomain,
- .pr_protocol = IPPROTO_IPV4,
- .pr_flags = PR_ATOMIC|PR_ADDR|PR_LASTHDR,
- .pr_input = ip4_input,
- .pr_ctlinput = 0,
- .pr_ctloutput = rip_ctloutput,
- .pr_usrreqs = &rip_usrreqs,
- .pr_init = 0,
- .pr_fasttimo = 0,
- .pr_slowtimo =	0,
- .pr_drain = 0,
+static struct encapsw ipe4_encapsw = {
+	.encapsw4 = {
+		.pr_input = ip4_input,
+		.pr_ctlinput = NULL,
+	}
 };
 #endif
 #ifdef INET6
-PR_WRAP_CTLOUTPUT(rip6_ctloutput)
-#define	rip6_ctloutput	rip6_ctloutput_wrapper
-
-extern struct domain inet6domain;
-static struct ip6protosw ipe4_protosw6 = {
- .pr_type = SOCK_RAW,
- .pr_domain = &inet6domain,
- .pr_protocol = IPPROTO_IPV6,
- .pr_flags = PR_ATOMIC|PR_ADDR|PR_LASTHDR,
- .pr_input = ip4_input6,
- .pr_ctlinput = 0,
- .pr_ctloutput = rip6_ctloutput,
- .pr_usrreqs = &rip6_usrreqs,
- .pr_init = 0,
- .pr_fasttimo = 0,
- .pr_slowtimo = 0,
- .pr_drain = 0,
+static struct encapsw ipe4_encapsw6 = {
+	.encapsw6 = {
+		.pr_input = ip4_input6,
+		.pr_ctlinput = NULL,
+	}
 };
 #endif
 
@@ -752,11 +723,11 @@ ipe4_attach(void)
 	/* XXX save return cookie for detach on module remove */
 #ifdef INET
 	(void) encap_attach_func(AF_INET, -1,
-		ipe4_encapcheck, (struct protosw*) &ipe4_protosw, NULL);
+		ipe4_encapcheck, &ipe4_encapsw, NULL);
 #endif
 #ifdef INET6
 	(void) encap_attach_func(AF_INET6, -1,
-		ipe4_encapcheck, (struct protosw*) &ipe4_protosw6, NULL);
+		ipe4_encapcheck, &ipe4_encapsw6, NULL);
 #endif
 }
 

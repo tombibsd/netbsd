@@ -15,13 +15,13 @@ SPMATH_PROF=	${SPMATHDST}/spmath.po
 SPMATHMAKE= \
 	cd ${SPMATHDIR} && MAKEOBJDIRPREFIX= && unset MAKEOBJDIRPREFIX && \
 	  MAKEOBJDIR=${SPMATHDST} ${MAKE} \
-	    CC='${CC}' CFLAGS='${CFLAGS}' \
-	    SPMATHCPPFLAGS='${CPPFLAGS:S@^-I.@-I. -I../../.@g}'\
-	    AS='${AS}' AFLAGS='${AFLAGS}' \
-	    LD='${LD}' STRIP='${STRIP}' \
-	    CPP='${CPP}' STRIP='${STRIP}' AR='${AR}' \
-	    NM='${NM}' LORDER='${LORDER}' \
-	    XMACHINE='${MACHINE}' XMACHINE_ARCH='${MACHINE_ARCH}'
+	    CC=${CC:Q} CFLAGS=${CFLAGS:Q} \
+	    SPMATHCPPFLAGS=${CPPFLAGS:S@^-I.@-I. -I../../.@g:Q} \
+	    AS=${AS:Q} AFLAGS=${AFLAGS:Q} \
+	    LD=${LD:Q} STRIP=${STRIP:Q} \
+	    CPP=${CPP:Q} STRIP=${STRIP:Q} AR=${AR:Q} \
+	    NM=${NM:Q} LORDER=${LORDER:Q} \
+	    XMACHINE=${MACHINE:Q} XMACHINE_ARCH=${MACHINE_ARCH:Q}
 
 ${SPMATH}:	.NOTMAIN .MAKE __always_make_spmath
 	@echo making sure the spmath library is up to date...

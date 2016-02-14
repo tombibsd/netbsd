@@ -2,7 +2,7 @@
 
 NOMAN=  # defined
 
-.include <bsd.obj.mk>		# Pull in OBJDIR name rules.
+.include <bsd.init.mk>		# Pull in OBJDIR name rules.
 .include <bsd.own.mk>
 .include <bsd.klinks.mk>
 

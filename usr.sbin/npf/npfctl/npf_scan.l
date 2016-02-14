@@ -175,7 +175,7 @@ any			return ANY;
 			return IPV6ADDR;
 		}
 
-"::"{HEXDIG}[0-9a-fA-F:]* {
+"::"{HEXDIG}[0-9a-fA-F:.]* {
 			yylval.str = estrndup(yytext, yyleng);
 			return IPV6ADDR;
 		}

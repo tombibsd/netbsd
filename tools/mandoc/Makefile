@@ -14,7 +14,7 @@ HOST_CPPFLAGS+=	-DOSNAME=${NETBSD_OSNAME:Q} -DHAVE_CONFIG_H -I.
 
 DPSRCS+=	config.h
 
-CLEANFILES+=	config.log config.h
+CLEANFILES+=	config.log config.h Makefile.local
 
 config.h: configure 
 	SRCDIR=${DISTDIR} ${HOST_SH} ${DISTDIR}/configure

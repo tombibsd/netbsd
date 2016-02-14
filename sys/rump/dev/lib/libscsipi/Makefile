@@ -18,7 +18,5 @@ SRCS+=		scsipi_verbose.c
 
 SRCS+=	scsipi_component.c
 
-CPPFLAGS+=	-I${RUMPTOP}/librump/rumpvfs
-
 .include <bsd.lib.mk>
 .include <bsd.klinks.mk>

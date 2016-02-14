@@ -236,8 +236,10 @@ glob(filename)
 			return (filename);
 	}
 
-	if ((f = popen(cmd, "r")) == NULL)
+	if ((f = popen(cmd, "r")) == NULL) {
+		free(cmd);
 		return (filename);
+	}
 	free(cmd);
 
 	for (p = buffer; p < &buffer[sizeof(buffer)-1];  p++)

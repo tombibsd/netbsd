@@ -292,7 +292,8 @@ check_addrs(char *cp, int addrs, enum event ev)
 	struct sockaddr *sa, *ifa = NULL, *brd = NULL;
 	char ifname_buf[IFNAMSIZ];
 	const char *ifname;
-	int ifndx = 0, i;
+	int ifndx = 0;
+	unsigned i;
 
 	if (addrs == 0)
 		return;

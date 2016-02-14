@@ -38,6 +38,7 @@ LDADD.t_extattrctl+= -lrump -lpthread
 LDADD.t_filedesc+=  ${LDADD.t_rnd}
 LDADD.t_rnd+=  -lrumpvfs -lrumpdev_rnd -lrumpdev -lrump -lrumpuser
 LDADD.t_rnd+=  -lrump -lpthread
+CPPFLAGS+=	-D_KERNTYPES
 
 .endif
 

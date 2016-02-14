@@ -350,6 +350,8 @@ tegra_drm_dumb_map_offset(struct drm_file *file_priv,
 		error = drm_gem_create_mmap_offset(&obj->base);
 		if (error)
 			goto done;
+	} else {
+		error = 0;
 	}
 
 	*offset = drm_vma_node_offset_addr(&obj->base.vma_node);

@@ -8,7 +8,7 @@
 /bcopy_page.S/1.10/Wed Dec 25 07:37:18 2013/-kk/
 /bus_dma.c/1.94/Sun Nov 15 13:35:35 2015/-kk/
 /cortex_pmc.c/1.4/Tue Aug 25 04:51:01 2015/-kk/
-/cpu.c/1.111/Sun Nov 29 09:09:53 2015/-kk/
+/cpu.c/1.112/Sun Feb 14 12:54:44 2016/-kk/
 /cpuswitch.S/1.90/Sun Apr 12 03:34:30 2015/-kk/
 /db_interface.c/1.54/Tue Dec  9 04:15:53 2014/-kk/
 /db_machdep.c/1.23/Sat Mar 21 02:29:38 2015/-kk/

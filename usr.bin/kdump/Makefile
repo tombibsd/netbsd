@@ -17,7 +17,7 @@ LDSTATIC?=-static
 .include "Makefile.ioctl-c"
 .include "Makefile.siginfo-c"
 
-CPPFLAGS+=-I${NETBSDSRCDIR}/usr.bin/ktrace -I${NETBSDSRCDIR}/sys
+CPPFLAGS+=-I${NETBSDSRCDIR}/usr.bin/ktrace -I${NETBSDSRCDIR}/sys -D_KERNTYPES
 
 LDADD+=-lutil
 DPADD+=${LIBUTIL}

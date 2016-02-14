@@ -440,7 +440,7 @@ get_declaration(declaration *dec, defkind dkind)
 			}
 			dec->rel = REL_ARRAY;
 			if (peekscan(TOK_RANGLE, &tok)) {
-				dec->array_max = "(u_int)~0";
+				dec->array_max = "(unsigned int)~0";
 				/* unspecified size, use * max */
 			} else {
 				scan_num(&tok);
@@ -506,7 +506,7 @@ get_prog_declaration(declaration *dec, defkind dkind, int num /* arg number */)
 		}
 		dec->rel = REL_ARRAY;
 		if (peekscan(TOK_RANGLE, &tok)) {
-			dec->array_max = "(u_int)~0";
+			dec->array_max = "(unsigned int)~0";
 			/* unspecified size, use max */
 		} else {
 			scan_num(&tok);
@@ -519,7 +519,7 @@ get_prog_declaration(declaration *dec, defkind dkind, int num /* arg number */)
 						 * type of argument - make it
 						 * string<> */
 			dec->rel = REL_ARRAY;
-			dec->array_max = "(u_int)~0";
+			dec->array_max = "(unsigned int)~0";
 			/* unspecified size, use max */
 		}
 	}

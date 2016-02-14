@@ -11,6 +11,7 @@ FUSE_OPT_DEBUG_FLAGS=	-g -DFUSE_OPT_DEBUG
 .endif
 
 CFLAGS+=	${FUSE_OPT_DEBUG_FLAGS}
+CPPFLAGS+=	-D_KERNTYPES
 SRCS=		refuse.c refuse_opt.c
 MAN=		refuse.3
 WARNS?=		5

@@ -154,12 +154,12 @@ msdosfs_findslot(struct denode *dp, struct componentname *cnp)
 		break;
 	case 2:
 		wincnt = winSlotCnt((const u_char *)cnp->cn_nameptr,
-		    cnp->cn_namelen) + 1;
+		    cnp->cn_namelen, pmp->pm_flags & MSDOSFSMNT_UTF8) + 1;
 		break;
 	case 3:
 		olddos = 0;
 		wincnt = winSlotCnt((const u_char *)cnp->cn_nameptr,
-		    cnp->cn_namelen) + 1;
+		    cnp->cn_namelen, pmp->pm_flags & MSDOSFSMNT_UTF8) + 1;
 		break;
 	}
 
@@ -243,7 +243,8 @@ msdosfs_findslot(struct denode *dp, struct componentname *cnp)
 					chksum = winChkName((const u_char *)cnp->cn_nameptr,
 							    cnp->cn_namelen,
 							    (struct winentry *)dep,
-							    chksum);
+							    chksum,
+							    pmp->pm_flags & MSDOSFSMNT_UTF8);
 					continue;
 				}
 

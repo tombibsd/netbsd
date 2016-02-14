@@ -32,6 +32,7 @@
 #include <sys/sysctl.h>
 
 #include <rump/rump.h>
+#include <rump/rumpvnode_if.h>
 #include <rump/rump_syscalls.h>
 
 #include <atf-c.h>

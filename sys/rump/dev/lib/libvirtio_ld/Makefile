@@ -21,8 +21,6 @@ SRCS+=	ld_virtio.c
 # dependencies of virtio_ld should prevent anyone from want to
 # provide ld via this component ...
 SRCS+=	ld.c
-
-CPPFLAGS+= -I${RUMPTOP}/librump/rumpkern -I${RUMPTOP}/librump/rumpvfs
    
 .include "${RUMPTOP}/Makefile.rump"
 .include <bsd.lib.mk>

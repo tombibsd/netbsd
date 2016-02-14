@@ -34,11 +34,10 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/proc.h>
 #include <sys/signal.h>
 
+#include <rump-sys/kern.h>
+
 #include <rump/rump.h>
 #include <rump/rumpuser.h>
-
-#include "rump_private.h"
-#include "rumpkern_if_priv.h"
 
 const struct filterops sig_filtops = {
 	.f_attach = (void *)eopnotsupp,

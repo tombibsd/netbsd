@@ -3,6 +3,7 @@
 
 .include <bsd.own.mk>
 
+CPPFLAGS+=	-D_KERNTYPES
 PROG=	mount
 MAN=	mount.8
 SRCS=	mount.c vfslist.c

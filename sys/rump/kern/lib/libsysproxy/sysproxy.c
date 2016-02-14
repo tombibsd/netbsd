@@ -39,7 +39,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #define _RUMP_SYSPROXY
 #include <rump/rumpuser.h>
 
-#include "rump_private.h"
+#include <rump-sys/kern.h>
 
 int
 rump_init_server(const char *url)

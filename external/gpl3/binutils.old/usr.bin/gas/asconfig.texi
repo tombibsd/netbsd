@@ -1,0 +1,2 @@
+@c $NetBSD$
+@include all.texi

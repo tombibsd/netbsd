@@ -7,8 +7,6 @@ COMMENT=PF_INET/PF_INET6 via hypercalls
 SRCS=	sockin.c
 SRCS+=	sockin_component.c
 
-CPPFLAGS+= -I${RUMPTOP}/librump/rumpkern
-
 RUMPCOMP_USER_SRCS=	sockin_user.c
 
 .include <bsd.lib.mk>

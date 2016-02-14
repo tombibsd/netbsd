@@ -306,7 +306,7 @@ echo '
 #include <sys/vnode.h>
 #include <sys/lock.h>'
 [ ! -z "${rump}" ] && echo '#include <rump/rumpvnode_if.h>'		\
-	&& echo '#include "rump_private.h"'
+	&& echo '#include <rump-sys/kern.h>'
 
 if [ -z "${rump}" ] ; then
 	echo "

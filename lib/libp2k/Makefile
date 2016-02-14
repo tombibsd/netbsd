@@ -9,6 +9,7 @@ LIBDPLIBS+=	puffs	${.CURDIR}/../libpuffs		\
 
 INCS=		p2k.h
 INCSDIR=	/usr/include/rump
+CPPFLAGS+=	-D_KERNTYPES
 
 SRCS=		p2k.c
 MAN=		p2k.3

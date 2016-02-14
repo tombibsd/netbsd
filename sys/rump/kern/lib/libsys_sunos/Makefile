@@ -7,9 +7,6 @@ COMMENT=SunOS/Solarisa system call translation
 SRCS=	rump_sunos_compat.c
 SRCS+=	sys_sunos_component.c
 
-# XXX
-CPPFLAGS+= -I${RUMPTOP}/librump/rumpkern
-
 SYS_P=rump_sunos_sys
 .include "../Makefile.sys"
 

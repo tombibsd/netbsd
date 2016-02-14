@@ -52,10 +52,10 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/stat.h>
 #include <sys/cprng.h>
 
-#include <rump/rumpuser.h>
+#include <rump-sys/kern.h>
+#include <rump-sys/vfs.h>
 
-#include "rump_private.h"
-#include "rump_vfs_private.h"
+#include <rump/rumpuser.h>
 
 #if 0
 #define DPRINTF(x) printf x

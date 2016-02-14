@@ -24,9 +24,6 @@ SRCS+=	rumpdev_bus_dma.c
 
 SRCS+=	pci_at_mainbus.c
 
-CPPFLAGS+= -I${RUMPTOP}/librump/rumpkern
-CPPFLAGS+= -I${RUMPTOP}/librump/rumpvfs
-
 .if ${RUMP_PCI_IOSPACE:Uno} == "yes"
 .error RUMP_PCI_IOSPACE defined in Makefile.  Use userfeatures.h instead.
 .endif

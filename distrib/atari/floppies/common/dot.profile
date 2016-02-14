@@ -46,6 +46,8 @@ export EDITOR
 
 umask 022
 
+mount_gemdos() mount_msdos -G "$@"
+
 makerootwritable() {
 	# note, only handles up to partition 'j'
 	rootdev=/dev/$(sysctl -n kern.root_device)$(sysctl -n kern.root_partition | sed y/0123456789/abcdefghij/)

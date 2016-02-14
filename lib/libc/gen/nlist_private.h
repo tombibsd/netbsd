@@ -69,6 +69,10 @@
 #  endif
 #elif defined(__aarch64__)
 #  define	NLIST_ELF64
+#elif defined(__ia64__)
+#  define	NLIST_ELF64
+#elif defined(__or1k__)
+#  define	NLIST_ELF32
 #else
 #  define	NLIST_AOUT
 /* #define	NLIST_ECOFF */

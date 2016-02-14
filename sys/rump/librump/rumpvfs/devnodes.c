@@ -37,7 +37,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/stat.h>
 #include <sys/vfs_syscalls.h>
 
-#include "rump_vfs_private.h"
+#include <rump-sys/vfs.h>
 
 /* realqvik(tm) "devfs" */
 static int

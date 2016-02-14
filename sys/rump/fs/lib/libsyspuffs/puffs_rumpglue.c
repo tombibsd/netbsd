@@ -41,10 +41,10 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <dev/putter/putter.h>
 #include <dev/putter/putter_sys.h>
 
+#include <rump-sys/vfs.h>
+
 #include <rump/rump.h>
 #include <rump/rumpuser.h>
-
-#include "rump_vfs_private.h"
 
 void putterattach(void); /* XXX: from autoconf */
 dev_type_open(puttercdopen);

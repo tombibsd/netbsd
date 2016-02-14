@@ -13,8 +13,7 @@ SRCS+=	puffs_rumpglue.c
 
 SRCS+=	syspuffs_component.c
 
-CPPFLAGS+= -DPUFFSDEBUG -I${RUMPTOP}/librump/rumpvfs
-CPPFLAGS+= -I${RUMPTOP}/librump/rumpkern
+CPPFLAGS+= -DPUFFSDEBUG
 
 .include <bsd.lib.mk>
 .include <bsd.klinks.mk>

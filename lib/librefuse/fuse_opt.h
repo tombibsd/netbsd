@@ -31,6 +31,8 @@
 #ifndef _FUSE_OPT_H_
 #define _FUSE_OPT_H_
 
+#include <stdint.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif  

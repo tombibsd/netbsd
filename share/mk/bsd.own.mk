@@ -113,8 +113,6 @@ HAVE_LIBGCC_EH?=	no
 HAVE_LIBGCC_EH?=	yes
 .endif
 
-HAVE_GDB?=	79
-
 .if (${MACHINE_ARCH} == "alpha") || \
     (${MACHINE_ARCH} == "hppa") || \
     (${MACHINE_ARCH} == "ia64") || \
@@ -125,6 +123,29 @@ HAVE_SSP?=	yes
 .if ${USE_FORT:Uno} != "no"
 USE_SSP?=	yes
 .endif
+.endif
+
+HAVE_GDB?=	79
+
+.if ${HAVE_GDB} == 79
+EXTERNAL_GDB_SUBDIR=		gdb
+.else
+EXTERNAL_GDB_SUBDIR=		/does/not/exist
+.endif
+
+.if ${MACHINE} == "amd64" || \
+    ${MACHINE} == "evbarm"
+HAVE_BINUTILS?=	226
+.else
+HAVE_BINUTILS?=	223
+.endif
+
+.if ${HAVE_BINUTILS} == 223
+EXTERNAL_BINUTILS_SUBDIR=	binutils.old
+.elif ${HAVE_BINUTILS} == 226
+EXTERNAL_BINUTILS_SUBDIR=	binutils
+.else
+EXTERNAL_BINUTILS_SUBDIR=	/does/not/exist
 .endif
 
 .if empty(.MAKEFLAGS:tW:M*-V .OBJDIR*)
@@ -324,6 +345,7 @@ TOOL_CRUNCHGEN=		MAKE=${.MAKE:Q} ${TOOLDIR}/bin/${_TOOL_PREFIX}crunchgen
 TOOL_CTAGS=		${TOOLDIR}/bin/${_TOOL_PREFIX}ctags
 TOOL_CTFCONVERT=	${TOOLDIR}/bin/${_TOOL_PREFIX}ctfconvert
 TOOL_CTFMERGE=		${TOOLDIR}/bin/${_TOOL_PREFIX}ctfmerge
+TOOL_CVSLATEST=		${TOOLDIR}/bin/${_TOOL_PREFIX}cvslatest
 TOOL_DB=		${TOOLDIR}/bin/${_TOOL_PREFIX}db
 TOOL_DISKLABEL=		${TOOLDIR}/bin/nbdisklabel
 TOOL_EQN=		${TOOLDIR}/bin/${_TOOL_PREFIX}eqn
@@ -435,6 +457,7 @@ TOOL_CRUNCHGEN=		crunchgen
 TOOL_CTAGS=		ctags
 TOOL_CTFCONVERT=	ctfconvert
 TOOL_CTFMERGE=		ctfmerge
+TOOL_CVSLATEST=		cvslatest
 TOOL_DB=		db
 TOOL_DISKLABEL=		disklabel
 TOOL_EQN=		eqn
@@ -509,6 +532,13 @@ TOOL_VFONTEDPR=		/usr/libexec/vfontedpr
 TOOL_ZIC=		zic
 
 .endif	# USETOOLS != yes						# }
+
+# Standalone code should not be compiled with PIE or CTF
+# Should create a better test
+.if defined(BINDIR) && ${BINDIR} == "/usr/mdec"
+NOPIE=			# defined
+NOCTF=			# defined
+.endif
 
 # Fallback to ensure that all variables are defined to something
 TOOL_CC.false=		false
@@ -975,6 +1005,16 @@ MKBINUTILS?=	${MKBFD}
 MKZFS?=		yes
 .endif
 
+#
+# DTrace works on amd64, i386 and earm*
+#
+
+.if ${MACHINE_ARCH} == "i386" || \
+    ${MACHINE_ARCH} == "x86_64" || \
+    !empty(MACHINE_ARCH:Mearm*)
+MKDTRACE?=	yes
+MKCTF?=		yes
+.endif
 #
 # MK* options which default to "yes".
 #

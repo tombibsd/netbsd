@@ -1,6 +1,6 @@
 /Makefile.inc/1.2/Fri May  1 11:32:37 2015/-kk/
-/rump_generic_abi.c/1.1/Wed Apr 22 18:12:39 2015/-kk/
-/rump_generic_cpu.c/1.2/Fri May  1 11:32:37 2015/-kk/
+/rump_generic_abi.c/1.2/Sun Feb 14 12:55:52 2016/-kk/
+/rump_generic_cpu.c/1.3/Sun Feb 14 12:55:52 2016/-kk/
 /rump_generic_kobj.c/1.1/Wed Feb 12 22:28:43 2014/-kk/
-/rump_generic_pmap.c/1.4/Wed Apr 22 07:37:47 2015/-kk/
+/rump_generic_pmap.c/1.5/Sun Feb 14 12:55:52 2016/-kk/
 D

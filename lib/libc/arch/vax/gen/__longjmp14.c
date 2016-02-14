@@ -43,7 +43,7 @@
 
 struct _jmp_buf {
 	struct sigcontext jb_sc;
-	register_t jb_regs[6];
+	__register_t jb_regs[6];
 };
 
 void

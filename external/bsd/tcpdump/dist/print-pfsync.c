@@ -49,7 +49,6 @@ __RCSID("$NetBSD$");
 #include <sys/socket.h>
 #include <sys/file.h>
 #include <sys/ioctl.h>
-#include <sys/mbuf.h>
 
 #ifdef __STDC__
 struct rtentry;

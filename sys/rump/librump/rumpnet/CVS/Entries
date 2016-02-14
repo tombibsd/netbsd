@@ -1,11 +1,11 @@
 /Makefile.rumpnet/1.19/Sun Nov 15 13:36:36 2015/-kk/
 /Makefile/1.1/Wed Oct 15 13:00:39 2008/-kk/
 /net_stub.c/1.21/Thu Dec 11 09:09:55 2014/-kk/
-/netisr.c/1.9/Mon Jun  9 00:29:34 2014/-kk/
-/rump_net.c/1.17/Thu Feb 27 08:56:16 2014/-kk/
-/rump_net_private.h/1.10/Fri Oct  3 09:43:46 2014/-kk/
-/rumpnet.ifspec/1.3/Thu Oct 24 10:28:58 2013/-kk/
-/rumpnet_if_priv.h/1.5/Thu Oct 24 10:28:58 2013/-kk/
-/rumpnet_if_wrappers.c/1.5/Thu Oct 24 10:28:58 2013/-kk/
-/rumpnet_syscalls.c/1.3/Mon Jun 22 02:35:13 2015/-kk/
+/netisr.c/1.10/Sun Feb 14 12:55:52 2016/-kk/
+/rump_net.c/1.18/Sun Feb 14 12:55:52 2016/-kk/
+/rump_net_private.h/1.11/Sun Feb 14 12:55:52 2016/-kk/
+/rumpnet.ifspec/1.4/Sun Feb 14 12:55:52 2016/-kk/
+/rumpnet_if_priv.h/1.6/Sun Feb 14 12:55:52 2016/-kk/
+/rumpnet_if_wrappers.c/1.7/Sun Feb 14 12:55:52 2016/-kk/
+/rumpnet_syscalls.c/1.4/Sun Feb 14 12:55:52 2016/-kk/
 D

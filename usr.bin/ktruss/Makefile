@@ -30,7 +30,7 @@ misc.c misc.h: ${DESTDIR}/usr/include/sys/errno.h makeerrnos.sh \
 .include "${NETBSDSRCDIR}/usr.bin/kdump/Makefile.ioctl-c"
 
 CPPFLAGS+=	-I. -I${NETBSDSRCDIR}/usr.bin/ktrace -I${NETBSDSRCDIR}/sys \
-		-I${NETBSDSRCDIR}/usr.bin/kdump -DKTRUSS
+		-I${NETBSDSRCDIR}/usr.bin/kdump -DKTRUSS -D_KERNTYPES
 
 .include <bsd.prog.mk>
 

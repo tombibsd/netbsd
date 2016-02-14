@@ -41,15 +41,17 @@
 #include <sys/featuretest.h>
 #include <machine/int_types.h>
 
+typedef int			__register_t;
+typedef unsigned long		__vaddr_t;	/* segments.h */
+typedef unsigned char		__cpu_simple_lock_nv_t;
+
 #if defined(_KERNEL)
 typedef struct label_t {
 	int val[6];
 } label_t;
 #endif
 
-#if defined(_NETBSD_SOURCE)
 #if defined(_KERNEL)
-
 /*
  * XXX JYM for now, in kernel paddr_t can be 32 or 64 bits, depending
  * on PAE. Revisit when paddr_t becomes 64 bits for !PAE systems.
@@ -68,7 +70,7 @@ typedef unsigned long	psize_t;
 #define	PRIuPSIZE	"lu"
 #endif /* PAE */
 
-#else /* _KERNEL */
+#elif defined(_KMEMUSER) || defined(_KERNTYPES) || defined(_STANDALONE)
 /* paddr_t is always 64 bits for userland */
 typedef __uint64_t	paddr_t;
 typedef __uint64_t	psize_t;
@@ -78,19 +80,20 @@ typedef __uint64_t	psize_t;
 
 #endif /* _KERNEL */
 
-typedef unsigned long	vaddr_t;
+#if defined(_KERNEL) || defined(_KMEMUSER) || defined(_KERNTYPES) || defined(_STANDALONE)
+
+typedef __vaddr_t	vaddr_t;
 typedef unsigned long	vsize_t;
 #define	PRIxVADDR	"lx"
 #define	PRIxVSIZE	"lx"
 #define	PRIuVSIZE	"lu"
-#endif /* _NETBSD_SOURCE */
 
 typedef int		pmc_evid_t;
 typedef __uint64_t	pmc_ctr_t;
-typedef int		register_t;
+typedef __register_t	register_t;
 #define	PRIxREGISTER	"x"
 
-typedef	unsigned char		__cpu_simple_lock_nv_t;
+#endif /* _KERNEL || _KMEMUSER */
 
 /* __cpu_simple_lock_t used to be a full word. */
 #define	__CPU_SIMPLE_LOCK_PAD

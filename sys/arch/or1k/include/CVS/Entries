@@ -16,7 +16,7 @@
 /endian_machdep.h/1.1/Wed Sep  3 19:34:26 2014/-kk/
 /fenv.h/1.1/Wed Sep  3 19:34:26 2014/-kk/
 /float.h/1.1/Wed Sep  3 19:34:26 2014/-kk/
-/frame.h/1.1/Wed Sep  3 19:34:26 2014/-kk/
+/frame.h/1.2/Sun Feb 14 12:55:05 2016/-kk/
 /ieee.h/1.1/Wed Sep  3 19:34:26 2014/-kk/
 /ieeefp.h/1.1/Wed Sep  3 19:34:26 2014/-kk/
 /int_const.h/1.1/Wed Sep  3 19:34:26 2014/-kk/
@@ -47,7 +47,7 @@
 /spr.h/1.1/Wed Sep  3 19:34:26 2014/-kk/
 /sysarch.h/1.1/Wed Sep  3 19:34:26 2014/-kk/
 /trap.h/1.1/Wed Sep  3 19:34:26 2014/-kk/
-/types.h/1.2/Sun Sep 13 01:06:24 2015/-kk/
+/types.h/1.4/Sun Feb 14 12:55:05 2016/-kk/
 /vmparam.h/1.1/Wed Sep  3 19:34:26 2014/-kk/
 /wchar_limits.h/1.1/Wed Sep  3 19:34:26 2014/-kk/
 D

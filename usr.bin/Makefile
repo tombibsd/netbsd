@@ -7,7 +7,7 @@ SUBDIR= apply asa at audio audiocfg \
 	banner basename biff bthset btkey btpin \
 	bzip2 bzip2recover c89 c99 cal calendar cap_mkdb cdplay \
 	checknr chflags chpass cksum cmp cleantags col colcrt colrm \
-	column comm compress config crunch csplit ctags cut \
+	column comm compress config crunch csplit ctags cut cvslatest \
 	deroff db dirname du \
 	eject elf2aout elf2ecoff env error expand extattr \
 	false fdformat fgen fincore find finger flock fmt fold fpr from \

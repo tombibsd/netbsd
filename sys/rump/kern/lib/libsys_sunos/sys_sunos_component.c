@@ -5,7 +5,7 @@
 
 #include <uvm/uvm_extern.h>
 
-#include "rump_private.h"
+#include <rump-sys/kern.h>
 
 #include "rump_sunos_syscall.h"
 

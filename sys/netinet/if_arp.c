@@ -714,7 +714,6 @@ arp_rtrequest(int req, struct rtentry *rt, const struct rt_addrinfo *info)
 		if (la->la_flags & LLE_LINKED) {
 			size_t pkts_dropped;
 
-			LLE_REMREF(la);
 			pkts_dropped = llentry_free(la);
 			ARP_STATADD(ARP_STAT_DFRDROPPED, pkts_dropped);
 		} else {

@@ -33,7 +33,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <sys/param.h>
 
-#include "rump_private.h"
+#include <rump-sys/kern.h>
 
 struct cpu_info *rumpcpu_info_list;
 

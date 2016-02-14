@@ -74,6 +74,11 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/rnd.h>
 #include <sys/ktrace.h>
 
+#include <rump-sys/kern.h>
+#include <rump-sys/dev.h>
+#include <rump-sys/net.h>
+#include <rump-sys/vfs.h>
+
 #include <rump/rumpuser.h>
 
 #include <secmodel/suser/suser.h>
@@ -82,11 +87,6 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <uvm/uvm_extern.h>
 #include <uvm/uvm_readahead.h>
-
-#include "rump_private.h"
-#include "rump_net_private.h"
-#include "rump_vfs_private.h"
-#include "rump_dev_private.h"
 
 char machine[] = MACHINE;
 char machine_arch[] = MACHINE_ARCH;

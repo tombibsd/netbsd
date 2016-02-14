@@ -136,9 +136,9 @@
 /icp_pci.c/1.22/Fri Apr 11 02:03:43 2014/-kk/
 /if_age.c/1.45/Wed Apr 22 07:36:55 2015/-kk/
 /if_agereg.h/1.3/Tue Jul 28 21:03:46 2009/-kk/
-/if_alc.c/1.17/Sat Dec  5 11:19:31 2015/-kk/
+/if_alc.c/1.18/Sun Feb 14 12:55:22 2016/-kk/
 /if_alcreg.h/1.5/Sat Dec  5 11:19:31 2015/-kk/
-/if_ale.c/1.18/Wed Apr 22 07:36:56 2015/-kk/
+/if_ale.c/1.19/Sun Feb 14 12:55:22 2016/-kk/
 /if_alereg.h/1.2/Sat Apr 25 17:04:40 2009/-kk/
 /if_an_pci.c/1.35/Fri Apr 11 02:03:43 2014/-kk/
 /if_ath_pci.c/1.48/Fri Apr 11 02:03:43 2014/-kk/
@@ -237,7 +237,7 @@
 /if_vtereg.h/1.2/Thu Apr 28 17:32:48 2011/-kk/
 /if_vtevar.h/1.4/Wed Apr 22 07:36:57 2015/-kk/
 /if_wi_pci.c/1.55/Fri Apr 11 02:03:49 2014/-kk/
-/if_wm.c/1.388/Sun Jan 17 10:34:16 2016/-kk/
+/if_wm.c/1.389/Sun Feb 14 12:55:22 2016/-kk/
 /if_wmreg.h/1.88/Thu Jan  7 06:24:33 2016/-kk/
 /if_wmvar.h/1.30/Thu Jan  7 06:24:33 2016/-kk/
 /if_wpi.c/1.71/Mon Jan 12 06:48:51 2015/-kk/
@@ -316,7 +316,7 @@
 /pccbb.c/1.208/Thu Apr  2 02:28:03 2015/-kk/
 /pccbbreg.h/1.15/Tue Dec 15 22:17:12 2009/-kk/
 /pccbbvar.h/1.41/Tue Apr 20 23:39:11 2010/-kk/
-/pci.c/1.150/Fri Nov 20 02:19:03 2015/-kk/
+/pci.c/1.151/Sun Feb 14 12:55:23 2016/-kk/
 /pci_map.c/1.32/Fri Jan  2 11:21:37 2015/-kk/
 /pci_quirks.c/1.9/Wed Aug 19 16:31:28 2009/-kk/
 /pci_stub.c/1.4/Fri Nov 20 01:31:17 2015/-kk/
@@ -327,9 +327,9 @@
 /pcibusprint.c/1.3/Sun Dec 11 12:22:50 2005/-kk/
 /pciconf.c/1.37/Fri Oct  3 09:50:55 2014/-kk/
 /pciconf.h/1.12/Sat Sep  8 05:02:41 2012/-kk/
-/pcidevs.h/1.1237/Sat Dec  5 12:22:51 2015/-kk/
-/pcidevs/1.1244/Sat Dec  5 12:22:51 2015/-kk/
-/pcidevs_data.h/1.1236/Sat Dec  5 12:22:51 2015/-kk/
+/pcidevs.h/1.1238/Sun Feb 14 12:55:23 2016/-kk/
+/pcidevs/1.1245/Sun Feb 14 12:55:23 2016/-kk/
+/pcidevs_data.h/1.1237/Sun Feb 14 12:55:23 2016/-kk/
 /pciide.c/1.219/Sat Nov  6 00:29:09 2010/-kk/
 /pciide_acard_reg.h/1.8/Wed May 14 13:29:29 2008/-kk/
 /pciide_acer_reg.h/1.12/Mon Oct 19 18:41:15 2009/-kk/

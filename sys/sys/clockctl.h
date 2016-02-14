@@ -62,7 +62,7 @@ struct clockctl_clock_settime {
 
 struct clockctl_ntp_adjtime {
 	struct timex *tp;
-	register_t retval;
+	__register_t retval;
 };
 
 #define CLOCKCTL_NTP_ADJTIME _IOWR('C', 0x8, struct clockctl_ntp_adjtime)

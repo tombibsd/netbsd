@@ -20,6 +20,8 @@
 #include <net/if.h>
 #include <arpa/inet.h>
 
+#include <prop/proplib.h>
+
 #include <rump/rump.h>
 #include <rump/rump_syscalls.h>
 

@@ -159,7 +159,7 @@ struct gate_descriptor {
 } __packed;
 
 struct ldt_descriptor {
-	vaddr_t ld_base;
+	__vaddr_t ld_base;
 	uint32_t ld_entries;
 } __packed;
 

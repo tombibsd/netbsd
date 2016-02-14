@@ -94,7 +94,7 @@ mount_msdos_parseargs(int argc, char **argv,
 	*mntflags = set_gid = set_uid = set_mask = set_dirmask = set_gmtoff = 0;
 	(void)memset(args, '\0', sizeof(*args));
 
-	while ((c = getopt(argc, argv, "Gsl9u:g:m:M:o:t:")) != -1) {
+	while ((c = getopt(argc, argv, "Gsl9Uu:g:m:M:o:t:")) != -1) {
 		switch (c) {
 		case 'G':
 			args->flags |= MSDOSFSMNT_GEMDOSFS;
@@ -107,6 +107,9 @@ mount_msdos_parseargs(int argc, char **argv,
 			break;
 		case '9':
 			args->flags |= MSDOSFSMNT_NOWIN95;
+			break;
+		case 'U':
+			args->flags |= MSDOSFSMNT_UTF8;
 			break;
 		case 'u':
 			args->uid = a_uid(optarg);

@@ -55,8 +55,6 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <machine/pmap.h>
 
-#include <rump/rumpuser.h>
-
 #include <uvm/uvm.h>
 #include <uvm/uvm_ddb.h>
 #include <uvm/uvm_pdpolicy.h>
@@ -64,8 +62,10 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <uvm/uvm_readahead.h>
 #include <uvm/uvm_device.h>
 
-#include "rump_private.h"
-#include "rump_vfs_private.h"
+#include <rump-sys/kern.h>
+#include <rump-sys/vfs.h>
+
+#include <rump/rumpuser.h>
 
 kmutex_t uvm_pageqlock; /* non-free page lock */
 kmutex_t uvm_fpageqlock; /* free page lock, non-gpl license */

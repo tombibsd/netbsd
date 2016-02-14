@@ -17,8 +17,8 @@ SRCS+=	tuklib_exit.c tuklib_cpucores.c tuklib_open_stdxxx.c \
 CPPFLAGS+=	-DPACKAGE=\"xz\"
 CPPFLAGS+=	-DENABLE_NLS -DLOCALEDIR=\"/usr/share/locale\"
 
-DPADD+=	${LIBLZMA} ${LIBINTL}
-LDADD+=	-llzma -lintl
+DPADD+=	${LIBLZMA} ${LIBINTL} ${LIBPTHREAD}
+LDADD+=	-llzma -lintl -lpthread
 
 .PATH:	${XZSRCDIR}/src/common ${XZSRCDIR}/src/lzmainfo
 

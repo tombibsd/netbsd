@@ -24,8 +24,8 @@ typedef u_long bus_size_t;
 struct alpha_bus_space_translation {
 	bus_addr_t	abst_bus_start;	/* start of bus window */
 	bus_addr_t	abst_bus_end;	/* end of bus window */
-	paddr_t		abst_sys_start;	/* start of sysBus window */
-	paddr_t		abst_sys_end;	/* end of sysBus window */
+	__paddr_t	abst_sys_start;	/* start of sysBus window */
+	__paddr_t	abst_sys_end;	/* end of sysBus window */
 	int		abst_addr_shift;/* address shift */
 	int		abst_size_shift;/* size shift */
 	int		abst_flags;	/* flags; see below */

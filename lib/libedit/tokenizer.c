@@ -446,5 +446,5 @@ FUN(tok,str)(TYPE(Tokenizer) *tok, const Char *line, int *argc,
 	memset(&li, 0, sizeof(li));
 	li.buffer = line;
 	li.cursor = li.lastchar = Strchr(line, '\0');
-	return FUN(tok,line(tok, &li, argc, argv, NULL, NULL));
+	return FUN(tok,line)(tok, &li, argc, argv, NULL, NULL);
 }

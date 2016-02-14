@@ -1,6 +1,6 @@
 /Makefile/1.5/Fri Oct  3 10:04:47 2014/-kk/
-/pci.3/1.10/Sat Dec 27 03:35:19 2014/-kk/
-/pci.h/1.6/Fri Oct  3 10:04:47 2014/-kk/
+/pci.3/1.12/Sun Feb 14 12:54:13 2016/-kk/
+/pci.h/1.8/Sun Feb 14 12:54:13 2016/-kk/
 /pci_bus.c/1.2/Sat Mar  8 09:53:45 2003/-kk/
 /pci_device.c/1.2/Sat Mar  8 09:53:45 2003/-kk/
 /pci_drvname.c/1.1/Fri Jul 25 01:38:26 2014/-kk/

@@ -33,6 +33,7 @@
 #define	_PROPLIB_PROP_DICTIONARY_H_
 
 #include <prop/prop_object.h>
+#include <prop/prop_array.h>
 
 typedef struct _prop_dictionary *prop_dictionary_t;
 typedef struct _prop_dictionary_keysym *prop_dictionary_keysym_t;

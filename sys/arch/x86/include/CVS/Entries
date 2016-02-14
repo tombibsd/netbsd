@@ -4,7 +4,7 @@
 /apicvar.h/1.5/Mon Apr 28 20:23:40 2008/-kk/
 /autoconf.h/1.3/Tue Oct 18 23:25:20 2011/-kk/
 /bios32.h/1.5/Mon Apr 28 20:23:40 2008/-kk/
-/bootinfo.h/1.23/Thu Oct 24 10:28:57 2013/-kk/
+/bootinfo.h/1.24/Sun Feb 14 12:55:16 2016/-kk/
 /bus_defs.h/1.2/Thu Aug 25 15:06:10 2011/-kk/
 /bus_funcs.h/1.1/Fri Jul  1 17:10:01 2011/-kk/
 /bus_private.h/1.14/Thu Sep  1 15:10:31 2011/-kk/
@@ -19,6 +19,7 @@
 /cputypes.h/1.4/Tue Dec 17 04:13:30 2013/-kk/
 /cpuvar.h/1.47/Fri Dec 25 06:18:19 2015/-kk/
 /db_machdep.h/1.4/Fri Jan 31 08:48:44 2014/-kk/
+/efi.h/1.1/Thu Jan 28 01:09:56 2016/-kk/
 /est.h/1.1/Wed Feb 23 11:43:22 2011/-kk/
 /float.h/1.6/Thu Oct 24 10:28:57 2013/-kk/
 /fpu.h/1.6/Sat Mar  1 06:04:34 2014/-kk/

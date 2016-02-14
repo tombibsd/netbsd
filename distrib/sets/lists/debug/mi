@@ -488,6 +488,7 @@
 ./usr/libdata/debug/usr/bin/ctfmerge.debug	comp-util-debug		ctf,debug
 ./usr/libdata/debug/usr/bin/cut.debug		comp-util-debug		debug
 ./usr/libdata/debug/usr/bin/cvs.debug		comp-cvs-debug		cvs,debug
+./usr/libdata/debug/usr/bin/cvslatest.debug	comp-cvs-debug		cvs,debug
 ./usr/libdata/debug/usr/bin/db.debug		comp-util-debug		debug
 ./usr/libdata/debug/usr/bin/dc.debug		comp-util-debug		debug
 ./usr/libdata/debug/usr/bin/delv.debug		comp-bind-bin		debug
@@ -2085,6 +2086,7 @@
 ./usr/libdata/debug/usr/tests/lib/libm/t_fenv.debug			tests-lib-debug		debug,atf,compattestfile
 ./usr/libdata/debug/usr/tests/lib/libm/t_floor.debug			tests-obsolete		obsolete,compattestfile
 ./usr/libdata/debug/usr/tests/lib/libm/t_fmod.debug			tests-lib-debug		debug,atf,compattestfile
+./usr/libdata/debug/usr/tests/lib/libm/t_hypot.debug			tests-lib-debug		debug,atf,compattestfile
 ./usr/libdata/debug/usr/tests/lib/libm/t_infinity.debug			tests-lib-debug		debug,atf,compattestfile
 ./usr/libdata/debug/usr/tests/lib/libm/t_ldexp.debug			tests-lib-debug		debug,atf,compattestfile
 ./usr/libdata/debug/usr/tests/lib/libm/t_libm.debug			tests-obsolete		obsolete,compattestfile

@@ -35,7 +35,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include "ioconf.c"
 
-#include "rump_private.h"
+#include <rump-sys/kern.h>
 
 RUMP_COMPONENT(RUMP_COMPONENT_DEV)
 {

@@ -36,7 +36,7 @@ __RCSID("$NetBSD$");
 
 #include <sys/param.h>
 #include <sys/sysctl.h>
-#include <machine/cpu.h>
+#include <sys/cpu.h>
 #include <string.h>
 #include <paths.h>
 #include <util.h>

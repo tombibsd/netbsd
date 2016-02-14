@@ -14,6 +14,7 @@ MKMAN=		no
 
 PROGS+=		h_exec
 PROGS+=		h_execthr
+CPPFLAGS+=	-D_KERNTYPES
 
 LDADD+= -lrumpclient
 LDADD.h_execthr= -lpthread

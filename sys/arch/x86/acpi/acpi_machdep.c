@@ -64,6 +64,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <machine/i82093var.h>
 #include <machine/pic.h>
 
+#include <x86/efi.h>
+
 #include <dev/pci/pcivar.h>
 
 #include <dev/isa/isareg.h>
@@ -87,8 +89,18 @@ acpi_md_OsGetRootPointer(void)
 	ACPI_PHYSICAL_ADDRESS PhysicalAddress;
 	ACPI_STATUS Status;
 
-	Status = AcpiFindRootPointer(&PhysicalAddress);
+#ifndef XEN
+	/* If EFI is available, attempt to use it to locate the ACPI table. */
+	if (efi_probe()) {
+		PhysicalAddress = efi_getcfgtblpa(&EFI_UUID_ACPI20);
+		if (!PhysicalAddress)
+			PhysicalAddress = efi_getcfgtblpa(&EFI_UUID_ACPI10);
+		if (PhysicalAddress)
+			return PhysicalAddress;
+	}
 
+#endif
+	Status = AcpiFindRootPointer(&PhysicalAddress);
 	if (ACPI_FAILURE(Status))
 		PhysicalAddress = 0;
 

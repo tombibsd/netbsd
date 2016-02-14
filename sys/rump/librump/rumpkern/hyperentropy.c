@@ -34,9 +34,9 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/rndpool.h>
 #include <sys/rndsource.h>
 
-#include <rump/rumpuser.h>
+#include <rump-sys/kern.h>
 
-#include "rump_private.h"
+#include <rump/rumpuser.h>
 
 static krndsource_t rndsrc;
 static volatile unsigned hyperentropy_wanted;

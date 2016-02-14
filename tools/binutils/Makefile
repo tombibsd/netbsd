@@ -4,7 +4,7 @@
 
 MODULE=		binutils
 
-GNUHOSTDIST=	${.CURDIR}/../../external/gpl3/binutils/dist
+GNUHOSTDIST=	${.CURDIR}/../../external/gpl3/${EXTERNAL_BINUTILS_SUBDIR}/dist
 
 BRANDING?=	\
 	--with-pkgversion="NetBSD Binutils nb1" \

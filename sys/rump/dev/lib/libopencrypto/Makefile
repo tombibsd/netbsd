@@ -28,7 +28,5 @@ SRCS+=	cryptosoft.c
 SRCS+=	deflate.c
 SRCS+=	gmac.c
 
-CPPFLAGS+=	-I${RUMPTOP}/librump/rumpvfs
-
 .include <bsd.lib.mk>
 .include <bsd.klinks.mk>

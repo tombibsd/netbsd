@@ -5,6 +5,7 @@ ATFFILE=	no
 
 TESTS_C=	h_dtfs
 
+CPPFLAGS+=	-D_KERNTYPES
 SRCS.h_dtfs=	dtfs.c dtfs_vfsops.c dtfs_vnops.c dtfs_subr.c
 LDADD+=		-lpuffs -lutil
 

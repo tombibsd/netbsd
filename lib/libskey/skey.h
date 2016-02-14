@@ -15,6 +15,8 @@
  * Main client header
  */
 
+#include <stdio.h>
+
 /* Server-side data structure for reading keys file during login */
 struct skey {
   FILE *keyfile;

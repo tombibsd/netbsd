@@ -41,9 +41,9 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <sys/syscallvar.h>
 
-#include <rump/rumpuser.h>
-#include "rump_private.h"
+#include <rump-sys/kern.h>
 
+#include <rump/rumpuser.h>
 #define rsys_syscall(num, data, dlen, retval)	\
     rump_syscall(num, data, dlen, retval)
 

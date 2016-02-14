@@ -48,7 +48,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/vnode.h>
 #include <sys/lock.h>
 #include <rump/rumpvnode_if.h>
-#include "rump_private.h"
+#include <rump-sys/kern.h>
 
 int
 RUMP_VOP_BWRITE(struct vnode *vp,

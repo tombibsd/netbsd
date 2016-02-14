@@ -33,7 +33,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/device.h>
 #include <sys/bus.h>
 
-#include "rump_private.h"
+#include <rump-sys/kern.h>
 
 #include "ioconf.c"
 

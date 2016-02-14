@@ -34,6 +34,8 @@
 #ifndef _PROTOCOLS_RWHOD_H_
 #define	_PROTOCOLS_RWHOD_H_
 
+#include <stdint.h>
+
 /*
  * rwho protocol packet format.
  */

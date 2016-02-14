@@ -1541,7 +1541,7 @@ msdosfs_readdir(void *v)
 				if (pmp->pm_flags & MSDOSFSMNT_SHORTNAME)
 					continue;
 				chksum = win2unixfn((struct winentry *)dentp,
-				    dirbuf, chksum);
+				    dirbuf, chksum, pmp->pm_flags & MSDOSFSMNT_UTF8);
 				continue;
 			}
 

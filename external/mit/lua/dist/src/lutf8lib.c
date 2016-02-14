@@ -17,7 +17,7 @@
 #include <limits.h>
 #include <stdlib.h>
 #include <string.h>
-#endif
+#endif /* _KERNEL */
 
 #include "lua.h"
 

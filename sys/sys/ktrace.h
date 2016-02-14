@@ -126,8 +126,8 @@ struct ktr_sysret {
 	short	ktr_code;
 	short	ktr_eosys;		/* XXX unused */
 	int	ktr_error;
-	register_t ktr_retval;
-	register_t ktr_retval_1;
+	__register_t ktr_retval;
+	__register_t ktr_retval_1;
 };
 
 /*

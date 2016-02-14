@@ -10,7 +10,7 @@ MAN=		rumphijack.3
 
 SRCS=		hijack.c hijackdlsym.c
 
-CPPFLAGS+=	-D_DIAGNOSTIC -D_REENTRANT
+CPPFLAGS+=	-D_DIAGNOSTIC -D_REENTRANT -D_KERNTYPES
 
 WARNS?=		5
 

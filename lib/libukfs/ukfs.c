@@ -61,6 +61,7 @@
 #include <rump/ukfs.h>
 
 #include <rump/rump.h>
+#include <rump/rumpvnode_if.h>
 #include <rump/rump_syscalls.h>
 
 #include "ukfs_int_disklabel.h"

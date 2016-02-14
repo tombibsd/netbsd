@@ -208,6 +208,7 @@ do_install(const char *disk, const char *bootstrap, const char *bootname)
 	if (nowrite) {
 	    if (verbose)
 		    fprintf(stderr, "not writing\n");
+	    free(boot_code);
 	    return;
 	}
 

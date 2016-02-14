@@ -3,6 +3,7 @@
 .include <bsd.own.mk>
 
 TESTSDIR=	${TESTSBASE}/modules
+CPPFLAGS+=	-D_KERNTYPES
 
 # Ideally this test could be in the parent Makefile, which could not descend
 # into this directory at all.  Unfortunately, the etc/mtree/NetBSD.dist file

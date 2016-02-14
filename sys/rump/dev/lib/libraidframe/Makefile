@@ -31,7 +31,5 @@ SRCS+=	raidframe_component.c
 SRCS+=	rf_compat50.c
 .endif
 
-CPPFLAGS+=	-I${RUMPTOP}/librump/rumpvfs
-
 .include <bsd.lib.mk>
 .include <bsd.klinks.mk>

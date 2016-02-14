@@ -8,6 +8,7 @@ MAN=	pmc.3
 LIB=	pmc
 SRCS=	pmc.c
 SRCS+=	pmc_${MACHINE_CPU}.c
+CPPFLAGS+=	-D_KERNTYPES
 
 INCS=	pmc.h
 INCSDIR=/usr/include

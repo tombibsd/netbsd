@@ -1,6 +1,7 @@
-/default-common.c/1.1.1.1/Sat Mar  1 08:43:12 2014/-kk/
+/default-common.c/1.1.1.2/Sun Feb 14 12:42:15 2016/-kk/
 D/aarch64////
 D/alpha////
+D/arc////
 D/arm////
 D/avr////
 D/bfin////
@@ -23,15 +24,17 @@ D/microblaze////
 D/mips////
 D/mmix////
 D/mn10300////
+D/msp430////
+D/nds32////
+D/nios2////
+D/nvptx////
 D/or1k////
 D/pa////
 D/pdp11////
-D/picochip////
 D/riscv////
 D/rs6000////
 D/rx////
 D/s390////
-D/score////
 D/sh////
 D/sparc////
 D/spu////
@@ -39,5 +42,6 @@ D/tilegx////
 D/tilepro////
 D/v850////
 D/vax////
+D/visium////
 D/xstormy16////
 D/xtensa////

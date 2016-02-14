@@ -461,7 +461,7 @@ hid_get_udata(const u_char *buf, const struct hid_location *loc)
 	num = (hpos + hsize + 7) / 8 - off;
 
 	for (i = 0; i < num; i++)
-		data |= buf[off + i] << (i * 8);
+		data |= (unsigned long)buf[off + i] << (i * 8);
 
 	data >>= hpos % 8;
 	if (hsize < sizeof(data) * NBBY)

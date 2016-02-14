@@ -85,7 +85,7 @@
 /reg.h/1.19/Wed Jan 16 09:37:08 2008/-kk/
 /return.h/1.1/Tue Nov  3 05:08:18 2009/-kk/
 /rwlock.h/1.2/Fri Feb  9 21:55:05 2007/-kk/
-/segments.h/1.54/Tue Apr 26 15:51:23 2011/-kk/
+/segments.h/1.55/Sun Feb 14 12:54:59 2016/-kk/
 /setjmp.h/1.2/Mon Sep 14 21:31:52 1998/-kk/
 /signal.h/1.29/Wed Nov 19 18:35:59 2008/-kk/
 /sljit_machdep.h/1.1/Wed Jul 23 18:19:44 2014/-kk/
@@ -96,7 +96,7 @@
 /tlog.h/1.4/Fri Feb 13 11:36:14 2004/-kk/
 /trap.h/1.7/Wed Feb 26 21:29:03 2003/-kk/
 /tss.h/1.10/Sat Jan  5 21:45:00 2008/-kk/
-/types.h/1.83/Sun Sep 13 01:06:05 2015/-kk/
+/types.h/1.86/Sun Feb 14 12:55:00 2016/-kk/
 /userret.h/1.11/Mon Apr 28 20:23:24 2008/-kk/
 /vm86.h/1.19/Sat Nov 21 03:11:01 2009/-kk/
 /vmparam.h/1.81/Fri Oct  3 09:09:01 2014/-kk/

@@ -39,6 +39,9 @@
 #ifndef _PROTOCOLS_DUMPRESTORE_H_
 #define _PROTOCOLS_DUMPRESTORE_H_
 
+#include <stdint.h>
+#include <ufs/ufs/dinode.h>
+
 /*
  * TP_BSIZE is the size of file blocks on the dump tapes.
  * Note that TP_BSIZE must be a multiple of DEV_BSIZE.

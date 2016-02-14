@@ -10,8 +10,6 @@ RUMP_COMPONENT=ioconf
 
 SRCS=	ugenhc.c ugenhc_dma.c
 
-CPPFLAGS+=	-I${RUMPTOP}/librump/rumpkern
-
 RUMPCOMP_USER_SRCS=	ugenhc_user.c
 .else
 .PATH:	${.CURDIR}/../libusb

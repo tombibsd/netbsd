@@ -447,7 +447,7 @@ ptypedef(definition *def)
 		switch (rel) {
 		case REL_ARRAY:
 			f_print(fout, "struct {\n");
-			f_print(fout, "\tu_int %s_len;\n", name);
+			f_print(fout, "\tunsigned int %s_len;\n", name);
 			f_print(fout, "\t%s%s *%s_val;\n", prefix, old, name);
 			f_print(fout, "} %s", name);
 			break;
@@ -511,7 +511,7 @@ pdeclaration(const char *name, declaration *dec, int tab,
 		case REL_ARRAY:
 			f_print(fout, "struct {\n");
 			tabify(fout, tab);
-			f_print(fout, "\tu_int %s_len;\n", dec->name);
+			f_print(fout, "\tunsigned int %s_len;\n", dec->name);
 			tabify(fout, tab);
 			f_print(fout, "\t%s%s *%s_val;\n", prefix, type, dec->name);
 			tabify(fout, tab);

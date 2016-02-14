@@ -51,9 +51,10 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <netinet/in_systm.h>
 #include <netinet/ip.h>
 
+#include <rump-sys/kern.h>
+
 #include <rump/rumpuser.h>
 
-#include "rump_private.h"
 #include "sockin_user.h"
 
 /*

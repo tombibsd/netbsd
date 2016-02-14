@@ -169,8 +169,7 @@ SRCS+=		subr_lockdebug.c
 SRCS+=		kern_ktrace.c
 .endif
 
-CPPFLAGS+=	-I${RUMPTOP}/librump/rumpkern -I${RUMPTOP}/librump/rumpvfs
-CPPFLAGS+=	-I${RUMPTOP}/librump/rumpnet -I${RUMPTOP}/librump/rumpdev
+CPPFLAGS+=	-I${RUMPTOP}/librump/rumpkern
 AFLAGS+=	-D_LOCORE -Wa,--fatal-warnings
 
 #

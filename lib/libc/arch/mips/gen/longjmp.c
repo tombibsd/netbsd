@@ -49,7 +49,7 @@ __longjmp14(jmp_buf env, int val)
 	ucontext_t uc;
 
 	/* Ensure non-zero SP and sigcontext magic number is present */
-	if (sc->sc_regs[_R_SP] == 0 || sc->sc_regs[_R_ZERO] != (mips_reg_t)0xACEDBADEU)
+	if (sc->sc_regs[_R_SP] == 0 || sc->sc_regs[_R_ZERO] != (__register_t)0xACEDBADEU)
 		goto err;
 
 	/* Ensure non-zero return value */

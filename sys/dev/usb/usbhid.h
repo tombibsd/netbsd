@@ -32,8 +32,8 @@
  */
 
 
-#ifndef _USBHID_H_
-#define _USBHID_H_
+#ifndef _DEV_USB_USBHID_H_
+#define _DEV_USB_USBHID_H_
 
 #define UR_GET_HID_DESCRIPTOR	0x06
 #define  UDESC_HID		0x21
@@ -192,4 +192,4 @@ typedef struct usb_hid_descriptor {
 #define HIO_VOLATILE	0x080
 #define HIO_BUFBYTES	0x100
 
-#endif /* _USBHID_H_ */
+#endif /* _DEV_USB_USBHID_H_ */

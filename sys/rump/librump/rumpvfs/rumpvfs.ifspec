@@ -2,7 +2,7 @@
 
 NAME|vfs
 PUBHDR|include/rump/rumpvfs_if_pub.h
-PRIVHDR|librump/rumpvfs/rumpvfs_if_priv.h
+PRIVHDR|include/rump-sys/vfs_if.h
 WRAPPERS|librump/rumpvfs/rumpvfs_if_wrappers.c
 
 ; type          | name          | args		| attrs

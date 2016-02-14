@@ -1,58 +1,61 @@
+/.dir-locals.el/1.1.1.1/Sun Jan 24 06:05:39 2016/-kk/
 /ABOUT-NLS/1.1.1.1/Tue Jun 21 01:19:41 2011/-kk/
 /COPYING.LIB/1.1.1.1/Tue Jun 21 01:19:46 2011/-kk/
 /COPYING.RUNTIME/1.1.1.1/Tue Jun 21 01:19:46 2011/-kk/
 /COPYING/1.1.1.1/Tue Jun 21 01:19:41 2011/-kk/
 /COPYING3.LIB/1.1.1.1/Tue Jun 21 01:19:42 2011/-kk/
 /COPYING3/1.1.1.1/Tue Jun 21 01:19:46 2011/-kk/
+/ChangeLog.jit/1.1.1.1/Sun Jan 24 06:05:39 2016/-kk/
 /ChangeLog.tree-ssa/1.1.1.1/Tue Jun 21 01:19:42 2011/-kk/
-/ChangeLog/1.1.1.7/Thu Jul  2 04:07:44 2015/-kk/
-/LAST_UPDATED/1.6/Thu Jul  2 04:07:44 2015/-kk/
-/MAINTAINERS/1.1.1.2/Fri Mar 14 04:24:48 2014/-kk/
-/MD5SUMS/1.6/Thu Jul  2 04:07:45 2015/-kk/
-/Makefile.def/1.1.1.4/Mon Jan 12 06:43:51 2015/-kk/
-/Makefile.in/1.1.1.4/Mon Jan 12 06:43:56 2015/-kk/
-/Makefile.tpl/1.1.1.2/Fri Mar 14 04:24:53 2014/-kk/
-/NEWS/1.4/Thu Jul  2 04:07:45 2015/-kk/
+/ChangeLog/1.1.1.8/Sun Feb 14 12:37:56 2016/-kk/
+/LAST_UPDATED/1.7/Sun Feb 14 12:37:56 2016/-kk/
+/MAINTAINERS/1.1.1.3/Sun Feb 14 12:37:56 2016/-kk/
+/MD5SUMS/1.7/Sun Feb 14 12:38:32 2016/-kk/
+/Makefile.def/1.1.1.5/Sun Feb 14 12:38:32 2016/-kk/
+/Makefile.in/1.1.1.5/Sun Feb 14 12:38:38 2016/-kk/
+/Makefile.tpl/1.1.1.3/Sun Feb 14 12:38:38 2016/-kk/
+/NEWS/1.5/Sun Feb 14 12:38:39 2016/-kk/
 /README/1.1.1.2/Fri Mar 14 04:24:53 2014/-kk/
-/compile/1.1.1.1/Tue Jun 21 01:19:41 2011/-kk/
-/config-ml.in/1.1.1.2/Fri Mar 14 04:24:53 2014/-kk/
-/config.guess/1.7/Tue Jun  3 03:06:34 2014/-kk/
+/compile/1.1.1.2/Sun Feb 14 12:38:39 2016/-kk/
+/config-ml.in/1.1.1.3/Sun Feb 14 12:38:39 2016/-kk/
+/config.guess/1.8/Sun Feb 14 12:38:39 2016/-kk/
 /config.rpath/1.1.1.2/Fri Mar 14 04:24:53 2014/-kk/
-/config.sub/1.7/Fri Oct  3 09:56:08 2014/-kk/
-/configure.ac/1.8/Thu Jul  2 04:07:45 2015/-kk/
-/configure/1.9/Thu Jul  2 04:07:45 2015/-kk/
-/depcomp/1.1.1.1/Tue Jun 21 01:19:48 2011/-kk/
-/install-sh/1.1.1.1/Tue Jun 21 01:19:41 2011/-kk/
-/libtool-ldflags/1.1.1.1/Tue Jun 21 01:19:48 2011/-kk/
-/libtool.m4/1.1.1.3/Tue Jun  3 03:06:34 2014/-kk/
+/config.sub/1.8/Sun Feb 14 12:38:39 2016/-kk/
+/configure.ac/1.9/Sun Feb 14 12:38:42 2016/-kk/
+/configure/1.10/Sun Feb 14 12:38:42 2016/-kk/
+/depcomp/1.1.1.2/Sun Feb 14 12:38:42 2016/-kk/
+/install-sh/1.1.1.2/Sun Feb 14 12:38:42 2016/-kk/
+/libtool-ldflags/1.1.1.2/Sun Feb 14 12:38:42 2016/-kk/
+/libtool.m4/1.1.1.4/Sun Feb 14 12:38:42 2016/-kk/
 /ltgcc.m4/1.1.1.1/Tue Jun 21 01:19:48 2011/-kk/
-/ltmain.sh/1.1.1.2/Fri Mar 14 04:24:54 2014/-kk/
+/ltmain.sh/1.1.1.3/Sun Feb 14 12:38:42 2016/-kk/
 /ltoptions.m4/1.1.1.1/Tue Jun 21 01:19:48 2011/-kk/
 /ltsugar.m4/1.1.1.1/Tue Jun 21 01:19:48 2011/-kk/
 /ltversion.m4/1.1.1.1/Tue Jun 21 01:19:46 2011/-kk/
 /lt~obsolete.m4/1.1.1.1/Tue Jun 21 01:19:48 2011/-kk/
-/missing/1.1.1.1/Tue Jun 21 01:19:42 2011/-kk/
+/missing/1.1.1.2/Sun Feb 14 12:38:42 2016/-kk/
 /mkdep/1.1.1.1/Tue Jun 21 01:19:46 2011/-kk/
-/mkinstalldirs/1.1.1.1/Tue Jun 21 01:19:47 2011/-kk/
-/move-if-change/1.1.1.2/Fri Mar 14 04:24:54 2014/-kk/
+/mkinstalldirs/1.1.1.2/Sun Feb 14 12:38:42 2016/-kk/
+/move-if-change/1.1.1.3/Sun Feb 14 12:38:42 2016/-kk/
 /symlink-tree/1.1.1.1/Tue Jun 21 01:19:48 2011/-kk/
-/ylwrap/1.1.1.1/Tue Jun 21 01:19:46 2011/-kk/
+/ylwrap/1.1.1.2/Sun Feb 14 12:38:42 2016/-kk/
 D/INSTALL////
 D/config////
 D/contrib////
 D/fixincludes////
 D/gcc////
 D/gnattools////
+D/gotools////
 D/include////
 D/intl////
 D/libbacktrace////
+D/libcc1////
 D/libcpp////
 D/libdecnumber////
 D/libgcc////
 D/libgomp////
 D/libiberty////
 D/libitm////
-D/libmudflap////
 D/libobjc////
 D/libsanitizer////
 D/libssp////

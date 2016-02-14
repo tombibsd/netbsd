@@ -51,11 +51,11 @@ nouveau_dp_probe_oui(struct drm_device *dev, struct nouveau_i2c_port *auxch,
 		return;
 
 	if (!nv_rdaux(auxch, DP_SINK_OUI, buf, 3))
-		NV_DEBUG(drm, "Sink OUI: %02hx%02hx%02hx\n",
+		NV_DEBUG(drm, "Sink OUI: %02"PRIx8"%02"PRIx8"%02"PRIx8"\n",
 			     buf[0], buf[1], buf[2]);
 
 	if (!nv_rdaux(auxch, DP_BRANCH_OUI, buf, 3))
-		NV_DEBUG(drm, "Branch OUI: %02hx%02hx%02hx\n",
+		NV_DEBUG(drm, "Branch OUI: %02"PRIx8"%02"PRIx8"%02"PRIx8"\n",
 			     buf[0], buf[1], buf[2]);
 
 }

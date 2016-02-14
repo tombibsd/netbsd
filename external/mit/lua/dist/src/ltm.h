@@ -31,7 +31,7 @@ typedef enum {
 #ifndef _KERNEL
   TM_POW,
   TM_DIV,
-#endif
+#endif /* _KERNEL */
   TM_IDIV,
   TM_BAND,
   TM_BOR,

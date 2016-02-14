@@ -203,9 +203,9 @@ static void
 print_ifsizeof(const char *prefix, const char *type)
 {
 	if (streq(type, "bool")) {
-		f_print(fout, ", (u_int)sizeof(bool_t), (xdrproc_t)xdr_bool");
+		f_print(fout, ", (unsigned int)sizeof(bool_t), (xdrproc_t)xdr_bool");
 	} else {
-		f_print(fout, ", (u_int)sizeof(");
+		f_print(fout, ", (unsigned int)sizeof(");
 		if (undefined(type) && prefix) {
 			f_print(fout, "%s ", prefix);
 		}
@@ -272,10 +272,10 @@ print_ifstat(int indent, const char *prefix, const char *type, relation rel,
 			}
 			print_ifarg("(char **)(void *)");
 			if (*objname == '&') {
-				f_print(fout, "%s.%s_val, (u_int *)%s.%s_len",
+				f_print(fout, "%s.%s_val, (unsigned int *)%s.%s_len",
 				    objname, name, objname, name);
 			} else {
-				f_print(fout, "&%s->%s_val, (u_int *)&%s->%s_len",
+				f_print(fout, "&%s->%s_val, (unsigned int *)&%s->%s_len",
 				    objname, name, objname, name);
 			}
 		}

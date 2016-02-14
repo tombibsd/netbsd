@@ -12,7 +12,7 @@
 
 #ifndef _KERNEL
 #include <stddef.h>
-#endif
+#endif /* _KERNEL */
 
 #include "llimits.h"
 #include "lua.h"

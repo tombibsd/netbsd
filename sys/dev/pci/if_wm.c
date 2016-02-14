@@ -2188,11 +2188,8 @@ alloc_retry:
 	/* XXX For other than 82580? */
 	if (sc->sc_type == WM_T_82580) {
 		wm_nvm_read(sc, NVM_OFF_CFG3_PORTA, 1, &nvmword);
-		printf("CFG3 = %08x\n", (uint32_t)nvmword);
-		if (nvmword & __BIT(13)) {
-			printf("SET ILOS\n");
+		if (nvmword & __BIT(13))
 			sc->sc_ctrl |= CTRL_ILOS;
-		}
 	}
 
 #if 0

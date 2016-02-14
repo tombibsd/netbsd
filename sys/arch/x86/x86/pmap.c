@@ -3746,6 +3746,7 @@ startover:
 	}
 	result = pp->pp_attrs & clearbits;
 	pp->pp_attrs &= ~clearbits;
+	pmap_tlb_shootnow();
 	kpreempt_enable();
 
 	return result != 0;

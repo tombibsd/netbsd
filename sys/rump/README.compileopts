@@ -82,22 +82,6 @@ effect:	Builds NetBSD COMPAT_nn code for each of the elements in the list.
 
 ================================================================================
 
-Rumpuser options:
-
-    RUMPUSER_THREADS
-
-values: pthread/none/fiber or <undefined>
-defval: <undefined>
-effect: Define the way threading is implemented in the rumpuser hypercall
-	implmentation.
-	<undefined> - use default implementation (currently "pthread")
-	pthread     - use pthreads to implement threading
-	none        - do not support kernel threads at all
-	fiber       - user a fiber interface, cooperatively scheduled contexts
-
-
-================================================================================
-
 Per-component options:
 
     RUMP_SYM_NORENAME

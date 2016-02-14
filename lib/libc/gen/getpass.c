@@ -288,12 +288,12 @@ add:
 	good = true;
 
 restore:
+out:
 	if (havetty) {
 		c = errno;
 		(void)tcsetattr(fd[0], TCSAFLUSH|TCSASOFT, &gt);
 		errno = c;
 	}
-out:
 	if (good && (flags & GETPASS_ECHO_NL))
 		(void)write(fd[1], "\n", 1);
 

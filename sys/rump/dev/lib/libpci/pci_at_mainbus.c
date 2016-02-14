@@ -40,8 +40,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include "ioconf.c"
 
-#include "rump_private.h"
-#include "rump_vfs_private.h"
+#include <rump-sys/kern.h>
+#include <rump-sys/vfs.h>
 
 #include "pci_user.h"
 

@@ -39,6 +39,9 @@
 #ifndef	_UTMP_H_
 #define	_UTMP_H_
 
+#include <sys/cdefs.h>
+#include <time.h> /* for time_t */
+
 #define	_PATH_UTMP	"/var/run/utmp"
 #define	_PATH_WTMP	"/var/log/wtmp"
 #define	_PATH_LASTLOG	"/var/log/lastlog"

@@ -66,6 +66,8 @@
 
 #ifdef _KERNEL
 #ifndef _LOCORE
+#include <sys/types.h>
+
 int raisespl	(int);
 int lowerspl	(int);
 void splx	(int);

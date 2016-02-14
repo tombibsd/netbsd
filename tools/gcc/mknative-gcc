@@ -4,6 +4,7 @@
 # Shell script for generating all the constants needed for a native
 # platform build of gcc.
 #
+# This version is for GCC 4.8.
 
 # initialise
 

@@ -8,7 +8,7 @@ PERFUSE_OPT_DEBUG_FLAGS=   -g -DPERFUSE_DEBUG
 CWARNFLAGS.clang+=	-Wno-format-security
 
 #CFLAGS+=        ${PERFUSE_OPT_DEBUG_FLAGS}
-CPPFLAGS+=	-I${.CURDIR} 
+CPPFLAGS+=	-I${.CURDIR}  -D_KERNTYPES
 CPPFLAGS+=	-I${NETBSDSRCDIR}/lib/libpuffs 
 SRCS=           perfuse.c ops.c subr.c debug.c
 MAN=		libperfuse.3

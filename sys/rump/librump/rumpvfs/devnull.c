@@ -40,7 +40,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/device.h>
 #include <sys/stat.h>
 
-#include "rump_vfs_private.h"
+#include <rump-sys/vfs.h>
 
 static dev_type_open(rump_devnullopen);
 static dev_type_read(rump_devnullrw);

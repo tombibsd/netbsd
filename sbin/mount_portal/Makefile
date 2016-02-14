@@ -12,6 +12,7 @@ MAN=	mount_portal.8
 
 DPADD+=${LIBUTIL} ${LIBPUFFS}
 LDADD+=-lutil -lpuffs
+CPPFLAGS+=	-D_KERNTYPES
 
 COPTS.pt_filter.c = -Wno-format-nonliteral
 

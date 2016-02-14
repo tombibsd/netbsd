@@ -32,7 +32,6 @@
 #include <sys/cdefs.h>
 __RCSID("$NetBSD$");
 
-#define _KMEMUSER
 #include <stdbool.h>
 #include <sys/param.h>
 #include <sys/types.h>

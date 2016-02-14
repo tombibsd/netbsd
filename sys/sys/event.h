@@ -196,6 +196,7 @@ struct knote {
 #define	KN_DISABLED	0x04U			/* event is disabled */
 #define	KN_DETACHED	0x08U			/* knote is detached */
 #define	KN_MARKER	0x10U			/* is a marker */
+#define KN_BUSY		0x20U			/* is being scanned */
 
 #define	kn_id		kn_kevent.ident
 #define	kn_filter	kn_kevent.filter

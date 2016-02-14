@@ -1,4 +1,4 @@
-/Makefile/1.50/Fri Oct  3 09:25:15 2014/-kk/
+/Makefile/1.51/Sun Feb 14 12:54:11 2016/-kk/
 /kvm.3/1.13/Tue Sep 13 08:53:15 2011/-kk/
 /kvm.c/1.101/Thu Feb 27 08:55:25 2014/-kk/
 /kvm_aarch64.c/1.1/Sun Aug 10 05:47:37 2014/-kk/
@@ -11,7 +11,7 @@
 /kvm_getkernelname.3/1.2/Tue Sep 13 08:53:10 2011/-kk/
 /kvm_getloadavg.3/1.11/Tue Mar 10 23:49:07 2009/-kk/
 /kvm_getloadavg.c/1.11/Wed Mar 21 10:10:36 2012/-kk/
-/kvm_getlwps.3/1.6/Tue Mar 10 23:49:07 2009/-kk/
+/kvm_getlwps.3/1.7/Sun Feb 14 12:54:11 2016/-kk/
 /kvm_getprocs.3/1.15/Tue Mar 10 23:49:07 2009/-kk/
 /kvm_hppa.c/1.7/Thu Feb 27 08:55:25 2014/-kk/
 /kvm_i386.c/1.30/Thu Feb 27 08:55:25 2014/-kk/
@@ -28,7 +28,7 @@
 /kvm_powerpc64.c/1.6/Fri Oct  3 09:43:03 2014/-kk/
 /kvm_private.h/1.20/Mon Sep 12 21:11:32 2011/-kk/
 /kvm_proc.c/1.90/Thu Feb 27 08:55:25 2014/-kk/
-/kvm_read.3/1.8/Thu Aug  7 16:44:39 2003/-kk/
+/kvm_read.3/1.9/Sun Feb 14 12:54:11 2016/-kk/
 /kvm_riscv.c/1.1/Fri Sep 19 17:36:25 2014/-kk/
 /kvm_sh3.c/1.9/Thu Feb 27 08:55:25 2014/-kk/
 /kvm_sparc.c/1.35/Fri Nov 20 01:29:28 2015/-kk/

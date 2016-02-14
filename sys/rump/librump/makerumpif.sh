@@ -154,11 +154,11 @@ $1 == "WRAPPERS"{gencalls = topdir "/" $2;print gencalls;next}
 		printf("\n") > privhdr
 
 		printf("\n#include <sys/cdefs.h>\n") > gencalls
-		printf("#include <sys/systm.h>\n") > gencalls
-		printf("\n#include <rump/rump.h>\n") > gencalls
+		printf("#include <sys/systm.h>\n\n") > gencalls
+		printf("#include <rump-sys/kern.h>\n", privfile) > gencalls
+		printf("#include <rump-sys/%s>\n\n", privfile) > gencalls
+		printf("#include <rump/rump.h>\n") > gencalls
 		printf("#include <rump/%s>\n\n", pubfile) > gencalls
-		printf("#include \"rump_private.h\"\n", privfile) > gencalls
-		printf("#include \"%s\"\n\n", privfile) > gencalls
 		printf("void __dead rump_%s_unavailable(void);\n",	\
 		    myname) > gencalls
 		printf("void __dead\nrump_%s_unavailable(void)\n{\n",	\

@@ -19,6 +19,7 @@ SRCS+=	noarch.c
 SRCS+=	${MACHINE_ARCH}-asm.S
 .endif
 
+CPPFLAGS+=	-D_KERNTYPES
 LDADD+=-lutil
 DPADD+=${LIBUTIL}
 

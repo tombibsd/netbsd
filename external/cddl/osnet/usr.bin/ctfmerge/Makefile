@@ -28,7 +28,10 @@ SRCS=		alist.c \
 		tdata.c \
 		traverse.c \
 		util.c
+
+.if (${HOSTPROG:U} == "")
 LDADD+=-lpthread
 DPADD+=${LIBPTHREAD}
+.endif
 
 .include <bsd.prog.mk>

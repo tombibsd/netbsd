@@ -325,6 +325,11 @@ main(int argc, char *argv[])
 		}
 
 #ifdef REDIRECT
+	/*
+	 * This is meant only for debugging; it makes all output
+	 * go to a known file, even if the command line options
+	 * send it elsewhere. It should not be turned of in production code.
+	 */
 	if (freopen("/tmp/m4", "w+", stderr) == NULL)
 		err(EXIT_FAILURE, "Can't redirect errors to `%s'",
 		    "/tmp/m4");

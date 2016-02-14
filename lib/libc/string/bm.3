@@ -46,9 +46,9 @@
 .In sys/types.h
 .In bm.h
 .Ft bm_pat *
-.Fn bm_comp "u_char *pattern" "size_t patlen" "u_char freq[256]"
-.Ft u_char *
-.Fn bm_exec "bm_pat *pdesc" "u_char *text" "size_t len"
+.Fn bm_comp "unsigned char *pattern" "size_t patlen" "unsigned char freq[256]"
+.Ft unsigned char *
+.Fn bm_exec "bm_pat *pdesc" "unsigned char *text" "size_t len"
 .Ft void
 .Fn bm_free "bm_pat *pdesc"
 .Sh DESCRIPTION

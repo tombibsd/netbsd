@@ -1,0 +1,16 @@
+/asm.h/1.1.1.1/Sun Jan 24 06:06:01 2016/-kk/
+/crtg.S/1.1.1.1/Sun Jan 24 06:06:01 2016/-kk/
+/crtgend.S/1.1.1.1/Sun Jan 24 06:06:01 2016/-kk/
+/crti.S/1.1.1.1/Sun Jan 24 06:06:01 2016/-kk/
+/crtn.S/1.1.1.1/Sun Jan 24 06:06:01 2016/-kk/
+/divtab-arc700.c/1.1.1.1/Sun Jan 24 06:06:01 2016/-kk/
+/dp-hack.h/1.1.1.1/Sun Jan 24 06:06:01 2016/-kk/
+/fp-hack.h/1.1.1.1/Sun Jan 24 06:06:01 2016/-kk/
+/initfini.c/1.1.1.1/Sun Jan 24 06:06:00 2016/-kk/
+/lib1funcs.S/1.1.1.1/Sun Jan 24 06:06:01 2016/-kk/
+/libgcc-excl.ver/1.1.1.1/Sun Jan 24 06:06:01 2016/-kk/
+/t-arc-newlib/1.1.1.1/Sun Jan 24 06:06:01 2016/-kk/
+/t-arc/1.1.1.1/Sun Jan 24 06:06:01 2016/-kk/
+/t-arc700-uClibc/1.1.1.1/Sun Jan 24 06:06:01 2016/-kk/
+D/gmon////
+D/ieee-754////

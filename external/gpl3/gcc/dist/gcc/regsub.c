@@ -28,6 +28,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+
+extern "C" {
+
 #include <sys/param.h>
 #include <ctype.h>
 #include <stdlib.h>
@@ -156,4 +159,6 @@ regasub(char **buf, const char *sub, const regmatch_t *rm, const char *str)
 {
 	*buf = NULL;
 	return regsub1(buf, REINCR, sub, rm, str);
+}
+
 }

@@ -36,9 +36,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <sys/vfs_syscalls.h>
 
-#include "rump_private.h"
-#include "rump_dev_private.h"
-#include "rump_vfs_private.h"
+#include <rump-sys/kern.h>
+#include <rump-sys/vfs.h>
 
 RUMP_COMPONENT(RUMP_COMPONENT_DEV)
 {

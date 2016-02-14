@@ -27,6 +27,7 @@
 #define _SYS_PIPE_H_
 
 #include <sys/selinfo.h>		/* for struct selinfo */
+#include <sys/time.h>			/* for struct timespec */
 
 #include <uvm/uvm_extern.h>
 

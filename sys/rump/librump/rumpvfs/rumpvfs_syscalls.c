@@ -7,7 +7,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <sys/param.h>
 
-#include "rump_private.h"
+#include <rump-sys/kern.h>
 
 extern sy_call_t sys_open;
 extern sy_call_t sys_link;

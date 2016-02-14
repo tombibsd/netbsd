@@ -5,6 +5,7 @@ PROG=	rump_allserver
 MLINKS+=rump_allserver.1 rump_server.1
 
 RUMPTOP=${.CURDIR}/../../sys/rump
+CPPFLAGS+=	-D_KERNTYPES
 
 .include "${RUMPTOP}/dev/Makefile.rumpdevcomp"
 .include "${RUMPTOP}/fs/Makefile.rumpfscomp"

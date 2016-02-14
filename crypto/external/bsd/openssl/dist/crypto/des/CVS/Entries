@@ -21,9 +21,9 @@
 /des3s.cpp/1.1.1.1/Sun Jul 19 23:03:33 2009/-kk/
 /des_enc.c/1.1.1.2/Thu Apr  2 02:24:07 2015/-kk/
 /des_locl.h/1.1.1.2/Thu Apr  2 02:24:07 2015/-kk/
-/des_old.c/1.1.1.2/Thu Apr  2 02:24:07 2015/-kk/
-/des_old.h/1.1.1.2/Thu Apr  2 02:24:07 2015/-kk/
-/des_old2.c/1.1.1.2/Thu Apr  2 02:24:07 2015/-kk/
+/des_old.c/1.1.1.3/Sun Feb 14 11:24:31 2016/-kk/
+/des_old.h/1.1.1.3/Sun Feb 14 11:24:31 2016/-kk/
+/des_old2.c/1.1.1.3/Sun Feb 14 11:24:31 2016/-kk/
 /des_opts.c/1.3/Thu Apr  2 02:24:07 2015/-kk/
 /des_ver.h/1.1.1.2/Thu Apr  2 02:24:07 2015/-kk/
 /dess.cpp/1.1.1.1/Sun Jul 19 23:03:35 2009/-kk/

@@ -19,7 +19,7 @@ LIBDPLIBS+=	pthread ${.CURDIR}/../libpthread
 LIBDO.${lib}=	_external
 LIBDPLIBS+=	${lib} lib
 .endfor
-CPPFLAGS+=	-DLIBRUMPUSER
+CPPFLAGS+=	-DLIBRUMPUSER -D_KERNTYPES
 #CPPFLAGS+=	-D_DIAGNOSTIC
 
 

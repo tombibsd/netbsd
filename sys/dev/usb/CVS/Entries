@@ -27,7 +27,7 @@
 /ezload.c/1.15/Thu Oct 24 10:28:58 2013/-kk/
 /ezload.h/1.5/Mon Apr 28 20:23:59 2008/-kk/
 /files.usb/1.137/Fri Nov 20 01:31:19 2015/-kk/
-/hid.c/1.42/Sun Jan 17 10:34:17 2016/-kk/
+/hid.c/1.43/Sun Feb 14 12:55:24 2016/-kk/
 /hid.h/1.13/Wed May 12 18:44:49 2010/-kk/
 /if_athn_usb.c/1.8/Sat Mar 21 02:29:56 2015/-kk/
 /if_athn_usb.h/1.2/Thu Oct 24 10:28:58 2013/-kk/
@@ -150,7 +150,7 @@
 /umodem.c/1.67/Sat Jul 25 01:30:42 2015/-kk/
 /umodem_common.c/1.22/Wed Nov  3 22:34:24 2010/-kk/
 /umodemvar.h/1.8/Wed Nov  3 22:34:24 2010/-kk/
-/ums.c/1.87/Thu Feb 13 15:22:32 2014/-kk/
+/ums.c/1.88/Sun Feb 14 12:55:24 2016/-kk/
 /uplcom.c/1.76/Fri Nov 20 02:19:10 2015/-kk/
 /urio.c/1.42/Fri Oct  3 09:09:20 2014/-kk/
 /urio.h/1.4/Sun Sep 13 01:31:38 2015/-kk/
@@ -165,15 +165,15 @@
 /usb_verbose.h/1.4/Fri Oct  3 10:05:17 2014/-kk/
 /usbcdc.h/1.11/Mon Apr 28 20:24:00 2008/-kk/
 /usbdevices.config/1.24/Tue Mar 25 02:35:40 2014/-kk/
-/usbdevs.h/1.701/Thu Jan 28 08:36:16 2016/-kk/
-/usbdevs/1.709/Thu Jan 28 08:36:16 2016/-kk/
-/usbdevs_data.h/1.702/Thu Jan 28 08:36:16 2016/-kk/
+/usbdevs.h/1.702/Sun Feb 14 12:55:25 2016/-kk/
+/usbdevs/1.710/Sun Feb 14 12:55:25 2016/-kk/
+/usbdevs_data.h/1.703/Sun Feb 14 12:55:25 2016/-kk/
 /usbdi.c/1.168/Thu Jan  7 06:24:36 2016/-kk/
 /usbdi.h/1.90/Sun Jul 20 13:58:50 2014/-kk/
 /usbdi_util.c/1.64/Thu Apr  2 02:28:04 2015/-kk/
 /usbdi_util.h/1.46/Thu Apr  2 02:28:04 2015/-kk/
 /usbdivar.h/1.111/Sun Jan 17 10:34:17 2016/-kk/
-/usbhid.h/1.14/Tue Jan 17 03:49:20 2012/-kk/
+/usbhid.h/1.15/Sun Feb 14 12:55:25 2016/-kk/
 /usbhist.h/1.3/Fri Nov 20 01:31:20 2015/-kk/
 /usbroothub_subr.c/1.3/Sun Nov 29 09:10:39 2015/-kk/
 /usbroothub_subr.h/1.3/Sun Nov 29 09:10:39 2015/-kk/

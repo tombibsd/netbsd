@@ -106,7 +106,7 @@ void		freelocale(locale_t);
 struct lconv	*localeconv_l(locale_t);
 locale_t	newlocale(int, const char *, locale_t);
 
-#ifndef _LIBC
+#if 1 	// used to be _LIBC, workaround broken binutils
 extern struct _locale	_lc_global_locale;
 #else
 extern __dso_protected struct _locale	_lc_global_locale;
@@ -115,7 +115,7 @@ extern __dso_protected struct _locale	_lc_global_locale;
 #endif /* _POSIX_SOURCE >= 200809 || _NETBSD_SOURCE */
 
 #if defined(_NETBSD_SOURCE)
-#  ifndef _LIBC
+#  if 1 	// used to be _LIBC, workaround broken binutils
 extern const struct _locale _lc_C_locale;
 #  else
 extern __dso_protected const struct _locale _lc_C_locale;

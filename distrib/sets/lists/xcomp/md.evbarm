@@ -3,3 +3,4 @@
 ./usr/X11R7/lib/libdrm_nouveau_p.a			-unknown-	profile,xorg
 ./usr/X11R7/lib/libdrm_nouveau_pic.a			-unknown-	xorg,picinstall
 ./usr/X11R7/lib/pkgconfig/libdrm_nouveau.pc		-unknown-	xorg
+./usr/libdata/lint/llib-ldrm_nouveau.ln			-unknown-	lint,xorg

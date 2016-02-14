@@ -30,7 +30,6 @@ SRCS+=	npf_component.c
 .if ${RUMP_NPF_TESTING:Uyes} == "yes"
 CPPFLAGS+=	-D_NPF_TESTING
 .endif
-CPPFLAGS+=	-I${.CURDIR}/../../../librump/rumpvfs
 
 .include <bsd.lib.mk>
 .include <bsd.klinks.mk>

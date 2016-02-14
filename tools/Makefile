@@ -217,6 +217,8 @@ SUBDIR+=	makestrs
 SUBDIR+=	makekeys
 .endif
 
+SUBDIR+= cvslatest
+
 .endif # TOOLCHAIN_BUILDRUMP
 
 check_MKTOOLS: .PHONY .NOTMAIN

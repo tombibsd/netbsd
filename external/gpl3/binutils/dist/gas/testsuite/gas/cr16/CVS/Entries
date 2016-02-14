@@ -18,7 +18,7 @@
 /cinv_test.s/1.1.1.1/Tue Aug 18 09:38:05 2009/-kk/
 /cmp_test.d/1.1.1.1/Tue Aug 18 09:38:05 2009/-kk/
 /cmp_test.s/1.1.1.1/Tue Aug 18 09:38:05 2009/-kk/
-/cr16.exp/1.1.1.1/Tue Aug 18 09:38:05 2009/-kk/
+/cr16.exp/1.1.1.2/Sun Feb 14 11:34:11 2016/-kk/
 /excp_test.d/1.1.1.1/Tue Aug 18 09:38:05 2009/-kk/
 /excp_test.s/1.1.1.1/Tue Aug 18 09:38:05 2009/-kk/
 /jal_test.d/1.1.1.1/Tue Aug 18 09:38:05 2009/-kk/
@@ -43,7 +43,7 @@
 /mul_test.s/1.1.1.1/Tue Aug 18 09:38:06 2009/-kk/
 /or_test.d/1.1.1.1/Tue Aug 18 09:38:06 2009/-kk/
 /or_test.s/1.1.1.1/Tue Aug 18 09:38:06 2009/-kk/
-/pic.exp/1.1.1.1/Sat Sep 24 22:31:00 2011/-kk/
+/pic.exp/1.1.1.2/Sun Feb 14 11:34:11 2016/-kk/
 /pic1.d/1.1.1.1/Sat Sep 24 22:31:00 2011/-kk/
 /pic1.s/1.1.1.1/Sat Sep 24 22:31:00 2011/-kk/
 /pic2.d/1.1.1.1/Sat Sep 24 22:31:00 2011/-kk/

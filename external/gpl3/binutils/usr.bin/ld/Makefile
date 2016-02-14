@@ -1,8 +1,16 @@
 #	$NetBSD$
 
-.include <bsd.own.mk>
-
-TOP=		${NETBSDSRCDIR}/external/gpl3/binutils
+CPPFLAGS+=	-I${.CURDIR}/arch/${BINUTILS_MACHINE_ARCH} \
+		-I${DIST}/ld \
+		-DDEFAULT_EMULATION=\"${G_EMUL}\" \
+		-DSCRIPTDIR=\"${SCRIPTSDIR}\" \
+		-DTARGET=\"${G_target_alias}\" \
+		-DBINDIR=\"/usr/bin\" \
+		-DTOOLBINDIR=\"/usr/bin\" \
+		-DENABLE_PLUGINS \
+		-DELF_LIST_OPTIONS=TRUE \
+		-DELF_SHLIB_LIST_OPTIONS=TRUE \
+		-DELF_PLT_UNWIND_LIST_OPTIONS=TRUE
 
 .include "${.CURDIR}/../common/Makefile.inc"
 .include "${.CURDIR}/arch/${BINUTILS_MACHINE_ARCH}/defs.mk"
@@ -11,14 +19,6 @@ SCRIPTSDIR=	/usr/libdata
 
 PROG=		ld
 SRCS=		${G_OFILES:.o=.c}
-CPPFLAGS+=	-I${.CURDIR}/arch/${BINUTILS_MACHINE_ARCH} \
-		-I${DIST}/ld \
-		-DDEFAULT_EMULATION=\"${G_EMUL}\" \
-		-DSCRIPTDIR=\"${SCRIPTSDIR}\" \
-		-DTARGET=\"${G_target_alias}\" \
-		-DBINDIR=\"/usr/bin\" \
-		-DTOOLBINDIR=\"/usr/bin\" \
-		-DENABLE_PLUGINS
 
 COPTS.ldgram.c = -Wno-stack-protector
 

@@ -1,6 +1,8 @@
 /autoconf.c/1.2/Sun Oct 11 09:00:57 2015/-kk/
-/clock.c/1.6/Thu Jul  2 04:13:53 2015/-kk/
-/intr.c/1.9/Sun Apr 12 03:34:37 2015/-kk/
-/machdep.c/1.9/Sat Jul 25 01:51:58 2015/-kk/
-/mainbus.c/1.4/Sun Apr 12 03:34:37 2015/-kk/
+/clock.c/1.7/Sun Feb 14 12:54:55 2016/-kk/
+/cpu.c/1.1/Fri Jan 29 01:54:14 2016/-kk/
+/cpu_startup.S/1.1/Fri Jan 29 01:54:14 2016/-kk/
+/intr.c/1.10/Sun Feb 14 12:54:55 2016/-kk/
+/machdep.c/1.10/Sun Feb 14 12:54:55 2016/-kk/
+/mainbus.c/1.5/Sun Feb 14 12:54:55 2016/-kk/
 D

@@ -3,3 +3,4 @@
 
 BINDIR?=	/usr/sbin
 WARNS?=		4
+CPPFLAGS+=	-D_KERNTYPES

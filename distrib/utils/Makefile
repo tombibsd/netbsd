@@ -3,7 +3,7 @@
 .if make(obj)
 
 SUBDIR=	libhack more ssh tls \
-	x_ed x_gzip x_ifconfig \
+	x_disklabel x_ed x_gzip x_ifconfig \
 	x_netstat x_ping x_route x_umount zcat
 
 .if ${MACHINE} == "acorn32"

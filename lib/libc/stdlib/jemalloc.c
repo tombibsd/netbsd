@@ -143,8 +143,8 @@ __RCSID("$NetBSD$");
 #ifdef __FreeBSD__
 #include <machine/atomic.h>
 #include <machine/cpufunc.h>
-#endif
 #include <machine/vmparam.h>
+#endif
 
 #include <errno.h>
 #include <limits.h>

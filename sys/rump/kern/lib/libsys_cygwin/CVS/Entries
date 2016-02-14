@@ -1,6 +1,6 @@
-/Makefile/1.5/Sun Nov 15 13:36:36 2015/-kk/
+/Makefile/1.6/Sun Feb 14 12:55:51 2016/-kk/
 /rump_cygwin_compat.c/1.1/Thu Oct 24 10:28:58 2013/-kk/
-/sys_cygwin_component.c/1.1/Thu Mar 13 02:03:16 2014/-kk/
+/sys_cygwin_component.c/1.2/Sun Feb 14 12:55:51 2016/-kk/
 /syscalls.conf/1.1/Thu Oct 24 10:28:58 2013/-kk/
 /syscalls.master/1.2/Thu Oct 24 10:28:58 2013/-kk/
 D

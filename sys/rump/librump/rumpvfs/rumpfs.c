@@ -55,10 +55,10 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <uvm/uvm_extern.h>
 
-#include <rump/rumpuser.h>
+#include <rump-sys/kern.h>
+#include <rump-sys/vfs.h>
 
-#include "rump_private.h"
-#include "rump_vfs_private.h"
+#include <rump/rumpuser.h>
 
 static int rump_vop_lookup(void *);
 static int rump_vop_getattr(void *);

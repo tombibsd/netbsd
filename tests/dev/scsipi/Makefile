@@ -7,7 +7,7 @@ TESTSDIR=	${TESTSBASE}/dev/scsipi
 
 TESTS_C=	t_cd
 
-CPPFLAGS+=	-I${.CURDIR}/libscsitest
+CPPFLAGS+=	-I${.CURDIR}/libscsitest -D_KERNTYPES
 
 # kernel component required by test
 SUBDIR=	libscsitest

@@ -352,8 +352,12 @@ pci_probe_device(struct pci_softc *sc, pcitag_t tag,
 				nr->r_size = 0x7ff000;
 				nr->r_flags = BUS_SPACE_MAP_LINEAR |
 					      BUS_SPACE_MAP_PREFETCHABLE;
+			} else if ((PCI_VENDOR(id) == PCI_VENDOR_SILMOTION) &&
+			   (PCI_PRODUCT(id) == PCI_PRODUCT_SILMOTION_SM502) &&
+			   (bar == 0x10)) {
+			   	r->r_flags = BUS_SPACE_MAP_LINEAR |
+					     BUS_SPACE_MAP_PREFETCHABLE;
 			}
-			
 		}
 	}
 

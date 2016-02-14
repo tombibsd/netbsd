@@ -55,6 +55,8 @@
  *	@(#)ufs_disksubr.c	7.16 (Berkeley) 5/4/91
  */
 
+#if !defined(NATIVELABEL_ONLY)
+
 #if HAVE_NBTOOL_CONFIG_H
 #include "nbtool_config.h"
 #endif
@@ -179,3 +181,5 @@ dkcksum_target(struct disklabel *lp)
 
 	return dkcksum_sized(lp, npartitions);
 }
+
+#endif /* !NATIVELABEL_ONLY */

@@ -18,6 +18,7 @@
 #define _RMT_H_
 
 #include <sys/cdefs.h>
+#include <sys/types.h>
 
 #if _FORTIFY_SOURCE > 0
 #define __ssp_weak_name(x)	rmt ## x

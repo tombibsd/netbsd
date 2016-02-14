@@ -4,9 +4,10 @@
 /com_err.h/1.1.1.1/Tue Jun 21 01:23:12 2011/-kk/
 /complex.h/1.1.1.2/Fri Mar 14 04:24:57 2014/-kk/
 /ctrl-quotes-def-1.h/1.1.1.1/Tue Jun 21 01:23:12 2011/-kk/
-/ctype.h/1.1.1.1/Tue Jun 21 01:23:12 2011/-kk/
-/curses.h/1.1.1.1/Tue Jun 21 01:23:12 2011/-kk/
+/ctype.h/1.1.1.2/Sun Feb 14 12:38:47 2016/-kk/
+/curses.h/1.1.1.2/Sun Feb 14 12:38:47 2016/-kk/
 /errno.h/1.1.1.1/Tue Jun 21 01:23:12 2011/-kk/
+/fcntl.h/1.1.1.1/Sun Jan 24 06:05:54 2016/-kk/
 /features.h/1.1.1.1/Tue Jun 21 01:23:12 2011/-kk/
 /fixinc-test-limits.h/1.1.1.1/Tue Jun 21 01:23:12 2011/-kk/
 /inttypes.h/1.1.1.1/Tue Jun 21 01:23:12 2011/-kk/
@@ -16,7 +17,7 @@
 /malloc.h/1.1.1.2/Fri Mar 14 04:24:57 2014/-kk/
 /math.h/1.1.1.2/Fri Mar 14 04:24:57 2014/-kk/
 /obstack.h/1.1.1.1/Tue Jun 21 01:23:12 2011/-kk/
-/pthread.h/1.1.1.2/Fri Mar 14 04:24:57 2014/-kk/
+/pthread.h/1.1.1.3/Sun Feb 14 12:38:47 2016/-kk/
 /reg_types.h/1.1.1.1/Tue Jun 21 01:23:12 2011/-kk/
 /regex.h/1.1.1.1/Tue Jun 21 01:23:12 2011/-kk/
 /regexp.h/1.1.1.1/Tue Jun 21 01:23:12 2011/-kk/
@@ -28,9 +29,9 @@
 /stdint-hpux11.h/1.1.1.1/Tue Jun 21 01:23:12 2011/-kk/
 /stdint-newlib.h/1.1.1.1/Tue Jun 21 01:23:12 2011/-kk/
 /stdint.h/1.1.1.2/Fri Mar 14 04:24:57 2014/-kk/
-/stdio.h/1.1.1.2/Fri Mar 14 04:24:57 2014/-kk/
+/stdio.h/1.1.1.3/Sun Feb 14 12:38:47 2016/-kk/
 /stdio_tag.h/1.1.1.1/Tue Jun 21 01:23:12 2011/-kk/
-/stdlib.h/1.1.1.1/Tue Jun 21 01:23:12 2011/-kk/
+/stdlib.h/1.1.1.2/Sun Feb 14 12:38:47 2016/-kk/
 /string.h/1.1.1.1/Tue Jun 21 01:23:12 2011/-kk/
 /strings.h/1.1.1.1/Tue Jun 21 01:23:12 2011/-kk/
 /sym.h/1.1.1.1/Tue Jun 21 01:23:12 2011/-kk/
@@ -49,6 +50,7 @@ D/bsd////
 D/hsfs////
 D/ia64////
 D/iso////
+D/linux////
 D/mach-o////
 D/net////
 D/netdnet////

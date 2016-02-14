@@ -102,7 +102,7 @@ int __rpc_nconf2sockinfo(const struct netconfig *,
 			      struct __rpc_sockinfo *);
 int __rpc_fd2sockinfo(int, struct __rpc_sockinfo *);
 int __rpc_setnodelay(int, const struct __rpc_sockinfo *);
-u_int __rpc_get_t_size(int, int, int);
+unsigned __rpc_get_t_size(int, int, int);
 __END_DECLS
 
 #endif /* !_RPC_RPC_H_ */

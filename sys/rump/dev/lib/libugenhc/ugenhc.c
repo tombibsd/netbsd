@@ -82,10 +82,10 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <rump/rumpuser.h>
 
-#include "ugenhc_user.h"
+#include <rump-sys/kern.h>
+#include <rump-sys/dev.h>
 
-#include "rump_private.h"
-#include "rump_dev_private.h"
+#include "ugenhc_user.h"
 
 #define UGEN_NEPTS 16
 #define UGEN_EPT_CTRL 0 /* ugenx.00 is the control endpoint */

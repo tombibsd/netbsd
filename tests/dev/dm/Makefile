@@ -14,6 +14,7 @@ MKMAN=no
 
 PROGS=		h_dm
 
+CPPFLAGS+=-D_KERNTYPES
 LDADD+= -lprop -lutil
 LDADD+= -lrumpdev_disk -lrumpdev_dm
 LDADD+=	-lrumpdev -lrumpvfs

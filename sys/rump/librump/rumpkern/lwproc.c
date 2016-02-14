@@ -43,8 +43,10 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/resourcevar.h>
 #include <sys/uidinfo.h>
 
+#include <rump-sys/kern.h>
+
 #include <rump/rumpuser.h>
-#include "rump_private.h"
+
 #include "rump_curlwp.h"
 
 struct lwp lwp0 = {

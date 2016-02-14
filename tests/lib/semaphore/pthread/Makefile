@@ -6,7 +6,7 @@ TESTSDIR=	${TESTSBASE}/lib/semaphore/pthread
 
 TESTS_C=	t_sem_pth
 
-CPPFLAGS+=	-I${.CURDIR}/..
+CPPFLAGS+=	-I${.CURDIR}/.. -D_KERNTYPES
 
 LDADD+=		-lrump -lrumpuser -lrump -lpthread
 

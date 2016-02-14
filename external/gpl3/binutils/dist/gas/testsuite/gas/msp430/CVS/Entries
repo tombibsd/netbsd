@@ -1,4 +1,14 @@
-/msp430.exp/1.1.1.1/Tue Aug 18 09:45:05 2009/-kk/
-/opcode.d/1.1.1.1/Tue Aug 18 09:45:05 2009/-kk/
-/opcode.s/1.1.1.1/Tue Aug 18 09:45:05 2009/-kk/
+/bad.d/1.1.1.1/Fri Jan 29 12:45:00 2016/-kk/
+/bad.l/1.1.1.1/Fri Jan 29 12:45:00 2016/-kk/
+/bad.s/1.1.1.1/Fri Jan 29 12:45:00 2016/-kk/
+/errata_fixes.d/1.1.1.1/Fri Jan 29 12:45:00 2016/-kk/
+/errata_fixes.s/1.1.1.1/Fri Jan 29 12:45:00 2016/-kk/
+/errata_warns.d/1.1.1.1/Fri Jan 29 12:45:00 2016/-kk/
+/errata_warns.l/1.1.1.1/Fri Jan 29 12:45:00 2016/-kk/
+/errata_warns.s/1.1.1.1/Fri Jan 29 12:45:00 2016/-kk/
+/msp430.exp/1.1.1.2/Sun Feb 14 11:42:40 2016/-kk/
+/msp430x.d/1.1.1.1/Fri Jan 29 12:45:00 2016/-kk/
+/msp430x.s/1.1.1.1/Fri Jan 29 12:45:00 2016/-kk/
+/opcode.d/1.1.1.2/Sun Feb 14 11:42:40 2016/-kk/
+/opcode.s/1.1.1.2/Sun Feb 14 11:42:40 2016/-kk/
 D

@@ -41,8 +41,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <netinet/ip6.h>
 #include <netinet6/ip6_var.h>
 
-#include "rump_private.h"
-#include "rump_net_private.h"
+#include <rump-sys/kern.h>
 
 RUMP_COMPONENT(RUMP_COMPONENT_NET)
 {

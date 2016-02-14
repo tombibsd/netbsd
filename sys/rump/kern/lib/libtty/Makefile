@@ -18,7 +18,5 @@ SRCS+=	tty_60.c
 
 SRCS+=	tty_component.c
 
-CPPFLAGS+=	-I${RUMPTOP}/librump/rumpkern -I${RUMPTOP}/librump/rumpvfs
-
 .include <bsd.lib.mk>
 .include <bsd.klinks.mk>

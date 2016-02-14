@@ -34,6 +34,9 @@
 #ifndef	_PROTOCOLS_TIMED_H_
 #define	_PROTOCOLS_TIMED_H_
 
+#include <stdint.h>
+#include <limits.h>
+
 /*
  * Time Synchronization Protocol
  */
@@ -52,7 +55,7 @@ struct tsp {
 		} tspu_time;
 		char tspu_hopcnt;
 	} tsp_u;
-	char tsp_name[MAXHOSTNAMELEN];
+	char tsp_name[_POSIX_HOST_NAME_MAX+1];
 };
 
 #define	tsp_time	tsp_u.tspu_time

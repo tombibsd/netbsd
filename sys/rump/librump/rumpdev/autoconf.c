@@ -70,7 +70,7 @@ const short cfroots[] = {
 struct pdevinit pdevinit[MAXPDEVS] = {{NULL,0}, }; /* XXX: static limit */
 static int pdev_total = 0;
 
-#include "rump_dev_private.h"
+#include <rump-sys/dev.h>
 
 void
 rump_pdev_add(void (*pdev_attach)(int), int pdev_count)

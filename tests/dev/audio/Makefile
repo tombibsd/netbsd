@@ -13,6 +13,7 @@ MKMAN=no
 
 PROGS=		h_pad
 
+CPPFLAGS+=	-D_KERNTYPES
 LDADD+=	-lrumpdev_pad -lrumpdev_audio -lrumpdev -lrumpvfs
 LDADD+=	-lrump
 LDADD+=	-lrumpuser

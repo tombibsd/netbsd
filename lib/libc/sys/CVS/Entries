@@ -59,7 +59,7 @@
 /fsync.2/1.18/Thu Oct 24 10:28:53 2013/-kk/
 /ftruncate.c/1.14/Tue Mar 20 16:26:12 2012/-kk/
 /getcontext.2/1.7/Thu Apr 29 06:07:35 2010/-kk/
-/getdents.2/1.23/Wed Jul 20 17:51:25 2011/-kk/
+/getdents.2/1.24/Sun Feb 14 12:54:10 2016/-kk/
 /getfh.2/1.21/Mon Oct 30 18:53:42 2006/-kk/
 /getgid.2/1.19/Sat Apr  3 15:13:43 2010/-kk/
 /getgroups.2/1.23/Thu Oct 24 10:28:53 2013/-kk/

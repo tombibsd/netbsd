@@ -46,7 +46,6 @@
 #include <sys/cdefs.h>
 #include <sys/mount.h>
 #include <sys/param.h>
-#include <sys/vnode.h>
 #include <sys/lock.h>
 #include <sys/namei.h>
 #include <sys/dirent.h>
@@ -59,8 +58,11 @@
 #include <stdio.h>
 
 #include <rump/rump.h>
+#include <rump/rumpvnode_if.h>
 #include <rump/p2k.h>
 #include <rump/ukfs.h>
+
+#include <uvm/uvm_pager.h>
 
 /* NetBSD-5 compat */
 #ifndef MOUNT_RUMPFS

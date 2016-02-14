@@ -119,7 +119,7 @@
 /atppcvar.h/1.12/Thu May 26 02:29:23 2011/-kk/
 /attimer.c/1.11/Wed Nov 23 23:07:32 2011/-kk/
 /attimervar.h/1.7/Tue Apr  7 22:30:09 2009/-kk/
-/atw.c/1.156/Tue Dec 17 04:05:06 2013/-kk/
+/atw.c/1.157/Sun Feb 14 12:55:20 2016/-kk/
 /atwreg.h/1.23/Fri Feb  6 02:02:26 2009/-kk/
 /atwvar.h/1.37/Sun Mar 14 21:25:59 2010/-kk/
 /awi.c/1.88/Sat Oct 27 17:18:19 2012/-kk/
@@ -379,7 +379,7 @@
 /mfiio.h/1.1/Wed Sep 19 21:24:29 2012/-kk/
 /mfireg.h/1.8/Wed Sep 19 21:24:29 2012/-kk/
 /mfivar.h/1.20/Wed Sep 19 21:24:29 2012/-kk/
-/midway.c/1.94/Tue Mar 13 18:40:31 2012/-kk/
+/midway.c/1.96/Sun Feb 14 12:55:21 2016/-kk/
 /midwayreg.h/1.14/Sun Mar  4 06:01:58 2007/-kk/
 /midwayvar.h/1.19/Sat Oct 27 17:18:21 2012/-kk/
 /mk48txx.c/1.27/Tue Dec  9 04:34:57 2014/-kk/

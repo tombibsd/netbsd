@@ -33,9 +33,9 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <net/netisr.h>
 
-#include <rump/rumpuser.h>
+#include <rump-sys/net.h>
 
-#include "rump_net_private.h"
+#include <rump/rumpuser.h>
 
 static void *netisrs[NETISR_MAX];
 

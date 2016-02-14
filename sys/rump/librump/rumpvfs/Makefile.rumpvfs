@@ -75,7 +75,5 @@ SRCS+=	rumpvfs_compat50.c
 
 SRCS+=	rumpvnode_if.c
 
-CPPFLAGS+=	-I${RUMPTOP}/librump/rumpkern
-
 .include <bsd.lib.mk>
 .include <bsd.klinks.mk>

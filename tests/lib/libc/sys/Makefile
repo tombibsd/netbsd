@@ -72,11 +72,13 @@ SRCS.t_mprotect=	t_mprotect.c ${SRCS_EXEC_PROT}
 LDADD.t_getpid+=        -lpthread
 
 .if (${MKRUMP} != "no") && !defined(BSD_MK_COMPAT_FILE)
+CPPFLAGS.t_posix_fadvise.c += -D_KERNTYPES
 TESTS_C+=		t_posix_fadvise
 LDADD.t_posix_fadvise+= -lrumpvfs -lrump -lrumpuser -lrump -lpthread
 .endif
 
+CPPFLAGS.t_lwp_create.c += -D_KERNTYPES
+
 WARNS=			4
 
 .include <bsd.test.mk>
-

@@ -12,7 +12,5 @@ SRCS=   wsevent.c wskbd.c wskbdutil.c wsmouse.c
 
 SRCS+=	wscons_component.c
 
-CPPFLAGS+=	-I${RUMPTOP}/librump/rumpvfs
-
 .include <bsd.lib.mk>
 .include <bsd.klinks.mk>

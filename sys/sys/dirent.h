@@ -34,6 +34,7 @@
 #ifndef _SYS_DIRENT_H_
 #define _SYS_DIRENT_H_
 
+#include <sys/cdefs.h>
 #include <sys/featuretest.h>
 
 /*

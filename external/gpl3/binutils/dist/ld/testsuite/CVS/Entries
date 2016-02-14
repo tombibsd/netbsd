@@ -1,18 +1,22 @@
-/ChangeLog-2004/1.1.1.1/Tue Aug 18 10:06:00 2009/-kk/
-/ChangeLog-2005/1.1.1.1/Tue Aug 18 10:06:02 2009/-kk/
-/ChangeLog-2006/1.1.1.1/Tue Aug 18 10:06:03 2009/-kk/
-/ChangeLog-2007/1.1.1.1/Tue Aug 18 10:06:03 2009/-kk/
-/ChangeLog-2008/1.1.1.1/Sat Sep 24 22:19:56 2011/-kk/
-/ChangeLog-2009/1.1.1.1/Sat Sep 24 22:19:56 2011/-kk/
-/ChangeLog-2010/1.1.1.1/Thu Oct 24 10:28:51 2013/-kk/
-/ChangeLog-2011/1.1.1.1/Thu Oct 24 10:28:51 2013/-kk/
-/ChangeLog-9303/1.1.1.1/Tue Aug 18 10:06:06 2009/-kk/
-/ChangeLog/1.4/Tue Oct 29 12:08:58 2013/-kk/
+/ChangeLog-2004/1.1.1.2/Sun Feb 14 11:44:32 2016/-kk/
+/ChangeLog-2005/1.1.1.2/Sun Feb 14 11:44:32 2016/-kk/
+/ChangeLog-2006/1.1.1.2/Sun Feb 14 11:44:32 2016/-kk/
+/ChangeLog-2007/1.1.1.2/Sun Feb 14 11:44:32 2016/-kk/
+/ChangeLog-2008/1.1.1.2/Sun Feb 14 11:44:32 2016/-kk/
+/ChangeLog-2009/1.1.1.2/Sun Feb 14 11:44:32 2016/-kk/
+/ChangeLog-2010/1.1.1.2/Sun Feb 14 11:44:32 2016/-kk/
+/ChangeLog-2011/1.1.1.2/Sun Feb 14 11:44:32 2016/-kk/
+/ChangeLog-2012/1.1.1.1/Fri Jan 29 12:45:15 2016/-kk/
+/ChangeLog-2013/1.1.1.1/Fri Jan 29 12:45:15 2016/-kk/
+/ChangeLog-2014/1.1.1.1/Fri Jan 29 12:45:15 2016/-kk/
+/ChangeLog-9303/1.1.1.2/Sun Feb 14 11:44:36 2016/-kk/
+/ChangeLog/1.5/Sun Feb 14 11:44:32 2016/-kk/
 D/config////
 D/ld-aarch64////
 D/ld-alpha////
 D/ld-arm////
 D/ld-auto-import////
+D/ld-avr////
 D/ld-bootstrap////
 D/ld-cdtest////
 D/ld-checks////
@@ -38,10 +42,13 @@ D/ld-linkonce////
 D/ld-m68hc11////
 D/ld-m68k////
 D/ld-mep////
+D/ld-metag////
 D/ld-mips-elf////
 D/ld-misc////
 D/ld-mmix////
 D/ld-mn10300////
+D/ld-nds32////
+D/ld-nios2////
 D/ld-pe////
 D/ld-pie////
 D/ld-plugin////
@@ -51,6 +58,7 @@ D/ld-scripts////
 D/ld-selective////
 D/ld-sh////
 D/ld-shared////
+D/ld-size////
 D/ld-sparc////
 D/ld-spu////
 D/ld-srec////
@@ -62,6 +70,7 @@ D/ld-unique////
 D/ld-v850////
 D/ld-vax-elf////
 D/ld-versados////
+D/ld-visium////
 D/ld-vxworks////
 D/ld-x86-64////
 D/ld-xc16x////

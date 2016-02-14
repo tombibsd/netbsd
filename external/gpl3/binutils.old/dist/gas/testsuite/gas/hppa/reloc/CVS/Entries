@@ -1,0 +1,19 @@
+/applybug.s/1.1.1.1/Tue Jan 26 17:26:25 2016/-kk/
+/blebug.s/1.1.1.1/Tue Jan 26 17:26:25 2016/-kk/
+/blebug2.s/1.1.1.1/Tue Jan 26 17:26:25 2016/-kk/
+/blebug3.s/1.1.1.1/Tue Jan 26 17:26:25 2016/-kk/
+/exitbug.s/1.1.1.1/Tue Jan 26 17:26:25 2016/-kk/
+/fixupbug.s/1.1.1.1/Tue Jan 26 17:26:25 2016/-kk/
+/funcrelocbug.s/1.1.1.1/Tue Jan 26 17:26:25 2016/-kk/
+/labelopbug.s/1.1.1.1/Tue Jan 26 17:26:25 2016/-kk/
+/longcall.s/1.1.1.1/Tue Jan 26 17:26:25 2016/-kk/
+/picreloc.s/1.1.1.1/Tue Jan 26 17:26:25 2016/-kk/
+/plabelbug.s/1.1.1.1/Tue Jan 26 17:26:25 2016/-kk/
+/r_no_reloc.s/1.1.1.1/Tue Jan 26 17:26:25 2016/-kk/
+/reduce.s/1.1.1.1/Tue Jan 26 17:26:25 2016/-kk/
+/reduce2.s/1.1.1.1/Tue Jan 26 17:26:25 2016/-kk/
+/reduce3.s/1.1.1.1/Tue Jan 26 17:26:25 2016/-kk/
+/reloc.exp/1.1.1.1/Tue Jan 26 17:26:25 2016/-kk/
+/roundmode.s/1.1.1.1/Tue Jan 26 17:26:25 2016/-kk/
+/selectorbug.s/1.1.1.1/Tue Jan 26 17:26:25 2016/-kk/
+D

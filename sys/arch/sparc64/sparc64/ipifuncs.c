@@ -237,7 +237,7 @@ sparc64_broadcast_ipi(ipifunc_t func, uint64_t arg1, uint64_t arg2)
 }
 
 /*
- * Send an interprocessor interrupt - sun4v.
+ * Send an interprocessor interrupt - sun4u.
  */
 void
 sparc64_send_ipi_sun4u(int upaid, ipifunc_t func, uint64_t arg1, uint64_t arg2)

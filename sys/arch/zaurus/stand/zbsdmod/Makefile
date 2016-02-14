@@ -2,6 +2,8 @@
 
 WARNS?=	4
 
+.include <bsd.init.mk>
+
 S=	${.CURDIR}/../../../..
 
 OBJS=	zbsdmod.o

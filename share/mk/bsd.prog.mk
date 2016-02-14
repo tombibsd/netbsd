@@ -48,7 +48,7 @@ CLEANFILES+=strings
 	@rm -f x.cc
 .endif
 
-.if defined(MKPIE) && (${MKPIE} != "no")
+.if defined(MKPIE) && (${MKPIE} != "no") && !defined(NOPIE)
 CFLAGS+=	${PIE_CFLAGS}
 AFLAGS+=	${PIE_AFLAGS}
 LDFLAGS+=	${PIE_LDFLAGS}
@@ -330,6 +330,7 @@ _CCLINK=	${CXX} ${_CCLINKFLAGS}
 .endif
 
 .if defined(RUMPPRG)
+CPPFLAGS+=	-D_KERNTYPES
 PROG=			${RUMPPRG}
 . ifndef CRUNCHEDPROG
 .  if (${MKRUMP} != "no")

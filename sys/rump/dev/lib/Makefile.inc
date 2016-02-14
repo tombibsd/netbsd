@@ -2,7 +2,6 @@
 #
 
 RUMPTOP=	${.CURDIR}/../../..
-CPPFLAGS+=	-I${RUMPTOP}/librump/rumpkern -I${RUMPTOP}/librump/rumpdev
 
 RUMPDEVLIBDIR:= ${.PARSEDIR}
 

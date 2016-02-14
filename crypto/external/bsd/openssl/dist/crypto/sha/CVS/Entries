@@ -4,7 +4,7 @@
 /sha1.c/1.1.1.2/Thu Apr  2 02:24:12 2015/-kk/
 /sha1_one.c/1.1.1.3/Thu Apr  2 02:24:12 2015/-kk/
 /sha1dgst.c/1.1.1.4/Thu Apr  2 02:24:12 2015/-kk/
-/sha1test.c/1.4/Thu Apr  2 02:24:12 2015/-kk/
+/sha1test.c/1.5/Sun Feb 14 11:24:33 2016/-kk/
 /sha256.c/1.5/Thu Apr  2 02:24:12 2015/-kk/
 /sha256t.c/1.1.1.2/Thu Apr  2 02:24:12 2015/-kk/
 /sha512.c/1.1.1.6/Thu Apr  2 02:24:12 2015/-kk/

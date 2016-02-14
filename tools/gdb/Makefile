@@ -3,7 +3,7 @@
 .include <bsd.own.mk>
 
 MODULE=		gdb
-GNUHOSTDIST=    ${.CURDIR}/../../external/gpl3/gdb/dist
+GNUHOSTDIST=    ${.CURDIR}/../../external/gpl3/${EXTERNAL_GDB_SUBDIR}/dist
 
 FIND_ARGS=	\! \( -type d -name sim -prune \)
 

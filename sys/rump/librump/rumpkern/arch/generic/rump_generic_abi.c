@@ -28,7 +28,7 @@
 #include <sys/cdefs.h>
 __KERNEL_RCSID(0, "$NetBSD$");
 
-#include "rump_private.h"
+#include <rump-sys/kern.h>
 
 int
 rump_nativeabi_p(void)

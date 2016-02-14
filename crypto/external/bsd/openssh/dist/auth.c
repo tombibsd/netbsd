@@ -656,6 +656,7 @@ getpwnamallow(const char *user)
 
 	pw = getpwnam(user);
 	if (pw == NULL) {
+		pfilter_notify(1);
 		logit("Invalid user %.100s from %.100s",
 		    user, get_remote_ipaddr());
 		return (NULL);

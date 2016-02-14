@@ -7,7 +7,7 @@
 /checkrc.c/1.1/Sat Jul 26 19:30:44 2014/-kk/
 /configmenu.c/1.5/Thu May 28 03:26:09 2015/-kk/
 /defs.h/1.9/Thu May 28 03:26:09 2015/-kk/
-/disks.c/1.11/Sun Nov 29 09:11:28 2015/-kk/
+/disks.c/1.12/Sun Feb 14 12:56:12 2016/-kk/
 /disks_lfs.c/1.1/Sat Jul 26 19:30:44 2014/-kk/
 /endian.h/1.1/Sat Jul 26 19:30:44 2014/-kk/
 /factor.c/1.1/Sat Jul 26 19:30:44 2014/-kk/
@@ -33,7 +33,7 @@
 /net.c/1.21/Wed Jun  3 06:56:04 2015/-kk/
 /partman.c/1.11/Thu May 28 03:26:10 2015/-kk/
 /run.c/1.5/Fri Jan  2 11:22:18 2015/-kk/
-/savenewlabel.c/1.3/Wed May 13 03:33:34 2015/-kk/
+/savenewlabel.c/1.4/Sun Feb 14 12:56:12 2016/-kk/
 /sizemultname.c/1.2/Fri Oct  3 09:26:40 2014/-kk/
 /target.c/1.3/Sun Nov 15 13:37:02 2015/-kk/
 /txtwalk.c/1.1/Sat Jul 26 19:30:44 2014/-kk/

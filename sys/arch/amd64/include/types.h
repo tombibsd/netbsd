@@ -46,8 +46,7 @@ typedef struct label_t {
 } label_t;
 #endif
 
-/* NB: This should probably be if defined(_KERNEL) */
-#if defined(_NETBSD_SOURCE)
+#if defined(_KERNEL) || defined(_KMEMUSER) || defined(_KERNTYPES) || defined(_STANDALONE)
 typedef unsigned long	paddr_t;
 typedef unsigned long	psize_t;
 typedef unsigned long	vaddr_t;
@@ -58,7 +57,6 @@ typedef unsigned long	vsize_t;
 #define	PRIxVADDR	"lx"
 #define	PRIxVSIZE	"lx"
 #define	PRIuVSIZE	"lu"
-#endif
 
 typedef int             pmc_evid_t; 
 typedef __uint64_t      pmc_ctr_t;
@@ -67,6 +65,9 @@ typedef int		register32_t;
 #define	PRIxREGISTER	"lx"
 #define	PRIxREGISTER32	"x"
 
+#endif
+
+typedef long int		__register_t;
 typedef	unsigned char		__cpu_simple_lock_nv_t;
 
 /* __cpu_simple_lock_t used to be a full word. */

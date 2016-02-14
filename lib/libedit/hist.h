@@ -46,10 +46,10 @@ typedef int (*hist_fun_t)(void *, TYPE(HistEvent) *, int, ...);
 
 typedef struct el_history_t {
 	Char		*buf;		/* The history buffer		*/
-	size_t		sz;		/* Size of history buffer	*/
+	size_t		 sz;		/* Size of history buffer	*/
 	Char		*last;		/* The last character		*/
 	int		 eventno;	/* Event we are looking for	*/
-	void *		 ref;		/* Argument for history fcns	*/
+	void		*ref;		/* Argument for history fcns	*/
 	hist_fun_t	 fun;		/* Event access			*/
 	TYPE(HistEvent)	 ev;		/* Event cookie			*/
 } el_history_t;

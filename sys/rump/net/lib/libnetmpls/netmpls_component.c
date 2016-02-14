@@ -43,8 +43,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <netmpls/mpls_var.h>
 
-#include "rump_private.h"
-#include "rump_net_private.h"
+#include <rump-sys/kern.h>
+#include <rump-sys/net.h>
 
 #include "ioconf.h"
 

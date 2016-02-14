@@ -4,7 +4,7 @@
 /quota_delete.c/1.4/Wed Feb  1 05:34:40 2012/-kk/
 /quota_get.c/1.5/Wed Feb  1 05:34:40 2012/-kk/
 /quota_kernel.c/1.6/Sun Jul 20 13:08:10 2014/-kk/
-/quota_nfs.c/1.4/Wed Jun 18 08:42:17 2014/-kk/
+/quota_nfs.c/1.5/Sun Feb 14 12:54:13 2016/-kk/
 /quota_oldfiles.c/1.9/Fri Feb 24 18:00:09 2012/-kk/
 /quota_open.c/1.7/Wed Feb  1 05:34:40 2012/-kk/
 /quota_put.c/1.4/Wed Feb  1 05:34:40 2012/-kk/

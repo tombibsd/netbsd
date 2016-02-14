@@ -11,7 +11,6 @@ COPY	${NETBSDSRCDIR}/etc/group		etc/group
 COPY	${NETBSDSRCDIR}/etc/master.passwd	etc/master.passwd
 
 COPY	${CURDIR}/../common/dot.profile 	.profile
-COPY	${CURDIR}/../common/mount_gemdos	sbin/mount_gemdos	555
 
 # and the keyboard maps
 MTREE	./usr/share/keymaps	type=dir uname=root gname=wheel mode=0755

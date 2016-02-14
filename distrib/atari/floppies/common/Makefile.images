@@ -11,7 +11,7 @@ DBG+=		-DNDEBUG	# to remove assert(3) macro
 
 CRUNCHBIN=	instbin
 LISTS=		${.CURDIR}/list ${.CURDIR}/../common/list.images
-MTREECONF=	${DISTRIBDIR}/common/mtree.common
+MTREECONF=	${.CURDIR}/../common/mtree.conf
 IMAGEENDIAN=	be
 IMAGEDEPENDS+=	${CRUNCHBIN} \
 		${NETBSDSRCDIR}/etc/group ${NETBSDSRCDIR}/etc/master.passwd 

@@ -7,6 +7,7 @@ TESTSDIR=	${TESTSBASE}/dev/sysmon
 
 TESTS_C=	t_swwdog
 
+CPPFLAGS+=	-D_KERNTYPES
 LDADD+=	-lrumpdev_sysmon -lrumpdev -lrumpvfs
 LDADD+=	-lrump
 LDADD+=	-lrumpuser

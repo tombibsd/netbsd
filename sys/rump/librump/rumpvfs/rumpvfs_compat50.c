@@ -38,9 +38,9 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <compat/sys/time.h>
 
-#include <rump/rump.h>
+#include <rump-sys/vfs.h>
 
-#include "rump_vfs_private.h"
+#include <rump/rump.h>
 
 /*
  * XXX: these are handwritten for now.  They provide compat for

@@ -35,7 +35,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <machine/intr.h>
 
-#include "rump_private.h"
+#include <rump-sys/kern.h>
 
 void
 spllower(int s)

@@ -38,9 +38,9 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/select.h>
 #include <sys/systm.h>
 
-#include <rump/rumpuser.h>
+#include <rump-sys/kern.h>
 
-#include "rump_private.h"
+#include <rump/rumpuser.h>
 
 static struct cpu_info rump_cpus[MAXCPUS];
 static struct rumpcpu {

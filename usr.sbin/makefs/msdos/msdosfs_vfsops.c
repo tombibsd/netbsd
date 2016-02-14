@@ -152,6 +152,12 @@ msdosfs_mount(struct vnode *devvp, int flags)
 		}
 	}
 
+	pmp->pm_flags = flags & MSDOSFSMNT_MNTOPT;
+	if (pmp->pm_flags & MSDOSFSMNT_GEMDOSFS)
+		pmp->pm_flags |= MSDOSFSMNT_NOWIN95;
+	if (pmp->pm_flags & MSDOSFSMNT_NOWIN95)
+		pmp->pm_flags |= MSDOSFSMNT_SHORTNAME;
+
 	if (pmp->pm_Sectors == 0) {
 		pmp->pm_HiddenSects = getulong(b50->bpbHiddenSecs);
 		pmp->pm_HugeSectors = getulong(b50->bpbHugeSectors);

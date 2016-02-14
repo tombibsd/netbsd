@@ -1,3 +1,4 @@
 #	$NetBSD$
 
 BINDIR?=	/usr/bin
+CPPFLAGS+=	-D_KERNTYPES

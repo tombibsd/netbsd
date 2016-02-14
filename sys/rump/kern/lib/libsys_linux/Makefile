@@ -16,7 +16,6 @@ SRCS+=	linux_rump.c
 SRCS+=	sys_linux_component.c
 
 # XXX
-CPPFLAGS+= -I${RUMPTOP}/librump/rumpkern
 CPPFLAGS+= -DINET6
 
 SYS_P=rump_linux_sys

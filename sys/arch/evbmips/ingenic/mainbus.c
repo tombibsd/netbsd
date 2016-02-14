@@ -29,6 +29,8 @@
 #include <sys/cdefs.h>
 __KERNEL_RCSID(0, "$NetBSD$");
 
+#include "opt_multiprocessor.h"
+
 #include <sys/param.h>
 #include <sys/systm.h>
 #include <sys/device.h>
@@ -58,7 +60,9 @@ struct mainbusdev {
 
 struct mainbusdev mainbusdevs[] = {
 	{ "cpu",	},
-	{ "com",	},
+#ifdef MULTIPROCESSOR
+	{ "cpu",	},
+#endif
 	{ "apbus",	},
 	{ NULL,		}
 };

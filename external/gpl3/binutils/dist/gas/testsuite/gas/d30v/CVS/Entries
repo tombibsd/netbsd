@@ -3,9 +3,9 @@
 /array.d/1.1.1.1/Tue Aug 18 09:38:23 2009/-kk/
 /array.s/1.1.1.1/Tue Aug 18 09:38:23 2009/-kk/
 /bittest.d/1.1.1.1/Tue Aug 18 09:38:23 2009/-kk/
-/bittest.l/1.1.1.1/Tue Aug 18 09:38:23 2009/-kk/
+/bittest.l/1.1.1.2/Sun Feb 14 11:34:14 2016/-kk/
 /bittest.s/1.1.1.1/Tue Aug 18 09:38:23 2009/-kk/
-/d30.exp/1.1.1.1/Tue Aug 18 09:38:23 2009/-kk/
+/d30.exp/1.1.1.2/Sun Feb 14 11:34:14 2016/-kk/
 /guard-debug.d/1.1.1.1/Tue Aug 18 09:38:23 2009/-kk/
 /guard-debug.s/1.1.1.1/Tue Aug 18 09:38:23 2009/-kk/
 /guard.d/1.1.1.1/Tue Aug 18 09:38:23 2009/-kk/
@@ -22,12 +22,12 @@
 /opt.s/1.1.1.1/Tue Aug 18 09:38:24 2009/-kk/
 /reloc.d/1.1.1.1/Tue Aug 18 09:38:24 2009/-kk/
 /reloc.s/1.1.1.1/Tue Aug 18 09:38:24 2009/-kk/
-/serial.l/1.1.1.1/Tue Aug 18 09:38:24 2009/-kk/
+/serial.l/1.1.1.2/Sun Feb 14 11:34:14 2016/-kk/
 /serial.s/1.1.1.1/Tue Aug 18 09:38:24 2009/-kk/
-/serial2.l/1.1.1.2/Sat Sep 24 22:30:46 2011/-kk/
+/serial2.l/1.1.1.3/Sun Feb 14 11:34:14 2016/-kk/
 /serial2.s/1.1.1.1/Tue Aug 18 09:38:24 2009/-kk/
-/serial2O.l/1.1.1.1/Tue Aug 18 09:38:24 2009/-kk/
+/serial2O.l/1.1.1.2/Sun Feb 14 11:34:14 2016/-kk/
 /serial2O.s/1.1.1.1/Tue Aug 18 09:38:24 2009/-kk/
-/warn_oddreg.l/1.1.1.1/Tue Aug 18 09:38:24 2009/-kk/
+/warn_oddreg.l/1.1.1.2/Sun Feb 14 11:34:14 2016/-kk/
 /warn_oddreg.s/1.1.1.1/Tue Aug 18 09:38:24 2009/-kk/
 D

@@ -70,5 +70,9 @@ CLEANFILES+=	machine sparc
 CPPFLAGS+=	-I.
 .endif					# }
 
+.if (${MACHINE_ARCH} == "mips")
+CPPFLAGS+=	-D_KMEMUSER
+.endif
+
 
 .include <bsd.lib.mk>

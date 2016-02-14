@@ -86,6 +86,7 @@ enum hppa_cpu_type {
 	mako	/* PA8800 (mako)	PA 2.0 */
 };
 
+#ifdef _KERNEL
 /*
  * A CPU description.
  */
@@ -116,7 +117,6 @@ struct hppa_cpu_info {
 	int (*hptinit)(vaddr_t, vsize_t);
 };
 
-#ifdef _KERNEL
 extern const struct hppa_cpu_info *hppa_cpu_info;
 extern int cpu_modelno;
 extern int cpu_revision;

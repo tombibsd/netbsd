@@ -18,6 +18,7 @@ COPTS+=	-fno-stack-protector
 COPTS+=	-fno-unwind-tables
 CWARNFLAGS+= -Werror
 CWARNFLAGS+= -Wall -Wmissing-prototypes -Wstrict-prototypes -Wpointer-arith
+CPPFLAGS+= -D_KERNTYPES
 
 ### find out what to use for libkern
 KERN_AS=	library

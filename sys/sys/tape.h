@@ -33,6 +33,7 @@
 #define _SYS_TAPE_H_
 
 #include <sys/queue.h>
+#include <sys/time.h>
 
 #define	TAPENAMELEN	16
 

@@ -495,9 +495,6 @@ create_nonalphanum(const atf_tc_t *tc, const char *mp)
 	char buf[64];
 	int i;
 
-	if (FSTYPE_UDF(tc))
-		atf_tc_expect_fail("PR kern/50608");
-
 	RL(rump_sys_chdir(mp));
 
 	for (i = 0; i < 256; i++) {

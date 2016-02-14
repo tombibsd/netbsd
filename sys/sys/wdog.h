@@ -48,13 +48,13 @@
 struct wdog_mode {
 	char wm_name[WDOG_NAMESIZE];
 	int wm_mode;		/* timer mode */
-	u_int wm_period;	/* timer period (seconds) */
+	unsigned int wm_period;	/* timer period (seconds) */
 };
 
 /*
  * GMODE -- get mode of watchdog specified by wm_name.
  *
- * SMODE -- set mode of watchdog specified by wm_mame.  If
+ * SMODE -- set mode of watchdog specified by wm_name.  If
  *          wm_mode is not DISARMED, the watchdog is armed,
  *          if another watchdog is not already running.
  */

@@ -133,5 +133,6 @@ savenewlabel(partinfo *lp, int nparts)
 	scripting_fprintf(NULL, "EOF\n");
 	fflush(NULL);
 	run_program(0, "sh -c 'cat /tmp/disktab.* >/tmp/disktab'");
+	free(f_name);
 	return(0);
 }

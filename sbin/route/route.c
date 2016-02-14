@@ -47,7 +47,6 @@ __RCSID("$NetBSD$");
 #include <sys/file.h>
 #include <sys/socket.h>
 #include <sys/ioctl.h>
-#include <sys/mbuf.h>
 #include <sys/sysctl.h>
 
 #include <net/if.h>

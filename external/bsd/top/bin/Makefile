@@ -11,7 +11,7 @@ TOPDIR=${.CURDIR}/../dist
 WARNS=	4
 CWARNFLAGS+=	-Wno-missing-noreturn
 
-CPPFLAGS+=-I${.CURDIR} -I${TOPDIR} -I.
+CPPFLAGS+=-I${.CURDIR} -I${TOPDIR} -I. -D_KERNTYPES
 SRCS=	color.c commands.c display.c hash.c screen.c \
 	top.c username.c utils.c version.c m_netbsd.c
 DPSRCS+=sigdesc.h config.h

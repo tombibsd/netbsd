@@ -1,5 +1,7 @@
 #	$NetBSD$
 
+.include <bsd.own.mk>	# For /etc/mk.conf processing
+
 .if defined(XMODULEDIR)
 SHLIB_MAJOR=0
 

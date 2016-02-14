@@ -155,7 +155,7 @@ SUBDIR+=	../external/gpl2/lvm2/lib	# depends on libprop
 .endif
 
 .if (${MKBINUTILS} != "no")
-SUBDIR+=	../external/gpl3/binutils/lib	# libbfd depends on libz
+SUBDIR+=	../external/gpl3/${EXTERNAL_BINUTILS_SUBDIR}/lib	# libbfd depends on libz
 .endif
 
 .if (${MKLIBCXX} != "no")

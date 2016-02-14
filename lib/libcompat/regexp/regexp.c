@@ -236,7 +236,7 @@ const char *expn;
 		FAIL("regexp too big");
 
 	/* Allocate space. */
-	r = (regexp *)malloc(sizeof(regexp) + (unsigned)regsize);
+	r = malloc(sizeof(regexp) + (unsigned)regsize);
 	if (r == NULL)
 		FAIL("out of space");
 
@@ -246,8 +246,10 @@ const char *expn;
 	regnpar = 1;
 	regcode = r->program;
 	regc(MAGIC);
-	if (reg(0, &flags) == NULL)
+	if (reg(0, &flags) == NULL) {
+		free(r);
 		return(NULL);
+	}
 
 	/* Dig out information for optimizations. */
 	r->regstart = '\0';	/* Worst-case defaults. */

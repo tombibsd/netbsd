@@ -31,8 +31,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/param.h>
 #include <sys/device.h>
 
-#include "rump_private.h"
-#include "rump_dev_private.h"
+#include <rump-sys/kern.h>
+#include <rump-sys/dev.h>
 
 int nocomponent(void);
 int nocomponent() {return 0;}

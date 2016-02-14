@@ -34,6 +34,8 @@
 #ifndef _SYS_VADVISE_H_
 #define _SYS_VADVISE_H_
 
+#include <sys/cdefs.h>
+
 /*
  * Parameters to vadvise() to tell system of particular paging
  * behaviour:

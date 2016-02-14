@@ -147,7 +147,7 @@ el_match(const Char *str, const Char *pat)
 	if (re_comp(ct_encode_string(pat, &conv)) != NULL)
 		return 0;
 	else
-		return re_exec(ct_encode_string(str, &conv) == 1);
+		return re_exec(ct_encode_string(str, &conv)) == 1;
 #endif
 }
 

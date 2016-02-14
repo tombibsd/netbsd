@@ -24,6 +24,8 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#if !defined(NO_INTERACT)
+
 #if HAVE_NBTOOL_CONFIG_H
 #include "nbtool_config.h"
 #endif
@@ -810,3 +812,5 @@ interact(struct disklabel *lp, int fd)
 			return;
 	}
 }
+
+#endif /* !NO_INTERACT */

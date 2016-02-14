@@ -38,8 +38,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <net/if_llatbl.h>
 #include <net/route.h>
 
-#include "rump_private.h"
-#include "rump_net_private.h"
+#include <rump-sys/kern.h>
 
 RUMP_COMPONENT(RUMP_COMPONENT_NET)
 {

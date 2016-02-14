@@ -1,3 +1,19 @@
+/export-class-call.dd/1.1.1.1/Fri Jan 29 12:45:18 2016/-kk/
+/export-class-call.rd/1.1.1.1/Fri Jan 29 12:45:18 2016/-kk/
+/export-class-call.s/1.1.1.1/Fri Jan 29 12:45:18 2016/-kk/
+/export-class-call.xd/1.1.1.1/Fri Jan 29 12:45:18 2016/-kk/
+/export-class-data.dd/1.1.1.1/Fri Jan 29 12:45:18 2016/-kk/
+/export-class-data.rd/1.1.1.1/Fri Jan 29 12:45:18 2016/-kk/
+/export-class-data.s/1.1.1.1/Fri Jan 29 12:45:18 2016/-kk/
+/export-class-data.xd/1.1.1.1/Fri Jan 29 12:45:18 2016/-kk/
+/export-class-def.s/1.1.1.1/Fri Jan 29 12:45:18 2016/-kk/
+/export-class.exp/1.1.1.1/Fri Jan 29 12:45:18 2016/-kk/
+/export-class.ld/1.1.1.1/Fri Jan 29 12:45:18 2016/-kk/
+/got-local-aux.s/1.1.1.1/Fri Jan 29 12:45:18 2016/-kk/
+/got-local-def.s/1.1.1.1/Fri Jan 29 12:45:18 2016/-kk/
+/got-local-exe.xd/1.1.1.1/Fri Jan 29 12:45:18 2016/-kk/
+/got-local-lib.xd/1.1.1.1/Fri Jan 29 12:45:18 2016/-kk/
+/got-local-ref.s/1.1.1.1/Fri Jan 29 12:45:18 2016/-kk/
 /plt-local-hidden-pic.s/1.1.1.1/Thu Oct 24 10:28:51 2013/-kk/
 /plt-local-lib.dd/1.1.1.1/Thu Oct 24 10:28:51 2013/-kk/
 /plt-local-lib.ld/1.1.1.1/Thu Oct 24 10:28:51 2013/-kk/
@@ -6,5 +22,7 @@
 /plt-local.dd/1.1.1.1/Thu Oct 24 10:28:51 2013/-kk/
 /plt-local.ld/1.1.1.1/Thu Oct 24 10:28:51 2013/-kk/
 /plt-local.s/1.1.1.1/Thu Oct 24 10:28:51 2013/-kk/
-/vax-elf.exp/1.1.1.1/Thu Oct 24 10:28:51 2013/-kk/
+/vax-elf.exp/1.1.1.2/Sun Feb 14 11:45:21 2016/-kk/
+/vax-export-class.rd/1.1.1.1/Fri Jan 29 12:45:18 2016/-kk/
+/vax-export-class.xd/1.1.1.1/Fri Jan 29 12:45:18 2016/-kk/
 D

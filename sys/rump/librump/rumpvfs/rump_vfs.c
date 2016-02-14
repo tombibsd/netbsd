@@ -50,11 +50,11 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <miscfs/specfs/specdev.h>
 
+#include <rump-sys/kern.h>
+#include <rump-sys/vfs.h>
+
 #include <rump/rump.h>
 #include <rump/rumpuser.h>
-
-#include "rump_private.h"
-#include "rump_vfs_private.h"
 
 extern struct cwdinfo cwdi0;
 const char *rootfstype = ROOT_FSTYPE_ANY;

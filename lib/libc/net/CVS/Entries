@@ -12,7 +12,7 @@
 /getaddrinfo.c/1.113/Fri Dec 25 06:17:57 2015/-kk/
 /gethnamaddr.c/1.92/Fri Oct  2 14:11:18 2015/-kk/
 /gethostbyname.3/1.29/Thu Oct 24 10:28:53 2013/-kk/
-/getifaddrs.3/1.14/Thu Oct 24 10:28:53 2013/-kk/
+/getifaddrs.3/1.16/Sun Feb 14 12:54:10 2016/-kk/
 /getifaddrs.c/1.15/Tue Mar 13 21:13:40 2012/-kk/
 /getnameinfo.3/1.41/Thu Oct 24 10:28:53 2013/-kk/
 /getnameinfo.c/1.59/Fri Oct  2 14:11:18 2015/-kk/
@@ -60,7 +60,7 @@
 /rcmd.3/1.28/Mon Mar 22 19:30:54 2010/-kk/
 /rcmd.c/1.71/Tue Dec  9 04:43:24 2014/-kk/
 /recv.c/1.10/Tue Mar 20 17:44:18 2012/-kk/
-/resolver.3/1.28/Mon Nov 18 05:31:22 2013/-kk/
+/resolver.3/1.30/Sun Feb 14 12:54:10 2016/-kk/
 /rthdr.c/1.18/Tue Mar 13 21:13:42 2012/-kk/
 /send.c/1.10/Tue Mar 20 17:44:18 2012/-kk/
 /servent.h/1.4/Sun Apr 25 00:54:46 2010/-kk/

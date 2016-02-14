@@ -9,9 +9,8 @@
 
 #include "ioconf.c"
 
-#include "rump_private.h"
-#include "rump_dev_private.h"
-#include "rump_vfs_private.h"
+#include <rump-sys/kern.h>
+#include <rump-sys/vfs.h>
 
 void tty_init(void);
 
