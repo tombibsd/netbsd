@@ -1038,7 +1038,7 @@ vioif_rx_deq_locked(struct vioif_softc *sc)
 		bpf_mtap(ifp, m);
 
 		VIOIF_RX_UNLOCK(sc);
-		(*ifp->if_input)(ifp, m);
+		if_percpuq_enqueue(ifp->if_percpuq, m);
 		VIOIF_RX_LOCK(sc);
 
 		if (sc->sc_stopping)

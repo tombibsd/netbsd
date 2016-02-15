@@ -1077,7 +1077,7 @@ rtk_rxeof(struct rtk_softc *sc)
 
 		bpf_mtap(ifp, m);
 		/* pass it on. */
-		(*ifp->if_input)(ifp, m);
+		if_percpuq_enqueue(ifp->if_percpuq, m);
 	}
 }
 

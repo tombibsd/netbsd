@@ -221,7 +221,7 @@ mach_init(int argc, char **argv, char **envp32, void *callvec)
 	 * #ifdef orgy
 	 */
 	i = 0;
-	while ((eptrs[i] != 0) && (i < 128)) {
+	while (i < 128 && eptrs[i] != 0) {
 		envp[i] = (char *)(intptr_t)eptrs[i];	/* sign extend */
 		i++;
 	}

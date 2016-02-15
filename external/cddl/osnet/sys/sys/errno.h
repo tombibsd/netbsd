@@ -29,7 +29,11 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+#ifndef EBADE
 #define	EBADE	ENOSR
+#endif
+#ifndef EBADR
 #define	EBADR	ENOSTR
+#endif
 
 #include_next <sys/errno.h>

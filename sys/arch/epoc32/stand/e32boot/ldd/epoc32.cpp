@@ -57,6 +57,11 @@ AllowAllDomains(void)
 	__asm("mcr	p15, 0, %0, c3, c0" : : "r"(domains));
 }
 
+EPOC32::EPOC32(const EPOC32& c)
+{
+	cpu = c.cpu;
+}
+
 EPOC32::EPOC32(void)
 {
 	TUint procid;

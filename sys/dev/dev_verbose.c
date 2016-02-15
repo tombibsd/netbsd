@@ -65,7 +65,7 @@ dev_findvendor(char *buf, size_t len, const char *words, size_t nwords,
 
 		/* Skip Tokens */
 		n++;
-		while (vendors[n] != 0 && n < nvendors)
+		while (n < nvendors && vendors[n] != 0)
 			n++;
 	}
 	snprintf(buf, len, "vendor %4.4x", vendor);
@@ -86,7 +86,7 @@ dev_findproduct(char *buf, size_t len, const char *words, size_t nwords,
 
 		/* Skip Tokens */
 		n += 2;
-		while (products[n] != 0 && n < nproducts)
+		while (n < nproducts && products[n] != 0)
 			n++;
 	}
 	snprintf(buf, len, "product %4.4x", product);

@@ -682,7 +682,9 @@
 ./usr/libdata/debug/usr/bin/pathchk.debug	comp-util-debug		debug
 ./usr/libdata/debug/usr/bin/pawd.debug		comp-amd-debug		debug
 ./usr/libdata/debug/usr/bin/paxctl.debug	comp-obsolete		obsolete
+./usr/libdata/debug/usr/bin/p++.debug		comp-c-debug		pcc,debug
 ./usr/libdata/debug/usr/bin/pcc.debug		comp-c-debug		pcc,debug
+./usr/libdata/debug/usr/bin/pcpp.debug		comp-c-debug		pcc,debug
 ./usr/libdata/debug/usr/bin/pfbtops.debug	comp-groff-debug	groff,debug
 ./usr/libdata/debug/usr/bin/pic.debug		comp-groff-debug	groff,debug
 ./usr/libdata/debug/usr/bin/pigz.debug		comp-util-debug		debug

@@ -1213,7 +1213,7 @@ jme_intr_rx(jme_softc_t *sc) {
 			VLAN_INPUT_TAG(ifp, mhead,
 			    (flags & JME_RD_VLAN_MASK), continue);
 		}
-		(*ifp->if_input)(ifp, mhead);
+		if_percpuq_enqueue(ifp->if_percpuq, mhead);
 	}
 	if (ipackets)
 		rnd_add_uint32(&sc->rnd_source, ipackets);

@@ -1940,7 +1940,7 @@ swcsum:
 			m->m_pkthdr.csum_flags = 0;
 #endif
 		/* Pass it on. */
-		(*ifp->if_input)(ifp, m);
+		if_percpuq_enqueue(ifp->if_percpuq, m);
 	}
 
 	if (progress) {

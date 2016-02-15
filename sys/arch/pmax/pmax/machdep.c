@@ -524,7 +524,7 @@ memsize_bitmap(void *first)
 	segstart = curaddr = i = segnum = 0;
 	xsize = prom_memmap->pagesize * 8;
 	while (i < mapbytes) {
-		while (prom_memmap->bitmap[i] == 0xff && i < mapbytes) {
+		while (i < mapbytes && prom_memmap->bitmap[i] == 0xff) {
 			++i;
 			curaddr += xsize;
 		}

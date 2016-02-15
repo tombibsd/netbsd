@@ -768,7 +768,7 @@ enic_rint(struct enic_softc *sc, uint32_t saf, paddr_t phys)
 		bpf_mtap(ifp, m);
 
 	/* Pass the packet up. */
-	(*ifp->if_input)(ifp, m);
+	if_percpuq_enqueue(ifp->if_percpuq, m);
 
 	/* Need to refill now */
 	enic_refill(sc);

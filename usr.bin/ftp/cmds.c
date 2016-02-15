@@ -1967,15 +1967,15 @@ dotrans(char *dst, size_t dlen, const char *src)
 	char *cp2 = dst;
 	size_t i, ostop;
 
-	for (ostop = 0; *(ntout + ostop) && ostop < 16; ostop++)
+	for (ostop = 0; ntout[ostop] && ostop < sizeof(ntout); ostop++)
 		continue;
 	for (cp1 = src; *cp1; cp1++) {
 		int found = 0;
-		for (i = 0; *(ntin + i) && i < 16; i++) {
-			if (*cp1 == *(ntin + i)) {
+		for (i = 0; ntin[i] && i < sizeof(ntin); i++) {
+			if (*cp1 == ntin[i]) {
 				found++;
 				if (i < ostop) {
-					*cp2++ = *(ntout + i);
+					*cp2++ = ntout[i];
 					if (cp2 - dst >= (ptrdiff_t)(dlen - 1))
 						goto out;
 				}

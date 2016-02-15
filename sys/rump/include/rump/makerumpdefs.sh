@@ -53,6 +53,11 @@ enum rump_'"$2"' {
 fromvers ../../../sys/fcntl.h
 sed -n '/#define	O_[A-Z]*	*0x/s/O_/RUMP_O_/gp' \
     < ../../../sys/fcntl.h
+sed -n '/#define	F_[A-Z_]*	*0x/s/F_/RUMP_F_/gp' \
+    < ../../../sys/fcntl.h
+sed -n '/#define	F_[A-Z_]*	*(/s/F_/RUMP_F_/gp' \
+    < ../../../sys/fcntl.h
+sed -n '/#define[ 	]*_FCN/{:t;N;/\\$/bt;s/_FCN/RUMP__FCN/g;s/F_[A-Z]/RUMP_&/gp}' <../../../sys/fcntl.h | sed 's,/\*.*$,,'
 
 fromvers ../../../sys/vnode.h
 sed -n '/enum vtype.*{/{s/vtype/rump_&/;s/ V/ RUMP_V/gp;}' <../../../sys/vnode.h

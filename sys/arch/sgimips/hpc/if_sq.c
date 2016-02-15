@@ -1022,7 +1022,7 @@ sq_rxintr(struct sq_softc *sc)
 		    device_xname(sc->sc_dev), i, framelen));
 
 		bpf_mtap(ifp, m);
-		(*ifp->if_input)(ifp, m);
+		if_percpuq_enqueue(ifp->if_percpuq, m);
 	}
 
 

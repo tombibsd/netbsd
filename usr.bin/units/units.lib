@@ -230,6 +230,8 @@ newton			kg-m/sec2
 nt			newton
 N			newton
 joule			nt-m
+watt			joule/sec
+W			watt
 cal			4.1868 joule
 
 / Electrical
@@ -238,7 +240,6 @@ coulomb			coul
 C			coul
 ampere			coul/sec
 amp			ampere
-watt			joule/sec
 volt			watt/amp
 ohm			volt/amp
 mho			/ohm

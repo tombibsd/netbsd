@@ -2949,8 +2949,8 @@ pool_sysctl(SYSCTLFN_ARGS)
 				cc = pc->pc_cpus[i];
 				if (cc == NULL)
 					continue;
-				data.pr_cache_nmiss_pcpu = cc->cc_misses;
-				data.pr_cache_nhit_pcpu = cc->cc_hits;
+				data.pr_cache_nmiss_pcpu += cc->cc_misses;
+				data.pr_cache_nhit_pcpu += cc->cc_hits;
 			}
 		} else {
 			data.pr_cache_meta_size = 0;

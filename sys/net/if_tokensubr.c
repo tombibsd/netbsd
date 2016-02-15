@@ -501,7 +501,7 @@ token_ifattach(struct ifnet *ifp, void *lla)
 	ifp->if_dlt = DLT_IEEE802;
 	ifp->if_mtu = ISO88025_MTU;
 	ifp->if_output = token_output;
-	ifp->if_input = token_input;
+	ifp->_if_input = token_input;
 	ifp->if_broadcastaddr = tokenbroadcastaddr;
 #ifdef IFF_NOTRAILERS
 	ifp->if_flags |= IFF_NOTRAILERS;

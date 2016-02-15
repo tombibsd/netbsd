@@ -622,7 +622,7 @@ arc_ifattach(struct ifnet *ifp, uint8_t lla)
 		    ifp->if_xname, arc_ipmtu, ARC_PHDS_MAXMTU);
 
 	ifp->if_output = arc_output;
-	ifp->if_input = arc_input;
+	ifp->_if_input = arc_input;
 	ac = (struct arccom *)ifp;
 	ac->ac_seqid = (time_second) & 0xFFFF; /* try to make seqid unique */
 	if (lla == 0) {

@@ -1131,7 +1131,7 @@ vte_rxeof(struct vte_softc *sc)
 		m->m_pkthdr.rcvif = ifp;
 		ifp->if_ipackets++;
 		bpf_mtap(ifp, m);
-		(*ifp->if_input)(ifp, m);
+		if_percpuq_enqueue(ifp->if_percpuq, m);
 	}
 
 	if (prog > 0) {

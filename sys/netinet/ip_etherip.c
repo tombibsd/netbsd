@@ -259,7 +259,7 @@ ip_etherip_input(struct mbuf *m, ...)
 	ifp->if_ipackets++;
 
 	s = splnet();
-	(ifp->if_input)(ifp, m);
+	if_input(ifp, m);
 	splx(s);
 
 	return;

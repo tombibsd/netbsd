@@ -401,8 +401,9 @@ bcmeth_ccb_attach(device_t parent, device_t self, void *aux)
 	/*
 	 * Attach the interface.
 	 */
-	if_attach(ifp);
+	if_initialize(ifp);
 	ether_ifattach(ifp, sc->sc_enaddr);
+	if_register(ifp);
 
 #ifdef BCMETH_COUNTERS
 	evcnt_attach_dynamic(&sc->sc_ev_intr, EVCNT_TYPE_INTR,
@@ -1020,12 +1021,12 @@ bcmeth_rx_input(
 	 */
 #ifdef BCMETH_MPSAFE
 	mutex_exit(sc->sc_lock);
-	(*ifp->if_input)(ifp, m);
+	if_input(ifp, m);
 	mutex_enter(sc->sc_lock);
 #else
 	int s = splnet();
 	bpf_mtap(ifp, m);
-	(*ifp->if_input)(ifp, m);
+	if_input(ifp, m);
 	splx(s);
 #endif
 }

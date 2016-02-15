@@ -11,7 +11,7 @@
 /resource_var.h/1.2/Tue Dec 25 18:33:36 2007/-kk/
 /subr_hal.c/1.8/Sat Jul 28 00:43:22 2012/-kk/
 /subr_ndis.c/1.28/Fri Apr 11 02:03:40 2014/-kk/
-/subr_ntoskrnl.c/1.25/Fri Apr 11 02:03:40 2014/-kk/
+/subr_ntoskrnl.c/1.26/Mon Feb 15 11:07:18 2016/-kk/
 /subr_pe.c/1.7/Fri Feb  3 23:39:59 2012/-kk/
 /subr_usbd.c/1.6/Sat Mar 14 15:36:16 2009/-kk/
 /usbd_var.h/1.1/Thu Mar 30 22:56:50 2006/-kk/

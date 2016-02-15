@@ -1303,7 +1303,7 @@ cas_rint(struct cas_softc *sc)
 
 				ifp->if_ipackets++;
 				m->m_pkthdr.csum_flags = 0;
-				(*ifp->if_input)(ifp, m);
+				if_percpuq_enqueue(ifp->if_percpuq, m);
 			} else
 				ifp->if_ierrors++;
 		}
@@ -1336,7 +1336,7 @@ cas_rint(struct cas_softc *sc)
 
 				ifp->if_ipackets++;
 				m->m_pkthdr.csum_flags = 0;
-				(*ifp->if_input)(ifp, m);
+				if_percpuq_enqueue(ifp->if_percpuq, m);
 			} else
 				ifp->if_ierrors++;
 		}

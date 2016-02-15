@@ -322,6 +322,7 @@ struct bridge_softc {
 	kmutex_t		*sc_rtlist_lock;
 	pserialize_t		sc_rtlist_psz;
 	struct workqueue	*sc_rtage_wq;
+	struct work		sc_rtage_wk;
 	uint32_t		sc_rthash_key;	/* key for hash */
 	uint32_t		sc_filter_flags; /* ipf and flags */
 	pktqueue_t *		sc_fwd_pktq;

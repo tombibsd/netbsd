@@ -533,7 +533,7 @@ ilrint(void *arg)
 
 	/* Shave off status hdr */
 	m_adj(m, 4);
-	(*sc->sc_if.if_input)(&sc->sc_if, m);
+	if_percpuq_enqueue((&sc->sc_if)->if_percpuq, m);
 setup:
 	/*
 	 * Reset for next packet if possible.

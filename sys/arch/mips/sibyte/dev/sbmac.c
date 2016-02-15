@@ -938,7 +938,7 @@ sbdma_rx_process(struct sbmac_softc *sc, sbmacdma_t *d)
 			/*
 			 * Pass the buffer to the kernel
 			 */
-			(*ifp->if_input)(ifp, m);
+			if_percpuq_enqueue(ifp->if_percpuq, m);
 		} else {
 			/*
 			 * Packet was mangled somehow.  Just drop it and

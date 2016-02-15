@@ -1496,7 +1496,7 @@ again:
 	 */
 	bpf_mtap(ifp, m);
 
-	(*ifp->if_input)(ifp, m);
+	if_percpuq_enqueue(ifp->if_percpuq, m);
 
 	/*
 	 * In periods of high traffic we can actually receive enough

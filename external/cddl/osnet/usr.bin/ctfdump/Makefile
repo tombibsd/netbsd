@@ -15,6 +15,8 @@ SRCS=		dump.c \
 		symbol.c \
 		utils.c
 
+COPTS.utils.c +=	-Wno-format-nonliteral
+
 LDADD+=-lpthread
 DPADD+=${LIBPTHREAD}
 

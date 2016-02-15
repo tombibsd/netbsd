@@ -1339,16 +1339,17 @@ do_nologin(struct passwd *pw)
 	if (login_getcapbool(lc, "ignorenologin", 0) || pw->pw_uid == 0)
 		return;
 	nl = login_getcapstr(lc, "nologin", def_nl, def_nl);
-
+#else
+	if (pw->pw_uid == 0)
+		return;
+	nl = def_nl;
+#endif
 	if (stat(nl, &sb) == -1) {
 		if (nl != def_nl)
 			free(nl);
 		return;
 	}
-#else
-	if (pw->pw_uid)
-		nl = def_nl;
-#endif
+
 	/* /etc/nologin exists.  Print its contents if we can and exit. */
 	logit("User %.100s not allowed because %s exists", pw->pw_name, nl);
 	if ((f = fopen(nl, "r")) != NULL) {

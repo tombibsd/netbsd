@@ -317,7 +317,7 @@ lemac_input(
     }
     m->m_pkthdr.len = m->m_len = length;
     m->m_pkthdr.rcvif = &sc->sc_if;
-    (*sc->sc_if.if_input)(&sc->sc_if, m);
+    if_percpuq_enqueue((&sc->sc_if)->if_percpuq, m);
 }
 
 static void

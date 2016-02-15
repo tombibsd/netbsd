@@ -856,7 +856,7 @@ gmac_hwqueue_rxconsume(gmac_hwqueue_t *hwq, const gmac_desc_t *d)
 		m->m_data += 2;
 		KASSERT(m_length(m) == m->m_pkthdr.len);
 		bpf_mtap(ifp, m);
-		(*ifp->if_input)(ifp, m);
+		if_input(ifp, m);
 		break;
 	default:
 		ifp->if_ierrors++;

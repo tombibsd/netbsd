@@ -101,9 +101,11 @@ bcmgpio_attach(device_t parent, device_t self, void *aux)
 {
 	struct bcmgpio_softc * const sc = device_private(self);
 #if NGPIO > 0
+	struct amba_attach_args *aaa = aux;
+	struct gpiobus_attach_args gba;
 	int pin, minpin, maxpin;
 	u_int func;
-	struct gpiobus_attach_args gba;
+	int error;
 #endif
 	
 	sc->sc_dev = self;
@@ -124,10 +126,15 @@ bcmgpio_attach(device_t parent, device_t self, void *aux)
 	aprint_naive("\n");	
 	aprint_normal(": GPIO [%d...%d]\n", minpin, maxpin);
 
-	/* already mapped - nothing to gain from struct amba_attach_args */
-	sc->sc_iot = &bcm2835_bs_tag;
-	sc->sc_ioh = BCM2835_IOPHYSTOVIRT(BCM2835_GPIO_BASE);
-	
+	sc->sc_iot = aaa->aaa_iot;
+	error = bus_space_map(sc->sc_iot, aaa->aaa_addr, aaa->aaa_size, 0,
+	    &sc->sc_ioh);
+	if (error) {
+		aprint_error_dev(self,
+		    "can't map registers for %s: %d\n", aaa->aaa_name, error);
+		return;
+	}
+
 	for (pin = minpin; pin <= maxpin; pin++) {
 	        int epin = pin - minpin;
 	

@@ -1046,7 +1046,7 @@ iyget(struct iy_softc *sc, bus_space_tag_t iot, bus_space_handle_t ioh, int rxle
 
 
 	bpf_mtap(ifp, top);
-	(*ifp->if_input)(ifp, top);
+	if_percpuq_enqueue(ifp->if_percpuq, top);
 	return;
 
 dropped:

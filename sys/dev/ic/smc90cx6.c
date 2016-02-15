@@ -598,7 +598,7 @@ bah_srint(void *vsc)
 
 	bpf_mtap(ifp, head);
 
-	(*sc->sc_arccom.ac_if.if_input)(&sc->sc_arccom.ac_if, head);
+	if_percpuq_enqueue((&sc->sc_arccom.ac_if)->if_percpuq, head);
 
 	head = NULL;
 	ifp->if_ipackets++;

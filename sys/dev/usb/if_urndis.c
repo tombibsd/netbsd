@@ -874,7 +874,7 @@ urndis_decap(struct urndis_softc *sc, struct urndis_chain *c, uint32_t len)
 
 			bpf_mtap(ifp, m);
 
-			(*(ifp)->if_input)((ifp), (m));
+			if_percpuq_enqueue(ifp->if_percpuq, m);
 		}
 		splx(s);
 

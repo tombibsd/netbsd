@@ -74,6 +74,7 @@
 ./usr/bin/objdump				comp-util-bin		binutils
 ./usr/bin/p++					comp-cxx-bin		pcc,cxx
 ./usr/bin/pcc					comp-c-bin		pcc
+./usr/bin/pcpp					comp-c-bin		pcc
 ./usr/bin/protoize				comp-obsolete		obsolete
 ./usr/bin/ranlib				comp-util-bin		binutils
 ./usr/bin/rcs2log				comp-cvs-bin		cvs
@@ -2666,6 +2667,7 @@
 ./usr/include/rump/rumpdefs.h			comp-c-include	rump
 ./usr/include/rump/rumperr.h			comp-c-include	rump
 ./usr/include/rump/rumperrno2host.h			comp-c-include	rump
+./usr/include/rump/rumpfs.h			comp-c-include	rump
 ./usr/include/rump/rumpkern_if_pub.h		comp-c-include	rump
 ./usr/include/rump/rumpnet_if_pub.h		comp-c-include	rump
 ./usr/include/rump/rumpuser.h			comp-c-include	rump

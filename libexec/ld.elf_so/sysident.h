@@ -99,6 +99,7 @@ __asm(
 	"\t.ascii\t" __S(ELF_NOTE_MARCH_NAME) "\n"
 	"1:\t.asciz\t" __S(ELF_NOTE_MARCH_DESC) "\n"
 	"2:\n"
+	"\t.p2align\t2\n\n"
 
 	"\t.popsection\n"
 );

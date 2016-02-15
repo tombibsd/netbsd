@@ -1173,7 +1173,7 @@ aue_rxeof(usbd_xfer_handle xfer, usbd_private_handle priv, usbd_status status)
 
 	DPRINTFN(10,("%s: %s: deliver %d\n", device_xname(sc->aue_dev),
 		    __func__, m->m_len));
-	(*(ifp)->if_input)((ifp), (m));
+	if_percpuq_enqueue(ifp->if_percpuq, m);
  done1:
 	splx(s);
 

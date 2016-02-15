@@ -1078,7 +1078,7 @@ tl_intr(void *v)
 				}
 #endif
 				bpf_mtap(ifp, m);
-				(*ifp->if_input)(ifp, m);
+				if_percpuq_enqueue(ifp->if_percpuq, m);
 			}
 		}
 		bus_dmamap_sync(sc->tl_dmatag, sc->Rx_dmamap, 0,

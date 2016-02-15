@@ -2448,7 +2448,7 @@ mvxpe_rx_queue(struct mvxpe_softc *sc, int q, int npkt)
 		mvxpe_rx_set_csumflag(ifp, r, m);
 		ifp->if_ipackets++;
 		bpf_mtap(ifp, m);
-		(*ifp->if_input)(ifp, m);
+		if_percpuq_enqueue(ifp->if_percpuq, m);
 		chunk = NULL; /* the BM chunk goes to networking stack now */
 rx_done:
 		if (chunk) {

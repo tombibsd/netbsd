@@ -885,7 +885,7 @@ hme_read(struct hme_softc *sc, int ix, uint32_t flags)
 	bpf_mtap(ifp, m);
 
 	/* Pass the packet up. */
-	(*ifp->if_input)(ifp, m);
+	if_percpuq_enqueue(ifp->if_percpuq, m);
 }
 
 void

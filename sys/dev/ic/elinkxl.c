@@ -1393,7 +1393,7 @@ ex_intr(void *arg)
 					    M_CSUM_TCP_UDP_BAD;
 			}
 		}
-					(*ifp->if_input)(ifp, m);
+					if_percpuq_enqueue(ifp->if_percpuq, m);
 				}
 				goto rcvloop;
 			}

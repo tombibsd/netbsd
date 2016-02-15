@@ -1002,7 +1002,7 @@ admsw_rxintr(struct admsw_softc *sc, int high)
 		bpf_mtap(ifp, m);
 
 		/* Pass it on. */
-		(*ifp->if_input)(ifp, m);
+		if_percpuq_enqueue(ifp->if_percpuq, m);
 		ifp->if_ipackets++;
 	}
 #ifdef ADMSW_EVENT_COUNTERS

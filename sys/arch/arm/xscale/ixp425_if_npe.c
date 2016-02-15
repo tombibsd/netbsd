@@ -1055,7 +1055,7 @@ npe_rxdone(int qid, void *arg)
 			 * Tap off here if there is a bpf listener.
 			 */
 			bpf_mtap(ifp, mrx);
-			ifp->if_input(ifp, mrx);
+			if_percpuq_enqueue(ifp->if_percpuq, mrx);
 		} else {
 fail:
 			/* discard frame and re-use mbuf */

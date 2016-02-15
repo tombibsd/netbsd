@@ -231,7 +231,8 @@ begin:
 				sc->rxq[bi].m->m_pkthdr.len = 
 					sc->rxq[bi].m->m_len = fl;
 				bpf_mtap(ifp, sc->rxq[bi].m);
-                                (*ifp->if_input)(ifp, sc->rxq[bi].m);
+				if_percpuq_enqueue(ifp->if_percpuq,
+				    sc->rxq[bi].m);
 				sc->rxq[bi].m = m;
 				bus_dmamap_load(sc->sc_dmat, 
 					sc->rxq[bi].m_dmamap, 

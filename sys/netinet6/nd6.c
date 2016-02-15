@@ -127,7 +127,6 @@ static void clear_llinfo_pqueue(struct llentry *);
 
 callout_t nd6_slowtimo_ch;
 callout_t nd6_timer_ch;
-extern callout_t in6_tmpaddrtimer_ch;
 
 static int fill_drlist(void *, size_t *, size_t);
 static int fill_prlist(void *, size_t *, size_t);

@@ -879,7 +879,7 @@ rkemac_rxintr(struct rkemac_softc *sc)
 
 		bpf_mtap(ifp, m);
 		ifp->if_ipackets++;
-		ifp->if_input(ifp, m);
+		if_percpuq_enqueue(ifp->if_percpuq, m);
 
 skip:
 		bus_dmamap_sync(sc->sc_dmat, rd->rd_map, 0,

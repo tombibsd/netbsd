@@ -1107,7 +1107,7 @@ again:
 		ifp->if_ipackets++;
 
 		/* Pass the packet up. */
-		(*ifp->if_input)(ifp, m);
+		if_percpuq_enqueue(ifp->if_percpuq, m);
 	}
 	xen_rmb();
 	sc->sc_rx_ring.rsp_cons = i;

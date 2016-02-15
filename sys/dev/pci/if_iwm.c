@@ -6832,6 +6832,8 @@ iwm_attach(device_t parent, device_t self, void *aux)
 	ether_ifattach(ifp, ic->ic_myaddr);	/* XXX */
 #endif
 	if_register(ifp);
+	/* Use common softint-based if_input */
+	ifp->if_percpuq = if_percpuq_create(ifp);
 
 	callout_init(&sc->sc_calib_to, 0);
 	callout_setfunc(&sc->sc_calib_to, iwm_calib_timeout, sc);

@@ -30,7 +30,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include "opt_multiprocessor.h"
 
 #if defined MULTIPROCESSOR
-#warning Queue Management Method 'Counters' not support yet 
+#warning Queue Management Method 'Counters' not support. Please use mvxpe instead of this.
 #endif
 
 #include <sys/param.h>
@@ -2085,7 +2085,7 @@ mvgbe_rxeof(struct mvgbe_softc *sc)
 		bpf_mtap(ifp, m);
 
 		/* pass it on. */
-		(*ifp->if_input)(ifp, m);
+		if_percpuq_enqueue(ifp->if_percpuq, m);
 	}
 }
 

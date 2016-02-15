@@ -422,7 +422,7 @@ awin_eth_if_input(struct awin_eth_softc *sc, struct mbuf *m)
 {
 	struct ifnet * const ifp = &sc->sc_ec.ec_if;
 
-	(*ifp->if_input)(ifp, m);
+	if_percpuq_enqueue(ifp->if_percpuq, m);
 }
 
 static void

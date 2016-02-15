@@ -1501,10 +1501,17 @@ netpgp_sign_memory(netpgp_t *netpgp,
 					&pubkey->key.pubkey, 0);
 			}
 		}
-		/* now decrypt key */
-		seckey = pgp_decrypt_seckey(keypair, netpgp->passfp);
-		if (seckey == NULL) {
-			(void) fprintf(io->errs, "Bad passphrase\n");
+		if (netpgp_getvar(netpgp, "ssh keys") == NULL) {
+			/* now decrypt key */
+			seckey = pgp_decrypt_seckey(keypair, netpgp->passfp);
+			if (seckey == NULL) {
+				(void) fprintf(io->errs, "Bad passphrase\n");
+			}
+		} else {
+			pgp_keyring_t	*secring;
+
+			secring = netpgp->secring;
+			seckey = &secring->keys[0].key.seckey;
 		}
 	}
 	if (seckey == NULL) {

@@ -24,7 +24,7 @@
 /cninit.c/1.11/Tue Feb  8 20:20:26 2011/-kk/
 /cons.c/1.75/Wed Jun  3 06:54:54 2015/-kk/
 /cons.h/1.27/Tue Feb  8 20:20:26 2011/-kk/
-/dev_verbose.c/1.1/Sun Sep 21 14:30:22 2014/-kk/
+/dev_verbose.c/1.2/Mon Feb 15 11:07:20 2016/-kk/
 /dev_verbose.h/1.2/Sun Nov 29 09:10:31 2015/-kk/
 /devlist2h.awk/1.1/Sun Sep 21 14:30:22 2014/-kk/
 /dksubr.c/1.86/Sun Jan 17 10:34:11 2016/-kk/

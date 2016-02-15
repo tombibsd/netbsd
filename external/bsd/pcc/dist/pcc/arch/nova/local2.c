@@ -1,4 +1,4 @@
-/*	Id: local2.c,v 1.11 2014/06/03 20:19:50 ragge Exp 	*/	
+/*	Id: local2.c,v 1.13 2015/03/28 08:28:46 ragge Exp 	*/	
 /*	$NetBSD$	*/
 /*
  * Copyright (c) 2006 Anders Magnusson (ragge@ludd.luth.se).
@@ -208,8 +208,9 @@ bfasg(NODE *p)
 static void
 starg(NODE *p)
 {
-	printf("	subl $%d,%%esp\n", p->n_stsize);
-	printf("	pushl $%d\n", p->n_stsize);
+	int sz = attr_find(p->n_ap, ATTR_P2STRUCT)->iarg(0);
+	printf("	subl $%d,%%esp\n", sz);
+	printf("	pushl $%d\n", sz);
 	expand(p, 0, "	pushl AL\n");
 	expand(p, 0, "	leal 8(%esp),A1\n");
 	expand(p, 0, "	pushl A1\n");
@@ -603,7 +604,7 @@ myxasm(struct interpass *ip, NODE *p)
 }
 
 void
-storemod(NODE *q, int off)
+storemod(NODE *q, int off, int reg)
 {
 	NODE *l, *r, *p;
 
@@ -612,7 +613,7 @@ storemod(NODE *q, int off)
 		q->n_name = "";
 		q->n_lval = -off/2 + ZPOFF;
 	} else {
-		l = mklnode(REG, 0, FPREG, INCREF(q->n_type));
+		l = mklnode(REG, 0, reg, INCREF(q->n_type));
 		r = mklnode(ICON, off, 0, INT);
 		p = mkbinode(PLUS, l, r, INCREF(q->n_type));
 		q->n_op = UMUL;

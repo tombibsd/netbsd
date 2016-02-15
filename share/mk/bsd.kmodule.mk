@@ -10,6 +10,7 @@ MKPIE=no
 CFLAGS+=	-g
 # Only need symbols for ctf, strip them after converting to CTF
 CTFFLAGS=	-L VERSION
+CTFMFLAGS=	-t -L VERSION
 .endif
 
 .include <bsd.sys.mk>
@@ -188,6 +189,9 @@ ${PROG}: ${OBJS} ${DPADD} ${KMODSCRIPT}
 		-Wl,-Map=${.TARGET}.map \
 		-o ${.TARGET} ${OBJS}
 .endif
+.endif
+.if defined(CTFMERGE)
+	${CTFMERGE} ${CTFMFLAGS} -o ${.TARGET} ${OBJS}
 .endif
 
 ##### Install rules

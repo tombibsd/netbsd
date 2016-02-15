@@ -597,7 +597,7 @@ qeintr(void *arg)
 				sc->sc_nextrx = 0;
 			bpf_mtap(ifp, m);
 			if ((status1 & QE_ESETUP) == 0)
-				(*ifp->if_input)(ifp, m);
+				if_percpuq_enqueue(ifp->if_percpuq, m);
 			else
 				m_freem(m);
 		}

@@ -48,7 +48,7 @@
 /kern_lock.c/1.157/Wed Apr 22 07:37:29 2015/-kk/
 /kern_lwp.c/1.182/Sat Dec  5 11:19:34 2015/-kk/
 /kern_malloc.c/1.145/Mon Feb 16 03:14:28 2015/-kk/
-/kern_module.c/1.109/Fri Dec 25 05:40:29 2015/-kk/
+/kern_module.c/1.110/Mon Feb 15 11:07:34 2016/-kk/
 /kern_module_vfs.c/1.13/Thu Dec 11 09:09:52 2014/-kk/
 /kern_mutex.c/1.62/Wed Jun  3 06:55:12 2015/-kk/
 /kern_mutex_obj.c/1.5/Tue Sep 27 01:02:38 2011/-kk/
@@ -99,7 +99,7 @@
 /subr_cpufreq.c/1.9/Thu Feb 27 08:56:07 2014/-kk/
 /subr_debug.c/1.7/Wed Apr 30 20:20:53 2008/-kk/
 /subr_device.c/1.3/Sat Mar 21 02:37:59 2015/-kk/
-/subr_devsw.c/1.33/Fri Oct  3 09:51:00 2014/-kk/
+/subr_devsw.c/1.34/Mon Feb 15 11:07:34 2016/-kk/
 /subr_disk.c/1.116/Sun Jan 17 10:34:22 2016/-kk/
 /subr_disk_mbr.c/1.46/Thu Oct 24 10:28:58 2013/-kk/
 /subr_disk_open.c/1.13/Fri Dec 25 05:40:29 2015/-kk/
@@ -124,7 +124,7 @@
 /subr_pcu.c/1.19/Tue Jun  3 03:09:55 2014/-kk/
 /subr_percpu.c/1.17/Tue Dec  9 04:43:52 2014/-kk/
 /subr_physmap.c/1.2/Thu Oct 24 10:28:58 2013/-kk/
-/subr_pool.c/1.205/Sun Sep 13 01:07:35 2015/-kk/
+/subr_pool.c/1.206/Mon Feb 15 11:07:34 2016/-kk/
 /subr_prf.c/1.159/Sun Sep 13 01:07:35 2015/-kk/
 /subr_prof.c/1.47/Sun Jul 20 13:26:33 2014/-kk/
 /subr_pserialize.c/1.8/Mon Jun 22 02:35:08 2015/-kk/
@@ -178,7 +178,7 @@
 /uipc_socket2.c/1.122/Sun Sep 13 01:07:35 2015/-kk/
 /uipc_syscalls.c/1.181/Fri Nov 20 02:19:28 2015/-kk/
 /uipc_usrreq.c/1.179/Wed May 13 03:33:14 2015/-kk/
-/vfs_bio.c/1.258/Thu Jan 28 08:36:20 2016/-kk/
+/vfs_bio.c/1.259/Mon Feb 15 11:07:34 2016/-kk/
 /vfs_cache.c/1.109/Fri Dec 25 05:40:30 2015/-kk/
 /vfs_cwd.c/1.4/Tue Feb 15 15:54:28 2011/-kk/
 /vfs_dirhash.c/1.12/Fri Oct  3 09:51:01 2014/-kk/

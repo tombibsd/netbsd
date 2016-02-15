@@ -121,7 +121,8 @@ virtif_clone(struct if_clone *ifc, int num)
 	ifp->if_mtu = ETHERMTU;
 	ifp->if_dlt = DLT_EN10MB;
 
-	if_attach(ifp);
+	if_initialize(ifp);
+	if_register(ifp);
 
 #ifndef RUMP_VIF_LINKSTR
 	/*
@@ -377,7 +378,7 @@ VIF_DELIVERPKT(struct virtif_sc *sc, struct iovec *iov, size_t iovlen)
 		m->m_pkthdr.rcvif = ifp;
 		KERNEL_LOCK(1, NULL);
 		bpf_mtap(ifp, m);
-		ifp->if_input(ifp, m);
+		if_input(ifp, m);
 		KERNEL_UNLOCK_LAST(NULL);
 	} else {
 		m_freem(m);

@@ -4647,7 +4647,7 @@ bnx_rx_intr(struct bnx_softc *sc)
 			ifp->if_ipackets++;
 			DBPRINT(sc, BNX_VERBOSE_RECV,
 			    "%s(): Passing received frame up.\n", __func__);
-			(*ifp->if_input)(ifp, m);
+			if_percpuq_enqueue(ifp->if_percpuq, m);
 			DBRUNIF(1, sc->rx_mbuf_alloc--);
 
 		}

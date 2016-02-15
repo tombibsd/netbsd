@@ -132,7 +132,7 @@ mpls_clone_create(struct if_clone *ifc, int unit)
 	sc->sc_if.if_dlt = DLT_NULL;
 	sc->sc_if.if_mtu = 1500;
 	sc->sc_if.if_flags = 0;
-	sc->sc_if.if_input = mpls_input;
+	sc->sc_if._if_input = mpls_input;
 	sc->sc_if.if_output = mpls_output;
 	sc->sc_if.if_ioctl = mpls_ioctl;
 

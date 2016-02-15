@@ -574,7 +574,7 @@ be_read(struct be_softc *sc, int idx, int len)
 	 */
 	bpf_mtap(ifp, m);
 	/* Pass the packet up. */
-	(*ifp->if_input)(ifp, m);
+	if_percpuq_enqueue(ifp->if_percpuq, m);
 }
 
 /*

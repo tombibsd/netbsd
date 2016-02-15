@@ -34,5 +34,7 @@ SRCS=		alist.c \
 		traverse.c \
 		util.c
 
+COPTS.st_parse.c +=	-Wno-format-nonliteral
+COPTS.util.c +=		-Wno-format-nonliteral
 
 .include <bsd.prog.mk>

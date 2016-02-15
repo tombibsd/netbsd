@@ -246,7 +246,7 @@ rump_init(void)
 	/* init minimal lwp/cpu context */
 	rump_lwproc_init();
 	l = &lwp0;
-	l->l_cpu = l->l_target_cpu = rump_cpu;
+	l->l_cpu = l->l_target_cpu = &rump_bootcpu;
 	rump_lwproc_curlwp_set(l);
 
 	/* retrieve env vars which affect the early stage of bootstrap */

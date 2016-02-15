@@ -947,7 +947,7 @@ dp8390_read(struct dp8390_softc *sc, int buf, u_short len)
 	 */
 	bpf_mtap(ifp, m);
 
-	(*ifp->if_input)(ifp, m);
+	if_percpuq_enqueue(ifp->if_percpuq, m);
 }
 
 

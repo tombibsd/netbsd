@@ -1548,7 +1548,7 @@ ale_rxeof(struct ale_softc *sc)
 		bpf_mtap(ifp, m);
 
 		/* Pass it to upper layer. */
-		(*ifp->if_input)(ifp, m);
+		if_percpuq_enqueue(ifp->if_percpuq, m);
 
 		ale_rx_update_page(sc, &rx_page, length, &prod);
 	}

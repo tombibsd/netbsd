@@ -264,7 +264,7 @@ ip6_etherip_input(struct mbuf **mp, int *offp, int proto)
 	ifp->if_ipackets++;
 
 	s = splnet();
-	(ifp->if_input)(ifp, m);
+	if_input(ifp, m);
 	splx(s);
 
 	return IPPROTO_DONE;

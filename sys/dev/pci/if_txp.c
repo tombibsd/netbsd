@@ -751,7 +751,7 @@ txp_rx_reclaim(struct txp_softc *sc, struct txp_rx_ring *r, struct txp_dma_alloc
 			    continue);
 		}
 
-		(*ifp->if_input)(ifp, m);
+		if_percpuq_enqueue(ifp->if_percpuq, m);
 
 next:
 		bus_dmamap_sync(sc->sc_dmat, dma->dma_map,

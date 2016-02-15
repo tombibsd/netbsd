@@ -766,7 +766,13 @@ ieee80211_deliver_data(struct ieee80211com *ic,
 			/* XXX goto err? */
 			VLAN_INPUT_TAG(ifp, m, ni->ni_vlan, goto out);
 		}
-		(*ifp->if_input)(ifp, m);
+
+		/*
+		 * XXX once ieee80211_input (or rxintr itself) runs in softint
+		 * we have to change here too to use if_input.
+		 */
+		KASSERT(ifp->if_percpuq);
+		if_percpuq_enqueue(ifp->if_percpuq, m);
 	}
 	return;
   out:

@@ -1252,7 +1252,7 @@ ea_read(struct seeq8005_softc *sc, int addr, int len)
 	 */
 	bpf_mtap(ifp, m);
 
-	(*ifp->if_input)(ifp, m);
+	if_percpuq_enqueue(ifp->if_percpuq, m);
 }
 
 /*

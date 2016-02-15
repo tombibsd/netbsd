@@ -808,7 +808,7 @@ xge_intr(void *pv)
 
 		bpf_mtap(ifp, m);
 
-		(*ifp->if_input)(ifp, m);
+		if_percpuq_enqueue(ifp->if_percpuq, m);
 
 		if (++sc->sc_nextrx == NRXREAL)
 			sc->sc_nextrx = 0;

@@ -955,7 +955,7 @@ gfe_rx_get(struct gfe_softc *sc, enum gfe_rxprio rxprio)
 		    (eh->ether_dhost[0] & 1) != 0 ||
 		    memcmp(eh->ether_dhost, CLLADDR(ifp->if_sadl),
 							ETHER_ADDR_LEN) == 0) {
-			(*ifp->if_input)(ifp, m);
+			if_percpuq_enqueue(ifp->if_percpuq, m);
 			m = NULL;
 			GE_DPRINTF(sc, (">"));
 		} else {

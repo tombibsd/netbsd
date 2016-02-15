@@ -384,7 +384,7 @@ s32 ixgbe_set_vfta_vf(struct ixgbe_hw *hw, u32 vlan, u32 vind, bool vlan_on)
 	msgbuf[0] = IXGBE_VF_SET_VLAN;
 	msgbuf[1] = vlan;
 	/* Setting the 8 bit field MSG INFO to TRUE indicates "add" */
-	msgbuf[0] |= vlan_on << IXGBE_VT_MSGINFO_SHIFT;
+	msgbuf[0] |= (u32)vlan_on << IXGBE_VT_MSGINFO_SHIFT;
 
 	ret_val = mbx->ops.write_posted(hw, msgbuf, 2, 0);
 	if (!ret_val)

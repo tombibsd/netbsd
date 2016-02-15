@@ -1,4 +1,4 @@
-/*	Id: table.c,v 1.26 2012/09/25 19:17:50 ragge Exp 	*/	
+/*	Id: table.c,v 1.28 2014/10/12 10:05:28 ragge Exp 	*/	
 /*	$NetBSD$	*/
 /*
  * Copyright(C) Caldera International Inc. 2001-2002. All rights reserved.
@@ -358,7 +358,7 @@ struct optab  table[] = {
 	SCON|SBREG|SNAME|SOREG,	TLL|TDOUBLE,
 	SANY,	TANY,
 		0,	RNULL,
-		"	movq	AL,-(%sp)\n" },
+		"	movq	Zl,-(%sp)\n" },
 
 /* RS for signed <= int converted to negative LS */
 #if 0
@@ -406,7 +406,7 @@ struct optab  table[] = {
 	SBREG|AWD,	TLL,
 	SAREG|SBREG|AWD,	TANY,
 		NBREG|NBSL|NBSR,	RESC1|RESCC,
-		"	ashq	AR,AL,A1\n", },
+		"	ashq	AR,Zl,A1\n", },
 
 { LS,	INAREG|INAREG|FORCC,
 	SAREG|AWD,	TANYFIXED,
@@ -452,13 +452,13 @@ struct optab  table[] = {
 	SBREG|AWD,	TBREG,
 	SBREG|AWD,	TBREG,
 		0,	0,
-		"	movq	AR,AL\n", },
+		"	movq	Zr,AL\n", },
 
 { ASSIGN,	INBREG,
 	SBREG,	TBREG,
 	SBREG|AWD,	TBREG,
 		0,	RDEST,
-		"	movq	AR,AL\n", },
+		"	movq	Zr,AL\n", },
 
 { ASSIGN,	INBREG,
 	SBREG|AWD,	TBREG,
@@ -565,7 +565,7 @@ struct optab  table[] = {
 	SANY,	TANY,
 	SCON|SOREG|SNAME,	TLONGLONG|TULONGLONG,
 		NBREG,	RESC1,
-		"	movq AL,A1\n", },
+		"	movq Zl,A1\n", },
 
 { OPLTYPE,	INBREG,
 	SANY,	TANY,

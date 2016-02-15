@@ -1,6 +1,6 @@
 /Makefile/1.4/Wed Apr 11 19:07:37 2001/-kk/
 /agten.c/1.32/Thu Oct 24 10:28:58 2013/-kk/
-/be.c/1.81/Wed Apr 22 07:36:59 2015/-kk/
+/be.c/1.82/Mon Feb 15 11:07:26 2016/-kk/
 /bereg.h/1.9/Sat Sep 19 11:53:42 2009/-kk/
 /bpp.c/1.41/Fri Oct  3 09:09:20 2014/-kk/
 /bppreg.h/1.2/Mon Apr 28 20:23:57 2008/-kk/
@@ -33,7 +33,7 @@
 /mgxreg.h/1.2/Mon Jan 12 06:48:53 2015/-kk/
 /p9100.c/1.62/Fri Oct  3 09:09:20 2014/-kk/
 /p9100reg.h/1.6/Fri Sep 21 01:07:44 2012/-kk/
-/qe.c/1.63/Wed Apr 22 07:36:59 2015/-kk/
+/qe.c/1.64/Mon Feb 15 11:07:26 2016/-kk/
 /qec.c/1.50/Sat Sep 19 11:53:42 2009/-kk/
 /qecreg.h/1.4/Sat Sep 19 11:53:42 2009/-kk/
 /qecvar.h/1.14/Sat Sep 19 04:48:18 2009/-kk/

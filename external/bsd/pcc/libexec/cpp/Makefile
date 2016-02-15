@@ -10,8 +10,7 @@
 
 PROG=	pcpp
 
-SRCS=	cpy.y
-SRCS+=	cpp.c token.c
+SRCS+=	cpc.c cpp.c token.c
 
 MAN=	pcpp.1
 
@@ -24,8 +23,7 @@ CPPFLAGS+=	-I${.OBJDIR}
 CPPFLAGS+=	-I${PCC_DIST}/mip
 CPPFLAGS+=	-I${PCC_DIST}/cc/cpp
 
-# generate cpy.h
-YHEADER=
+COPTS.cpp.c+=	${${ACTIVE_CC} == "gcc" :? -Wno-error=cast-qual :}
 
 CLEANFILES+=	pcpp.1
 

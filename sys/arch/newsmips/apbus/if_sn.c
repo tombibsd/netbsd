@@ -1059,7 +1059,7 @@ sonic_read(struct sn_softc *sc, void *pkt, int len)
 		return 0;
 	/* Pass the packet to any BPF listeners. */
 	bpf_mtap(ifp, m);
-	(*ifp->if_input)(ifp, m);
+	if_percpuq_enqueue(ifp->if_percpuq, m);
 	return 1;
 }
 

@@ -1,6 +1,6 @@
 /clock.c/1.26/Sat Jan 21 22:09:56 2012/-kk/
 /cpu.c/1.73/Fri Apr 11 02:03:39 2014/-kk/
-/if_veth.c/1.5/Sat Jan 21 22:09:56 2012/-kk/
+/if_veth.c/1.6/Mon Feb 15 11:07:15 2016/-kk/
 /ld_thunkbus.c/1.30/Sat Jan 21 22:09:57 2012/-kk/
 /mainbus.c/1.9/Sat Jan  7 18:10:18 2012/-kk/
 /ttycons.c/1.20/Fri Oct  3 09:09:08 2014/-kk/

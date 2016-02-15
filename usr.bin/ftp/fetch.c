@@ -1196,6 +1196,8 @@ connectmethod(int s, FETCH *fin, struct urlinfo *oui, struct urlinfo *ui,
 			goto cleanup_fetch_url;
 		if (len == 0)
 			break;
+
+		cp = buf;
 		if (match_token(&cp, "Proxy-Authenticate:")) {
 			const char *token;
 			if (!(token = match_token(&cp, "Basic"))) {

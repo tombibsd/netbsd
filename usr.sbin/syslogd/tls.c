@@ -1590,8 +1590,8 @@ tls_split_messages(struct TLS_Incoming_Conn *c)
 	}
 
 	/* read length prefix, always at start of buffer */
-	while (isdigit((unsigned char)c->inbuf[offset])
-	    && offset < c->read_pos) {
+	while (offset < c->read_pos && isdigit((unsigned char)c->inbuf[offset]))
+	{
 		msglen *= 10;
 		msglen += c->inbuf[offset] - '0';
 		offset++;

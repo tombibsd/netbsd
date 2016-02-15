@@ -4,7 +4,7 @@
 /dmac3.c/1.13/Mon Dec 14 00:46:09 2009/-kk/
 /dmac3reg.h/1.3/Wed Apr  9 15:43:03 2008/-kk/
 /dmac3var.h/1.1/Wed Apr  9 15:40:30 2008/-kk/
-/if_sn.c/1.34/Sat Oct 13 06:24:15 2012/-kk/
+/if_sn.c/1.35/Mon Feb 15 11:06:54 2016/-kk/
 /if_sn_ap.c/1.11/Wed Apr  9 15:40:30 2008/-kk/
 /if_snreg.h/1.1/Wed Dec 22 05:55:25 1999/-kk/
 /if_snvar.h/1.13/Sun Feb 20 07:56:31 2011/-kk/

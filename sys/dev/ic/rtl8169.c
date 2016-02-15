@@ -1358,7 +1358,7 @@ re_rxeof(struct rtk_softc *sc)
 			     continue);
 		}
 		bpf_mtap(ifp, m);
-		(*ifp->if_input)(ifp, m);
+		if_percpuq_enqueue(ifp->if_percpuq, m);
 	}
 
 	sc->re_ldata.re_rx_prodidx = i;

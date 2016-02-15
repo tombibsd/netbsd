@@ -13,3 +13,9 @@ BFDDIR=		${TOOLCHAINOBJ}/build/bfd
 IBERTYDIR=	${TOOLCHAINOBJ}/build/libiberty
 
 .include "${.CURDIR}/../Makefile.host"
+
+LIBDL!=		grep -- -ldl ${TOOLCHAINOBJ}/build/ld/Makefile || echo no
+
+.if ${LIBDL} != "no"
+LDADD+=	-ldl
+.endif

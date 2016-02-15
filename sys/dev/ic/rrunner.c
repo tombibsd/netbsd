@@ -2377,7 +2377,7 @@ esh_read_snap_ring(struct esh_softc *sc, u_int16_t consumer, int error)
 				} else {
 					m = m_pullup(m,
 					    sizeof(struct hippi_header));
-					(*ifp->if_input)(ifp, m);
+					if_percpuq_enqueue(ifp->if_percpuq, m);
 				}
 			} else {
 				ifp->if_ierrors++;

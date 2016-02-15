@@ -1759,7 +1759,7 @@ et_rxeof(struct et_softc *sc)
 				bpf_mtap(ifp, m);
 
 				ifp->if_ipackets++;
-				(*ifp->if_input)(ifp, m);
+				if_percpuq_enqueue(ifp->if_percpuq, m);
 			}
 		} else {
 			ifp->if_ierrors++;

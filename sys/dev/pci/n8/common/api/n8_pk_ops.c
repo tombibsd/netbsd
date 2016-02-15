@@ -100,7 +100,7 @@ static void stripLeadingZeros(const N8_SizedBuffer_t *in_p,
    out_p->value_p = in_p->value_p;
 
    i = 0;
-   while ((in_p->value_p[i] == 0x0) && (i < in_p->lengthBytes))
+   while (i < in_p->lengthBytes && in_p->value_p[i] == 0x0)
    {
       i++;
    }

@@ -129,7 +129,7 @@
 	
 #ifdef SUN4V
 	.macro	SET_MMU_CONTEXTID_SUN4V ctxid,ctx
-	stxa	\ctxid, [\ctx] ASI_MMU;
+	stxa	\ctxid, [\ctx] ASI_MMU_CONTEXTID;
 	.endm
 #endif	
 		

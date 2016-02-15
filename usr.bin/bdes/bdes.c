@@ -425,7 +425,7 @@ cvtkey(char *obuf, char *ibuf)
 			/*
 			 * now translate it, bombing on any illegal hex digit
 			 */
-			for (i = 0; ibuf[i] && i < 16; i++)
+			for (i = 0; i < 16 && ibuf[i]; i++)
 				if ((nbuf[i] = tobinhex(ibuf[i], 16)) == -1)
 					bdes_err(-1, "bad hex digit in key");
 			while (i < 16)

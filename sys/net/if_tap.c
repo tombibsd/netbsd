@@ -1061,7 +1061,7 @@ tap_dev_write(int unit, struct uio *uio, int flags)
 
 	bpf_mtap(ifp, m);
 	s = splnet();
-	(*ifp->if_input)(ifp, m);
+	if_input(ifp, m);
 	splx(s);
 
 	return (0);

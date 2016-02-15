@@ -585,7 +585,7 @@ qn_get_packet(struct qn_softc *sc, u_short len)
 	/* Tap off BPF listeners */
 	bpf_mtap(ifp, head);
 
-	(*ifp->if_input)(ifp, head);
+	if_percpuq_enqueue(ifp->if_percpuq, head);
 	return;
 
 bad:

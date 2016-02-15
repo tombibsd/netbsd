@@ -158,7 +158,7 @@ agr_input(struct ifnet *ifp_port, struct mbuf *m)
 #endif
 
 	bpf_mtap(ifp, m);
-	(*ifp->if_input)(ifp, m);
+	if_percpuq_enqueue(ifp->if_percpuq, m);
 }
 
 /*

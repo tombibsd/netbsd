@@ -1969,7 +1969,7 @@ acpi_print_rsdt(ACPI_TABLE_HEADER *rsdp)
 			addr = le64toh(xsdt->TableOffsetEntry[i]);
 			break;
 		default:
-			assert((addr = 0));
+			assert((addr == 0));
 		}
 		printf("0x%08lx", addr);
 	}
@@ -2235,7 +2235,7 @@ acpi_handle_rsdt(ACPI_TABLE_HEADER *rsdp)
 			addr = le64toh(xsdt->TableOffsetEntry[i]);
 			break;
 		default:
-			assert((addr = 0));
+			assert((addr == 0));
 		}
 
 		sdp = (ACPI_TABLE_HEADER *)acpi_map_sdt(addr);
@@ -2471,7 +2471,7 @@ sdt_from_rsdt(ACPI_TABLE_HEADER *rsdp, const char *sig, ACPI_TABLE_HEADER *last)
 			addr = le64toh(xsdt->TableOffsetEntry[i]);
 			break;
 		default:
-			assert((addr = 0));
+			assert((addr == 0));
 		}
 		sdt = (ACPI_TABLE_HEADER *)acpi_map_sdt(addr);
 		if (last != NULL) {

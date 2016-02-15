@@ -681,7 +681,7 @@ mtd_rxirq(struct mtd_softc *sc)
 
 		bpf_mtap(ifp, m);
 		/* Pass the packet up */
-		(*ifp->if_input)(ifp, m);
+		if_percpuq_enqueue(ifp->if_percpuq, m);
 	}
 
 	return 1;

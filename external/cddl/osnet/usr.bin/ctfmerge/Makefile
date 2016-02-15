@@ -29,6 +29,8 @@ SRCS=		alist.c \
 		traverse.c \
 		util.c
 
+COPTS.util.c +=		-Wno-format-nonliteral
+
 .if (${HOSTPROG:U} == "")
 LDADD+=-lpthread
 DPADD+=${LIBPTHREAD}

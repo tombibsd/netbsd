@@ -1013,7 +1013,7 @@ cmalo_rx(struct malo_softc *sc)
 
 	/* push the frame up to the network stack if not in monitor mode */
 	if (ic->ic_opmode != IEEE80211_M_MONITOR) {
-		(*ifp->if_input)(ifp, m);
+		if_percpuq_enqueue(ifp->if_percpuq, m);
 		ifp->if_ipackets++;
 	}
 }

@@ -1489,7 +1489,7 @@ octeon_eth_recv(struct octeon_eth_softc *sc, uint64_t *work)
 		octeon_eth_send_queue_flush_sync(sc);
 	/* XXX XXX XXX */
 
-	(*ifp->if_input)(ifp, m);
+	if_percpuq_enqueue(ifp->if_percpuq, m);
 
 	return 0;
 
@@ -1826,7 +1826,7 @@ octeon_eth_sysctl_verify(SYSCTLFN_ARGS)
 					octeon_eth_mii_statchg(ifp);
 					/* octeon_gmx_set_filter(sc->sc_gmx_port); */
 				}
-				ifp->if_input = ether_input;
+				ifp->_if_input = ether_input;
 			}
 			else {
 				if (!ISSET(ifp->if_flags, IFF_PROMISC)) {
@@ -1834,7 +1834,7 @@ octeon_eth_sysctl_verify(SYSCTLFN_ARGS)
 					octeon_eth_mii_statchg(ifp);
 					/* octeon_gmx_set_filter(sc->sc_gmx_port); */
 				}
-				ifp->if_input = octeon_eth_recv_redir;
+				ifp->_if_input = octeon_eth_recv_redir;
 			}
 		}
 		splx(s);

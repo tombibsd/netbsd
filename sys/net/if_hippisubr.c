@@ -288,7 +288,7 @@ hippi_ifattach(struct ifnet *ifp, void *lla)
 	ifp->if_dlt = DLT_HIPPI;
 	ifp->if_mtu = HIPPIMTU;
 	ifp->if_output = hippi_output;
-	ifp->if_input = hippi_input;
+	ifp->_if_input = hippi_input;
 	ifp->if_baudrate = IF_Mbps(800);	/* XXX double-check */
 
 	if_set_sadl(ifp, lla, 6, true);

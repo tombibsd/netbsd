@@ -22,13 +22,12 @@ MAN=
 # generate cgram.h
 YHEADER=
 
+CPPFLAGS+=	-DLANG_CXX
 CPPFLAGS+=	-I${.OBJDIR}
 CPPFLAGS+=	-I${PCC_DIST}/mip
 CPPFLAGS+=	-I${PCC_DIST}/os/${TARGOS}
 CPPFLAGS+=	-I${PCC_DIST}/arch/${TARGMACH}
 CPPFLAGS+=	-I${PCC_DIST}/cc/cxxcom
-
-COPTS.pftn.c+=	${${ACTIVE_CC} == "gcc" :? -Wno-uninitialized :}
 
 DPSRCS=	external.c
 

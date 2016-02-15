@@ -479,7 +479,7 @@ lance_read(struct lance_softc *sc, int boff, int len)
 	bpf_mtap(ifp, m);
 
 	/* Pass the packet up. */
-	(*ifp->if_input)(ifp, m);
+	if_percpuq_enqueue(ifp->if_percpuq, m);
 }
 
 #undef	ifp

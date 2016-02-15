@@ -30,6 +30,7 @@
 class EPOC32 {
 private:
 	CPU *cpu;
+	EPOC32(const EPOC32 &);
 
 public:
 	EPOC32(void);

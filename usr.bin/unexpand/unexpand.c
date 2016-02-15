@@ -154,8 +154,8 @@ tabify(const char *line, size_t len)
 				dcol = (1 + dcol / DSTOP) * DSTOP;
 				continue;
 			} else {
-				for (n = 0; tabstops[n] - 1 < dcol &&
-				    n < nstops; n++)
+				for (n = 0; n < nstops &&
+				    tabstops[n] - 1 < dcol; n++)
 					continue;
 				if (n < nstops - 1 && tabstops[n] - 1 < limit) {
 					dcol = tabstops[n];
@@ -174,10 +174,10 @@ tabify(const char *line, size_t len)
 				ocol = (1 + ocol / DSTOP) * DSTOP;
 			}
 		} else {
-			for (n = 0; tabstops[n] <= ocol && n < nstops; n++)
+			for (n = 0; n < nstops && tabstops[n] <= ocol; n++)
 				continue;
-			while (tabstops[n] <= dcol && ocol < dcol &&
-			    n < nstops && ocol < limit) {
+			while (n < nstops && tabstops[n] <= dcol && ocol < dcol
+			    && ocol < limit) {
 				if (putchar('\t') == EOF)
 					goto out;
 				ocol = tabstops[n++];

@@ -158,6 +158,25 @@ static bool pmap_is_referenced_locked(struct vm_page *);
 
 static void ctx_free(struct pmap *, struct cpu_info *);
 
+/* set dmmu secondary context */
+static __inline void
+dmmu_set_secondary_context(uint ctx)
+{
+	if (!CPU_ISSUN4V)
+		__asm volatile(
+			"stxa %0,[%1]%2;	"
+			"membar #Sync		"
+			: : "r" (ctx), "r" (CTX_SECONDARY), "n" (ASI_DMMU)
+			: "memory");
+	else
+		__asm volatile(
+			"stxa %0,[%1]%2;	"
+			"membar #Sync		"
+			: : "r" (ctx), "r" (CTX_SECONDARY), "n" (ASI_MMU_CONTEXTID)
+			: "memory");
+		
+}
+
 /*
  * Check if any MMU has a non-zero context
  */

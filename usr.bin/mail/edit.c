@@ -163,7 +163,7 @@ edit1(int *msgvec, int editortype)
 	 * Deal with each message to be edited . . .
 	 */
 	msgCount = get_msgCount();
-	for (i = 0; msgvec[i] && i < msgCount; i++) {
+	for (i = 0; i < msgCount && msgvec[i]; i++) {
 		sigset_t oset;
 		struct sigaction osa;
 

@@ -560,6 +560,7 @@ uhub_explore(usbd_device_handle dev)
 			    "port %d reset failed\n", port);
 			continue;
 		}
+#if 0
 		/* Get port status again, it might have changed during reset */
 		err = usbd_get_port_status(dev, port, &up->status);
 		if (err) {
@@ -567,6 +568,7 @@ uhub_explore(usbd_device_handle dev)
 			    "err %d", device_unit(sc->sc_dev), port, err, 0);
 			continue;
 		}
+#endif
 		status = UGETW(up->status.wPortStatus);
 		change = UGETW(up->status.wPortChange);
 		if (!(status & UPS_CURRENT_CONNECT_STATUS)) {

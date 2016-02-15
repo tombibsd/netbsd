@@ -359,8 +359,9 @@ seattach(device_t parent, device_t self, void *aux)
 	IFQ_SET_READY(&ifp->if_snd);
 
 	/* Attach the interface. */
-	if_attach(ifp);
+	if_initialize(ifp);
 	ether_ifattach(ifp, myaddr);
+	if_register(ifp);
 }
 
 
@@ -674,7 +675,7 @@ se_read(struct se_softc *sc, char *data, int datalen)
 		bpf_mtap(ifp, m);
 
 		/* Pass the packet up. */
-		(*ifp->if_input)(ifp, m);
+		if_input(ifp, m);
 
 	next_packet:
 		data += len;

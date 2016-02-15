@@ -1282,7 +1282,7 @@ ie_read_frame(struct ie_softc *sc, int num)
 
     bpf_mtap(ifp, m);
 
-    (*ifp->if_input)(ifp, m);
+    if_percpuq_enqueue(ifp->if_percpuq, m);
 }
 
 void

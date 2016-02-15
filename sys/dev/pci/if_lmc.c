@@ -3510,7 +3510,7 @@ ifnet_setup(struct ifnet *ifp)
   ifp->if_flags    = IFF_POINTOPOINT;
   ifp->if_flags   |= IFF_SIMPLEX;
   ifp->if_flags   |= IFF_NOARP;
-  ifp->if_input    = ifnet_input;
+  ifp->_if_input    = ifnet_input;
   ifp->if_output   = ifnet_output;
   ifp->if_start    = ifnet_start;
   ifp->if_ioctl    = ifnet_ioctl;

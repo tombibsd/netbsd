@@ -1,4 +1,4 @@
-/*	Id: table.c,v 1.54 2014/07/01 16:52:20 ragge Exp 	*/	
+/*	Id: table.c,v 1.55 2015/02/07 08:47:54 ragge Exp 	*/	
 /*	$NetBSD$	*/
 /*
  * Copyright (c) 2008 Michael Shalayeff
@@ -1527,7 +1527,7 @@ struct optab table[] = {
 	SBREG,		TDOUBLE|TFLOAT,
 	SBREG,		TDOUBLE|TFLOAT,
 		0,	RLEFT,
-		"	xorpZf LC(%rip),AL\n", },
+		"	xorpZf Zc(%rip),AL\n", },
 
 { UMINUS,	INCREG,
 	SCREG,	TLDOUBLE,

@@ -597,7 +597,7 @@ fddi_ifattach(struct ifnet *ifp, void *lla)
 	ifp->if_dlt = DLT_FDDI;
 	ifp->if_mtu = FDDIMTU;
 	ifp->if_output = fddi_output;
-	ifp->if_input = fddi_input;
+	ifp->_if_input = fddi_input;
 	ifp->if_baudrate = IF_Mbps(100);
 #ifdef IFF_NOTRAILERS
 	ifp->if_flags |= IFF_NOTRAILERS;

@@ -8,7 +8,7 @@
 /cdvar.h/1.32/Wed Apr 22 07:37:00 2015/-kk/
 /ch.c/1.90/Fri Oct  3 09:09:20 2014/-kk/
 /files.scsipi/1.41/Sun Dec 11 12:23:50 2005/-kk/
-/if_se.c/1.88/Sun Sep 13 01:07:14 2015/-kk/
+/if_se.c/1.89/Mon Feb 15 11:07:27 2016/-kk/
 /scsi_all.h/1.25/Sat Feb 25 10:17:14 2012/-kk/
 /scsi_base.c/1.90/Fri Apr 20 20:23:21 2012/-kk/
 /scsi_changer.h/1.20/Sun Dec 11 12:23:50 2005/-kk/

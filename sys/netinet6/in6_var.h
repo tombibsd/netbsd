@@ -502,6 +502,7 @@ extern const struct in6_addr zeroin6_addr;
 extern const u_char inet6ctlerrmap[];
 extern unsigned long in6_maxmtu;
 extern bool in6_present;
+extern callout_t in6_tmpaddrtimer_ch;
 
 /*
  * Macro for finding the internet address structure (in6_ifaddr) corresponding

@@ -358,7 +358,8 @@ cemac_intr(void *arg)
 				sc->rxq[bi].m->m_pkthdr.csum_flags = csum;
 				bpf_mtap(ifp, sc->rxq[bi].m);
 				DPRINTFN(2,("received %u bytes packet\n", fl));
-                                (*ifp->if_input)(ifp, sc->rxq[bi].m);
+                                if_percpuq_enqueue(ifp->if_percpuq,
+						   sc->rxq[bi].m);
 				if (mtod(m, intptr_t) & 3)
 					m_adj(m, mtod(m, intptr_t) & 3);
 				sc->rxq[bi].m = m;

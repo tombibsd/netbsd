@@ -2030,7 +2030,7 @@ ti_rxeof(struct ti_softc *sc)
 			    continue);
 		}
 
-		(*ifp->if_input)(ifp, m);
+		if_percpuq_enqueue(ifp->if_percpuq, m);
 	}
 
 	/* Only necessary on the Tigon 1. */

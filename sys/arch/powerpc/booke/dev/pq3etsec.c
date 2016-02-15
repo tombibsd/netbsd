@@ -1577,7 +1577,7 @@ pq3etsec_rx_input(
 	 */
 	int s = splnet();
 	bpf_mtap(ifp, m);
-	(*ifp->if_input)(ifp, m);
+	if_input(ifp, m);
 	splx(s);
 }
 

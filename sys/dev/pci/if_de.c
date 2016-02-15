@@ -3750,7 +3750,7 @@ tulip_rx_intr(
 		ms->m_pkthdr.len = total_len;
 		ms->m_pkthdr.rcvif = ifp;
 #if defined(__NetBSD__)
-		(*ifp->if_input)(ifp, ms);
+		if_percpuq_enqueue(ifp->if_percpuq, ms);
 #else
 		m_adj(ms, sizeof(struct ether_header));
 		ether_input(ifp, &eh, ms);
@@ -3764,7 +3764,7 @@ tulip_rx_intr(
 		m0->m_len = m0->m_pkthdr.len = total_len;
 		m0->m_pkthdr.rcvif = ifp;
 #if defined(__NetBSD__)
-		(*ifp->if_input)(ifp, m0);
+		if_percpuq_enqueue(ifp->if_percpuq, m0);
 #else
 		m_adj(m0, sizeof(struct ether_header));
 		ether_input(ifp, &eh, m0);

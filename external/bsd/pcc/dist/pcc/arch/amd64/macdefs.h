@@ -1,4 +1,4 @@
-/*	Id: macdefs.h,v 1.31 2014/06/01 11:35:02 ragge Exp 	*/	
+/*	Id: macdefs.h,v 1.35 2015/11/24 17:35:11 ragge Exp 	*/	
 /*	$NetBSD$	*/
 /*
  * Copyright (c) 2008 Michael Shalayeff
@@ -279,11 +279,19 @@ int numconv(void *ip, void *p, void *q);
 	{ "__builtin_va_end", amd64_builtin_va_end, 0, 1, 0, VOID },	\
 	{ "__builtin_va_copy", amd64_builtin_va_copy, 0, 2, 0, VOID },
 
-#define NODE struct node
+#ifdef LANG_CXX
+#define P1ND struct node
+#else
+#define P1ND struct p1node
+#endif
 struct node;
 struct bitable;
-NODE *amd64_builtin_stdarg_start(const struct bitable *, NODE *a);
-NODE *amd64_builtin_va_arg(const struct bitable *, NODE *a);
-NODE *amd64_builtin_va_end(const struct bitable *, NODE *a);
-NODE *amd64_builtin_va_copy(const struct bitable *, NODE *a);
-#undef NODE
+P1ND *amd64_builtin_stdarg_start(const struct bitable *, P1ND *a);
+P1ND *amd64_builtin_va_arg(const struct bitable *, P1ND *a);
+P1ND *amd64_builtin_va_end(const struct bitable *, P1ND *a);
+P1ND *amd64_builtin_va_copy(const struct bitable *, P1ND *a);
+#undef P1ND
+
+/* target specific attributes */
+#define ATTR_MI_TARGET  ATTR_AMD64_CMPLRET, ATTR_AMD64_XORLBL
+#define NATIVE_FLOATING_POINT

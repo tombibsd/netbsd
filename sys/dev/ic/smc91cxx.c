@@ -1243,7 +1243,7 @@ smc91cxx_read(struct smc91cxx_softc *sc)
 	 */
 	bpf_mtap(ifp, m);
 
-	(*ifp->if_input)(ifp, m);
+	if_percpuq_enqueue(ifp->if_percpuq, m);
 
  out:
 	/*

@@ -4901,8 +4901,6 @@ mpii_ioctl_cache(struct scsi_link *link, u_long cmd, struct dk_cache *dc)
 	    vpg, pagelen) != 0) {
 		rv = EINVAL;
 		goto done;
-		free(vpg, M_TEMP);
-		return (EINVAL);
 	}
 
 	enabled = ((le16toh(vpg->volume_settings) &

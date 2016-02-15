@@ -1336,7 +1336,7 @@ mb86960_get_packet(struct mb86960_softc *sc, u_int len)
 	 */
 	bpf_mtap(ifp, m);
 
-	(*ifp->if_input)(ifp, m);
+	if_percpuq_enqueue(ifp->if_percpuq, m);
 	return 1;
 }
 

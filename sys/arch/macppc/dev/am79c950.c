@@ -597,7 +597,7 @@ mace_read(struct mc_softc *sc, uint8_t *pkt, int len)
 	bpf_mtap(ifp, m); 
 
 	/* Pass the packet up. */
-	(*ifp->if_input)(ifp, m);
+	if_percpuq_enqueue(ifp->if_percpuq, m);
 }
 
 /*

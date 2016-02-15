@@ -125,16 +125,23 @@ USE_SSP?=	yes
 .endif
 .endif
 
+.if ${MACHINE} == "amd64" || \
+    ${MACHINE} == "i386"
+HAVE_GDB?=	710
+.else
 HAVE_GDB?=	79
+.endif
 
 .if ${HAVE_GDB} == 79
-EXTERNAL_GDB_SUBDIR=		gdb
+EXTERNAL_GDB_SUBDIR=		gdb.old
 .else
-EXTERNAL_GDB_SUBDIR=		/does/not/exist
+EXTERNAL_GDB_SUBDIR=		gdb
 .endif
 
 .if ${MACHINE} == "amd64" || \
-    ${MACHINE} == "evbarm"
+    ${MACHINE} == "evbarm" || \
+    ${MACHINE} == "i386" || \
+    ${MACHINE} == "hppa"
 HAVE_BINUTILS?=	226
 .else
 HAVE_BINUTILS?=	223
@@ -296,7 +303,7 @@ TOOL_OBJC.clang=	${TOOLDIR}/bin/${MACHINE_GNU_PLATFORM}-clang
 
 # PCC supports C and Fortran
 TOOL_CC.pcc=		${TOOLDIR}/bin/${MACHINE_GNU_PLATFORM}-pcc
-TOOL_CPP.pcc=		${TOOLDIR}/libexec/${MACHINE_GNU_PLATFORM}-cpp
+TOOL_CPP.pcc=		${TOOLDIR}/bin/${MACHINE_GNU_PLATFORM}-pcpp
 TOOL_CXX.pcc=		${TOOLDIR}/bin/${MACHINE_GNU_PLATFORM}-p++
 
 #
@@ -439,7 +446,7 @@ TOOL_OBJC.gcc=	gcc
 
 # PCC supports C and Fortran
 TOOL_CC.pcc=		pcc
-TOOL_CPP.pcc=		/usr/libexec/pcpp
+TOOL_CPP.pcc=		pcpp
 TOOL_CXX.pcc=		p++
 
 TOOL_AMIGAAOUT2BB=	amiga-aout2bb
@@ -560,12 +567,6 @@ CXX=		${TOOL_CXX.${ACTIVE_CXX}}
 FC=		${TOOL_FC.${ACTIVE_FC}}
 OBJC=		${TOOL_OBJC.${ACTIVE_OBJC}}
 
-# Override with tools versions if needed
-.if ${MKCTF:Uno} != "no" && !defined(NOCTF)
-CTFCONVERT=	${TOOL_CTFCONVERT}
-CTFMERGE=	${TOOL_CTFMERGE}
-.endif
-
 # For each ${MACHINE_CPU}, list the ports that use it.
 MACHINES.aarch64=	evbarm64
 MACHINES.alpha=		alpha
@@ -609,6 +610,7 @@ OBJCOPY_ELF2AOUT_FLAGS?=	\
 	-R .ARM.attributes	\
 	-R .ARM.exidx		\
 	-R .ARM.extab		\
+	-R .SUNW_ctf		\
 	-R .arm.atpcs		\
 	-R .comment		\
 	-R .debug_abbrev	\
@@ -1469,5 +1471,11 @@ TARGETS+=	lintmanpages
 .endif
 
 TESTSBASE=	/usr/tests${MLIBDIR:D/${MLIBDIR}}
+
+# Override with tools versions if needed
+.if ${MKCTF:Uno} != "no" && !defined(NOCTF)
+CTFCONVERT=	${TOOL_CTFCONVERT}
+CTFMERGE=	${TOOL_CTFMERGE}
+.endif
 
 .endif	# !defined(_BSD_OWN_MK_)

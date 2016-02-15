@@ -1,4 +1,4 @@
-/* Id: ccconfig.h,v 1.9 2012/08/05 14:35:00 ragge Exp  */	
+/* Id: ccconfig.h,v 1.10 2014/12/24 08:43:28 plunky Exp  */	
 /* $NetBSD$ */
 /*-
  * Copyright (c) 2007, 2008
@@ -36,11 +36,7 @@
 }
 
 /* for dynamically linked binaries */
-#define DYNLINKER		{		\
-	"-dynamic-linker",			\
-	"/usr/libexec/ld.so",			\
-	NULL					\
-}
+#define	DYNLINKLIB	"/usr/libexec/ld.so"
 
 #define CRTEND_T	"crtend.o"
 #define DEFLIBS		{ "-lc", NULL }

@@ -1,4 +1,4 @@
-/*      Id: gcc_compat.c,v 1.9 2014/06/07 07:04:09 plunky Exp      */	
+/*      Id: gcc_compat.c,v 1.10 2015/01/05 21:31:01 plunky Exp      */	
 /*      $NetBSD$     */
 /*
  * Copyright (c) 2004 Anders Magnusson (ragge@ludd.luth.se).
@@ -263,6 +263,7 @@ struct atax {
 	CS(GCC_ATYP_TLSMODEL)	{ A_1ARG|A1_STR, "tls_model" },
 	CS(GCC_ATYP_ALIASWEAK)	{ A_1ARG|A1_STR, "aliasweak" },
 	CS(GCC_ATYP_REGPARM)	{ A_1ARG, "regparm" },
+	CS(GCC_ATYP_FASTCALL)	{ A_0ARG, "fastcall" },
 
 	CS(GCC_ATYP_BOUNDED)	{ A_3ARG|A_MANY|A1_NAME, "bounded" },
 };

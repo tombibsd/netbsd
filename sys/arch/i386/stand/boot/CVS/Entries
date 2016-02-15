@@ -1,7 +1,7 @@
 /Makefile.boot/1.69/Sun Feb 14 12:55:00 2016/-kk/
 /Makefile/1.8/Thu May 27 06:58:13 2010/-kk/
 /biosboot.S/1.8/Wed Jan  5 23:13:01 2011/-kk/
-/boot2.c/1.65/Mon Jun 22 02:34:50 2015/-kk/
+/boot2.c/1.66/Mon Feb 15 11:06:28 2016/-kk/
 /conf.c/1.6/Mon Jan 16 18:46:20 2012/-kk/
 /devopen.c/1.8/Fri Dec 24 20:40:42 2010/-kk/
 /devopen.h/1.4/Fri Dec 24 20:40:42 2010/-kk/

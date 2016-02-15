@@ -532,7 +532,7 @@ ec_recv(struct ec_softc *sc, int intbit)
 		bpf_mtap(ifp, m0);
 
 		/* Pass the packet up. */
-		(*ifp->if_input)(ifp, m0);
+		if_percpuq_enqueue(ifp->if_percpuq, m0);
 
 	} else {
 		/* Something went wrong. */

@@ -1211,7 +1211,7 @@ temac_rxreap(struct temac_softc *sc)
 		bpf_mtap(ifp, m);
 
 		ifp->if_ipackets++;
-		(ifp->if_input)(ifp, m);
+		if_percpuq_enqueue(ifp->if_percpuq, m);
 
 		/* Refresh descriptor, bail out if we're out of buffers. */
 		if (temac_rxalloc(sc, tail, 1) != 0) {

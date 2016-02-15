@@ -433,9 +433,10 @@ IoGetDriverObjectExtension(driver_object *drv, void *clid)
 	e = drv->dro_driverext->dre_usrext.nle_flink;
 	while (e != &drv->dro_driverext->dre_usrext) {
 		ce = (custom_extension *)e;
-		if (ce->ce_clid == clid)
+		if (ce->ce_clid == clid) {
 			printf("found\n");
 			return((void *)(ce + 1));
+		}
 		e = e->nle_flink;
 	}
 	printf("not found\n");

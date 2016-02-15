@@ -658,7 +658,7 @@ emac_rx_desc_process (struct emac_softc *sc, struct emac_channel *chan)
 	ifp->if_ipackets++;
 
 	bpf_mtap(ifp, mb);
-	(*ifp->if_input)(ifp, mb);
+	if_percpuq_enqueue(ifp->if_percpuq, mb);
 
 	entry->m = NULL;
 

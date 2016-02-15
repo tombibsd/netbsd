@@ -1,4 +1,4 @@
-/ChangeLog/1.1.1.1/Sat Sep 24 20:04:02 2011/-kk/
+/ChangeLog/1.1.1.2/Mon Feb 15 10:24:09 2016/-kk/
 /addb.cgs/1.1.1.1/Sat Sep 24 20:04:02 2011/-kk/
 /addd.cgs/1.1.1.1/Sat Sep 24 20:04:02 2011/-kk/
 /addi.cgs/1.1.1.1/Sat Sep 24 20:04:02 2011/-kk/
@@ -126,7 +126,7 @@
 /tbit.cgs/1.1.1.1/Sat Sep 24 20:04:03 2011/-kk/
 /tbitb.cgs/1.1.1.1/Sat Sep 24 20:04:03 2011/-kk/
 /tbitw.cgs/1.1.1.1/Sat Sep 24 20:04:03 2011/-kk/
-/testutils.inc/1.1.1.1/Sat Sep 24 20:04:02 2011/-kk/
+/testutils.inc/1.1.1.2/Mon Feb 15 10:24:09 2016/-kk/
 /uread16.ms/1.1.1.1/Sat Sep 24 20:04:03 2011/-kk/
 /uread32.ms/1.1.1.1/Sat Sep 24 20:04:03 2011/-kk/
 /xorb.cgs/1.1.1.1/Sat Sep 24 20:04:03 2011/-kk/

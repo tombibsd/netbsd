@@ -136,8 +136,6 @@ u_char ip6_protox[IPPROTO_MAX];
 struct in6_ifaddr *in6_ifaddr;
 pktqueue_t *ip6_pktq __read_mostly;
 
-extern callout_t in6_tmpaddrtimer_ch;
-
 int ip6_forward_srcrt;			/* XXX */
 int ip6_sourcecheck;			/* XXX */
 int ip6_sourcecheck_interval;		/* XXX */

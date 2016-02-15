@@ -2176,7 +2176,7 @@ t3_rx_eth(struct adapter *adap, struct sge_rspq *rq, struct mbuf *m, int ethpad)
      */
     m_adj(m, sizeof(*cpl) + ethpad);
 
-    (*ifp->if_input)(ifp, m);
+    if_percpuq_enqueue(ifp->if_percpuq, m);
 }
 
 /**

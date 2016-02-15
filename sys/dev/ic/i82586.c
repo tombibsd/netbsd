@@ -1039,7 +1039,7 @@ ie_readframe(
 	/*
 	 * Finally pass this packet up to higher layers.
 	 */
-	(*sc->sc_ethercom.ec_if.if_input)(&sc->sc_ethercom.ec_if, m);
+	if_percpuq_enqueue((&sc->sc_ethercom.ec_if)->if_percpuq, m);
 	sc->sc_ethercom.ec_if.if_ipackets++;
 	return (0);
 }

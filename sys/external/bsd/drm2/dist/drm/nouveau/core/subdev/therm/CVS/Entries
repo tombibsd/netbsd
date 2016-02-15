@@ -9,6 +9,6 @@
 /nouveau_subdev_therm_nv84.c/1.1.1.1/Wed Aug  6 12:36:32 2014/-kk/
 /nouveau_subdev_therm_nva3.c/1.1.1.1/Wed Aug  6 12:36:32 2014/-kk/
 /nouveau_subdev_therm_nvd0.c/1.1.1.1/Wed Aug  6 12:36:32 2014/-kk/
-/nouveau_subdev_therm_temp.c/1.1.1.1/Wed Aug  6 12:36:32 2014/-kk/
+/nouveau_subdev_therm_temp.c/1.2/Mon Feb 15 11:07:31 2016/-kk/
 /priv.h/1.1.1.1/Thu Jul 17 01:51:00 2014/-kk/
 D

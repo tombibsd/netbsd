@@ -946,7 +946,7 @@ mbufcopied:
 		}
 		bpf_mtap(ifp, m);
 		ifp->if_ipackets++;
-		(*ifp->if_input)(ifp, m);
+		if_percpuq_enqueue(ifp->if_percpuq, m);
 
 skip1:
 		/* update mapping address in h/w descriptor */

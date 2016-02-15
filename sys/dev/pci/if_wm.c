@@ -442,6 +442,8 @@ struct wm_softc {
 	krndsource_t rnd_source;	/* random source */
 
 	kmutex_t *sc_core_lock;		/* lock for softc operations */
+
+	struct if_percpuq *sc_ipq;	/* softint-based input queues */
 };
 
 #define WM_TX_LOCK(_txq)	if ((_txq)->txq_lock) mutex_enter((_txq)->txq_lock)
@@ -2441,8 +2443,10 @@ alloc_retry:
 #endif
 
 	/* Attach the interface. */
-	if_attach(ifp);
+	if_initialize(ifp);
+	sc->sc_ipq = if_percpuq_create(&sc->sc_ethercom.ec_if);
 	ether_ifattach(ifp, enaddr);
+	if_register(ifp);
 	ether_set_ifflags_cb(&sc->sc_ethercom, wm_ifflags_cb);
 	rnd_attach_source(&sc->rnd_source, xname, RND_TYPE_NET,
 			  RND_FLAG_DEFAULT);
@@ -2556,7 +2560,7 @@ wm_detach(device_t self, int flags __unused)
 
 	ether_ifdetach(ifp);
 	if_detach(ifp);
-
+	if_percpuq_destroy(sc->sc_ipq);
 
 	/* Unload RX dmamaps and free mbufs */
 	for (i = 0; i < sc->sc_nrxqueues; i++) {
@@ -3021,7 +3025,7 @@ wm_set_filter(struct wm_softc *sc)
 	struct ether_multistep step;
 	bus_addr_t mta_reg;
 	uint32_t hash, reg, bit;
-	int i, size, max;
+	int i, size, ralmax;
 
 	if (sc->sc_type >= WM_T_82544)
 		mta_reg = WMREG_CORDOVA_MTA;
@@ -3065,20 +3069,20 @@ wm_set_filter(struct wm_softc *sc)
 		switch (i) {
 		case 0:
 			/* We can use all entries */
-			max = size;
+			ralmax = size;
 			break;
 		case 1:
 			/* Only RAR[0] */
-			max = 1;
+			ralmax = 1;
 			break;
 		default:
 			/* available SHRA + RAR[0] */
-			max = i + 1;
+			ralmax = i + 1;
 		}
 	} else
-		max = size;
+		ralmax = size;
 	for (i = 1; i < size; i++) {
-		if (i < max)
+		if (i < ralmax)
 			wm_set_ral(sc, NULL, i);
 	}
 
@@ -7118,7 +7122,7 @@ wm_rxeof(struct wm_rxqueue *rxq)
 		bpf_mtap(ifp, m);
 
 		/* Pass it on. */
-		(*ifp->if_input)(ifp, m);
+		if_percpuq_enqueue(sc->sc_ipq, m);
 
 		WM_RX_LOCK(rxq);
 

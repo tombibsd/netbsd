@@ -29,7 +29,7 @@ CFLAGS+=	-I${OSNETDIR}/sys \
 #YFLAGS+=	-d
 
 COPTS.dtrace.c += -Wno-stack-protector
-COPTS.dtrace.c += -Wno-stack-protector -Wno-format-extra-args
+COPTS.dtrace.c += -Wno-format-extra-args
 
 LDFLAGS+=	-pthread
 

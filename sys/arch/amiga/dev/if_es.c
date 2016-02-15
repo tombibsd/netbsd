@@ -721,7 +721,7 @@ esrint(struct es_softc *sc)
 	 * the raw packet to bpf.
 	 */
 	bpf_mtap(ifp, top);
-	(*ifp->if_input)(ifp, top);
+	if_percpuq_enqueue(ifp->if_percpuq, top);
 #ifdef ESDEBUG
 	if (--sc->sc_smcbusy) {
 		printf("%s: esintr busy on exit\n", device_xname(sc->sc_dev));

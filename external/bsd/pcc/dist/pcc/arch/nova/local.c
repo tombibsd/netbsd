@@ -1,4 +1,4 @@
-/*	Id: local.c,v 1.16 2014/06/03 20:19:50 ragge Exp 	*/	
+/*	Id: local.c,v 1.17 2015/08/18 10:15:08 ragge Exp 	*/	
 /*	$NetBSD$	*/
 /*
  * Copyright (c) 2003 Anders Magnusson (ragge@ludd.luth.se).
@@ -397,7 +397,7 @@ myp2tree(NODE *p)
 		break;
 
 	case FCON:
-		sp = inlalloc(sizeof(struct symtab));
+		sp = tmpalloc(sizeof(struct symtab));
 		sp->sclass = STATIC;
 		sp->sap = 0;
 		sp->slevel = 1; /* fake numeric label */

@@ -1,4 +1,4 @@
-/*	Id: local2.c,v 1.42 2014/06/01 11:35:02 ragge Exp 	*/	
+/*	Id: local2.c,v 1.43 2015/01/04 19:17:23 ragge Exp 	*/	
 /*	$NetBSD$	*/
 /*
  * Copyright (c) 2003 Anders Magnusson (ragge@ludd.luth.se).
@@ -629,7 +629,7 @@ argsiz(NODE *p)
         if (t == LDOUBLE)
                 return 12;
         if (t == STRTY)
-                return p->n_stsize;
+                return attr_find(p->n_ap, ATTR_P2STRUCT)->iarg(0);
         comperr("argsiz");
         return 0;
 }

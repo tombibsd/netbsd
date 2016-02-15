@@ -307,7 +307,7 @@ gpn_process_data(struct gpn_softc *sc, const ipm_gpn_desc_t *gd)
 		printf("%s: rx len=%d crc=%#x\n", ifp->if_xname,
 		    m->m_pkthdr.len, m_crc32_le(m));
 #endif
-		(*ifp->if_input)(ifp, m);
+		if_percpuq_enqueue(ifp->if_percpuq, m);
 	}
 
 out:

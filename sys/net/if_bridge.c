@@ -217,7 +217,6 @@ __CTASSERT(offsetof(struct ifbifconf, ifbic_buf) == offsetof(struct ifbaconf, if
 int	bridge_rtable_prune_period = BRIDGE_RTABLE_PRUNE_PERIOD;
 
 static struct pool bridge_rtnode_pool;
-static struct work bridge_rtage_wk;
 
 static int	bridge_clone_create(struct if_clone *, int);
 static int	bridge_clone_destroy(struct ifnet *);
@@ -453,7 +452,8 @@ bridge_clone_create(struct if_clone *ifc, int unit)
 
 	bridge_sysctl_fwdq_setup(&ifp->if_sysctl_log, sc);
 
-	if_attach(ifp);
+	if_initialize(ifp);
+	if_register(ifp);
 
 	if_alloc_sadl(ifp);
 
@@ -834,7 +834,7 @@ bridge_delete_member(struct bridge_softc *sc, struct bridge_iflist *bif)
 
 	KASSERT(BRIDGE_LOCKED(sc));
 
-	ifs->if_input = ether_input;
+	ifs->_if_input = ether_input;
 	ifs->if_bridge = NULL;
 	ifs->if_bridgeif = NULL;
 
@@ -882,7 +882,7 @@ bridge_ioctl_add(struct bridge_softc *sc, void *arg)
 	if (ifs->if_bridge != NULL)
 		return (EBUSY);
 
-	if (ifs->if_input != ether_input)
+	if (ifs->_if_input != ether_input)
 		return EINVAL;
 
 	/* FIXME: doesn't work with non-IFF_SIMPLEX interfaces */
@@ -919,7 +919,7 @@ bridge_ioctl_add(struct bridge_softc *sc, void *arg)
 	ifs->if_bridge = sc;
 	ifs->if_bridgeif = bif;
 	LIST_INSERT_HEAD(&sc->sc_iflist, bif, bif_next);
-	ifs->if_input = bridge_input;
+	ifs->_if_input = bridge_input;
 
 	BRIDGE_UNLOCK(sc);
 
@@ -1887,6 +1887,8 @@ bridge_input(struct ifnet *ifp, struct mbuf *m)
 	struct bridge_iflist *bif;
 	struct ether_header *eh;
 
+	KASSERT(!cpu_intr_p());
+
 	if (__predict_false(sc == NULL) ||
 	    (sc->sc_if.if_flags & IFF_RUNNING) == 0) {
 		ether_input(ifp, m);
@@ -2272,7 +2274,7 @@ bridge_timer(void *arg)
 {
 	struct bridge_softc *sc = arg;
 
-	workqueue_enqueue(sc->sc_rtage_wq, &bridge_rtage_wk, NULL);
+	workqueue_enqueue(sc->sc_rtage_wq, &sc->sc_rtage_wk, NULL);
 }
 
 static void
@@ -2280,7 +2282,7 @@ bridge_rtage_work(struct work *wk, void *arg)
 {
 	struct bridge_softc *sc = arg;
 
-	KASSERT(wk == &bridge_rtage_wk);
+	KASSERT(wk == &sc->sc_rtage_wk);
 
 	bridge_rtage(sc);
 

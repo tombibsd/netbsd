@@ -3,7 +3,7 @@
 /ralink_com.c/1.4/Tue May  6 05:50:00 2014/-kk/
 /ralink_debug.h/1.2/Thu Jul 28 15:38:49 2011/-kk/
 /ralink_ehci.c/1.5/Tue May  6 05:50:00 2014/-kk/
-/ralink_eth.c/1.6/Sun Jul 22 14:32:52 2012/-kk/
+/ralink_eth.c/1.7/Mon Feb 15 11:06:53 2016/-kk/
 /ralink_gpio.c/1.5/Tue Mar 25 02:35:28 2014/-kk/
 /ralink_gpio.h/1.2/Thu Jul 28 15:38:49 2011/-kk/
 /ralink_i2c.c/1.3/Sat Oct 27 17:18:02 2012/-kk/

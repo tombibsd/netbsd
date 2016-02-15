@@ -827,7 +827,7 @@ dme_receive(struct dme_softc *sc, struct ifnet *ifp)
 				if (ifp->if_bpf)
 					bpf_mtap(ifp, m);
 				ifp->if_ipackets++;
-				(*ifp->if_input)(ifp, m);
+				if_percpuq_enqueue(ifp->if_percpuq, m);
 			}
 
 		} else if (ready != 0x00) {

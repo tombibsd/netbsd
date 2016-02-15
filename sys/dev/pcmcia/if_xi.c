@@ -475,7 +475,7 @@ xi_get(struct xi_softc *sc)
 
 	bpf_mtap(ifp, top);
 
-	(*ifp->if_input)(ifp, top);
+	if_percpuq_enqueue(ifp->if_percpuq, top);
 	return (recvcount);
 }
 

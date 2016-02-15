@@ -466,7 +466,7 @@ sgec_intr(struct ze_softc *sc)
 				m->m_pkthdr.len = m->m_len =
 				    len - ETHER_CRC_LEN;
 				bpf_mtap(ifp, m);
-				(*ifp->if_input)(ifp, m);
+				if_percpuq_enqueue(ifp->if_percpuq, m);
 			}
 		}
 	}

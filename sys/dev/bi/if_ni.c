@@ -618,7 +618,7 @@ niintr(void *arg)
 				break; /* Out of mbufs */
 
 			bpf_mtap(ifp, m);
-			(*ifp->if_input)(ifp, m);
+			if_percpuq_enqueue(ifp->if_percpuq, m);
 			break;
 
 		case BVP_DGRAM:

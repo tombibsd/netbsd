@@ -140,7 +140,7 @@ int	unix2winfn(const unsigned char *un, int unlen, struct winentry *wep,
 int	winChkName(const unsigned char *un, int unlen, struct winentry *wep,
 	    int chksum, int utf8);
 int	win2unixfn(struct winentry *wep, struct dirent *dp, int chksum,	
-	    int utf8);
+	    uint16_t *namlen, int utf8);
 uint8_t winChksum(uint8_t *name);
 int	winSlotCnt(const unsigned char *un, int unlen, int utf8);
 #endif /* _KERNEL || MAKEFS */

@@ -263,7 +263,7 @@ ofnet_read(struct ofnet_softc *of)
 
 		bpf_mtap(ifp, m);
 		ifp->if_ipackets++;
-		(*ifp->if_input)(ifp, head);
+		if_percpuq_enqueue(ifp->if_percpuq, head);
 	}
 	splx(s);
 }

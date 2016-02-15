@@ -1394,6 +1394,7 @@ msdosfs_readdir(void *v)
 	int ncookies = 0, nc = 0;
 	off_t offset, uio_off;
 	int chksum = -1;
+	uint16_t namlen;
 
 #ifdef MSDOSFS_DEBUG
 	printf("msdosfs_readdir(): vp %p, uio %p, cred %p, eofflagp %p\n",
@@ -1541,7 +1542,10 @@ msdosfs_readdir(void *v)
 				if (pmp->pm_flags & MSDOSFSMNT_SHORTNAME)
 					continue;
 				chksum = win2unixfn((struct winentry *)dentp,
-				    dirbuf, chksum, pmp->pm_flags & MSDOSFSMNT_UTF8);
+				    dirbuf, chksum, &namlen,
+				    pmp->pm_flags & MSDOSFSMNT_UTF8);
+				if (chksum != -1)
+					dirbuf->d_namlen = namlen;
 				continue;
 			}
 
@@ -1584,6 +1588,7 @@ msdosfs_readdir(void *v)
 				    pmp->pm_flags & MSDOSFSMNT_SHORTNAME);
 			else
 				dirbuf->d_name[dirbuf->d_namlen] = 0;
+			namlen = dirbuf->d_namlen;
 			chksum = -1;
 			dirbuf->d_reclen = _DIRENT_SIZE(dirbuf);
 			if (uio->uio_resid < dirbuf->d_reclen) {

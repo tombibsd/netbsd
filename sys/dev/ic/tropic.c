@@ -1251,7 +1251,7 @@ tr_rint(struct tr_softc *sc)
 		++ifp->if_ipackets;
 
 		bpf_mtap(ifp, m);
-		(*ifp->if_input)(ifp, m);
+		if_percpuq_enqueue(ifp->if_percpuq, m);
 	}
 }
 

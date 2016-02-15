@@ -214,7 +214,7 @@ static void
 usage(void)
 {
 
-	fprintf(stderr, "usage: %s [-9Gls] [-g gid] [-M mask] [-m mask] "
+	fprintf(stderr, "usage: %s [-9GlsU] [-g gid] [-M mask] [-m mask] "
 	    "[-o options]\n\t[-t gmtoff] [-u uid] special mountpath\n",
 	    getprogname());
 	exit(1);

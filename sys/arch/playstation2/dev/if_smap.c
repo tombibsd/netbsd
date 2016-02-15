@@ -410,7 +410,7 @@ smap_rxeof(void *arg)
 		if (m != NULL) {
 			if (ifp->if_bpf)
 				bpf_mtap(ifp->if_bpf, m);
-			(*ifp->if_input)(ifp, m);
+			if_percpuq_enqueue(ifp->if_percpuq, m);
 		}
 	}
 	sc->rx_done_index = i;

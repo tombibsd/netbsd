@@ -24,14 +24,14 @@
 /kgdb_proto.h/1.3/Sun Dec 11 12:19:14 2005/-kk/
 /kobj_machdep.c/1.5/Thu Feb 13 15:35:53 2014/-kk/
 /lock_stubs.s/1.9/Thu Oct 24 10:28:57 2013/-kk/
-/locore.s/1.386/Fri Nov 20 02:18:27 2015/-kk/
+/locore.s/1.387/Mon Feb 15 11:07:10 2016/-kk/
 /machdep.c/1.283/Sat Dec  5 11:19:23 2015/-kk/
 /mdesc.c/1.6/Sun Sep 13 01:31:07 2015/-kk/
 /mp_subr.S/1.9/Mon Jun 22 02:34:57 2015/-kk/
 /netbsd32_machdep.c/1.109/Sat Dec  5 11:19:23 2015/-kk/
 /netbsd32_sigcode.s/1.6/Thu May 29 14:51:26 2008/-kk/
 /ofw_machdep.c/1.45/Thu Jan  7 06:24:28 2016/-kk/
-/pmap.c/1.300/Sat Dec  5 11:19:23 2015/-kk/
+/pmap.c/1.301/Mon Feb 15 11:07:10 2016/-kk/
 /process_machdep.c/1.24/Tue Jan 14 16:05:01 2014/-kk/
 /procfs_machdep.c/1.6/Sat Apr 19 05:36:50 2014/-kk/
 /rbus_machdep.c/1.16/Fri Jul  1 18:49:24 2011/-kk/

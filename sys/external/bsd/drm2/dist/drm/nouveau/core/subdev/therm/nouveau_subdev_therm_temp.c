@@ -104,7 +104,7 @@ void nouveau_therm_sensor_event(struct nouveau_therm *therm,
 	};
 	int temperature = therm->temp_get(therm);
 
-	if (thrs < 0 || thrs > 3)
+	if ((unsigned)thrs >= __arraycount(thresolds))
 		return;
 
 	if (dir == NOUVEAU_THERM_THRS_FALLING)

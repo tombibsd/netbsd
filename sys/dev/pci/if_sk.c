@@ -2117,7 +2117,7 @@ sk_rxeof(struct sk_if_softc *sc_if)
 
 		bpf_mtap(ifp, m);
 		/* pass it on. */
-		(*ifp->if_input)(ifp, m);
+		if_percpuq_enqueue(ifp->if_percpuq, m);
 	}
 }
 

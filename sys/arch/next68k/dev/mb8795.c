@@ -328,7 +328,7 @@ mb8795_rint(struct mb8795_softc *sc)
 			ifp->if_ipackets++;
 
 			/* Pass the packet up. */
-			(*ifp->if_input)(ifp, m);
+			if_percpuq_enqueue(ifp->if_percpuq, m);
 
 			s = spldma();
 

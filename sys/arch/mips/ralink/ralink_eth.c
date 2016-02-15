@@ -1490,7 +1490,7 @@ ralink_eth_rxintr(ralink_eth_softc_t *sc)
 
 		/* Pass it on. */
 		sc->sc_evcnt_input.ev_count++;
-		(*ifp->if_input)(ifp, m);
+		if_percpuq_enqueue(ifp->if_percpuq, m);
 
 		fe_write(sc, RA_FE_PDMA_RX0_CPU_IDX, rx_cpu_idx);
 	}

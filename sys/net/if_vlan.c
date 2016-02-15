@@ -240,8 +240,9 @@ vlan_clone_create(struct if_clone *ifc, int unit)
 	ifp->if_ioctl = vlan_ioctl;
 	IFQ_SET_READY(&ifp->if_snd);
 
-	if_attach(ifp);
+	if_initialize(ifp);
 	vlan_reset_linkname(ifp);
+	if_register(ifp);
 
 	return (0);
 }
@@ -907,5 +908,5 @@ vlan_input(struct ifnet *ifp, struct mbuf *m)
 	bpf_mtap(&ifv->ifv_if, m);
 
 	m->m_flags &= ~M_PROMISC;
-	ifv->ifv_if.if_input(&ifv->ifv_if, m);
+	if_input(&ifv->ifv_if, m);
 }

@@ -1373,7 +1373,7 @@ vge_rxeof(struct vge_softc *sc)
 		 */
 		bpf_mtap(ifp, m);
 
-		(*ifp->if_input)(ifp, m);
+		if_percpuq_enqueue(ifp->if_percpuq, m);
 
 		lim++;
 		if (lim == VGE_NRXDESC)

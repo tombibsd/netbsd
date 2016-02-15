@@ -1112,7 +1112,7 @@ axen_rxeof(usbd_xfer_handle xfer, usbd_private_handle priv, usbd_status status)
 		/* push the packet up */
 		s = splnet();
 		bpf_mtap(ifp, m);
-		(*(ifp)->if_input)((ifp), (m));
+		if_percpuq_enqueue((ifp)->if_percpuq, (m));
 		splx(s);
 
 nextpkt:

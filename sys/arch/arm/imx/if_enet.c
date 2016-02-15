@@ -755,7 +755,7 @@ enet_rx_intr(void *arg)
 				/* Pass this up to any BPF listeners */
 				bpf_mtap(ifp, m0);
 
-				(*ifp->if_input)(ifp, m0);
+				if_percpuq_enqueue(ifp->if_percpuq, m0);
 			}
 
 			m0 = NULL;

@@ -281,7 +281,7 @@ iee_intr(void *intarg)
 		bus_dmamap_sync(sc->sc_dmat, rx_map, 0,
 		    rx_map->dm_mapsize, BUS_DMASYNC_PREREAD);
 		bpf_mtap(ifp, rx_mbuf);
-		(*ifp->if_input)(ifp, rx_mbuf);
+		if_percpuq_enqueue(ifp->if_percpuq, rx_mbuf);
 		ifp->if_ipackets++;
 		sc->sc_rx_mbuf[sc->sc_rx_done] = new_mbuf;
 		rbd->rbd_count = 0;

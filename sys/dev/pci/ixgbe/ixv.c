@@ -3372,7 +3372,7 @@ ixv_rx_input(struct rx_ring *rxr, struct ifnet *ifp, struct mbuf *m, u32 ptype)
 	s = splnet();
 	/* Pass this up to any BPF listeners. */
 	bpf_mtap(ifp, m);
-        (*ifp->if_input)(ifp, m);
+	if_percpuq_enqueue(ifp->if_percpuq, m);
 	splx(s);
 
 	IXV_RX_LOCK(rxr);

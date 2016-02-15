@@ -358,6 +358,8 @@ rtwn_attach(device_t parent, device_t self, void *aux)
 	if_initialize(ifp);
 	ieee80211_ifattach(ic);
 	if_register(ifp);
+	/* Use common softint-based if_input */
+	ifp->if_percpuq = if_percpuq_create(ifp);
 
 	/* override default methods */
 	ic->ic_newassoc = rtwn_newassoc;
@@ -2954,7 +2956,7 @@ rtwn_get_txpower(struct rtwn_softc *sc, int chain,
 {
 	struct ieee80211com *ic = &sc->sc_ic;
 	struct r92c_rom *rom = &sc->rom;
-	uint16_t cckpow, ofdmpow, htpow, diff, max;
+	uint16_t cckpow, ofdmpow, htpow, diff, maxpwr;
 	const struct rtwn_txpwr *base;
 	int ridx, chan, group;
 
@@ -2988,12 +2990,12 @@ rtwn_get_txpower(struct rtwn_softc *sc, int chain,
 			power[ridx] = base->pwr[0][ridx];
 			/* Apply vendor limits. */
 			if (extc != NULL)
-				max = rom->ht40_max_pwr[group];
+				maxpwr = rom->ht40_max_pwr[group];
 			else
-				max = rom->ht20_max_pwr[group];
-			max = (max >> (chain * 4)) & 0xf;
-			if (power[ridx] > max)
-				power[ridx] = max;
+				maxpwr = rom->ht20_max_pwr[group];
+			maxpwr = (maxpwr >> (chain * 4)) & 0xf;
+			if (power[ridx] > maxpwr)
+				power[ridx] = maxpwr;
 		} else if (sc->regulatory == 1) {
 			if (extc == NULL)
 				power[ridx] = base->pwr[group][ridx];

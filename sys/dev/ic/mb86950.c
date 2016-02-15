@@ -908,7 +908,7 @@ mb86950_get_fifo(struct mb86950_softc *sc, u_int len)
 	 */
 	bpf_mtap(ifp, m);
 
-	(*ifp->if_input)(ifp, m);
+	if_percpuq_enqueue(ifp->if_percpuq, m);
 	return (0);
 }
 

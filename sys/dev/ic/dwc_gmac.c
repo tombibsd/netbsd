@@ -1127,7 +1127,7 @@ dwc_gmac_rx_intr(struct dwc_gmac_softc *sc)
 
 		bpf_mtap(ifp, m);
 		ifp->if_ipackets++;
-		(*ifp->if_input)(ifp, m);
+		if_percpuq_enqueue(ifp->if_percpuq, m);
 
 skip:
 		bus_dmamap_sync(sc->sc_dmat, data->rd_map, 0,

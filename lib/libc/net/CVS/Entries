@@ -9,7 +9,7 @@
 /ethers.c/1.25/Fri Oct  3 09:57:25 2014/-kk/
 /gai_strerror.3/1.5/Mon Mar 22 19:30:54 2010/-kk/
 /getaddrinfo.3/1.58/Fri Dec 25 06:17:57 2015/-kk/
-/getaddrinfo.c/1.113/Fri Dec 25 06:17:57 2015/-kk/
+/getaddrinfo.c/1.114/Mon Feb 15 11:06:07 2016/-kk/
 /gethnamaddr.c/1.92/Fri Oct  2 14:11:18 2015/-kk/
 /gethostbyname.3/1.29/Thu Oct 24 10:28:53 2013/-kk/
 /getifaddrs.3/1.16/Sun Feb 14 12:54:10 2016/-kk/

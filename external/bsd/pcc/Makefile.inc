@@ -5,8 +5,8 @@ PCC_DIST=${PCC_DIR}/dist/pcc
 PCC_LIBS=${PCC_DIR}/dist/pcc-libs
 
 # (these strings will be updated by the prepare-import.sh script)
-PCC_VERSION=1.1.0.DEVEL
-PCC_DATESTAMP=20140706
+PCC_VERSION=1.2.0.DEVEL
+PCC_DATESTAMP=20160208
 
 TARGOS = netbsd
 
@@ -22,10 +22,11 @@ TARGMACH = ${MACHINE_ARCH}
 ERROR!= echo "ERROR: ${TARGMACH} not yet supported - write code!" >&2;echo
 .endif
 
-VERSSTR="pcc ${PCC_VERSION} ${PCC_DATESTAMP} for ${TARGOS}-${TARGMACH}"
+VERSSTR="pcc ${PCC_VERSION} ${PCC_DATESTAMP} for ${TARGMACH}--${TARGOS}"
 
 CPPFLAGS+=	-DGCC_COMPAT
 CPPFLAGS+=	-DPCC_DEBUG
+CPPFLAGS+=	-D_ISOC99_SOURCE
 CPPFLAGS+=	-DVERSSTR=${VERSSTR:Q}
 CPPFLAGS+=	-Dos_${TARGOS}
 CPPFLAGS+=	-Dmach_${TARGMACH}

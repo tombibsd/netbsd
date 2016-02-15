@@ -557,7 +557,7 @@ derecv(struct de_softc *sc)
 		}
 		bpf_mtap(ifp, m);
 
-		(*ifp->if_input)(ifp, m);
+		if_percpuq_enqueue(ifp->if_percpuq, m);
 
 		/* hang the receive buffer again */
 next:		rp->r_lenerr = 0;

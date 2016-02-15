@@ -249,7 +249,7 @@ pdq_os_receive_pdu(
     }
 
     m->m_pkthdr.rcvif = &sc->sc_if;
-    (*sc->sc_if.if_input)(&sc->sc_if, m);
+    if_percpuq_enqueue((&sc->sc_if)->if_percpuq, m);
 }
 
 void

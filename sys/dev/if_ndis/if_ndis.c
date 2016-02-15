@@ -1048,7 +1048,7 @@ ndis_rxeof(ndis_handle adapter, ndis_packet **packets, uint32_t pktcnt)
 
 			bpf_mtap(ifp, m0);
 
-			(*ifp->if_input)(ifp, m0);
+			if_percpuq_enqueue(ifp->if_percpuq, m0);
 		}
 	}
 

@@ -996,7 +996,7 @@ ie_readframe(struct ie_softc *sc, int num)
 	/*
 	 * Finally pass this packet up to higher layers.
 	 */
-	(*sc->sc_if.if_input)(&sc->sc_if, m);
+	if_percpuq_enqueue((&sc->sc_if)->if_percpuq, m);
 	sc->sc_if.if_ipackets++;
 }
 

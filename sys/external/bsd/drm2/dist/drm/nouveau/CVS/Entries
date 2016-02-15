@@ -40,7 +40,7 @@
 /nouveau_nv04_fence.c/1.1.1.1/Wed Aug  6 12:36:23 2014/-kk/
 /nouveau_nv10_fence.c/1.2/Fri Oct  3 09:43:38 2014/-kk/
 /nouveau_nv17_fence.c/1.1.1.1/Wed Aug  6 12:36:23 2014/-kk/
-/nouveau_nv50_display.c/1.4/Sun Nov 15 13:36:20 2015/-kk/
+/nouveau_nv50_display.c/1.5/Mon Feb 15 11:07:30 2016/-kk/
 /nouveau_nv50_fbcon.c/1.1.1.1/Wed Aug  6 12:36:23 2014/-kk/
 /nouveau_nv50_fence.c/1.1.1.1/Wed Aug  6 12:36:23 2014/-kk/
 /nouveau_nv84_fence.c/1.2/Sat Mar 21 02:29:58 2015/-kk/

@@ -41,6 +41,8 @@ CPPFLAGS+=	-I${.CURDIR}/arch/${BFD_MACHINE_ARCH} -I${DIST}/include -I. \
 CPPFLAGS.elf.c +=	-O0
 .endif
 
+COPTS.pei-x86_64.c += -Wno-stack-protector
+
 GSRCS=		${G_libbfd_la_OBJECTS:libbfd.lo=lib_bfd.lo} \
 		${G_libbfd_la_DEPENDENCIES:M*.lo}
 SRCS=		${GSRCS:.lo=.c}

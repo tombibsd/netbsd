@@ -171,8 +171,12 @@ nouveau_perfctr_sample(struct nouveau_object *object, u32 mthd,
 	struct nouveau_perfdom *dom;
 	struct nv_perfctr_sample *args = data;
 
+#if 1
+	CTASSERT(sizeof(*args) == 0);
+#else
 	if (size < sizeof(*args))
 		return -EINVAL;
+#endif
 	ppm->sequence++;
 
 	list_for_each_entry(dom, &ppm->domains, head) {

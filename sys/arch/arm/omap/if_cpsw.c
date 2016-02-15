@@ -1170,7 +1170,7 @@ cpsw_rxintr(void *arg)
 
 		bpf_mtap(ifp, m);
 
-		(*ifp->if_input)(ifp, m);
+		if_percpuq_enqueue(ifp->if_percpuq, m);
 
 next:
 		sc->sc_rxhead = RXDESC_NEXT(sc->sc_rxhead);
