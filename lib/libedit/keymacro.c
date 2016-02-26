@@ -63,8 +63,8 @@ __RCSID("$NetBSD$");
  *      1) It is not possible to have one key that is a
  *	   substr of another.
  */
-#include <string.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "el.h"
 
@@ -73,10 +73,10 @@ __RCSID("$NetBSD$");
  * linked list of these node elements
  */
 struct keymacro_node_t {
-	Char		 ch;		/* single character of key 	 */
+	Char		 ch;		/* single character of key	 */
 	int		 type;		/* node type			 */
 	keymacro_value_t val;		/* command code or pointer to str,  */
-					/* if this is a leaf 		 */
+					/* if this is a leaf		 */
 	struct keymacro_node_t *next;	/* ptr to next char of this key  */
 	struct keymacro_node_t *sibling;/* ptr to another key with same prefix*/
 };
@@ -85,7 +85,7 @@ private int		 node_trav(EditLine *, keymacro_node_t *, Char *,
     keymacro_value_t *);
 private int		 node__try(EditLine *, keymacro_node_t *, const Char *,
     keymacro_value_t *, int);
-private keymacro_node_t	*node__get(Int);
+private keymacro_node_t	*node__get(wint_t);
 private void		 node__free(keymacro_node_t *);
 private void		 node__put(EditLine *, keymacro_node_t *);
 private int		 node__delete(EditLine *, keymacro_node_t **,
@@ -275,7 +275,7 @@ keymacro_print(EditLine *el, const Char *key)
 
 /* node_trav():
  *	recursively traverses node in tree until match or mismatch is
- * 	found.  May read in more characters.
+ *	found.  May read in more characters.
  */
 private int
 node_trav(EditLine *el, keymacro_node_t *ptr, Char *ch, keymacro_value_t *val)
@@ -312,7 +312,7 @@ node_trav(EditLine *el, keymacro_node_t *ptr, Char *ch, keymacro_value_t *val)
 
 
 /* node__try():
- * 	Find a node that matches *str or allocate a new one
+ *	Find a node that matches *str or allocate a new one
  */
 private int
 node__try(EditLine *el, keymacro_node_t *ptr, const Char *str,
@@ -458,14 +458,14 @@ node__put(EditLine *el, keymacro_node_t *ptr)
  *	Returns pointer to a keymacro_node_t for ch.
  */
 private keymacro_node_t *
-node__get(Int ch)
+node__get(wint_t ch)
 {
 	keymacro_node_t *ptr;
 
 	ptr = el_malloc(sizeof(*ptr));
 	if (ptr == NULL)
 		return NULL;
-	ptr->ch = ch;
+	ptr->ch = (Char)ch;
 	ptr->type = XK_NOD;
 	ptr->val.str = NULL;
 	ptr->next = NULL;
@@ -594,7 +594,7 @@ keymacro_kprint(EditLine *el, const Char *key, keymacro_value_t *val, int ntype)
 		case XK_STR:
 		case XK_EXE:
 			(void) keymacro__decode_str(val->str, unparsbuf,
-			    sizeof(unparsbuf), 
+			    sizeof(unparsbuf),
 			    ntype == XK_STR ? "\"\"" : "[]");
 			(void) fprintf(el->el_outfile, fmt,
 			    ct_encode_string(key, &el->el_scratch), unparsbuf);

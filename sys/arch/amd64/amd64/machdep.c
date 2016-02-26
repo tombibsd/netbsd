@@ -2073,9 +2073,11 @@ valid_user_selector(struct lwp *l, uint64_t seg)
 		if (off > (len - 8))
 			return EINVAL;
 	} else {
-		if (seg != GUDATA_SEL || seg != GUDATA32_SEL)
-			return EINVAL;
-		__builtin_unreachable();
+		CTASSERT(GUDATA_SEL & SEL_LDT);
+		KASSERT(seg != GUDATA_SEL);
+		CTASSERT(GUDATA32_SEL & SEL_LDT);
+		KASSERT(seg != GUDATA32_SEL);
+		return EINVAL;
 	}
 
 	sdp = (struct mem_segment_descriptor *)(dt + off);

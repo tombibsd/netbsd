@@ -46,8 +46,11 @@ __RCSID("$NetBSD$");
  *	  our policy is to trap all signals, set a good state
  *	  and pass the ball to our caller.
  */
-#include "el.h"
+#include <errno.h>
 #include <stdlib.h>
+
+#include "el.h"
+#include "common.h"
 
 private EditLine *sel = NULL;
 
@@ -68,9 +71,10 @@ private void sig_handler(int);
 private void
 sig_handler(int signo)
 {
-	int i;
+	int i, save_errno;
 	sigset_t nset, oset;
 
+	save_errno = errno;
 	(void) sigemptyset(&nset);
 	(void) sigaddset(&nset, signo);
 	(void) sigprocmask(SIG_BLOCK, &nset, &oset);
@@ -104,6 +108,7 @@ sig_handler(int signo)
 	sigemptyset(&sel->el_signal->sig_action[i].sa_mask);
 	(void) sigprocmask(SIG_SETMASK, &oset, NULL);
 	(void) kill(0, signo);
+	errno = save_errno;
 }
 
 

@@ -36,11 +36,12 @@
 #include <gelf.h>
 #include <libelf.h>
 #include <limits.h>
+#include <stdint.h>
 
 #include "_libelf.h"
 
 __RCSID("$NetBSD$");
-ELFTC_VCSID("Id: gelf_shdr.c 2268 2011-12-03 17:05:11Z jkoshy ");
+ELFTC_VCSID("Id: gelf_shdr.c 3177 2015-03-30 18:19:41Z emaste ");
 
 Elf32_Shdr *
 elf32_getshdr(Elf_Scn *s)

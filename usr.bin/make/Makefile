@@ -13,8 +13,7 @@ SRCS+=	lstAppend.c lstAtEnd.c lstAtFront.c lstClose.c lstConcat.c \
 	lstMember.c lstNext.c lstOpen.c lstRemove.c lstReplace.c lstSucc.c
 SRCS += lstPrev.c
 
-# let people experiment for a bit
-USE_META ?= no
+USE_META ?= yes
 .if ${USE_META:tl} != "no"
 SRCS+=	meta.c
 CPPFLAGS+= -DUSE_META

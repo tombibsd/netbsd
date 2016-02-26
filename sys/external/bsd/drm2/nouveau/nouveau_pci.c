@@ -208,15 +208,17 @@ out0:	pmf_device_deregister(self);
 static bool
 nouveau_pci_suspend(device_t self, const pmf_qual_t *qual __unused)
 {
+	struct nouveau_pci_softc *const sc = device_private(self);
 
-	return nouveau_pmops_suspend(self) == 0;
+	return nouveau_pmops_suspend(sc->sc_drm_dev) == 0;
 }
 
 static bool
 nouveau_pci_resume(device_t self, const pmf_qual_t *qual)
 {
+	struct nouveau_pci_softc *const sc = device_private(self);
 
-	return nouveau_pmops_resume(self) == 0;
+	return nouveau_pmops_resume(sc->sc_drm_dev) == 0;
 }
 
 static void

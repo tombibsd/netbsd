@@ -400,7 +400,8 @@ usb_dmaaddr(usb_dma_t *dma, unsigned int offset)
 
 	offset += dma->offs;
 
-	KASSERT(offset < dma->block->size);
+	KASSERTMSG(offset < dma->block->size, "offset %d vs %zu", offset,
+	    dma->block->size);
 
 	if (dma->block->nsegs == 1) {
 		KASSERT(dma->block->map->dm_segs[0].ds_len > offset);

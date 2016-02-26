@@ -490,6 +490,10 @@ Boolean Main_SetObjdir(const char *);
 int mkTempFile(const char *, char **);
 int str2Lst_Append(Lst, char *, const char *);
 
+#define	VARF_UNDEFERR	1
+#define	VARF_WANTRES	2
+#define	VARF_ASSIGN	4
+
 #ifdef __GNUC__
 #define UNCONST(ptr)	({ 		\
     union __unconst {			\

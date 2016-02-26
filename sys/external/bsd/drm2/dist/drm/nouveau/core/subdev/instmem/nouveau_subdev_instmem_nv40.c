@@ -80,10 +80,12 @@ nv40_instmem_ctor(struct nouveau_object *parent, struct nouveau_object *engine,
 #ifdef __NetBSD__
 	priv->iomemt = nv_device_resource_tag(device, bar);
 	priv->iomemsz = nv_device_resource_len(device, bar);
-	if (bus_space_map(priv->iomemt, nv_device_resource_start(device, bar),
-		priv->iomemsz, 0, &priv->iomemh)) {
+	ret = bus_space_map(priv->iomemt,
+	    nv_device_resource_start(device, bar),
+	    priv->iomemsz, 0, &priv->iomemh);
+	if (ret) {
 		priv->iomemsz = 0;
-		nv_error(priv, "unable to map PRAMIN BAR\n");
+		nv_error(priv, "unable to map PRAMIN BAR: %d\n", ret);
 		return -EFAULT;
 	}
 #else

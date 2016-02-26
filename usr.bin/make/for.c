@@ -216,7 +216,7 @@ For_Eval(char *line)
      * We can't do the escapes here - because we don't know whether
      * we are substuting into ${...} or $(...).
      */
-    sub = Var_Subst(NULL, ptr, VAR_GLOBAL, FALSE, TRUE, FALSE);
+    sub = Var_Subst(NULL, ptr, VAR_GLOBAL, VARF_WANTRES);
 
     /*
      * Split into words allowing for quoted strings.

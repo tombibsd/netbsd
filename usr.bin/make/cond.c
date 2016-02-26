@@ -289,7 +289,8 @@ CondGetArg(char **linePtr, char **argPtr, const char *func)
 	    int		len;
 	    void	*freeIt;
 
-	    cp2 = Var_Parse(cp, VAR_CMD, TRUE, TRUE, FALSE, &len, &freeIt);
+	    cp2 = Var_Parse(cp, VAR_CMD, VARF_UNDEFERR|VARF_WANTRES,
+			    &len, &freeIt);
 	    Buf_AddBytes(&buf, strlen(cp2), cp2);
 	    free(freeIt);
 	    cp += len;
@@ -573,8 +574,9 @@ CondGetString(Boolean doEval, Boolean *quoted, void **freeIt, Boolean strictLHS)
 	    break;
 	case '$':
 	    /* if we are in quotes, then an undefined variable is ok */
-	    str = Var_Parse(condExpr, VAR_CMD, (qt ? 0 : doEval),
-			    TRUE, FALSE, &len, freeIt);
+	    str = Var_Parse(condExpr, VAR_CMD,
+			    ((!qt && doEval) ? VARF_UNDEFERR : 0) |
+			    VARF_WANTRES, &len, freeIt);
 	    if (str == var_Error) {
 		if (*freeIt) {
 		    free(*freeIt);
@@ -824,7 +826,7 @@ get_mpt_arg(char **linePtr, char **argPtr, const char *func MAKE_ATTR_UNUSED)
     /* We do all the work here and return the result as the length */
     *argPtr = NULL;
 
-    val = Var_Parse(cp - 1, VAR_CMD, FALSE, TRUE, FALSE, &length, &freeIt);
+    val = Var_Parse(cp - 1, VAR_CMD, VARF_WANTRES, &length, &freeIt);
     /*
      * Advance *linePtr to beyond the closing ). Note that
      * we subtract one because 'length' is calculated from 'cp - 1'.

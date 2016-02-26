@@ -45,11 +45,14 @@ __RCSID("$NetBSD$");
  * read.c: Clean this junk up! This is horrible code.
  *	   Terminal read functions
  */
+#include <ctype.h>
 #include <errno.h>
 #include <fcntl.h>
-#include <unistd.h>
-#include <stdlib.h>
 #include <limits.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+
 #include "el.h"
 
 #define OKCMD	-1	/* must be -1! */
@@ -239,6 +242,7 @@ FUN(el,push)(EditLine *el, const Char *str)
 private int
 read_getcmd(EditLine *el, el_action_t *cmdnum, Char *ch)
 {
+	static const Char meta = (Char)0x80;
 	el_action_t cmd;
 	int num;
 
@@ -250,7 +254,7 @@ read_getcmd(EditLine *el, el_action_t *cmdnum, Char *ch)
 		}
 
 #ifdef	KANJI
-		if ((*ch & 0200)) {
+		if ((*ch & meta)) {
 			el->el_state.metanext = 0;
 			cmd = CcViMap[' '];
 			break;
@@ -259,7 +263,7 @@ read_getcmd(EditLine *el, el_action_t *cmdnum, Char *ch)
 
 		if (el->el_state.metanext) {
 			el->el_state.metanext = 0;
-			*ch |= 0200;
+			*ch |= meta;
 		}
 #ifdef WIDECHAR
 		if (*ch >= N_KEYS)
@@ -294,18 +298,6 @@ read_getcmd(EditLine *el, el_action_t *cmdnum, Char *ch)
 	return OKCMD;
 }
 
-#ifdef WIDECHAR
-/* utf8_islead():
- *	Test whether a byte is a leading byte of a UTF-8 sequence.
- */
-private int
-utf8_islead(int c)
-{
-	return c < 0x80 ||	       /* single byte char */
-	       (c >= 0xc2 && c <= 0xf4); /* start of multibyte sequence */
-}
-#endif
-
 /* read_char():
  *	Read a character from the tty.
  */
@@ -316,7 +308,6 @@ read_char(EditLine *el, Char *cp)
 	int tried = 0;
 	char cbuf[MB_LEN_MAX];
 	size_t cbp = 0;
-	int bytes = 0;
 	int save_errno = errno;
 
  again:
@@ -349,17 +340,13 @@ read_char(EditLine *el, Char *cp)
 		return 0;
 	}
 
-#ifdef WIDECHAR
-	if (el->el_flags & CHARSET_IS_UTF8) {
+	for (;;) {
 		mbstate_t mbs;
-		size_t rbytes;
-again_lastbyte:
-		if (!utf8_islead((unsigned char)cbuf[0]))
-			goto again; /* discard the byte we read and try again */
+
 		++cbp;
 		/* This only works because UTF8 is stateless */
 		memset(&mbs, 0, sizeof(mbs));
-		switch (rbytes = ct_mbrtowc(cp, cbuf, cbp, &mbs)) {
+		switch (ct_mbrtowc(cp, cbuf, cbp, &mbs)) {
 		case (size_t)-1:
 			if (cbp > 1) {
 				/*
@@ -368,14 +355,20 @@ again_lastbyte:
 				 */
 				cbuf[0] = cbuf[cbp - 1];
 				cbp = 0;
-				goto again_lastbyte;
+				break;
 			} else {
 				/* Invalid byte, discard it. */
 				cbp = 0;
 				goto again;
 			}
 		case (size_t)-2:
-			if (cbp >= MB_LEN_MAX) { /* "shouldn't happen" */
+			/*
+			 * We don't support other multibyte charsets.
+			 * The second condition shouldn't happen
+			 * and is here merely for additional safety.
+			 */
+			if ((el->el_flags & CHARSET_IS_UTF8) == 0 ||
+			    cbp >= MB_LEN_MAX) {
 				errno = EILSEQ;
 				*cp = '\0';
 				return -1;
@@ -384,23 +377,9 @@ again_lastbyte:
 			goto again;
 		default:
 			/* Valid character, process it. */
-			bytes = (int)rbytes;
-			break;
+			return 1;
 		}
-	} else if (isascii((unsigned char)cbuf[0]) ||
-		/* we don't support other multibyte charsets */
-		++cbp != 1 ||
-		/* Try non-ASCII characters in a 8-bit character set */
-		(bytes = ct_mbtowc(cp, cbuf, cbp)) != 1)
-#endif
-		*cp = (unsigned char)cbuf[0];
-
-	if ((el->el_flags & IGNORE_EXTCHARS) && bytes > 1) {
-		cbp = 0; /* skip this character */
-		goto again;
 	}
-
-	return (int)num_read;
 }
 
 /* read_pop():

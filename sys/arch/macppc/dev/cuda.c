@@ -251,6 +251,7 @@ cuda_attach(device_t parent, device_t self, void *aux)
 	config_found(self, &caa, cuda_print);
 #endif
 	mutex_init(&sc->sc_buslock, MUTEX_DEFAULT, IPL_NONE);
+	memset(&iba, 0, sizeof(iba));
 	iba.iba_tag = &sc->sc_i2c;
 	sc->sc_i2c.ic_cookie = sc;
 	sc->sc_i2c.ic_acquire_bus = cuda_i2c_acquire_bus;

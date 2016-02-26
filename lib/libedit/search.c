@@ -45,12 +45,15 @@ __RCSID("$NetBSD$");
  * search.c: History and character search functions
  */
 #include <stdlib.h>
+#include <string.h>
 #if defined(REGEX)
 #include <regex.h>
 #elif defined(REGEXP)
 #include <regexp.h>
 #endif
+
 #include "el.h"
+#include "common.h"
 
 /*
  * Adjust cursor in vi mode to include the character under it
@@ -567,7 +570,7 @@ ce_search_line(EditLine *el, int dir)
  *	Vi repeat search
  */
 protected el_action_t
-cv_repeat_srch(EditLine *el, Int c)
+cv_repeat_srch(EditLine *el, wint_t c)
 {
 
 #ifdef SDEBUG
@@ -593,14 +596,14 @@ cv_repeat_srch(EditLine *el, Int c)
  *	Vi character search
  */
 protected el_action_t
-cv_csearch(EditLine *el, int direction, Int ch, int count, int tflag)
+cv_csearch(EditLine *el, int direction, wint_t ch, int count, int tflag)
 {
 	Char *cp;
 
 	if (ch == 0)
 		return CC_ERROR;
 
-	if (ch == (Int)-1) {
+	if (ch == (wint_t)-1) {
 		Char c;
 		if (FUN(el,getc)(el, &c) != 1)
 			return ed_end_of_file(el, 0);
@@ -608,20 +611,20 @@ cv_csearch(EditLine *el, int direction, Int ch, int count, int tflag)
 	}
 
 	/* Save for ';' and ',' commands */
-	el->el_search.chacha = ch;
+	el->el_search.chacha = (Char)ch;
 	el->el_search.chadir = direction;
 	el->el_search.chatflg = (char)tflag;
 
 	cp = el->el_line.cursor;
 	while (count--) {
-		if ((Int)*cp == ch)
+		if ((wint_t)*cp == ch)
 			cp += direction;
 		for (;;cp += direction) {
 			if (cp >= el->el_line.lastchar)
 				return CC_ERROR;
 			if (cp < el->el_line.buffer)
 				return CC_ERROR;
-			if ((Int)*cp == ch)
+			if ((wint_t)*cp == ch)
 				break;
 		}
 	}

@@ -245,6 +245,7 @@ nfsmb_attach(device_t parent, device_t self, void *aux)
 		return;
 	}
 
+	memset(&iba, 0, sizeof(iba));
 	iba.iba_type = I2C_TYPE_SMBUS;
 	iba.iba_tag = &sc->sc_i2c;
 	(void) config_found_ia(sc->sc_dev, "i2cbus", &iba, iicbus_print);

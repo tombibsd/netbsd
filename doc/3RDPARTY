@@ -497,7 +497,7 @@ we use BSD-licensed implementation from Citrus project (see entry for
 
 Package:	grep
 Version:	2.5.1a (last GPLv2+ version)
-Current Vers:	2.21
+Current Vers:	2.23
 Maintainer:	FSF
 Archive Site:	ftp://ftp.gnu.org/gnu/grep/
 Home Page:	http://www.gnu.org/software/grep/
@@ -1289,7 +1289,7 @@ Notes:
 
 Package:	texinfo
 Version:	4.8a (Last GPLv2+ version)
-Current Vers:	5.2
+Current Vers:	6.1
 Maintainer:	FSF
 Archive Site:	ftp://ftp.gnu.org/gnu/texinfo/
 Home Page:	http://www.gnu.org/software/texinfo/
@@ -1574,7 +1574,7 @@ Notes:
 		Need to feed back local changes
 
 Package:	elftoolchain (libelf/libdwarf)
-Version:	FreeBSD-2014-03-08
+Version:	FreeBSD-2016-02-19-r295822
 Current Vers:	FreeBSD-XXXX-YY-ZZ
 Maintainer:	Joseph Koshi <jkoshi@freebsd.org>
 Archive Site:	none

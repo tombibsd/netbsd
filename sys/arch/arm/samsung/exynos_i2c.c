@@ -187,8 +187,8 @@ exynos_i2c_attach(device_t parent, device_t self, void *aux)
 	sc->sc_ic.ic_read_byte   = exynos_i2c_read_byte;
 	sc->sc_ic.ic_write_byte  = exynos_i2c_write_byte;
 
+	memset(&iba, 0, sizeof(iba));
 	sc->sc_i2cdev = config_found_ia(self, "i2cbus", &iba, iicbus_print);
-
 }
 
 static i2c_tag_t

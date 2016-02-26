@@ -13,7 +13,7 @@
 /ppbus_device.h/1.6/Tue Apr 15 15:02:29 2008/-kk/
 /ppbus_gpio.c/1.1/Tue Apr 29 14:07:37 2008/-kk/
 /ppbus_io.h/1.6/Sun Dec 11 12:23:28 2005/-kk/
-/ppbus_msq.c/1.10/Sun Jul 17 20:54:51 2011/-kk/
+/ppbus_msq.c/1.11/Fri Feb 26 18:33:56 2016/-kk/
 /ppbus_msq.h/1.7/Tue Apr 15 15:02:29 2008/-kk/
 /ppbus_var.h/1.5/Sun Dec 11 12:23:28 2005/-kk/
 /pps_ppbus.c/1.16/Fri Oct  3 09:09:19 2014/-kk/

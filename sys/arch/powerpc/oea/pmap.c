@@ -3133,6 +3133,7 @@ pmap_setup_segment0_map(int use_large_pages, ...)
             (void)pmap_pte_insert(ptegidx, &pte);
         }
     }
+    va_end(ap);
 
     TLBSYNC();
     SYNC();

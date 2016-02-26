@@ -383,16 +383,7 @@ lltable_purge_entries(struct lltable *llt)
 		if (lle->la_rt != NULL) {
 			struct rtentry *rt = lle->la_rt;
 			lle->la_rt = NULL;
-#ifdef GATEWAY
-			/* XXX cannot call rtfree with holding mutex(IPL_NET) */
-			LLE_ADDREF(lle);
-			LLE_WUNLOCK(lle);
-#endif
 			rtfree(rt);
-#ifdef GATEWAY
-			LLE_WLOCK(lle);
-			LLE_REMREF(lle);
-#endif
 		}
 #endif
 		llentry_free(lle);

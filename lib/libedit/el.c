@@ -46,13 +46,17 @@ __RCSID("$NetBSD$");
  */
 #include <sys/types.h>
 #include <sys/param.h>
-#include <string.h>
-#include <stdlib.h>
-#include <stdarg.h>
 #include <ctype.h>
+#include <stdarg.h>
+#include <stdlib.h>
+#include <string.h>
+#ifdef WIDECHAR
 #include <locale.h>
 #include <langinfo.h>
+#endif
+
 #include "el.h"
+#include "parse.h"
 
 /* el_init():
  *	Initialize editline and set default parameters.
@@ -93,12 +97,10 @@ el_init_fd(const char *prog, FILE *fin, FILE *fout, FILE *ferr,
          * Initialize all the modules. Order is important!!!
          */
 	el->el_flags = 0;
-#ifdef WIDECHAR
 	if (setlocale(LC_CTYPE, NULL) != NULL){
 		if (strcmp(nl_langinfo(CODESET), "UTF-8") == 0)
 			el->el_flags |= CHARSET_IS_UTF8;
 	}
-#endif
 
 	if (terminal_init(el) == -1) {
 		el_free(el->el_prog);
@@ -207,7 +209,7 @@ FUN(el,set)(EditLine *el, int op, ...)
 		el_pfunc_t p = va_arg(ap, el_pfunc_t);
 		int c = va_arg(ap, int);
 
-		rv = prompt_set(el, p, c, op, 1);
+		rv = prompt_set(el, p, (Char)c, op, 1);
 		break;
 	}
 
@@ -435,7 +437,7 @@ FUN(el,get)(EditLine *el, int op, ...)
 		char *argv[20];
 		int i;
 
- 		for (i = 1; i < (int)__arraycount(argv); i++)
+		for (i = 1; i < (int)__arraycount(argv); i++)
 			if ((argv[i] = va_arg(ap, char *)) == NULL)
 				break;
 
@@ -512,6 +514,7 @@ el_source(EditLine *el, const char *fname)
 {
 	FILE *fp;
 	size_t len;
+	ssize_t slen;
 	char *ptr;
 	char *path = NULL;
 	const Char *dptr;
@@ -548,15 +551,17 @@ el_source(EditLine *el, const char *fname)
 		return -1;
 	}
 
-	while ((ptr = fgetln(fp, &len)) != NULL) {
+	ptr = NULL;
+	len = 0;
+	while ((slen = getline(&ptr, &len, fp)) != -1) {
 		if (*ptr == '\n')
 			continue;	/* Empty line. */
+		if (slen > 0 && ptr[--slen] == '\n')
+			ptr[slen] = '\0';
+
 		dptr = ct_decode_string(ptr, &el->el_scratch);
 		if (!dptr)
 			continue;
-		if (len > 0 && dptr[len - 1] == '\n')
-			--len;
-
 		/* loop until first non-space char or EOL */
 		while (*dptr != '\0' && Isspace(*dptr))
 			dptr++;
@@ -565,6 +570,7 @@ el_source(EditLine *el, const char *fname)
 		if ((error = parse_line(el, dptr)) == -1)
 			break;
 	}
+	free(ptr);
 
 	el_free(path);
 	(void) fclose(fp);

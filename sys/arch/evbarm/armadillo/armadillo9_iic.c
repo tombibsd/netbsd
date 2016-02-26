@@ -115,6 +115,7 @@ armadillo9iic_attach(device_t parent, device_t self, void *aux)
 	sc->sc_i2c.ic_read_byte = armadillo9iic_read_byte;
 	sc->sc_i2c.ic_write_byte = armadillo9iic_write_byte;
 
+	memset(&iba, 0, sizeof(iba));
 	iba.iba_tag = &sc->sc_i2c;
 
 	epgpio_in(sc->sc_gpio, sc->sc_port, sc->sc_sda);

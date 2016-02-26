@@ -141,7 +141,8 @@ EXTERNAL_GDB_SUBDIR=		gdb
 .if ${MACHINE} == "amd64" || \
     ${MACHINE} == "evbarm" || \
     ${MACHINE} == "i386" || \
-    ${MACHINE} == "hppa"
+    ${MACHINE} == "hppa" || \
+    ${MACHINE_ARCH} == "powerpc"
 HAVE_BINUTILS?=	226
 .else
 HAVE_BINUTILS?=	223

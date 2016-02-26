@@ -40,11 +40,6 @@
 #ifndef _h_el_chared
 #define	_h_el_chared
 
-#include <ctype.h>
-#include <string.h>
-
-#include "histedit.h"
-
 #define	EL_MAXMACRO	10
 
 /*
@@ -139,24 +134,18 @@ typedef struct el_chared_t {
 #define	MODE_REPLACE	1
 #define	MODE_REPLACE_1	2
 
-#include "common.h"
-#include "vi.h"
-#include "emacs.h"
-#include "search.h"
-#include "fcns.h"
 
-
-protected int	 cv__isword(Int);
-protected int	 cv__isWord(Int);
+protected int	 cv__isword(wint_t);
+protected int	 cv__isWord(wint_t);
 protected void	 cv_delfini(EditLine *);
-protected Char	*cv__endword(Char *, Char *, int, int (*)(Int));
-protected int	 ce__isword(Int);
+protected Char	*cv__endword(Char *, Char *, int, int (*)(wint_t));
+protected int	 ce__isword(wint_t);
 protected void	 cv_undo(EditLine *);
 protected void	 cv_yank(EditLine *, const Char *, int);
-protected Char	*cv_next_word(EditLine*, Char *, Char *, int, int (*)(Int));
-protected Char	*cv_prev_word(Char *, Char *, int, int (*)(Int));
-protected Char	*c__next_word(Char *, Char *, int, int (*)(Int));
-protected Char	*c__prev_word(Char *, Char *, int, int (*)(Int));
+protected Char	*cv_next_word(EditLine*, Char *, Char *, int, int (*)(wint_t));
+protected Char	*cv_prev_word(Char *, Char *, int, int (*)(wint_t));
+protected Char	*c__next_word(Char *, Char *, int, int (*)(wint_t));
+protected Char	*c__prev_word(Char *, Char *, int, int (*)(wint_t));
 protected void	 c_insert(EditLine *, int);
 protected void	 c_delbefore(EditLine *, int);
 protected void	 c_delbefore1(EditLine *);

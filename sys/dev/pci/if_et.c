@@ -2053,11 +2053,6 @@ et_newbuf(struct et_rxbuf_data *rbd, int buf_idx, int init, int len0)
 	error = bus_dmamap_load_mbuf(sc->sc_dmat, sc->sc_mbuf_tmp_dmap, m,
 				     init ? BUS_DMA_WAITOK : BUS_DMA_NOWAIT);
 	if (error) {
-		if (!error) {
-			bus_dmamap_unload(sc->sc_dmat, sc->sc_mbuf_tmp_dmap);
-			error = EFBIG;
-			aprint_error_dev(sc->sc_dev, "too many segments?!\n");
-		}
 		m_freem(m);
 
 		/* XXX for debug */

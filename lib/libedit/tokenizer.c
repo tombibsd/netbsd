@@ -45,8 +45,9 @@ __RCSID("$NetBSD$");
 /*
  * tokenize.c: Bourne shell like tokenizer
  */
-#include <string.h>
 #include <stdlib.h>
+#include <string.h>
+
 #include "histedit.h"
 #include "chartype.h"
 
@@ -413,8 +414,10 @@ FUN(tok,line)(TYPE(Tokenizer) *tok, const TYPE(LineInfo) *line,
 			Char **p;
 			tok->amax += AINCR;
 			p = tok_realloc(tok->argv, tok->amax * sizeof(*p));
-			if (p == NULL)
+			if (p == NULL) {
+				tok->amax -= AINCR;
 				return -1;
+			}
 			tok->argv = p;
 		}
 	}

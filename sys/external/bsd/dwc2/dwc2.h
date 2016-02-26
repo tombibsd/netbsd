@@ -260,10 +260,13 @@ ndelay(unsigned long nsecs)
 }
 
 static inline void
-msleep(unsigned int msecs)
+msleep(unsigned int msec)
 {
-
-	kpause("mdelay", false, mstohz(msecs), NULL);
+	if (cold ||
+	    ((hz < 1000) && (msec < (1000/hz))))
+		udelay(msec * 1000);
+	else
+		(void)kpause("mdelay", false, mstohz(msec), NULL);
 }
 
 #define	EREMOTEIO	EIO

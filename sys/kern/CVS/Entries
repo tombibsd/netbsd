@@ -62,7 +62,7 @@
 /kern_rate.c/1.2/Wed Dec 12 11:10:56 2012/-kk/
 /kern_resource.c/1.174/Wed Oct 29 08:13:26 2014/-kk/
 /kern_rndpool.c/1.16/Fri May  1 11:32:26 2015/-kk/
-/kern_rndq.c/1.75/Thu Jan 28 08:36:20 2016/-kk/
+/kern_rndq.c/1.81/Fri Feb 26 18:33:59 2016/-kk/
 /kern_rndsink.c/1.16/Fri May  1 11:32:26 2015/-kk/
 /kern_runq.c/1.44/Sun Oct 11 09:01:32 2015/-kk/
 /kern_rwlock.c/1.45/Tue Dec  9 04:43:52 2014/-kk/

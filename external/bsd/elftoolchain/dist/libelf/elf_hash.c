@@ -26,14 +26,12 @@
  * SUCH DAMAGE.
  */
 
-#include <sys/cdefs.h>
-
 #include <libelf.h>
 
 #include "_libelf.h"
 
 __RCSID("$NetBSD$");
-ELFTC_VCSID("Id: elf_hash.c 2225 2011-11-26 18:55:54Z jkoshy ");
+ELFTC_VCSID("Id: elf_hash.c 3174 2015-03-27 17:13:41Z emaste ");
 
 /*
  * This elf_hash function is defined by the System V ABI.

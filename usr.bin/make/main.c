@@ -690,7 +690,7 @@ Main_SetObjdir(const char *path)
 	/* expand variable substitutions */
 	if (strchr(path, '$') != 0) {
 		snprintf(buf, MAXPATHLEN, "%s", path);
-		path = p = Var_Subst(NULL, buf, VAR_GLOBAL, FALSE, TRUE, FALSE);
+		path = p = Var_Subst(NULL, buf, VAR_GLOBAL, VARF_WANTRES);
 	}
 
 	if (path[0] != '/') {
@@ -773,7 +773,7 @@ MakeMode(const char *mode)
 
     if (!mode)
 	mode = mp = Var_Subst(NULL, "${" MAKE_MODE ":tl}",
-			      VAR_GLOBAL, FALSE, TRUE, FALSE);
+			      VAR_GLOBAL, VARF_WANTRES);
 
     if (mode && *mode) {
 	if (strstr(mode, "compat")) {
@@ -1215,7 +1215,7 @@ main(int argc, char **argv)
 			    (char *)Lst_Datum(ln));
 	} else {
 	    p1 = Var_Subst(NULL, "${" MAKEFILE_PREFERENCE "}",
-	        VAR_CMD, FALSE, TRUE, FALSE);
+		VAR_CMD, VARF_WANTRES);
 	    if (p1) {
 		(void)str2Lst_Append(makefiles, p1, NULL);
 		(void)Lst_Find(makefiles, NULL, ReadMakefile);
@@ -1226,7 +1226,7 @@ main(int argc, char **argv)
 	/* In particular suppress .depend for '-r -V .OBJDIR -f /dev/null' */
 	if (!noBuiltins || !printVars) {
 	    makeDependfile = Var_Subst(NULL, "${.MAKE.DEPENDFILE:T}",
-		VAR_CMD, FALSE, TRUE, FALSE);
+		VAR_CMD, VARF_WANTRES);
 	    doing_depend = TRUE;
 	    (void)ReadMakefile(makeDependfile, NULL);
 	    doing_depend = FALSE;
@@ -1264,7 +1264,7 @@ main(int argc, char **argv)
 		 */
 		static char VPATH[] = "${VPATH}";
 
-		vpath = Var_Subst(NULL, VPATH, VAR_CMD, FALSE, TRUE, FALSE);
+		vpath = Var_Subst(NULL, VPATH, VAR_CMD, VARF_WANTRES);
 		path = vpath;
 		do {
 			/* skip to end of directory */
@@ -1312,7 +1312,7 @@ main(int argc, char **argv)
 			
 			if (strchr(var, '$')) {
 			    value = p1 = Var_Subst(NULL, var, VAR_GLOBAL,
-						   FALSE, TRUE, FALSE);
+						   VARF_WANTRES);
 			} else if (expandVars) {
 				char tmp[128];
 								
@@ -1320,7 +1320,7 @@ main(int argc, char **argv)
 					Fatal("%s: variable name too big: %s",
 					      progname, var);
 				value = p1 = Var_Subst(NULL, tmp, VAR_GLOBAL,
-						       FALSE, TRUE, FALSE);
+						       VARF_WANTRES);
 			} else {
 				value = Var_Value(var, VAR_GLOBAL, &p1);
 			}
@@ -1856,7 +1856,7 @@ PrintOnError(GNode *gn, const char *s)
     }
     strncpy(tmp, "${MAKE_PRINT_VAR_ON_ERROR:@v@$v='${$v}'\n@}",
 	    sizeof(tmp) - 1);
-    cp = Var_Subst(NULL, tmp, VAR_GLOBAL, FALSE, TRUE, FALSE);
+    cp = Var_Subst(NULL, tmp, VAR_GLOBAL, VARF_WANTRES);
     if (cp) {
 	if (*cp)
 	    printf("%s", cp);
@@ -1887,7 +1887,7 @@ Main_ExportMAKEFLAGS(Boolean first)
     
     strncpy(tmp, "${.MAKEFLAGS} ${.MAKEOVERRIDES:O:u:@v@$v=${$v:Q}@}",
 	    sizeof(tmp));
-    s = Var_Subst(NULL, tmp, VAR_CMD, FALSE, TRUE, FALSE);
+    s = Var_Subst(NULL, tmp, VAR_CMD, VARF_WANTRES);
     if (s && *s) {
 #ifdef POSIX
 	setenv("MAKEFLAGS", s, 1);
@@ -1910,7 +1910,7 @@ getTmpdir(void)
 	 * Ensure it ends with /.
 	 */
 	tmpdir = Var_Subst(NULL, "${TMPDIR:tA:U" _PATH_TMP "}/", VAR_GLOBAL,
-			   FALSE, TRUE, FALSE);
+			   VARF_WANTRES);
 	if (stat(tmpdir, &st) < 0 || !S_ISDIR(st.st_mode)) {
 	    free(tmpdir);
 	    tmpdir = bmake_strdup(_PATH_TMP);
@@ -1950,6 +1950,44 @@ mkTempFile(const char *pattern, char **fnamep)
     return fd;
 }
 
+/*
+ * Convert a string representation of a boolean.
+ * Anything that looks like "No", "False", "Off", "0" etc,
+ * is FALSE, otherwise TRUE.
+ */
+Boolean
+s2Boolean(const char *s, Boolean bf)
+{
+    if (s) {
+	switch(*s) {
+	case '\0':			/* not set - the default wins */
+	    break;
+	case '0':
+	case 'F':
+	case 'f':
+	case 'N':
+	case 'n':
+	    bf = FALSE;
+	    break;
+	case 'O':
+	case 'o':
+	    switch (s[1]) {
+	    case 'F':
+	    case 'f':
+		bf = FALSE;
+		break;
+	    default:
+		bf = TRUE;
+		break;
+	    }
+	    break;
+	default:
+	    bf = TRUE;
+	    break;
+	}
+    }
+    return (bf);
+}
 
 /*
  * Return a Boolean based on setting of a knob.
@@ -1964,32 +2002,11 @@ getBoolean(const char *name, Boolean bf)
     char tmp[64];
     char *cp;
 
-    if (snprintf(tmp, sizeof(tmp), "${%s:tl}", name) < (int)(sizeof(tmp))) {
-	cp = Var_Subst(NULL, tmp, VAR_GLOBAL, FALSE, TRUE, FALSE);
+    if (snprintf(tmp, sizeof(tmp), "${%s:U:tl}", name) < (int)(sizeof(tmp))) {
+	cp = Var_Subst(NULL, tmp, VAR_GLOBAL, VARF_WANTRES);
 
 	if (cp) {
-	    switch(*cp) {
-	    case '\0':			/* not set - the default wins */
-		break;
-	    case '0':
-	    case 'f':
-	    case 'n':
-		bf = FALSE;
-		break;
-	    case 'o':
-		switch (cp[1]) {
-		case 'f':
-		    bf = FALSE;
-		    break;
-		default:
-		    bf = TRUE;
-		    break;
-		}
-		break;
-	    default:
-		bf = TRUE;
-		break;
-	    }
+	    bf = s2Boolean(cp, bf);
 	    free(cp);
 	}
     }

@@ -385,6 +385,7 @@ next:
 bat_done:
 
 #if notyet
+	memset(&iba, 0, sizeof(iba));
 	iba.iba_tag = &sc->sc_i2c;
 	sc->sc_i2c.ic_cookie = sc;
 	sc->sc_i2c.ic_acquire_bus = pmu_i2c_acquire_bus;

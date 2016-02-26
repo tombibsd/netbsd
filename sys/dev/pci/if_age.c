@@ -2222,13 +2222,6 @@ age_newbuf(struct age_softc *sc, struct age_rxdesc *rxd, int init)
 	    sc->age_cdata.age_rx_sparemap, m, BUS_DMA_NOWAIT);
 
 	if (error != 0) {
-		if (!error) {
-			bus_dmamap_unload(sc->sc_dmat,
-			    sc->age_cdata.age_rx_sparemap);
-			error = EFBIG;
-			printf("%s: too many segments?!\n",
-			    device_xname(sc->sc_dev));
-		}
 		m_freem(m);
 
 		if (init)

@@ -31,7 +31,7 @@
 #include "_libelf.h"
 
 __RCSID("$NetBSD$");
-ELFTC_VCSID("Id: elf_memory.c 2368 2011-12-29 06:34:28Z jkoshy ");
+ELFTC_VCSID("Id: elf_memory.c 3013 2014-03-23 06:16:59Z jkoshy ");
 
 Elf *
 elf_memory(char *image, size_t sz)
@@ -46,5 +46,5 @@ elf_memory(char *image, size_t sz)
 		return (NULL);
 	}
 
-	return (_libelf_memory(image, sz, 1));
+	return (_libelf_memory((unsigned char *) image, sz, 1));
 }

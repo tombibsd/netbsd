@@ -2087,13 +2087,7 @@ sctp_notify_assoc_change(u_int32_t event, struct sctp_tcb *stcb,
 		const struct sockaddr_in *sin;
 
 		sin = (const struct sockaddr_in *)to;
-		memset(&sin6, 0, sizeof(sin6));
-		sin6.sin6_family = AF_INET6;
-		sin6.sin6_len = sizeof(struct sockaddr_in6);
-		sin6.sin6_addr.s6_addr16[2] = 0xffff;
-		memcpy(&sin6.sin6_addr.s6_addr16[3], &sin->sin_addr,
-		    sizeof(sin6.sin6_addr.s6_addr16[3]));
-		sin6.sin6_port = sin->sin_port;
+		in6_sin_2_v4mapsin6(sin, &sin6);
 		to = (struct sockaddr *)&sin6;
 	}
 	/* check and strip embedded scope junk */
@@ -2179,13 +2173,7 @@ sctp_notify_peer_addr_change(struct sctp_tcb *stcb, uint32_t state,
 		const struct sockaddr_in *sin;
 
 		sin = (const struct sockaddr_in *)to;
-		memset(&sin6, 0, sizeof(sin6));
-		sin6.sin6_family = AF_INET6;
-		sin6.sin6_len = sizeof(struct sockaddr_in6);
-		sin6.sin6_addr.s6_addr16[2] = 0xffff;
-		bcopy(&sin->sin_addr, &sin6.sin6_addr.s6_addr16[3],
-		    sizeof(sin6.sin6_addr.s6_addr16[3]));
-		sin6.sin6_port = sin->sin_port;
+		in6_sin_2_v4mapsin6(sin, &sin6);
 		to = (struct sockaddr *)&sin6;
 	}
 	/* check and strip embedded scope junk */
@@ -2279,13 +2267,7 @@ sctp_notify_send_failed(struct sctp_tcb *stcb, u_int32_t error,
 		const struct sockaddr_in *sin;
 
 		sin = satocsin(to);
-		memset(&sin6, 0, sizeof(sin6));
-		sin6.sin6_family = AF_INET6;
-		sin6.sin6_len = sizeof(struct sockaddr_in6);
-		sin6.sin6_addr.s6_addr16[2] = 0xffff;
-		bcopy(&sin->sin_addr, &sin6.sin6_addr.s6_addr16[3],
-		    sizeof(sin6.sin6_addr.s6_addr16[3]));
-		sin6.sin6_port = sin->sin_port;
+		in6_sin_2_v4mapsin6(sin, &sin6);
 		to = (struct sockaddr *)&sin6;
 	}
 	/* check and strip embedded scope junk */
@@ -2357,13 +2339,7 @@ sctp_notify_adaption_layer(struct sctp_tcb *stcb,
 		const struct sockaddr_in *sin;
 
 		sin = satocsin(to);
-		memset(&sin6, 0, sizeof(sin6));
-		sin6.sin6_family = AF_INET6;
-		sin6.sin6_len = sizeof(struct sockaddr_in6);
-		sin6.sin6_addr.s6_addr16[2] = 0xffff;
-		bcopy(&sin->sin_addr, &sin6.sin6_addr.s6_addr16[3],
-		    sizeof(sin6.sin6_addr.s6_addr16[3]));
-		sin6.sin6_port = sin->sin_port;
+		in6_sin_2_v4mapsin6(sin, &sin6);
 		to = (struct sockaddr *)&sin6;
 	}
 	/* check and strip embedded scope junk */
@@ -2433,13 +2409,7 @@ sctp_notify_partial_delivery_indication(struct sctp_tcb *stcb,
 		const struct sockaddr_in *sin;
 
 		sin = satocsin(to);
-		memset(&sin6, 0, sizeof(sin6));
-		sin6.sin6_family = AF_INET6;
-		sin6.sin6_len = sizeof(struct sockaddr_in6);
-		sin6.sin6_addr.s6_addr16[2] = 0xffff;
-		bcopy(&sin->sin_addr, &sin6.sin6_addr.s6_addr16[3],
-		    sizeof(sin6.sin6_addr.s6_addr16[3]));
-		sin6.sin6_port = sin->sin_port;
+		in6_sin_2_v4mapsin6(sin, &sin6);
 		to = (struct sockaddr *)&sin6;
 	}
 	/* check and strip embedded scope junk */
@@ -2518,13 +2488,7 @@ sctp_notify_shutdown_event(struct sctp_tcb *stcb)
 		const struct sockaddr_in *sin;
 
 		sin = satocsin(to);
-		memset(&sin6, 0, sizeof(sin6));
-		sin6.sin6_family = AF_INET6;
-		sin6.sin6_len = sizeof(struct sockaddr_in6);
-		sin6.sin6_addr.s6_addr16[2] = 0xffff;
-		bcopy(&sin->sin_addr, &sin6.sin6_addr.s6_addr16[3],
-		    sizeof(sin6.sin6_addr.s6_addr16[3]));
-		sin6.sin6_port = sin->sin_port;
+		in6_sin_2_v4mapsin6(sin, &sin6);
 		to = (struct sockaddr *)&sin6;
 	}
 	/* check and strip embedded scope junk */
@@ -2620,13 +2584,7 @@ sctp_notify_stream_reset(struct sctp_tcb *stcb,
 		const struct sockaddr_in *sin;
 
 		sin = satocsin(to);
-		memset(&sin6, 0, sizeof(sin6));
-		sin6.sin6_family = AF_INET6;
-		sin6.sin6_len = sizeof(struct sockaddr_in6);
-		sin6.sin6_addr.s6_addr16[2] = 0xffff;
-		bcopy(&sin->sin_addr, &sin6.sin6_addr.s6_addr16[3],
-		    sizeof(sin6.sin6_addr.s6_addr16[3]));
-		sin6.sin6_port = sin->sin_port;
+		in6_sin_2_v4mapsin6(sin, &sin6);
 		to = (struct sockaddr *)&sin6;
 	}
 	/* check and strip embedded scope junk */

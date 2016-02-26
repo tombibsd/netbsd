@@ -309,12 +309,12 @@ host_match(char *tok, struct host_info *host)
 static int
 hostfile_match(char *path, struct host_info *host)
 {
-    char    tok[BUFSIZ];
+    char    tok[512];
     int     match = NO;
     FILE   *fp;
 
     if ((fp = fopen(path, "r")) != 0) {
-	while (fscanf(fp, "%s", tok) == 1 && !(match = host_match(tok, host)))
+	while (fscanf(fp, "%511s", tok) == 1 && !(match = host_match(tok, host)))
 	     /* void */ ;
 	fclose(fp);
     } else if (errno != ENOENT) {

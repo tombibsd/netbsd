@@ -82,6 +82,12 @@ contains at least one member:
 .Bl -tag -width flags
 .It Fa sched_priority
 Specifies the priority of the process.
+For
+.Dv SCHED_OTHER ,
+must be
+.Dv PRI_NONE ;
+the kernel will dynamically assign priorities to the thread based on
+CPU load.
 .El
 .Sh FUNCTIONS
 .Bl -tag -width compact

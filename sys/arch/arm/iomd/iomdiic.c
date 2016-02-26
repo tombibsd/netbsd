@@ -147,6 +147,7 @@ iomdiic_attach(device_t parent, device_t self, void *aux)
 	sc->sc_i2c.ic_read_byte = iomdiic_read_byte;
 	sc->sc_i2c.ic_write_byte = iomdiic_write_byte;
 
+	memset(&iba, 0, sizeof(iba));
 	iba.iba_tag = &sc->sc_i2c;
 	(void) config_found_ia(sc->sc_dev, "i2cbus", &iba, iicbus_print);
 }

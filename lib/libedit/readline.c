@@ -36,23 +36,22 @@ __RCSID("$NetBSD$");
 
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <stdio.h>
-#include <dirent.h>
-#include <string.h>
-#include <pwd.h>
 #include <ctype.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <limits.h>
+#include <dirent.h>
 #include <errno.h>
 #include <fcntl.h>
+#include <limits.h>
+#include <pwd.h>
 #include <setjmp.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
 #include <vis.h>
 
 #include "readline/readline.h"
 #include "el.h"
-#include "fcns.h"		/* for EL_NUM_FCNS */
-#include "histedit.h"
 #include "filecomplete.h"
 
 void rl_prep_terminal(int);
@@ -267,7 +266,7 @@ rl_set_prompt(const char *prompt)
 
 	if (!prompt)
 		prompt = "";
-	if (rl_prompt != NULL && strcmp(rl_prompt, prompt) == 0) 
+	if (rl_prompt != NULL && strcmp(rl_prompt, prompt) == 0)
 		return 0;
 	if (rl_prompt)
 		el_free(rl_prompt);
@@ -361,7 +360,7 @@ rl_initialize(void)
 	    "ReadLine compatible suspend function",
 	    _el_rl_tstp);
 	el_set(e, EL_BIND, "^Z", "rl_tstp", NULL);
-		
+
 	/*
 	 * Set some readline compatible key-bindings.
 	 */
@@ -2008,7 +2007,7 @@ rl_callback_read_char(void)
 	}
 }
 
-void 
+void
 rl_callback_handler_install(const char *prompt, rl_vcpfunc_t *linefunc)
 {
 	if (e == NULL) {
@@ -2017,9 +2016,9 @@ rl_callback_handler_install(const char *prompt, rl_vcpfunc_t *linefunc)
 	(void)rl_set_prompt(prompt);
 	rl_linefunc = linefunc;
 	el_set(e, EL_UNBUFFERED, 1);
-}   
+}
 
-void 
+void
 rl_callback_handler_remove(void)
 {
 	el_set(e, EL_UNBUFFERED, 0);
@@ -2201,7 +2200,7 @@ rl_completion_matches(const char *str, rl_compentry_func_t *fun)
 	}
 	qsort(&list[1], len - 1, sizeof(*list),
 	    (int (*)(const void *, const void *)) strcmp);
-	min = SIZE_T_MAX;
+	min = SIZE_MAX;
 	for (i = 1, a = list[i]; i < len - 1; i++, a = b) {
 		b = list[i + 1];
 		for (j = 0; a[j] && a[j] == b[j]; j++)
@@ -2219,7 +2218,7 @@ rl_completion_matches(const char *str, rl_compentry_func_t *fun)
 		list[0][min] = '\0';
 	}
 	return list;
-		
+
 out:
 	el_free(list);
 	return NULL;
@@ -2322,4 +2321,11 @@ rl_on_new_line(void)
 void
 rl_free_line_state(void)
 {
+}
+
+int
+/*ARGSUSED*/
+rl_set_keyboard_input_timeout(int u __attribute__((__unused__)))
+{
+	return 0;
 }

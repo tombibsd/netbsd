@@ -11,7 +11,7 @@
 /acpi_cpu_pstate.c/1.53/Tue Nov 15 07:43:37 2011/-kk/
 /acpi_cpu_tstate.c/1.32/Tue Dec 17 04:05:06 2013/-kk/
 /acpi_debug.c/1.5/Sat Mar  1 06:04:40 2014/-kk/
-/acpi_display.c/1.13/Sun Jan 17 10:34:11 2016/-kk/
+/acpi_display.c/1.14/Fri Feb 26 18:33:53 2016/-kk/
 /acpi_ec.c/1.74/Thu Dec 11 09:09:46 2014/-kk/
 /acpi_ecvar.h/1.2/Fri Mar  5 08:30:48 2010/-kk/
 /acpi_fan.c/1.8/Fri May  1 11:32:03 2015/-kk/

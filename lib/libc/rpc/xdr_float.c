@@ -57,6 +57,7 @@ __RCSID("$NetBSD$");
 #include <sys/param.h>
 
 #include <stdio.h>
+#include <string.h>
 
 #include <rpc/types.h>
 #include <rpc/xdr.h>
@@ -303,7 +304,7 @@ xdr_double(XDR *xdrs, double *dp)
 		vd.mantissa4 = (id.mantissa2 << 3);
 	doneit:
 		vd.sign = id.sign;
-		*dp = *((double *)(void *)&vd);
+		memcpy(dp, &vd, sizeof(double));
 		return (TRUE);
 #endif
 

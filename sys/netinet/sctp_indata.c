@@ -424,13 +424,7 @@ sctp_deliver_data(struct sctp_tcb *stcb, struct sctp_association *asoc,
 			const struct sockaddr_in *sin;
 
 			sin = (const struct sockaddr_in *)to;
-			memset(&sin6, 0, sizeof(sin6));
-			sin6.sin6_family = AF_INET6;
-			sin6.sin6_len = sizeof(struct sockaddr_in6);
-			sin6.sin6_addr.s6_addr16[2] = 0xffff;
-			bcopy(&sin->sin_addr, &sin6.sin6_addr.s6_addr16[3],
-			    sizeof(sin6.sin6_addr.s6_addr16[3]));
-			sin6.sin6_port = sin->sin_port;
+			in6_sin_2_v4mapsin6(sin, &sin6);
 			to = (struct sockaddr *)&sin6;
 		}
 		/* check and strip embedded scope junk */
@@ -653,14 +647,7 @@ sctp_service_reassembly(struct sctp_tcb *stcb, struct sctp_association *asoc, in
 				const struct sockaddr_in *sin;
 
 				sin = satocsin(to);
-				memset(&sin6, 0, sizeof(sin6));
-				sin6.sin6_family = AF_INET6;
-				sin6.sin6_len = sizeof(struct sockaddr_in6);
-				sin6.sin6_addr.s6_addr16[2] = 0xffff;
-				bcopy(&sin->sin_addr,
-				      &sin6.sin6_addr.s6_addr16[3],
-				      sizeof(sin6.sin6_addr.s6_addr16[3]));
-				sin6.sin6_port = sin->sin_port;
+				in6_sin_2_v4mapsin6(sin, &sin6);
 				to = (struct sockaddr *)&sin6;
 			}
 			/* check and strip embedded scope junk */
@@ -1962,14 +1949,7 @@ sctp_process_a_data_chunk(struct sctp_tcb *stcb, struct sctp_association *asoc,
 			const struct sockaddr_in *sin;
 
 			sin = satocsin(to);
-			memset(&sin6, 0, sizeof(sin6));
-			sin6.sin6_family = AF_INET6;
-			sin6.sin6_len = sizeof(struct sockaddr_in6);
-			sin6.sin6_addr.s6_addr16[2] = 0xffff;
-			bcopy(&sin->sin_addr,
-			    &sin6.sin6_addr.s6_addr16[3],
-			    sizeof(sin6.sin6_addr.s6_addr16[3]));
-			sin6.sin6_port = sin->sin_port;
+			in6_sin_2_v4mapsin6(sin, &sin6);
 			to = (struct sockaddr *)&sin6;
 		}
 

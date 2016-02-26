@@ -35,7 +35,7 @@ ELFTC_VCSID("Id: dwarf_seterror.c 2075 2011-10-27 03:47:28Z jkoshy ");
 	do {							\
 		(R) = (F);					\
 		(F) = (V);					\
-	} while (0)
+	} while (/*CONSTCOND*/0)
 
 #define	SET_FIELD(D, R, F)					\
 	do {							\
@@ -43,7 +43,7 @@ ELFTC_VCSID("Id: dwarf_seterror.c 2075 2011-10-27 03:47:28Z jkoshy ");
 			_SET_FIELD(R, (D)->dbg_##F, F);		\
 		else						\
 			_SET_FIELD(R, _libdwarf.F, F);		\
-	} while (0)
+	} while (/*CONSTCOND*/0)
 
 Dwarf_Handler
 dwarf_seterrhand(Dwarf_Debug dbg, Dwarf_Handler errhand)

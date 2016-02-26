@@ -82,6 +82,7 @@ amdpm_smbus_attach(struct amdpm_softc *sc)
 	sc->sc_i2c.ic_write_byte = NULL;
 	sc->sc_i2c.ic_exec = amdpm_smbus_exec;
 
+	memset(&iba, 0, sizeof(iba));
 	iba.iba_tag = &sc->sc_i2c;
 	(void)config_found_ia(sc->sc_dev, "i2cbus", &iba, iicbus_print);
 }

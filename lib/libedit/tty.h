@@ -40,8 +40,6 @@
 #ifndef _h_el_tty
 #define	_h_el_tty
 
-#include "sys.h"
-#include "histedit.h"
 #include <termios.h>
 #include <unistd.h>
 

@@ -80,6 +80,8 @@ kcpuset_t *kcpuset_attached = NULL;
 kcpuset_t *kcpuset_running = NULL;
 int ncpu, ncpuonline;
 
+kmutex_t cpu_lock;
+
 #define RCPULWP_BUSY	((void *)-1)
 #define RCPULWP_WANTED	((void *)-2)
 
@@ -140,6 +142,8 @@ rump_cpus_bootstrap(int *nump)
 		    "available (adjusted)\n", num, MAXCPUS);
 		num = MAXCPUS;
 	}
+
+	mutex_init(&cpu_lock, MUTEX_DEFAULT, IPL_NONE);
 
 	kcpuset_create(&kcpuset_attached, true);
 	kcpuset_create(&kcpuset_running, true);

@@ -13,6 +13,6 @@
 /qdisc_red.c/1.5/Sat Oct 28 11:43:02 2006/-kk/
 /qdisc_rio.c/1.6/Sat Oct 28 11:43:02 2006/-kk/
 /qdisc_wfq.c/1.5/Sat Oct 28 11:43:02 2006/-kk/
-/quip_client.c/1.11/Mon Jun 22 02:35:24 2015/-kk/
+/quip_client.c/1.12/Fri Feb 26 18:34:06 2016/-kk/
 /quip_client.h/1.4/Wed Aug 22 08:52:36 2001/-kk/
 D

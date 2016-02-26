@@ -29,7 +29,7 @@
 #include "_libdwarf.h"
 
 __RCSID("$NetBSD$");
-ELFTC_VCSID("Id: dwarf_attrval.c 2072 2011-10-27 03:26:49Z jkoshy ");
+ELFTC_VCSID("Id: dwarf_attrval.c 3159 2015-02-15 21:43:27Z emaste ");
 
 int
 dwarf_attrval_flag(Dwarf_Die die, Dwarf_Half attr, Dwarf_Bool *valp, Dwarf_Error *err)

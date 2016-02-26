@@ -180,7 +180,7 @@ nouveau_devobj_ctor(struct nouveau_object *parent,
 		if (mmio_size < 0x102000)
 			return -ENOMEM;
 		/* XXX errno NetBSD->Linux */
-		ret = -bus_space_map(mmiot, mmio_base, mmio_size, 0, &mmioh);
+		ret = -bus_space_map(mmiot, mmio_base, 0x102000, 0, &mmioh);
 		if (ret)
 			return ret;
 
@@ -193,7 +193,7 @@ nouveau_devobj_ctor(struct nouveau_object *parent,
 
 		boot0 = bus_space_read_4(mmiot, mmioh, 0x000000);
 		strap = bus_space_read_4(mmiot, mmioh, 0x101000);
-		bus_space_unmap(mmiot, mmioh, mmio_size);
+		bus_space_unmap(mmiot, mmioh, 0x102000);
 #else
 		map = ioremap(mmio_base, 0x102000);
 		if (map == NULL)

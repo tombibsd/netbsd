@@ -1128,7 +1128,6 @@ crmfb_setup_video(struct crmfb_softc *sc, int depth)
 	case 32:
 		sc->sc_de_mode = DE_MODE_TLB_A | DE_MODE_BUFDEPTH_32 |
 		    DE_MODE_TYPE_RGBA | DE_MODE_PIXDEPTH_32;
-		break;
 		sc->sc_mte_mode = MTE_MODE_DST_ECC |
 		    (MTE_TLB_A << MTE_DST_TLB_SHIFT) |
 		    (MTE_TLB_A << MTE_SRC_TLB_SHIFT) |

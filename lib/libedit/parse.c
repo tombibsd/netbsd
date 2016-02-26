@@ -54,16 +54,19 @@ __RCSID("$NetBSD$");
  *	settc
  *	setty
  */
-#include "el.h"
 #include <stdlib.h>
+#include <string.h>
+
+#include "el.h"
+#include "parse.h"
 
 private const struct {
 	const Char *name;
 	int (*func)(EditLine *, int, const Char **);
 } cmds[] = {
-	{ STR("bind"),  	map_bind	},
+	{ STR("bind"),		map_bind	},
 	{ STR("echotc"),	terminal_echotc	},
-	{ STR("edit"),  	el_editmode	},
+	{ STR("edit"),		el_editmode	},
 	{ STR("history"),	hist_command	},
 	{ STR("telltc"),	terminal_telltc	},
 	{ STR("settc"),	        terminal_settc	},
@@ -139,7 +142,7 @@ protected int
 parse__escape(const Char **ptr)
 {
 	const Char *p;
-	Int c;
+	wint_t c;
 
 	p = *ptr;
 
@@ -251,7 +254,7 @@ parse__string(Char *out, const Char *in)
 		case '^':
 			if ((n = parse__escape(&in)) == -1)
 				return NULL;
-			*out++ = n;
+			*out++ = (Char)n;
 			break;
 
 		case 'M':

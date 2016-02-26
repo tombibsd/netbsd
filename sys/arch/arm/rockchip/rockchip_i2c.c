@@ -142,9 +142,9 @@ rkiic_attach(device_t parent, device_t self, void *aux)
 	sc->sc_ic.ic_release_bus = rkiic_release_bus;
 	sc->sc_ic.ic_exec = rkiic_exec;
 
+	memset(&iba, 0, sizeof(iba));
 	iba.iba_tag = &sc->sc_ic;
-	sc->sc_i2cdev = config_found_ia(self, "i2cbus",
-	    &iba, iicbus_print);
+	sc->sc_i2cdev = config_found_ia(self, "i2cbus", &iba, iicbus_print);
 }
 
 static int

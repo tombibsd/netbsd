@@ -39,11 +39,11 @@
 #include "_libelf.h"
 
 __RCSID("$NetBSD$");
-ELFTC_VCSID("Id: libelf_align.c 2225 2011-11-26 18:55:54Z jkoshy ");
+ELFTC_VCSID("Id: libelf_align.c 3174 2015-03-27 17:13:41Z emaste ");
 
 struct align {
-	int a32;
-	int a64;
+	unsigned int a32;
+	unsigned int a64;
 };
 
 #if defined(__GNUC__) || defined(__lint__)
@@ -94,7 +94,7 @@ static struct align malign[ELF_T_NUM] = {
 	[ELF_T_GNUHASH] = MALIGN_WORD()
 };
 
-int
+unsigned int
 _libelf_malign(Elf_Type t, int elfclass)
 {
 	if (t >= ELF_T_NUM || (int) t < 0)
@@ -116,7 +116,7 @@ static struct align falign[ELF_T_NUM] = {
 	[ELF_T_LWORD]	= FALIGN(8,8),
 	[ELF_T_MOVE]	= FALIGN(8,8),
 	[ELF_T_MOVEP] 	= UNSUPPORTED(),
-	[ELF_T_NOTE]	= FALIGN(4,4),
+	[ELF_T_NOTE]	= FALIGN(1,1),
 	[ELF_T_OFF]	= FALIGN(4,8),
 	[ELF_T_PHDR]	= FALIGN(4,8),
 	[ELF_T_REL]	= FALIGN(4,8),
@@ -133,7 +133,7 @@ static struct align falign[ELF_T_NUM] = {
 	[ELF_T_GNUHASH] = FALIGN(4,8)
 };
 
-int
+unsigned int
 _libelf_falign(Elf_Type t, int elfclass)
 {
 	if (t >= ELF_T_NUM || (int) t < 0)

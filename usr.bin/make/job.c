@@ -701,7 +701,7 @@ JobPrintCommand(void *cmdp, void *jobp)
 
     numCommands += 1;
 
-    cmdStart = cmd = Var_Subst(NULL, cmd, job->node, FALSE, TRUE, FALSE);
+    cmdStart = cmd = Var_Subst(NULL, cmd, job->node, VARF_WANTRES);
 
     cmdTemplate = "%s\n";
 
@@ -888,7 +888,7 @@ JobPrintCommand(void *cmdp, void *jobp)
 static int
 JobSaveCommand(void *cmd, void *gn)
 {
-    cmd = Var_Subst(NULL, (char *)cmd, (GNode *)gn, FALSE, TRUE, FALSE);
+    cmd = Var_Subst(NULL, (char *)cmd, (GNode *)gn, VARF_WANTRES);
     (void)Lst_AtEnd(postCommands->commands, cmd);
     return(0);
 }
@@ -2176,7 +2176,7 @@ Job_SetPrefix(void)
     }
 
     targPrefix = Var_Subst(NULL, "${" MAKE_JOB_PREFIX "}",
-			   VAR_GLOBAL, FALSE, TRUE, FALSE);
+			   VAR_GLOBAL, VARF_WANTRES);
 }
 
 /*-

@@ -1075,7 +1075,9 @@ _C_LABEL(trapbase_sun4v):
 	sun4v_trap_entry_spill_fill_fail 1			! 0x0f4 fill_5_other
 	sun4v_trap_entry_spill_fill_fail 1			! 0x0f8 fill_6_other
 	sun4v_trap_entry_spill_fill_fail 1			! 0x0fc fill_7_other
-	sun4v_trap_entry 256					! 0x100-0x1ff
+	sun4v_trap_entry 1					! 0x100
+	BPT							! 0x101 = pseudo breakpoint instruction
+	sun4v_trap_entry 254					! 0x102-0x1ff
 	!
 	! trap level 1
 	!

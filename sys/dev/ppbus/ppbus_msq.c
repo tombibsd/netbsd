@@ -259,6 +259,7 @@ ppbus_MS_init_msq(struct ppbus_microseq * msq, int nbparam, ...)
 			panic("%s: unknown parameter (0x%x)!", __func__, param);
 		}
 	}
+	va_end(p_list);
 
 	return (0);
 }

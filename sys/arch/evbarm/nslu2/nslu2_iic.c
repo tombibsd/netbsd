@@ -210,6 +210,7 @@ slugiic_deferred_attach(device_t self)
 	reg |= GPIO_I2C_SDA_BIT;
 	GPIO_CONF_WRITE_4(ixp425_softc, IXP425_GPIO_GPOER, reg);
 
+	memset(&iba, 0, sizeof(iba));
 	iba.iba_tag = &sc->sc_ic;
 	(void) config_found_ia(self, "i2cbus", &iba, iicbus_print);
 }

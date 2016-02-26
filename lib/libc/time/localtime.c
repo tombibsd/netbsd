@@ -1540,7 +1540,7 @@ localtime(const time_t *timep)
 struct tm *
 localtime_r(const time_t * __restrict timep, struct tm *tmp)
 {
-	return localtime_tzset(timep, tmp, false);
+	return localtime_tzset(timep, tmp, true);
 }
 
 /*

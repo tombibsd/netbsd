@@ -43,7 +43,7 @@
 #endif
 
 __RCSID("$NetBSD$");
-ELFTC_VCSID("Id: elf_end.c 2240 2011-11-28 06:36:48Z jkoshy ");
+ELFTC_VCSID("Id: elf_end.c 3174 2015-03-27 17:13:41Z emaste ");
 
 int
 elf_end(Elf *e)

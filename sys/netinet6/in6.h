@@ -768,6 +768,7 @@ typedef	_BSD_SIZE_T_		size_t;
 __BEGIN_DECLS
 struct cmsghdr;
 
+void	in6_in_2_v4mapin6(const struct in_addr *, struct in6_addr *);
 void	in6_sin6_2_sin(struct sockaddr_in *, struct sockaddr_in6 *);
 void	in6_sin_2_v4mapsin6(const struct sockaddr_in *, struct sockaddr_in6 *);
 void	in6_sin6_2_sin_in_sock(struct sockaddr *);

@@ -42,8 +42,6 @@
 
 #include <signal.h>
 
-#include "histedit.h"
-
 /*
  * Define here all the signals we are going to handle
  * The _DO macro is used to iterate in the source code

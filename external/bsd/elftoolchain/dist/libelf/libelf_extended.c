@@ -38,7 +38,7 @@
 #include "_libelf.h"
 
 __RCSID("$NetBSD$");
-ELFTC_VCSID("Id: libelf_extended.c 2225 2011-11-26 18:55:54Z jkoshy ");
+ELFTC_VCSID("Id: libelf_extended.c 3174 2015-03-27 17:13:41Z emaste ");
 
 /*
  * Retrieve section #0, allocating a new section if needed.
@@ -76,9 +76,9 @@ _libelf_setshnum(Elf *e, void *eh, int ec, size_t shnum)
 	}
 
 	if (ec == ELFCLASS32)
-		((Elf32_Ehdr *) eh)->e_shnum = shnum;
+		((Elf32_Ehdr *) eh)->e_shnum = shnum & 0xFFFFU;
 	else
-		((Elf64_Ehdr *) eh)->e_shnum = shnum;
+		((Elf64_Ehdr *) eh)->e_shnum = shnum & 0xFFFFU;
 
 
 	return (1);
@@ -106,9 +106,9 @@ _libelf_setshstrndx(Elf *e, void *eh, int ec, size_t shstrndx)
 	}
 
 	if (ec == ELFCLASS32)
-		((Elf32_Ehdr *) eh)->e_shstrndx = shstrndx;
+		((Elf32_Ehdr *) eh)->e_shstrndx = shstrndx & 0xFFFFU;
 	else
-		((Elf64_Ehdr *) eh)->e_shstrndx = shstrndx;
+		((Elf64_Ehdr *) eh)->e_shstrndx = shstrndx & 0xFFFFU;
 
 	return (1);
 }
@@ -135,9 +135,9 @@ _libelf_setphnum(Elf *e, void *eh, int ec, size_t phnum)
 	}
 
 	if (ec == ELFCLASS32)
-		((Elf32_Ehdr *) eh)->e_phnum = phnum;
+		((Elf32_Ehdr *) eh)->e_phnum = phnum & 0xFFFFU;
 	else
-		((Elf64_Ehdr *) eh)->e_phnum = phnum;
+		((Elf64_Ehdr *) eh)->e_phnum = phnum & 0xFFFFU;
 
 	return (1);
 }

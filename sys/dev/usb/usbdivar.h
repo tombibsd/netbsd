@@ -114,11 +114,9 @@ struct usbd_pipe_methods {
 	void		      (*done)(usbd_xfer_handle xfer);
 };
 
-#if 0 /* notyet */
 struct usbd_tt {
 	struct usbd_hub	       *hub;
 };
-#endif
 
 struct usbd_port {
 	usb_port_status_t	status;
@@ -129,9 +127,7 @@ struct usbd_port {
 	u_int8_t		reattach;
 	struct usbd_device     *device;	/* Connected device */
 	struct usbd_device     *parent;	/* The ports hub */
-#if 0
-	struct usbd_tt	       *tt; /* Transaction translator (if any) */
-#endif
+	struct usbd_tt	       *tt;	/* Transaction translator (if any) */
 };
 
 struct usbd_hub {

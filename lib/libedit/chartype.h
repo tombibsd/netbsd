@@ -60,22 +60,19 @@
 #warning Build environment does not support non-BMP characters
 #endif
 
-#define ct_mbtowc            mbtowc
 #define ct_mbrtowc           mbrtowc
-#define ct_mbtowc_reset      mbtowc(0,0,(size_t)0)
+#define ct_wctob             wctob
 #define ct_wctomb            wctomb
 #define ct_wctomb_reset      wctomb(0,0)
 #define ct_wcstombs          wcstombs
 #define ct_mbstowcs          mbstowcs
 
 #define Char			wchar_t
-#define Int			wint_t
 #define FUN(prefix,rest)	prefix ## _w ## rest
 #define FUNW(type)		type ## _w
 #define TYPE(type)		type ## W
-#define FCHAR			"%lc"
 #define FSTR			"%ls"
-#define STR(x) 			L ## x
+#define STR(x)			L ## x
 #define UC(c)			c
 #define Isalpha(x)  iswalpha(x)
 #define Isalnum(x)  iswalnum(x)
@@ -116,22 +113,19 @@ Width(wchar_t c)
 
 #else /* NARROW */
 
-#define ct_mbtowc            error
-#define ct_mbrtowc           error
-#define ct_mbtowc_reset      
+size_t	ct_mbrtowc(char *, const char *, size_t, void *);
+#define ct_wctob(w)          ((int)(w))
 #define ct_wctomb            error
-#define ct_wctomb_reset      
+#define ct_wctomb_reset
 #define ct_wcstombs(a, b, c)    (strncpy(a, b, c), strlen(a))
 #define ct_mbstowcs(a, b, c)    (strncpy(a, b, c), strlen(a))
 
 #define Char			char
-#define Int			int
 #define FUN(prefix,rest)	prefix ## _ ## rest
 #define FUNW(type)		type
 #define TYPE(type)		type
-#define FCHAR			"%c"
 #define FSTR			"%s"
-#define STR(x) 			x
+#define STR(x)			x
 #define UC(c)			(unsigned char)(c)
 
 #define Isalpha(x)  isalpha((unsigned char)x)
@@ -220,7 +214,7 @@ protected size_t ct_enc_width(Char);
 #define VISUAL_WIDTH_MAX ((size_t)8)
 
 /* The terminal is thought of in terms of X columns by Y lines. In the cases
- * where a wide character takes up more than one column, the adjacent 
+ * where a wide character takes up more than one column, the adjacent
  * occupied column entries will contain this faux character. */
 #define MB_FILL_CHAR ((Char)-1)
 

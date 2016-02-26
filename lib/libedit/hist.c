@@ -45,6 +45,8 @@ __RCSID("$NetBSD$");
  * hist.c: History access functions
  */
 #include <stdlib.h>
+#include <string.h>
+
 #include "el.h"
 
 /* hist_init():

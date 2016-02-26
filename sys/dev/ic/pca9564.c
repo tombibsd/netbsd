@@ -113,6 +113,7 @@ pca9564_attach(struct pca9564_softc *sc)
 		break;
 	}
 
+	memset(&iba, 0, sizeof(iba));
 	iba.iba_tag = &sc->sc_i2c;
 	(void) config_found_ia(sc->sc_dev, "i2cbus", &iba, iicbus_print);
 }

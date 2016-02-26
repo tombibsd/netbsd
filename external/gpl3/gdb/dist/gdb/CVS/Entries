@@ -469,7 +469,7 @@
 /mips-tdep.h/1.5/Tue Aug 25 04:45:53 2015/-kk/
 /mips64obsd-nat.c/1.1.1.4/Tue Aug 25 04:45:53 2015/-kk/
 /mips64obsd-tdep.c/1.1.1.4/Tue Aug 25 04:45:53 2015/-kk/
-/mipsnbsd-nat.c/1.10/Mon Feb 15 10:22:55 2016/-kk/
+/mipsnbsd-nat.c/1.11/Fri Feb 26 18:32:45 2016/-kk/
 /mipsnbsd-tdep.c/1.6/Mon Feb 15 10:22:55 2016/-kk/
 /mipsnbsd-tdep.h/1.1.1.4/Tue Aug 25 04:45:53 2015/-kk/
 /mipsread.c/1.1.1.4/Tue Aug 25 04:45:53 2015/-kk/

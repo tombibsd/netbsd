@@ -400,9 +400,8 @@ fesetenv(const fenv_t *envp)
 	__fe_dfl_env.x87.unused1 = env.x87.unused1;
 	__fe_dfl_env.x87.unused2 = env.x87.unused2;
 	__fe_dfl_env.x87.unused3 = env.x87.unused3;
-	memcpy(__fe_dfl_env.x87.others,
-	       env.x87.others,
-	       sizeof(__fe_dfl_env.x87.others) / sizeof(uint32_t));
+	memcpy(__fe_dfl_env.x87.others, env.x87.others,
+	    sizeof(__fe_dfl_env.x87.others));
 
 	__fldenv(envp->x87);
 	if (__HAS_SSE)
@@ -436,9 +435,8 @@ feupdateenv(const fenv_t *envp)
 	__fe_dfl_env.x87.unused1 = env.x87.unused1;
 	__fe_dfl_env.x87.unused2 = env.x87.unused2;
 	__fe_dfl_env.x87.unused3 = env.x87.unused3;
-	memcpy(__fe_dfl_env.x87.others,
-	       env.x87.others,
-	       sizeof(__fe_dfl_env.x87.others) / sizeof(uint32_t));
+	memcpy(__fe_dfl_env.x87.others, env.x87.others,
+	    sizeof(__fe_dfl_env.x87.others));
 
 	__fnstsw(&status);
 	if (__HAS_SSE)

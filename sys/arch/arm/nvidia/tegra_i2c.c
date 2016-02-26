@@ -191,6 +191,7 @@ tegra_i2c_attach(device_t parent, device_t self, void *aux)
 
 	of_enter_i2c_devs(devs, faa->faa_phandle, address_cells * 4, 0);
 
+	memset(&iba, 0, sizeof(iba));
 	iba.iba_tag = &sc->sc_ic;
 	iba.iba_child_devices = prop_dictionary_get(devs, "i2c-child-devices");
 	if (iba.iba_child_devices != NULL) {

@@ -73,8 +73,9 @@ printf(const char *fmt,...)
 					*s++ = hex[u & 0xfu];
 				while (u >>= 4);
 				goto dumpbuf;
-            case 0:
-                return;
+			case 0:
+				va_end(ap);
+				return;
 			}
 		}
 		xputchar(c);

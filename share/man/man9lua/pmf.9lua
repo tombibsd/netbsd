@@ -87,7 +87,7 @@ Returns nil if the key is not present.
 .Xr pmf 9 ,
 .Xr intro 9lua
 .Sh HISTORY
-An
+A
 .Nm
 Lua manual appeared in
 .Nx 7.0 .

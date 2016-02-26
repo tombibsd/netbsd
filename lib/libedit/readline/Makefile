@@ -1,4 +1,4 @@
-#	$NetBSD$	
+#	$NetBSD$
 
 NOOBJ=		# defined
 

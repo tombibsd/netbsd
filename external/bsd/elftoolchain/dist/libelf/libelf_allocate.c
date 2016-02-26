@@ -34,8 +34,6 @@
  * Internal APIs
  */
 
-#include <sys/cdefs.h>
-
 #include <assert.h>
 #include <errno.h>
 #include <libelf.h>
@@ -45,7 +43,7 @@
 #include "_libelf.h"
 
 __RCSID("$NetBSD$");
-ELFTC_VCSID("Id: libelf_allocate.c 2272 2011-12-03 17:07:31Z jkoshy ");
+ELFTC_VCSID("Id: libelf_allocate.c 3174 2015-03-27 17:13:41Z emaste ");
 
 Elf *
 _libelf_allocate_elf(void)

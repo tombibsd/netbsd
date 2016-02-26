@@ -97,7 +97,7 @@
 /ubsa.c/1.30/Fri Feb 24 06:48:24 2012/-kk/
 /ubsa_common.c/1.9/Tue Dec 11 09:17:31 2012/-kk/
 /ubsavar.h/1.9/Fri Dec 23 00:51:45 2011/-kk/
-/ubt.c/1.51/Tue Jun  3 02:54:39 2014/-kk/
+/ubt.c/1.53/Fri Feb 26 18:33:57 2016/-kk/
 /uchcom.c/1.13/Tue Mar 25 02:35:40 2014/-kk/
 /ucom.c/1.110/Fri Nov 20 02:19:09 2015/-kk/
 /ucomvar.h/1.20/Mon Dec 19 19:34:52 2011/-kk/
@@ -109,7 +109,7 @@
 /uep.c/1.19/Thu Oct 24 10:28:58 2013/-kk/
 /uftdi.c/1.60/Sat Mar 21 02:21:13 2015/-kk/
 /uftdireg.h/1.9/Sun Aug  2 04:02:52 2015/-kk/
-/ugen.c/1.126/Fri Oct  3 09:57:51 2014/-kk/
+/ugen.c/1.128/Fri Feb 26 18:33:57 2016/-kk/
 /ugensa.c/1.31/Thu Oct 24 10:28:58 2013/-kk/
 /ugraphire_rdesc.h/1.9/Fri Dec 23 00:51:46 2011/-kk/
 /uhci.c/1.266/Tue Aug 25 04:51:20 2015/-kk/
@@ -120,7 +120,7 @@
 /uhidev.h/1.18/Wed Apr 22 07:37:01 2015/-kk/
 /uhmodem.c/1.13/Fri Dec 23 00:51:46 2011/-kk/
 /uhso.c/1.17/Tue Dec  9 04:34:59 2014/-kk/
-/uhub.c/1.130/Mon Feb 15 11:07:27 2016/-kk/
+/uhub.c/1.131/Fri Feb 26 18:33:57 2016/-kk/
 /uipad.c/1.1/Sat Dec 31 00:08:48 2011/-kk/
 /uipaq.c/1.19/Thu Dec 27 16:42:32 2012/-kk/
 /uirda.c/1.38/Thu Oct 24 10:28:58 2013/-kk/
@@ -156,7 +156,7 @@
 /urio.h/1.4/Sun Sep 13 01:31:38 2015/-kk/
 /usb.c/1.161/Sun Jan 17 10:34:17 2016/-kk/
 /usb.h/1.112/Thu Apr  2 02:28:04 2015/-kk/
-/usb_mem.c/1.65/Fri Oct  3 09:57:51 2014/-kk/
+/usb_mem.c/1.66/Fri Feb 26 18:33:57 2016/-kk/
 /usb_mem.h/1.30/Thu Oct 24 10:28:58 2013/-kk/
 /usb_quirks.c/1.83/Sun Apr 12 03:35:09 2015/-kk/
 /usb_quirks.h/1.26/Tue Nov 30 11:35:30 2010/-kk/
@@ -165,14 +165,14 @@
 /usb_verbose.h/1.4/Fri Oct  3 10:05:17 2014/-kk/
 /usbcdc.h/1.11/Mon Apr 28 20:24:00 2008/-kk/
 /usbdevices.config/1.24/Tue Mar 25 02:35:40 2014/-kk/
-/usbdevs.h/1.703/Mon Feb 15 11:07:27 2016/-kk/
-/usbdevs/1.711/Mon Feb 15 11:07:27 2016/-kk/
-/usbdevs_data.h/1.704/Mon Feb 15 11:07:27 2016/-kk/
+/usbdevs.h/1.704/Fri Feb 26 18:33:57 2016/-kk/
+/usbdevs/1.712/Fri Feb 26 18:33:57 2016/-kk/
+/usbdevs_data.h/1.705/Fri Feb 26 18:33:57 2016/-kk/
 /usbdi.c/1.168/Thu Jan  7 06:24:36 2016/-kk/
 /usbdi.h/1.90/Sun Jul 20 13:58:50 2014/-kk/
 /usbdi_util.c/1.64/Thu Apr  2 02:28:04 2015/-kk/
 /usbdi_util.h/1.46/Thu Apr  2 02:28:04 2015/-kk/
-/usbdivar.h/1.111/Sun Jan 17 10:34:17 2016/-kk/
+/usbdivar.h/1.112/Fri Feb 26 18:33:57 2016/-kk/
 /usbhid.h/1.15/Sun Feb 14 12:55:25 2016/-kk/
 /usbhist.h/1.3/Fri Nov 20 01:31:20 2015/-kk/
 /usbroothub_subr.c/1.3/Sun Nov 29 09:10:39 2015/-kk/

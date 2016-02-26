@@ -37,12 +37,12 @@
 __RCSID("$NetBSD$");
 #endif /* not lint && not SCCSID */
 
-#include "histedit.h"
-#include "el.h"
-#include "read.h"
+#include <errno.h>
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
+
+#include "el.h"
 
 public int
 el_getc(EditLine *el, char *cp)
@@ -50,15 +50,18 @@ el_getc(EditLine *el, char *cp)
 	int num_read;
 	wchar_t wc = 0;
 
-	if (!(el->el_flags & CHARSET_IS_UTF8))
-		el->el_flags |= IGNORE_EXTCHARS;
-	num_read = el_wgetc (el, &wc);
-	if (!(el->el_flags & CHARSET_IS_UTF8))
-		el->el_flags &= ~IGNORE_EXTCHARS;
-
-	if (num_read > 0)
-		*cp = (char)wc;
-	return num_read;
+	num_read = el_wgetc(el, &wc);
+	*cp = '\0';
+	if (num_read <= 0)
+		return num_read;
+	num_read = ct_wctob(wc);
+	if (num_read == EOF) {
+		errno = ERANGE;
+		return -1;
+	} else {
+		*cp = (char)num_read;
+		return 1;
+	}
 }
 
 
@@ -76,17 +79,15 @@ el_gets(EditLine *el, int *nread)
 {
 	const wchar_t *tmp;
 
-	if (!(el->el_flags & CHARSET_IS_UTF8))
-		el->el_flags |= IGNORE_EXTCHARS;
 	tmp = el_wgets(el, nread);
 	if (tmp != NULL) {
+	    int i;
 	    size_t nwread = 0;
-	    for (int i = 0; i < *nread; i++)
+
+	    for (i = 0; i < *nread; i++)
 		nwread += ct_enc_width(tmp[i]);
 	    *nread = (int)nwread;
 	}
-	if (!(el->el_flags & CHARSET_IS_UTF8))
-		el->el_flags &= ~IGNORE_EXTCHARS;
 	return ct_encode_string(tmp, &el->el_lgcyconv);
 }
 
@@ -231,7 +232,7 @@ el_set(EditLine *el, int op, ...)
 		    ret = -1;
 		    goto out;
 		}
-		// XXX: The two strdup's leak
+		/* XXX: The two strdup's leak */
 		ret = map_addfunc(el, Strdup(wargv[0]), Strdup(wargv[1]),
 		    func);
 		ct_free_argv(wargv);

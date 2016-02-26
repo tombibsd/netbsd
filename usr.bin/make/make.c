@@ -484,7 +484,7 @@ Make_HandleUse(GNode *cgn, GNode *pgn)
 	    } else {
 		free(gn->name);
 	    }
-	    gn->name = Var_Subst(NULL, gn->uname, pgn, FALSE, TRUE, FALSE);
+	    gn->name = Var_Subst(NULL, gn->uname, pgn, VARF_WANTRES);
 	    if (gn->name && gn->uname && strcmp(gn->name, gn->uname) != 0) {
 		/* See if we have a target for this node. */
 		tgn = Targ_FindNode(gn->name, TARG_NOCREATE);

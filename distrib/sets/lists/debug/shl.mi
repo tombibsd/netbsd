@@ -83,9 +83,9 @@
 ./usr/libdata/debug/usr/lib/libdns.so.8.4.debug 		comp-bind-debug debug,compatfile
 ./usr/libdata/debug/usr/lib/libdns_sd.so.0.0.debug		comp-mdns-debug	debug,compatfile,mdns
 ./usr/libdata/debug/usr/lib/libdtrace.so.3.0.debug		comp-sys-debug	debug,compatfile,dtrace
-./usr/libdata/debug/usr/lib/libdwarf.so.1.0.debug		comp-sys-debug	debug,compatfile
+./usr/libdata/debug/usr/lib/libdwarf.so.2.0.debug		comp-sys-debug	debug,compatfile
 ./usr/libdata/debug/usr/lib/libedit.so.3.1.debug		comp-sys-debug	debug,compatfile
-./usr/libdata/debug/usr/lib/libelf.so.1.0.debug			comp-sys-debug	debug,compatfile
+./usr/libdata/debug/usr/lib/libelf.so.2.0.debug			comp-sys-debug	debug,compatfile
 ./usr/libdata/debug/usr/lib/libevent.so.4.0.debug		comp-sys-debug	debug,compatfile
 ./usr/libdata/debug/usr/lib/libevent_openssl.so.4.0.debug	comp-sys-debug	debug,compatfile,crypto
 ./usr/libdata/debug/usr/lib/libevent_pthreads.so.4.0.debug	comp-sys-debug	debug,compatfile

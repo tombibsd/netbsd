@@ -66,9 +66,11 @@ nouveau_barobj_ctor(struct nouveau_object *parent,
 
 #ifdef __NetBSD__
 	barobj->iomemt = bar->iomemt;
-	if (bus_space_subregion(bar->iomemt, bar->iomemh, barobj->vma.offset,
-		bar->iomemsz - barobj->vma.offset, &barobj->iomemh) != 0)
-		/* XXX error branch */
+	/* XXX errno NetBSD->Linux */
+	ret = -bus_space_subregion(bar->iomemt, bar->iomemh,
+	    barobj->vma.offset, bar->iomemsz - barobj->vma.offset,
+	    &barobj->iomemh);
+	if (ret)
 		return ret;
 #else
 	barobj->iomem = bar->iomem + (u32)barobj->vma.offset;

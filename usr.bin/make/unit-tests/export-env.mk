@@ -15,9 +15,12 @@ UT_EXP=before-export
 export UT_EXP=exported
 UT_EXP=not-exported
 
+UT_LIT= literal ${UT_TEST}
+.export-literal UT_LIT
+
 all:
-	@echo make:; ${UT_TEST UT_ENV UT_EXP:L:@v@echo $v=${$v};@}
-	@echo env:; ${UT_TEST UT_ENV UT_EXP:L:@v@echo $v=$${$v};@}
+	@echo make:; ${UT_TEST UT_ENV UT_EXP UT_LIT:L:@v@echo $v=${$v};@}
+	@echo env:; ${UT_TEST UT_ENV UT_EXP UT_LIT:L:@v@echo $v=$${$v};@}
 
 
 

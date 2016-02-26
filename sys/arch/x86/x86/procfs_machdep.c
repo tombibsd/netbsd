@@ -57,7 +57,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <machine/specialreg.h>
 
 /*
- *  The feature table. The order is the saame as Linux's
+ *  The feature table. The order is the same as Linux's
  *  x86/include/asm/cpufeatures.h.
  */
 static const char * const x86_features[][32] = {

@@ -137,6 +137,7 @@ ausmbus_attach(device_t parent, device_t self, void *aux)
 	sc->sc_i2c.ic_exec = ausmbus_exec;
 	sc->sc_smbus_timeout = 10;
 
+	memset(&iba, 0, sizeof(iba));
 	iba.iba_tag = &sc->sc_i2c;
 	(void) config_found_ia(self, "i2cbus", &iba, iicbus_print);
 }

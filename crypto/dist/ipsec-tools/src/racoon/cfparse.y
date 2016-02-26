@@ -1490,10 +1490,15 @@ sainfo_id
 			char portbuf[10];
 			struct sockaddr *saddr;
 
-			if (($5 == IPPROTO_ICMP || $5 == IPPROTO_ICMPV6)
-			 && ($4 != IPSEC_PORT_ANY || $4 != IPSEC_PORT_ANY)) {
-				yyerror("port number must be \"any\".");
+			switch ($5) {
+			case IPPROTO_ICMP:
+			case IPPROTO_ICMPV6:
+				if ($4 == IPSEC_PORT_ANY)
+					break;
+				yyerror("port must be \"any\" for icmp{,6}.");
 				return -1;
+			default:
+				break;
 			}
 
 			snprintf(portbuf, sizeof(portbuf), "%lu", $4);

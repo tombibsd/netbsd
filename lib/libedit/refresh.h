@@ -40,15 +40,13 @@
 #ifndef _h_el_refresh
 #define	_h_el_refresh
 
-#include "histedit.h"
-
 typedef struct {
 	coord_t	r_cursor;	/* Refresh cursor position	*/
 	int	r_oldcv;	/* Vertical locations		*/
 	int	r_newcv;
 } el_refresh_t;
 
-protected void	re_putc(EditLine *, Int, int);
+protected void	re_putc(EditLine *, wint_t, int);
 protected void	re_clear_lines(EditLine *);
 protected void	re_clear_display(EditLine *);
 protected void	re_refresh(EditLine *);

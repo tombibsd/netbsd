@@ -15,7 +15,7 @@
 /dbrivar.h/1.13/Wed Nov 23 23:07:36 2011/-kk/
 /dma_sbus.c/1.35/Thu Sep 17 16:28:12 2009/-kk/
 /esp_sbus.c/1.53/Wed Oct 29 08:13:22 2014/-kk/
-/files.sbus/1.41/Mon Jan 12 06:48:53 2015/-kk/
+/files.sbus/1.42/Fri Feb 26 18:33:56 2016/-kk/
 /genfb_sbus.c/1.11/Fri Oct  3 09:09:20 2014/-kk/
 /if_en.c/1.29/Mon Jul 18 00:58:52 2011/-kk/
 /if_gem_sbus.c/1.13/Thu Sep 17 16:28:12 2009/-kk/
@@ -29,8 +29,8 @@
 /magma.c/1.59/Fri Oct  3 09:09:20 2014/-kk/
 /magmareg.h/1.18/Tue Dec  9 04:34:59 2014/-kk/
 /mbppio.h/1.2/Wed Jul  2 10:16:20 2008/-kk/
-/mgx.c/1.4/Mon Jan 12 06:48:53 2015/-kk/
-/mgxreg.h/1.2/Mon Jan 12 06:48:53 2015/-kk/
+/mgx.c/1.6/Fri Feb 26 18:33:56 2016/-kk/
+/mgxreg.h/1.4/Fri Feb 26 18:33:56 2016/-kk/
 /p9100.c/1.62/Fri Oct  3 09:09:20 2014/-kk/
 /p9100reg.h/1.6/Fri Sep 21 01:07:44 2012/-kk/
 /qe.c/1.64/Mon Feb 15 11:07:26 2016/-kk/

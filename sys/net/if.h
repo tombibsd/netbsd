@@ -214,11 +214,7 @@ struct ifnet_lock;
 #include <sys/condvar.h>
 #include <sys/percpu.h>
 #include <sys/callout.h>
-#ifdef GATEWAY
-#include <sys/mutex.h>
-#else
 #include <sys/rwlock.h>
-#endif
 
 struct ifnet_lock {
 	kmutex_t il_lock;	/* Protects the critical section. */
@@ -352,12 +348,10 @@ typedef struct ifnet {
 	struct ifnet_lock *if_ioctl_lock;
 #ifdef _KERNEL /* XXX kvm(3) */
 	struct callout *if_slowtimo_ch;
-#ifdef GATEWAY
-	struct kmutex	*if_afdata_lock;
-#else
 	struct krwlock	*if_afdata_lock;
-#endif
 	struct if_percpuq	*if_percpuq; /* We should remove it in the future */
+	void	*if_link_si;		/* softint to handle link state changes */
+	uint16_t	if_link_queue;	/* masked link state change queue */
 #endif
 } ifnet_t;
  
@@ -448,32 +442,6 @@ typedef struct ifnet {
 	"\23TSO6"		\
 	"\24LRO"		\
 
-#ifdef GATEWAY
-#define	IF_AFDATA_LOCK_INIT(ifp)	\
-	do { \
-		(ifp)->if_afdata_lock = mutex_obj_alloc(MUTEX_DEFAULT, IPL_NET); \
-	} while (0)
-
-#define	IF_AFDATA_LOCK_DESTROY(ifp)	mutex_obj_free((ifp)->if_afdata_lock)
-
-#define	IF_AFDATA_WLOCK(ifp)	mutex_enter((ifp)->if_afdata_lock)
-#define	IF_AFDATA_RLOCK(ifp)	mutex_enter((ifp)->if_afdata_lock)
-#define	IF_AFDATA_WUNLOCK(ifp)	mutex_exit((ifp)->if_afdata_lock)
-#define	IF_AFDATA_RUNLOCK(ifp)	mutex_exit((ifp)->if_afdata_lock)
-#define	IF_AFDATA_LOCK(ifp)	IF_AFDATA_WLOCK(ifp)
-#define	IF_AFDATA_UNLOCK(ifp)	IF_AFDATA_WUNLOCK(ifp)
-#define	IF_AFDATA_TRYLOCK(ifp)	mutex_tryenter((ifp)->if_afdata_lock)
-
-#define	IF_AFDATA_LOCK_ASSERT(ifp)	\
-	KASSERT(mutex_owned((ifp)->if_afdata_lock))
-#define	IF_AFDATA_RLOCK_ASSERT(ifp)	\
-	KASSERT(mutex_owned((ifp)->if_afdata_lock))
-#define	IF_AFDATA_WLOCK_ASSERT(ifp)	\
-	KASSERT(mutex_owned((ifp)->if_afdata_lock))
-#define	IF_AFDATA_UNLOCK_ASSERT(ifp)	\
-	KASSERT(!mutex_owned((ifp)->if_afdata_lock))
-
-#else /* GATEWAY */
 #define	IF_AFDATA_LOCK_INIT(ifp)	\
 	do {(ifp)->if_afdata_lock = rw_obj_alloc();} while (0)
 
@@ -495,7 +463,6 @@ typedef struct ifnet {
 	KASSERT(rw_write_held((ifp)->if_afdata_lock))
 #define	IF_AFDATA_UNLOCK_ASSERT(ifp)	\
 	KASSERT(!rw_lock_held((ifp)->if_afdata_lock))
-#endif /* GATEWAY */
 
 #define IFQ_LOCK(_ifq)		if ((_ifq)->ifq_lock) mutex_enter((_ifq)->ifq_lock)
 #define IFQ_UNLOCK(_ifq)	if ((_ifq)->ifq_lock) mutex_exit((_ifq)->ifq_lock)

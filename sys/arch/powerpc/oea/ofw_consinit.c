@@ -119,6 +119,7 @@ void ofprint(const char *blah, ...)
 
 	va_start(va, blah);
 	len = vsnprintf(buf, sizeof(buf), blah, va);
+	va_end(va);
 	OF_write(console_instance, buf, len);
 }
 

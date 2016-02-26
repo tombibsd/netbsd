@@ -1244,7 +1244,7 @@ dump_packet(void)
 	Fprintf(stderr, "packet data:");
 
 #ifdef __hpux
-	for (p = useicmp ? (u_char *)outicmp : (u_char *)outudp, i = 0; i < 
+	for (p = useicmp ? (u_char *)outicmp : (u_char *)outudp, i = 0;
 	    i < packlen - (sizeof(*outip) + optlen); i++)
 #else
 	for (p = (u_char *)outip, i = 0; i < packlen; i++)

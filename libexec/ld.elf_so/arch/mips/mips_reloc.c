@@ -445,7 +445,7 @@ _rtld_relocate_nonplt_objects(Obj_Entry *obj)
 
 			rdbg(("TPREL %s in %s --> %p in %s",
 			    obj->strtab + obj->symtab[r_symndx].st_name,
-			    obj->path, (void *)*where, defobj->path));
+			    obj->path, where, defobj->path));
 			break;
 		}
 

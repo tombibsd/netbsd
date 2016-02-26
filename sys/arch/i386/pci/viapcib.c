@@ -215,6 +215,7 @@ core_pcib:
 		viapcib_smbus_write(sc, SMBSLVCNT, b & ~1);
 
 		memset(&sc->sc_i2c, 0, sizeof(sc->sc_i2c));
+		memset(&iba, 0, sizeof(iba));
 #ifdef I2C_TYPE_SMBUS
 		iba.iba_type = I2C_TYPE_SMBUS;
 #endif

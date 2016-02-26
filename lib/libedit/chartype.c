@@ -40,8 +40,12 @@
 #if !defined(lint) && !defined(SCCSID)
 __RCSID("$NetBSD$");
 #endif /* not lint && not SCCSID */
-#include "el.h"
+
+#include <ctype.h>
 #include <stdlib.h>
+#include <string.h>
+
+#include "el.h"
 
 #define CT_BUFSIZ ((size_t)1024)
 
@@ -72,7 +76,7 @@ ct_conv_wbuff_resize(ct_buffer_t *conv, size_t wsize)
 {
 	void *p;
 
-	if (wsize <= conv->wsize) 
+	if (wsize <= conv->wsize)
 		return 0;
 
 	conv->wsize = wsize;
@@ -210,6 +214,20 @@ ct_encode_char(char *dst, size_t len, Char c)
 	}
 	return l;
 }
+
+#else
+
+size_t
+ct_mbrtowc(char *wc, const char *s, size_t n,
+    void *mbs __attribute((__unused__))) {
+	if (s == NULL)
+		return 0;
+	if (n == 0)
+		return (size_t)-2;
+	if (wc != NULL)
+		*wc = *s;
+	return *s != '\0';
+}
 #endif
 
 protected const Char *
@@ -333,7 +351,7 @@ ct_visual_char(Char *dst, size_t len, Char c)
 		return c > 0xffff ? 8 : 7;
 #else
 		*dst++ = '\\';
-#define tooctaldigit(v) ((v) + '0')
+#define tooctaldigit(v) (Char)((v) + '0')
 		*dst++ = tooctaldigit(((unsigned int) c >> 6) & 0x7);
 		*dst++ = tooctaldigit(((unsigned int) c >> 3) & 0x7);
 		*dst++ = tooctaldigit(((unsigned int) c     ) & 0x7);

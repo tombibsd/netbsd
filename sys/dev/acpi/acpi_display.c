@@ -1885,7 +1885,7 @@ ranger(uint8_t *a, size_t l, void (*pr)(const char *, ...) __printflike(1, 2))
 		(*pr)("[");
 
 	for (size_t i = 0; i < l; i++) {
-		for (b = e = a[i]; i < l && a[i + 1] == e + 1; i++, e++)
+		for (b = e = a[i]; i + 1 < l && a[i + 1] == e + 1; i++, e++)
 			continue;
 		(*pr)("%"PRIu8, b);
 		if (b != e)

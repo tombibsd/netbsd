@@ -14,7 +14,8 @@ error2:
 	@(echo "bsd.own.mk must be included before bsd.sys.mk" >& 2; exit 1)
 .endif
 
-.if ${MKREPRO:Uno} == "yes"
+# XXX: LLVM does not support -iremap and -fdebug-*
+.if ${MKREPRO:Uno} == "yes" && ${MKLLVM:Uno} != "yes"
 .export NETBSDSRCDIR DESTDIR X11SRCDIR
 
 .if !empty(DESTDIR)
