@@ -358,6 +358,8 @@ find_idle_and_ttywrite(WHERE *w)
 	(void)snprintf(tbuf, sizeof(tbuf), "%s/%s", _PATH_DEV, w->tty);
 	if (stat(tbuf, &sb) < 0) {
 		warn("%s", tbuf);
+		w->idletime = 0;
+		w->writable = 0;
 		return;
 	}
 	w->idletime = now < sb.st_atime ? 0 : now - sb.st_atime;

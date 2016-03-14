@@ -331,8 +331,14 @@ nanosleep1(struct lwp *l, clockid_t clock_id, int flags, struct timespec *rqt,
 	struct timespec rmtstart;
 	int error, timo;
 
-	if ((error = ts2timo(clock_id, flags, rqt, &timo, &rmtstart)) != 0)
-		return error == ETIMEDOUT ? 0 : error;
+	if ((error = ts2timo(clock_id, flags, rqt, &timo, &rmtstart)) != 0) {
+		if (error == ETIMEDOUT) {
+			error = 0;
+			if (rmt != NULL)
+				rmt->tv_sec = rmt->tv_nsec = 0;
+		}
+		return error;
+	}
 
 	/*
 	 * Avoid inadvertently sleeping forever
@@ -1194,7 +1200,6 @@ timers_alloc(struct proc *p)
 	LIST_INIT(&pts->pts_prof);
 	for (i = 0; i < TIMER_MAX; i++)
 		pts->pts_timers[i] = NULL;
-	pts->pts_fired = 0;
 	mutex_spin_enter(&timer_lock);
 	if (p->p_timers == NULL) {
 		p->p_timers = pts;

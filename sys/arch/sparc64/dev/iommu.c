@@ -746,14 +746,8 @@ iommu_dvmamap_unload(bus_dma_tag_t t, bus_dmamap_t map)
 	bus_size_t sgsize = map->_dm_dvmasize;
 
 	/* Flush the iommu */
-#ifdef DEBUG
-	if (!map->_dm_dvmastart) {
-		printf("iommu_dvmamap_unload: No dvmastart is zero\n");
-#ifdef DDB
-		Debugger();
-#endif
-	}
-#endif
+	if (!map->_dm_dvmastart)
+		panic("%s: error dvmastart is zero!\n", __func__);
 	iommu_remove(is, map->_dm_dvmastart, map->_dm_dvmasize);
 
 	/* Flush the caches */

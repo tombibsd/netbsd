@@ -101,7 +101,6 @@ struct var vpath;
 struct var vps1;
 struct var vps2;
 struct var vps4;
-struct var vvers;
 struct var voptind;
 
 const struct varinit varinit[] = {
@@ -148,10 +147,13 @@ STATIC struct var *find_var(const char *, struct var ***, int *);
  */
 
 #ifdef mkinit
+INCLUDE <stdio.h>
+INCLUDE <unistd.h>
 INCLUDE "var.h"
 MKINIT char **environ;
 INIT {
 	char **envp;
+	char buf[64];
 
 	initvar();
 	for (envp = environ ; *envp ; envp++) {
@@ -159,6 +161,14 @@ INIT {
 			setvareq(*envp, VEXPORT|VTEXTFIXED);
 		}
 	}
+
+
+	/*
+	 * PPID is readonly
+	 *	set after processing environ to override anything there
+	 */
+	snprintf(buf, sizeof(buf), "%d", (int)getppid());
+	setvar("PPID", buf, VREADONLY);
 }
 #endif
 

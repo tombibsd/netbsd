@@ -1381,6 +1381,9 @@ main(int argc, char **argv)
 	if (enterFlag)
 		printf("%s: Leaving directory `%s'\n", progname, curdir);
 
+#ifdef USE_META
+	meta_finish();
+#endif
 	Suff_End();
         Targ_End();
 	Arch_End();

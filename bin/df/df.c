@@ -499,7 +499,7 @@ prtstat(struct statvfs *sfsp, int maxwidth)
 	if (iflag) {
 		inodes = sfsp->f_files;
 		used = inodes - sfsp->f_ffree;
-		(void)printf(" %8jd %8jd %3s%%",
+		(void)printf(" %8jd %8jd %4s%%",
 		    (intmax_t)used, (intmax_t)sfsp->f_ffree,
 		    inodes == 0 ? (used == 0 ? empty : full) :
 		    strspct(pb, sizeof(pb), used, inodes, 0));

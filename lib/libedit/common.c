@@ -147,8 +147,9 @@ ed_delete_next_char(EditLine *el, wint_t c __attribute__((__unused__)))
 {
 #ifdef DEBUG_EDIT
 #define	EL	el->el_line
-	(void) fprintf(el->el_errlfile,
-	    "\nD(b: %x(%s)  c: %x(%s) last: %x(%s) limit: %x(%s)\n",
+	(void) fprintf(el->el_errfile,
+	    "\nD(b: %p(" FSTR ")  c: %p(" FSTR ") last: %p(" FSTR
+	    ") limit: %p(" FSTR ")\n",
 	    EL.buffer, EL.buffer, EL.cursor, EL.cursor, EL.lastchar,
 	    EL.lastchar, EL.limit, EL.limit);
 #endif

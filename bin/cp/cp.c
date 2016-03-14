@@ -145,7 +145,7 @@ main(int argc, char *argv[])
 			iflag = 0;
 			break;
 		case 'i':
-			iflag = isatty(fileno(stdin));
+			iflag = 1;
 			fflag = 0;
 			break;
 		case 'l':

@@ -603,9 +603,7 @@ pos_form_cursor(FORM *form)
 		}
 	}
 	
-#ifdef DEBUG
-	fprintf(dbg, "pos_cursor: row=%d, col=%d\n", row, col);
-#endif
+	_formi_dbg_printf("%s: row=%d, col=%d\n", __func__, row, col);
 	
 	wmove(form->scrwin, row, col);
 

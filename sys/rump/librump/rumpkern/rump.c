@@ -106,7 +106,8 @@ int rump_threads = 1;
 static void rump_component_addlocal(void);
 static struct lwp *bootlwp;
 
-static char rump_msgbuf[16*1024]; /* 16k should be enough for std rump needs */
+/* 16k should be enough for std rump needs */
+static  char rump_msgbuf[16*1024] __aligned(256);
 
 bool rump_ttycomponent = false;
 

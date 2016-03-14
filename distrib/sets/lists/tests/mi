@@ -1254,7 +1254,7 @@
 ./usr/tests/bin/sh/dotcmd/while_return_subshell	tests-bin-tests	compattestfile,atf
 ./usr/tests/bin/sh/dotcmd/while_return_until	tests-bin-tests	compattestfile,atf
 ./usr/tests/bin/sh/dotcmd/while_return_while	tests-bin-tests	compattestfile,atf
-./usr/tests/bin/sh/t_compexit			tests-bin-tests		compattestfile,atf
+./usr/tests/bin/sh/t_compexit			tests-obsolete		obsolete
 ./usr/tests/bin/sh/t_evaltested			tests-bin-tests		compattestfile,atf
 ./usr/tests/bin/sh/t_exit			tests-bin-tests		compattestfile,atf
 ./usr/tests/bin/sh/t_expand			tests-bin-tests		compattestfile,atf
@@ -3176,6 +3176,10 @@
 ./usr/tests/net/if_loop/Atffile			tests-net-tests		atf,rump
 ./usr/tests/net/if_loop/Kyuafile		tests-net-tests		atf,rump,kyua
 ./usr/tests/net/if_loop/t_pr			tests-net-tests		atf,rump
+./usr/tests/net/if_tap				tests-net-tests		compattestfile,atf
+./usr/tests/net/if_tap/Atffile			tests-net-tests		atf,rump
+./usr/tests/net/if_tap/Kyuafile			tests-net-tests		atf,rump,kyua
+./usr/tests/net/if_tap/t_tap			tests-net-tests		atf,rump
 ./usr/tests/net/in_cksum			tests-net-tests		compattestfile,atf
 ./usr/tests/net/in_cksum/Atffile		tests-net-tests		compattestfile,atf
 ./usr/tests/net/in_cksum/Kyuafile		tests-net-tests		compattestfile,atf,kyua

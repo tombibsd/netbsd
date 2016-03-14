@@ -24,7 +24,7 @@
 /kgdb_proto.h/1.3/Sun Dec 11 12:19:14 2005/-kk/
 /kobj_machdep.c/1.5/Thu Feb 13 15:35:53 2014/-kk/
 /lock_stubs.s/1.9/Thu Oct 24 10:28:57 2013/-kk/
-/locore.s/1.388/Fri Feb 26 18:33:51 2016/-kk/
+/locore.s/1.390/Mon Mar 14 08:07:24 2016/-kk/
 /machdep.c/1.283/Sat Dec  5 11:19:23 2015/-kk/
 /mdesc.c/1.6/Sun Sep 13 01:31:07 2015/-kk/
 /mp_subr.S/1.9/Mon Jun 22 02:34:57 2015/-kk/

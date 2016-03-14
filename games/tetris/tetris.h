@@ -73,6 +73,7 @@ extern cell	board[B_SIZE];	/* 1 => occupied, 0 => empty */
 #define	MINCOLS	40
 
 extern int	Rows, Cols;	/* current screen size */
+extern int	Offset;		/* vert. offset to center board */
 
 /*
  * Translations from board coordinates to display coordinates.

@@ -355,6 +355,35 @@ cputyp:	.word	CPU_SUN4U ! Default to sun4u
 #define CLRTT
 #endif
 
+
+/*
+ * Some macros to load and store a register window
+ */
+
+	.macro	SPILL storer,base,size,asi
+
+	.irpc n,01234567
+		\storer %l\n, [\base + (\n * \size)] \asi
+	.endr
+	.irpc n,01234567
+		\storer %i\n, [\base + ((8+\n) * \size)] \asi
+	.endr
+
+	.endm
+
+	
+	.macro FILL loader, base, size, asi
+	
+	.irpc n,01234567
+		\loader [\base + (\n * \size)] \asi, %l\n
+	.endr
+
+	.irpc n,01234567
+		\loader [\base + ((8+\n) * \size)] \asi, %i\n
+	.endr
+	
+	.endm
+	
 /*
  * Here are some oft repeated traps as macros.
  */
@@ -4079,12 +4108,30 @@ return_from_trap:
  *
  */
 rft_kernel:
-	rdpr	%tl, %g4				! Grab a set of trap registers
+	rdpr	%tl, %g4			! Grab a set of trap registers
 	inc	%g4
 	wrpr	%g4, %g0, %tl
 	wrpr	%g3, 0, %tnpc
 	wrpr	%g2, 0, %tpc
 	wrpr	%g1, 0, %tstate
+
+	rdpr	%canrestore, %g2
+	brnz	%g2, 1f
+	 nop
+
+	wr	%g0, ASI_NUCLEUS, %asi
+	rdpr	%cwp, %g1
+	dec	%g1
+	wrpr	%g1, %cwp
+#ifdef _LP64
+	FILL	ldxa, %sp+BIAS, 8, %asi
+#else
+	FILL	lda, %sp, 4, %asi
+#endif
+	restored
+	inc	%g1
+	wrpr	%g1, %cwp
+1:
 	restore
 	rdpr	%tstate, %g1			! Since we may have trapped our regs may be toast
 	rdpr	%cwp, %g2

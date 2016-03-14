@@ -1,8 +1,12 @@
 #	$NetBSD$
 
+NOMAN=	# defined
+
+.include <bsd.init.mk>
 HOSTPROG=	macppc_installboot
 SRCS=		installboot.c cd9660.c cd9660_util.c
-NOMAN=	# defined
+
+.PATH.c: ${NETBSDSRCDIR}/sys/fs/cd9660
 
 HOST_CPPFLAGS+=	-I. -I${.CURDIR}
 #HOST_CPPFLAGS+=	-DDEBUG

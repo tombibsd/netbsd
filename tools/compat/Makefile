@@ -14,7 +14,7 @@ SRCS=		atoll.c basename.c cdbr.c cdbw.c dirname.c \
 		mkstemp.c pread.c putc_unlocked.c pwcache.c pwrite.c \
 		pw_scan.c \
 		raise_default_signal.c reallocarr.c rmd160.c rmd160hl.c \
-		regcomp.c regerror.c regexec.c regfree.c regsub.c \
+		regcomp.c regerror.c regexec.c regfree.c \
 		setenv.c setgroupent.c \
 		setpassent.c setprogname.c sha1.c sha1hl.c sha2.c \
 		sha256hl.c sha384hl.c sha512hl.c snprintb.c snprintf.c \

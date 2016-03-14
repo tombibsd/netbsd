@@ -94,7 +94,7 @@ struct 	ptimer {
 
 #define	TIMER_MIN	4	/* [0..3] are reserved for setitimer(2) */
 				/* REAL=0,VIRTUAL=1,PROF=2,MONOTONIC=3 */
-#define	TIMER_MAX	32	/* See ptimers->pts_fired if you enlarge this */
+#define	TIMER_MAX	36	/* 32 is minimum user timers per POSIX */
 #define	TIMERS_ALL	0
 #define	TIMERS_POSIX	1
 
@@ -104,7 +104,6 @@ struct	ptimers {
 	struct ptlist pts_virtual;
 	struct ptlist pts_prof;
 	struct ptimer *pts_timers[TIMER_MAX];
-	int pts_fired;
 };
 
 /*

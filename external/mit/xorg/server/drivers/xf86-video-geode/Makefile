@@ -44,6 +44,8 @@ COPTS.gx_randr.c+=	-Wno-error	# XXX
 COPTS.lx_memory.c+=	-Wno-error	# XXX
 COPTS.panel.c+=		-Wno-error	# XXX -- huh? don't get this one
 
+CWARNFLAGS.clang+=	-Wno-empty-body
+
 .include "../Makefile.xf86-driver"
 
 XORG_PKG_VER_PROG=	${DRIVER}

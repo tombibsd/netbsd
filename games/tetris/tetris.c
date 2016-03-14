@@ -62,6 +62,7 @@ __COPYRIGHT("@(#) Copyright (c) 1992, 1993\
 cell	board[B_SIZE];		/* 1 => occupied, 0 => empty */
 
 int	Rows, Cols;		/* current screen size */
+int	Offset;			/* used to center board & shapes */
 
 static const struct shape *curshape;
 const struct shape *nextshape;

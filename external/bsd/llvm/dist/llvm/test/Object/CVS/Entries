@@ -85,6 +85,7 @@
 /yaml2obj-elf-symbol-visibility.yaml/1.1.1.2/Thu Feb  5 08:36:57 2015/-kk/
 /yaml2obj-readobj.test/1.1.1.2/Tue Jun  3 03:03:59 2014/-kk/
 D/AArch64////
+D/AMDGPU////
 D/ARM////
 D/Inputs////
 D/Mips////

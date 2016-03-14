@@ -3,7 +3,7 @@
 PROG=		infocmp
 
 CPPFLAGS+=	-I${.CURDIR}/../../lib/libterminfo
-LDADD+=		-lterminfo
-DPADD+=		${LIBTERMINFO}
+LDADD+=		-lterminfo -lutil
+DPADD+=		${LIBTERMINFO} ${LIBUTIL}
 
 .include <bsd.prog.mk>

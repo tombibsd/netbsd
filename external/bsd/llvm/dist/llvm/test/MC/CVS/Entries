@@ -1,4 +1,5 @@
 D/AArch64////
+D/AMDGPU////
 D/ARM////
 D/AsmParser////
 D/COFF////
@@ -9,7 +10,6 @@ D/MachO////
 D/Markup////
 D/Mips////
 D/PowerPC////
-D/R600////
 D/Sparc////
 D/SystemZ////
 D/X86////

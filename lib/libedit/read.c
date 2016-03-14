@@ -615,7 +615,7 @@ FUN(el,gets)(EditLine *el, int *nread)
 					break;
 			if (b->name)
 				(void) fprintf(el->el_errfile,
-				    "Executing %s\n", b->name);
+				    "Executing " FSTR "\n", b->name);
 			else
 				(void) fprintf(el->el_errfile,
 				    "Error command = %d\n", cmdnum);

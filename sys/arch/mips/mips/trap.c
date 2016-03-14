@@ -167,7 +167,7 @@ trap(uint32_t status, uint32_t cause, vaddr_t vaddr, vaddr_t pc,
 	KSI_INIT_TRAP(&ksi);
 
 	curcpu()->ci_data.cpu_ntrap++;
-	if (status & MIPS3_SR_NMI) {
+	if (CPUISMIPS3 && (status & MIPS3_SR_NMI)) {
 		type = T_NMI;
 	} else {
 		type = TRAPTYPE(cause);

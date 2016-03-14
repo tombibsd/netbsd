@@ -89,8 +89,11 @@ audiodev_getinfo(struct audiodev *adev)
 		adev->defaultdev = true;
 
 	adev->fd = open(adev->path, O_RDWR);
-	if (adev->fd == -1)
-		return -1;
+	if (adev->fd == -1) {
+		adev->fd = open(adev->path, O_WRONLY);
+		if (adev->fd == -1)
+			return -1;
+	}
 	if (ioctl(adev->fd, AUDIO_GETDEV, &adev->audio_device) == -1) {
 		close(adev->fd);
 		return -1;

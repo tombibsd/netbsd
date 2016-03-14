@@ -3006,6 +3006,9 @@ ApplyModifiers(char *nstr, const char *tstr,
 			    parsestate.varSpace = 0; /* no separator */
 			    cp = tstr + 2;
 			} else if (tstr[2] == '\\') {
+			    const char *xp = &tstr[3];
+			    int base = 8; /* assume octal */
+
 			    switch (tstr[3]) {
 			    case 'n':
 				parsestate.varSpace = '\n';
@@ -3015,12 +3018,20 @@ ApplyModifiers(char *nstr, const char *tstr,
 				parsestate.varSpace = '\t';
 				cp = tstr + 4;
 				break;
+			    case 'x':
+				base = 16;
+				xp++;
+				goto get_numeric;
+			    case '0':
+				base = 0;
+				goto get_numeric;
 			    default:
 				if (isdigit((unsigned char)tstr[3])) {
 				    char *ep;
 
+				get_numeric:
 				    parsestate.varSpace =
-					strtoul(&tstr[3], &ep, 0);
+					strtoul(xp, &ep, base);
 				    if (*ep != ':' && *ep != endc)
 					goto bad_modifier;
 				    cp = ep;

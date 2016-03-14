@@ -457,6 +457,7 @@ isakmp_cfg_reply(iph1, attrpl)
 		case OAKLEY_ATTR_AUTH_METHOD_XAUTH_RSASIG_I:
 		case OAKLEY_ATTR_AUTH_METHOD_XAUTH_RSAENC_I: 
 		case OAKLEY_ATTR_AUTH_METHOD_XAUTH_RSAREV_I: 
+		case OAKLEY_ATTR_AUTH_METHOD_RSASIG:
 			script_hook(iph1, SCRIPT_PHASE1_UP);
 			break;
 		default:
@@ -639,6 +640,7 @@ isakmp_cfg_request(iph1, attrpl)
 		case OAKLEY_ATTR_AUTH_METHOD_XAUTH_RSASIG_R:
 		case OAKLEY_ATTR_AUTH_METHOD_XAUTH_RSAENC_R: 
 		case OAKLEY_ATTR_AUTH_METHOD_XAUTH_RSAREV_R: 
+		case OAKLEY_ATTR_AUTH_METHOD_RSASIG:
 			script_hook(iph1, SCRIPT_PHASE1_UP);
 			break;
 		default:

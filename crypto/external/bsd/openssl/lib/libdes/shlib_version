@@ -5,5 +5,5 @@
 #	make sure you update the version numbers here whenever you
 #	change them there.
 #
-major=8
-minor=2
+major=11
+minor=0

@@ -770,6 +770,7 @@ if_percpuq_enqueue(struct if_percpuq *ipq, struct mbuf *m)
 	ifq = percpu_getref(ipq->ipq_ifqs);
 	if (IF_QFULL(ifq)) {
 		IF_DROP(ifq);
+		percpu_putref(ipq->ipq_ifqs);
 		m_freem(m);
 		goto out;
 	}

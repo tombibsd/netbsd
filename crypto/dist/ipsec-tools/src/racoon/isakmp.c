@@ -890,6 +890,10 @@ ph1_main(iph1, msg)
 				/* XXX Don't process INITIAL_CONTACT */
 				iph1->rmconf->ini_contact = 0;
 				break;
+			case OAKLEY_ATTR_AUTH_METHOD_RSASIG:
+				if (iph1->rmconf->mode_cfg)
+					error = isakmp_cfg_getconfig(iph1);
+				break;
 			default:
 				break;
 			}
@@ -944,6 +948,10 @@ ph1_main(iph1, msg)
 				script_hook(iph1, SCRIPT_PHASE1_UP);
 				break;
 			}
+		}
+		if ((iph1->rmconf->mode_cfg) &&
+		    !(iph1->mode_cfg->flags & ISAKMP_CFG_VENDORID_XAUTH)) {
+			error = isakmp_cfg_getconfig(iph1);
 		}
 	}
 

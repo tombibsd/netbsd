@@ -268,48 +268,48 @@ dst_hmac_md5_key_to_file_format(const DST_KEY *dkey, char *buff,
 			        const int buff_len)
 {
 	char *bp;
-	int len, i, key_len;
+#define BUF_LEFT (size_t)(buff_len - (bp - buff))
+	int len, key_len;
 	u_char key[HMAC_LEN];
 	HMAC_Key *hkey;
+	static const char keystr[] = "Key: ";
+
+	if (buff == NULL)
+		return -1;	/*%< no output area */
 
 	if (dkey == NULL || dkey->dk_KEY_struct == NULL) 
-		return (0);
-	/*
-	 * Using snprintf() would be so much simpler here.
-	 */
-	if (buff == NULL ||
-	    buff_len <= (int)(strlen(KEY_FILE_FMT_STR) +
-			      strlen(KEY_FILE_FORMAT) + 4))
-		return (-1);	/*%< no OR not enough space in output area */
-	hkey = (HMAC_Key *) dkey->dk_KEY_struct;
-	memset(buff, 0, buff_len);	/*%< just in case */
+		return 0;
+
 	/* write file header */
-	snprintf(buff, buff_len, KEY_FILE_FMT_STR, KEY_FILE_FORMAT,
+	hkey = (HMAC_Key *) dkey->dk_KEY_struct;
+	len = snprintf(buff, buff_len, KEY_FILE_FMT_STR, KEY_FILE_FORMAT,
 	    KEY_HMAC_MD5, "HMAC");
+	if (len < 0 || len >= buff_len)
+		return -1; 	/*%< not enough space in output area */
+	bp = buff + len;
+	if (BUF_LEFT < sizeof(keystr))
+		return -1;
 
-	bp = buff + strlen(buff);
+	memcpy(bp, keystr, sizeof(keystr) - 1);
+	bp += sizeof(keystr) - 1;
 
-	memset(key, 0, HMAC_LEN);
-	for (i = 0; i < HMAC_LEN; i++)
-		key[i] = hkey->hk_ipad[i] ^ HMAC_IPAD;
-	for (i = HMAC_LEN - 1; i >= 0; i--)
-		if (key[i] != 0)
+	for (key_len = 0; key_len < HMAC_LEN; key_len++)
+		key[key_len] = hkey->hk_ipad[key_len] ^ HMAC_IPAD;
+	for (key_len = HMAC_LEN - 1; key_len >= 0; key_len--)
+		if (key[key_len] != 0)
 			break;
-	key_len = i + 1;
+	key_len++;
 
-	if (buff_len - (bp - buff) < 6)
-		return (-1);
-	strcat(bp, "Key: ");
-	bp += strlen("Key: ");
-
-	len = b64_ntop(key, key_len, bp, (size_t)(buff_len - (bp - buff)));
+	len = b64_ntop(key, key_len, bp, BUF_LEFT);
 	if (len < 0) 
-		return (-1);
+		return -1;
 	bp += len;
-	if (buff_len - (bp - buff) < 2)
-		return (-1);
+
+	if (BUF_LEFT < 2)
+		return -1;
 	*(bp++) = '\n';
-	*bp = '\0';
+
+	memset(bp, 0, BUF_LEFT);
 
 	return (int)(bp - buff);
 }

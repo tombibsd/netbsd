@@ -103,7 +103,8 @@ cv_paste(EditLine *el, wint_t c)
 	if (k->buf == NULL || len == 0)
 		return CC_ERROR;
 #ifdef DEBUG_PASTE
-	(void) fprintf(el->el_errfile, "Paste: \"%.*s\"\n", (int)len, k->buf);
+	(void) fprintf(el->el_errfile, "Paste: \"" FSTARSTR "\"\n", (int)len,
+	    k->buf);
 #endif
 
 	cv_undo(el);

@@ -128,7 +128,8 @@ USE_SSP?=	yes
 .endif
 
 .if ${MACHINE} == "amd64" || \
-    ${MACHINE} == "i386"
+    ${MACHINE} == "i386" || \
+    ${MACHINE_CPU} == "sh3"
 HAVE_GDB?=	710
 .else
 HAVE_GDB?=	79
@@ -144,6 +145,7 @@ EXTERNAL_GDB_SUBDIR=		gdb
     ${MACHINE} == "evbarm" || \
     ${MACHINE} == "i386" || \
     ${MACHINE} == "hppa" || \
+    ${MACHINE_CPU} == "sh3" || \
     ${MACHINE} == "sparc" || \
     ${MACHINE} == "sparc64" || \
     ${MACHINE_ARCH} == "powerpc"

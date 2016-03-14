@@ -197,6 +197,7 @@ scr_set(void)
 		    MINCOLS, MINROWS);
 		stop("");	/* stop() supplies \n */
 	}
+	Offset = (Rows - D_LAST + D_FIRST - 2) / 2;
 	if (tcgetattr(0, &oldtt) < 0)
 		stop("tcgetattr() fails");
 	newtt = oldtt;
@@ -360,7 +361,7 @@ scr_update(void)
 					putpad(exit_standout_mode);
 					cur_so = 0;
 				}
-				moveto(RTOD(j), CTOD(i));
+				moveto(RTOD(j + Offset), CTOD(i));
 			}
 			if (enter_standout_mode) {
 				if (so != cur_so) {

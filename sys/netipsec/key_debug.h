@@ -39,6 +39,7 @@
 #define KEYDEBUG_STAMP		0x00000001 /* path */
 #define KEYDEBUG_DATA		0x00000002 /* data */
 #define KEYDEBUG_DUMP		0x00000004 /* dump */
+#define KEYDEBUG_MATCH		0x00000008 /* match */
 
 #define KEYDEBUG_KEY		0x00000010 /* key processing */
 #define KEYDEBUG_ALG		0x00000020 /* ciph & auth algorithm */

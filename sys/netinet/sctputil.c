@@ -844,9 +844,10 @@ sctp_expand_mapping_array(struct sctp_association *asoc)
 {
 	/* mapping array needs to grow */
 	u_int8_t *new_array;
-	uint16_t new_size;
+	uint16_t new_size, old_size;
 
-	new_size = asoc->mapping_array_size + SCTP_MAPPING_ARRAY_INCR;
+	old_size = asoc->mapping_array_size;
+	new_size = old_size + SCTP_MAPPING_ARRAY_INCR;
 	new_array = malloc(new_size, M_PCB, M_NOWAIT);
 	if (new_array == NULL) {
 		/* can't get more, forget it */
@@ -854,8 +855,8 @@ sctp_expand_mapping_array(struct sctp_association *asoc)
 		       new_size);
 		return (-1);
 	}
-	memset(new_array, 0, new_size);
-	memcpy(new_array, asoc->mapping_array, asoc->mapping_array_size);
+	memcpy(new_array, asoc->mapping_array, old_size);
+	memset(new_array + old_size, 0, SCTP_MAPPING_ARRAY_INCR);
 	free(asoc->mapping_array, M_PCB);
 	asoc->mapping_array = new_array;
 	asoc->mapping_array_size = new_size;

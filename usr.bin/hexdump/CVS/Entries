@@ -1,9 +1,9 @@
 /Makefile/1.14/Sun Aug 14 13:45:34 2011/-kk/
 /conv.c/1.14/Thu Oct 24 10:28:59 2013/-kk/
-/display.c/1.22/Thu Oct 24 10:28:59 2013/-kk/
+/display.c/1.25/Mon Mar 14 08:07:36 2016/-kk/
 /hexdump.1/1.24/Fri Jul  6 14:10:06 2012/-kk/
-/hexdump.c/1.18/Fri Jul  6 09:06:43 2012/-kk/
-/hexdump.h/1.13/Sun Sep  4 20:27:27 2011/-kk/
+/hexdump.c/1.19/Mon Mar 14 08:07:36 2016/-kk/
+/hexdump.h/1.15/Mon Mar 14 08:07:36 2016/-kk/
 /hexsyntax.c/1.14/Sat Nov 27 20:46:38 2010/-kk/
 /od.1/1.27/Fri Jul  6 09:05:26 2012/-kk/
 /odsyntax.c/1.28/Sat Nov 27 20:46:38 2010/-kk/

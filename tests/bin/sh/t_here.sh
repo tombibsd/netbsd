@@ -39,16 +39,9 @@ check()
 	# some of the tests expect us to expand $nl internally...
 	CMD="nl='${nl}'; $1"
 
-echo "${CMD}" >/tmp/CMD
 	rm -f trace.*
 	result="$( ${TEST_SH} -c "${CMD}" 2>"${TEMP_FILE}" )"
 	STATUS=$?
-
-	if [ -s "${O_FILE}" ]; then
-		echo >&2 "unexpected shell output noise on stdout"
-		cat "${O_FILE}" >&2
-		fail=true
-	fi
 
 	if [ "${STATUS}" -ne "$3" ]; then
 		echo >&2 "expected exit code $3, got ${STATUS}"
@@ -193,11 +186,11 @@ EOF
 
 }
 
-atf_test_case viscious
-viscious_head() {
+atf_test_case vicious
+vicious_head() {
 	atf_set "descr" "Tests for obscure and obnoxious uses of here docs"
 }
-viscious_body() {
+vicious_body() {
 
 	cat <<- \END_SCRIPT > script
 		cat <<ONE && cat \
@@ -215,7 +208,7 @@ viscious_body() {
 	# will not check what it produces.   The eventual result
 	# seems unlikely to be what we currently output, which
 	# is:
-	#	:echo line 1
+	#	A:echo line 1
 	#	B:echo line 2)" && prefix DASH_CODE <<DASH_CODE
 	#	B:echo line 3
 	#	line 4
@@ -257,5 +250,5 @@ atf_init_test_cases() {
 	atf_add_test_case do_simple
 	atf_add_test_case incomplete
 	atf_add_test_case multiple	# multiple << operators on one cmd
-	atf_add_test_case viscious	# evil test from the austin-l list...
+	atf_add_test_case vicious	# evil test from the austin-l list...
 }

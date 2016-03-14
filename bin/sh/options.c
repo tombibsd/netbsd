@@ -335,6 +335,8 @@ shiftcmd(int argc, char **argv)
 	int n;
 	char **ap1, **ap2;
 
+	if (argc > 2)
+		error("Usage: shift [n]");
 	n = 1;
 	if (argc > 1)
 		n = number(argv[1]);
@@ -347,7 +349,8 @@ shiftcmd(int argc, char **argv)
 			ckfree(*ap1);
 	}
 	ap2 = shellparam.p;
-	while ((*ap2++ = *ap1++) != NULL);
+	while ((*ap2++ = *ap1++) != NULL)
+		continue;
 	shellparam.optnext = NULL;
 	INTON;
 	return 0;

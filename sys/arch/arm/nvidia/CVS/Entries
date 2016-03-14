@@ -47,7 +47,7 @@
 /tegra_socthermreg.h/1.1/Sat Nov 21 22:55:32 2015/-kk/
 /tegra_timer.c/1.4/Thu Jan  7 06:24:19 2016/-kk/
 /tegra_timerreg.h/1.2/Thu Jan  7 06:24:19 2016/-kk/
-/tegra_usbphy.c/1.5/Thu Jan  7 06:24:19 2016/-kk/
+/tegra_usbphy.c/1.6/Mon Mar 14 08:07:16 2016/-kk/
 /tegra_usbreg.h/1.1/Wed Oct 21 20:02:12 2015/-kk/
 /tegra_var.h/1.29/Thu Jan  7 06:24:19 2016/-kk/
 /tegra_xusbpad.c/1.2/Fri Dec 25 06:18:08 2015/-kk/

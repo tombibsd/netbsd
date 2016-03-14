@@ -20,11 +20,13 @@ D/ExecutionEngine////
 D/IR////
 D/IRReader////
 D/LTO////
+D/LibDriver////
 D/LineEditor////
 D/Linker////
 D/MC////
 D/Object////
 D/Option////
+D/Passes////
 D/ProfileData////
 D/Support////
 D/TableGen////

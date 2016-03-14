@@ -161,8 +161,8 @@ logit(int what, const char *fmt, ...)
 
 	/* put log on screen ? */
 
-	if ((do_fullscreen && curses_ready) &&
-	   ((!debug_noscreen) || (debug_noscreen && (what != LL_DBG))))
+	if (do_fullscreen && curses_ready &&
+	    (!debug_noscreen || what != LL_DBG))
 	{
 		wprintw(lower_w, "%s %s %-.*s\n", dp, logtab[what].text,
 

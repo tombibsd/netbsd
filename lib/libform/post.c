@@ -63,11 +63,6 @@ post_form(FORM *form)
 		return E_NO_ROOM;
 	}
 
-#ifdef DEBUG
-	if (_formi_create_dbg_file() != E_OK)
-		return E_SYSTEM_ERROR;
-#endif
-	
 	form->in_init = 1;
 	if (form->form_init != NULL)
 		form->form_init(form);

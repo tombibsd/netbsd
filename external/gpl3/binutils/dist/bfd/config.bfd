@@ -1559,6 +1559,7 @@ case "${targ}" in
   sparc-*-netbsdelf*)
     targ_defvec=sparc_elf32_vec
     targ_selvecs=sparc_aout_nbsd_vec
+    want64=true
     ;;
   sparc-*-netbsdaout* | sparc-*-netbsd*)
     targ_defvec=sparc_aout_nbsd_vec
@@ -1609,10 +1610,6 @@ case "${targ}" in
     targ_defvec=sparc_elf64_vec
     targ_selvecs="sparc_elf32_vec sparc_aout_linux_vec sparc_aout_sunos_be_vec"
     want64=true
-    ;;
-  sparc64-*-netbsd*)
-    targ_defvec=bfd_elf64_sparc_vec
-    targ_selvecs="bfd_elf32_sparc_vec sparcnetbsd_vec sunos_big_vec"
     ;;
   sparc64-*-elf* | sparc64-*-rtems* )
     targ_defvec=sparc_elf64_vec

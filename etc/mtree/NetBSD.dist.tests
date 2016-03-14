@@ -324,6 +324,7 @@
 ./usr/tests/net/if_bridge
 ./usr/tests/net/if_gif
 ./usr/tests/net/if_loop
+./usr/tests/net/if_tap
 ./usr/tests/net/in_cksum
 ./usr/tests/net/mcast
 ./usr/tests/net/mpls

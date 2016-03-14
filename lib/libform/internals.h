@@ -35,10 +35,6 @@
 #ifndef FORMI_INTERNALS_H
 #define FORMI_INTERNALS_H 1
 
-#ifdef DEBUG
-extern FILE *dbg;
-#endif
-
 /* direction definitions for _formi_pos_new_field */
 #define _FORMI_BACKWARD 1
 #define _FORMI_FORWARD  2
@@ -141,11 +137,9 @@ int
 _formi_sync_buffer(FIELD *field);
 
 #ifdef DEBUG
-int
-_formi_create_dbg_file(void);
+void _formi_dbg_printf(const char *, ...) __printflike(1, 2);
+#else
+#define _formi_dbg_printf(a,...)
 #endif /* DEBUG */
 	
 #endif
-
-
-

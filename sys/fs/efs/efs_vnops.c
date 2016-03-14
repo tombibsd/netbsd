@@ -622,7 +622,7 @@ efs_bmap(void *v)
 		}
 	}
 
-	KASSERT(!found || (found && ret == 0));
+	KASSERT(!found || ret == 0);
 
 	if (!found) {
 		EFS_DPRINTF(("efs_bmap: ap->a_bn not in extents\n"));

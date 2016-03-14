@@ -12,6 +12,7 @@ D/Bitcode////
 D/BugPoint////
 D/CodeGen////
 D/DebugInfo////
+D/Examples////
 D/ExecutionEngine////
 D/Feature////
 D/FileCheck////
@@ -19,6 +20,7 @@ D/Instrumentation////
 D/Integer////
 D/JitListener////
 D/LTO////
+D/LibDriver////
 D/Linker////
 D/MC////
 D/Object////

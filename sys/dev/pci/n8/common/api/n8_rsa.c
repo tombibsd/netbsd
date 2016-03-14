@@ -1087,7 +1087,6 @@ static N8_Status_t initPublicKey(N8_RSAKeyObject_t    *key_p,
        *
        * padding = digit_size - (pub_key_len % digit_size)
        */
-      memset(vAddr, 0x0, padding);
       memcpy(&vAddr[padding],
              material_p->publicKey.value_p,
              material_p->publicKey.lengthBytes);

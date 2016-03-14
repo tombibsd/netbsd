@@ -14,4 +14,6 @@ D/TableGen////
 D/TestUtils////
 D/VtableTest////
 D/analyzer////
+D/check_cfc////
+D/perf-training////
 D/valgrind////

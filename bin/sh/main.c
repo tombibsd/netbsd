@@ -279,7 +279,7 @@ cmdloop(int top)
 			if (nflag)
 				break;
 			if (!stoppedjobs()) {
-				if (iflag && !Iflag)
+				if (!iflag || !Iflag)
 					break;
 				out2str("\nUse \"exit\" to leave shell.\n");
 			}

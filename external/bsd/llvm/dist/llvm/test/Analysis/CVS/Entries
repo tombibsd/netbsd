@@ -1,3 +1,4 @@
+D/AssumptionCache////
 D/BasicAA////
 D/BlockFrequencyInfo////
 D/BranchProbabilityInfo////
@@ -5,11 +6,14 @@ D/CFLAliasAnalysis////
 D/CallGraph////
 D/CostModel////
 D/Delinearization////
+D/DemandedBits////
 D/DependenceAnalysis////
+D/DivergenceAnalysis////
 D/Dominators////
 D/GlobalsModRef////
 D/LazyCallGraph////
 D/Lint////
+D/LoopAccessAnalysis////
 D/LoopInfo////
 D/MemoryDependenceAnalysis////
 D/PostDominators////
@@ -17,3 +21,4 @@ D/RegionInfo////
 D/ScalarEvolution////
 D/ScopedNoAliasAA////
 D/TypeBasedAliasAnalysis////
+D/ValueTracking////

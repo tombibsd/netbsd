@@ -13,6 +13,8 @@ SRCS=		${COMMONSOURCE} ${PROGSOURCE}
 NOMAN=		# defined
 BINMODE=	444
 
+.include <bsd.own.mk>
+
 #
 # The relocation address for `boot' must leave enough free memory below
 # it to load a kernel at address 0x4000. On the other hand, on some

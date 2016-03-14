@@ -1346,4 +1346,18 @@ printf()
 	esac
 }
 
+kat() {
+	local i
+	local v
+	for i; do
+		while read -r v; do
+			v="${v%%#*}"
+			if [ -z "$v" ]; then
+				continue
+			fi
+			echo "$v"
+		done < "$i"
+	done
+}
+
 _rc_subr_loaded=:

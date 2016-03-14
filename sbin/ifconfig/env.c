@@ -141,8 +141,8 @@ getargdata(prop_dictionary_t env, const char *key, uint8_t *buf, size_t buflen)
 		errno = ENAMETOOLONG; 
 		return -1;
 	}
-	memset(buf, 0, buflen);
 	memcpy(buf, prop_data_data_nocopy(data), datalen);
+	memset(buf + datalen, 0, buflen - datalen);
 	return datalen;
 }
 
@@ -162,8 +162,8 @@ getargstr(prop_dictionary_t env, const char *key, char *buf, size_t buflen)
 		errno = ENAMETOOLONG; 
 		return -1;
 	}
-	memset(buf, 0, buflen);
 	memcpy(buf, prop_data_data_nocopy(data), datalen);
+	memset(buf + datalen, 0, buflen - datalen);
 	return datalen;
 }
 

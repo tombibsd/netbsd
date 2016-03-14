@@ -3782,7 +3782,7 @@ bwi_set_gains(struct bwi_mac *mac, const struct bwi_gains *gains)
 		bwi_tbl_write_2(mac, tbl_gain_ofs2 + i, tbl_gain);
 	}
 
-	if (gains == NULL || (gains != NULL && gains->phy_gain != -1)) {
+	if (gains == NULL || gains->phy_gain != -1) {
 		uint16_t phy_gain1, phy_gain2;
 
 		if (gains != NULL) {

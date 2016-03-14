@@ -42,6 +42,7 @@ extern Boolean useMeta;
 
 struct Job;				/* not defined yet */
 void meta_init(void);
+void meta_finish(void);
 void meta_mode_init(const char *);
 void meta_job_start(struct Job *, GNode *);
 void meta_job_child(struct Job *);

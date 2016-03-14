@@ -70,5 +70,7 @@
 /var_stride_used_by_compare.ll/1.1.1.2/Mon Mar 14 07:52:38 2016/-kk/
 /variable_stride.ll/1.1.1.2/Mon Mar 14 07:52:38 2016/-kk/
 D/AArch64////
+D/AMDGPU////
 D/ARM////
+D/NVPTX////
 D/X86////

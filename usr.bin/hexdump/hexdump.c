@@ -88,7 +88,7 @@ main(int argc, char *argv[])
 	for (tfs = fshead; tfs; tfs = tfs->nextfs)
 		rewrite(tfs);
 
-	(void)next(argv);
+	stashargv(argv);
 	display();
 	exit(exitval);
 }

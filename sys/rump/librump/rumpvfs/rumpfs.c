@@ -933,8 +933,8 @@ rump_vop_setattr(void *v)
 			return ENOSPC;
 
 		copylen = MIN(rn->rn_dlen, newlen);
-		memset(newdata, 0, newlen);
 		memcpy(newdata, rn->rn_data, copylen);
+		memset((char *)newdata + copylen, 0, newlen - copylen);
 
 		if ((rn->rn_flags & RUMPNODE_EXTSTORAGE) == 0) {
 			rump_hyperfree(rn->rn_data, rn->rn_dlen);

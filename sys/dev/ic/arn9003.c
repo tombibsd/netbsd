@@ -2235,7 +2235,7 @@ ar9003_calib_iq(struct athn_softc *sc)
 		if (cal->pwr_meas_q == 0)
 			continue;
 
-		if ((iq_corr_neg = cal->iq_corr_meas < 0))
+		if ((iq_corr_neg = cal->iq_corr_meas) < 0)
 			cal->iq_corr_meas = -cal->iq_corr_meas;
 
 		i_coff_denom =

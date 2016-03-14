@@ -3,6 +3,8 @@
 .ifndef __INCLUDED_STAND_MAKEFILE_INC
 __INCLUDED_STAND_MAKEFILE_INC=
 
+.include <bsd.own.mk>
+
 BINDIR=		/usr/mdec
 
 CPPFLAGS+=	-DSTANDALONE -I.

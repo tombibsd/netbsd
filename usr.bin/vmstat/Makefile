@@ -16,4 +16,7 @@ BINMODE=2555
 CWARNFLAGS.clang+=	-Wno-format-extra-args
 COPTS.vmstat.c += -Wno-format-nonliteral
 
+# sparc64 is broken!
+COPTS.vmstat.c += -Wno-error=stack-protector
+
 .include <bsd.prog.mk>

@@ -8,6 +8,8 @@ D/Driver////
 D/Format////
 D/Frontend////
 D/Lex////
+D/Rewrite////
 D/Sema////
+D/StaticAnalyzer////
 D/Tooling////
 D/libclang////

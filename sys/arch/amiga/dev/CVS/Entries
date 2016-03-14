@@ -128,7 +128,7 @@
 /rtc.h/1.10/Wed Nov 14 13:36:02 2012/-kk/
 /rtmondefs.c/1.4/Mon Jan 28 09:57:02 2002/-kk/
 /rtmons/1.3/Sat Jan 26 13:40:59 2002/-kk/
-/sbic.c/1.74/Mon Jan 26 07:10:13 2015/-kk/
+/sbic.c/1.75/Mon Mar 14 08:07:15 2016/-kk/
 /sbicreg.h/1.8/Fri Feb  5 12:13:36 2010/-kk/
 /sbicvar.h/1.24/Sat Oct 27 17:17:31 2012/-kk/
 /sci.c/1.36/Thu Feb 13 15:22:12 2014/-kk/

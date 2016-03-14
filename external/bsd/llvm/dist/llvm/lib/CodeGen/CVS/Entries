@@ -147,4 +147,5 @@
 /WinEHPrepare.cpp/1.1.1.1/Sat Feb 27 22:52:28 2016/-kk/
 /module.modulemap/1.1.1.1/Fri May 30 18:11:09 2014/-kk/
 D/AsmPrinter////
+D/MIRParser////
 D/SelectionDAG////

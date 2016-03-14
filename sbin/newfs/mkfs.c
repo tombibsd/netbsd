@@ -734,9 +734,11 @@ mkfs(const char *fsys, int fi, int fo,
 	/*
 	 * Write out the super-block and zeros until the first cg info
 	 */
-	i = cgsblock(&sblock, 0) * sblock.fs_fsize - sblock.fs_sblockloc,
-	memset(iobuf, 0, i);
-	memcpy(iobuf, &sblock, sizeof sblock);
+	i = cgsblock(&sblock, 0) * sblock.fs_fsize - sblock.fs_sblockloc;
+	if ((size_t)i < sizeof(sblock))
+		errx(1, "No space for superblock");
+	memcpy(iobuf, &sblock, sizeof(sblock));
+	memset(iobuf + sizeof(sblock), 0, i - sizeof(sblock));
 	if (needswap)
 		ffs_sb_swap(&sblock, (struct fs *)iobuf);
 	if ((sblock.fs_old_flags & FS_FLAGS_UPDATED) == 0)

@@ -121,11 +121,13 @@ udf_write_sector(void *sector, uint64_t location)
 	if ((seekpos == NULL) || (seekpos->sectornr != location)) {
 		pos = calloc(1, sizeof(struct wrsect));
 		if (pos == NULL)
-			return ENOMEM;
+			return errno;
 		/* allocate space for copy of sector data */
 		pos->sector_data = calloc(1, context.sector_size);
-		if (pos->sector_data == NULL)
-			return ENOMEM;
+		if (pos->sector_data == NULL) {
+			free(pos);
+			return errno;
+		}
 		pos->sectornr = location;
 
 		if (seekpos) {

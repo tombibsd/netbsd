@@ -140,8 +140,8 @@ static uint8_t hset_data[] = {
 	0x77, 0x61, 0x79
 };
 
-static sdp_data_t hset_record =	{ hset_data + 0, hset_data + 91 };
-static sdp_data_t hset_channel =	{ hset_data + 36, hset_data + 37 };
+static sdp_data_t hset_record = { hset_data + 0, hset_data + 89 };
+static sdp_data_t hset_channel = { hset_data + 34, hset_data + 36 };
 
 int
 main(int ac, char *av[])

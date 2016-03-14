@@ -274,6 +274,7 @@ label_2part_body() {
 atf_test_case bootable_2part
 bootable_2part_head() {
 	atf_set "descr" "Make partition 2 bootable in a 2 partition disk"
+	atf_set "require.files" "$bootblk"
 }
 
 bootable_2part_body() {

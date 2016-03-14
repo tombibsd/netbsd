@@ -84,14 +84,13 @@ EOF
 	pid=$!
 	sleep 1
 
-	# XXX: built-in kill does not work?
-	/bin/kill -HUP $pid
+	kill -HUP $pid
 	wait
 
 	output="$(cat $z | tr '\n' ' ')"
 	rm -f $s $z
 	if [ "$output" != "SIGHUP 129 3 127 " ]; then
-		atf_fail "${output} != 'SIGHUP 129 '"
+		atf_fail "${output} != 'SIGHUP 129 3 127 '"
 	fi
 }
 

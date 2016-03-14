@@ -24,8 +24,11 @@
 D/AArch64////
 D/ARM////
 D/COFF////
+D/Generic////
 D/Inputs////
+D/MIR////
 D/Mips////
+D/PDB////
 D/PowerPC////
 D/Sparc////
 D/SystemZ////

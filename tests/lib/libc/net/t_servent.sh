@@ -29,6 +29,8 @@ atf_test_case servent
 servent_head()
 {
 	atf_set "descr" "Checks {get,set,end}servent(3)"
+	# libc doesn't include aliases
+	atf_set "require.files" "/var/db/services.cdb" 
 }
 servent_body()
 {
