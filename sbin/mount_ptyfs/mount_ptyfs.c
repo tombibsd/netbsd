@@ -105,6 +105,8 @@ __RCSID("$NetBSD$");
 static const struct mntopt mopts[] = {
 	MOPT_STDOPTS,
 	MOPT_GETARGS,
+	MOPT_NOATIME,
+	MOPT_RELATIME,
 	{ "group", 0, ALTF_GROUP, 1 },
 	{ "mode", 0, ALTF_MODE, 1 },
 	{ "chroot", 0, ALTF_CHROOT, 1 },	/* compat */

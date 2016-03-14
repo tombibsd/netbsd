@@ -48,7 +48,7 @@ LLVM_LIBS+= \
 	X86Utils \
 	CodeGen \
 	MCDisassembler \
-	DebugInfo \
+	DebugInfoDWARF \
 	Object \
 	BitReader \
 	MCParser \

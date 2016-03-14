@@ -19,12 +19,13 @@ SRCS+=	ConstantPools.cpp \
 	MCCodeEmitter.cpp \
 	MCContext.cpp \
 	MCDwarf.cpp \
-	MCELF.cpp \
 	MCELFObjectTargetWriter.cpp \
 	MCELFStreamer.cpp \
 	MCExpr.cpp \
+	MCFragment.cpp \
 	MCInst.cpp \
 	MCInstrAnalysis.cpp \
+	MCInstrDesc.cpp \
 	MCInstPrinter.cpp \
 	MCLabel.cpp \
 	MCLinkerOptimizationHint.cpp \
@@ -35,6 +36,7 @@ SRCS+=	ConstantPools.cpp \
 	MCObjectStreamer.cpp \
 	MCObjectWriter.cpp \
 	MCRegisterInfo.cpp \
+	MCSchedule.cpp \
 	MCSection.cpp \
 	MCSectionCOFF.cpp \
 	MCSectionELF.cpp \
@@ -43,6 +45,7 @@ SRCS+=	ConstantPools.cpp \
 	MCSubtargetInfo.cpp \
 	MCSymbolizer.cpp \
 	MCSymbol.cpp \
+	MCSymbolELF.cpp \
 	MCTargetOptions.cpp \
 	MCValue.cpp \
 	MCWin64EH.cpp \

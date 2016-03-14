@@ -12,7 +12,6 @@ SRCS=	gcov.cpp \
 	CodeCoverage.cpp \
 	CoverageFilters.cpp \
 	CoverageReport.cpp \
-	CoverageSummary.cpp \
 	CoverageSummaryInfo.cpp \
 	SourceCoverageView.cpp \
 	TestingSupport.cpp
@@ -20,6 +19,9 @@ SRCS=	gcov.cpp \
 LLVM_LIBS+= \
 	ProfileData \
 	Object \
+	MCParser \
+	MC \
+	BitReader \
 	IR \
 	Support
 

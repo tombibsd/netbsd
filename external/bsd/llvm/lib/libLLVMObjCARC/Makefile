@@ -9,13 +9,12 @@ LIB=	LLVMObjCARC
 SRCS+=	DependencyAnalysis.cpp \
 	ObjCARC.cpp \
 	ObjCARCAPElim.cpp \
-	ObjCARCAliasAnalysis.cpp \
 	ObjCARCContract.cpp \
 	ObjCARCExpand.cpp \
 	ObjCARCOpts.cpp \
-	ObjCARCUtil.cpp \
 	ProvenanceAnalysis.cpp \
-	ProvenanceAnalysisEvaluator.cpp
+	ProvenanceAnalysisEvaluator.cpp \
+	PtrState.cpp
 
 .if defined(HOSTLIB)
 .include <bsd.hostlib.mk>

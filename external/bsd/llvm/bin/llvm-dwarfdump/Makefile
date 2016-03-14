@@ -10,8 +10,12 @@ NOMAN=		yes
 SRCS=	llvm-dwarfdump.cpp
 
 LLVM_LIBS+= \
-	DebugInfo \
+	DebugInfoDWARF \
 	Object \
+	BitReader \
+	IR \
+	MC \
+	MCParser \
 	Support
 
 LDADD+=	-lz

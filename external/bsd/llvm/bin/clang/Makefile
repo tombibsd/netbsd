@@ -84,14 +84,13 @@ LLVM_LIBS+= \
 	Instrumentation \
 	ScalarOpts \
 	ProfileData \
-	Analysis \
 	MCDisassembler \
 	MCParser \
 	MC \
 	Object \
 	Linker \
 	TransformsUtils \
-	ipa \
+	Analysis \
 	IR \
 	Option \
 	Support

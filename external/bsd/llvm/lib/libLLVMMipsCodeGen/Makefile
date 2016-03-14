@@ -37,9 +37,7 @@ SRCS+=	Mips16ISelDAGToDAG.cpp \
 	MipsSERegisterInfo.cpp \
 	MipsSubtarget.cpp \
 	MipsTargetMachine.cpp \
-	MipsTargetObjectFile.cpp \
-	MipsSelectionDAGInfo.cpp
-
+	MipsTargetObjectFile.cpp
 
 TABLEGEN_SRC=		Mips.td
 TABLEGEN_INCLUDES=	-I${LLVM_SRCDIR}/lib/Target/Mips

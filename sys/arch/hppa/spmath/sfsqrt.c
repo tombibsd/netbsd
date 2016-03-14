@@ -150,7 +150,7 @@ sgl_fsqrt(sgl_floating_point *srcptr, sgl_floating_point *dstptr,
 
 	/* check for inexact */
 	if (Sgl_isnotzero(src)) {
-		if (!even_exponent & Sgl_islessthan(result,src))
+		if (!even_exponent && Sgl_islessthan(result,src))
 			Sgl_increment(result);
 		guardbit = Sgl_lowmantissa(result);
 		Sgl_rightshiftby1(result);

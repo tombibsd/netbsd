@@ -8,10 +8,10 @@ LIB=	LLVMTarget
 
 SRCS+=	Target.cpp \
 	TargetIntrinsicInfo.cpp \
-	TargetLibraryInfo.cpp \
 	TargetLoweringObjectFile.cpp \
 	TargetMachine.cpp \
 	TargetMachineC.cpp \
+	TargetRecip.cpp \
 	TargetSubtargetInfo.cpp
 
 .if defined(HOSTLIB)

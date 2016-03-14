@@ -158,7 +158,7 @@ dbl_fsqrt(dbl_floating_point *srcptr, dbl_floating_point *dstptr,
 
 	/* check for inexact */
 	if (Dbl_isnotzero(srcp1,srcp2)) {
-		if (!even_exponent & Dbl_islessthan(resultp1,resultp2,srcp1,srcp2)) {
+		if (!even_exponent && Dbl_islessthan(resultp1,resultp2,srcp1,srcp2)) {
 			Dbl_increment(resultp1,resultp2);
 		}
 		guardbit = Dbl_lowmantissap2(resultp2);

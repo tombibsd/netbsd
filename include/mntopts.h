@@ -55,6 +55,7 @@ struct mntopt {
 #define MOPT_USERQUOTA		{ "userquota",	0, 0, 0 }
 #define MOPT_GROUPQUOTA		{ "groupquota",	0, 0, 0 }
 #define MOPT_NOATIME		{ "atime",	1, MNT_NOATIME, 0 }
+#define MOPT_RELATIME		{ "relatime",	0, MNT_RELATIME, 0 }
 #define MOPT_SYMPERM		{ "symperm",	0, MNT_SYMPERM, 0 }
 #define MOPT_SOFTDEP		{ "softdep",	0, MNT_SOFTDEP, 0 }
 #define MOPT_LOG		{ "log",	0, MNT_LOG, 0 }

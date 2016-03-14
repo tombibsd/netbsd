@@ -144,7 +144,7 @@ static void
 intpr_header(void)
 {
 
-	if (!sflag & !pflag) {
+	if (!sflag && !pflag) {
 		if (bflag) {
 			printf("%-5.5s %-5.5s %-13.13s %-17.17s "
 			       "%10.10s %10.10s",

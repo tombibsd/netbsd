@@ -269,7 +269,7 @@ show_vtw_v4(void (*print)(const vtw_t *))
 		kbase = vtw_tcpv4[i].base.v4;
 		klim = vtw_tcpv4[i].lim.v4;
 
-		if (!kbase | !klim)
+		if (!kbase || !klim)
 			continue;
 
 		n = (klim - kbase + 1);
@@ -300,7 +300,7 @@ show_vtw_v4(void (*print)(const vtw_t *))
 	base = fat_tcpv4.base;
 	lim = fat_tcpv4.lim;
 
-	if (!base | !lim)
+	if (!base || !lim)
 		goto end;
 
 	mem += (lim - base + 1) * sizeof(*base);
@@ -369,7 +369,7 @@ show_vtw_v6(void (*print)(const vtw_t *))
 		kbase = vtw_tcpv6[i].base.v6;
 		klim = vtw_tcpv6[i].lim.v6;
 
-		if (!kbase | !klim)
+		if (!kbase || !klim)
 			continue;
 
 		n = (klim - kbase + 1);
@@ -399,7 +399,7 @@ show_vtw_v6(void (*print)(const vtw_t *))
 	base = fat_tcpv6.base;
 	lim = fat_tcpv6.lim;
 
-	if (!base | !lim)
+	if (!base || !lim)
 		goto end;
 
 	mem += (lim - base + 1) * sizeof(*base);

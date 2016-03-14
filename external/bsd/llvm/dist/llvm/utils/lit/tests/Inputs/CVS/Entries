@@ -2,8 +2,10 @@ D/discovery////
 D/exec-discovery-in-tree////
 D/exec-discovery////
 D/googletest-format////
+D/googletest-timeout////
 D/progress-bar////
 D/shtest-format////
 D/shtest-shell////
+D/shtest-timeout////
 D/test-data////
 D/unittest-adaptor////

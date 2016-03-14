@@ -1,0 +1,5 @@
+/expected-floating-point-literal.mir/1.1.1.1/Sat Feb 27 22:53:09 2016/-kk/
+/floating-point-immediate-operands.mir/1.1.1.1/Sat Feb 27 22:53:09 2016/-kk/
+/floating-point-invalid-type-error.mir/1.1.1.1/Sat Feb 27 22:53:09 2016/-kk/
+/lit.local.cfg/1.1.1.1/Sat Feb 27 22:53:09 2016/-kk/
+D

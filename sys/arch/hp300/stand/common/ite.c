@@ -236,7 +236,7 @@ iteprobe(struct consdev *cp)
 	int unit, pri;
 
 #ifdef CONSDEBUG
-	whichconsole = ++whichconsole % (NITE+1);
+	whichconsole = (whichconsole + 1) % (NITE+1);
 #endif
 
 	if (itecons != -1)

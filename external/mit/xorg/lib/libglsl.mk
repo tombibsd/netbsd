@@ -4,6 +4,8 @@ LIBGLSL_GENERATED_CXX_FILES = \
 	glsl_lexer.cpp \
 	glsl_parser.cpp 
 
+COPTS.glsl_lexer.cpp+=	-Wno-deprecated-register
+
 LIBGLSL_FILES = \
 	ast_array_index.cpp \
 	ast_expr.cpp \

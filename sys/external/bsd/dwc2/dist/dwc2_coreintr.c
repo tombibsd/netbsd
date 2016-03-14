@@ -307,7 +307,7 @@ static void dwc2_handle_conn_id_status_change_intr(struct dwc2_hsotg *hsotg)
 	 */
 	if (hsotg->wq_otg) {
 		spin_unlock(&hsotg->lock);
-		workqueue_enqueue(hsotg->wq_otg, &hsotg->wf_otg, NULL);
+		queue_work(hsotg->wq_otg, &hsotg->wf_otg);
 		spin_lock(&hsotg->lock);
 	}
 }

@@ -45,6 +45,6 @@ int gif_encapcheck6(struct mbuf *, int, int, void *);
 #endif
 int in6_gif_attach(struct gif_softc *);
 int in6_gif_detach(struct gif_softc *);
-void *in6_gif_ctlinput(int, const struct sockaddr *, void *);
+void *in6_gif_ctlinput(int, const struct sockaddr *, void *, void *);
 
 #endif /* !_NETINET6_IN6_GIF_H_ */

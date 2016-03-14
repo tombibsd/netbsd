@@ -94,6 +94,7 @@ typedef	unsigned char		__cpu_simple_lock_nv_t;
 #define	__HAVE_TLS_VARIANT_II
 #define	__HAVE_COMMON___TLS_GET_ADDR
 #define	__HAVE_INTR_CONTROL
+#define	__HAVE_CPU_RNG
 
 #ifdef _KERNEL_OPT
 #define	__HAVE_RAS

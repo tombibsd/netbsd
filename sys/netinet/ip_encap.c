@@ -676,7 +676,7 @@ encap6_ctlinput(int cmd, const struct sockaddr *sa, void *d0)
 		/* XXX need to pass ep->arg or ep itself to listeners */
 		esw = ep->esw;
 		if (esw && esw->encapsw6.pr_ctlinput) {
-			(*esw->encapsw6.pr_ctlinput)(cmd, sa, d);
+			(*esw->encapsw6.pr_ctlinput)(cmd, sa, d, ep->arg);
 		}
 	}
 

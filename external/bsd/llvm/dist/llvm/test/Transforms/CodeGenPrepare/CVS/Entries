@@ -1,4 +1,8 @@
 /2008-11-24-RAUW-Self.ll/1.1.1.1/Thu Nov 28 14:18:07 2013/-kk/
 /basic.ll/1.1.1.1/Thu Nov 28 14:18:07 2013/-kk/
+/bitreverse-hang.ll/1.1.1.1/Sat Feb 27 22:52:40 2016/-kk/
+/invariant.group.ll/1.1.1.1/Sat Feb 27 22:52:40 2016/-kk/
+/overflow-intrinsics.ll/1.1.1.1/Sat Feb 27 22:52:40 2016/-kk/
+/statepoint-relocate.ll/1.1.1.1/Sat Feb 27 22:52:40 2016/-kk/
 D/AArch64////
 D/X86////

@@ -187,7 +187,7 @@ ELFNAMEEND(__fdnlist)(int fd, struct nlist *list)
 			    && (uintptr_t)sym.st_value == sym.st_value
 #endif
 #endif
-			    && 1) {
+			    && /*CONSTCOND*/1) {
 				p->n_value = (uintptr_t)sym.st_value;
 				switch (ELF_ST_TYPE(sym.st_info)) {
 				case STT_NOTYPE:

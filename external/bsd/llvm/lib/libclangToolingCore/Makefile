@@ -6,7 +6,8 @@ LIB=	clangToolingCore
 
 .PATH: ${CLANG_SRCDIR}/lib/Tooling/Core
 
-SRCS+=	Replacement.cpp
+SRCS+=	Lookup.cpp \
+	Replacement.cpp
 
 .if defined(HOSTLIB)
 .include <bsd.hostlib.mk>

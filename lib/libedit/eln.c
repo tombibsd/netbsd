@@ -12,13 +12,6 @@
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
- * 3. All advertising materials mentioning features or use of this software
- *    must display the following acknowledgement:
- *        This product includes software developed by the NetBSD
- *        Foundation, Inc. and its contributors.
- * 4. Neither the name of The NetBSD Foundation nor the names of its
- *    contributors may be used to endorse or promote products derived
- *    from this software without specific prior written permission.
  *
  * THIS SOFTWARE IS PROVIDED BY THE NETBSD FOUNDATION, INC. AND CONTRIBUTORS
  * ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
@@ -65,6 +58,7 @@ el_getc(EditLine *el, char *cp)
 }
 
 
+#ifdef WIDECHAR
 public void
 el_push(EditLine *el, const char *str)
 {
@@ -246,10 +240,8 @@ el_set(EditLine *el, int op, ...)
 		break;
 	}
 
-	/* XXX: do we need to change el_rfunc_t? */
 	case EL_GETCFN:         /* el_rfunc_t */
 		ret = el_wset(el, op, va_arg(ap, el_rfunc_t));
-		el->el_flags |= NARROW_READ;
 		break;
 
 	case EL_CLIENTDATA:     /* void * */
@@ -343,7 +335,6 @@ el_get(EditLine *el, int op, ...)
 		break;
 	}
 
-	/* XXX: do we need to change el_rfunc_t? */
 	case EL_GETCFN:         /* el_rfunc_t */
 		ret = el_wget(el, op, va_arg(ap, el_rfunc_t *));
 		break;
@@ -398,3 +389,4 @@ el_insertstr(EditLine *el, const char *str)
 {
 	return el_winsertstr(el, ct_decode_string(str, &el->el_lgcyconv));
 }
+#endif /* WIDECHAR */

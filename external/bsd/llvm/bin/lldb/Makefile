@@ -147,7 +147,6 @@ LLVM_LIBS+= \
 	Linker \
 	TransformsUtils \
 	Analysis \
-	ipa \
 	IR \
 	ProfileData \
 	Option \

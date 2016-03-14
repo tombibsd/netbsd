@@ -53,6 +53,7 @@
 #define VSNUL		0x10	/* colon--treat the empty string as unset */
 #define VSLINENO	0x20	/* expansion of $LINENO, the line number
 				   follows immediately */
+#define VSPATQ		0x40	/* ensure correct pattern quoting in ${x#pat} */
 #define VSQUOTE	 	0x80	/* inside double quotes--suppress splitting */
 
 /* values of VSTYPE field */

@@ -143,6 +143,7 @@ grfmv_attach(device_t parent, device_t self, void *aux)
 
 	memcpy(&sc->sc_slot, na->fmt, sizeof(nubus_slot));
 
+	sc->sc_dev = self;
 	sc->sc_tag = na->na_tag;
 	sc->card_id = na->drhw;
 	sc->sc_basepa = (bus_addr_t)NUBUS_SLOT2PA(na->slot);

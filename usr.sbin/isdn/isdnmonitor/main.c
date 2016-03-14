@@ -497,7 +497,7 @@ print_logevent(time_t tstamp, int prio, char * what, char * msg)
 #ifndef WIN32
 	if (fullscreen)
 	{
-		if ((!debug_noscreen) || (debug_noscreen && (((strcmp(what, "DBG"))) != 0)))
+		if (!debug_noscreen && strcmp(what, "DBG") != 0)
 		{
 /*
  * FreeBSD-current integrated ncurses. Since then it is no longer possible
@@ -1169,7 +1169,7 @@ mprintf(const char *fmt, ...)
 	vsnprintf(buffer, PRBUFLEN-1, fmt, ap);
 	va_end(ap);
 
-	if (!fullscreen || (fullscreen && (!curses_ready)))
+	if (!fullscreen || !curses_ready)
 		printf("%s", buffer);
 	
 	if (logfilename != NULL)

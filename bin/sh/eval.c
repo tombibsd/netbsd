@@ -80,6 +80,7 @@ __RCSID("$NetBSD$");
 #include "mystring.h"
 #include "main.h"
 #ifndef SMALL
+#include "nodenames.h"
 #include "myhistedit.h"
 #endif
 
@@ -220,7 +221,9 @@ evalstring(char *s, int flag)
 	setinputstring(s, 1);
 
 	while ((n = parsecmd(0)) != NEOF) {
-		evaltree(n, flag);
+		TRACE(("evalstring: "); showtree(n));
+		if (nflag == 0)
+			evaltree(n, flag);
 		popstackmark(&smark);
 	}
 	popfile();
@@ -240,32 +243,38 @@ evaltree(union node *n, int flags)
 	bool do_etest;
 
 	do_etest = false;
-	if (n == NULL) {
-		TRACE(("evaltree(NULL) called\n"));
-		exitstatus = 0;
+	if (n == NULL || nflag) {
+		TRACE(("evaltree(%s) called\n", n == NULL ? "NULL" : "-n"));
+		if (nflag == 0)
+			exitstatus = 0;
 		goto out;
 	}
 #ifndef SMALL
 	displayhist = 1;	/* show history substitutions done with fc */
 #endif
-	TRACE(("pid %d, evaltree(%p: %d, %d) called\n",
+#ifdef NODETYPENAME
+	TRACE(("pid %d, evaltree(%p: %s(%d), %#x) called\n",
+	    getpid(), n, NODETYPENAME(n->type), n->type, flags));
+#else
+	TRACE(("pid %d, evaltree(%p: %d, %#x) called\n",
 	    getpid(), n, n->type, flags));
+#endif
 	switch (n->type) {
 	case NSEMI:
 		evaltree(n->nbinary.ch1, flags & EV_TESTED);
-		if (evalskip)
+		if (nflag || evalskip)
 			goto out;
 		evaltree(n->nbinary.ch2, flags);
 		break;
 	case NAND:
 		evaltree(n->nbinary.ch1, EV_TESTED);
-		if (evalskip || exitstatus != 0)
+		if (nflag || evalskip || exitstatus != 0)
 			goto out;
 		evaltree(n->nbinary.ch2, flags);
 		break;
 	case NOR:
 		evaltree(n->nbinary.ch1, EV_TESTED);
-		if (evalskip || exitstatus == 0)
+		if (nflag || evalskip || exitstatus == 0)
 			goto out;
 		evaltree(n->nbinary.ch2, flags);
 		break;
@@ -284,7 +293,7 @@ evaltree(union node *n, int flags)
 		break;
 	case NIF: {
 		evaltree(n->nif.test, EV_TESTED);
-		if (evalskip)
+		if (nflag || evalskip)
 			goto out;
 		if (exitstatus == 0)
 			evaltree(n->nif.ifpart, flags);
@@ -321,7 +330,11 @@ evaltree(union node *n, int flags)
 		do_etest = !(flags & EV_TESTED);
 		break;
 	default:
+#ifdef NODETYPENAME
+		out1fmt("Node type = %d(%s)\n", n->type, NODETYPENAME(n->type));
+#else
 		out1fmt("Node type = %d\n", n->type);
+#endif
 		flushout(&output);
 		break;
 	}
@@ -340,8 +353,20 @@ evalloop(union node *n, int flags)
 
 	loopnest++;
 	status = 0;
+
+#ifdef NODETYPENAME
+	TRACE(("evalloop %s: ", NODETYPENAME(n->type)));
+#else
+	TRACE(("evalloop %s: ", n->type == NWHILE ? "while" : "until"));
+#endif
+	TRACE((""); showtree(n->nbinary.ch1));
+	TRACE(("evalloop    do: "); showtree(n->nbinary.ch2));
+	TRACE(("evalloop  done\n"));
+
 	for (;;) {
 		evaltree(n->nbinary.ch1, EV_TESTED);
+		if (nflag)
+			break;
 		if (evalskip) {
 skipping:	  if (evalskip == SKIPCONT && --skipcount <= 0) {
 				evalskip = SKIPNONE;
@@ -376,7 +401,9 @@ evalfor(union node *n, int flags)
 	union node *argp;
 	struct strlist *sp;
 	struct stackmark smark;
-	int status = 0;
+	int status;
+
+	status = nflag ? exitstatus : 0;
 
 	setstackmark(&smark);
 	arglist.lastp = &arglist.list;
@@ -392,6 +419,8 @@ evalfor(union node *n, int flags)
 		setvar(n->nfor.var, sp->text, 0);
 		evaltree(n->nfor.body, flags & EV_TESTED);
 		status = exitstatus;
+		if (nflag)
+			break;
 		if (evalskip) {
 			if (evalskip == SKIPCONT && --skipcount <= 0) {
 				evalskip = SKIPNONE;
@@ -461,8 +490,7 @@ evalsubshell(union node *n, int flags)
 		/* never returns */
 		evaltree(n->nredir.n, flags | EV_EXIT);
 	}
-	if (! backgnd)
-		exitstatus = waitforjob(jp);
+	exitstatus = backgnd ? 0 : waitforjob(jp);
 	INTON;
 }
 
@@ -560,7 +588,8 @@ evalpipe(union node *n)
 	if (n->npipe.backgnd == 0) {
 		exitstatus = waitforjob(jp);
 		TRACE(("evalpipe:  job done exit status %d\n", exitstatus));
-	}
+	} else
+		exitstatus = 0;
 	INTON;
 }
 
@@ -585,7 +614,7 @@ evalbackcmd(union node *n, struct backcmd *result)
 	result->buf = NULL;
 	result->nleft = 0;
 	result->jp = NULL;
-	if (n == NULL) {
+	if (nflag || n == NULL) {
 		goto out;
 	}
 #ifdef notyet
@@ -1083,6 +1112,7 @@ normal_fork:
 	goto out;
 
 parent:	/* parent process gets here (if we forked) */
+	exitstatus = 0;		/* if not altered just below */
 	if (mode == FORK_FG) {	/* argument to fork */
 		exitstatus = waitforjob(jp);
 	} else if (mode == FORK_NOJOB) {

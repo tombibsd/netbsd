@@ -103,6 +103,10 @@ procargs(int argc, char **argv)
 		iflag = 2;
 	if (mflag == 2)
 		mflag = iflag;
+#ifndef DO_SHAREDVFORK
+	if (usefork == 2)
+		usefork = 1;
+#endif
 	for (i = 0; i < NOPTS; i++)
 		if (optlist[i].val == 2)
 			optlist[i].val = 0;

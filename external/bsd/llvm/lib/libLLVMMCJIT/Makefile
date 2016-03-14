@@ -6,7 +6,6 @@ LIB=	LLVMMCJIT
 
 .PATH: ${LLVM_SRCDIR}/lib/ExecutionEngine/MCJIT
 
-SRCS+=	MCJIT.cpp \
-	SectionMemoryManager.cpp
+SRCS+=	MCJIT.cpp
 
 .include <bsd.lib.mk>

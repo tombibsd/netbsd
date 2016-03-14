@@ -44,6 +44,8 @@ LLVM_LIBS+= \
 	MC \
 	BitReader \
 	IR \
+	LibDriver \
+	Option \
 	Support
 
 LDADD+=	-lz

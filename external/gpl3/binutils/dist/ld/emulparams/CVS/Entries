@@ -87,7 +87,7 @@
 /elf32_dlx.sh/1.1.1.1/Tue Aug 18 10:05:15 2009/-kk/
 /elf32_i860.sh/1.1.1.2/Sat Sep 24 22:22:13 2011/-kk/
 /elf32_i960.sh/1.1.1.2/Sat Sep 24 22:22:13 2011/-kk/
-/elf32_sparc.sh/1.4/Sat Apr 19 07:54:40 2014/-kk/
+/elf32_sparc.sh/1.5/Mon Mar 14 07:53:47 2016/-kk/
 /elf32_sparc_sol2.sh/1.1.1.1/Sat Sep 24 22:22:13 2011/-kk/
 /elf32_sparc_vxworks.sh/1.1.1.1/Tue Aug 18 10:05:15 2009/-kk/
 /elf32_spu.sh/1.1.1.2/Sat Sep 24 22:22:13 2011/-kk/

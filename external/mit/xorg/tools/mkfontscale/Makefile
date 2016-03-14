@@ -86,6 +86,11 @@ HOST_CPPFLAGS=	-DFONTENC_NO_LIBFONT -DXFREE86_FT2 -DFONTENC_NO_LIBFONT \
 		-DFONT_ENCODINGS_DIRECTORY=\"${X11FONTDIR}/encodings/encodings.dir\" \
 		-DPACKAGE_STRING=\"NetBSD\ tools\ version\"
 HOST_CPPFLAGS+=	-DFT_CONFIG_OPTION_DISABLE_BZIP2
+
+# If you make mkfontscale multithreaded, remove this and fix the
+# fontconfig atomic ops.
+HOST_CPPFLAGS+=	-DFC_NO_MT=1
+
 HOST_CPPFLAGS+=	-I${FREETYPE}/include -I${DESTDIR}${X11INCDIR} \
 		-I${DESTDIR}${X11INCDIR}/freetype2
 

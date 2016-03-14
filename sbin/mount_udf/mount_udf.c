@@ -69,6 +69,7 @@ static const struct mntopt mopts[] = {
 	MOPT_STDOPTS,		/* `normal' options		*/
 	MOPT_ASYNC,		/* default			*/
 	MOPT_NOATIME,		/* dont update access times	*/
+	MOPT_RELATIME,		/* update access times on change*/
 	MOPT_UPDATE,		/* not yet supported		*/
 	MOPT_GETARGS,		/* printing			*/
 	MOPT_NULL,

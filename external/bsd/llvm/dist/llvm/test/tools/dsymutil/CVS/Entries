@@ -1,2 +1,11 @@
-/debug-map-parsing.test/1.1.1.1/Thu Jan 29 19:54:45 2015/-kk/
+/absolute_symbol.test/1.1.1.1/Sat Feb 27 22:52:55 2016/-kk/
+/arch-option.test/1.1.1.1/Sat Feb 27 22:52:55 2016/-kk/
+/archive-timestamp.test/1.1.1.1/Sat Feb 27 22:52:55 2016/-kk/
+/basic-linking.test/1.1.1.1/Sat Feb 27 22:52:55 2016/-kk/
+/debug-map-parsing.test/1.1.1.2/Mon Mar 14 07:52:47 2016/-kk/
+/dump-symtab.test/1.1.1.1/Sat Feb 27 22:52:55 2016/-kk/
+/fat-binary-output.test/1.1.1.1/Sat Feb 27 22:52:55 2016/-kk/
+/yaml-object-address-rewrite.test/1.1.1.1/Sat Feb 27 22:52:55 2016/-kk/
+D/ARM////
 D/Inputs////
+D/X86////

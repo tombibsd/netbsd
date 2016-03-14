@@ -13,6 +13,8 @@ SRCS+=	AddressSanitizer.cpp \
 	InstrProfiling.cpp \
 	Instrumentation.cpp \
 	MemorySanitizer.cpp \
+	PGOInstrumentation.cpp \
+	SafeStack.cpp \
 	SanitizerCoverage.cpp \
 	ThreadSanitizer.cpp
 

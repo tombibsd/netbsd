@@ -353,10 +353,6 @@ ldioctl(dev_t dev, u_long cmd, void *addr, int32_t flag, struct lwp *l)
 	sc = device_lookup_private(&ld_cd, unit);
 	dksc = &sc->sc_dksc;
 
-	error = disk_ioctl(&dksc->sc_dkdev, dev, cmd, addr, flag, l);
-	if (error != EPASSTHROUGH)
-		return (error);
-
 	error = dk_ioctl(dksc, dev, cmd, addr, flag, l);
 	if (error != EPASSTHROUGH)
 		return (error);
@@ -395,7 +391,7 @@ ldstrategy(struct buf *bp)
 	sc = device_lookup_private(&ld_cd, unit);
 	dksc = &sc->sc_dksc;
 
-	return dk_strategy(dksc, bp);
+	dk_strategy(dksc, bp);
 }
 
 static int

@@ -35,6 +35,7 @@ SRCS+=	APValue.cpp \
 	ExprClassification.cpp \
 	ExprConstant.cpp \
 	ExprCXX.cpp \
+	ExprObjC.cpp \
 	ExternalASTSource.cpp \
 	InheritViz.cpp \
 	ItaniumCXXABI.cpp \
@@ -44,12 +45,16 @@ SRCS+=	APValue.cpp \
 	MicrosoftMangle.cpp \
 	NSAPI.cpp \
 	NestedNameSpecifier.cpp \
+	OpenMPClause.cpp \
 	ParentMap.cpp \
 	RawCommentList.cpp \
 	RecordLayout.cpp \
 	RecordLayoutBuilder.cpp \
 	SelectorLocationsKind.cpp \
 	Stmt.cpp \
+	StmtCXX.cpp \
+	StmtObjC.cpp \
+	StmtOpenMP.cpp \
 	StmtIterator.cpp \
 	StmtPrinter.cpp \
 	StmtProfile.cpp \

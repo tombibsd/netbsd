@@ -9,22 +9,29 @@ LIB=	LLVMipo
 SRCS+=	ArgumentPromotion.cpp \
 	BarrierNoopPass.cpp \
 	ConstantMerge.cpp \
+	CrossDSOCFI.cpp \
 	DeadArgumentElimination.cpp \
+	ElimAvailExtern.cpp \
 	ExtractGV.cpp \
+	ForceFunctionAttrs.cpp \
 	FunctionAttrs.cpp \
+	FunctionImport.cpp \
 	GlobalDCE.cpp \
 	GlobalOpt.cpp \
 	IPConstantPropagation.cpp \
 	IPO.cpp \
+	InferFunctionAttrs.cpp \
 	InlineAlways.cpp \
 	InlineSimple.cpp \
 	Inliner.cpp \
 	Internalize.cpp \
 	LoopExtractor.cpp \
+	LowerBitSets.cpp \
 	MergeFunctions.cpp \
 	PartialInlining.cpp \
 	PassManagerBuilder.cpp \
 	PruneEH.cpp \
+	SampleProfile.cpp \
 	StripDeadPrototypes.cpp \
 	StripSymbols.cpp
 

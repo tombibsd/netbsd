@@ -38,6 +38,7 @@
 ./usr/lib/libbsdmalloc_g.a			comp-c-debuglib		debuglib,compatfile
 ./usr/lib/libbz2_g.a				comp-c-debuglib		debuglib,compatfile
 ./usr/lib/libc_g.a				comp-c-debuglib		debuglib,compatfile
+./usr/lib/libc++_g.a				comp-c-debuglib		debuglib,compatfile,libcxx
 ./usr/lib/libcom_err_g.a			comp-c-debuglib		debuglib,kerberos,compatfile
 ./usr/lib/libcompat_g.a				comp-c-debuglib		debuglib,compatfile
 ./usr/lib/libcrypt_g.a				comp-c-debuglib		debuglib,compatfile
@@ -45,7 +46,7 @@
 ./usr/lib/libcrypto_idea_g.a			comp-obsolete		obsolete,compatfile
 ./usr/lib/libcrypto_mdc2_g.a			comp-obsolete		obsolete,compatfile
 ./usr/lib/libcrypto_rc5_g.a			comp-c-debuglib		debuglib,crypto_rc5,compatfile
-./usr/lib/libctf_g.a				comp-c-debuglib		debuglib,compatfile,dtrace
+./usr/lib/libctf_g.a				comp-c-debuglib		debuglib,compatfile,ctf
 ./usr/lib/libcurses_g.a				comp-c-debuglib		debuglib,compatfile
 ./usr/lib/libdes_g.a				comp-c-debuglib		debuglib,crypto,compatfile
 ./usr/lib/libdevmapper_g.a			comp-c-debuglib		debuglib,compatfile,lvm

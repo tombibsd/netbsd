@@ -289,7 +289,7 @@ set(int argc, char **argv)
 		}
 		else if (strncmp(argv[0], "pub", 3) == 0) {
 			flags |= RTF_ANNOUNCE;
-			doing_proxy = SIN_PROXY;
+			doing_proxy = 1;
 			if (argc && strncmp(argv[1], "pro", 3) == 0) {
 			        export_only = 1;
 			        argc--; argv++;

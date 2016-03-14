@@ -191,7 +191,7 @@
 /nlist_aout.c/1.23/Wed Mar 21 15:32:26 2012/-kk/
 /nlist_coff.c/1.11/Thu Mar 22 14:18:34 2012/-kk/
 /nlist_ecoff.c/1.23/Tue Mar 20 00:31:24 2012/-kk/
-/nlist_elf32.c/1.38/Thu May 28 03:25:04 2015/-kk/
+/nlist_elf32.c/1.39/Mon Mar 14 07:55:20 2016/-kk/
 /nlist_elf64.c/1.6/Sat Jul 26 19:24:43 2003/-kk/
 /nlist_private.h/1.25/Sun Feb 14 12:54:06 2016/-kk/
 /opendir.c/1.39/Tue Dec  9 04:43:24 2014/-kk/
@@ -267,8 +267,8 @@
 /sleep.c/1.23/Mon Jun 25 22:32:44 2012/-kk/
 /stringlist.3/1.15/Thu May  6 09:46:49 2010/-kk/
 /stringlist.c/1.14/Wed Jun  3 06:53:44 2015/-kk/
-/sysconf.3/1.44/Tue Aug 25 04:50:48 2015/-kk/
-/sysconf.c/1.36/Wed Dec 25 07:36:58 2013/-kk/
+/sysconf.3/1.45/Mon Mar 14 07:55:20 2016/-kk/
+/sysconf.c/1.37/Mon Mar 14 07:55:20 2016/-kk/
 /sysctl.3/1.202/Wed Jun 18 08:42:14 2014/-kk/
 /sysctl.c/1.35/Mon Feb 16 03:13:50 2015/-kk/
 /sysctlbyname.c/1.7/Mon Dec 13 23:10:13 2010/-kk/

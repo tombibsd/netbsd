@@ -1,7 +1,8 @@
 #	$NetBSD$
 
-IMAGESIZE=	9216k
-DBG=		-Os -fno-unwind-tables
+IMAGESIZE=	9360k
+DBG=		${${ACTIVE_CC} == "clang":? -Oz -fomit-frame-pointer : -Os } -fno-unwind-tables
+
 MAKEFS_FLAGS=   -o density=4k
 IMAGEENDIAN=	be
 MAKEDEVTARGETS=	all ipty

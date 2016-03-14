@@ -164,7 +164,7 @@ process_entry(TBUF *buf, int flags)
 	char *p, *e, *alias;
 	TERM *term;
 	TIC *tic;
-	
+
 	if (buf->bufpos == 0)
 		return 0;
 	/* Terminate the string */
@@ -204,7 +204,7 @@ process_entry(TBUF *buf, int flags)
 		}
 		free(alias);
 	}
-	
+
 	return 0;
 }
 
@@ -419,7 +419,7 @@ print_dump(int argc, char **argv)
 				printf("\t\t\"");
 				col = 16;
 			}
-			
+
 			col += printf("\\%03o", (uint8_t)buf[j]);
 			if (col > 75) {
 				printf("\"%s\n",
@@ -542,7 +542,7 @@ main(int argc, char **argv)
 		*/
 		if (!isspace((unsigned char)*buf) && tbuf.bufpos != 0)
 			process_entry(&tbuf, flags);
-		
+
 		/* Grow the buffer if needed */
 		grow_tbuf(&tbuf, len);
 		/* Append the string */
@@ -587,7 +587,6 @@ main(int argc, char **argv)
 	}
 	hdestroy1(free, NULL);
 #endif
-
 
 	return EXIT_SUCCESS;
 }

@@ -308,7 +308,6 @@ FUN(el,set)(EditLine *el, int op, ...)
 	{
 		el_rfunc_t rc = va_arg(ap, el_rfunc_t);
 		rv = el_read_setfn(el, rc);
-		el->el_flags &= ~NARROW_READ;
 		break;
 	}
 

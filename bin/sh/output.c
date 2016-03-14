@@ -524,7 +524,7 @@ xwrite(int fd, char *buf, int nbytes)
 
 	n = nbytes;
 	ntry = 0;
-	for (;;) {
+	while (n > 0) {
 		i = write(fd, buf, n);
 		if (i > 0) {
 			if ((n -= i) <= 0)
@@ -538,6 +538,7 @@ xwrite(int fd, char *buf, int nbytes)
 			return -1;
 		}
 	}
+	return nbytes;
 }
 
 

@@ -57,7 +57,6 @@
 #define	UNBUFFERED	0x08
 #define	CHARSET_IS_UTF8 0x10
 #define	NARROW_HISTORY	0x40
-#define	NARROW_READ	0x80
 
 typedef unsigned char el_action_t;	/* Index to command array	*/
 

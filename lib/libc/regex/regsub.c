@@ -29,7 +29,9 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 #include <sys/cdefs.h>
+#if defined(LIBC_SCCS) && !defined(lint)
 __RCSID("$NetBSD$");
+#endif
 
 #include <sys/param.h>
 #include <ctype.h>

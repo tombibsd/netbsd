@@ -1,5 +1,10 @@
-/extend-sink-hoist.ll/1.1.1.1/Fri May 30 18:11:26 2014/-kk/
+/catchpad-phi-cast.ll/1.1.1.1/Sat Feb 27 22:52:40 2016/-kk/
+/cttz-ctlz.ll/1.1.1.1/Sat Feb 27 22:52:40 2016/-kk/
+/extend-sink-hoist.ll/1.1.1.2/Mon Mar 14 07:52:30 2016/-kk/
 /lit.local.cfg/1.1.1.2/Fri Oct  3 09:23:18 2014/-kk/
-/sink-addrspacecast.ll/1.1.1.1/Fri May 30 18:11:26 2014/-kk/
+/memset_chk-simplify-nobuiltin.ll/1.1.1.1/Sat Feb 27 22:52:40 2016/-kk/
+/select.ll/1.1.1.1/Sat Feb 27 22:52:40 2016/-kk/
+/sink-addrspacecast.ll/1.1.1.2/Mon Mar 14 07:52:30 2016/-kk/
+/widen_switch.ll/1.1.1.1/Sat Feb 27 22:52:40 2016/-kk/
 /x86-shuffle-sink.ll/1.1.1.1/Tue Mar  4 20:54:19 2014/-kk/
 D

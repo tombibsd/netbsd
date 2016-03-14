@@ -1,7 +1,6 @@
 #	$NetBSD$
 
 LIB=	LLVMPowerPCAsmPrinter
-NOGCCERROR=	yes
 
 .include <bsd.init.mk>
 

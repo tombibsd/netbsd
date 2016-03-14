@@ -1971,7 +1971,7 @@ dotrans(char *dst, size_t dlen, const char *src)
 		continue;
 	for (cp1 = src; *cp1; cp1++) {
 		int found = 0;
-		for (i = 0; ntin[i] && i < sizeof(ntin); i++) {
+		for (i = 0; i < sizeof(ntin) && ntin[i]; i++) {
 			if (*cp1 == ntin[i]) {
 				found++;
 				if (i < ostop) {

@@ -758,7 +758,7 @@ sunos32_sys_mmap(struct lwp *l, const struct sunos32_sys_mmap_args *uap, registe
 
 	error = sys_mmap(l, &ua, retval);
 	if ((u_long)*retval > (u_long)UINT_MAX) {
-		printf("sunos32_mmap: retval out of range: 0x%lx",
+		printf("sunos32_mmap: retval out of range: 0x%lx\n",
 		       (u_long)*retval);
 		/* Should try to recover and return an error here. */
 	}

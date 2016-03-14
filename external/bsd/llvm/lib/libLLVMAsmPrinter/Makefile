@@ -14,6 +14,7 @@ SRCS+=	ARMException.cpp \
 	DIE.cpp \
 	DIEHash.cpp \
 	DbgValueHistoryCalculator.cpp \
+	DebugLocStream.cpp \
 	DwarfAccelTable.cpp \
 	DwarfCFIException.cpp \
 	DwarfCompileUnit.cpp \
@@ -25,7 +26,7 @@ SRCS+=	ARMException.cpp \
 	EHStreamer.cpp \
 	ErlangGCPrinter.cpp \
 	OcamlGCPrinter.cpp \
-	Win64Exception.cpp \
+	WinException.cpp \
 	WinCodeViewLineTables.cpp
 
 .if defined(HOSTLIB)

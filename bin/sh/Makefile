@@ -10,7 +10,7 @@ SHSRCS=	alias.c cd.c echo.c error.c eval.c exec.c expand.c \
 	mystring.c options.c parser.c redir.c show.c trap.c output.c var.c \
 	test.c kill.c syntax.c
 GENSRCS=arith.c arith_lex.c builtins.c init.c nodes.c
-GENHDRS=arith.h builtins.h nodes.h token.h
+GENHDRS=arith.h builtins.h nodes.h token.h nodenames.h
 SRCS=	${SHSRCS} ${GENSRCS}
 
 DPSRCS+=${GENHDRS}
@@ -75,6 +75,10 @@ nodes.c nodes.h: mknodes.sh nodetypes nodes.c.pat
 	${_MKTARGET_CREATE}
 	${SCRIPT_ENV} ${HOST_SH} ${.ALLSRC} ${.OBJDIR}
 	[ -f nodes.h ]
+
+nodenames.h: mknodenames.sh nodes.h
+	${_MKTARGET_CREATE}
+	${SCRIPT_ENV} ${HOST_SH} ${.ALLSRC} > ${.TARGET}
 
 .if ${USETOOLS} == "yes"
 NBCOMPATLIB=   -L${TOOLDIR}/lib -lnbcompat

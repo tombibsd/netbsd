@@ -675,9 +675,9 @@ out:
 protected int
 c_gets(EditLine *el, Char *buf, const Char *prompt)
 {
-	Char ch;
+	wchar_t wch;
 	ssize_t len;
-	Char *cp = el->el_line.buffer;
+	Char *cp = el->el_line.buffer, ch;
 
 	if (prompt) {
 		len = (ssize_t)Strlen(prompt);
@@ -692,26 +692,28 @@ c_gets(EditLine *el, Char *buf, const Char *prompt)
 		el->el_line.lastchar = cp + 1;
 		re_refresh(el);
 
-		if (FUN(el,getc)(el, &ch) != 1) {
+		if (el_wgetc(el, &wch) != 1) {
 			ed_end_of_file(el, 0);
 			len = -1;
 			break;
 		}
+		ch = (Char)wch;
 
 		switch (ch) {
 
-		case 0010:	/* Delete and backspace */
+		case L'\b':	/* Delete and backspace */
 		case 0177:
 			if (len == 0) {
 				len = -1;
 				break;
 			}
+			len--;
 			cp--;
 			continue;
 
 		case 0033:	/* ESC */
-		case '\r':	/* Newline */
-		case '\n':
+		case L'\r':	/* Newline */
+		case L'\n':
 			buf[len] = ch;
 			break;
 

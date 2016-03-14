@@ -42,6 +42,7 @@ realinstall:	checkver libinstall
 # XXX: This is needed for programs that link with .a libraries
 # Perhaps a more correct solution is to always generate _pic.a
 # files or always have a shared library.
+# XXX: This breaks profiling (__mcount relocation is wrong)
 .if defined(MKPIE) && (${MKPIE} != "no") && !defined(NOPIE)
 CFLAGS+=        ${PIE_CFLAGS}
 AFLAGS+=        ${PIE_AFLAGS}
@@ -156,7 +157,7 @@ MKSHLIBOBJS= yes
 MKSHLIBOBJS= no
 .endif
 
-.if (defined(MKDEBUG) && (${MKDEBUG} != "no")) || \
+.if (${MKDEBUG:Uno} != "no" && !defined(NODEBUG)) || \
     (defined(CFLAGS) && !empty(CFLAGS:M*-g*))
 # We only add -g to the shared library objects
 # because we don't currently split .a archives.
@@ -407,7 +408,7 @@ _LIB.so:=${_LIB}.so
 _LIB.so.major:=${_LIB}.so.${SHLIB_MAJOR}
 _LIB.so.full:=${_LIB}.so.${SHLIB_FULLVERSION}
 _LIB.so.link:=${_LIB}.so.${SHLIB_FULLVERSION}.link
-.if ${MKDEBUG} != "no"
+.if ${MKDEBUG:Uno} != "no" && !defined(NODEBUG)
 _LIB.so.debug:=${_LIB.so.full}.debug
 .endif
 .endif

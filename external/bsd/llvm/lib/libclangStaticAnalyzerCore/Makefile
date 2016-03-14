@@ -22,6 +22,7 @@ SRCS+=	APSIntType.cpp \
 	CommonBugCategories.cpp \
 	ConstraintManager.cpp \
 	CoreEngine.cpp \
+	DynamicTypeMap.cpp \
 	Environment.cpp \
 	ExplodedGraph.cpp \
 	ExprEngine.cpp \
@@ -31,6 +32,8 @@ SRCS+=	APSIntType.cpp \
 	ExprEngineObjC.cpp \
 	FunctionSummary.cpp \
 	HTMLDiagnostics.cpp \
+	IssueHash.cpp \
+	LoopWidening.cpp \
 	MemRegion.cpp \
 	PathDiagnostic.cpp \
 	PlistDiagnostics.cpp \

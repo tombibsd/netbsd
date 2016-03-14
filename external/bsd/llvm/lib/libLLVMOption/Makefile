@@ -2,8 +2,6 @@
 
 LIB=	LLVMOption
 
-NOGCCERROR=	yes
-
 .include <bsd.init.mk>
 
 .PATH: ${LLVM_SRCDIR}/lib/Option

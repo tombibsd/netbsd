@@ -30,12 +30,11 @@ SRCS+=	ARMAsmPrinter.cpp \
 	ARMTargetTransformInfo.cpp \
 	A15SDOptimizer.cpp \
 	MLxExpansionPass.cpp \
+	ThumbRegisterInfo.cpp \
 	Thumb1InstrInfo.cpp \
 	Thumb1FrameLowering.cpp \
-	Thumb1RegisterInfo.cpp \
 	Thumb2ITBlockPass.cpp \
 	Thumb2InstrInfo.cpp \
-	Thumb2RegisterInfo.cpp \
 	Thumb2SizeReduction.cpp
 
 TABLEGEN_SRC=		ARM.td

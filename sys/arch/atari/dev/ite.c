@@ -801,7 +801,7 @@ ite_cnfilter(u_int c, enum caller caller)
 	/* handle dead keys */
 	if (key->mode & KBD_MODE_DEAD) {
 		/* if entered twice, send accent itself */
-		if (last_dead == key->mode & KBD_MODE_ACCMASK)
+		if (last_dead == (key->mode & KBD_MODE_ACCMASK))
 			last_dead = 0;
 		else {
 			last_dead = key->mode & KBD_MODE_ACCMASK;

@@ -145,12 +145,17 @@ _MCOUNT_DECL(u_long frompc, u_long selfpc)
 
 #if defined(_REENTRANT) && !defined(_KERNEL)
 	if (__isthreaded) {
+		/* prevent re-entry via thr_getspecific */
+		if (_gmonparam.state != GMON_PROF_ON)
+			return;
+		_gmonparam.state = GMON_PROF_BUSY;
 		p = thr_getspecific(_gmonkey);
 		if (p == NULL) {
 			/* Prevent recursive calls while allocating */
 			thr_setspecific(_gmonkey, &_gmondummy);
 			p = _m_gmon_alloc();
 		}
+		_gmonparam.state = GMON_PROF_ON;
 	} else
 #endif
 		p = &_gmonparam;

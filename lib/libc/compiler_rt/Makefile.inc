@@ -211,7 +211,14 @@ GENERIC_SRCS+= \
 	InstrProfiling.c \
 	InstrProfilingBuffer.c \
 	InstrProfilingFile.c \
-	InstrProfilingPlatformOther.c
+	InstrProfilingPlatformLinux.c \
+	InstrProfilingUtil.c \
+	InstrProfilingValue.c \
+	InstrProfilingWriter.c
+
+.if ${MKPROFILE} != "no"
+POBJS+= InstrProfilingRuntime.po
+.endif
 
 .if ${LIBC_MACHINE_ARCH} == "powerpc" || ${LIBC_MACHINE_ARCH} == "powerpc64"
 GENERIC_SRCS+= \

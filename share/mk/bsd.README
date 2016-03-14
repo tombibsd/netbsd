@@ -169,6 +169,9 @@ MKDEBUG		If "no", don't build and install separate debugging symbols
 		into /usr/libdata/debug.
 		Default: no
 
+NODEBUG		Don't compile with debugging symbols during build.
+		It is set internally for standalone programs.
+
 MKDEBUGLIB	Build *_g.a debugging libraries, which are compiled
 		with -DDEBUG.
 		Default: no

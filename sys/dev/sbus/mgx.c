@@ -104,7 +104,7 @@ static void	mgx_init_palette(struct mgx_softc *);
 static int	mgx_putcmap(struct mgx_softc *, struct wsdisplay_cmap *);
 static int 	mgx_getcmap(struct mgx_softc *, struct wsdisplay_cmap *);
 static int	mgx_wait_engine(struct mgx_softc *);
-static int	mgx_wait_host(struct mgx_softc *);
+__unused static int	mgx_wait_host(struct mgx_softc *);
 static int	mgx_wait_fifo(struct mgx_softc *, unsigned int);
 
 static void	mgx_bitblt(void *, int, int, int, int, int, int, int);

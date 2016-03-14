@@ -1,6 +1,14 @@
 /ObjC.exe.macho-x86_64/1.1.1.1/Thu Jan 29 19:54:45 2015/-kk/
 /ObjC.obj.macho-x86_64/1.1.1.1/Thu Jan 29 19:54:45 2015/-kk/
+/Objc1.32bit.exe.macho-i386/1.1.1.1/Sat Feb 27 22:52:54 2016/-kk/
+/Objc1.32bit.obj.macho-i386/1.1.1.1/Sat Feb 27 22:52:55 2016/-kk/
+/Objc2.32bit.exe.macho-i386/1.1.1.1/Sat Feb 27 22:52:54 2016/-kk/
+/Objc2.32bit.obj.macho-i386/1.1.1.1/Sat Feb 27 22:52:55 2016/-kk/
+/Objc2.64bit.exe.macho-x86_64/1.1.1.1/Sat Feb 27 22:52:54 2016/-kk/
+/Objc2.64bit.obj.macho-x86_64/1.1.1.1/Sat Feb 27 22:52:54 2016/-kk/
+/disassemble.dll.coff-i386/1.1.1.1/Sat Feb 27 22:52:54 2016/-kk/
 /dylibLoadKinds.macho-x86_64/1.1.1.1/Thu Jan 29 19:54:45 2015/-kk/
+/dylibModInit.macho-x86_64/1.1.1.1/Sat Feb 27 22:52:54 2016/-kk/
 /dylibRoutines.macho-x86_64/1.1.1.1/Thu Jan 29 19:54:45 2015/-kk/
 /dylibSubClient.macho-x86_64/1.1.1.1/Thu Jan 29 19:54:45 2015/-kk/
 /dylibSubFramework.macho-x86_64/1.1.1.1/Thu Jan 29 19:54:45 2015/-kk/
@@ -12,9 +20,10 @@
 /hello.obj.macho-i386/1.1.1.1/Thu Jan 29 19:54:45 2015/-kk/
 /hello.obj.macho-x86_64/1.1.1.1/Thu Jan 29 19:54:45 2015/-kk/
 /hello_cpp.exe.macho-x86_64/1.1.1.1/Thu Jan 29 19:54:45 2015/-kk/
+/internal.exe.coff-x86_64/1.1.1.1/Sat Feb 27 22:52:54 2016/-kk/
 /linkerOption.macho-x86_64/1.1.1.1/Thu Jan 29 19:54:45 2015/-kk/
 /macho-universal-archive.x86_64.i386/1.1.1.1/Thu Jan 29 19:54:45 2015/-kk/
 /macho-universal.x86_64.i386/1.1.1.1/Thu Jan 29 19:54:45 2015/-kk/
 /out-of-section-sym.elf-i386/1.1.1.1/Sun Aug 10 17:04:40 2014/-kk/
 /trivial.obj.elf-i386/1.1.1.1/Sun Aug 10 17:04:40 2014/-kk/
-D
+D/malformed-machos////

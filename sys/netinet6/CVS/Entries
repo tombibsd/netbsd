@@ -9,8 +9,8 @@
 /in6.c/1.195/Fri Feb 26 18:34:02 2016/-kk/
 /in6.h/1.87/Fri Feb 26 18:34:02 2016/-kk/
 /in6_cksum.c/1.28/Mon Apr 25 22:05:05 2011/-kk/
-/in6_gif.c/1.71/Sun Feb 14 12:55:49 2016/-kk/
-/in6_gif.h/1.13/Thu Apr 24 11:38:38 2008/-kk/
+/in6_gif.c/1.73/Mon Mar 14 07:55:51 2016/-kk/
+/in6_gif.h/1.14/Mon Mar 14 07:55:52 2016/-kk/
 /in6_ifattach.c/1.95/Sat Mar 21 02:30:00 2015/-kk/
 /in6_ifattach.h/1.13/Sat Sep 19 13:11:02 2009/-kk/
 /in6_offload.c/1.6/Mon Apr 25 22:07:57 2011/-kk/

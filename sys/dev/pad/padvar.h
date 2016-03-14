@@ -51,6 +51,8 @@ typedef struct pad_softc {
 	uint32_t	sc_rpos, sc_wpos;
 
 	uint8_t		sc_swvol;
+	struct timeval	sc_last;
+	int		sc_bytes_count;
 } pad_softc_t;
 
 #endif /* !_SYS_DEV_PAD_PADVAR_H */

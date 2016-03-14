@@ -8,6 +8,9 @@
 /dwarfdump-inl-test.high_pc.elf-x86-64/1.1.1.1/Thu Nov 28 14:18:09 2013/-kk/
 /dwarfdump-line-dwo.cc/1.1.1.1/Tue Mar  4 20:52:58 2014/-kk/
 /dwarfdump-line-dwo.elf-x86-64/1.1.1.1/Tue Mar  4 20:52:58 2014/-kk/
+/dwarfdump-macro-cmd.h/1.1.1.1/Sat Feb 27 22:53:00 2016/-kk/
+/dwarfdump-macro.cc/1.1.1.1/Sat Feb 27 22:53:00 2016/-kk/
+/dwarfdump-macro.h/1.1.1.1/Sat Feb 27 22:53:00 2016/-kk/
 /dwarfdump-objc.m/1.1.1.1/Thu Jan 29 19:54:45 2015/-kk/
 /dwarfdump-pubnames.cc/1.1.1.1/Thu Nov 28 14:18:09 2013/-kk/
 /dwarfdump-pubnames.elf-x86-64/1.1.1.1/Thu Nov 28 14:18:09 2013/-kk/
@@ -15,7 +18,7 @@
 /dwarfdump-test-loc-list-32bit.elf.cpp/1.1.1.1/Thu Nov 28 14:18:09 2013/-kk/
 /dwarfdump-test-zlib.cc/1.1.1.1/Thu Nov 28 14:18:09 2013/-kk/
 /dwarfdump-test-zlib.elf-x86-64/1.1.1.1/Thu Nov 28 14:18:09 2013/-kk/
-/dwarfdump-test.cc/1.1.1.1/Thu Nov 28 14:18:09 2013/-kk/
+/dwarfdump-test.cc/1.1.1.2/Mon Mar 14 07:51:45 2016/-kk/
 /dwarfdump-test.elf-x86-64.debuglink/1.1.1.1/Thu Nov 28 14:18:09 2013/-kk/
 /dwarfdump-test.elf-x86-64/1.1.1.1/Thu Nov 28 14:18:09 2013/-kk/
 /dwarfdump-test2-helper.cc/1.1.1.1/Thu Nov 28 14:18:09 2013/-kk/
@@ -31,9 +34,14 @@
 /dwarfdump-test4.elf-x86-64/1.1.1.1/Thu Nov 28 14:18:09 2013/-kk/
 /dwarfdump-type-units.cc/1.1.1.1/Thu Nov 28 14:18:09 2013/-kk/
 /dwarfdump-type-units.elf-x86-64/1.1.1.1/Thu Nov 28 14:18:09 2013/-kk/
+/dwarfdump.elf-mips64-64-bit-dwarf/1.1.1.1/Sat Feb 27 22:53:00 2016/-kk/
 /fission-ranges.cc/1.1.1.1/Sun Aug 10 17:04:41 2014/-kk/
 /fission-ranges.elf-x86_64/1.1.1.1/Sun Aug 10 17:04:41 2014/-kk/
-/gmlt.ll/1.1.1.1/Thu Jan 29 19:54:45 2015/-kk/
+/gmlt.ll/1.1.1.2/Mon Mar 14 07:51:45 2016/-kk/
+/invalid.elf.2/1.1.1.1/Sat Feb 27 22:53:00 2016/-kk/
+/invalid.elf.3/1.1.1.1/Sat Feb 27 22:53:00 2016/-kk/
+/invalid.elf/1.1.1.1/Sat Feb 27 22:53:00 2016/-kk/
+/line.ll/1.1.1.1/Sat Feb 27 22:53:00 2016/-kk/
 /llvm-symbolizer-dwo-test.cc/1.1.1.1/Fri May 30 18:11:22 2014/-kk/
 /llvm-symbolizer-dwo-test/1.1.1.1/Fri May 30 18:11:22 2014/-kk/
 /llvm-symbolizer-test.c/1.1.1.1/Fri Feb 14 20:12:31 2014/-kk/

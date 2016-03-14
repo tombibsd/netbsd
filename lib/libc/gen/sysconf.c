@@ -418,6 +418,8 @@ yesno:		if (sysctl(mib, mib_len, &value, &len, NULL, 0) == -1)
 		return -1;
 	case _SC_TTY_NAME_MAX:
 		return pathconf(_PATH_DEV, _PC_NAME_MAX);
+	case _SC_TIMER_MAX:
+		return _POSIX_TIMER_MAX;
 	default:
 		errno = EINVAL;
 		return (-1);

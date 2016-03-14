@@ -35,7 +35,8 @@ CPPFLAGS+=	-D_STANDALONE -DSUN4 -DSUN4C -DSUN4M -DSUN4D -DHEAP_VARIABLE
 
 CPPFLAGS+=	-I. -I${.CURDIR}/../../.. -I${.CURDIR}/../../../..
 CPPFLAGS+=	-I${.CURDIR}/../../../../../common/include
-CFLAGS=		-Os -fno-unwind-tables
+CFLAGS=		${${ACTIVE_CC} == "clang":? -Oz -fomit-frame-pointer : -Os } -fno-unwind-tables
+AFLAGS+=	${${ACTIVE_CC} == "clang":? -Oz :}
 CFLAGS+=	-Wall -Wstrict-prototypes -Wmissing-prototypes -ffreestanding
 
 ### find out what to use for libkern

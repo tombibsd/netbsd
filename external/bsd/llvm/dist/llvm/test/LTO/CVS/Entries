@@ -1,17 +1,2 @@
-/attrs.ll/1.1.1.1/Fri May 30 18:11:24 2014/-kk/
-/bcsection.ll/1.1.1.1/Thu Jan 29 19:54:36 2015/-kk/
-/cfi_endproc.ll/1.1.1.2/Thu Feb  5 08:38:26 2015/-kk/
-/current-section.ll/1.1.1.1/Fri Feb 14 20:12:46 2014/-kk/
-/diagnostic-handler-remarks.ll/1.1.1.1/Thu Jan 29 19:54:36 2015/-kk/
-/invalid.ll/1.1.1.1/Thu Jan 29 19:54:36 2015/-kk/
-/jump-table-type.ll/1.1.1.2/Thu Feb  5 08:38:26 2015/-kk/
-/keep-used-puts-during-instcombine.ll/1.1.1.1/Fri May 30 18:11:24 2014/-kk/
-/linkonce_odr_func.ll/1.1.1.3/Thu Feb  5 08:38:26 2015/-kk/
-/list-symbols.ll/1.1.1.1/Thu Jan 29 19:54:36 2015/-kk/
-/lit.local.cfg/1.1.1.2/Fri Oct  3 09:23:16 2014/-kk/
-/no-undefined-puts-when-implemented.ll/1.1.1.2/Fri Oct  3 09:23:16 2014/-kk/
-/private-symbol.ll/1.1.1.1/Tue Mar  4 20:54:06 2014/-kk/
-/runtime-library.ll/1.1.1.1/Thu Nov 28 14:18:06 2013/-kk/
-/symver-asm.ll/1.1.1.1/Fri May 30 18:11:24 2014/-kk/
-/triple-init.ll/1.1.1.1/Sun Jan  5 16:16:58 2014/-kk/
-D/Inputs////
+D/ARM////
+D/X86////

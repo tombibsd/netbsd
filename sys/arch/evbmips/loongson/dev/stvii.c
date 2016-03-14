@@ -303,10 +303,10 @@ stvii_worker(void *cookie)
 			nctrl = sc->sc_control & ~(STC_TRICKLE | STC_CHARGE_ENABLE);
 			bl = stvii_battery_level(sc);
 			sc->sc_bat_level = bl;
-			if (charging & (bl > BAT_FULL)) {
+			if (charging && (bl > BAT_FULL)) {
 				/* stop charging, we're full */
 				charging = 0;
-			} else if (!charging & (bl < BAT_LOW)) {
+			} else if (!charging && (bl < BAT_LOW)) {
 				charging = 1;
 			}
 			if (st & STS_AC_AVAILABLE) {

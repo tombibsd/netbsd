@@ -6,8 +6,9 @@
 
 .if (defined(MKDTRACE) && ${MKDTRACE} != "no")
 SUBDIR+=	libdtrace
+SUBDIR+=	drti
 .endif
-.if ${MKDTRACE:Uno} != "no" || ${MKCTF:Uno} != "no"
+.if ${MKCTF:Uno} != "no"
 SUBDIR+=	libctf
 .endif
 

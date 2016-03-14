@@ -4,7 +4,7 @@
 
 # This is called with MACHINE=sparc64 && MACHINE_ARCH=sparc when building
 # 32 bit kernels for ultrasparc hardware
-.if ${MACHINE} == "sparc64"
+.if ${MACHINE} == "sparc64" && ${HAVE_LLVM:Uno} == "no"
 
 SPARC64DIR=	${.PARSEDIR}/../../sparc64/atomic
 .PATH.c: ${SPARC64DIR}
@@ -43,7 +43,8 @@ SRCS+=	atomic_nand_16_cas.c atomic_nand_8_cas.c	\
 	atomic_swap_16_cas.c atomic_swap_8_cas.c	\
 	atomic_c11_compare_exchange_cas_32.c		\
 	atomic_c11_compare_exchange_cas_16.c		\
-	atomic_c11_compare_exchange_cas_8.c
+	atomic_c11_compare_exchange_cas_8.c \
+	atomic_load.c atomic_store.c
 .  endif
 
 .  if (${LIB} == "kern" || ${LIB} == "rump")

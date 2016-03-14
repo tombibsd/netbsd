@@ -59,6 +59,10 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <compat/sys/rnd.h>
 #endif
 
+#if defined(__HAVE_CPU_RNG) && !defined(_RUMPKERNEL)
+#include <machine/cpu_rng.h>
+#endif
+
 #if defined(__HAVE_CPU_COUNTER)
 #include <machine/cpu_counter.h>
 #endif
@@ -185,17 +189,6 @@ rnd_printf(const char *fmt, ...)
 	rnd_printing = 0;
 }
 
-void
-rnd_init_softint(void)
-{
-
-	rnd_process = softint_establish(SOFTINT_SERIAL|SOFTINT_MPSAFE,
-	    rnd_intr, NULL);
-	rnd_wakeup = softint_establish(SOFTINT_CLOCK|SOFTINT_MPSAFE,
-	    rnd_wake, NULL);
-	rnd_schedule_process();
-}
-
 /*
  * Generate a 32-bit counter.
  */
@@ -267,6 +260,10 @@ rnd_getmore(size_t byteswanted)
 
 	mutex_spin_enter(&rnd_global.lock);
 	LIST_FOREACH_SAFE(rs, &rnd_global.sources, list, next) {
+		/* Skip if the source is disabled.  */
+		if (!RND_ENABLED(rs))
+			continue;
+
 		/* Skip if there's no callback.  */
 		if (!ISSET(rs->flags, RND_FLAG_HASCB))
 			continue;
@@ -412,6 +409,36 @@ rnd_dv_estimate(krndsource_t *rs, uint32_t v)
 	return ret;
 }
 
+#if defined(__HAVE_CPU_RNG) && !defined(_RUMPKERNEL)
+static struct {
+	kmutex_t	lock;	/* unfortunately, must protect krndsource */
+	krndsource_t	source;
+} rnd_cpu __cacheline_aligned;
+
+static void
+rnd_cpu_get(size_t bytes, void *priv)
+{
+	krndsource_t *cpusrcp = priv;
+	cpu_rng_t buf[2 * RND_ENTROPY_THRESHOLD / sizeof(cpu_rng_t)];
+	cpu_rng_t *bufp;
+	size_t cnt = __arraycount(buf);
+	size_t entropy = 0;
+
+	KASSERT(cpusrcp == &rnd_cpu.source);
+
+	for (bufp = buf; bufp < buf + cnt; bufp++) {
+		entropy += cpu_rng(bufp);
+	}
+	if (__predict_true(entropy)) {
+		mutex_spin_enter(&rnd_cpu.lock);
+		rnd_add_data_sync(cpusrcp, buf, sizeof(buf), entropy);
+		explicit_memset(buf, 0, sizeof(buf));
+		mutex_spin_exit(&rnd_cpu.lock);
+	}
+}
+
+#endif
+
 #if defined(__HAVE_CPU_COUNTER)
 static struct {
 	kmutex_t	lock;
@@ -436,14 +463,13 @@ rnd_skew_enable(krndsource_t *rs, bool enabled)
 static void
 rnd_skew_get(size_t bytes, void *priv)
 {
-	krndsource_t *skewsrcp = priv;
+	krndsource_t *skewsrcp __diagused = priv;
 
 	KASSERT(skewsrcp == &rnd_skew.source);
-	if (RND_ENABLED(skewsrcp)) {
-		/* Measure 100 times */
-		rnd_skew.iter = 100;
-		callout_schedule(&rnd_skew.callout, 1);
-	}
+
+	/* Measure 100 times */
+	rnd_skew.iter = 100;
+	callout_schedule(&rnd_skew.callout, 1);
 }
 
 static void
@@ -470,6 +496,17 @@ rnd_skew_intr(void *arg)
 	mutex_spin_exit(&rnd_skew.lock);
 }
 #endif
+
+void
+rnd_init_softint(void)
+{
+
+	rnd_process = softint_establish(SOFTINT_SERIAL|SOFTINT_MPSAFE,
+	    rnd_intr, NULL);
+	rnd_wakeup = softint_establish(SOFTINT_CLOCK|SOFTINT_MPSAFE,
+	    rnd_wake, NULL);
+	rnd_schedule_process();
+}
 
 /*
  * Entropy was just added to the pool.  If we crossed the threshold for
@@ -548,6 +585,21 @@ rnd_init(void)
 		rndpool_add_data(&rnd_global.pool, &c, sizeof(c), 1);
 		mutex_spin_exit(&rnd_global.lock);
 	}
+
+	/*
+	 * Attach CPU RNG if available.
+	 */
+#if defined(__HAVE_CPU_RNG) && !defined(_RUMPKERNEL)
+	if (cpu_rng_init()) {
+		/* IPL_VM because taken while rnd_global.lock is held.  */
+		mutex_init(&rnd_cpu.lock, MUTEX_DEFAULT, IPL_VM);
+		rndsource_setcb(&rnd_cpu.source, rnd_cpu_get, &rnd_cpu.source);
+		rnd_attach_source(&rnd_cpu.source, "cpurng",
+		    RND_TYPE_RNG, RND_FLAG_COLLECT_VALUE|
+		    RND_FLAG_HASCB|RND_FLAG_HASENABLE);
+		rnd_cpu_get(RND_ENTROPY_THRESHOLD, &rnd_cpu.source);
+	}
+#endif
 
 	/*
 	 * If we have a cycle counter, take its error with respect
@@ -1217,7 +1269,7 @@ rnd_extract_data(void *p, uint32_t len, uint32_t flags)
 		explicit_memset(&rnd_rt, 0, sizeof(rnd_rt));
 		rndpool_add_data(&rnd_global.pool, rnd_testbits,
 		    sizeof(rnd_testbits), entropy_count);
-		memset(rnd_testbits, 0, sizeof(rnd_testbits));
+		explicit_memset(rnd_testbits, 0, sizeof(rnd_testbits));
 		rnd_printf_verbose("rnd: statistical RNG test done,"
 		    " entropy = %d.\n",
 		    rndpool_get_entropy_count(&rnd_global.pool));

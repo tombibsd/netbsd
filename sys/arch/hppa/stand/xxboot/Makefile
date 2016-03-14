@@ -1,5 +1,6 @@
 #	$NetBSD$
 
+NODEBUG=yes
 PROG=	xxboot
 NOMAN=	# defined
 SRCS=	start.S main.c readufs.c readufs_ffs.c readufs_lfs.c milli_tiny.S

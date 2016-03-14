@@ -86,12 +86,11 @@ atf_test_case strip
 strip_head() {
 	atf_set "descr" "Checks that the %% operator works and strips" \
 	                "the contents of a variable from the given point" \
-			"to the end"
+			"to the end (PR bin/43469)"
 }
 strip_body() {
 	line='#define bindir "/usr/bin" /* comment */'
 	stripped='#define bindir "/usr/bin" '
-	atf_expect_fail "PR bin/43469"
 	atf_check_equal '$stripped' '${line%%/\**}'
 }
 

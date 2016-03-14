@@ -1,0 +1,14 @@
+/cross-module-a.ll/1.1.1.1/Sat Feb 27 22:52:39 2016/-kk/
+/lit.local.cfg/1.1.1.1/Sat Feb 27 22:52:39 2016/-kk/
+/multi-module-a.ll/1.1.1.1/Sat Feb 27 22:52:39 2016/-kk/
+/simpletest-remote.ll/1.1.1.1/Sat Feb 27 22:52:39 2016/-kk/
+/stubs-remote.ll/1.1.1.1/Sat Feb 27 22:52:39 2016/-kk/
+/stubs-sm-pic.ll/1.1.1.1/Sat Feb 27 22:52:39 2016/-kk/
+/test-common-symbols-remote.ll/1.1.1.1/Sat Feb 27 22:52:39 2016/-kk/
+/test-data-align-remote.ll/1.1.1.1/Sat Feb 27 22:52:39 2016/-kk/
+/test-fp-no-external-funcs-remote.ll/1.1.1.1/Sat Feb 27 22:52:39 2016/-kk/
+/test-global-init-nonzero-remote.ll/1.1.1.1/Sat Feb 27 22:52:39 2016/-kk/
+/test-global-init-nonzero-sm-pic.ll/1.1.1.1/Sat Feb 27 22:52:39 2016/-kk/
+/test-ptr-reloc-remote.ll/1.1.1.1/Sat Feb 27 22:52:39 2016/-kk/
+/test-ptr-reloc-sm-pic.ll/1.1.1.1/Sat Feb 27 22:52:39 2016/-kk/
+D/Inputs////

@@ -10,6 +10,7 @@ NOMAN=		yes
 SRCS=	llvm-link.cpp
 
 LLVM_LIBS+= \
+	Object \
 	IRReader \
 	AsmParser \
 	BitReader \

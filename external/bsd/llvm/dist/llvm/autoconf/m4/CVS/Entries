@@ -6,15 +6,12 @@
 /cxx_flag_check.m4/1.1.1.1/Thu Nov 28 14:18:06 2013/-kk/
 /define_subst.m4/1.1.1.1/Fri Feb 14 20:12:30 2014/-kk/
 /find_std_program.m4/1.1.1.1/Thu Nov 28 14:18:06 2013/-kk/
-/func_isinf.m4/1.1.1.1/Thu Nov 28 14:18:06 2013/-kk/
-/func_isnan.m4/1.1.1.1/Thu Nov 28 14:18:06 2013/-kk/
 /func_mmap_file.m4/1.1.1.1/Thu Nov 28 14:18:06 2013/-kk/
 /header_mmap_anonymous.m4/1.1.1.1/Thu Nov 28 14:18:06 2013/-kk/
 /huge_val.m4/1.1.1.1/Thu Nov 28 14:18:06 2013/-kk/
 /link_options.m4/1.1.1.2/Tue Jun  3 03:05:00 2014/-kk/
 /linux_mixed_64_32.m4/1.1.1.1/Thu Nov 28 14:18:06 2013/-kk/
 /need_dev_zero_for_mmap.m4/1.1.1.1/Thu Nov 28 14:18:06 2013/-kk/
-/rand48.m4/1.1.1.1/Thu Nov 28 14:18:06 2013/-kk/
 /sanity_check.m4/1.1.1.1/Thu Nov 28 14:18:06 2013/-kk/
 /single_cxx_check.m4/1.1.1.1/Thu Nov 28 14:18:06 2013/-kk/
 /visibility_inlines_hidden.m4/1.1.1.1/Thu Nov 28 14:18:06 2013/-kk/

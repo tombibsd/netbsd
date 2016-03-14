@@ -4,7 +4,7 @@ INCSDIR= /usr/include/i386
 
 INCS=	ansi.h aout_machdep.h apmvar.h asm.h \
 	bioscall.h bootinfo.h bswap.h byte_swap.h \
-	cdefs.h cpu.h cputypes.h \
+	cdefs.h cpu.h cpu_rng.h cputypes.h \
 	disklabel.h \
 	elf_machdep.h endian.h endian_machdep.h \
 	fenv.h float.h frame.h freebsd_machdep.h \

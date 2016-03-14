@@ -23,7 +23,7 @@ GENERIC_SRCS+= \
 	divsc3.c \
 	divxc3.c
 
-.if ${MACHINE_CPU} == "powerpc"
+.if ${MACHINE_CPU} == "powerpc" || ${LIBC_MACHINE_CPU:U} == "sparc64" || ${LIBC_MACHINE_CPU:U} == "aarch64"
 GENERIC_SRCS+= \
 	divtc3.c \
 	multc3.c

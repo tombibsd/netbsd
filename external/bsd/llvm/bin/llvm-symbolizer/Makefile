@@ -7,11 +7,12 @@ NOMAN=		yes
 
 .PATH: ${LLVM_SRCDIR}/tools/llvm-symbolizer
 
-SRCS=	LLVMSymbolize.cpp \
-	llvm-symbolizer.cpp
+SRCS=	llvm-symbolizer.cpp
 
 LLVM_LIBS+= \
-	DebugInfo \
+	DebugInfoSymbolize \
+	DebugInfoDWARF \
+	DebugInfoPDB \
 	Object \
 	MCParser \
 	MC \

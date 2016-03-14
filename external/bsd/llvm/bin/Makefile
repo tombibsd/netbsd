@@ -31,9 +31,11 @@ SUBDIR+= \
 	llvm-as \
 	llvm-bcanalyzer \
 	llvm-cov \
+	llvm-cxxdump \
 	llvm-diff \
 	llvm-dis \
 	llvm-dwarfdump \
+	llvm-dwp \
 	llvm-extract \
 	llvm-link \
 	llvm-mc \
@@ -43,8 +45,8 @@ SUBDIR+= \
 	llvm-readobj \
 	llvm-size \
 	llvm-symbolizer \
-	macho-dumpx \
-	opt
+	opt \
+	sancov
 .endif
 
 .include <bsd.subdir.mk>

@@ -97,10 +97,6 @@ u_int uboot_args[4] = { 0 };
 void nitrogen6_setup_iomux(void);
 void nitrogen6_device_register(device_t, void *);
 
-static const bus_addr_t comcnaddr = (bus_addr_t)CONADDR;
-static const int comcnspeed = CONSPEED;
-static const int comcnmode = CONMODE | CLOCAL;
-
 #ifdef KGDB
 #include <sys/kgdb.h>
 #endif

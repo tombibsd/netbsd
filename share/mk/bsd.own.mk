@@ -97,6 +97,8 @@ _LIBC_COMPILER_RT.aarch64=	yes
 _LIBC_COMPILER_RT.i386=		yes
 _LIBC_COMPILER_RT.powerpc=	yes
 _LIBC_COMPILER_RT.powerpc64=	yes
+_LIBC_COMPILER_RT.sparc=	yes
+_LIBC_COMPILER_RT.sparc64=	yes
 _LIBC_COMPILER_RT.x86_64=	yes
 
 .if ${HAVE_LLVM:Uno} == "yes" && ${_LIBC_COMPILER_RT.${MACHINE_ARCH}:Uno} == "yes"
@@ -142,6 +144,8 @@ EXTERNAL_GDB_SUBDIR=		gdb
     ${MACHINE} == "evbarm" || \
     ${MACHINE} == "i386" || \
     ${MACHINE} == "hppa" || \
+    ${MACHINE} == "sparc" || \
+    ${MACHINE} == "sparc64" || \
     ${MACHINE_ARCH} == "powerpc"
 HAVE_BINUTILS?=	226
 .else
@@ -1171,11 +1175,13 @@ MKNLS:=		no
 .if !empty(MACHINE_ARCH:Mearm*)
 _NEEDS_LIBCXX.${MACHINE_ARCH}=	yes
 .endif
+_NEEDS_LIBCXX.aarch64=		yes
 _NEEDS_LIBCXX.i386=		yes
 _NEEDS_LIBCXX.powerpc=		yes
 _NEEDS_LIBCXX.powerpc64=	yes
+_NEEDS_LIBCXX.sparc=		yes
+_NEEDS_LIBCXX.sparc64=		yes
 _NEEDS_LIBCXX.x86_64=		yes
-_NEEDS_LIBCXX.aarch64=		yes
 
 .if ${MKLLVM} == "yes" && ${_NEEDS_LIBCXX.${MACHINE_ARCH}:Uno} == "yes"
 MKLIBCXX:=	yes

@@ -1,8 +1,10 @@
 #	$NetBSD$
 
+NOPIE=yes
+NOCTF=yes
 BINDIR=		/usr/mdec
 
-.include <bsd.own.mk>
+.include <bsd.init.mk>
 
 COPTS+=		-Wno-pointer-sign
 COPTS+=		-fno-strict-aliasing

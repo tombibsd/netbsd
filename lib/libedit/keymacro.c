@@ -280,16 +280,18 @@ keymacro_print(EditLine *el, const Char *key)
 private int
 node_trav(EditLine *el, keymacro_node_t *ptr, Char *ch, keymacro_value_t *val)
 {
+	wchar_t wc;
 
 	if (ptr->ch == *ch) {
 		/* match found */
 		if (ptr->next) {
 			/* key not complete so get next char */
-			if (FUN(el,getc)(el, ch) != 1) {/* if EOF or error */
+			if (el_wgetc(el, &wc) != 1) {/* if EOF or error */
 				val->cmd = ED_END_OF_FILE;
 				return XK_CMD;
 				/* PWP: Pretend we just read an end-of-file */
 			}
+			*ch = (Char)wc;
 			return node_trav(el, ptr->next, ch, val);
 		} else {
 			*val = ptr->val;

@@ -46,4 +46,8 @@ CWARNFLAGS.clang+=	-Wno-error=implicit-exception-spec-mismatch
 
 LDFLAGS+=	-Wl,-z,defs
 
+.if ${MACHINE_ARCH} == "sparc" || ${COMMON_MACHINE_ARCH:U} == "sparc"
+CXXFLAGS+=	${${ACTIVE_CC} == "clang":? -Wa,-Av8plus  :}
+.endif
+
 .include <bsd.lib.mk>

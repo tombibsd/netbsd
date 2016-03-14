@@ -27,6 +27,7 @@ define  ipmibus {}
 device	cpu: cpufeaturebus
 attach	cpu at cpubus
 file 	arch/x86/x86/cpu.c 		cpu
+file	arch/x86/x86/cpu_rng.c		cpu
 
 device	acpicpu: acpi
 attach	acpicpu at cpufeaturebus

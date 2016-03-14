@@ -92,6 +92,8 @@ struct 	ptimer {
 #define pt_list	pt_data.pt_nonreal.pt_list
 #define pt_active	pt_data.pt_nonreal.pt_active
 
+#define	TIMER_MIN	4	/* [0..3] are reserved for setitimer(2) */
+				/* REAL=0,VIRTUAL=1,PROF=2,MONOTONIC=3 */
 #define	TIMER_MAX	32	/* See ptimers->pts_fired if you enlarge this */
 #define	TIMERS_ALL	0
 #define	TIMERS_POSIX	1

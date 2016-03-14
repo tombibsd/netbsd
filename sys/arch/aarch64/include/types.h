@@ -38,12 +38,6 @@
 #include <sys/featuretest.h>
 #include <aarch64/int_types.h>
 
-#if defined(_KERNEL)
-typedef struct label_t {	/* Used by setjmp & longjmp */
-        register_t lb_reg[13];	/* x19 .. x30, sp */
-} label_t;
-#endif
-
 #if defined(_KERNEL) || defined(_KMEMUSER) || defined(_KERNTYPES) || defined(_STANDALONE)
 typedef	unsigned long	vm_offset_t;	/* depreciated */
 typedef	unsigned long	vm_size_t;	/* depreciated */
@@ -68,6 +62,12 @@ typedef unsigned long	pmc_evid_t;
 #define PMC_INVALID_EVID	(-1)
 typedef unsigned long	pmc_ctr_t;
 typedef unsigned short	tlb_asid_t;
+
+#if defined(_KERNEL)
+typedef struct label_t {	/* Used by setjmp & longjmp */
+        register_t lb_reg[13];	/* x19 .. x30, sp */
+} label_t;
+#endif
 
 #endif
          

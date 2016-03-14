@@ -294,6 +294,12 @@ static	struct	kwtab {
 	{ "volatile",	T_QUAL,		0,	0,	VOLATILE, 1, 0, 0, 0 },
 	{ "__volatile__", T_QUAL,	0,	0,	VOLATILE, 0, 0, 0, 0 },
 	{ "__volatile",	T_QUAL,		0,	0,	VOLATILE, 0, 0, 0, 0 },
+	{ "visibility", T_AT_VISIBILITY,0,	0,	0,	  0, 0, 1, 1 },
+	{ "__visibility",T_AT_VISIBILITY,0,	0,	0,	  0, 0, 1, 1 },
+	{ "__visibility__",T_AT_VISIBILITY,0,	0,	0,	  0, 0, 1, 1 },
+	{ "weak",	T_AT_WEAK,	0,	0,	0,	  0, 0, 1, 1 },
+	{ "__weak",	T_AT_WEAK,	0,	0,	0,	  0, 0, 1, 1 },
+	{ "__weak__",	T_AT_WEAK,	0,	0,	0,	  0, 0, 1, 1 },
 	{ "while",	T_WHILE,	0,	0,	0,	  0, 0, 0, 0 },
 	{ NULL,		0,		0,	0,	0,	  0, 0, 0, 0 }
 };

@@ -268,14 +268,18 @@ cmdloop(int top)
 			showjobs(out2, SHOW_CHANGED);
 			chkmail(0);
 			flushout(&errout);
+			nflag = 0;
 		}
 		n = parsecmd(inter);
+		TRACE(("cmdloop: "); showtree(n));
 		/* showtree(n); DEBUG */
 		if (n == NEOF) {
 			if (!top || numeof >= 50)
 				break;
+			if (nflag)
+				break;
 			if (!stoppedjobs()) {
-				if (!Iflag)
+				if (iflag && !Iflag)
 					break;
 				out2str("\nUse \"exit\" to leave shell.\n");
 			}

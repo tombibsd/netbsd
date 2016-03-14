@@ -21,6 +21,7 @@ DRIVERS+=	r600
 DRIVERS+=	nouveau
 .endif
 
+CXXFLAGS+=	-std=c++11
 CPPFLAGS+= \
 	-I${DESTDIR}${X11INCDIR}/libdrm
 
@@ -593,7 +594,8 @@ CWARNFLAGS.clang+=	-Wno-error=constant-conversion \
 			-Wno-error=switch \
 			-Wno-error=absolute-value \
 			-Wno-error=tautological-compare \
-			-Wno-error=static-in-inline
+			-Wno-error=static-in-inline \
+			-Wno-error=logical-not-parentheses
 
 .include <bsd.x11.mk>
 LIBDIR=		${X11USRLIBDIR}/modules/dri

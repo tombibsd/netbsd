@@ -1,0 +1,21 @@
+/alu32_alu.s/1.1.1.1/Sat Feb 27 22:52:50 2016/-kk/
+/alu32_perm.s/1.1.1.1/Sat Feb 27 22:52:50 2016/-kk/
+/alu32_pred.s/1.1.1.1/Sat Feb 27 22:52:50 2016/-kk/
+/cr.s/1.1.1.1/Sat Feb 27 22:52:50 2016/-kk/
+/j.s/1.1.1.1/Sat Feb 27 22:52:50 2016/-kk/
+/jr.s/1.1.1.1/Sat Feb 27 22:52:50 2016/-kk/
+/ld.s/1.1.1.1/Sat Feb 27 22:52:50 2016/-kk/
+/memop.s/1.1.1.1/Sat Feb 27 22:52:50 2016/-kk/
+/nv_j.s/1.1.1.1/Sat Feb 27 22:52:50 2016/-kk/
+/nv_st.s/1.1.1.1/Sat Feb 27 22:52:50 2016/-kk/
+/st.s/1.1.1.1/Sat Feb 27 22:52:50 2016/-kk/
+/system_user.s/1.1.1.1/Sat Feb 27 22:52:50 2016/-kk/
+/xtype_alu.s/1.1.1.1/Sat Feb 27 22:52:50 2016/-kk/
+/xtype_bit.s/1.1.1.1/Sat Feb 27 22:52:50 2016/-kk/
+/xtype_complex.s/1.1.1.1/Sat Feb 27 22:52:50 2016/-kk/
+/xtype_fp.s/1.1.1.1/Sat Feb 27 22:52:50 2016/-kk/
+/xtype_mpy.s/1.1.1.1/Sat Feb 27 22:52:50 2016/-kk/
+/xtype_perm.s/1.1.1.1/Sat Feb 27 22:52:50 2016/-kk/
+/xtype_pred.s/1.1.1.1/Sat Feb 27 22:52:50 2016/-kk/
+/xtype_shift.s/1.1.1.1/Sat Feb 27 22:52:50 2016/-kk/
+D

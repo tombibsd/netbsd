@@ -488,7 +488,7 @@ in6_addr_flags(struct ifaddrs *ifa, int flags)
 	if ((s = getsock(AF_INET6)) == -1)
 		err(EXIT_FAILURE, "%s: getsock", __func__);
 	memset(&ifr, 0, sizeof(ifr));
-	strncpy(ifr.ifr_name, ifa->ifa_name, sizeof(ifr.ifr_name));
+	estrlcpy(ifr.ifr_name, ifa->ifa_name, sizeof(ifr.ifr_name));
 	ifr.ifr_addr = *(struct sockaddr_in6 *)ifa->ifa_addr;
 	if (prog_ioctl(s, SIOCGIFAFLAG_IN6, &ifr) == -1)
 		err(EXIT_FAILURE, "SIOCGIFAFLAG_IN6");

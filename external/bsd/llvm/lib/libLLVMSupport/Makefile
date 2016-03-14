@@ -2,8 +2,6 @@
 
 LIB=	LLVMSupport
 
-NOGCCERROR=	yes
-
 .include <bsd.init.mk>
 
 .PATH: ${LLVM_SRCDIR}/lib/Support
@@ -17,6 +15,7 @@ SRCS+=	APFloat.cpp \
 	BlockFrequency.cpp \
 	BranchProbability.cpp \
 	circular_raw_ostream.cpp \
+	COM.cpp \
 	CommandLine.cpp \
 	Compression.cpp \
 	ConvertUTF.c \
@@ -38,8 +37,7 @@ SRCS+=	APFloat.cpp \
 	IntEqClasses.cpp \
 	IntervalMap.cpp \
 	IntrusiveRefCntPtr.cpp \
-	IsInf.cpp \
-	IsNAN.cpp \
+	JamCRC.cpp \
 	LEB128.cpp \
 	LineIterator.cpp \
 	Locale.cpp \
@@ -63,7 +61,9 @@ SRCS+=	APFloat.cpp \
 	StringMap.cpp \
 	StringPool.cpp \
 	StringRef.cpp \
+	StringSaver.cpp \
 	SystemUtils.cpp \
+	TargetParser.cpp \
 	TargetRegistry.cpp \
 	Timer.cpp \
 	ToolOutputFile.cpp \
@@ -96,6 +96,7 @@ SRCS+=	Atomic.cpp \
 	SearchForAddressOfSpecialSymbol.cpp \
 	Signals.cpp \
 	ThreadLocal.cpp \
+	ThreadPool.cpp \
 	Threading.cpp \
 	TimeValue.cpp \
 	Valgrind.cpp
@@ -117,6 +118,10 @@ SRCS+=	Host.inc \
 .for src in ${SRCS:M*.c}
 CPPFLAGS.${src}+=	-std=gnu99
 .endfor
+
+.if !defined(HOSTLIB) && ${MACHINE_ARCH} == "sparc"
+COPTS.Atomic.cpp+=	${${ACTIVE_CC} == "clang":? -Wa,-Av8plus :}
+.endif
 
 .if defined(HOSTLIB)
 .include <bsd.hostlib.mk>

@@ -383,9 +383,13 @@ kmem_intr_free(void *p, size_t requested_size)
 void *
 kmem_alloc(size_t size, km_flag_t kmflags)
 {
+	void *v;
+
 	KASSERTMSG((!cpu_intr_p() && !cpu_softintr_p()),
 	    "kmem(9) should not be used from the interrupt context");
-	return kmem_intr_alloc(size, kmflags);
+	v = kmem_intr_alloc(size, kmflags);
+	KASSERT(v || (kmflags & KM_NOSLEEP) != 0);
+	return v;
 }
 
 /*
@@ -396,9 +400,13 @@ kmem_alloc(size_t size, km_flag_t kmflags)
 void *
 kmem_zalloc(size_t size, km_flag_t kmflags)
 {
+	void *v;
+
 	KASSERTMSG((!cpu_intr_p() && !cpu_softintr_p()),
 	    "kmem(9) should not be used from the interrupt context");
-	return kmem_intr_zalloc(size, kmflags);
+	v = kmem_intr_zalloc(size, kmflags);
+	KASSERT(v || (kmflags & KM_NOSLEEP) != 0);
+	return v;
 }
 
 /*

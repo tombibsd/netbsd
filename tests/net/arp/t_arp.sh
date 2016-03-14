@@ -32,6 +32,10 @@ SOCKSRC=unix://commsock1
 SOCKDST=unix://commsock2
 IP4SRC=10.0.1.1
 IP4DST=10.0.1.2
+IP4DST_PUB=10.0.1.3
+MACDST_PUB=b2:a1:00:00:00:01
+IP4DST_PUBPROXY=10.0.1.4
+MACDST_PUBPROXY=b2:a1:00:00:00:02
 
 DEBUG=false
 TIMEOUT=1
@@ -41,6 +45,8 @@ atf_test_case cache_expiration_10s cleanup
 atf_test_case command cleanup
 atf_test_case garp cleanup
 atf_test_case cache_overwriting cleanup
+atf_test_case pubproxy_arp cleanup
+atf_test_case link_activation cleanup
 
 cache_expiration_5s_head()
 {
@@ -69,6 +75,18 @@ garp_head()
 cache_overwriting_head()
 {
 	atf_set "descr" "Tests for behavior of overwriting ARP caches"
+	atf_set "require.progs" "rump_server"
+}
+
+pubproxy_arp_head()
+{
+	atf_set "descr" "Tests for Proxy ARP"
+	atf_set "require.progs" "rump_server"
+}
+
+link_activation_head()
+{
+	atf_set "descr" "Tests for activating a new MAC address"
 	atf_set "require.progs" "rump_server"
 }
 
@@ -225,7 +243,7 @@ command_body()
 	return 0
 }
 
-make_pkt_str()
+make_pkt_str_arpreq()
 {
 	local target=$1
 	local sender=$2
@@ -253,10 +271,10 @@ garp_body()
 	shmif_dumpbus -p - bus1 2>/dev/null| tcpdump -n -e -r - > ./out
 
 	# A GARP packet is sent for the primary address
-	pkt=$(make_pkt_str 10.0.0.1 10.0.0.1)
+	pkt=$(make_pkt_str_arpreq 10.0.0.1 10.0.0.1)
 	atf_check -s exit:0 -x "cat ./out |grep -q '$pkt'"
 	# No GARP packet is sent for the alias address
-	pkt=$(make_pkt_str 10.0.0.2 10.0.0.2)
+	pkt=$(make_pkt_str_arpreq 10.0.0.2 10.0.0.2)
 	atf_check -s not-exit:0 -x "cat ./out |grep -q '$pkt'"
 
 	atf_check -s exit:0 rump.ifconfig -w 10
@@ -265,9 +283,9 @@ garp_body()
 
 	# No GARP packets are sent during IFF_UP
 	shmif_dumpbus -p - bus1 2>/dev/null| tcpdump -n -e -r - > ./out
-	pkt=$(make_pkt_str 10.0.0.3 10.0.0.3)
+	pkt=$(make_pkt_str_arpreq 10.0.0.3 10.0.0.3)
 	atf_check -s not-exit:0 -x "cat ./out |grep -q '$pkt'"
-	pkt=$(make_pkt_str 10.0.0.4 10.0.0.4)
+	pkt=$(make_pkt_str_arpreq 10.0.0.4 10.0.0.4)
 	atf_check -s not-exit:0 -x "cat ./out |grep -q '$pkt'"
 }
 
@@ -307,6 +325,132 @@ cache_overwriting_body()
 	$DEBUG && rump.arp -n -a
 
 	return 0
+}
+
+make_pkt_str_arprep()
+{
+	local ip=$1
+	local mac=$2
+	pkt="ethertype ARP (0x0806), length 42: "
+	pkt="Reply $ip is-at $mac, length 28"
+	echo $pkt
+}
+
+extract_new_packets()
+{
+	local old=./old
+
+	if [ ! -f $old ]; then
+		old=/dev/null
+	fi
+
+	shmif_dumpbus -p - bus1 2>/dev/null| \
+	    tcpdump -n -e -r - 2>/dev/null > ./new
+	diff -u $old ./new |grep '^+' |cut -d '+' -f 2 > ./diff
+	mv -f ./new ./old
+	cat ./diff
+}
+
+check_entry_flags()
+{
+	local ip=$(echo $1 |sed 's/\./\\./g')
+	local flags=$2
+
+	atf_check -s exit:0 -o match:" $flags " -e ignore -x \
+	    "rump.netstat -rn -f inet | grep ^'$ip'"
+}
+
+pubproxy_arp_body()
+{
+	local arp_keep=5
+
+	atf_check -s exit:0 ${inetserver} $SOCKSRC
+	atf_check -s exit:0 ${inetserver} $SOCKDST
+
+	setup_dst_server
+	setup_src_server $arp_keep
+
+	export RUMP_SERVER=$SOCKDST
+
+	atf_check -s exit:0 -o ignore rump.arp -s $IP4DST_PUB \
+	    $MACDST_PUB pub
+	atf_check -s exit:0 -o match:'permanent published' \
+	    rump.arp -n $IP4DST_PUB
+	check_entry_flags $IP4DST_PUB ULSp
+
+	$DEBUG && rump.arp -n -a
+	$DEBUG && rump.netstat -nr -f inet
+
+	atf_check -s exit:0 -o ignore rump.arp -s $IP4DST_PUBPROXY \
+	    $MACDST_PUBPROXY pub proxy
+	atf_check -s exit:0 -o match:'permanent published \(proxy only\)' \
+	    rump.arp -n $IP4DST_PUBPROXY
+	check_entry_flags $IP4DST_PUBPROXY UHLSp
+
+	$DEBUG && rump.arp -n -a
+	$DEBUG && rump.netstat -nr -f inet
+
+	export RUMP_SERVER=$SOCKSRC
+
+	atf_check -s not-exit:0 -o ignore -e ignore \
+	    rump.ping -n -w 1 -c 1 $IP4DST_PUB
+
+	atf_check -s exit:0 sleep 1
+	extract_new_packets > ./out
+	$DEBUG && cat ./out
+
+	pkt=$(make_pkt_str_arprep $IP4DST_PUB $MACDST_PUB)
+	atf_check -s exit:0 -x "cat ./out |grep -q '$pkt'"
+
+	atf_check -s not-exit:0 -o ignore -e ignore \
+	    rump.ping -n -w 1 -c 1 $IP4DST_PUBPROXY
+
+	atf_check -s exit:0 sleep 1
+	extract_new_packets > ./out
+	$DEBUG && cat ./out
+
+	pkt=$(make_pkt_str_arprep $IP4DST_PUBPROXY $MACDST_PUBPROXY)
+	atf_check -s exit:0 -x "cat ./out |grep -q '$pkt'"
+
+	return 0
+}
+
+link_activation_body()
+{
+	local arp_keep=5
+	local bonus=2
+
+	atf_check -s exit:0 ${inetserver} $SOCKSRC
+	atf_check -s exit:0 ${inetserver} $SOCKDST
+
+	setup_dst_server
+	setup_src_server $arp_keep
+
+	# flush old packets
+	extract_new_packets > ./out
+
+	export RUMP_SERVER=$SOCKSRC
+
+	atf_check -s exit:0 -o ignore rump.ifconfig shmif0 link \
+	    b2:a1:00:00:00:01
+
+	atf_check -s exit:0 sleep 1
+	extract_new_packets > ./out
+	$DEBUG && cat ./out
+
+	pkt=$(make_pkt_str_arpreq $IP4SRC $IP4SRC)
+	atf_check -s not-exit:0 -x "cat ./out |grep -q '$pkt'"
+
+	atf_check -s exit:0 -o ignore rump.ifconfig shmif0 link \
+	    b2:a1:00:00:00:02 active
+
+	atf_check -s exit:0 sleep 1
+	extract_new_packets > ./out
+	$DEBUG && cat ./out
+
+	pkt=$(make_pkt_str_arpreq $IP4SRC $IP4SRC)
+	atf_check -s exit:0 -x \
+	    "cat ./out |grep '$pkt' |grep -q 'b2:a1:00:00:00:02'"
 }
 
 cleanup()
@@ -371,6 +515,18 @@ cache_overwriting_cleanup()
 	cleanup
 }
 
+pubproxy_arp_cleanup()
+{
+	$DEBUG && dump
+	cleanup
+}
+
+link_activation_cleanup()
+{
+	$DEBUG && dump
+	cleanup
+}
+
 atf_init_test_cases()
 {
 	atf_add_test_case cache_expiration_5s
@@ -378,4 +534,6 @@ atf_init_test_cases()
 	atf_add_test_case command
 	atf_add_test_case garp
 	atf_add_test_case cache_overwriting
+	atf_add_test_case pubproxy_arp
+	atf_add_test_case link_activation
 }

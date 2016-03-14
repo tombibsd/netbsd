@@ -17,9 +17,7 @@ SRCS+=	DelaySlotFiller.cpp \
 	SparcRegisterInfo.cpp \
 	SparcSubtarget.cpp \
 	SparcTargetMachine.cpp \
-	SparcTargetObjectFile.cpp \
-	SparcSelectionDAGInfo.cpp
-
+	SparcTargetObjectFile.cpp
 
 TABLEGEN_SRC=		Sparc.td
 TABLEGEN_INCLUDES=	-I${LLVM_SRCDIR}/lib/Target/Sparc

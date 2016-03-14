@@ -18,7 +18,6 @@ LLVM_LIBS+= \
 	TransformsUtils \
 	Analysis \
 	Target \
-	ipa \
 	IR \
 	Support
 

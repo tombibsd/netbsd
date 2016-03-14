@@ -11,6 +11,7 @@ SRCS=	llvm-readobj.cpp \
 	ARMAttributeParser.cpp \
 	ARMWinEHPrinter.cpp \
 	COFFDumper.cpp \
+	COFFImportDumper.cpp \
 	ELFDumper.cpp \
 	Error.cpp \
 	MachODumper.cpp \

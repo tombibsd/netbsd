@@ -35,7 +35,7 @@
 #ifndef	_h_el_read
 #define	_h_el_read
 
-typedef int (*el_rfunc_t)(EditLine *, Char *);
+typedef int (*el_rfunc_t)(EditLine *, wchar_t *);
 
 typedef struct el_read_t {
 	el_rfunc_t	read_char;	/* Function to read a character */

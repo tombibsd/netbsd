@@ -6,7 +6,7 @@ __INCLUDED_STAND_MAKEFILE_INC=
 BINDIR=		/usr/mdec
 
 CPPFLAGS+=	-DSTANDALONE -I.
-CFLAGS+=	-msoft-float -ffreestanding
+CFLAGS+=	-ffreestanding ${${ACTIVE_CC} == "gcc":? -msoft-float :}
 
 .if ${MACHINE} == "sparc64"
 CPPFLAGS+=	-DSUN4U

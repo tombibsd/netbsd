@@ -7,6 +7,7 @@ INCS=	aout_machdep.h \
 	cacheinfo.h \
 	cpu.h \
 	cpu_extended_state.h \
+	cpu_rng.h \
 	cpu_ucode.h \
 	cputypes.h \
 	cpuvar.h \

@@ -1,19 +1,29 @@
+/asciiz-directive-bad.s/1.1.1.1/Sat Feb 27 22:52:49 2016/-kk/
+/asciiz-directive.s/1.1.1.1/Sat Feb 27 22:52:49 2016/-kk/
+/branch-pseudos-bad.s/1.1.1.1/Sat Feb 27 22:52:49 2016/-kk/
+/branch-pseudos.s/1.1.1.1/Sat Feb 27 22:52:49 2016/-kk/
+/cfi-advance-loc.s/1.1.1.1/Sat Feb 27 22:52:49 2016/-kk/
 /cfi.s/1.1.1.1/Fri May 30 18:11:25 2014/-kk/
 /cpload-bad.s/1.1.1.2/Thu Feb  5 08:36:56 2015/-kk/
-/cpload.s/1.1.1.2/Thu Feb  5 08:36:56 2015/-kk/
-/cpsetup-bad.s/1.1.1.1/Sun Aug 10 17:04:39 2014/-kk/
-/cpsetup.s/1.1.1.1/Fri May 30 18:11:25 2014/-kk/
+/cpload.s/1.1.1.3/Mon Mar 14 07:52:06 2016/-kk/
+/cprestore-bad.s/1.1.1.1/Sat Feb 27 22:52:49 2016/-kk/
+/cprestore-noreorder.s/1.1.1.1/Sat Feb 27 22:52:49 2016/-kk/
+/cprestore-reorder.s/1.1.1.1/Sat Feb 27 22:52:49 2016/-kk/
+/cprestore-warning-unused.s/1.1.1.1/Sat Feb 27 22:52:49 2016/-kk/
+/cpsetup-bad.s/1.1.1.2/Mon Mar 14 07:52:06 2016/-kk/
+/cpsetup.s/1.1.1.2/Mon Mar 14 07:52:06 2016/-kk/
+/directive-ent.s/1.1.1.1/Sat Feb 27 22:52:49 2016/-kk/
 /do_switch1.s/1.1.1.1/Fri May 30 18:11:25 2014/-kk/
 /do_switch2.s/1.1.1.1/Fri May 30 18:11:25 2014/-kk/
-/do_switch3.s/1.1.1.1/Fri May 30 18:11:25 2014/-kk/
-/eh-frame.s/1.1.1.2/Fri Oct  3 09:23:18 2014/-kk/
+/do_switch3.s/1.1.1.2/Mon Mar 14 07:52:06 2016/-kk/
+/eh-frame.s/1.1.1.3/Mon Mar 14 07:52:06 2016/-kk/
 /elf-N64.s/1.1.1.1/Fri May 30 18:11:25 2014/-kk/
-/elf-bigendian.ll/1.1.1.1/Thu Nov 28 14:18:08 2013/-kk/
+/elf-bigendian.ll/1.1.1.2/Mon Mar 14 07:52:06 2016/-kk/
 /elf-gprel-32-64.s/1.1.1.1/Fri May 30 18:11:25 2014/-kk/
 /elf-relsym.s/1.1.1.1/Fri May 30 18:11:25 2014/-kk/
-/elf-tls.s/1.1.1.1/Fri May 30 18:11:25 2014/-kk/
-/elf_basic.s/1.1.1.1/Thu Nov 28 14:18:08 2013/-kk/
-/elf_eflags.s/1.1.1.6/Fri Oct  3 09:23:18 2014/-kk/
+/elf-tls.s/1.1.1.2/Mon Mar 14 07:52:06 2016/-kk/
+/elf_basic.s/1.1.1.2/Mon Mar 14 07:52:06 2016/-kk/
+/elf_eflags.s/1.1.1.7/Mon Mar 14 07:52:06 2016/-kk/
 /elf_eflags_abicalls.s/1.1.1.2/Fri Oct  3 09:23:18 2014/-kk/
 /elf_eflags_micromips.s/1.1.1.2/Fri Oct  3 09:23:18 2014/-kk/
 /elf_eflags_mips16.s/1.1.1.2/Fri Oct  3 09:23:18 2014/-kk/
@@ -22,112 +32,161 @@
 /elf_eflags_noreorder.s/1.1.1.2/Fri Oct  3 09:23:18 2014/-kk/
 /elf_eflags_pic0.s/1.1.1.2/Fri Oct  3 09:23:18 2014/-kk/
 /elf_eflags_pic2.s/1.1.1.2/Fri Oct  3 09:23:18 2014/-kk/
-/elf_reginfo.s/1.1.1.3/Fri Oct  3 09:23:18 2014/-kk/
+/elf_reginfo.s/1.1.1.4/Mon Mar 14 07:52:06 2016/-kk/
 /elf_st_other.s/1.1.1.2/Fri Jan 31 08:46:00 2014/-kk/
-/expr1.s/1.1.1.1/Thu Nov 28 14:18:08 2013/-kk/
+/expansion-jal-sym-pic.s/1.1.1.1/Sat Feb 27 22:52:49 2016/-kk/
+/expr1.s/1.1.1.2/Mon Mar 14 07:52:06 2016/-kk/
 /higher-highest-addressing.s/1.1.1.1/Fri May 30 18:11:25 2014/-kk/
 /hilo-addressing.s/1.1.1.2/Thu Feb 27 08:52:24 2014/-kk/
+/insn-directive.s/1.1.1.1/Sat Feb 27 22:52:49 2016/-kk/
+/instalias-imm-expanding.s/1.1.1.1/Sat Feb 27 22:52:49 2016/-kk/
 /lit.local.cfg/1.1.1.2/Fri Oct  3 09:23:18 2014/-kk/
 /llvm-mc-fixup-endianness.s/1.1.1.1/Fri May 30 18:11:25 2014/-kk/
-/micromips-16-bit-instructions.s/1.1.1.2/Thu Feb  5 08:36:56 2015/-kk/
-/micromips-alias.s/1.1.1.1/Fri May 30 18:11:25 2014/-kk/
-/micromips-alu-instructions.s/1.1.1.2/Tue Jun  3 03:03:59 2014/-kk/
+/macro-bcc-imm-bad.s/1.1.1.1/Sat Feb 27 22:52:49 2016/-kk/
+/macro-bcc-imm.s/1.1.1.1/Sat Feb 27 22:52:49 2016/-kk/
+/macro-ddiv-bad.s/1.1.1.1/Sat Feb 27 22:52:49 2016/-kk/
+/macro-ddiv.s/1.1.1.1/Sat Feb 27 22:52:49 2016/-kk/
+/macro-ddivu-bad.s/1.1.1.1/Sat Feb 27 22:52:49 2016/-kk/
+/macro-ddivu.s/1.1.1.1/Sat Feb 27 22:52:49 2016/-kk/
+/macro-div-bad.s/1.1.1.1/Sat Feb 27 22:52:49 2016/-kk/
+/macro-div.s/1.1.1.1/Sat Feb 27 22:52:49 2016/-kk/
+/macro-divu-bad.s/1.1.1.1/Sat Feb 27 22:52:49 2016/-kk/
+/macro-divu.s/1.1.1.1/Sat Feb 27 22:52:49 2016/-kk/
+/macro-dla.s/1.1.1.1/Sat Feb 27 22:52:49 2016/-kk/
+/macro-dli.s/1.1.1.1/Sat Feb 27 22:52:49 2016/-kk/
+/macro-la-bad.s/1.1.1.1/Sat Feb 27 22:52:49 2016/-kk/
+/macro-la.s/1.1.1.1/Sat Feb 27 22:52:49 2016/-kk/
+/macro-li-bad.s/1.1.1.1/Sat Feb 27 22:52:49 2016/-kk/
+/macro-li.s/1.1.1.1/Sat Feb 27 22:52:49 2016/-kk/
+/micromips-16-bit-instructions.s/1.1.1.3/Mon Mar 14 07:52:07 2016/-kk/
+/micromips-alias.s/1.1.1.2/Mon Mar 14 07:52:07 2016/-kk/
+/micromips-alu-instructions.s/1.1.1.3/Mon Mar 14 07:52:07 2016/-kk/
 /micromips-bad-branches.s/1.1.1.2/Thu Feb  5 08:36:56 2015/-kk/
-/micromips-branch-instructions.s/1.1.1.2/Thu Feb  5 08:36:56 2015/-kk/
-/micromips-branch16.s/1.1.1.1/Thu Nov 28 14:18:08 2013/-kk/
-/micromips-branch7.s/1.1.1.1/Thu Jan 29 19:54:38 2015/-kk/
-/micromips-control-instructions.s/1.1.1.4/Thu Feb  5 08:36:56 2015/-kk/
-/micromips-diagnostic-fixup.s/1.1.1.1/Sun Jan  5 16:17:12 2014/-kk/
+/micromips-branch-fixup.s/1.1.1.1/Sat Feb 27 22:52:49 2016/-kk/
+/micromips-branch-instructions.s/1.1.1.3/Mon Mar 14 07:52:07 2016/-kk/
+/micromips-control-instructions.s/1.1.1.5/Mon Mar 14 07:52:07 2016/-kk/
+/micromips-diagnostic-fixup.s/1.1.1.2/Mon Mar 14 07:52:07 2016/-kk/
 /micromips-el-fixup-data.s/1.1.1.1/Fri May 30 18:11:25 2014/-kk/
-/micromips-expansions.s/1.1.1.1/Thu Nov 28 14:18:08 2013/-kk/
-/micromips-expressions.s/1.1.1.1/Thu Nov 28 14:18:08 2013/-kk/
+/micromips-expansions.s/1.1.1.2/Mon Mar 14 07:52:07 2016/-kk/
 /micromips-fpu-instructions.s/1.1.1.2/Thu Feb  5 08:36:56 2015/-kk/
 /micromips-func-addr.s/1.1.1.1/Thu Jan 29 19:54:38 2015/-kk/
-/micromips-invalid.s/1.1.1.1/Thu Jan 29 19:54:38 2015/-kk/
-/micromips-jump-instructions.s/1.1.1.3/Thu Feb  5 08:36:56 2015/-kk/
+/micromips-invalid.s/1.1.1.2/Mon Mar 14 07:52:07 2016/-kk/
+/micromips-jump-instructions.s/1.1.1.4/Mon Mar 14 07:52:07 2016/-kk/
 /micromips-jump26.s/1.1.1.1/Thu Nov 28 14:18:08 2013/-kk/
 /micromips-label-test-sections.s/1.1.1.1/Thu Jan 29 19:54:38 2015/-kk/
 /micromips-label-test.s/1.1.1.1/Thu Jan 29 19:54:38 2015/-kk/
-/micromips-loadstore-instructions.s/1.1.1.4/Thu Feb  5 08:36:56 2015/-kk/
+/micromips-loadstore-instructions.s/1.1.1.5/Mon Mar 14 07:52:07 2016/-kk/
 /micromips-loadstore-unaligned.s/1.1.1.1/Thu Nov 28 14:18:08 2013/-kk/
 /micromips-movcond-instructions.s/1.1.1.1/Thu Nov 28 14:18:08 2013/-kk/
 /micromips-multiply-instructions.s/1.1.1.1/Thu Nov 28 14:18:08 2013/-kk/
-/micromips-pc16-fixup.s/1.1.1.1/Sun Jan  5 16:17:14 2014/-kk/
+/micromips-pc16-fixup.s/1.1.1.2/Mon Mar 14 07:52:07 2016/-kk/
 /micromips-relocations.s/1.1.1.2/Tue Jan 14 16:02:15 2014/-kk/
 /micromips-shift-instructions.s/1.1.1.1/Thu Nov 28 14:18:08 2013/-kk/
 /micromips-tailr.s/1.1.1.1/Thu Nov 28 14:18:08 2013/-kk/
 /micromips-trap-instructions.s/1.1.1.1/Thu Nov 28 14:18:08 2013/-kk/
-/mips-abi-bad.s/1.1.1.2/Wed Jun  3 06:48:09 2015/-kk/
-/mips-alu-instructions.s/1.1.1.2/Tue Jun  3 03:03:59 2014/-kk/
+/mips-abi-bad.s/1.1.1.3/Mon Mar 14 07:52:07 2016/-kk/
+/mips-alu-instructions.s/1.1.1.3/Mon Mar 14 07:52:07 2016/-kk/
 /mips-bad-branches.s/1.1.1.1/Sun Jan  5 16:17:12 2014/-kk/
 /mips-control-instructions.s/1.1.1.2/Tue Jun  3 03:03:59 2014/-kk/
+/mips-cop0-reginfo.s/1.1.1.1/Sat Feb 27 22:52:49 2016/-kk/
 /mips-coprocessor-encodings.s/1.1.1.1/Thu Nov 28 14:18:08 2013/-kk/
-/mips-data-directives.s/1.1.1.2/Fri Oct  3 09:23:18 2014/-kk/
-/mips-diagnostic-fixup.s/1.1.1.1/Sun Jan  5 16:17:12 2014/-kk/
-/mips-dsp-instructions.s/1.1.1.1/Thu Nov 28 14:18:08 2013/-kk/
-/mips-expansions-bad.s/1.1.1.2/Thu Feb  5 08:36:56 2015/-kk/
-/mips-expansions.s/1.1.1.3/Thu Feb  5 08:36:56 2015/-kk/
-/mips-fpu-instructions.s/1.1.1.1/Thu Nov 28 14:18:08 2013/-kk/
+/mips-data-directives.s/1.1.1.3/Mon Mar 14 07:52:07 2016/-kk/
+/mips-diagnostic-fixup.s/1.1.1.2/Mon Mar 14 07:52:07 2016/-kk/
+/mips-expansions-bad.s/1.1.1.3/Mon Mar 14 07:52:07 2016/-kk/
+/mips-expansions.s/1.1.1.4/Mon Mar 14 07:52:07 2016/-kk/
+/mips-fpu-instructions.s/1.1.1.2/Mon Mar 14 07:52:07 2016/-kk/
 /mips-hwr-register-names.s/1.1.1.1/Thu Jan 29 19:54:38 2015/-kk/
-/mips-jump-delay-slots.s/1.1.1.1/Thu Jan 29 19:54:38 2015/-kk/
+/mips-jump-delay-slots.s/1.1.1.2/Mon Mar 14 07:52:07 2016/-kk/
 /mips-jump-instructions.s/1.1.1.2/Tue Jun  3 03:03:59 2014/-kk/
 /mips-memory-instructions.s/1.1.1.1/Thu Nov 28 14:18:08 2013/-kk/
-/mips-noat.s/1.1.1.3/Thu Feb  5 08:36:56 2015/-kk/
-/mips-pc16-fixup.s/1.1.1.1/Sun Jan  5 16:17:14 2014/-kk/
+/mips-noat.s/1.1.1.4/Mon Mar 14 07:52:07 2016/-kk/
+/mips-pc16-fixup.s/1.1.1.2/Mon Mar 14 07:52:07 2016/-kk/
 /mips-pdr-bad.s/1.1.1.1/Thu Jan 29 19:54:38 2015/-kk/
-/mips-pdr.s/1.1.1.1/Thu Jan 29 19:54:38 2015/-kk/
+/mips-pdr.s/1.1.1.2/Mon Mar 14 07:52:07 2016/-kk/
 /mips-reginfo-fp32.s/1.1.1.1/Sun Aug 10 17:04:39 2014/-kk/
-/mips-reginfo-fp64.s/1.1.1.1/Sun Aug 10 17:04:39 2014/-kk/
+/mips-reginfo-fp64.s/1.1.1.2/Mon Mar 14 07:52:07 2016/-kk/
 /mips-register-names-invalid.s/1.1.1.1/Fri May 30 18:11:25 2014/-kk/
 /mips-register-names-o32.s/1.1.1.1/Fri May 30 18:11:25 2014/-kk/
-/mips-relocations.s/1.1.1.1/Thu Nov 28 14:18:08 2013/-kk/
-/mips64-alu-instructions.s/1.1.1.2/Tue Jun  3 03:03:59 2014/-kk/
-/mips64-expansions.s/1.1.1.1/Sun Aug 10 17:04:39 2014/-kk/
+/mips64-alu-instructions.s/1.1.1.3/Mon Mar 14 07:52:07 2016/-kk/
+/mips64-expansions.s/1.1.1.2/Mon Mar 14 07:52:07 2016/-kk/
 /mips64-instructions.s/1.1.1.1/Thu Nov 28 14:18:08 2013/-kk/
-/mips64-register-names-n32-n64.s/1.1.1.2/Thu Feb  5 08:36:56 2015/-kk/
-/mips64-register-names-o32.s/1.1.1.1/Fri May 30 18:11:25 2014/-kk/
+/mips64-register-names-n32-n64.s/1.1.1.3/Mon Mar 14 07:52:07 2016/-kk/
+/mips64-register-names-o32.s/1.1.1.2/Mon Mar 14 07:52:07 2016/-kk/
 /mips64eb-fixups.s/1.1.1.1/Fri May 30 18:11:25 2014/-kk/
-/mips64extins.ll/1.1.1.1/Thu Nov 28 14:18:08 2013/-kk/
+/mips64extins.ll/1.1.1.2/Mon Mar 14 07:52:07 2016/-kk/
 /mips64shift.ll/1.1.1.1/Thu Nov 28 14:18:08 2013/-kk/
-/mips_abi_flags_xx.s/1.1.1.1/Sun Aug 10 17:04:39 2014/-kk/
-/mips_abi_flags_xx_set.s/1.1.1.1/Sun Aug 10 17:04:39 2014/-kk/
-/mips_directives.s/1.1.1.4/Tue Jun  3 03:03:59 2014/-kk/
+/mips_abi_flags_xx.s/1.1.1.2/Mon Mar 14 07:52:07 2016/-kk/
+/mips_abi_flags_xx_set.s/1.1.1.2/Mon Mar 14 07:52:07 2016/-kk/
+/mips_directives.s/1.1.1.5/Mon Mar 14 07:52:07 2016/-kk/
 /mips_directives_bad.s/1.1.1.3/Thu Feb  5 08:36:56 2015/-kk/
 /mips_gprel16.s/1.1.1.1/Fri May 30 18:11:25 2014/-kk/
+/module-directive-bad.s/1.1.1.1/Sat Feb 27 22:52:49 2016/-kk/
+/module-hardfloat.s/1.1.1.1/Sat Feb 27 22:52:49 2016/-kk/
+/module-softfloat.s/1.1.1.1/Sat Feb 27 22:52:49 2016/-kk/
 /multi-64bit-func.ll/1.1.1.1/Thu Nov 28 14:18:08 2013/-kk/
-/nabi-regs.s/1.1.1.2/Fri Mar 14 04:23:50 2014/-kk/
+/nabi-regs.s/1.1.1.3/Mon Mar 14 07:52:07 2016/-kk/
 /nacl-mask.s/1.1.1.4/Thu Feb  5 08:36:56 2015/-kk/
-/nooddspreg-cmdarg.s/1.1.1.1/Sun Aug 10 17:04:39 2014/-kk/
+/nooddspreg-cmdarg.s/1.1.1.2/Mon Mar 14 07:52:07 2016/-kk/
 /nooddspreg-error.s/1.1.1.1/Sun Aug 10 17:04:39 2014/-kk/
-/nooddspreg.s/1.1.1.1/Sun Aug 10 17:04:39 2014/-kk/
-/octeon-instructions.s/1.1.1.2/Thu Feb  5 08:36:56 2015/-kk/
-/oddspreg.s/1.1.1.1/Sun Aug 10 17:04:39 2014/-kk/
+/nooddspreg.s/1.1.1.2/Mon Mar 14 07:52:07 2016/-kk/
+/octeon-instructions.s/1.1.1.3/Mon Mar 14 07:52:07 2016/-kk/
+/oddspreg.s/1.1.1.2/Mon Mar 14 07:52:07 2016/-kk/
 /pr11877.s/1.1.1.1/Thu Nov 28 14:18:08 2013/-kk/
 /r-mips-got-disp.s/1.1.1.1/Fri May 30 18:11:25 2014/-kk/
-/set-arch.s/1.1.1.1/Thu Jan 29 19:54:38 2015/-kk/
-/set-at-directive-explicit-at.s/1.1.1.2/Thu Feb  5 08:36:56 2015/-kk/
-/set-at-directive.s/1.1.1.2/Tue Jun  3 03:03:59 2014/-kk/
-/set-mips-directives-bad.s/1.1.1.1/Sun Aug 10 17:04:39 2014/-kk/
-/set-mips-directives.s/1.1.1.1/Sun Aug 10 17:04:39 2014/-kk/
+/reloc-directive-bad.s/1.1.1.1/Sat Feb 27 22:52:49 2016/-kk/
+/reloc-directive.s/1.1.1.1/Sat Feb 27 22:52:49 2016/-kk/
+/relocation.s/1.1.1.1/Sat Feb 27 22:52:49 2016/-kk/
+/rotations32-bad.s/1.1.1.1/Sat Feb 27 22:52:49 2016/-kk/
+/rotations32.s/1.1.1.1/Sat Feb 27 22:52:49 2016/-kk/
+/rotations64.s/1.1.1.1/Sat Feb 27 22:52:49 2016/-kk/
+/set-arch.s/1.1.1.2/Mon Mar 14 07:52:07 2016/-kk/
+/set-at-directive-explicit-at.s/1.1.1.3/Mon Mar 14 07:52:07 2016/-kk/
+/set-at-directive.s/1.1.1.3/Mon Mar 14 07:52:07 2016/-kk/
+/set-at-noat-bad-syntax.s/1.1.1.1/Sat Feb 27 22:52:49 2016/-kk/
+/set-defined-symbol.s/1.1.1.1/Sat Feb 27 22:52:49 2016/-kk/
+/set-mips-directives-bad.s/1.1.1.2/Mon Mar 14 07:52:07 2016/-kk/
+/set-mips-directives.s/1.1.1.2/Mon Mar 14 07:52:07 2016/-kk/
 /set-mips0-directive.s/1.1.1.1/Thu Jan 29 19:54:38 2015/-kk/
 /set-mips16-directive.s/1.1.1.1/Thu Jan 29 19:54:38 2015/-kk/
 /set-nodsp.s/1.1.1.1/Thu Jan 29 19:54:38 2015/-kk/
-/set-push-pop-directives-bad.s/1.1.1.1/Thu Jan 29 19:54:38 2015/-kk/
-/set-push-pop-directives.s/1.1.1.1/Thu Jan 29 19:54:38 2015/-kk/
+/set-nomacro-micromips.s/1.1.1.1/Sat Feb 27 22:52:49 2016/-kk/
+/set-nomacro.s/1.1.1.1/Sat Feb 27 22:52:49 2016/-kk/
+/set-oddspreg-nooddspreg-error.s/1.1.1.1/Sat Feb 27 22:52:49 2016/-kk/
+/set-oddspreg-nooddspreg.s/1.1.1.1/Sat Feb 27 22:52:48 2016/-kk/
+/set-push-pop-directives-bad.s/1.1.1.2/Mon Mar 14 07:52:07 2016/-kk/
+/set-push-pop-directives.s/1.1.1.2/Mon Mar 14 07:52:07 2016/-kk/
+/set-softfloat-hardfloat-bad.s/1.1.1.1/Sat Feb 27 22:52:49 2016/-kk/
+/set-softfloat-hardfloat.s/1.1.1.1/Sat Feb 27 22:52:49 2016/-kk/
 /sext_64_32.ll/1.1.1.1/Thu Nov 28 14:18:08 2013/-kk/
+/sort-relocation-table.s/1.1.1.1/Sat Feb 27 22:52:49 2016/-kk/
 /sym-expr.s/1.1.1.1/Fri May 30 18:11:25 2014/-kk/
-/sym-offset.ll/1.1.1.1/Thu Nov 28 14:18:08 2013/-kk/
+/sym-offset.ll/1.1.1.2/Mon Mar 14 07:52:07 2016/-kk/
+/target-soft-float.s/1.1.1.1/Sat Feb 27 22:52:49 2016/-kk/
 /unaligned-nops.s/1.1.1.1/Thu Jan 29 19:54:38 2015/-kk/
-/xgot.s/1.1.1.1/Fri May 30 18:11:25 2014/-kk/
+/update-module-level-options.s/1.1.1.1/Sat Feb 27 22:52:49 2016/-kk/
+/xgot.s/1.1.1.2/Mon Mar 14 07:52:07 2016/-kk/
+D/cnmips////
+D/dsp////
+D/dspr2////
+D/eva////
+D/micromips-dsp////
+D/micromips-dspr2////
+D/micromips////
+D/micromips32r6////
+D/micromips64r6////
 D/mips1////
 D/mips2////
 D/mips3////
 D/mips32////
 D/mips32r2////
+D/mips32r3////
+D/mips32r5////
 D/mips32r6////
 D/mips4////
 D/mips5////
 D/mips64////
 D/mips64r2////
+D/mips64r3////
+D/mips64r5////
 D/mips64r6////
 D/msa////

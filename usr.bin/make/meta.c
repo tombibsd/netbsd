@@ -6,7 +6,7 @@
  * --sjg
  */
 /*
- * Copyright (c) 2009-2010, Juniper Networks, Inc.
+ * Copyright (c) 2009-2016, Juniper Networks, Inc.
  * Portions Copyright (c) 2009, John Birrell.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -472,9 +472,6 @@ meta_create(BuildMon *pbm, GNode *gn)
 
     fflush(stdout);
 
-    if (strcmp(cp, makeDependfile) == 0)
-	goto out;
-
     if (!writeMeta)
 	/* Don't create meta data. */
 	goto out;
@@ -605,6 +602,7 @@ meta_mode_init(const char *make_mode)
     if (cp) {
 	str2Lst_Append(metaBailiwick, cp, NULL);
     }
+    free(cp);
     /*
      * We ignore any paths that start with ${.MAKE.META.IGNORE_PATHS}
      */
@@ -617,6 +615,7 @@ meta_mode_init(const char *make_mode)
     if (cp) {
 	str2Lst_Append(metaIgnorePaths, cp, NULL);
     }
+    free(cp);
 }
 
 /*
@@ -684,9 +683,9 @@ meta_job_error(Job *job, GNode *gn, int flags, int status)
 
     if (job != NULL) {
 	pbm = &job->bm;
-    } else {
 	if (!gn)
 	    gn = job->node;
+    } else {
 	pbm = &Mybm;
     }
     if (pbm->mfp != NULL) {
@@ -700,7 +699,7 @@ meta_job_error(Job *job, GNode *gn, int flags, int status)
     }
     getcwd(cwd, sizeof(cwd));
     Var_Set(".ERROR_CWD", cwd, VAR_GLOBAL, 0);
-    if (pbm && pbm->meta_fname[0]) {
+    if (pbm->meta_fname[0]) {
 	Var_Set(".ERROR_META_FILE", pbm->meta_fname, VAR_GLOBAL, 0);
     }
     meta_job_finish(job);
@@ -1371,7 +1370,6 @@ meta_oodate(GNode *gn, Boolean oodate)
 		fprintf(debug_file, "%s: missing files: %s...\n",
 			fname, (char *)Lst_Datum(Lst_First(missingFiles)));
 	    oodate = TRUE;
-	    Lst_Destroy(missingFiles, (FreeProc *)free);
 	}
     } else {
 	if ((gn->type & OP_META)) {
@@ -1380,6 +1378,9 @@ meta_oodate(GNode *gn, Boolean oodate)
 	    oodate = TRUE;
 	}
     }
+
+    Lst_Destroy(missingFiles, (FreeProc *)free);
+
     if (oodate && needOODATE) {
 	/*
 	 * Target uses .OODATE which is empty; or we wouldn't be here.

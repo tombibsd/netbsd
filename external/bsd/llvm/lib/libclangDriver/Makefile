@@ -13,6 +13,7 @@ SRCS+=	Action.cpp \
 	DriverOptions.cpp \
 	Job.cpp \
 	MSVCToolChain.cpp \
+	MinGWToolChain.cpp \
 	Multilib.cpp \
 	Phases.cpp \
 	SanitizerArgs.cpp \

@@ -8,6 +8,7 @@ LIB=	LLVMRuntimeDyld
 
 SRCS+=	RTDyldMemoryManager.cpp \
 	RuntimeDyld.cpp \
+	RuntimeDyldCOFF.cpp \
 	RuntimeDyldChecker.cpp \
 	RuntimeDyldELF.cpp \
 	RuntimeDyldMachO.cpp

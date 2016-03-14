@@ -10,6 +10,7 @@ NOMAN=		yes
 SRCS=	llc.cpp
 
 LLVM_LIBS+= \
+	MIRParser \
 	AsmPrinter \
 	IRReader \
 	AsmParser \
@@ -50,6 +51,7 @@ LLVM_LIBS+= \
 	Object \
 	SelectionDAG \
 	CodeGen \
+	Instrumentation \
 	ScalarOpts \
 	TransformsUtils \
 	Analysis \

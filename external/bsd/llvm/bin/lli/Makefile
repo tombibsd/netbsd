@@ -8,11 +8,10 @@ NOMAN=		yes
 .PATH: ${LLVM_SRCDIR}/tools/lli
 
 SRCS=	lli.cpp \
-	RemoteMemoryManager.cpp \
-	RemoteTarget.cpp \
-	RemoteTargetExternal.cpp
+	OrcLazyJIT.cpp
 
 LLVM_LIBS+= \
+	Orc \
 	X86CodeGen \
 	X86TargetInfo \
 	X86MCTargetDesc \

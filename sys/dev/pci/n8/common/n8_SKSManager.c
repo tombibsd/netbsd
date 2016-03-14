@@ -136,7 +136,7 @@ N8_Status_t n8_SKSWrite(const unsigned int targetSKS,
    NspInstance_t *NSPinstance_p;
    volatile NSP2000REGS_t *nsp;
  
-   if ((targetSKS < 0) || (targetSKS >= NSPcount_g))
+   if (targetSKS >= NSPcount_g)
    {
       DBG(("Failed to get control structure: %d\n", ret));
       return N8_UNEXPECTED_ERROR;

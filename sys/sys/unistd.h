@@ -307,6 +307,9 @@
 #define	_SC_SPAWN			86
 #define	_SC_SHARED_MEMORY_OBJECTS	87
 
+#define	_SC_TIMER_MAX			88
+
+
 /* Extensions found in Solaris and Linux. */
 #define	_SC_PHYS_PAGES		121
 

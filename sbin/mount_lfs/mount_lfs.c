@@ -68,6 +68,7 @@ static const struct mntopt mopts[] = {
 	MOPT_UPDATE,
 	MOPT_GETARGS,
 	MOPT_NOATIME,
+	MOPT_RELATIME,
 	MOPT_NULL,
 };
 

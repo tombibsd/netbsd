@@ -6,7 +6,8 @@ LIB=	LLVMLinker
 
 .PATH: ${LLVM_SRCDIR}/lib/Linker
 
-SRCS+=	LinkModules.cpp
+SRCS+=	IRMover.cpp \
+	LinkModules.cpp
 
 .if defined(HOSTLIB)
 .include <bsd.hostlib.mk>

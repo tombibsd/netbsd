@@ -1,6 +1,11 @@
-/aarch64-unroll.ll/1.1.1.1/Fri May 30 18:11:27 2014/-kk/
-/arm64-unroll.ll/1.1.1.1/Fri May 30 18:11:27 2014/-kk/
-/gather-cost.ll/1.1.1.1/Fri May 30 18:11:27 2014/-kk/
+/aarch64-unroll.ll/1.1.1.2/Mon Mar 14 07:52:39 2016/-kk/
+/arbitrary-induction-step.ll/1.1.1.1/Sat Feb 27 22:52:43 2016/-kk/
+/arm64-unroll.ll/1.1.1.2/Mon Mar 14 07:52:39 2016/-kk/
+/deterministic-type-shrinkage.ll/1.1.1.1/Sat Feb 27 22:52:43 2016/-kk/
+/gather-cost.ll/1.1.1.2/Mon Mar 14 07:52:39 2016/-kk/
+/interleaved_cost.ll/1.1.1.1/Sat Feb 27 22:52:43 2016/-kk/
 /lit.local.cfg/1.1.1.2/Fri Oct  3 09:23:20 2014/-kk/
-/sdiv-pow2.ll/1.1.1.1/Thu Jan 29 19:54:38 2015/-kk/
+/loop-vectorization-factors.ll/1.1.1.1/Sat Feb 27 22:52:43 2016/-kk/
+/reduction-small-size.ll/1.1.1.1/Sat Feb 27 22:52:43 2016/-kk/
+/sdiv-pow2.ll/1.1.1.2/Mon Mar 14 07:52:39 2016/-kk/
 D

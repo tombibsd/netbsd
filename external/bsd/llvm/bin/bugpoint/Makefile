@@ -29,13 +29,13 @@ LLVM_LIBS+= \
 	MC \
 	Linker \
 	ScalarOpts \
+	ipo \
+	Object \
 	ProfileData \
 	Target \
-	ipo \
 	Vectorize \
 	TransformsUtils \
 	Analysis \
-	ipa \
 	IR \
 	Support
 

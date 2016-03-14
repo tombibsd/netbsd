@@ -37,7 +37,6 @@
 #define _h_chartype_f
 
 
-
 #ifdef WIDECHAR
 
 /* Ideally we should also test the value of the define to see if it
@@ -60,7 +59,6 @@
 #warning Build environment does not support non-BMP characters
 #endif
 
-#define ct_mbrtowc           mbrtowc
 #define ct_wctob             wctob
 #define ct_wctomb            wctomb
 #define ct_wctomb_reset      wctomb(0,0)
@@ -113,7 +111,6 @@ Width(wchar_t c)
 
 #else /* NARROW */
 
-size_t	ct_mbrtowc(char *, const char *, size_t, void *);
 #define ct_wctob(w)          ((int)(w))
 #define ct_wctomb            error
 #define ct_wctomb_reset
@@ -245,6 +242,8 @@ protected const Char *ct_visual_string(const Char *);
 /* classification of character c, as one of the above defines */
 protected int ct_chr_class(Char c);
 #endif
+
+size_t	ct_mbrtowc(wchar_t *, const char *, size_t);
 
 
 #endif /* _chartype_f */

@@ -1,3 +1,7 @@
+/agg-interleave-a2.ll/1.1.1.1/Sat Feb 27 22:52:43 2016/-kk/
+/large-loop-rdx.ll/1.1.1.1/Sat Feb 27 22:52:43 2016/-kk/
 /lit.local.cfg/1.1.1.2/Fri Oct  3 09:23:20 2014/-kk/
-/vsx-tsvc-s173.ll/1.1.1.1/Fri May 30 18:11:27 2014/-kk/
+/small-loop-rdx.ll/1.1.1.1/Sat Feb 27 22:52:43 2016/-kk/
+/stride-vectorization.ll/1.1.1.1/Sat Feb 27 22:52:43 2016/-kk/
+/vsx-tsvc-s173.ll/1.1.1.2/Mon Mar 14 07:52:39 2016/-kk/
 D

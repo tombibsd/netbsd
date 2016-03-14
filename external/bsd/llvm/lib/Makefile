@@ -13,7 +13,6 @@ SUBDIR=	\
 	libLLVMIRReader \
 	libLLVMInstCombine \
 	libLLVMInstrumentation \
-	libLLVMipa \
 	libLLVMipo \
 	libLLVMLinker \
 	libLLVMMC \
@@ -87,12 +86,18 @@ SUBDIR+= \
 SUBDIR+= \
 	libLLVMExecutionEngine \
 	libLLVMMCJIT \
+	libLLVMMIRParser \
+	libLLVMPasses \
+	libLLVMOrc \
 	libLLVMRuntimeDyld
 .endif
 
 .if (${NO_LLVM_DEVELOPER:Uno} == "no" && ${LLVM_DEVELOPER:U} == "yes") || ${MKLLD} == "yes"
 SUBDIR+= \
-	libLLVMDebugInfo
+	libLLVMDebugInfoCodeView \
+	libLLVMDebugInfoDWARF \
+	libLLVMDebugInfoPDB \
+	libLLVMDebugInfoSymbolize
 .endif
 
 .if ${NO_LLVM_DEVELOPER:Uno} == "no" && ${LLVM_DEVELOPER:U} == "yes"
@@ -102,6 +107,7 @@ SUBDIR+= \
 	libLLVMHello \
 	libLLVMInterpreter \
 	libLLVMLTO \
+	libLLVMLibDriver \
 	libLLVMLineEditor
 .endif
 

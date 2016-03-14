@@ -1,7 +1,6 @@
 #	$NetBSD$
 
 LIB=	LLVMX86AsmPrinter
-NOGCCERROR=	yes
 
 .include <bsd.init.mk>
 

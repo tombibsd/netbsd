@@ -498,6 +498,7 @@ tty_setup(EditLine *el)
 {
 	int rst = 1;
 
+	el->el_tty.t_initialized = 0;
 	if (el->el_flags & EDIT_DISABLED)
 		return 0;
 
@@ -560,6 +561,7 @@ tty_setup(EditLine *el)
 
 	tty__setchar(&el->el_tty.t_ed, el->el_tty.t_c[ED_IO]);
 	tty_bind_char(el, 1);
+	el->el_tty.t_initialized = 1;
 	return 0;
 }
 
@@ -583,6 +585,9 @@ protected void
 tty_end(EditLine *el)
 {
 	if (el->el_flags & EDIT_DISABLED)
+		return;
+
+	if (el->el_tty.t_initialized)
 		return;
 
 	if (tty_setty(el, TCSAFLUSH, &el->el_tty.t_or) == -1) {

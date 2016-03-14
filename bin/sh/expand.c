@@ -162,7 +162,7 @@ expandarg(union node *arg, struct arglist *arglist, int flag)
 	} else {
 		if (flag & EXP_REDIR) /*XXX - for now, just remove escapes */
 			rmescapes(p);
-		sp = (struct strlist *)stalloc(sizeof (struct strlist));
+		sp = stalloc(sizeof(*sp));
 		sp->text = p;
 		*exparg.lastp = sp;
 		exparg.lastp = &sp->next;
@@ -511,7 +511,7 @@ subevalvar(char *p, char *str, int strloc, int subtype, int startloc, int varfla
 	case VSTRIMLEFTMAX:
 	case VSTRIMRIGHT:
 	case VSTRIMRIGHTMAX:
-		how = (varflags & VSQUOTE) ? 0 : EXP_CASE;
+		how = (varflags & (VSQUOTE|VSPATQ)) == VSQUOTE ? 0 : EXP_CASE;
 		break;
 	default:
 		how = 0;
@@ -1002,7 +1002,7 @@ ifsbreakup(char *string, struct arglist *arglist)
 
 	if (ifslastp == NULL) {
 		/* Return entire argument, IFS doesn't apply to any of it */
-		sp = (struct strlist *)stalloc(sizeof *sp);
+		sp = stalloc(sizeof(*sp));
 		sp->text = start;
 		*arglist->lastp = sp;
 		arglist->lastp = &sp->next;
@@ -1043,7 +1043,7 @@ ifsbreakup(char *string, struct arglist *arglist)
 
 			/* Save this argument... */
 			*q = '\0';
-			sp = (struct strlist *)stalloc(sizeof *sp);
+			sp = stalloc(sizeof(*sp));
 			sp->text = start;
 			*arglist->lastp = sp;
 			arglist->lastp = &sp->next;
@@ -1077,7 +1077,7 @@ ifsbreakup(char *string, struct arglist *arglist)
 	 * should only generate one....
 	 */
 	if (had_param_ch || *start != 0) {
-		sp = (struct strlist *)stalloc(sizeof *sp);
+		sp = stalloc(sizeof(*sp));
 		sp->text = start;
 		*arglist->lastp = sp;
 		arglist->lastp = &sp->next;
@@ -1300,7 +1300,7 @@ addfname(char *name)
 
 	p = stalloc(strlen(name) + 1);
 	scopy(name, p);
-	sp = (struct strlist *)stalloc(sizeof *sp);
+	sp = stalloc(sizeof(*sp));
 	sp->text = p;
 	*exparg.lastp = sp;
 	exparg.lastp = &sp->next;

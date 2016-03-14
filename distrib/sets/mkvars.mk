@@ -104,7 +104,7 @@ mkextravars: .PHONY
 .endif
 
 mksolaris: .PHONY
-.if (${MKDTRACE} != "no" || ${MKZFS} != "no")
+.if (${MKDTRACE} != "no" || ${MKZFS} != "no" || ${MKCTF} != "no")
 	@echo MKSOLARIS="yes"
 .else
 	@echo MKSOLARIS="no"

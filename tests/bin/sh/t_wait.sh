@@ -24,6 +24,8 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 #
+# the implementation of "sh" to test
+: ${TEST_SH:="/bin/sh"}
 
 atf_test_case individual
 individual_head() {
@@ -50,7 +52,7 @@ fi
 
 exit 0
 EOF
-	output=$(/bin/sh individualhelper.sh)
+	output=$("${TEST_SH}" individualhelper.sh)
 	[ $? -eq 0 ] || atf_fail "${output}"
 	rm -f individualhelper.sh
 }
@@ -66,13 +68,15 @@ kill_body() {
 	local z=/tmp/killhelper.$$ 
 	local pid=
 
-	cat >$s <<\EOF
-#!/bin/sh
+	sed 's!${SH}!'"${TEST_SH}!"  >$s <<\EOF
+#! ${SH}
 trap "echo SIGHUP" 1
-sleep 10 &
+(sleep 5; exit 3) &
 sl=$!
 wait
-echo $?
+S=$?
+echo $S
+while [ $S -ne 0 ] && [ $S != 127 ]; do wait $sl; S=$?; echo $S; done
 EOF
 	chmod +x $s
 
@@ -82,11 +86,11 @@ EOF
 
 	# XXX: built-in kill does not work?
 	/bin/kill -HUP $pid
-	sleep 1
+	wait
 
 	output="$(cat $z | tr '\n' ' ')"
 	rm -f $s $z
-	if [ "$output" != "SIGHUP 129 " ]; then
+	if [ "$output" != "SIGHUP 129 3 127 " ]; then
 		atf_fail "${output} != 'SIGHUP 129 '"
 	fi
 }

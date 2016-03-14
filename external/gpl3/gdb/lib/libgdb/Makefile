@@ -58,6 +58,7 @@ COPTS.dwarf2-frame.c+=-O1
 CLEANDIRFILES+= \
 	ada-exp.c ada-lex.c \
 	c-exp.c \
+	d-exp.c \
 	cp-name-parser.c \
 	f-exp.c \
 	go-exp.c \

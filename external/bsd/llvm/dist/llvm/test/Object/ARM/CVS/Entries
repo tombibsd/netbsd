@@ -1,5 +1,6 @@
 /lit.local.cfg/1.1.1.2/Fri Oct  3 09:23:18 2014/-kk/
 /macho-data-in-code.test/1.1.1.2/Thu Feb  5 08:36:57 2015/-kk/
+/nm-mapping-symbol.s/1.1.1.1/Sat Feb 27 22:53:19 2016/-kk/
 /objdump-thumb.test/1.1.1.1/Thu Nov 28 14:18:13 2013/-kk/
 /symbol-addr.ll/1.1.1.1/Thu Nov 28 14:18:13 2013/-kk/
 D

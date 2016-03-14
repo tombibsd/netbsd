@@ -90,7 +90,7 @@ static void	gifintr(void *);
 /*
  * gif global variable definitions
  */
-LIST_HEAD(, gif_softc) gif_softc_list;	/* XXX should be static */
+static LIST_HEAD(, gif_softc) gif_softc_list;
 
 static void	gif_sysctl_setup(struct sysctllog **);
 

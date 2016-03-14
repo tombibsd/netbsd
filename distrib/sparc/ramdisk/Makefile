@@ -13,7 +13,7 @@ IMAGE=		ramdisk.fs
 IMAGESIZE=	1800b
 
 WARNS=		1
-DBG=		-Os
+DBG=		${${ACTIVE_CC} == "clang":? -Oz -fomit-frame-pointer -fno-unwind-tables : -Os }
 
 CRUNCHBIN=	ramdiskbin
 LISTS=		${.CURDIR}/list

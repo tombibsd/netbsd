@@ -282,7 +282,11 @@ static int	 pr_bitrange(u_int32_t, int, int);
 static void	 pr_retip(struct ip6_hdr *, u_char *);
 static void	 summary(void);
 static void	 tvsub(struct timeval *, struct timeval *);
+#ifdef IPSEC
+#ifdef IPSEC_POLICY_IPSEC
 static int	 setpolicy(int, char *);
+#endif	/* IPSEC_POLICY_IPSEC */
+#endif	/* IPSEC */
 static char	*nigroup(char *);
 static double	timespec_to_sec(const struct timespec *tp);
 static double	diffsec(struct timespec *, struct timespec *);

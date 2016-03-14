@@ -1,10 +1,10 @@
 /add_named_metadata_operand.ll/1.1.1.1/Wed Mar 18 17:23:42 2015/-kk/
 /calc.test/1.1.1.1/Thu Nov 28 14:18:06 2013/-kk/
-/disassemble.test/1.1.1.2/Thu Feb  5 08:38:00 2015/-kk/
-/functions.ll/1.1.1.1/Thu Nov 28 14:18:06 2013/-kk/
+/functions.ll/1.1.1.2/Mon Mar 14 07:50:15 2016/-kk/
 /globals.ll/1.1.1.1/Thu Nov 28 14:18:06 2013/-kk/
-/invalid-bitcode.test/1.1.1.1/Wed Mar 18 17:23:42 2015/-kk/
-/lit.local.cfg/1.1.1.2/Fri Oct  3 09:22:58 2014/-kk/
+/invalid-bitcode.test/1.1.1.2/Mon Mar 14 07:50:15 2016/-kk/
 /objectfile.ll/1.1.1.1/Thu Jan 29 19:54:36 2015/-kk/
 /set_metadata.ll/1.1.1.1/Wed Mar 18 17:23:42 2015/-kk/
+D/ARM////
 D/Inputs////
+D/X86////

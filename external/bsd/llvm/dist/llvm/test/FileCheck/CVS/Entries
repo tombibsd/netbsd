@@ -27,6 +27,7 @@
 /next-no-match.txt/1.1.1.1/Thu Nov 28 14:18:06 2013/-kk/
 /regex-brackets.txt/1.1.1.1/Thu Nov 28 14:18:06 2013/-kk/
 /regex-no-match.txt/1.1.1.1/Thu Nov 28 14:18:06 2013/-kk/
+/same.txt/1.1.1.1/Sat Feb 27 22:53:19 2016/-kk/
 /separate-multi-prefix.txt/1.1.1.1/Thu Nov 28 14:18:06 2013/-kk/
 /simple-var-capture.txt/1.1.1.1/Thu Nov 28 14:18:06 2013/-kk/
 /two-checks-for-same-match.txt/1.1.1.1/Thu Nov 28 14:18:06 2013/-kk/

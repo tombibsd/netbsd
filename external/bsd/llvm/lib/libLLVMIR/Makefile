@@ -6,6 +6,10 @@ LIB=	LLVMIR
 
 .PATH: ${LLVM_SRCDIR}/lib/IR
 
+TABLEGEN_SRC=		AttributesCompatFunc.td
+TABLEGEN_OUTPUT= \
+	AttributesCompatFunc.inc|-gen-attrs
+
 SRCS+=	AsmWriter.cpp \
 	Attributes.cpp \
 	AutoUpgrade.cpp \
@@ -18,11 +22,13 @@ SRCS+=	AsmWriter.cpp \
 	DIBuilder.cpp \
 	DataLayout.cpp \
 	DebugInfo.cpp \
+	DebugInfoMetadata.cpp \
 	DebugLoc.cpp \
 	DiagnosticInfo.cpp \
 	DiagnosticPrinter.cpp \
 	Dominators.cpp \
 	Function.cpp \
+	FunctionInfo.cpp \
 	GCOV.cpp \
 	GVMaterializer.cpp \
 	Globals.cpp \
@@ -38,8 +44,8 @@ SRCS+=	AsmWriter.cpp \
 	MDBuilder.cpp \
 	Mangler.cpp \
 	Metadata.cpp \
-	MetadataTracking.cpp \
 	Module.cpp \
+	Operator.cpp \
 	Pass.cpp \
 	PassManager.cpp \
 	PassRegistry.cpp \
@@ -47,12 +53,13 @@ SRCS+=	AsmWriter.cpp \
 	Type.cpp \
 	TypeFinder.cpp \
 	Use.cpp \
-	UseListOrder.cpp \
 	User.cpp \
 	Value.cpp \
 	ValueSymbolTable.cpp \
 	ValueTypes.cpp \
 	Verifier.cpp
+
+.include "${.PARSEDIR}/../../tablegen.mk"
 
 .if defined(HOSTLIB)
 .include <bsd.hostlib.mk>

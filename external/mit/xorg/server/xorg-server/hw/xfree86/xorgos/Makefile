@@ -168,5 +168,7 @@ CPPFLAGS+=	-I${X11SRCDIR.xorg-server}/hw/xfree86/common \
 CPPFLAGS+=	${X11FLAGS.DRI}
 .endif
 
+CWARNFLAGS.clang+=	-Wno-error=empty-body
+
 .include <bsd.x11.mk>
 .include <bsd.lib.mk>

@@ -106,6 +106,8 @@ file	arch/xen/xen/evtchn.c
 
 file	arch/xen/xen/xengnt.c
 
+file	arch/x86/x86/cpu_rng.c
+
 file	dev/cons.c
 
 

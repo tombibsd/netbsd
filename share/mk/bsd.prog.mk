@@ -55,7 +55,7 @@ LDFLAGS+=	${PIE_LDFLAGS}
 .endif
 
 CFLAGS+=	${COPTS}
-.if defined(MKDEBUG) && (${MKDEBUG} != "no")
+.if ${MKDEBUG:Uno} != "no" && !defined(NODEBUG)
 CFLAGS+=	-g
 .endif
 OBJCFLAGS+=	${OBJCOPTS}
@@ -434,7 +434,7 @@ _CCLINK.${_P}=	${CXX} ${_CCLINKFLAGS}
 BINDIR.${_P}?=		${BINDIR}
 PROGNAME.${_P}?=	${_P}
 
-.if ${MKDEBUG} != "no" && !commands(${_P})
+.if ${MKDEBUG:Uno} != "no" && !defined(NODEBUG) && !commands(${_P})
 _PROGDEBUG.${_P}:=	${PROGNAME.${_P}}.debug
 .endif
 

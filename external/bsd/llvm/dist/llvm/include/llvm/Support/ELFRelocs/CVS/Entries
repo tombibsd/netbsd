@@ -1,11 +1,13 @@
 /AArch64.def/1.1.1.1/Thu Jan 29 19:54:46 2015/-kk/
 /ARM.def/1.1.1.1/Thu Jan 29 19:54:46 2015/-kk/
-/Hexagon.def/1.1.1.1/Thu Jan 29 19:54:46 2015/-kk/
-/Mips.def/1.1.1.1/Thu Jan 29 19:54:46 2015/-kk/
-/PowerPC.def/1.1.1.1/Thu Jan 29 19:54:46 2015/-kk/
-/PowerPC64.def/1.1.1.1/Thu Jan 29 19:54:46 2015/-kk/
-/Sparc.def/1.1.1.1/Thu Jan 29 19:54:46 2015/-kk/
+/AVR.def/1.1.1.1/Sat Feb 27 22:53:27 2016/-kk/
+/Hexagon.def/1.1.1.2/Mon Mar 14 07:48:54 2016/-kk/
+/Mips.def/1.1.1.2/Mon Mar 14 07:48:54 2016/-kk/
+/PowerPC.def/1.1.1.2/Mon Mar 14 07:48:54 2016/-kk/
+/PowerPC64.def/1.1.1.2/Mon Mar 14 07:48:54 2016/-kk/
+/Sparc.def/1.1.1.2/Mon Mar 14 07:48:54 2016/-kk/
 /SystemZ.def/1.1.1.1/Thu Jan 29 19:54:46 2015/-kk/
+/WebAssembly.def/1.1.1.1/Sat Feb 27 22:53:27 2016/-kk/
 /i386.def/1.1.1.1/Thu Jan 29 19:54:46 2015/-kk/
 /x86_64.def/1.1.1.1/Thu Jan 29 19:54:46 2015/-kk/
 D

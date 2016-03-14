@@ -472,8 +472,9 @@ typedef struct {
     int t_tabs;
     int t_eight;
     speed_t t_speed;
-    int t_mode;
+    unsigned char t_mode;
     unsigned char t_vdisable;
+    unsigned char t_initialized;
 } el_tty_t;
 
 

@@ -71,6 +71,8 @@ static const struct mntopt mopts[] = {
 	MOPT_FORCE,
 	MOPT_GETARGS,
 	MOPT_NODEVMTIME,
+	MOPT_NOATIME,
+	MOPT_RELATIME,
 	MOPT_NULL,
 };
 

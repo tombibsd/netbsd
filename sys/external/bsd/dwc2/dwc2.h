@@ -40,6 +40,7 @@
 #include <sys/workqueue.h>
 
 #include <linux/list.h>
+#include <linux/workqueue.h>
 
 #include "opt_usb.h"
 // #define VERBOSE_DEBUG
@@ -276,27 +277,5 @@ msleep(unsigned int msec)
 #define NS_TO_US(ns)	((ns + 500L) / 1000L)
 
 #define USB_RESUME_TIMEOUT	40 /* ms */
-
-void dw_callout(void *);
-void dwc2_worker(struct work *, void *);
-
-struct delayed_work {
-	struct work work;
-	struct callout dw_timer;
-
-	struct workqueue *dw_wq;
-};
-
-static inline void
-INIT_DELAYED_WORK(struct delayed_work *dw, void (*fn)(struct work *))
-{
-	callout_init(&dw->dw_timer, CALLOUT_MPSAFE);
-}
-
-static inline void
-queue_delayed_work(struct workqueue *wq, struct delayed_work *dw, int j)
-{
-	callout_reset(&dw->dw_timer, j, dw_callout, dw);
-}
 
 #endif

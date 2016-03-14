@@ -103,7 +103,7 @@ SUBDIR+=	.WAIT
 SUBDIR+=	../external/bsd/librtld_db/lib		# depends on libutil
 .endif
 
-.if ${MKDTRACE} != "no" || ${MKCTF} != "no"
+.if ${MKCTF} != "no"
 SUBDIR+=        ../external/cddl/osnet/lib/libctf
 .endif
 

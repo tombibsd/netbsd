@@ -1,5 +1,6 @@
 # $NetBSD$
 ./usr/lib/i386/libi386_g.a			comp-c-debuglib		debuglib,compat
+./usr/lib/i386/libc++_g.a			comp-c-debuglib		debuglib,compat,libcxx
 ./usr/lib/libx86_64_g.a				comp-c-debuglib		debuglib
 ./usr/libdata/debug/libexec/ld.elf_so-i386.debug	comp-sys-debug		debug,compat
 ./usr/libdata/debug/usr/bin/fdformat.debug	comp-util-debug		debug

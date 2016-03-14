@@ -7,7 +7,7 @@
 /dfdiv.c/1.5/Sat Feb  4 17:03:09 2012/-kk/
 /dfmpy.c/1.5/Sat Feb  4 17:03:09 2012/-kk/
 /dfrem.c/1.5/Sat Feb  4 17:03:09 2012/-kk/
-/dfsqrt.c/1.5/Sat Feb  4 17:03:09 2012/-kk/
+/dfsqrt.c/1.6/Mon Mar 14 07:55:36 2016/-kk/
 /dfsub.c/1.5/Sat Feb  4 17:03:09 2012/-kk/
 /divsfm.c/1.5/Sat Feb  4 17:03:09 2012/-kk/
 /divsfr.c/1.5/Sat Feb  4 17:03:09 2012/-kk/
@@ -42,7 +42,7 @@
 /sfdiv.c/1.5/Sat Feb  4 17:03:10 2012/-kk/
 /sfmpy.c/1.5/Sat Feb  4 17:03:10 2012/-kk/
 /sfrem.c/1.5/Sat Feb  4 17:03:10 2012/-kk/
-/sfsqrt.c/1.5/Sat Feb  4 17:03:10 2012/-kk/
+/sfsqrt.c/1.6/Mon Mar 14 07:55:36 2016/-kk/
 /sfsub.c/1.5/Sat Feb  4 17:03:11 2012/-kk/
 /sgl_float.h/1.3/Tue Jan 27 11:49:54 2009/-kk/
 D

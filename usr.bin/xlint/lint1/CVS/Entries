@@ -1,7 +1,7 @@
 /Makefile.ops-c/1.3/Sat Feb  5 19:13:48 2011/-kk/
 /Makefile.ops-h/1.3/Sat Feb  5 19:13:48 2011/-kk/
 /Makefile/1.52/Sun Apr 12 03:35:30 2015/-kk/
-/cgram.y/1.75/Sun Jan 17 10:34:31 2016/-kk/
+/cgram.y/1.76/Mon Mar 14 07:55:57 2016/-kk/
 /decl.c/1.61/Sun Jan 17 10:34:31 2016/-kk/
 /emit1.c/1.19/Fri Sep 26 22:52:24 2008/-kk/
 /err.c/1.49/Sun Nov 15 13:36:55 2015/-kk/
@@ -16,6 +16,6 @@
 /op.h/1.6/Sat Feb  5 17:14:14 2011/-kk/
 /ops.def/1.2/Sat Feb  5 17:14:14 2011/-kk/
 /print.c/1.4/Thu Jul 31 15:21:34 2008/-kk/
-/scan.l/1.64/Sun Nov 29 09:11:19 2015/-kk/
+/scan.l/1.65/Mon Mar 14 07:55:57 2016/-kk/
 /tree.c/1.82/Sun Nov 15 13:36:55 2015/-kk/
 D

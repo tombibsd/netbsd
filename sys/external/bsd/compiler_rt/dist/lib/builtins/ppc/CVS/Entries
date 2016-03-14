@@ -1,5 +1,5 @@
-/DD.h/1.1.1.1/Wed Feb 26 22:31:30 2014/-kk/
-/divtc3.c/1.1.1.1/Wed Feb 26 22:31:30 2014/-kk/
+/DD.h/1.1.1.2/Mon Mar 14 07:55:47 2016/-kk/
+/divtc3.c/1.1.1.2/Mon Mar 14 07:55:47 2016/-kk/
 /fixtfdi.c/1.1.1.2/Tue Jun  3 02:54:40 2014/-kk/
 /fixunstfdi.c/1.1.1.1/Wed Feb 26 22:31:30 2014/-kk/
 /floatditf.c/1.1.1.1/Wed Feb 26 22:31:30 2014/-kk/
@@ -8,7 +8,7 @@
 /gcc_qdiv.c/1.1.1.1/Wed Feb 26 22:31:30 2014/-kk/
 /gcc_qmul.c/1.1.1.1/Wed Feb 26 22:31:30 2014/-kk/
 /gcc_qsub.c/1.1.1.1/Wed Feb 26 22:31:30 2014/-kk/
-/multc3.c/1.1.1.1/Wed Feb 26 22:31:30 2014/-kk/
+/multc3.c/1.1.1.2/Mon Mar 14 07:55:47 2016/-kk/
 /restFP.S/1.1.1.1/Wed Feb 26 22:31:30 2014/-kk/
 /saveFP.S/1.1.1.1/Wed Feb 26 22:31:30 2014/-kk/
 D

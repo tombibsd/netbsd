@@ -1,13 +1,13 @@
 #	$NetBSD$
 
 LIB=	LLVMObject
-NOGCCERROR=	yes
 
 .include <bsd.init.mk>
 
 .PATH: ${LLVM_SRCDIR}/lib/Object
 
 SRCS+=	Archive.cpp \
+	ArchiveWriter.cpp \
 	Binary.cpp \
 	COFFObjectFile.cpp \
 	COFFYAML.cpp \
@@ -15,12 +15,14 @@ SRCS+=	Archive.cpp \
 	ELFObjectFile.cpp \
 	ELFYAML.cpp \
 	Error.cpp \
+	FunctionIndexObjectFile.cpp \
 	IRObjectFile.cpp \
 	MachOObjectFile.cpp \
 	MachOUniversal.cpp \
 	Object.cpp \
 	ObjectFile.cpp \
 	RecordStreamer.cpp \
+	SymbolSize.cpp \
 	SymbolicFile.cpp
 
 .if defined(HOSTLIB)
