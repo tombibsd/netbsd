@@ -184,10 +184,10 @@ list_swap(int pri, int kflag, int pflag, int tflag, int dolong, int hflag)
 			if ((humanize_number(avbuf, sizeof(avbuf), (dbtoqb(totalsize-totalinuse)),
 				"", HN_AUTOSCALE, (HN_DECIMAL | HN_B | HN_NOSPACE))) == -1)
 				err(1, "humanize_number");
-			(void)printf("total: %s allocated = %s used, %s available.\n",
+			(void)printf("total: %s allocated, %s used, %s available.\n",
 				szbuf, usbuf, avbuf);
 		} else {
-		    printf("total: %ld %s allocated = %ld %s used, "
+		    printf("total: %ld %s allocated, %ld %s used, "
 			   "%ld %s available\n",
 		    (long)(dbtoqb(totalsize) / blocksize), suff,
 		    (long)(dbtoqb(totalinuse) / blocksize), suff,

@@ -14,7 +14,7 @@ BINDIR=		${TESTSDIR}
 PROG=		h_sljit
 MAN=		# defined
 SRCS=		sljitMain.c sljitTest.c
-
+PAXCTL_FLAGS.h_sljit += +m
 WARNS=		3
 
 LDADD+=		-L${LIBSLJITDIR} -lsljit

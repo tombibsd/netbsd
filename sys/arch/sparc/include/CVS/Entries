@@ -64,7 +64,7 @@
 /rwlock.h/1.5/Mon Apr 28 20:23:36 2008/-kk/
 /setjmp.h/1.3/Sat Jul 20 08:37:30 2002/-kk/
 /signal.h/1.22/Wed Nov 19 18:36:00 2008/-kk/
-/sljit_machdep.h/1.1/Wed Jul 23 18:19:45 2014/-kk/
+/sljit_machdep.h/1.2/Tue Jun  7 11:14:32 2016/-kk/
 /sunos_machdep.h/1.3/Mon Apr 28 20:23:36 2008/-kk/
 /svr4_machdep.h/1.13/Mon Apr 28 20:23:36 2008/-kk/
 /tctrl.h/1.5/Sun Sep 13 01:31:05 2015/-kk/

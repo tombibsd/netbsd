@@ -614,6 +614,8 @@ xen_pmap_bootstrap(void)
 	long mapsize;
 	vaddr_t bootstrap_tables, init_tables;
 
+	xen_init_features();
+
 	memset(xpq_idx_array, 0, sizeof xpq_idx_array);
 
 	xpmap_phys_to_machine_mapping =

@@ -593,7 +593,7 @@ setup_howto(struct multiboot_info *mi)
 	/* Skip kernel file name. */
 	while (*cl != '\0' && *cl != ' ')
 		cl++;
-	while (*cl != '\0' && *cl == ' ')
+	while (*cl == ' ')
 		cl++;
 
 	/* Check if there are flags and set 'howto' accordingly. */

@@ -192,16 +192,21 @@ __KERNEL_RCSID(0, "$NetBSD$");
  * instruction just clears the page table entry.
  */
 #define fillkpt	\
+	cmpl	$0,%ecx			;	/* zero-sized? */	\
+	je 	2f			; \
 1:	movl	$0,(PDE_SIZE-4)(%ebx)	;	/* upper 32 bits: 0 */	\
 	movl	%eax,(%ebx)		;	/* store phys addr */	\
 	addl	$PDE_SIZE,%ebx		;	/* next PTE/PDE */	\
 	addl	$PAGE_SIZE,%eax		;	/* next phys page */	\
-	loop	1b			;
+	loop	1b			; \
+2:					;
 
 /*
  * fillkpt_nox - Same as fillkpt, but sets the NX/XD bit.
  */
 #define fillkpt_nox \
+	cmpl	$0,%ecx			;	/* zero-sized? */	\
+	je 	2f			; \
 	pushl	%ebp			; \
 	movl	RELOC(nox_flag),%ebp	; \
 1:	movl	%ebp,(PDE_SIZE-4)(%ebx)	;	/* upper 32 bits: NX */ \
@@ -209,7 +214,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 	addl	$PDE_SIZE,%ebx		;	/* next PTE/PDE */	\
 	addl	$PAGE_SIZE,%eax		;	/* next phys page */	\
 	loop	1b			; \
-	popl	%ebp			;
+	popl	%ebp			; \
+2:					;
 
 /*
  * killkpt - Destroy a kernel page table
@@ -249,6 +255,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
  */
 	.data
 
+	.globl	_C_LABEL(tablesize)
 	.globl	_C_LABEL(nox_flag)
 	.globl	_C_LABEL(cputype)
 	.globl	_C_LABEL(cpuid_level)
@@ -296,6 +303,9 @@ LABEL(lapic_tpr)
 END(lapic_tpr)
 #endif
 
+	.type	_C_LABEL(tablesize), @object
+_C_LABEL(tablesize):	.long	0
+END(tablesize)
 	.type	_C_LABEL(nox_flag), @object
 LABEL(nox_flag)		.long	0	/* 32bit NOX flag, set if supported */
 END(nox_flag)
@@ -314,9 +324,6 @@ END(lwp0uarea)
 	.type	_C_LABEL(PDPpaddr), @object
 LABEL(PDPpaddr)		.long	0	/* paddr of PDP, for libkvm */
 END(PDPpaddr)
-	.type	_C_LABEL(tablesize), @object
-_C_LABEL(tablesize):	.long	0
-END(tablesize)
 
 	/* Space for the temporary stack */
 	.size	tmpstk, tmpstk - .

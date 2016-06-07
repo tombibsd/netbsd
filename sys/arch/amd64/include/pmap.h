@@ -155,7 +155,7 @@
 /* Xen use slots 256-272, let's move farther */
 #define L4_SLOT_KERN		320
 #endif
-#define L4_SLOT_KERNBASE	511
+#define L4_SLOT_KERNBASE	511 /* pl4_i(KERNBASE) */
 
 #define PDIR_SLOT_KERN	L4_SLOT_KERN
 #define PDIR_SLOT_PTE	L4_SLOT_PTE

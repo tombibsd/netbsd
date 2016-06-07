@@ -330,7 +330,7 @@ ENTRY(cpu_in_cksum)
 
 .Lout_of_mbufs:
 	pushl	$1f
-	call	_C_LABEL(printf)
+	call	PIC_PLT(_C_LABEL(printf))
 	leal	4(%esp), %esp
 	jmp	.Lreturn
 1:

@@ -389,9 +389,9 @@ _rtld_digest_phdr(const Elf_Phdr *phdr, int phnum, caddr_t entry)
 		if (ph->p_type != PT_PHDR)
 			continue;
 
-		obj->phdr = (void *)(uintptr_t)ph->p_vaddr;
-		obj->phsize = ph->p_memsz;
 		obj->relocbase = (caddr_t)((uintptr_t)phdr - (uintptr_t)ph->p_vaddr);
+		obj->phdr = phdr; /* Equivalent to relocbase + p_vaddr. */
+		obj->phsize = ph->p_memsz;
 		dbg(("headers: phdr %p (%p) phsize %zu relocbase %p",
 		    obj->phdr, phdr, obj->phsize, obj->relocbase));
 		break;

@@ -201,6 +201,21 @@ TEMPLATE(64)
 #undef TEMPLATE
 
 #define	TEMPLATE(variant, qualifier)					\
+bool									\
+prop_array_add_cstring ## variant (prop_array_t array,			\
+					const char *cp)			\
+{									\
+	prop_string_t str;						\
+	bool rv;							\
+									\
+	str = prop_string_create_cstring ## variant (cp);		\
+	if (str == NULL)						\
+		return false;						\
+	rv = prop_array_add(array, str);				\
+	prop_object_release(str);					\
+	return rv;							\
+}									\
+									\
 bool								        \
 prop_array_get_cstring ## variant (prop_array_t array,		        \
 					unsigned int indx,		\

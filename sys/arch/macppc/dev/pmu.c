@@ -90,6 +90,7 @@ struct pmu_softc {
 	int sc_brightness, sc_brightness_wanted;
 	int sc_volume, sc_volume_wanted;
 	int sc_lid_closed;
+	int sc_pswitch_pending;
 	/* deferred processing */
 	lwp_t *sc_thread;
 	/* signalling the event thread */
@@ -285,6 +286,7 @@ pmu_attach(device_t parent, device_t self, void *aux)
 	sc->sc_flags = 0;
 	sc->sc_callback = NULL;
 	sc->sc_lid_closed = 0;
+	sc->sc_pswitch_pending = 0;
 
 	if (bus_space_map(sc->sc_memt, ca->ca_reg[0] + ca->ca_baseaddr,
 	    ca->ca_reg[1], 0, &sc->sc_memh) != 0) {
@@ -658,9 +660,8 @@ pmu_intr(void *arg)
 		closed = (resp[2] & PMU_ENV_LID_CLOSED) != 0;
 		if (closed != sc->sc_lid_closed) {
 			sc->sc_lid_closed = closed;
-			sysmon_pswitch_event(&sc->sc_lidswitch, 
-	    		    closed ? PSWITCH_EVENT_PRESSED : 
-			    PSWITCH_EVENT_RELEASED);
+			sc->sc_pswitch_pending = 1;
+			wakeup(&sc->sc_event);
 		}
 		goto done;
 	}
@@ -1021,6 +1022,13 @@ pmu_thread(void *cookie)
 			set_volume(sc->sc_volume_wanted);
 #endif
 			sc->sc_volume = sc->sc_volume_wanted;
+		}
+
+		if (sc->sc_pswitch_pending) {
+			sc->sc_pswitch_pending = 0;
+			sysmon_pswitch_event(&sc->sc_lidswitch, 
+	    		    sc->sc_lid_closed ? PSWITCH_EVENT_PRESSED : 
+			    PSWITCH_EVENT_RELEASED);
 		}
 
 		if (sc->sc_callback != NULL)

@@ -269,6 +269,7 @@ ${_pkg}.pc: ${PKGDIST.${_pkg}}/configure Makefile
 		s,@COMPOSITEEXT_VERSION@,$${_pkg_version%.*},; \
 		s,@DAMAGEEXT_VERSION@,$${_pkg_version%.*},; \
 		s,@FIXESEXT_VERSION@,$${_pkg_version%.*},; \
+		s,@PRESENTEXT_VERSION@,$${_pkg_version%.*},; \
 		s,@RANDR_VERSION@,$${_pkg_version%.*},; \
 		s,@RENDER_VERSION@,$${_pkg_version%.*}," \
 		-e "s,@LIBS@,,; \

@@ -56,7 +56,7 @@
 /pci_machdep.h/1.27/Fri Apr 11 02:03:39 2014/-kk/
 /pmap.h/1.60/Sun Sep 13 01:31:07 2015/-kk/
 /pmc.h/1.1/Wed Aug  7 05:16:11 2002/-kk/
-/proc.h/1.15/Tue Jun  7 10:59:59 2016/-kk/
+/proc.h/1.16/Tue Jun  7 11:14:32 2016/-kk/
 /profile.h/1.6/Sat Jul 20 11:52:22 2002/-kk/
 /promlib.h/1.1/Sat Jul 20 11:52:22 2002/-kk/
 /psl.h/1.57/Tue Jun  7 10:59:59 2016/-kk/

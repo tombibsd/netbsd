@@ -1631,7 +1631,6 @@ void
 ar_summary(int n)
 {
 	time_t secs;
-	int len;
 	char buf[BUFSIZ];
 	char tbuf[MAXPATHLEN/4];	/* XXX silly size! */
 	char s1buf[MAXPATHLEN/8];	/* XXX very silly size! */
@@ -1657,33 +1656,32 @@ ar_summary(int n)
 	 * could have written anything yet.
 	 */
 	if (frmt == NULL && act != COPY) {
-		len = snprintf(buf, sizeof(buf),
+		snprintf(buf, sizeof(buf),
 		    "unknown format, %s skipped in %s\n",
 		    sizefmt(s1buf, sizeof(s1buf), rdcnt),
 		    timefmt(tbuf, sizeof(tbuf), rdcnt, secs, "bytes"));
 		if (n == 0)
 			(void)fprintf(outf, "%s: %s", argv0, buf);
 		else
-			(void)write(STDERR_FILENO, buf, len);
+			(void)write(STDERR_FILENO, buf, strlen(buf));
 		return;
 	}
 
 
 	if (n != 0 && *archd.name) {
-		len = snprintf(buf, sizeof(buf), "Working on `%s' (%s)\n",
+		snprintf(buf, sizeof(buf), "Working on `%s' (%s)\n",
 		    archd.name, sizefmt(s1buf, sizeof(s1buf), archd.sb.st_size));
-		(void)write(STDERR_FILENO, buf, len);
-		len = 0;
+		(void)write(STDERR_FILENO, buf, strlen(buf));
 	}
 
 
 	if (act == COPY) {
-		len = snprintf(buf, sizeof(buf),
+		snprintf(buf, sizeof(buf),
 		    "%lu files in %s\n",
 		    (unsigned long)flcnt,
 		    timefmt(tbuf, sizeof(tbuf), flcnt, secs, "files"));
 	} else {
-		len = snprintf(buf, sizeof(buf),
+		snprintf(buf, sizeof(buf),
 		    "%s vol %d, %lu files, %s read, %s written in %s\n",
 		    frmt->name, arvol-1, (unsigned long)flcnt,
 		    sizefmt(s1buf, sizeof(s1buf), rdcnt),

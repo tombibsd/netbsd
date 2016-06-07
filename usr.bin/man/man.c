@@ -51,7 +51,6 @@ __RCSID("$NetBSD$");
 
 #include <ctype.h>
 #include <err.h>
-#include <errno.h>
 #include <fcntl.h>
 #include <fnmatch.h>
 #include <glob.h>
@@ -160,7 +159,8 @@ main(int argc, char **argv)
 			break;
 		case 'M':
 		case 'P':	/* -P for backward compatibility */
-			m.manpath = strdup(optarg);
+			if ((m.manpath = strdup(optarg)) == NULL)
+				err(EXIT_FAILURE, "malloc failed");
 			break;
 		case 'p':
 			m.getpath = 1;

@@ -530,7 +530,7 @@ libedit_private el_action_t
 ed_start_over(EditLine *el, wint_t c __attribute__((__unused__)))
 {
 
-	ch_reset(el, 0);
+	ch_reset(el);
 	return CC_REFRESH;
 }
 

@@ -236,7 +236,7 @@ intio_map_allocate_region(device_t parent, struct intio_attach_args *ia,
 #endif
 	if (r == 0) {
 		if (flag != INTIO_MAP_ALLOCATE)
-		extent_free(map, ia->ia_addr, ia->ia_size, 0);
+			extent_free(map, ia->ia_addr, ia->ia_size, 0);
 		return 0;
 	}
 

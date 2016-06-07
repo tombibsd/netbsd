@@ -33,7 +33,7 @@
 #include <dns/fixedname.h>
 #include <dns/result.h>
 
-char *progname;
+const char *progname;
 isc_mem_t *mctx;
 
 #define DNSNAMELEN 255

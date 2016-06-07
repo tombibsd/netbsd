@@ -42,8 +42,7 @@ __RCSID("$NetBSD$");
 #endif /* not lint && not SCCSID */
 
 /*
- * read.c: Clean this junk up! This is horrible code.
- *	   Terminal read functions
+ * read.c: Terminal read functions
  */
 #include <ctype.h>
 #include <errno.h>
@@ -57,14 +56,26 @@ __RCSID("$NetBSD$");
 #include "fcns.h"
 #include "read.h"
 
+#define	EL_MAXMACRO	10
+
+struct macros {
+	wchar_t	**macro;
+	int	  level;
+	int	  offset;
+};
+
 struct el_read_t {
+	struct macros	 macros;
 	el_rfunc_t	 read_char;	/* Function to read a character. */
+	int		 read_errno;
 };
 
 static int	read__fixio(int, int);
 static int	read_char(EditLine *, wchar_t *);
 static int	read_getcmd(EditLine *, el_action_t *, wchar_t *);
-static void	read_pop(c_macro_t *);
+static void	read_clearmacros(struct macros *);
+static void	read_pop(struct macros *);
+static const wchar_t *noedit_wgets(EditLine *, int *);
 
 /* read_init():
  *	Initialize the read stuff
@@ -72,13 +83,35 @@ static void	read_pop(c_macro_t *);
 libedit_private int
 read_init(EditLine *el)
 {
+	struct macros *ma;
+
 	if ((el->el_read = el_malloc(sizeof(*el->el_read))) == NULL)
 		return -1;
+
+	ma = &el->el_read->macros;
+	if ((ma->macro = el_malloc(EL_MAXMACRO *
+	    sizeof(*ma->macro))) == NULL) {
+		free(el->el_read);
+		return -1;
+	}
+	ma->level = -1;
+	ma->offset = 0;
+
 	/* builtin read_char */
 	el->el_read->read_char = read_char;
 	return 0;
 }
 
+/* el_read_end():
+ *	Free the data structures used by the read stuff.
+ */
+libedit_private void
+read_end(struct el_read_t *el_read)
+{
+	read_clearmacros(&el_read->macros);
+	el_free(el_read->macros.macro);
+	el_read->macros.macro = NULL;
+}
 
 /* el_read_setfn():
  *	Set the read char function to the one provided.
@@ -102,25 +135,6 @@ el_read_getfn(struct el_read_t *el_read)
        return el_read->read_char == read_char ?
 	    EL_BUILTIN_GETCFN : el_read->read_char;
 }
-
-
-#ifdef DEBUG_EDIT
-static void
-read_debug(EditLine *el)
-{
-
-	if (el->el_line.cursor > el->el_line.lastchar)
-		(void) fprintf(el->el_errfile, "cursor > lastchar\r\n");
-	if (el->el_line.cursor < el->el_line.buffer)
-		(void) fprintf(el->el_errfile, "cursor < buffer\r\n");
-	if (el->el_line.cursor > el->el_line.limit)
-		(void) fprintf(el->el_errfile, "cursor > limit\r\n");
-	if (el->el_line.lastchar > el->el_line.limit)
-		(void) fprintf(el->el_errfile, "lastchar > limit\r\n");
-	if (el->el_line.limit != &el->el_line.buffer[EL_BUFSIZ - 2])
-		(void) fprintf(el->el_errfile, "limit != &buffer[EL_BUFSIZ-2]\r\n");
-}
-#endif /* DEBUG_EDIT */
 
 
 /* read__fixio():
@@ -191,7 +205,7 @@ read__fixio(int fd __attribute__((__unused__)), int e)
 void
 el_wpush(EditLine *el, const wchar_t *str)
 {
-	c_macro_t *ma = &el->el_chared.c_macro;
+	struct macros *ma = &el->el_read->macros;
 
 	if (str != NULL && ma->level + 1 < EL_MAXMACRO) {
 		ma->level++;
@@ -216,12 +230,9 @@ read_getcmd(EditLine *el, el_action_t *cmdnum, wchar_t *ch)
 	el_action_t cmd;
 	int num;
 
-	el->el_errno = 0;
 	do {
-		if ((num = el_wgetc(el, ch)) != 1) {/* if EOF or error */
-			el->el_errno = num == 0 ? 0 : errno;
+		if ((num = el_wgetc(el, ch)) != 1)
 			return -1;
-		}
 
 #ifdef	KANJI
 		if ((*ch & meta)) {
@@ -248,13 +259,13 @@ read_getcmd(EditLine *el, el_action_t *cmdnum, wchar_t *ch)
 			case XK_STR:
 				el_wpush(el, val.str);
 				break;
+			case XK_NOD:
+				return -1;
 			default:
 				EL_ABORT((el->el_errfile, "Bad XK_ type \n"));
 				break;
 			}
 		}
-		if (el->el_map.alt == NULL)
-			el->el_map.current = el->el_map.key;
 	} while (cmd == ED_SEQUENCE_LEAD_IN);
 	*cmdnum = cmd;
 	return 0;
@@ -348,7 +359,7 @@ read_char(EditLine *el, wchar_t *cp)
  *	Pop a macro from the stack
  */
 static void
-read_pop(c_macro_t *ma)
+read_pop(struct macros *ma)
 {
 	int i;
 
@@ -359,14 +370,22 @@ read_pop(c_macro_t *ma)
 	ma->offset = 0;
 }
 
+static void
+read_clearmacros(struct macros *ma)
+{
+	while (ma->level >= 0)
+		el_free(ma->macro[ma->level--]);
+	ma->offset = 0;
+}
+
 /* el_wgetc():
  *	Read a wide character
  */
 int
 el_wgetc(EditLine *el, wchar_t *cp)
 {
+	struct macros *ma = &el->el_read->macros;
 	int num_read;
-	c_macro_t *ma = &el->el_chared.c_macro;
 
 	terminal__flush(el);
 	for (;;) {
@@ -388,21 +407,19 @@ el_wgetc(EditLine *el, wchar_t *cp)
 		return 1;
 	}
 
-#ifdef DEBUG_READ
-	(void) fprintf(el->el_errfile, "Turning raw mode on\n");
-#endif /* DEBUG_READ */
 	if (tty_rawmode(el) < 0)/* make sure the tty is set up correctly */
 		return 0;
 
-#ifdef DEBUG_READ
-	(void) fprintf(el->el_errfile, "Reading a character\n");
-#endif /* DEBUG_READ */
 	num_read = (*el->el_read->read_char)(el, cp);
+
+	/*
+	 * Remember the original reason of a read failure
+	 * such that el_wgets() can restore it after doing
+	 * various cleanup operation that might change errno.
+	 */
 	if (num_read < 0)
-		el->el_errno = errno;
-#ifdef DEBUG_READ
-	(void) fprintf(el->el_errfile, "Got it %lc\n", *cp);
-#endif /* DEBUG_READ */
+		el->el_read->read_errno = errno;
+
 	return num_read;
 }
 
@@ -420,7 +437,7 @@ read_prepare(EditLine *el)
 	   we have the wrong size. */
 	el_resize(el);
 	re_clear_display(el);	/* reset the display stuff */
-	ch_reset(el, 0);
+	ch_reset(el);
 	re_refresh(el);		/* print the prompt */
 
 	if (el->el_flags & UNBUFFERED)
@@ -436,52 +453,51 @@ read_finish(EditLine *el)
 		sig_clr(el);
 }
 
+static const wchar_t *
+noedit_wgets(EditLine *el, int *nread)
+{
+	el_line_t	*lp = &el->el_line;
+	int		 num;
+
+	while ((num = (*el->el_read->read_char)(el, lp->lastchar)) == 1) {
+		if (lp->lastchar + 1 >= lp->limit &&
+		    !ch_enlargebufs(el, (size_t)2))
+			break;
+		lp->lastchar++;
+		if (el->el_flags & UNBUFFERED ||
+		    lp->lastchar[-1] == '\r' ||
+		    lp->lastchar[-1] == '\n')
+			break;
+	}
+	if (num == -1 && errno == EINTR)
+		lp->lastchar = lp->buffer;
+	lp->cursor = lp->lastchar;
+	*lp->lastchar = '\0';
+	*nread = (int)(lp->lastchar - lp->buffer);
+	return *nread ? lp->buffer : NULL;
+}
+
 const wchar_t *
 el_wgets(EditLine *el, int *nread)
 {
 	int retval;
 	el_action_t cmdnum = 0;
 	int num;		/* how many chars we have read at NL */
-	wchar_t wc;
-	wchar_t ch, *cp;
-	int crlf = 0;
+	wchar_t ch;
 	int nrb;
 
 	if (nread == NULL)
 		nread = &nrb;
 	*nread = 0;
+	el->el_read->read_errno = 0;
 
 	if (el->el_flags & NO_TTY) {
-		size_t idx;
-
-		cp = el->el_line.buffer;
-		while ((num = (*el->el_read->read_char)(el, &wc)) == 1) {
-			*cp = wc;
-			/* make sure there is space for next character */
-			if (cp + 1 >= el->el_line.limit) {
-				idx = (size_t)(cp - el->el_line.buffer);
-				if (!ch_enlargebufs(el, (size_t)2))
-					break;
-				cp = &el->el_line.buffer[idx];
-			}
-			cp++;
-			if (el->el_flags & UNBUFFERED)
-				break;
-			if (cp[-1] == '\r' || cp[-1] == '\n')
-				break;
-		}
-		if (num == -1) {
-			if (errno == EINTR)
-				cp = el->el_line.buffer;
-			el->el_errno = errno;
-		}
-
-		goto noedit;
+		el->el_line.lastchar = el->el_line.buffer;
+		return noedit_wgets(el, nread);
 	}
 
-
 #ifdef FIONREAD
-	if (el->el_tty.t_mode == EX_IO && el->el_chared.c_macro.level < 0) {
+	if (el->el_tty.t_mode == EX_IO && el->el_read->macros.level < 0) {
 		int chrs = 0;
 
 		(void) ioctl(el->el_infd, FIONREAD, &chrs);
@@ -499,81 +515,19 @@ el_wgets(EditLine *el, int *nread)
 		read_prepare(el);
 
 	if (el->el_flags & EDIT_DISABLED) {
-		size_t idx;
-
 		if ((el->el_flags & UNBUFFERED) == 0)
-			cp = el->el_line.buffer;
-		else
-			cp = el->el_line.lastchar;
-
+			el->el_line.lastchar = el->el_line.buffer;
 		terminal__flush(el);
-
-		while ((num = (*el->el_read->read_char)(el, &wc)) == 1) {
-			*cp = wc;
-			/* make sure there is space next character */
-			if (cp + 1 >= el->el_line.limit) {
-				idx = (size_t)(cp - el->el_line.buffer);
-				if (!ch_enlargebufs(el, (size_t)2))
-					break;
-				cp = &el->el_line.buffer[idx];
-			}
-			cp++;
-			crlf = cp[-1] == '\r' || cp[-1] == '\n';
-			if (el->el_flags & UNBUFFERED)
-				break;
-			if (crlf)
-				break;
-		}
-
-		if (num == -1) {
-			if (errno == EINTR)
-				cp = el->el_line.buffer;
-			el->el_errno = errno;
-		}
-
-		goto noedit;
+		return noedit_wgets(el, nread);
 	}
 
 	for (num = -1; num == -1;) {  /* while still editing this line */
-#ifdef DEBUG_EDIT
-		read_debug(el);
-#endif /* DEBUG_EDIT */
 		/* if EOF or error */
-		if (read_getcmd(el, &cmdnum, &ch) == -1) {
-#ifdef DEBUG_READ
-			(void) fprintf(el->el_errfile,
-			    "Returning from el_gets\n");
-#endif /* DEBUG_READ */
+		if (read_getcmd(el, &cmdnum, &ch) == -1)
 			break;
-		}
-		if (el->el_errno == EINTR) {
-			el->el_line.buffer[0] = '\0';
-			el->el_line.lastchar =
-			    el->el_line.cursor = el->el_line.buffer;
-			break;
-		}
-		if ((size_t)cmdnum >= el->el_map.nfunc) {	/* BUG CHECK command */
-#ifdef DEBUG_EDIT
-			(void) fprintf(el->el_errfile,
-			    "ERROR: illegal command from key 0%o\r\n", ch);
-#endif /* DEBUG_EDIT */
+		if ((size_t)cmdnum >= el->el_map.nfunc) /* BUG CHECK command */
 			continue;	/* try again */
-		}
 		/* now do the real command */
-#ifdef DEBUG_READ
-		{
-			el_bindings_t *b;
-			for (b = el->el_map.help; b->name; b++)
-				if (b->func == cmdnum)
-					break;
-			if (b->name)
-				(void) fprintf(el->el_errfile,
-				    "Executing %ls\n", b->name);
-			else
-				(void) fprintf(el->el_errfile,
-				    "Error command = %d\n", cmdnum);
-		}
-#endif /* DEBUG_READ */
 		/* vi redo needs these way down the levels... */
 		el->el_state.thiscmd = cmdnum;
 		el->el_state.thisch = ch;
@@ -588,10 +542,6 @@ el_wgets(EditLine *el, int *nread)
 				*el->el_chared.c_redo.pos++ = ch;
 		}
 		retval = (*el->el_map.func[cmdnum]) (el, ch);
-#ifdef DEBUG_READ
-		(void) fprintf(el->el_errfile,
-			"Returned state %d\n", retval );
-#endif /* DEBUG_READ */
 
 		/* save the last command here */
 		el->el_state.lastcmd = cmdnum;
@@ -638,22 +588,15 @@ el_wgets(EditLine *el, int *nread)
 			break;
 
 		case CC_FATAL:	/* fatal error, reset to known state */
-#ifdef DEBUG_READ
-			(void) fprintf(el->el_errfile,
-			    "*** editor fatal ERROR ***\r\n\n");
-#endif /* DEBUG_READ */
 			/* put (real) cursor in a known place */
 			re_clear_display(el);	/* reset the display stuff */
-			ch_reset(el, 1);	/* reset the input pointers */
+			ch_reset(el);	/* reset the input pointers */
+			read_clearmacros(&el->el_read->macros);
 			re_refresh(el); /* print the prompt again */
 			break;
 
 		case CC_ERROR:
 		default:	/* functions we don't know about */
-#ifdef DEBUG_READ
-			(void) fprintf(el->el_errfile,
-			    "*** editor ERROR ***\r\n\n");
-#endif /* DEBUG_READ */
 			terminal_beep(el);
 			terminal__flush(el);
 			break;
@@ -670,19 +613,14 @@ el_wgets(EditLine *el, int *nread)
 	if ((el->el_flags & UNBUFFERED) == 0) {
 		read_finish(el);
 		*nread = num != -1 ? num : 0;
-	} else {
+	} else
 		*nread = (int)(el->el_line.lastchar - el->el_line.buffer);
-	}
-	goto done;
-noedit:
-	el->el_line.cursor = el->el_line.lastchar = cp;
-	*cp = '\0';
-	*nread = (int)(el->el_line.cursor - el->el_line.buffer);
-done:
+
 	if (*nread == 0) {
 		if (num == -1) {
 			*nread = -1;
-			errno = el->el_errno;
+			if (el->el_read->read_errno)
+				errno = el->el_read->read_errno;
 		}
 		return NULL;
 	} else

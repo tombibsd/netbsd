@@ -35,5 +35,6 @@
 
 #define SLJIT_CACHE_FLUSH(from, to) \
 	sparc_cache_flush((sljit_ins *)(from), (sljit_ins *)(to))
+#define SLJIT_CACHE_FLUSH_OWN_IMPL 1
 
 #endif

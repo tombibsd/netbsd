@@ -902,6 +902,7 @@ load_feedback_profile(struct pfctl *pf, struct superblocks *superblocks)
 		pr.nr = nr;
 		if (ioctl(pf->dev, DIOCGETRULE, &pr)) {
 			warn("DIOCGETRULES");
+			free(por);
 			return (1);
 		}
 		memcpy(&por->por_rule, &pr.rule, sizeof(por->por_rule));

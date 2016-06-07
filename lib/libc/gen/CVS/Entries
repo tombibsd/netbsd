@@ -95,7 +95,7 @@
 /ftok.3/1.18/Tue Mar 25 02:35:03 2014/-kk/
 /ftok.c/1.11/Tue Mar 20 16:36:05 2012/-kk/
 /fts.3/1.31/Thu Oct 24 10:28:53 2013/-kk/
-/fts.c/1.48/Thu Feb  5 08:40:46 2015/-kk/
+/fts.c/1.49/Tue Jun  7 11:13:42 2016/-kk/
 /ftw.3/1.5/Fri Apr 30 04:39:16 2010/-kk/
 /ftw.c/1.1/Fri Dec 30 23:07:32 2005/-kk/
 /getbsize.3/1.9/Thu Aug  7 16:42:48 2003/-kk/
@@ -123,7 +123,7 @@
 /getmntinfo.3/1.15/Wed May  5 08:48:36 2004/-kk/
 /getmntinfo.c/1.17/Tue Mar 20 16:36:05 2012/-kk/
 /getnetgrent.3/1.12/Thu Aug  7 16:42:50 2003/-kk/
-/getnetgrent.c/1.42/Tue Mar 20 16:36:05 2012/-kk/
+/getnetgrent.c/1.43/Tue Jun  7 11:13:42 2016/-kk/
 /getpagesize.3/1.12/Thu Aug  7 16:42:50 2003/-kk/
 /getpagesize.c/1.11/Sun Jun 24 15:26:03 2012/-kk/
 /getpass.3/1.22/Sat Apr 14 10:34:29 2012/-kk/

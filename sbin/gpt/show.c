@@ -114,7 +114,12 @@ print_part_type(int map_type, int flags, void *map_data, off_t map_start)
 			if (map_start == p->map_start + start)
 				break;
 		}
-		printf("%d", mbr->mbr_part[i].part_typ);
+		if (i == 4) {
+			/* wasn't there */
+			printf("[partition not found?]");
+		} else {
+			printf("%d", mbr->mbr_part[i].part_typ);
+		}
 		break;
 	case MAP_TYPE_GPT_PART:
 		printf("GPT part ");

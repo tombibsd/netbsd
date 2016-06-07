@@ -1,7 +1,7 @@
 /Makefile.inc/1.2/Sun Jul  2 17:28:11 2006/-kk/
 /bcache.c/1.5/Mon Oct 26 19:16:56 2009/-kk/
 /bitstring.h/1.2/Sat Apr 22 07:58:53 2006/-kk/
-/boot.c/1.7/Sat Apr 19 05:36:48 2014/-kk/
+/boot.c/1.8/Tue Jun  7 11:14:28 2016/-kk/
 /bootstrap.h/1.9/Fri Apr 11 02:03:31 2014/-kk/
 /calloc.c/1.2/Wed Mar 18 16:00:12 2009/-kk/
 /commands.c/1.5/Sat Apr 19 05:36:48 2014/-kk/

@@ -46,13 +46,20 @@ static void
 feedrandom(size_t bytes, void *cookie __unused)
 {
 	uint8_t *rnddata;
-	size_t dsize;
+	size_t n, nread;
 
 	rnddata = kmem_intr_alloc(MAXGET, KM_SLEEP);
-	if (rumpuser_getrandom(rnddata, MIN(MAXGET, bytes),
-	    RUMPUSER_RANDOM_HARD|RUMPUSER_RANDOM_NOWAIT, &dsize) == 0) {
+	n = 0;
+	while (n < MIN(MAXGET, bytes)) {
+		if (rumpuser_getrandom(rnddata + n, MIN(MAXGET, bytes) - n,
+			RUMPUSER_RANDOM_HARD|RUMPUSER_RANDOM_NOWAIT, &nread)
+		    != 0)
+			break;
+		n += MIN(nread, MIN(MAXGET, bytes) - n);
+	}
+	if (n) {
 		mutex_enter(&rndsrc_lock);
-		rnd_add_data_sync(&rndsrc, rnddata, dsize, NBBY*dsize);
+		rnd_add_data_sync(&rndsrc, rnddata, n, NBBY*n);
 		mutex_exit(&rndsrc_lock);
 	}
 	kmem_intr_free(rnddata, MAXGET);

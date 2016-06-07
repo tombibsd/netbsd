@@ -89,7 +89,7 @@ options         DKWEDGE_AUTODISCOVER    # Automatically add dk(4) instances
 options         DKWEDGE_METHOD_GPT      # Supports GPT partitions as wedges
 #options		DKWEDGE_METHOD_BSDLABEL # Support disklabel entries as wedges
 #options		DKWEDGE_METHOD_MBR      # Support MBR partitions as wedges
-options		DKWEDGE_METHOD_APPLE    # Support Apple partitions as wedges
+#options		DKWEDGE_METHOD_APPLE    # Support Apple partitions as wedges
 
 # File systems
 file-system 	FFS		# UFS

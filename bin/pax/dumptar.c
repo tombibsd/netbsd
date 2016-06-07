@@ -30,8 +30,12 @@
  */
 
 #include <stdio.h>
-#include <err.h>
+#include <string.h>
+#include <stdlib.h>
+#include <unistd.h>
 #include <fcntl.h>
+#include <err.h>
+#include <assert.h>
 #include <sys/stat.h>
 #include <sys/mman.h>
 
@@ -39,20 +43,25 @@
 
 #define ussum(a) 1
 
+/*
+ * Ensure null termination.
+ */
 static char *
 buf(const char *p, size_t s)
 {
 	static char buf[1024];
-	(void)snprintf(buf, sizeof(buf), "%s", p);
+
+	assert(s < sizeof(buf));
+	memcpy(buf, p, s);
 	buf[s] = '\0';
 	return buf;
 }
 
-int
+static int
 intarg(const char *p, size_t s)
 {
 	char *ep, *b = buf(p, s);
-	int r = (int)strtol(p, &ep, 8);
+	int r = (int)strtol(b, &ep, 8);
 	return r;
 }
 

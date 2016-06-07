@@ -455,7 +455,9 @@ deliver_irqs(register_t psw, int ipl, void *frame)
 	KASSERT((intrgroups[4].ig_pending_irqs & intrgroups[4].ig_irqsbyipl[ipl]) == 0);
 	KASSERT((intrgroups[5].ig_pending_irqs & intrgroups[5].ig_irqsbyipl[ipl]) == 0);
 	KASSERT((intrgroups[6].ig_pending_irqs & intrgroups[6].ig_irqsbyipl[ipl]) == 0);
+#ifdef OMAP_2430
 	KASSERT((intrgroups[7].ig_pending_irqs & intrgroups[7].ig_irqsbyipl[ipl]) == 0);
+#endif
 	if (frame == NULL)
 		last_delivered_ipl = saved_ipl;
 }

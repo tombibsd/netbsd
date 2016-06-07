@@ -568,6 +568,7 @@ dlz_create(const char *dlzname, unsigned int argc, char *argv[],
 		cd->log(ISC_LOG_ERROR,
 			"DLZ Perl '%s': Missing script argument.",
 			dlzname);
+		free(cd);
 		return (ISC_R_FAILURE);
 	}
 
@@ -575,6 +576,7 @@ dlz_create(const char *dlzname, unsigned int argc, char *argv[],
 		cd->log(ISC_LOG_ERROR,
 			"DLZ Perl '%s': Missing class name argument.",
 			dlzname);
+		free(cd);
 		return (ISC_R_FAILURE);
 	}
 	perl_class_name = argv[2];

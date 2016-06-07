@@ -81,6 +81,7 @@
  *	- Set LED correctly (based on contents in EEPROM)
  *	- Rework how parameters are loaded from the EEPROM.
  *	- Image Unique ID
+ *	- restructure evcnt
  */
 
 #include <sys/cdefs.h>
@@ -5557,11 +5558,8 @@ wm_alloc_txrx_queues(struct wm_softc *sc)
 	for (i = 0; i < sc->sc_nqueues; i++) {
 		struct wm_txqueue *txq = &sc->sc_queue[i].wmq_txq;
 		txq->txq_sc = sc;
-#ifdef WM_MPSAFE
 		txq->txq_lock = mutex_obj_alloc(MUTEX_DEFAULT, IPL_NET);
-#else
-		txq->txq_lock = NULL;
-#endif
+
 		error = wm_alloc_tx_descs(sc, txq);
 		if (error)
 			break;
@@ -6995,7 +6993,10 @@ wm_txeof(struct wm_softc *sc, struct wm_txqueue *txq)
 	if (sc->sc_stopping)
 		return 0;
 
-	txq->txq_flags &= ~WM_TXQ_NO_SPACE;
+	if ((sc->sc_flags & WM_F_NEWQUEUE) != 0)
+		txq->txq_flags &= ~WM_TXQ_NO_SPACE;
+	else
+		ifp->if_flags &= ~IFF_OACTIVE;
 
 	/*
 	 * Go through the Tx list and free mbufs for those

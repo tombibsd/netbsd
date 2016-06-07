@@ -469,9 +469,11 @@ pm_raid_set_value(menudesc *m, void *arg)
 		case PMR_MENU_NUMROW:
 			process_menu(MENU_ok, deconst(MSG_raid_nomultidim));
 			return 0;
+#if 0 /* notyet */
 			msg_to_show = MSG_raid_numrow_ask;
 			out_var = &(dev_ptr->numRow);
 			break;
+#endif
 		case PMR_MENU_NUMCOL:
 			msg_to_show = MSG_raid_numcol_ask;
 			out_var = &(dev_ptr->numCol);
@@ -1805,6 +1807,7 @@ pm_wedge_create(int num, pm_devs_t **pm_dk)
 		if (! wedges[i].allocated && wedges[i].todel) {
 			hackerr = run_program(RUN_SILENT | RUN_ERROR_OK,
 				"dkctl %s delwedge dk%d", wedges[num].pm->diskdev, i);
+			(void)hackerr; /* XXX */
 			wedges[i].todel = 0;
 		}
 

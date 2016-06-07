@@ -166,8 +166,8 @@ getnetgroup(char **pp)
 #ifdef DEBUG_NG
 	{
 		char buf[1024];
-		(void) fprintf(stderr, "netgroup %s\n",
-		    _ng_print(buf, sizeof(buf), ng));
+		_ng_print(buf, sizeof(buf), ng);
+		(void) fprintf(stderr, "netgroup %s\n", buf);
 	}
 #endif
 	return ng;

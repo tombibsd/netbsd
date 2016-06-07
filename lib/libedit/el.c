@@ -141,6 +141,7 @@ el_end(EditLine *el)
 	if (!(el->el_flags & NO_TTY))
 		tty_end(el);
 	ch_end(el);
+	read_end(el->el_read);
 	search_end(el);
 	hist_end(el);
 	prompt_end(el);
@@ -165,7 +166,7 @@ el_reset(EditLine *el)
 {
 
 	tty_cookedmode(el);
-	ch_reset(el, 0);		/* XXX: Do we want that? */
+	ch_reset(el);		/* XXX: Do we want that? */
 }
 
 

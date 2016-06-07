@@ -668,7 +668,7 @@ awi_start(struct ifnet *ifp)
 				break;
 			}
 			IF_DEQUEUE(&ic->ic_mgtq, m0);
-			ni = (struct ieee80211_node *)m0->m_pkthdr.rcvif;
+			ni = M_GETCTX(m0, struct ieee80211_node *);
 		} else {
 			if (ic->ic_state != IEEE80211_S_RUN)
 				break;

@@ -223,7 +223,7 @@ copyin_vmspace(struct vmspace *vm, const void *uaddr, void *kaddr, size_t len)
 	uio.uio_resid = len;
 	uio.uio_rw = UIO_READ;
 	UIO_SETUP_SYSSPACE(&uio);
-	error = uvm_io(&vm->vm_map, &uio);
+	error = uvm_io(&vm->vm_map, &uio, 0);
 
 	return (error);
 }
@@ -256,7 +256,7 @@ copyout_vmspace(struct vmspace *vm, const void *kaddr, void *uaddr, size_t len)
 	uio.uio_resid = len;
 	uio.uio_rw = UIO_WRITE;
 	UIO_SETUP_SYSSPACE(&uio);
-	error = uvm_io(&vm->vm_map, &uio);
+	error = uvm_io(&vm->vm_map, &uio, 0);
 
 	return (error);
 }

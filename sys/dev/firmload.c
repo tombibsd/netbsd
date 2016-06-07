@@ -142,8 +142,7 @@ firmware_path_next(const char *drvname, const char *imgname, char *pnbuf,
 	size_t maxprefix, i;
 
 	if (prefix == NULL		/* terminated early */
-	    || *prefix == '\0'		/* no more left */
-	    || *prefix != '/') {	/* not absolute */
+	    || *prefix != '/') {	/* empty or not absolute */
 		*prefixp = NULL;
 	    	return (NULL);
 	}

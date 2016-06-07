@@ -84,7 +84,7 @@ exynos_dwcmmc_attach(device_t parent, device_t self, void *aux)
 	char intrstr[128];
 	bus_addr_t addr;
 	bus_size_t size;
-	u_int bus_width, ciu_div, fifo_depth;
+	u_int ciu_div, fifo_depth;
 	int error;
 
 	if (fdtbus_get_reg(phandle, 0, &addr, &size) != 0) {
@@ -92,9 +92,9 @@ exynos_dwcmmc_attach(device_t parent, device_t self, void *aux)
 		return;
 	}
 
-	if (of_getprop_uint32(phandle, "bus-width", &bus_width)) {
-		bus_width = 4;
-	}
+	//if (of_getprop_uint32(phandle, "bus-width", &bus_width)) {
+	//	bus_width = 4;
+	//}
 	if (of_getprop_uint32(phandle, "fifo-depth", &fifo_depth)) {
 		fifo_depth = 64;
 	}

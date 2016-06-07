@@ -36,7 +36,7 @@
 /GEMINI_INSTALL/1.2/Mon May 19 16:25:47 2014/-kk/
 /GEMINI_MASTER/1.32/Wed Aug 12 04:13:54 2015/-kk/
 /GEMINI_SLAVE/1.33/Sun Sep 13 01:05:48 2015/-kk/
-/GENERIC.common/1.12/Sun Nov 29 09:09:59 2015/-kk/
+/GENERIC.common/1.13/Tue Jun  7 11:14:04 2016/-kk/
 /GENERIC_USERMODE/1.1/Sun Nov 10 20:01:55 2013/-kk/
 /GOLDENGATE/1.12/Wed Aug 12 04:13:54 2015/-kk/
 /GOLDENGATE_INSTALL/1.2/Mon May 19 16:25:47 2014/-kk/
@@ -180,7 +180,7 @@
 /files.overo/1.5/Tue Jun  3 03:09:21 2014/-kk/
 /files.parallella/1.1/Fri Jan 23 12:34:09 2015/-kk/
 /files.rockchip/1.1/Fri Dec 26 16:53:33 2014/-kk/
-/files.rpi/1.7/Sun Oct 19 16:06:33 2014/-kk/
+/files.rpi/1.8/Tue Jun  7 11:14:04 2016/-kk/
 /files.smdk2410/1.5/Sun Dec 11 12:17:07 2005/-kk/
 /files.smdk2800/1.1/Wed Nov 20 18:06:25 2002/-kk/
 /files.tegra/1.2/Fri Dec 25 06:18:09 2015/-kk/

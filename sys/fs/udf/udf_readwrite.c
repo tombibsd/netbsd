@@ -696,6 +696,19 @@ udf_discstrat_queuebuf(struct udf_mount *ump, struct buf *nestbuf)
 
 
 void
+udf_synchronise_caches(struct udf_mount *ump)
+{
+	struct udf_strategy *strategy = ump->strategy;
+	struct udf_strat_args args;
+
+	KASSERT(strategy);
+	args.ump = ump;
+
+	(strategy->sync_caches)(&args);
+}
+
+
+void
 udf_discstrat_init(struct udf_mount *ump)
 {
 	struct udf_strategy *strategy = ump->strategy;

@@ -141,7 +141,7 @@ bootoptions(const char *ap, char *loaddev, char *kernel, char *options)
 		}
 		end1 = ap;
 
-		while (*ap != '\0' && *ap == ' ') {
+		while (*ap == ' ') {
 			ap++;
 		}
 

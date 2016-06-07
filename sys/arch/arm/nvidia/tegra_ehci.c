@@ -126,8 +126,8 @@ tegra_ehci_attach(device_t parent, device_t self, void *aux)
 		return;
 	}
 
-	sc->sc_ih = fdtbus_intr_establish(faa->faa_phandle, 0, IPL_USB, IST_MPSAFE,
-	    ehci_intr, &sc->sc);
+	sc->sc_ih = fdtbus_intr_establish(faa->faa_phandle, 0, IPL_USB,
+	    FDT_INTR_MPSAFE, ehci_intr, &sc->sc);
 	if (sc->sc_ih == NULL) {
 		aprint_error_dev(self, "couldn't establish interrupt on %s\n",
 		    intrstr);

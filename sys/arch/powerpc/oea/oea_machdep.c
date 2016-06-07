@@ -1004,6 +1004,16 @@ oea_startup(const char *model)
 
 	format_bytes(pbuf, sizeof(pbuf), ptoa(uvmexp.free));
 	printf("avail memory = %s\n", pbuf);
+
+#ifdef MULTIPROCESSOR
+	kcpuset_create(&cpuset_info.cpus_running, true);
+	kcpuset_create(&cpuset_info.cpus_hatched, true);
+	kcpuset_create(&cpuset_info.cpus_paused, true);
+	kcpuset_create(&cpuset_info.cpus_resumed, true);
+	kcpuset_create(&cpuset_info.cpus_halted, true);
+
+	kcpuset_set(cpuset_info.cpus_running, cpu_number());
+#endif
 }
 
 /*

@@ -7,6 +7,6 @@ include 	"arch/sparc64/conf/GENERIC32"
 
 #ident		"GENERIC32.UP-$Revision$"
 
-no options 	MULTIPROCESSOR
+no options	MULTIPROCESSOR
 no cpu
-cpu0 	at mainbus0
+cpu0	at mainbus0

@@ -25,7 +25,7 @@
 /bsd.man.mk/1.118/Sun Nov 15 13:35:32 2015/-kk/
 /bsd.nls.mk/1.47/Sat Sep 10 16:57:35 2011/-kk/
 /bsd.obj.mk/1.49/Mon Jan 25 00:43:00 2010/-kk/
-/bsd.own.mk/1.925/Tue Jun  7 10:59:35 2016/-kk/
+/bsd.own.mk/1.927/Tue Jun  7 11:13:56 2016/-kk/
 /bsd.prog.mk/1.299/Tue Jun  7 10:06:18 2016/-kk/
 /bsd.rpc.mk/1.13/Wed Dec 25 07:37:13 2013/-kk/
 /bsd.shlib.mk/1.8/Thu Aug 23 21:21:17 2012/-kk/
@@ -33,6 +33,6 @@
 /bsd.sys.mk/1.258/Tue Jun  7 10:19:10 2016/-kk/
 /bsd.syscall.mk/1.2/Thu Jan 16 01:19:46 2014/-kk/
 /bsd.test.mk/1.24/Thu Oct 24 10:28:54 2013/-kk/
-/bsd.x11.mk/1.118/Tue Jun  7 09:38:40 2016/-kk/
+/bsd.x11.mk/1.119/Tue Jun  7 11:13:56 2016/-kk/
 /sys.mk/1.129/Tue Jun  7 09:52:43 2016/-kk/
 D

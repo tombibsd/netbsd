@@ -2375,3 +2375,9 @@ bozo_setup(bozohttpd_t *httpd, bozoprefs_t *prefs, const char *vhost,
 
 	return 1;
 }
+
+int
+bozo_get_version(char *buf, size_t size)
+{
+	return snprintf(buf, size, "%s", SERVER_SOFTWARE);
+}

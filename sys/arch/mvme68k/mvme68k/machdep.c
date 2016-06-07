@@ -309,6 +309,10 @@ mvme147_init(void)
 		bus_space_write_1(bt, bh, PCCREG_TMR1_CONTROL, PCC_TIMERCLEAR);
 		/* retry! */
 	}
+	/* just in case */
+	if (delay_divisor == 0) {
+		delay_divisor = 1;
+	}
 
 	bus_space_unmap(bt, bh, PCCREG_SIZE);
 

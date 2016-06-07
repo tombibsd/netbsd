@@ -136,16 +136,15 @@ numeric_check_field(FIELD *field, char *args)
 		cur++;
 
 	  /* if not at end of string then check for decimal... */
-	if ((buf[cur] != '\0') && (buf[cur] == '.')) {
+	if (buf[cur] == '.') {
 		cur++;
-		  /* check for more digits now.... */
-		while(isdigit((unsigned char)buf[cur]))
+		/* check for more digits now.... */
+		while (buf[cur] && isdigit((unsigned char)buf[cur]))
 			cur++;
 	}
 	
 	  /* check for an exponent */
-	if ((buf[cur] != '\0') &&
-	    ((buf[cur] == 'E') || (buf[cur] == 'e'))) {
+	if ((buf[cur] == 'E') || (buf[cur] == 'e')) {
 		cur++;
 		if (buf[cur] == '\0')
 			return FALSE;

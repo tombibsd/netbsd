@@ -212,6 +212,25 @@ hypervisor_attach(device_t parent, device_t self, void *aux)
 	aprint_normal(": Xen version %d.%d%s\n", XEN_MAJOR(xen_version),
 		XEN_MINOR(xen_version), xen_extra_version);
 
+	aprint_verbose_dev(self, "features: ");
+#define XEN_TST_F(n) \
+	if (xen_feature(XENFEAT_##n)) \
+		aprint_verbose(" %s", #n);
+
+	XEN_TST_F(writable_page_tables);
+	XEN_TST_F(writable_descriptor_tables);
+	XEN_TST_F(auto_translated_physmap);
+	XEN_TST_F(supervisor_mode_kernel);
+	XEN_TST_F(pae_pgdir_above_4gb);
+	XEN_TST_F(mmu_pt_update_preserve_ad);
+	XEN_TST_F(highmem_assist);
+	XEN_TST_F(gnttab_map_avail_bits);
+	XEN_TST_F(hvm_callback_vector);
+	XEN_TST_F(hvm_safe_pvclock);
+	XEN_TST_F(hvm_pirqs);
+#undef XEN_TST_F
+	aprint_verbose("\n");
+
 	xengnt_init();
 	events_init();
 

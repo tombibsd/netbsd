@@ -6,7 +6,7 @@
 /devsw.c/1.7/Fri Feb 25 18:56:20 2011/-kk/
 /emul.c/1.179/Sun Feb 14 12:55:52 2016/-kk/
 /etfs_wrap.c/1.2/Sun Feb 14 12:55:52 2016/-kk/
-/hyperentropy.c/1.14/Fri Feb 26 18:34:03 2016/-kk/
+/hyperentropy.c/1.15/Tue Jun  7 11:14:54 2016/-kk/
 /intr.c/1.54/Sun Feb 14 12:55:52 2016/-kk/
 /klock.c/1.9/Sun Feb 14 12:55:52 2016/-kk/
 /kobj_rename.c/1.2/Tue May  6 05:50:19 2014/-kk/
@@ -23,7 +23,7 @@
 /rump_lwproc.3/1.2/Thu Apr  2 02:28:09 2015/-kk/
 /rump_private.h/1.94/Sun Feb 14 12:55:52 2016/-kk/
 /rump_syscalls.c/1.128/Tue Jun  7 10:46:40 2016/-kk/
-/rumpcopy.c/1.21/Sun Feb 14 12:55:52 2016/-kk/
+/rumpcopy.c/1.22/Tue Jun  7 11:14:54 2016/-kk/
 /rumpkern.ifspec/1.14/Sun Feb 14 12:55:52 2016/-kk/
 /rumpkern_if_priv.h/1.17/Sun Feb 14 12:55:52 2016/-kk/
 /rumpkern_if_wrappers.c/1.18/Sun Feb 14 12:55:52 2016/-kk/

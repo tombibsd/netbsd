@@ -1460,8 +1460,8 @@ upgt_start(struct ifnet *ifp)
 			/* management frame */
 			IF_DEQUEUE(&ic->ic_mgtq, m);
 
-			ni = (struct ieee80211_node *)m->m_pkthdr.rcvif;
-			m->m_pkthdr.rcvif = NULL;
+			ni = M_GETCTX(m, struct ieee80211_node *);
+			M_CLEARCTX(m);
 
 			bpf_mtap3(ic->ic_rawbpf, m);
 

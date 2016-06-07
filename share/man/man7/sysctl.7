@@ -29,7 +29,7 @@
 .\"
 .\"	@(#)sysctl.3	8.4 (Berkeley) 5/9/95
 .\"
-.Dd March 30, 2016
+.Dd May 31, 2016
 .Dt SYSCTL 7
 .Os
 .Sh NAME
@@ -315,6 +315,7 @@ privilege may change the value.
 .It kern.maxproc	integer	yes
 .It kern.maxptys	integer	yes
 .It kern.maxvnodes	integer	yes
+.It kern.messages	integer yes
 .It kern.mbuf	node	not applicable
 .It kern.memlock	integer	no
 .It kern.memlock_range	integer	no
@@ -456,7 +457,7 @@ Mapping of CPU number to CPU id.
 .It Li kern.cp_time ( Dv KERN_CP_TIME )
 Returns an array of
 .Dv CPUSTATES
-.Vt uint64_t Ns s.
+.Vt uint64_t Ns s .
 This array contains the
 number of clock ticks spent in different CPU states.
 On multi-processor systems, the sum across all CPUs is returned unless
@@ -739,6 +740,18 @@ Returns 1 if the
 .St -p1003.1b-93
 Memory Protection Option is available on this system,
 otherwise\ 0.
+.It Li kern.messages
+Kernel console message verbosity.
+See
+.Sy \<sys/reboot.h\>
+.Bl -column "verbosity" "setting" -offset indent
+.It Sy Verbosity       Setting
+.It \ \ \ \ 0  Silent Sy AB_SILENT
+.It \ \ \ \ 1  Quiet Sy AB_QUIET
+.It \ \ \ \ 2  Normal Sy AB_NORMAL
+.It \ \ \ \ 3  Verbose Sy AB_VERBOSE
+.It \ \ \ \ 4  Debug Sy AB_DEBUG
+.El
 .It Li kern.module
 Settings related to kernel modules.
 The third level names for the settings are described below.
@@ -2414,6 +2427,7 @@ The available third and fourth level names are:
 .\".It Li security.pax.aslr.stack_len	integer	yes
 .It Li security.pax.mprotect.enabled	integer	yes
 .It Li security.pax.mprotect.global	integer	yes
+.It Li security.pax.mprotect.ptrace	integer	yes
 .It Li security.pax.segvguard.enabled	integer	yes
 .It Li security.pax.segvguard.expiry_timeout	integer	yes
 .It Li security.pax.segvguard.global	integer	yes
@@ -2461,6 +2475,19 @@ except those exempted with
 Otherwise, all programs will not get the PaX MPROTECT restrictions,
 except those specifically marked as such with
 .Xr paxctl 8 .
+.It Li security.pax.mprotect.ptrace
+This variable allows
+.Xr ptrace 2
+to override PaX MPROTECT permissions.
+It can have the following values:
+.Bl -tag -width XX -compact
+.It 0
+Does not let override any permissions.
+.It 1
+Disables PaX MPROTECT from processes that start executing while traced (default).
+.It 2
+Bypasses PaX MPROTECT for all processes being traced.
+.El
 .It Li security.pax.segvguard.enabled
 Enable PaX Segvguard.
 .Pp

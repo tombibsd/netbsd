@@ -68,6 +68,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <xen/hypervisor.h>
 #include <xen/shutdown_xenbus.h>
+#include <xen/xen-public/version.h>
 
 #define DPRINTK(x) printk x
 #if 0
@@ -395,4 +396,21 @@ xen_suspend_domain(void)
 	/* xencons is back online, we can print to console */
 	aprint_verbose("domain resumed\n");
 
+}
+
+bool xen_feature_tables[XENFEAT_NR_SUBMAPS * 32];
+
+void
+xen_init_features(void)
+{
+	xen_feature_info_t features;
+
+	for (int sm = 0; sm < XENFEAT_NR_SUBMAPS; sm++) {
+		if (HYPERVISOR_xen_version(XENVER_get_features, &features) < 0)
+			break;
+		for (int f = 0; f < 32; f++) {
+			xen_feature_tables[sm * 32 + f] =
+			    (features.submap & (1 << f)) ? 1 : 0;
+		}
+	}
 }

@@ -54,4 +54,9 @@
 #ifdef COM_16750
 #define com_usr		31	/* status register (R) */
 #endif
-
+#ifdef	COM_AWIN
+#define	com_usr		31	/* status register (R) */
+#define	com_tfl		32	/* transmit fifo level (R) */
+#define	com_rfl		33	/* receive fifo level (R) */
+#define	com_halt	41	/* halt tx (R/W) */
+#endif

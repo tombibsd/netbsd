@@ -2551,6 +2551,7 @@ error(_("can't determine time zone abbreviation to use just after until time"));
 		*/
 		struct rule xr;
 		struct attype *lastat;
+		memset(&xr, 0, sizeof(xr));
 		xr.r_month = TM_JANUARY;
 		xr.r_dycode = DC_DOM;
 		xr.r_dayofmonth = 1;

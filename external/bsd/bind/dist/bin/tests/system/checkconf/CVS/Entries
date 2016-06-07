@@ -28,9 +28,11 @@
 /dnssec.1/1.1.1.4/Thu Dec 11 09:05:46 2014/-kk/
 /dnssec.2/1.1.1.4/Thu Dec 11 09:05:46 2014/-kk/
 /dnssec.3/1.1.1.4/Thu Dec 11 09:05:46 2014/-kk/
+/good-acl.conf/1.1.1.1/Thu May 26 15:45:43 2016/-kk/
 /good-class.conf/1.1.1.1/Thu Dec 17 03:21:55 2015/-kk/
-/good.conf/1.1.1.10/Sat Jul 25 01:18:59 2015/-kk/
+/good.conf/1.1.1.11/Tue Jun  7 11:07:12 2016/-kk/
 /hint-nofile.conf/1.1.1.1/Tue Dec 31 20:10:16 2013/-kk/
+/in-view-good.conf/1.1.1.1/Thu May 26 15:45:43 2016/-kk/
 /inline-bad.conf/1.1.1.1/Tue Dec 31 20:10:16 2013/-kk/
 /inline-good.conf/1.1.1.1/Tue Dec 31 20:10:16 2013/-kk/
 /inline-no.conf/1.1.1.1/Tue Dec 31 20:10:16 2013/-kk/
@@ -39,7 +41,13 @@
 /maxttl-bad.db/1.1.1.1/Fri Feb 28 17:40:07 2014/-kk/
 /maxttl.db/1.1.1.1/Fri Feb 28 17:40:07 2014/-kk/
 /notify.conf/1.1.1.1/Fri Feb 28 17:40:07 2014/-kk/
+/portrange-good.conf/1.1.1.1/Thu May 26 15:45:43 2016/-kk/
 /range.conf/1.1.1.1/Fri Feb 28 17:40:07 2014/-kk/
-/tests.sh/1.1.1.12/Sat Jul 25 01:18:59 2015/-kk/
+/shared.example.db/1.1.1.1/Thu May 26 15:45:43 2016/-kk/
+/tests.sh/1.1.1.13/Tue Jun  7 11:07:12 2016/-kk/
+/view-class-any1.conf/1.1.1.1/Thu May 26 15:45:43 2016/-kk/
+/view-class-any2.conf/1.1.1.1/Thu May 26 15:45:43 2016/-kk/
+/view-class-in1.conf/1.1.1.1/Thu May 26 15:45:43 2016/-kk/
+/view-class-in2.conf/1.1.1.1/Thu May 26 15:45:43 2016/-kk/
 /warn-keydir.conf/1.1.1.1/Fri Feb 28 17:40:07 2014/-kk/
 D

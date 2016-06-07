@@ -2114,7 +2114,7 @@ copy_procargs(struct proc *p, int oid, size_t *limit,
 			auio.uio_resid = xlen;
 			auio.uio_rw = UIO_READ;
 			UIO_SETUP_SYSSPACE(&auio);
-			error = uvm_io(&vmspace->vm_map, &auio);
+			error = uvm_io(&vmspace->vm_map, &auio, 0);
 			if (error)
 				goto done;
 

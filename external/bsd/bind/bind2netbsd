@@ -38,7 +38,7 @@
 #	$ cd src/external/bsd/bind/dist
 #	$ cvs -d cvs.netbsd.org:/cvsroot import -m "Import bind 9.x.y" src/external/bsd/bind/dist ISC bind-9-x-y
 #	$ cd ../../../../../bind-9.x.y
-#	$ run ./configure
+#	$ run ./configure --enable-fetchlimit --enable-sit --enable-fixed-rrset --enable-querytrace
 #	$ run make
 #	- use the binclude4netbsd to create and import the new headers in
 #	  /usr/src/external/bsd/bind/include

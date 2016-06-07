@@ -906,7 +906,7 @@ kobj_checksyms(kobj_t ko, bool undefined)
 		    strcmp(name, "__end") == 0 ||
 		    strcmp(name, "__end__") == 0 ||
 		    strncmp(name, "__start_link_set_", 17) == 0 ||
-		    strncmp(name, "__stop_link_set_", 16)) {
+		    strncmp(name, "__stop_link_set_", 16) == 0) {
 		    	continue;
 		}
 		kobj_error(ko, "global symbol `%s' redefined",

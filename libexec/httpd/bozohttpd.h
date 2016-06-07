@@ -367,4 +367,6 @@ bozoheaders_t *addmerge_replheader(bozo_httpreq_t *, const char *,
 int bozo_set_pref(bozohttpd_t *, bozoprefs_t *, const char *, const char *);
 char *bozo_get_pref(bozoprefs_t *, const char *);
 
+int bozo_get_version(char */*buf*/, size_t /*size*/);
+
 #endif	/* BOZOHTTOPD_H_ */

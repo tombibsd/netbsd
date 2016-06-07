@@ -16,7 +16,7 @@
 /shutdown_xenbus.h/1.5/Sat Jul 28 02:08:50 2012/-kk/
 /vcpuvar.h/1.1/Tue Mar  6 12:35:39 2007/-kk/
 /xbdvar.h/1.17/Wed May 13 03:33:02 2015/-kk/
-/xen.h/1.35/Tue Sep 20 00:12:24 2011/-kk/
+/xen.h/1.36/Tue Jun  7 11:14:33 2016/-kk/
 /xen_shm.h/1.9/Mon Oct 19 18:41:10 2009/-kk/
 /xenbus.h/1.13/Wed Dec  7 15:47:42 2011/-kk/
 /xenfunc.h/1.15/Fri Oct 23 02:32:33 2009/-kk/

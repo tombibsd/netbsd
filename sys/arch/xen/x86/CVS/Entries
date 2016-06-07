@@ -4,7 +4,7 @@
 /hypervisor_machdep.c/1.28/Fri Oct  3 10:05:10 2014/-kk/
 /intr.c/1.29/Sat Aug 13 16:22:15 2011/-kk/
 /mainbus.c/1.18/Fri Mar 14 04:28:18 2014/-kk/
-/x86_xpmap.c/1.53/Mon May 19 16:26:19 2014/-kk/
+/x86_xpmap.c/1.54/Tue Jun  7 11:14:33 2016/-kk/
 /xen_bus_dma.c/1.26/Sat Jun 30 23:36:20 2012/-kk/
 /xen_intr.c/1.9/Fri Jan 16 20:16:47 2009/-kk/
 /xen_ipi.c/1.19/Mon Feb 16 03:14:18 2015/-kk/

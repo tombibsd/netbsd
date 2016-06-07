@@ -26,7 +26,7 @@
 /igmp.c/1.57/Tue Jun  7 10:32:15 2016/-kk/
 /igmp.h/1.12/Tue Jun  3 03:09:59 2014/-kk/
 /igmp_var.h/1.24/Tue Jun  3 03:09:59 2014/-kk/
-/in.c/1.165/Tue Jun  7 10:06:57 2016/-kk/
+/in.c/1.166/Tue Jun  7 11:14:52 2016/-kk/
 /in.h/1.98/Sun Nov 15 13:36:27 2015/-kk/
 /in4_cksum.c/1.20/Tue Dec  9 04:43:55 2014/-kk/
 /in_cksum.c/1.22/Fri Jan 25 21:12:15 2008/-kk/
@@ -86,7 +86,7 @@
 /sctp_input.h/1.1/Tue Oct 13 21:28:35 2015/-kk/
 /sctp_output.c/1.4/Tue Jun  7 11:00:19 2016/-kk/
 /sctp_output.h/1.1/Tue Oct 13 21:28:35 2015/-kk/
-/sctp_pcb.c/1.5/Tue Jun  7 11:00:19 2016/-kk/
+/sctp_pcb.c/1.6/Tue Jun  7 11:14:52 2016/-kk/
 /sctp_pcb.h/1.1/Tue Oct 13 21:28:35 2015/-kk/
 /sctp_peeloff.c/1.2/Tue Jun  7 10:32:16 2016/-kk/
 /sctp_peeloff.h/1.1/Tue Oct 13 21:28:35 2015/-kk/
@@ -96,8 +96,8 @@
 /sctp_uio.h/1.1/Tue Oct 13 21:28:35 2015/-kk/
 /sctp_usrreq.c/1.5/Tue Jun  7 11:00:19 2016/-kk/
 /sctp_var.h/1.1/Tue Oct 13 21:28:35 2015/-kk/
-/sctputil.c/1.7/Tue Jun  7 11:00:19 2016/-kk/
-/sctputil.h/1.1/Tue Oct 13 21:28:35 2015/-kk/
+/sctputil.c/1.8/Tue Jun  7 11:14:52 2016/-kk/
+/sctputil.h/1.2/Tue Jun  7 11:14:52 2016/-kk/
 /tcp.h/1.31/Sat Mar 21 02:21:19 2015/-kk/
 /tcp_congctl.c/1.21/Tue Jun  7 10:32:16 2016/-kk/
 /tcp_congctl.h/1.7/Mon Nov 18 05:31:47 2013/-kk/

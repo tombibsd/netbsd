@@ -103,15 +103,7 @@ openpic_send_ipi(cpuid_t target, uint32_t mesg)
 static void
 openpic_establish_ipi(int type, int level, void *ih_args)
 {
-/*
- * XXX
- * for now we catch IPIs early in pic_handle_intr() so no need to do anything
- * here
- */
-#if 0
-	intr_establish(ipiops.ppc_ipi_vector, type, level, ppcipi_intr,
-	    ih_args);
-#endif
+	intr_establish(ipiops.ppc_ipi_vector, type, level, ipi_intr, ih_args);
 }
 
 #endif /*MULTIPROCESSOR*/

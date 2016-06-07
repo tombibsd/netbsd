@@ -51,7 +51,7 @@ optstr_get(const char *optstr, const char *key, char *buf, size_t bufsize)
 	found = false;
 
 	/* Skip any initial spaces until we find a word. */
-	while (*optstr == ' ' && *optstr != '\0')
+	while (*optstr == ' ')
 		optstr++;
 
 	/* Search for the given key within the option string. */
@@ -73,7 +73,7 @@ optstr_get(const char *optstr, const char *key, char *buf, size_t bufsize)
 				optstr++;
 
 			/* And now skip until next word. */
-			while (*optstr == ' ' && *optstr != '\0')
+			while (*optstr == ' ')
 				optstr++;
 		}
 	}

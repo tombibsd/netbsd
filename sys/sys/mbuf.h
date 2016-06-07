@@ -715,6 +715,7 @@ do {									\
  */
 #define	M_GETCTX(m, t)		((t)(m)->m_pkthdr.rcvif)
 #define	M_SETCTX(m, c)		((void)((m)->m_pkthdr.rcvif = (void *)(c)))
+#define	M_CLEARCTX(m)		M_SETCTX((m), NULL)
 
 #endif /* defined(_KERNEL) */
 

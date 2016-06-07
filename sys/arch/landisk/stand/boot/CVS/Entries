@@ -7,7 +7,7 @@
 /biosdisk_ll.h/1.1/Fri Sep  1 21:26:18 2006/-kk/
 /boot.S/1.1/Fri Sep  1 21:26:18 2006/-kk/
 /boot.h/1.1/Fri Sep  1 21:26:18 2006/-kk/
-/boot2.c/1.4/Fri Apr 11 02:03:31 2014/-kk/
+/boot2.c/1.5/Tue Jun  7 11:14:28 2016/-kk/
 /boot_params.S/1.1/Fri Sep  1 21:26:18 2006/-kk/
 /bootinfo.c/1.1/Fri Sep  1 21:26:18 2006/-kk/
 /bootinfo.h/1.1/Fri Sep  1 21:26:18 2006/-kk/

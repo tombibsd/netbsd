@@ -180,7 +180,7 @@ kcopy(const void *src, void *dst, size_t len)
  * i.e. the current thread does not have an appropriate vm context.
  */
 int
-uvm_io(struct vm_map *vm, struct uio *uio)
+uvm_io(struct vm_map *vm, struct uio *uio, int flag)
 {
 	int error = 0;
 

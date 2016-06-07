@@ -220,16 +220,21 @@
  * Each entry is 8 (PDE_SIZE) bytes long: we must set the 4 upper bytes to 0.
  */
 #define fillkpt	\
+	cmpl	$0,%ecx			;	/* zero-sized? */	\
+	je 	2f			; \
 1:	movl	$0,(PDE_SIZE-4)(%ebx)	;	/* upper 32 bits: 0 */	\
 	movl	%eax,(%ebx)		;	/* store phys addr */	\
 	addl	$PDE_SIZE,%ebx		;	/* next PTE/PDE */	\
 	addl	$PAGE_SIZE,%eax		;	/* next phys page */	\
-	loop	1b			;
+	loop	1b			; \
+2:					;
 
 /*
  * fillkpt_nox - Same as fillkpt, but sets the NX/XD bit.
  */
 #define fillkpt_nox \
+	cmpl	$0,%ecx			;	/* zero-sized? */	\
+	je 	2f			; \
 	pushl	%ebp			; \
 	movl	RELOC(nox_flag),%ebp	; \
 1:	movl	%ebp,(PDE_SIZE-4)(%ebx)	;	/* upper 32 bits: NX */ \
@@ -237,7 +242,22 @@
 	addl	$PDE_SIZE,%ebx		;	/* next PTE/PDE */	\
 	addl	$PAGE_SIZE,%eax		;	/* next phys page */	\
 	loop	1b			; \
-	popl	%ebp			;
+	popl	%ebp			; \
+2:					;
+
+/*
+ * fillkpt_blank - Fill in a kernel page table with blank entries
+ *	ebx = page table address
+ *	ecx = number of pages to map
+ */
+#define fillkpt_blank	\
+	cmpl	$0,%ecx			;	/* zero-sized? */	\
+	je 	2f			; \
+1:	movl	$0,(PDE_SIZE-4)(%ebx)	;	/* upper 32 bits: 0 */	\
+	movl	$0,(%ebx)		;	/* lower 32 bits: 0 */	\
+	addl	$PDE_SIZE,%ebx		;	/* next PTE/PDE */	\
+	loop	1b			; \
+2:					;
 
 /*
  * killkpt - Destroy a kernel page table (long mode)
@@ -251,21 +271,41 @@
 
 
 #ifdef XEN
+#define __ASSEMBLY__
+#include <xen/xen-public/elfnote.h>
+#include <xen/xen-public/xen.h>
+#define ELFNOTE(name, type, desctype, descdata...) \
+.pushsection .note.name			;	\
+  .align 4				;	\
+  .long 2f - 1f		/* namesz */	;	\
+  .long 4f - 3f		/* descsz */	;	\
+  .long type				;	\
+1:.asciz #name				;	\
+2:.align 4				;	\
+3:desctype descdata			;	\
+4:.align 4				;	\
+.popsection
+
 /*
  * Xen guest identifier and loader selection
  */
 .section __xen_guest
-	.ascii	"GUEST_OS=NetBSD,GUEST_VER=4.99"
-	.ascii	",XEN_VER=xen-3.0"
-	.ascii	",LOADER=generic"
-	.ascii	",VIRT_BASE=0xffffffff80000000"
-	.ascii	",ELF_PADDR_OFFSET=0xffffffff80000000"
-	.ascii	",VIRT_ENTRY=0xffffffff80100000"
-	.ascii	",HYPERCALL_PAGE=0x00000101" /*  (???+HYPERCALL_PAGE_OFFSET)/PAGE_SIZE) */
+	ELFNOTE(Xen, XEN_ELFNOTE_GUEST_OS,       .asciz, "NetBSD")
+	ELFNOTE(Xen, XEN_ELFNOTE_GUEST_VERSION,  .asciz, "4.99")
+	ELFNOTE(Xen, XEN_ELFNOTE_XEN_VERSION,    .asciz, "xen-3.0")
+	ELFNOTE(Xen, XEN_ELFNOTE_VIRT_BASE,      .quad,  KERNBASE)
+	ELFNOTE(Xen, XEN_ELFNOTE_PADDR_OFFSET,   .quad,  KERNBASE)
+	ELFNOTE(Xen, XEN_ELFNOTE_ENTRY,          .quad,  start)
+	ELFNOTE(Xen, XEN_ELFNOTE_HYPERCALL_PAGE, .quad,  hypercall_page)
+	ELFNOTE(Xen, XEN_ELFNOTE_HV_START_LOW,   .quad,  HYPERVISOR_VIRT_START)
+	ELFNOTE(Xen, XEN_ELFNOTE_FEATURES,       .asciz, "")
+	ELFNOTE(Xen, XEN_ELFNOTE_PAE_MODE,       .asciz, "yes")
+	ELFNOTE(Xen, XEN_ELFNOTE_L1_MFN_VALID,   .long,  PG_V, PG_V)\
+	ELFNOTE(Xen, XEN_ELFNOTE_LOADER,         .asciz, "generic")     
+	ELFNOTE(Xen, XEN_ELFNOTE_SUSPEND_CANCEL, .long,  0)
 #if NKSYMS > 0 || defined(DDB) || defined(MODULAR)
-	.ascii	",BSD_SYMTAB=yes"
+	ELFNOTE(Xen, XEN_ELFNOTE_BSD_SYMTAB,     .asciz, "yes")
 #endif
-	.byte	0
 #endif	/* XEN */
 
 /*
@@ -302,6 +342,7 @@ _C_LABEL(lapic_isr):
 END(lapic_isr)
 #endif /* NLAPIC > 0 */
 
+	.globl	_C_LABEL(tablesize)
 	.globl	_C_LABEL(nox_flag)
 	.globl	_C_LABEL(cpuid_level)
 	.globl	_C_LABEL(esym)
@@ -315,6 +356,9 @@ END(lapic_isr)
 	.globl	_C_LABEL(gdtstore)
 	.globl	_C_LABEL(cputype)
 
+	.type	_C_LABEL(tablesize), @object
+_C_LABEL(tablesize):	.long	TABLESIZE
+END(tablesize)
 	.type	_C_LABEL(nox_flag), @object
 LABEL(nox_flag)		.long	0	/* 32bit NOX flag, set if supported */
 END(nox_flag)
@@ -606,6 +650,11 @@ no_NOX:
 	addl	$PGOFSET,%esi
 	andl	$~PGOFSET,%esi
 
+	/* We are on the BOOTSTRAP TABLES. Save L4's physical address. */
+	movl	$RELOC(PDPpaddr),%ebp
+	movl	%esi,(%ebp)
+	movl	$0,4(%ebp)
+
 	/* Now, zero out the BOOTSTRAP TABLES (before filling them in). */
 	movl	%esi,%edi
 	xorl	%eax,%eax
@@ -626,12 +675,12 @@ no_NOX:
 	leal	(PROC0_PTP1_OFF)(%esi),%ebx
 
 	/* Skip the first MB. */
-	movl	$(KERNTEXTOFF_LO - KERNBASE_LO),%eax
-	movl	%eax,%ecx
-	shrl	$(PGSHIFT-3),%ecx	/* ((n >> PGSHIFT) << 3) for # PDEs */
-	addl	%ecx,%ebx
+	movl	$(KERNTEXTOFF_LO - KERNBASE_LO),%ecx
+	shrl	$PGSHIFT,%ecx
+	fillkpt_blank
 
 	/* Map the kernel text RX. */
+	movl	$(KERNTEXTOFF_LO - KERNBASE_LO),%eax	/* start of TEXT */
 	movl	$RELOC(__rodata_start),%ecx
 	subl	%eax,%ecx
 	shrl	$PGSHIFT,%ecx
@@ -732,11 +781,6 @@ no_NOX:
 	orl	$(PG_V|PG_KW),%eax
 	movl	%eax,(%ebx)
 	movl	$0,(PDE_SIZE-4)(%ebx)
-
-	/* Save physical address of L4. */
-	movl	$RELOC(PDPpaddr),%ebp
-	movl	%esi,(%ebp)
-	movl	$0,(PDE_SIZE-4)(%ebp)
 
 	/*
 	 * Startup checklist:

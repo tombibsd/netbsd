@@ -1,9 +1,9 @@
-# 	$NetBSD$
+#	$NetBSD$
 
-include "arch/sparc64/conf/NONPLUS64"
-include "arch/sparc64/conf/std.sparc64-32"
+include 	"arch/sparc64/conf/NONPLUS64"
+include 	"arch/sparc64/conf/std.sparc64-32"
 
-#ident 		"NONPLUS-$Revision$"
+#ident		"NONPLUS-$Revision$"
 
-no options 	COMPAT_NETBSD32	# NetBSD/sparc binary compatibility
-no options 	COMPAT_SVR4_32	# 32-bit SVR4 binaries
+no options	COMPAT_NETBSD32	# NetBSD/sparc binary compatibility
+no options	COMPAT_SVR4_32	# 32-bit SVR4 binaries

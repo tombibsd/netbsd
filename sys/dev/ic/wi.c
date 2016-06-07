@@ -1106,8 +1106,8 @@ wi_start(struct ifnet *ifp)
 			    (void *)&frmhdr.wi_ehdr);
 			frmhdr.wi_ehdr.ether_type = 0;
                         wh = mtod(m0, struct ieee80211_frame *);
-			ni = (struct ieee80211_node *)m0->m_pkthdr.rcvif;
-			m0->m_pkthdr.rcvif = NULL;
+			ni = M_GETCTX(m0, struct ieee80211_node *);
+			M_CLEARCTX(m0);
 		} else if (ic->ic_state == IEEE80211_S_RUN) {
 			IFQ_POLL(&ifp->if_snd, m0);
 			if (m0 == NULL)

@@ -157,7 +157,7 @@ static void	in_sysctl_init(struct sysctllog **);
 #endif
 
 #ifndef HOSTZEROBROADCAST
-#define HOSTZEROBROADCAST 1
+#define HOSTZEROBROADCAST 0
 #endif
 
 /* Note: 61, 127, 251, 509, 1021, 2039 are good. */

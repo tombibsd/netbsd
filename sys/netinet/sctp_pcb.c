@@ -2899,6 +2899,7 @@ sctp_free_remote_addr(struct sctp_nets *net)
 		callout_destroy(&net->rxt_timer.timer);
 		callout_destroy(&net->pmtu_timer.timer);
 		net->dest_state = SCTP_ADDR_NOT_REACHABLE;
+		rtcache_free(&net->ro);
 		SCTP_ZONE_FREE(sctppcbinfo.ipi_zone_net, net);
 		sctppcbinfo.ipi_count_raddr--;
 	}
@@ -3160,6 +3161,7 @@ sctp_free_assoc(struct sctp_inpcb *inp, struct sctp_tcb *stcb)
 		}
 		prev = net;
 		TAILQ_REMOVE(&asoc->nets, net, sctp_next);
+		rtcache_free(&net->ro);
 		/* free it */
 		net->ref_count = 0;
 		SCTP_ZONE_FREE(sctppcbinfo.ipi_zone_net, net);

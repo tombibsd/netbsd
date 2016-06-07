@@ -5793,7 +5793,7 @@ iwm_start(struct ifnet *ifp)
 		/* need to send management frames even if we're not RUNning */
 		IF_DEQUEUE(&ic->ic_mgtq, m);
 		if (m) {
-			ni = (void *)m->m_pkthdr.rcvif;
+			ni = M_GETCTX(m, struct ieee80211_node *);
 			ac = 0;
 			goto sendit;
 		}

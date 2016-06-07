@@ -2330,8 +2330,7 @@ early_abort_fixup(void *arg)
 			registers[base] += offset;
 			DFC_PRINTF(("r%d=%08x\n", base, registers[base]));
 		}
-	} else if ((fault_instruction & 0x0e000000) == 0x0c000000)
-		return ABORT_FIXUP_FAILED;
+	}
 
 	if ((frame->tf_spsr & PSR_MODE) == PSR_SVC32_MODE) {
 

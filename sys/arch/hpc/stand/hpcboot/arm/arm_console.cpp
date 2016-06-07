@@ -77,7 +77,7 @@ ARMConsole::print(const TCHAR *fmt, ...)
 	if (!setupMultibyteBuffer())
 		return;
 
-	for (int i = 0; _bufm[i] != '\0' && i < CONSOLE_BUFSIZE; i++) {
+	for (int i = 0; i < CONSOLE_BUFSIZE && _bufm[i] != '\0'; i++) {
 		char s = _bufm[i];
 		if (s == '\n')
 			__putc('\r');

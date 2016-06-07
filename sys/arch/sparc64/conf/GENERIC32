@@ -9,5 +9,5 @@ include 	"arch/sparc64/conf/GENERIC"
 
 include 	"arch/sparc64/conf/std.sparc64-32"
 
-no options 	COMPAT_NETBSD32
-no options 	COMPAT_SVR4_32
+no options	COMPAT_NETBSD32
+no options	COMPAT_SVR4_32

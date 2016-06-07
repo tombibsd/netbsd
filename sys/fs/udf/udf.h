@@ -76,7 +76,7 @@ extern int udf_verbose;
 #define UDF_DEBUG_RESERVE	0x1000000
 
 /* initial value of udf_verbose */
-#define UDF_DEBUGGING		0
+#define UDF_DEBUGGING		(0)
 
 #ifdef UDF_DEBUG
 #define DPRINTF(name, arg) { \
@@ -252,6 +252,7 @@ struct udf_strategy {
 	int  (*read_logvol_dscr)    (struct udf_strat_args *args);
 	int  (*write_logvol_dscr)   (struct udf_strat_args *args);
 	void (*queuebuf)	    (struct udf_strat_args *args);
+	void (*sync_caches)	    (struct udf_strat_args *args);
 	void (*discstrat_init)      (struct udf_strat_args *args);
 	void (*discstrat_finish)    (struct udf_strat_args *args);
 };

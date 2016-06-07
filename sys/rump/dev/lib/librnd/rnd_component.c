@@ -64,6 +64,7 @@ RUMP_COMPONENT(RUMP_COMPONENT_DEV)
 	rnd_init();
 }
 
+#if 0
 /*
  * XXX: the following hack works around PR kern/51135 and should ASAP be
  * nuked to and then from orbit.
@@ -90,3 +91,4 @@ RUMP_COMPONENT(RUMP_COMPONENT_POSTINIT)
 			panic("rnd_system_ioctl failed"); /* XXX */
 	}
 }
+#endif

@@ -654,6 +654,7 @@ _rtld(Elf_Addr *sp, Elf_Addr relocbase)
 	_rtld_objloads++;
 
 	_rtld_linkmap_add(_rtld_objmain);
+	_rtld_objself.path = xstrdup(_rtld_objself.path);
 	_rtld_linkmap_add(&_rtld_objself);
 
 	++_rtld_objmain->refcount;

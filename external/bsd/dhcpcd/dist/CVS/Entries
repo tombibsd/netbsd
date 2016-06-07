@@ -12,8 +12,8 @@
 /dev.h/1.7/Thu Feb  5 08:37:17 2015/-kk/
 /dhcp-common.c/1.16/Tue Jun  7 10:39:16 2016/-kk/
 /dhcp-common.h/1.13/Tue Jun  7 10:39:16 2016/-kk/
-/dhcp.c/1.41/Tue Jun  7 10:39:16 2016/-kk/
-/dhcp.h/1.15/Tue Jun  7 10:39:16 2016/-kk/
+/dhcp.c/1.42/Tue Jun  7 11:08:01 2016/-kk/
+/dhcp.h/1.16/Tue Jun  7 11:08:01 2016/-kk/
 /dhcp6.c/1.21/Tue Jun  7 10:39:16 2016/-kk/
 /dhcp6.h/1.13/Tue Jun  7 10:13:14 2016/-kk/
 /dhcpcd-definitions.conf/1.12/Tue Jun  7 10:13:14 2016/-kk/

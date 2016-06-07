@@ -114,7 +114,6 @@ struct editline {
 	int		  el_outfd;	/* Output file descriptor	*/
 	int		  el_errfd;	/* Error file descriptor	*/
 	int		  el_flags;	/* Various flags.		*/
-	int		  el_errno;	/* Local copy of errno		*/
 	coord_t		  el_cursor;	/* Cursor location		*/
 	wchar_t		**el_display;	/* Real screen image = what is there */
 	wchar_t		**el_vdisplay;	/* Virtual screen image = what we see */

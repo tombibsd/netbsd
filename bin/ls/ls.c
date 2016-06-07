@@ -631,7 +631,7 @@ display(FTSENT *p, FTSENT *list)
 		if (f_humanize) {
 			d.s_block = 4; /* min buf length for humanize_number */
 		} else {
-			(void)snprintf(buf, sizeof(buf), "%llu",
+			(void)snprintf(buf, sizeof(buf), "%lld",
 			    (long long)howmany(maxblock, blocksize));
 			d.s_block = strlen(buf);
 			if (f_commas) /* allow for commas before every third digit */
@@ -647,7 +647,7 @@ display(FTSENT *p, FTSENT *list)
 		if (f_humanize) {
 			d.s_size = 4; /* min buf length for humanize_number */
 		} else {
-			(void)snprintf(buf, sizeof(buf), "%llu",
+			(void)snprintf(buf, sizeof(buf), "%lld",
 			    (long long)maxsize);
 			d.s_size = strlen(buf);
 			if (f_commas) /* allow for commas before every third digit */
@@ -655,9 +655,9 @@ display(FTSENT *p, FTSENT *list)
 		}
 		d.s_user = maxuser;
 		if (bcfile) {
-			(void)snprintf(buf, sizeof(buf), "%u", maxmajor);
+			(void)snprintf(buf, sizeof(buf), "%d", maxmajor);
 			d.s_major = strlen(buf);
-			(void)snprintf(buf, sizeof(buf), "%u", maxminor);
+			(void)snprintf(buf, sizeof(buf), "%d", maxminor);
 			d.s_minor = strlen(buf);
 			if (d.s_major + d.s_minor + 2 > d.s_size)
 				d.s_size = d.s_major + d.s_minor + 2;

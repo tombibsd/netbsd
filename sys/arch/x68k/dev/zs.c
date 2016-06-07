@@ -148,16 +148,18 @@ zs_match(device_t parent, cfdata_t cf, void *aux)
 	if (strcmp(ia->ia_name, "zsc") != 0)
 		return 0;
 
-	for (i = 0; i < ZS_MAXDEV; i++)
-		if (zsaddr == (void *)zs_physaddr[i]) /* XXX */
-			break;
-
 	ia->ia_size = 8;
 	if (intio_map_allocate_region(parent, ia, INTIO_MAP_TESTONLY))
 		return 0;
 
-	if (zsaddr != (void *)zs_physaddr[i])
+	for (i = 0; i < ZS_MAXDEV; i++)
+		if (zsaddr == (void *)zs_physaddr[i]) /* XXX */
+			break;
+	if (i == ZS_MAXDEV) {
+		/* not a recognized address */
 		return 0;
+	}
+
 	if (badaddr((void *)IIOV(zsaddr)))
 		return 0;
 

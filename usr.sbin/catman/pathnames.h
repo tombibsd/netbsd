@@ -34,4 +34,4 @@
 #define	_PATH_MANCONF	"/etc/man.conf"
 #define	_PATH_PAGER	"/usr/bin/more -s"
 #define	_PATH_TMP	"/tmp/man.XXXXXX"
-#define	_PATH_WHATIS	"/usr/libexec/makewhatis"
+#define	_PATH_MAKEWHATIS "/usr/libexec/makewhatis"

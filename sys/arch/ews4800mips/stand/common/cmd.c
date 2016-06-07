@@ -99,7 +99,7 @@ cmd_exec(const char *buf)
 		if (*p == ' ') {
 			*p = 0;
 			sep = 1;
-		} else if (sep && (*p != ' ' || *p == '\0')) {
+		} else if (sep) {
 			sep = 0;
 			argp[argc++] = p;
 		}

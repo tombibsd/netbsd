@@ -211,6 +211,12 @@ initarm(void *arg)
 
 #ifdef MEMSIZE
 	memsize = MEMSIZE * 1024 * 1024;
+#else
+/*
+ * Ugh... but this is better than proceeding using an uninitialized
+ * value in memsize, as the code did before I added this branch...
+ */
+#error "MEMSIZE not set"
 #endif
 
 	bootconfig.dramblocks = 1;

@@ -251,6 +251,7 @@ Changes from NetBSD 7.0 to NetBSD 8.0:
 	gettext: Upgrade to 0.16.1 [christos 20160112]
 	bind: Import version 9.10.3-P3. [christos 20160119]
 	dhcpcd: Import dhcpcd 6.10.1. [roy 20160120]
+	lua: Updated to 5.3.2 [lneto 20160128]
 	openssl: Import openssl 1.0.1r [christos 20160130]
 	gdb(1): Updated to 7.10.1.  [christos 20160202]
 	elftoolchain: Import FreeBSD-2016-02-19. [christos 20160219]
@@ -283,6 +284,20 @@ Changes from NetBSD 7.0 to NetBSD 8.0:
 	openresolv(8): Import openresolv-3.8.0 [roy 20160411]
 	ddb(4): rename show arptab to show routes [ozaki-r 20160413]
 	dhcpcd(8): Import dhcpcd-6.10.3 [roy 20160420]
+	usb(4) subsystem: Merge nick-nhusb [skrll 20160423]
+		- API / infra changes to support memory management changes.
+		- Memory management improvements and bug fixes.
+		- HCDs should now be MP safe
+		- conversion to KERNHIST based debug
+		- FS/LS isoc support on ehci(4).
+		- conversion to kmem(9)
+		- Some USB 3 support - mostly from Takahiro HAYASHI (t-hash).
+		- interrupt transfers now get proper DMA operations
+		- general bug fixes
+		    - kern/48308
+		    - uhub status notification improvements
+		    - umass(4) probe fix (applied to HEAD already)
+		    - ohci(4) short transfer fix
 	nvme(4): Add a driver for Non-Volatile Memory Host Controller Interface
 		devices, ported from OpenBSD. [nonaka 20160501]
 	ntp: Import ntp 4.2.8p7. [christos 20160501]
@@ -294,3 +309,4 @@ Changes from NetBSD 7.0 to NetBSD 8.0:
 	x86: Use processor-specific features to optimize memory access time to
 		the kernel image on amd64 and i386. [maxv 20160515]
 	arm: Add support for i.MX7 SoC. [ryo 20160517]
+	bind: Import version 9.10.4-P1. [christos 20160526]

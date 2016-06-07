@@ -85,6 +85,9 @@ bonito_mainbus_attach(device_t parent, device_t self, void *aux)
 	 */
 #if defined(ALGOR_P6032)
 	bc = &p6032_configuration.ac_bonito;
+#else
+	/* I guess... XXX? */
+	bc = NULL;
 #endif
 	sc->sc_bonito = bc;
 

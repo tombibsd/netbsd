@@ -17,6 +17,7 @@
 .if !defined(_MAKEFILE_DISTRIB_)
 _MAKEFILE_DISTRIB_=1
 
+NOPIE=
 .include <bsd.own.mk>
 
 DISTRIBDIR=	${NETBSDSRCDIR}/distrib

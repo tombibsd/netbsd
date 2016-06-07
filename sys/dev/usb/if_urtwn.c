@@ -2661,8 +2661,8 @@ urtwn_start(struct ifnet *ifp)
 				return;
 			}
 			IF_DEQUEUE(&ic->ic_mgtq, m);
-			ni = (void *)m->m_pkthdr.rcvif;
-			m->m_pkthdr.rcvif = NULL;
+			ni = M_GETCTX(m, struct ieee80211_node *);
+			M_CLEARCTX(m);
 			goto sendit;
 		}
 		if (ic->ic_state != IEEE80211_S_RUN)

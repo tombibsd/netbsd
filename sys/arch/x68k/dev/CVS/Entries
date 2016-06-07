@@ -13,7 +13,7 @@
 /grfvar.h/1.12/Tue Feb  8 20:20:25 2011/-kk/
 /if_ne_intio.c/1.18/Thu May 28 03:25:45 2015/-kk/
 /if_ne_neptune.c/1.21/Thu May 28 03:25:45 2015/-kk/
-/intio.c/1.44/Mon Mar 14 07:55:40 2016/-kk/
+/intio.c/1.45/Tue Jun  7 11:14:33 2016/-kk/
 /intio_dmac.c/1.35/Fri Apr 11 02:03:39 2014/-kk/
 /intiovar.h/1.14/Thu Oct 24 10:28:57 2013/-kk/
 /ite.c/1.63/Fri Oct  3 09:09:09 2014/-kk/
@@ -50,5 +50,5 @@
 /vs.c/1.36/Fri Apr 11 02:03:39 2014/-kk/
 /vsvar.h/1.11/Wed Nov 23 23:07:30 2011/-kk/
 /xel.c/1.18/Fri Apr 11 02:03:39 2014/-kk/
-/zs.c/1.42/Fri Apr 11 02:03:39 2014/-kk/
+/zs.c/1.43/Tue Jun  7 11:14:33 2016/-kk/
 D

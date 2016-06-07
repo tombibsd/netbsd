@@ -70,6 +70,7 @@ HAVE_GCC?=	0
     ${MACHINE} == "amd64" || \
     ${MACHINE} == "hppa" || \
     ${MACHINE} == "i386" || \
+    ${MACHINE} == "evbarm" || \
     ${MACHINE} == "playstation2" || \
     ${MACHINE_ARCH} == "powerpc" || \
     ${MACHINE_ARCH} == "vax"
@@ -142,6 +143,7 @@ USE_SSP?=	yes
 # What GDB is used?
 #
 .if ${MACHINE} == "amd64" || \
+    ${MACHINE} == "evbarm" || \
     ${MACHINE} == "i386" || \
     ${MACHINE} == "playstation2" || \
     ${MACHINE} == "sparc" || \
@@ -1051,6 +1053,7 @@ MKCTF?=		yes
 #
 .if ${MACHINE_ARCH} == "i386" || \
     ${MACHINE_ARCH} == "x86_64" || \
+    ${MACHINE} == "evbarm" || \
     ${MACHINE} == "sparc64"
 MKPIE?=		yes
 .else

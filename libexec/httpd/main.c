@@ -118,6 +118,7 @@ usage(bozohttpd_t *httpd, char *progname)
 			" and private key file\n"
 		"\t\t\tin pem format and enable bozohttpd in SSL mode");
 #endif /* NO_SSL_SUPPORT */
+	bozowarn(httpd, "   -G print version number and exit");
 	bozoerr(httpd, 1, "%s failed to start", progname);
 }
 
@@ -148,7 +149,7 @@ main(int argc, char **argv)
 	 */
 
 	while ((c = getopt(argc, argv,
-	    "C:EHI:L:M:P:S:U:VXZ:bc:defhi:np:st:uv:x:z:")) != -1) {
+	    "C:EGHI:L:M:P:S:U:VXZ:bc:defhi:np:st:uv:x:z:")) != -1) {
 		switch (c) {
 
 		case 'L':
@@ -350,6 +351,15 @@ main(int argc, char **argv)
 			break;
 
 #endif /* NO_DIRINDEX_SUPPORT */
+
+		case 'G':
+			{
+				char	version[128];
+
+				bozo_get_version(version, sizeof(version));
+				printf("bozohttpd version %s\n", version);
+			}
+			return 0;
 
 		default:
 			usage(&httpd, progname);

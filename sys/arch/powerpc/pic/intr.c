@@ -548,18 +548,8 @@ pic_handle_intr(void *cookie)
 	const int pcpl = ci->ci_cpl;
 
 	do {
-#ifdef MULTIPROCESSOR
-		/* THIS IS WRONG XXX */
-		if (picirq == ipiops.ppc_ipi_vector) {
-			ci->ci_cpl = IPL_HIGH;
-			ipi_intr(NULL);
-			ci->ci_cpl = pcpl;
-			pic->pic_ack_irq(pic, picirq);
-			continue;
-		}
-#endif
-
 		const int virq = virq_map[picirq + pic->pic_intrbase];
+
 		KASSERT(virq != 0);
 		KASSERT(picirq < pic->pic_numintrs);
 		imask_t v_imen = PIC_VIRQ_TO_MASK(virq);

@@ -76,10 +76,7 @@ paxinit(void)
 	rv = sysctlbyname("security.pax.mprotect.enabled",
 	    &pax_enabled, &len, NULL, 0);
 
-	if (rv != 0)
-		return false;
-
-	return paxset(1, 1);
+	return rv == 0;
 }
 
 static bool
@@ -191,6 +188,12 @@ ATF_TC_BODY(mprotect_exec, tc)
 		break;
 	}
 
+	if (!paxinit())
+		return;
+	if (pax_enabled == 1 && pax_global == 1)
+		atf_tc_skip("PaX MPROTECT restrictions enabled");
+		
+
 	/*
 	 * Map a page read/write and copy a trivial assembly function inside.
 	 * We will then change the mapping rights:
@@ -258,7 +261,7 @@ ATF_TC_BODY(mprotect_pax, tc)
 	size_t i;
 	int rv;
 
-	if (paxinit() != true)
+	if (!paxinit() || !paxset(1, 1))
 		return;
 
 	/*

@@ -10,12 +10,12 @@
 /child.optout.example.db/1.1.1.3/Mon Jun  4 17:54:24 2012/-kk/
 /dlv.db.in/1.1.1.3/Mon Jun  4 17:54:24 2012/-kk/
 /dst.example.db.in/1.1.1.3/Mon Jun  4 17:54:24 2012/-kk/
-/example.db.in/1.1.1.11/Sat Jul 25 01:19:00 2015/-kk/
+/example.db.in/1.1.1.12/Tue Jun  7 11:07:16 2016/-kk/
 /in-addr.arpa.db.in/1.1.1.1/Wed Dec 10 02:25:17 2014/-kk/
 /insecure.secure.example.db/1.1.1.4/Fri Mar 14 04:22:47 2014/-kk/
 /named.conf/1.1.1.7/Fri Dec 25 06:15:29 2015/-kk/
 /private.secure.example.db.in/1.1.1.3/Mon Jun  4 17:54:24 2012/-kk/
 /rfc2335.example.db/1.1.1.1/Sun Mar 22 14:56:40 2009/-kk/
-/sign.sh/1.1.1.16/Fri Dec 25 06:15:29 2015/-kk/
+/sign.sh/1.1.1.17/Tue Jun  7 11:07:16 2016/-kk/
 /single-nsec3.db.in/1.1.1.2/Mon Jun  4 17:54:24 2012/-kk/
 D

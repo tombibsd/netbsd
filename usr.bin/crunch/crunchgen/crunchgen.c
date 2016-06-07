@@ -918,6 +918,7 @@ top_makefile_rules(FILE *outmk)
 {
     prog_t *p;
 
+    fprintf(outmk, "NOPIE=\n");
     fprintf(outmk, "NOMAN=\n\n");
 
     fprintf(outmk, "DBG=%s\n", dbg);

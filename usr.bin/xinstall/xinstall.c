@@ -29,6 +29,8 @@
  * SUCH DAMAGE.
  */
 
+#define __MKTEMP_OK__	/* All uses of mktemp have been checked */
+
 #if HAVE_NBTOOL_CONFIG_H
 #include "nbtool_config.h"
 #else
@@ -50,7 +52,6 @@ __RCSID("$NetBSD$");
 #endif
 #endif /* not lint */
 
-#define __MKTEMP_OK__	/* All uses of mktemp have been checked */
 #include <sys/param.h>
 #include <sys/mman.h>
 #include <sys/stat.h>

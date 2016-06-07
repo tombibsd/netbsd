@@ -345,6 +345,18 @@ xen_atomic_clear_bit(volatile void *ptr, unsigned long bitno)
 
 void	wbinvd(void);
 
+#include <xen/xen-public/features.h>
+#include <sys/systm.h>
+
+extern bool xen_feature_tables[];
+void xen_init_features(void);
+static __inline bool
+xen_feature(int f)
+{
+	KASSERT(f < XENFEAT_NR_SUBMAPS * 32);
+	return xen_feature_tables[f];
+}
+
 #endif /* !__ASSEMBLY__ */
 
 #endif /* _OS_H_ */

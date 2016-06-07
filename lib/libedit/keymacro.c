@@ -172,6 +172,7 @@ keymacro_reset(EditLine *el)
  *      complete match is found or a mismatch occurs. Returns the
  *      type of the match found (XK_STR or XK_CMD).
  *      Returns NULL in val.str and XK_STR for no match.
+ *      Returns XK_NOD for end of file or read error.
  *      The last character read is returned in *ch.
  */
 libedit_private int
@@ -286,11 +287,8 @@ node_trav(EditLine *el, keymacro_node_t *ptr, wchar_t *ch,
 		/* match found */
 		if (ptr->next) {
 			/* key not complete so get next char */
-			if (el_wgetc(el, ch) != 1) {/* if EOF or error */
-				val->cmd = ED_END_OF_FILE;
-				return XK_CMD;
-				/* PWP: Pretend we just read an end-of-file */
-			}
+			if (el_wgetc(el, ch) != 1)
+				return XK_NOD;
 			return node_trav(el, ptr->next, ch, val);
 		} else {
 			*val = ptr->val;

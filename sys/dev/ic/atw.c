@@ -3491,8 +3491,8 @@ atw_start(struct ifnet *ifp)
 		 */
 		IF_DEQUEUE(&ic->ic_mgtq, m0);
 		if (m0 != NULL) {
-			ni = (struct ieee80211_node *)m0->m_pkthdr.rcvif;
-			m0->m_pkthdr.rcvif = NULL;
+			ni = M_GETCTX(m0, struct ieee80211_node *);
+			M_CLEARCTX(m0);
 		} else if (ic->ic_state != IEEE80211_S_RUN)
 			break; /* send no data until associated */
 		else {

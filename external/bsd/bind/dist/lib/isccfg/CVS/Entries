@@ -1,10 +1,10 @@
-/Makefile.in/1.1.1.11/Thu Dec 11 09:05:52 2014/-kk/
-/aclconf.c/1.8/Thu Dec 11 09:05:52 2014/-kk/
-/api/1.1.1.17/Fri Dec 25 06:15:33 2015/-kk/
+/Makefile.in/1.1.1.12/Tue Jun  7 11:07:55 2016/-kk/
+/aclconf.c/1.9/Tue Jun  7 11:07:55 2016/-kk/
+/api/1.1.1.18/Tue Jun  7 11:07:55 2016/-kk/
 /dnsconf.c/1.4/Thu Dec 11 09:05:52 2014/-kk/
 /log.c/1.4/Thu Dec 11 09:05:52 2014/-kk/
-/namedconf.c/1.12/Fri Dec 25 06:15:33 2015/-kk/
-/parser.c/1.10/Fri Dec 25 06:15:33 2015/-kk/
+/namedconf.c/1.13/Tue Jun  7 11:07:55 2016/-kk/
+/parser.c/1.11/Tue Jun  7 11:07:55 2016/-kk/
 /version.c/1.4/Thu Dec 11 09:05:52 2014/-kk/
 D/include////
 D/win32////

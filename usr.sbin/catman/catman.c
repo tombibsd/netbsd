@@ -28,9 +28,13 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include <sys/cdefs.h>
+#ifndef lint
+__RCSID("$NetBSD$");
+#endif /* not lint */
+
 #include <sys/types.h>
 #include <sys/queue.h>
-#include <sys/cdefs.h>
 #include <sys/param.h>
 #include <sys/stat.h>
 #include <sys/wait.h>
@@ -598,7 +602,7 @@ makewhatis(void)
 		err(1, "malloc");
 	TAILQ_FOREACH(e_whatdb, &whatdbp->entrylist, q) {
 		snprintf(sysbuf, sizeof(sysbuf), "%s %s",
-		    _PATH_WHATIS, dirname(e_whatdb->s));
+		    _PATH_MAKEWHATIS, dirname(e_whatdb->s));
 		if (f_noprint == 0)
 			printf("%s\n", sysbuf);
 		if (f_noaction == 0)

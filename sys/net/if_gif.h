@@ -70,13 +70,8 @@ struct gif_softc {
 #define	GIF_MTU_MAX	(8192)	/* Maximum MTU */
 
 /* Prototypes */
-void	gifattach0(struct gif_softc *);
 void	gif_input(struct mbuf *, int, struct ifnet *);
-int	gif_output(struct ifnet *, struct mbuf *,
-		   const struct sockaddr *, const struct rtentry *);
-int	gif_ioctl(struct ifnet *, u_long, void *);
-int	gif_set_tunnel(struct ifnet *, struct sockaddr *, struct sockaddr *);
-void	gif_delete_tunnel(struct ifnet *);
+
 #ifdef GIF_ENCAPCHECK
 int	gif_encapcheck(struct mbuf *, int, int, void *);
 #endif

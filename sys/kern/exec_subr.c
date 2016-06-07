@@ -394,9 +394,7 @@ exec_setup_stack(struct lwp *l, struct exec_package *epp)
 	DPRINTF(("ep_minsaddr=%#jx max_stack_size=%#jx\n",
 	    (uintmax_t)epp->ep_minsaddr, (uintmax_t)max_stack_size));
 
-#ifdef PAX_ASLR
 	pax_aslr_stack(epp, &max_stack_size);
-#endif /* PAX_ASLR */
 
 	DPRINTF(("[RLIMIT_STACK].lim_cur=%#jx max_stack_size=%#jx\n",
 	    (uintmax_t)l->l_proc->p_rlimit[RLIMIT_STACK].rlim_cur,

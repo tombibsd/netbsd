@@ -13,4 +13,4 @@ options 	DEBUG
 options 	LOCKDEBUG
 
 options 	DB_MAX_WIDTH=160
-options 	DDB_ONPANIC=2   # print stack trace
+options 	DDB_ONPANIC=2	# print stack trace

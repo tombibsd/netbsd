@@ -11,7 +11,7 @@ CPPFLAGS+= -D_THREAD_SAFE
 
 MAN=	iscsid.8
 
-LDADD = -lpthread -lisns
+LDADD = -lpthread -lisns -lutil
 
 INCSDIR= /usr/include
 

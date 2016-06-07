@@ -1,18 +1,19 @@
 /Makefile.in/1.1.1.10/Fri Dec 25 06:15:29 2015/-kk/
 /README/1.1.1.6/Fri Dec 25 06:15:29 2015/-kk/
 /ans.pl/1.3/Sat Jul 25 01:18:59 2015/-kk/
+/clean.sh/1.1.1.1/Thu May 26 15:45:43 2016/-kk/
 /cleanall.sh/1.1.1.7/Fri Dec 25 06:15:29 2015/-kk/
 /cleanpkcs11.sh/1.1.1.5/Fri Mar 14 04:22:47 2014/-kk/
-/conf.sh.in/1.1.1.16/Fri Dec 25 06:15:29 2015/-kk/
+/conf.sh.in/1.1.1.17/Tue Jun  7 11:07:12 2016/-kk/
 /digcomp.pl/1.1.1.5/Tue Jan 14 16:01:21 2014/-kk/
 /ditch.pl/1.1.1.1/Thu Dec 17 03:21:55 2015/-kk/
-/genzone.sh/1.1.1.9/Sat Jul 25 01:18:59 2015/-kk/
+/genzone.sh/1.1.1.10/Tue Jun  7 11:07:12 2016/-kk/
 /ifconfig.sh/1.1.1.7/Thu Oct 24 10:28:41 2013/-kk/
 /org.isc.bind.system.plist/1.1.1.1/Tue Feb 15 19:31:07 2011/-kk/
 /org.isc.bind.system/1.1.1.4/Fri Mar 14 04:22:47 2014/-kk/
 /packet.pl/1.1.1.3/Tue Dec  4 19:22:27 2012/-kk/
-/run.sh/1.1.1.7/Thu Dec 11 09:05:46 2014/-kk/
-/runall.sh/1.1.1.7/Thu Dec 11 09:05:46 2014/-kk/
+/run.sh/1.1.1.8/Tue Jun  7 11:07:12 2016/-kk/
+/runall.sh/1.1.1.8/Tue Jun  7 11:07:12 2016/-kk/
 /send.pl/1.1.1.5/Tue Dec  4 19:22:27 2012/-kk/
 /setup.sh/1.1.1.5/Thu Dec 11 09:05:46 2014/-kk/
 /start.pl/1.1.1.13/Fri Dec 25 06:15:29 2015/-kk/
@@ -37,8 +38,8 @@ D/checkzone////
 D/common////
 D/coverage////
 D/database////
-D/delv////
 D/dialup////
+D/digdelv////
 D/dlv////
 D/dlvauto////
 D/dlz////

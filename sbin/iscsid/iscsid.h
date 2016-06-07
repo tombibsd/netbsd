@@ -908,8 +908,6 @@ typedef struct {
       Corresponding version information for driver.
 */
 
-extern int nothreads;
-
 __END_DECLS
 
 #endif /* !_ISCSID_H_ */

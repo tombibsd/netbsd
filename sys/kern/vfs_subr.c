@@ -76,6 +76,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include "opt_compat_43.h"
 #endif
 
+#define _VFS_VNODE_PRIVATE	/* for vcache_print(). */
+
 #include <sys/param.h>
 #include <sys/systm.h>
 #include <sys/conf.h>
@@ -1085,6 +1087,7 @@ vprint(const char *label, struct vnode *vp)
 	    ARRAY_PRINT(vp->v_type, vnode_types), vp->v_type,
 	    vp->v_usecount, vp->v_writecount, vp->v_holdcnt,
 	    vp->v_freelisthd, vp->v_mount, vp->v_data, &vp->v_lock);
+	vcache_print(vp, "\t", printf);
 	if (vp->v_data != NULL) {
 		printf("\t");
 		VOP_PRINT(vp);
@@ -1480,6 +1483,8 @@ vfs_vnode_print(struct vnode *vp, int full, void (*pr)(const char *, ...))
 	      vp->v_mount, vp->v_mountedhere);
 
 	(*pr)("v_lock %p\n", &vp->v_lock);
+
+	vcache_print(vp, "", pr);
 
 	if (full) {
 		struct buf *bp;

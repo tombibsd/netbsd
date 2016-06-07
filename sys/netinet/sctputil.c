@@ -2959,7 +2959,7 @@ sctp_is_there_an_abort_here(struct mbuf *m, int iphlen, int *vtagfill)
  * so, create this function to compare link local scopes
  */
 uint32_t
-sctp_is_same_scope(struct sockaddr_in6 *addr1, struct sockaddr_in6 *addr2)
+sctp_is_same_scope(const struct sockaddr_in6 *addr1, const struct sockaddr_in6 *addr2)
 {
 	struct sockaddr_in6 a, b;
 

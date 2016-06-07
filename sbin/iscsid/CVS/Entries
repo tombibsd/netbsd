@@ -1,10 +1,10 @@
-/Makefile/1.5/Thu Oct 24 10:28:53 2013/-kk/
-/iscsid.8/1.12/Fri Nov 20 02:14:18 2015/-kk/
-/iscsid.h/1.4/Sat Mar 21 02:29:31 2015/-kk/
-/iscsid_discover.c/1.4/Sun Jun 24 13:08:38 2012/-kk/
-/iscsid_driverif.c/1.7/Wed Jun  3 06:53:59 2015/-kk/
-/iscsid_globals.h/1.7/Mon May 28 00:13:19 2012/-kk/
-/iscsid_lists.c/1.8/Sat Dec 29 08:28:20 2012/-kk/
-/iscsid_main.c/1.9/Wed Jun  3 06:53:59 2015/-kk/
-/iscsid_targets.c/1.5/Sat Dec 29 08:28:20 2012/-kk/
+/Makefile/1.6/Tue Jun  7 11:13:47 2016/-kk/
+/iscsid.8/1.13/Tue Jun  7 11:13:47 2016/-kk/
+/iscsid.h/1.5/Tue Jun  7 11:13:47 2016/-kk/
+/iscsid_discover.c/1.5/Tue Jun  7 11:13:47 2016/-kk/
+/iscsid_driverif.c/1.8/Tue Jun  7 11:13:47 2016/-kk/
+/iscsid_globals.h/1.9/Tue Jun  7 11:13:47 2016/-kk/
+/iscsid_lists.c/1.9/Tue Jun  7 11:13:47 2016/-kk/
+/iscsid_main.c/1.11/Tue Jun  7 11:13:47 2016/-kk/
+/iscsid_targets.c/1.6/Tue Jun  7 11:13:47 2016/-kk/
 D

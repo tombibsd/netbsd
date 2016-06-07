@@ -122,12 +122,14 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include "opt_ptrace.h"
 #include "opt_ktrace.h"
+#include "opt_pax.h"
 
 #include <sys/param.h>
 #include <sys/systm.h>
 #include <sys/proc.h>
 #include <sys/errno.h>
 #include <sys/exec.h>
+#include <sys/pax.h>
 #include <sys/ptrace.h>
 #include <sys/uio.h>
 #include <sys/ras.h>
@@ -1118,7 +1120,7 @@ process_domem(struct lwp *curl /*tracer*/,
 	mutex_exit(&vm->vm_map.misc_lock);
 	if (error != 0)
 		return (error);
-	error = uvm_io(&vm->vm_map, uio);
+	error = uvm_io(&vm->vm_map, uio, pax_mprotect_prot(l));
 	uvmspace_free(vm);
 
 #ifdef PMAP_NEED_PROCWR

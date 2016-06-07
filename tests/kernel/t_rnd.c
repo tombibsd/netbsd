@@ -99,8 +99,6 @@ ATF_TC_BODY(read_random, tc)
 	char buf[128];
 	int fd;
 
-	atf_tc_expect_fail("PR kern/51135");
-
 	rump_init();
 	RL(fd = rump_sys_open("/dev/random", O_RDONLY));
 	RL(rump_sys_read(fd, buf, sizeof(buf)));

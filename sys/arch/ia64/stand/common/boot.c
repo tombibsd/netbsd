@@ -318,7 +318,7 @@ getrootmount(char *rootdev)
 	while ((*cp != 0) && isspace(*cp))
 	    cp++;
 	/* must have /<space> to be root */
-	if ((*cp == 0) || (*cp != '/') || !isspace(*(cp + 1)))
+	if ((*cp != '/') || !isspace(*(cp + 1)))
 	    continue;
 	/* skip whitespace up to fstype */
 	cp += 2;

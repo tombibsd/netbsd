@@ -90,6 +90,8 @@ MAN=	FcAtomicCreate.3 FcAtomicDeleteNew.3 FcAtomicDestroy.3 FcAtomicLock.3 \
 
 MAN+=	fonts-conf.5
 
+MLINKS= fonts-conf.5 fonts.conf.5
+
 LIBDPLIBS=\
 	expat		${NETBSDSRCDIR}/external/mit/expat/lib/libexpat \
 	freetype	${.CURDIR}/../../freetype

@@ -93,12 +93,12 @@ mkextravars: .PHONY
 	@echo $i="${$i}"
 .endfor
 .if ${MKCOMPAT} != "no"
-	@echo COMPATARCHDIRS=${COMPATARCHDIRS} | ${TOOL_SED} -e's/ /,/g'
+	@echo COMPATARCHDIRS=${COMPATARCHDIRS} | ${TOOL_SED} -e 's/ /,/g'
 .else
 	@echo COMPATARCHDIRS=
 .endif
 .if ${MKKMOD} != "no" && ${MKCOMPATMODULES} != "no"
-	@echo KMODARCHDIRS=${KMODARCHDIRS} | ${TOOL_SED} -e's/ /,/g'
+	@echo KMODARCHDIRS=${KMODARCHDIRS} | ${TOOL_SED} -e 's/ /,/g'
 .else
 	@echo KMODARCHDIRS=
 .endif

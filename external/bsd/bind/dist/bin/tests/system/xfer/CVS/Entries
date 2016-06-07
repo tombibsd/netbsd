@@ -1,9 +1,10 @@
-/clean.sh/1.1.1.6/Fri Mar 14 04:22:53 2014/-kk/
-/dig1.good/1.1.1.8/Sat Jul 25 01:19:01 2015/-kk/
-/dig2.good/1.1.1.8/Sat Jul 25 01:19:01 2015/-kk/
+/clean.sh/1.1.1.7/Tue Jun  7 11:07:21 2016/-kk/
+/dig1.good/1.1.1.9/Tue Jun  7 11:07:21 2016/-kk/
+/dig2.good/1.1.1.9/Tue Jun  7 11:07:21 2016/-kk/
+/knowngood.mapped/1.1.1.1/Thu May 26 15:45:44 2016/-kk/
 /prereq.sh/1.1.1.5/Thu Dec 11 09:05:48 2014/-kk/
-/setup.sh/1.1.1.7/Thu Dec 11 09:05:48 2014/-kk/
-/tests.sh/1.1.1.10/Fri Dec 25 06:15:30 2015/-kk/
+/setup.sh/1.1.1.8/Tue Jun  7 11:07:21 2016/-kk/
+/tests.sh/1.1.1.11/Tue Jun  7 11:07:21 2016/-kk/
 D/ans5////
 D/ns1////
 D/ns2////

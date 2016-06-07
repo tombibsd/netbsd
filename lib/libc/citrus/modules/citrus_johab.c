@@ -349,7 +349,7 @@ _citrus_JOHAB_stdenc_cstowc(_JOHABEncodingInfo * __restrict ei,
 		l = ((idx >> 8) & 0xFF) - n;
 		t = (idx & 0xFF) - 0x21;
 		linear = (l * 94) + t;
-		l = (linear / 188) + m;
+		/*l = (linear / 188) + m;*/
 		t = linear % 188;
 		t += (t <= 0x4D) ? 0x31 : 0x43;
 		break;
