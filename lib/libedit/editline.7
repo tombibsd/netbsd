@@ -15,7 +15,7 @@
 .\" ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 .\" OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 .\"
-.Dd April 20 2016
+.Dd May 7, 2016
 .Dt EDITLINE 7
 .Os
 .Sh NAME
@@ -32,7 +32,7 @@ discarded.
 For each character read, one editor command is executed.
 The mapping of input characters to editor commands depends on the
 editing mode.
-There are three editing modes:  vi insert mode, vi command mode,
+There are three editing modes: vi insert mode, vi command mode,
 and emacs mode.
 The default is vi insert mode.
 The program can switch the default to emacs mode by using the
@@ -408,6 +408,7 @@ It is an error if the cursor is already at the end of the edit
 buffer.
 .It Ic ed-next-history Pq vi command: j, +, Ctrl-N; emacs: Ctrl-N
 Replace the edit buffer with the next history line.
+That line is older than the current line.
 With an argument, go forward by that number of history lines.
 It is a non-fatal error to advance by more lines than are available.
 .It Ic ed-next-line Pq not bound by default
@@ -427,6 +428,7 @@ It is an error if the cursor is already at the beginning of the
 edit buffer.
 .It Ic ed-prev-history Pq vi command: k, -, Ctrl-P; emacs: Ctrl-P
 Replace the edit buffer with the previous history line.
+That line is newer than the current line.
 With an argument, go back by that number of lines.
 It is a non-fatal error to back up by more lines than are available.
 .It Ic ed-prev-line Pq not bound by default
@@ -918,6 +920,9 @@ of appending to the input queue.
 .Xr mg 1 ,
 .Xr vi 1 ,
 .Xr editline 3 ,
+.Xr el_wgets 3 ,
+.Xr el_wpush 3 ,
+.Xr el_wset 3 ,
 .Xr editrc 5
 .Sh HISTORY
 This manual page first appeared in

@@ -17,8 +17,8 @@
 /hash.c/1.4/Sun Jan 17 10:32:27 2016/-kk/
 /heap.c/1.4/Sun Jan 17 10:32:27 2016/-kk/
 /hex.c/1.4/Sun Jan 17 10:32:27 2016/-kk/
-/hmacmd5.c/1.4/Sun Jan 17 10:32:27 2016/-kk/
-/hmacsha.c/1.4/Sun Jan 17 10:32:27 2016/-kk/
+/hmacmd5.c/1.5/Tue Jun  7 10:41:38 2016/-kk/
+/hmacsha.c/1.5/Tue Jun  7 10:41:38 2016/-kk/
 /httpd.c/1.4/Sun Jan 17 10:32:27 2016/-kk/
 /inet_aton.c/1.4/Sun Jan 17 10:32:27 2016/-kk/
 /inet_ntop.c/1.7/Sun Jan 17 10:32:27 2016/-kk/
@@ -62,6 +62,7 @@
 /timer.c/1.4/Sun Jan 17 10:32:27 2016/-kk/
 /timer_api.c/1.4/Sun Jan 17 10:32:27 2016/-kk/
 /timer_p.h/1.4/Sun Jan 17 10:32:27 2016/-kk/
+/tsmemcmp.c/1.1.1.1/Sun May  1 15:17:45 2016/-kk/
 /version.c/1.4/Sun Jan 17 10:32:27 2016/-kk/
 D/alpha////
 D/ia64////

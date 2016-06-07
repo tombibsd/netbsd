@@ -2,6 +2,14 @@
 
 #include "assym.h"
 
+/*
+ * PAE is enabled by default on amd64, the large page size is therefore
+ * 2MB (and not 4MB!).
+ */
+
+__PAGE_SIZE = 0x1000 ;
+__LARGE_PAGE_SIZE = 0x200000 ;
+
 ENTRY(_start)
 SECTIONS
 {
@@ -15,6 +23,7 @@ SECTIONS
 	_etext = . ;
 	PROVIDE (etext = .) ;
 
+	__rodata_start = . ;
 	.rodata :
 	{
 		*(.rodata)
@@ -22,10 +31,11 @@ SECTIONS
 	}
 
 	/*
-	 * Adjust the address for the data segment.  We want to adjust up to
-	 * the same address within the page on the next page up.
+	 * Push the data segment up to the next large page boundary so that we
+	 * can map the text+rodata segments with large pages.
 	 */
-	. = ALIGN(0x100000) + (. & (0x100000 - 1));
+	. = ALIGN(__LARGE_PAGE_SIZE);
+
 	__data_start = . ;
 	.data :
 	{

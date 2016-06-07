@@ -1374,6 +1374,14 @@ file	dev/ic/bwi.c			bwi
 device	dme: arp, ether, ifnet
 file	dev/ic/dm9000.c			dme
 
+# NVM Express Controller
+#
+device	nvme {nsid = -1}
+file	dev/ic/nvme.c			nvme
+
+attach	ld at nvme with ld_nvme
+file	dev/ic/ld_nvme.c		ld_nvme
+
 # legitimate pseudo-devices
 #
 defpseudodev vnd:	disk

@@ -300,8 +300,8 @@ vlan_config(struct ifvlan *ifv, struct ifnet *p)
 				 */
 				ifv->ifv_mtufudge = ifv->ifv_encaplen;
 			}
-			ec->ec_nvlans++;
 		}
+		ec->ec_nvlans++;
 
 		/*
 		 * If the parent interface can do hardware-assisted

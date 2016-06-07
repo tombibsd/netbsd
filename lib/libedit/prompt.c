@@ -79,7 +79,7 @@ prompt_default_r(EditLine *el __attribute__((__unused__)))
 /* prompt_print():
  *	Print the prompt and update the prompt position.
  */
-protected void
+libedit_private void
 prompt_print(EditLine *el, int op)
 {
 	el_prompt_t *elp;
@@ -116,7 +116,7 @@ prompt_print(EditLine *el, int op)
 /* prompt_init():
  *	Initialize the prompt stuff
  */
-protected int
+libedit_private int
 prompt_init(EditLine *el)
 {
 
@@ -135,7 +135,7 @@ prompt_init(EditLine *el)
 /* prompt_end():
  *	Clean up the prompt stuff
  */
-protected void
+libedit_private void
 /*ARGSUSED*/
 prompt_end(EditLine *el __attribute__((__unused__)))
 {
@@ -145,7 +145,7 @@ prompt_end(EditLine *el __attribute__((__unused__)))
 /* prompt_set():
  *	Install a prompt printing function
  */
-protected int
+libedit_private int
 prompt_set(EditLine *el, el_pfunc_t prf, wchar_t c, int op, int wide)
 {
 	el_prompt_t *p;
@@ -177,7 +177,7 @@ prompt_set(EditLine *el, el_pfunc_t prf, wchar_t c, int op, int wide)
 /* prompt_get():
  *	Retrieve the prompt printing function
  */
-protected int
+libedit_private int
 prompt_get(EditLine *el, el_pfunc_t *prf, wchar_t *c, int op)
 {
 	el_prompt_t *p;

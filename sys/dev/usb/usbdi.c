@@ -910,10 +910,6 @@ usb_transfer_complete(struct usbd_xfer *xfer)
 	KASSERT(xfer->ux_state == XFER_ONQU);
 	KASSERT(pipe != NULL);
 
-	/* XXXX */
-	if (polling)
-		pipe->up_running = 0;
-
 	if (!repeat) {
 		/* Remove request from queue. */
 

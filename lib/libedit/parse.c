@@ -78,7 +78,7 @@ static const struct {
 /* parse_line():
  *	Parse a line and dispatch it
  */
-protected int
+libedit_private int
 parse_line(EditLine *el, const wchar_t *line)
 {
 	const wchar_t **argv;
@@ -138,7 +138,7 @@ el_wparse(EditLine *el, int argc, const wchar_t *argv[])
  *	Parse a string of the form ^<char> \<odigit> \<char> \U+xxxx and return
  *	the appropriate character or -1 if the escape is not valid
  */
-protected int
+libedit_private int
 parse__escape(const wchar_t **ptr)
 {
 	const wchar_t *p;
@@ -238,7 +238,7 @@ parse__escape(const wchar_t **ptr)
 /* parse__string():
  *	Parse the escapes from in and put the raw string out
  */
-protected wchar_t *
+libedit_private wchar_t *
 parse__string(wchar_t *out, const wchar_t *in)
 {
 	wchar_t *rv = out;
@@ -276,7 +276,7 @@ parse__string(wchar_t *out, const wchar_t *in)
  *	Return the command number for the command string given
  *	or -1 if one is not found
  */
-protected int
+libedit_private int
 parse_cmd(EditLine *el, const wchar_t *cmd)
 {
 	el_bindings_t *b = el->el_map.help;

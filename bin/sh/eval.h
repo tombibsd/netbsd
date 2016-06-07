@@ -71,3 +71,9 @@ void stop_skipping(void);	/* reset internal skipping state to SKIPNONE */
  * Only for use by reset() in init.c!
  */
 void reset_eval(void);
+
+/* flags in argument to evaltree */
+#define EV_EXIT		0x01	/* exit after evaluating tree */
+#define EV_TESTED	0x02	/* exit status is checked; ignore -e flag */
+#define EV_BACKCMD	0x04	/* command executing within back quotes */
+#define EV_MORE		0x08	/* more commands in this sub-shell */

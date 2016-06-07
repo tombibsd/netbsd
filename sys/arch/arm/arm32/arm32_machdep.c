@@ -680,8 +680,11 @@ module_init_md(void)
 int
 mm_md_physacc(paddr_t pa, vm_prot_t prot)
 {
+	if (pa >= physical_start && pa < physical_end)
+		return 0;
 
-	return (pa < ctob(physmem)) ? 0 : EFAULT;
+	return kauth_authorize_machdep(kauth_cred_get(),
+	    KAUTH_MACHDEP_UNMANAGEDMEM, NULL, NULL, NULL, NULL);
 }
 
 #ifdef __HAVE_CPU_UAREA_ALLOC_IDLELWP

@@ -11,13 +11,13 @@
 /agp_amd.c/1.21/Sat Nov 13 13:52:04 2010/-kk/
 /agp_amd64.c/1.8/Sun Apr 12 03:35:05 2015/-kk/
 /agp_apple.c/1.7/Tue Dec  9 04:24:00 2014/-kk/
-/agp_i810.c/1.121/Fri Nov 20 01:31:16 2015/-kk/
+/agp_i810.c/1.122/Tue Jun  7 10:46:24 2016/-kk/
 /agp_i810var.h/1.6/Sat Mar 21 02:37:50 2015/-kk/
 /agp_intel.c/1.37/Mon Apr  4 20:37:56 2011/-kk/
 /agp_sis.c/1.14/Sat Nov 13 13:52:05 2010/-kk/
 /agp_via.c/1.21/Sat Feb 19 20:07:02 2011/-kk/
 /agpbusprint.c/1.5/Thu Nov 16 01:33:08 2006/-kk/
-/agpreg.h/1.22/Wed Jun 18 08:43:01 2014/-kk/
+/agpreg.h/1.23/Tue Jun  7 10:46:24 2016/-kk/
 /agpvar.h/1.21/Tue Dec  9 04:24:00 2014/-kk/
 /ahc_pci.c/1.70/Fri Apr 11 02:03:42 2014/-kk/
 /ahcisata_pci.c/1.36/Fri Apr 11 02:03:42 2014/-kk/
@@ -32,7 +32,7 @@
 /amrio.h/1.1/Sun Jul 23 12:01:26 2006/-kk/
 /amrreg.h/1.5/Mon Sep  8 23:36:54 2008/-kk/
 /amrvar.h/1.10/Sat Mar 21 02:37:50 2015/-kk/
-/arcmsr.c/1.32/Sat Mar 21 02:47:14 2015/-kk/
+/arcmsr.c/1.33/Tue Jun  7 10:46:24 2016/-kk/
 /arcmsrvar.h/1.14/Mon Jun 20 13:26:58 2011/-kk/
 /artsata.c/1.26/Fri Apr 11 02:03:42 2014/-kk/
 /atppc_puc.c/1.14/Fri Apr 11 02:03:42 2014/-kk/
@@ -110,7 +110,7 @@
 /esoreg.h/1.8/Sun Dec 11 12:22:49 2005/-kk/
 /esovar.h/1.11/Sat Oct 27 17:18:32 2012/-kk/
 /files.agp/1.11/Tue Dec  9 04:24:01 2014/-kk/
-/files.pci/1.380/Sun Jan 17 10:34:16 2016/-kk/
+/files.pci/1.381/Tue Jun  7 10:46:24 2016/-kk/
 /fms.c/1.42/Fri Apr 11 02:03:43 2014/-kk/
 /fmsvar.h/1.7/Sat Oct 27 17:18:32 2012/-kk/
 /fwohci_pci.c/1.42/Fri Apr 11 02:03:43 2014/-kk/
@@ -237,9 +237,9 @@
 /if_vtereg.h/1.2/Thu Apr 28 17:32:48 2011/-kk/
 /if_vtevar.h/1.4/Wed Apr 22 07:36:57 2015/-kk/
 /if_wi_pci.c/1.55/Fri Apr 11 02:03:49 2014/-kk/
-/if_wm.c/1.391/Mon Feb 15 11:07:25 2016/-kk/
-/if_wmreg.h/1.88/Thu Jan  7 06:24:33 2016/-kk/
-/if_wmvar.h/1.30/Thu Jan  7 06:24:33 2016/-kk/
+/if_wm.c/1.394/Tue Jun  7 10:46:25 2016/-kk/
+/if_wmreg.h/1.89/Tue Jun  7 10:46:25 2016/-kk/
+/if_wmvar.h/1.31/Tue Jun  7 10:46:25 2016/-kk/
 /if_wpi.c/1.71/Mon Jan 12 06:48:51 2015/-kk/
 /if_wpireg.h/1.13/Sun Jul 20 13:26:25 2014/-kk/
 /if_wpivar.h/1.19/Mon Jan 12 06:48:51 2015/-kk/
@@ -289,7 +289,7 @@
 /mlyio.h/1.5/Sun Sep 13 01:31:32 2015/-kk/
 /mlyreg.h/1.5/Mon Sep  8 23:36:54 2008/-kk/
 /mlyvar.h/1.6/Sat Oct 27 17:18:35 2012/-kk/
-/mpii.c/1.7/Mon Feb 15 11:07:25 2016/-kk/
+/mpii.c/1.8/Tue Jun  7 10:46:25 2016/-kk/
 /mpt_pci.c/1.23/Fri Apr 11 02:03:49 2014/-kk/
 /mpu_cmpci.c/1.16/Wed Nov 23 23:07:35 2011/-kk/
 /mpu_eso.c/1.17/Wed Nov 23 23:07:35 2011/-kk/
@@ -304,6 +304,7 @@
 /nfsmbreg.h/1.2/Tue Dec  4 15:58:11 2007/-kk/
 /njs_pci.c/1.10/Fri Apr 11 02:03:49 2014/-kk/
 /nside.c/1.9/Thu Oct 24 10:28:58 2013/-kk/
+/nvme_pci.c/1.1/Sun May  1 10:21:02 2016/-kk/
 /oboe.c/1.43/Sun Aug  2 04:02:51 2015/-kk/
 /oboereg.h/1.2/Mon Apr 28 20:23:55 2008/-kk/
 /ohci_pci.c/1.55/Tue Jun  7 10:31:58 2016/-kk/
@@ -457,7 +458,7 @@
 /weaselreg.h/1.2/Mon Apr 28 20:23:55 2008/-kk/
 /wsdisplay_pci.c/1.1/Sat Jan 22 15:14:28 2011/-kk/
 /wsdisplay_pci.h/1.1/Sat Jan 22 15:14:28 2011/-kk/
-/xhci_pci.c/1.5/Tue Jun  7 10:32:02 2016/-kk/
+/xhci_pci.c/1.6/Tue Jun  7 10:46:25 2016/-kk/
 /yds.c/1.56/Fri Oct  3 09:36:19 2014/-kk/
 /ydsreg.h/1.6/Sun Dec 11 12:22:51 2005/-kk/
 /ydsvar.h/1.11/Wed Nov 23 23:07:36 2011/-kk/

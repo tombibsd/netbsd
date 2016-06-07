@@ -52,3 +52,5 @@ device-major	nsmb		char 98			nsmb
 # Majors up to 143 are reserved for machine-dependent drivers.
 # New machine-independent driver majors are assigned in
 # sys/conf/majors.
+
+include "conf/majors.usb"

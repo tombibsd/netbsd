@@ -155,8 +155,7 @@ uhidev_attach(device_t parent, device_t self, void *aux)
 	(void)usbd_set_idle(iface, 0, 0);
 #if 0
 
-	qflags = usbd_get_quirks(sc->sc_udev)->uq_flags;
-	if ((qflags & UQ_NO_SET_PROTO) == 0 &&
+	if ((usbd_get_quirks(sc->sc_udev)->uq_flags & UQ_NO_SET_PROTO) == 0 &&
 	    id->bInterfaceSubClass != UISUBCLASS_BOOT)
 		(void)usbd_set_protocol(iface, 1);
 #endif

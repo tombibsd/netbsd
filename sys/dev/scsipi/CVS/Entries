@@ -1,7 +1,7 @@
 /Makefile/1.6/Sun Dec 11 12:23:50 2005/-kk/
 /atapi_base.c/1.29/Wed Oct 29 08:13:22 2014/-kk/
 /atapi_tape.h/1.6/Sun Dec 11 12:23:50 2005/-kk/
-/atapi_wdc.c/1.121/Tue Jun  7 09:39:01 2016/-kk/
+/atapi_wdc.c/1.122/Tue Jun  7 10:46:26 2016/-kk/
 /atapiconf.c/1.88/Tue Jun  7 09:39:01 2016/-kk/
 /atapiconf.h/1.23/Mon Oct 19 18:41:16 2009/-kk/
 /cd.c/1.330/Fri May  1 11:32:11 2015/-kk/
@@ -19,7 +19,7 @@
 /scsi_scanner.h/1.11/Sun Dec 11 12:23:50 2005/-kk/
 /scsi_spc.h/1.5/Sat Feb  6 23:13:59 2010/-kk/
 /scsi_tape.h/1.25/Mon Apr 28 20:23:57 2008/-kk/
-/scsiconf.c/1.273/Fri Oct  3 09:09:20 2014/-kk/
+/scsiconf.c/1.274/Tue Jun  7 10:46:26 2016/-kk/
 /scsiconf.h/1.58/Fri Apr 20 20:23:21 2012/-kk/
 /scsipi_all.h/1.33/Tue Dec 25 18:33:42 2007/-kk/
 /scsipi_base.c/1.165/Sun Sep 13 01:07:14 2015/-kk/
@@ -29,8 +29,8 @@
 /scsipi_disk.h/1.21/Tue Dec 25 18:33:42 2007/-kk/
 /scsipi_ioctl.c/1.68/Sun Sep 13 01:07:14 2015/-kk/
 /scsipi_verbose.c/1.32/Sun Jul 25 13:49:58 2010/-kk/
-/scsipiconf.c/1.40/Sat Aug 21 13:18:36 2010/-kk/
-/scsipiconf.h/1.122/Sun Jul 20 13:58:49 2014/-kk/
+/scsipiconf.c/1.41/Tue Jun  7 10:46:26 2016/-kk/
+/scsipiconf.h/1.123/Tue Jun  7 10:46:26 2016/-kk/
 /sd.c/1.317/Sun Sep 13 01:07:14 2015/-kk/
 /sdvar.h/1.37/Sun Sep 13 01:07:14 2015/-kk/
 /ses.c/1.48/Sun Sep 13 01:07:14 2015/-kk/

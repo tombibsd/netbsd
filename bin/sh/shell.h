@@ -66,7 +66,9 @@ typedef void *pointer;
 #ifndef NULL
 #define NULL (void *)0
 #endif
+#ifndef STATIC
 #define STATIC	/* empty */
+#endif
 #define MKINIT	/* empty */
 
 #include <sys/cdefs.h>

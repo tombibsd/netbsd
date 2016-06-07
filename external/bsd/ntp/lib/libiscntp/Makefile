@@ -42,6 +42,7 @@ SRCS=   assertions.c               \
         task.c                     \
         thread.c                   \
         time.c                     \
+	tsmemcmp.c		   \
         sockaddr.c
 
 .if ${HAVE_GCC:U} != 4

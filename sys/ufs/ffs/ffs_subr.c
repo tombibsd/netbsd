@@ -127,8 +127,10 @@ ffs_getblk(struct vnode *vp, daddr_t lblkno, daddr_t blkno, int size,
 		(*bpp)->b_blkno = blkno;
 	if (clearbuf)
 		clrbuf(*bpp);
-	if ((*bpp)->b_blkno >= 0 && (error = fscow_run(*bpp, false)) != 0)
+	if ((*bpp)->b_blkno >= 0 && (error = fscow_run(*bpp, false)) != 0) {
 		brelse(*bpp, BC_INVAL);
+		*bpp = NULL;
+	}
 	return error;
 }
 

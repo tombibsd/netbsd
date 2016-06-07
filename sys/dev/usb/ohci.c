@@ -146,7 +146,6 @@ Static void		ohci_reset_std_chain(ohci_softc_t *, struct usbd_xfer *,
 Static usbd_status	ohci_open(struct usbd_pipe *);
 Static void		ohci_poll(struct usbd_bus *);
 Static void		ohci_softintr(void *);
-Static void		ohci_waitintr(ohci_softc_t *, struct usbd_xfer *);
 Static void		ohci_rhsc(ohci_softc_t *, struct usbd_xfer *);
 Static void		ohci_rhsc_softint(void *);
 
@@ -665,7 +664,7 @@ ohci_reset_std_chain(ohci_softc_t *sc, struct usbd_xfer *xfer,
 		}
 	}
 	cur->td.td_flags |=
-	    (xfer->ux_flags & USBD_SHORT_XFER_OK ? OHCI_TD_R : 0);
+	    HTOO32(xfer->ux_flags & USBD_SHORT_XFER_OK ? OHCI_TD_R : 0);
 
 	if (!rd &&
 	    (flags & USBD_FORCE_SHORT_XFER) &&
@@ -1703,49 +1702,6 @@ ohci_root_intr_done(struct usbd_xfer *xfer)
 
 	KASSERT(sc->sc_intrxfer == xfer);
 	sc->sc_intrxfer = NULL;
-}
-
-/*
- * Wait here until controller claims to have an interrupt.
- * Then call ohci_intr and return.  Use timeout to avoid waiting
- * too long.
- */
-void
-ohci_waitintr(ohci_softc_t *sc, struct usbd_xfer *xfer)
-{
-	int timo;
-	uint32_t intrs;
-	OHCIHIST_FUNC(); OHCIHIST_CALLED();
-
-	mutex_enter(&sc->sc_lock);
-
-	xfer->ux_status = USBD_IN_PROGRESS;
-	for (timo = xfer->ux_timeout; timo >= 0; timo--) {
-		usb_delay_ms(&sc->sc_bus, 1);
-		if (sc->sc_dying)
-			break;
-		intrs = OREAD4(sc, OHCI_INTERRUPT_STATUS) & sc->sc_eintrs;
-		DPRINTFN(15, "intrs 0x%04x", intrs, 0, 0, 0);
-#ifdef OHCI_DEBUG
-		if (ohcidebug > 15)
-			ohci_dumpregs(sc);
-#endif
-		if (intrs) {
-			mutex_spin_enter(&sc->sc_intr_lock);
-			ohci_intr1(sc);
-			mutex_spin_exit(&sc->sc_intr_lock);
-			if (xfer->ux_status != USBD_IN_PROGRESS)
-				goto done;
-		}
-	}
-
-	/* Timeout */
-	DPRINTF("timeout", 0, 0, 0, 0);
-	xfer->ux_status = USBD_TIMEOUT;
-	usb_transfer_complete(xfer);
-
-done:
-	mutex_exit(&sc->sc_lock);
 }
 
 void
@@ -2881,9 +2837,6 @@ ohci_device_ctrl_start(struct usbd_xfer *xfer)
 	DPRINTF("done", 0, 0, 0, 0);
 
 	mutex_exit(&sc->sc_lock);
-
-	if (sc->sc_bus.ub_usepolling)
-		ohci_waitintr(sc, xfer);
 
 	return USBD_IN_PROGRESS;
 }

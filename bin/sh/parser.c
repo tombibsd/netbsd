@@ -50,7 +50,6 @@ __RCSID("$NetBSD$");
 #include "nodes.h"
 #include "expand.h"	/* defines rmescapes() */
 #include "eval.h"	/* defines commandname */
-#include "redir.h"	/* defines copyfd() */
 #include "syntax.h"
 #include "options.h"
 #include "input.h"
@@ -499,20 +498,32 @@ TRACE(("expecting DO got %s %s\n", tokname[got], got == TWORD ? wordtext : ""));
 			synexpect(TEND, 0);
 		checkkwd = 1;
 		break;
-	/* Handle an empty command like other simple commands.  */
+
 	case TSEMI:
+	case TAND:
+	case TOR:
+	case TPIPE:
+	case TNL:
+	case TEOF:
+	case TRP:
 		/*
-		 * An empty command before a ; doesn't make much sense, and
-		 * should certainly be disallowed in the case of `if ;'.
+		 * simple commands must have something in them,
+		 * either a word (which at this point includes a=b)
+		 * or a redirection.  If we reached the end of the
+		 * command (which one of these tokens indicates)
+		 * when we are just starting, and have not had a
+		 * redirect, then ...
+		 *
+		 * nb: it is still possible to end up with empty
+		 * simple commands, if the "command" is a var
+		 * expansion that produces nothing
+		 *	X= ; $X && $X
+		 * -->          &&
+		 * I am not sure if this is intended to be legal or not.
 		 */
 		if (!redir)
 			synexpect(-1, 0);
-	case TAND:
-	case TOR:
-	case TNL:
-	case TEOF:
 	case TWORD:
-	case TRP:
 		tokpushback++;
 		n1 = simplecmd(rpp, redir);
 		goto checkneg;
@@ -598,7 +609,7 @@ simplecmd(union node **rpp, union node *redir)
 				synexpect(TRP, 0);
 			funclinno = plinno;
 			rmescapes(n->narg.text);
-			if (!goodname(n->narg.text))
+			if (strchr(n->narg.text, '/'))
 				synerror("Bad function name");
 			n->type = NDEFUN;
 			n->narg.next = command();

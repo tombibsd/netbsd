@@ -49,10 +49,10 @@ typedef struct el_prompt_t {
 	int		p_wide;
 } el_prompt_t;
 
-protected void	prompt_print(EditLine *, int);
-protected int	prompt_set(EditLine *, el_pfunc_t, wchar_t, int, int);
-protected int	prompt_get(EditLine *, el_pfunc_t *, wchar_t *, int);
-protected int	prompt_init(EditLine *);
-protected void	prompt_end(EditLine *);
+libedit_private void	prompt_print(EditLine *, int);
+libedit_private int	prompt_set(EditLine *, el_pfunc_t, wchar_t, int, int);
+libedit_private int	prompt_get(EditLine *, el_pfunc_t *, wchar_t *, int);
+libedit_private int	prompt_init(EditLine *);
+libedit_private void	prompt_end(EditLine *);
 
 #endif /* _h_el_prompt */

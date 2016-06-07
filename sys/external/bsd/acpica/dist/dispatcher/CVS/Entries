@@ -3,9 +3,9 @@
 /dsdebug.c/1.1.1.2/Sun Jan 17 10:34:18 2016/-kk/
 /dsfield.c/1.1.1.7/Sun Jan 17 10:34:18 2016/-kk/
 /dsinit.c/1.1.1.7/Sun Jan 17 10:34:18 2016/-kk/
-/dsmethod.c/1.1.1.7/Sun Jan 17 10:34:18 2016/-kk/
+/dsmethod.c/1.1.1.8/Tue Jun  7 10:46:27 2016/-kk/
 /dsmthdat.c/1.1.1.6/Sun Jan 17 10:34:19 2016/-kk/
-/dsobject.c/1.1.1.7/Sun Jan 17 10:34:19 2016/-kk/
+/dsobject.c/1.1.1.8/Tue Jun  7 10:46:27 2016/-kk/
 /dsopcode.c/1.7/Sun Jan 17 10:34:19 2016/-kk/
 /dsutils.c/1.5/Sun Jan 17 10:34:19 2016/-kk/
 /dswexec.c/1.1.1.6/Sun Jan 17 10:34:19 2016/-kk/

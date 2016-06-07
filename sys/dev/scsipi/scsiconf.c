@@ -493,9 +493,12 @@ scsibusprint(void *aux, const char *pnp)
 
 	dtype = scsipi_dtype(type);
 
-	scsipi_strvis(vendor, 33, inqbuf->vendor, 8);
-	scsipi_strvis(product, 65, inqbuf->product, 16);
-	scsipi_strvis(revision, 17, inqbuf->revision, 4);
+	strnvisx(vendor, sizeof(vendor), inqbuf->vendor, 8,
+	    VIS_TRIM|VIS_SAFE|VIS_OCTAL);
+	strnvisx(product, sizeof(product), inqbuf->product, 16,
+	    VIS_TRIM|VIS_SAFE|VIS_OCTAL);
+	strnvisx(revision, sizeof(revision), inqbuf->revision, 4,
+	    VIS_TRIM|VIS_SAFE|VIS_OCTAL);
 
 	aprint_normal(" target %d lun %d: <%s, %s, %s> %s %s",
 	    target, lun, vendor, product, revision, dtype,

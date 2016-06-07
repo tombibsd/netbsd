@@ -15,7 +15,7 @@
 /atareg.h/1.43/Tue Nov  5 03:38:16 2013/-kk/
 /atavar.h/1.92/Fri Oct  3 09:50:53 2014/-kk/
 /files.ata/1.24/Tue Jul 31 15:50:34 2012/-kk/
-/ld_ataraid.c/1.40/Wed Apr 22 07:36:48 2015/-kk/
+/ld_ataraid.c/1.41/Tue Jun  7 10:46:19 2016/-kk/
 /sata_subr.c/1.21/Thu Oct 24 10:28:57 2013/-kk/
 /satafis_subr.c/1.7/Sun Jul 22 17:57:57 2012/-kk/
 /satafisreg.h/1.4/Tue Jan 24 20:04:07 2012/-kk/

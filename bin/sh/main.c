@@ -282,7 +282,7 @@ cmdloop(int top)
 		} else if (n != NULL && nflag == 0) {
 			job_warning = (job_warning == 2) ? 1 : 0;
 			numeof = 0;
-			evaltree(n, 0);
+			evaltree(n, EV_MORE);
 		}
 		popstackmark(&smark);
 		setstackmark(&smark);

@@ -74,7 +74,7 @@ struct ipv4_addr {
 	TAILQ_ENTRY(ipv4_addr) next;
 	struct in_addr addr;
 	struct in_addr net;
-	struct in_addr dst;
+	struct in_addr brd;
 	struct interface *iface;
 	int addr_flags;
 };
@@ -87,7 +87,7 @@ struct ipv4_state {
 #ifdef BSD
 	/* Buffer for BPF */
 	size_t buffer_size, buffer_len, buffer_pos;
-	unsigned char *buffer;
+	uint8_t *buffer;
 #endif
 };
 

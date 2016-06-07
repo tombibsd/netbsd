@@ -143,7 +143,7 @@
 /mstohz.9/1.11/Thu Oct 20 10:36:42 2011/-kk/
 /mutex.9/1.26/Thu Oct 24 10:28:54 2013/-kk/
 /namecache.9/1.19/Thu Feb 13 15:35:47 2014/-kk/
-/namei.9/1.34/Fri May  1 11:28:36 2015/-kk/
+/namei.9/1.37/Tue Jun  7 10:45:59 2016/-kk/
 /nullop.9/1.1/Sun Jul 25 21:05:13 2010/-kk/
 /opencrypto.9/1.14/Wed Jan  1 02:45:21 2014/-kk/
 /optstr.9/1.4/Wed Apr 30 13:10:58 2008/-kk/
@@ -243,7 +243,7 @@
 /vnode.9/1.70/Sat Jul 25 01:51:48 2015/-kk/
 /vnodeops.9/1.97/Sun Feb 14 12:54:31 2016/-kk/
 /vnsubr.9/1.43/Sat Jul 25 01:51:48 2015/-kk/
-/wapbl.9/1.10/Sun Apr 12 03:34:25 2015/-kk/
+/wapbl.9/1.14/Tue Jun  7 10:45:59 2016/-kk/
 /wdc.9/1.19/Fri May  1 11:28:37 2015/-kk/
 /workqueue.9/1.11/Sun Nov 15 13:35:32 2015/-kk/
 /wscons.9/1.8/Thu Dec  2 12:54:13 2010/-kk/

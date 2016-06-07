@@ -464,6 +464,10 @@ unsigned int	popcount64(uint64_t) __constfunc;
 
 void	*explicit_memset(void *, int, size_t);
 int	consttime_memequal(const void *, const void *, size_t);
+int	strnvisx(char *, size_t, const char *, size_t, int);
+#define VIS_OCTAL	0x01
+#define VIS_SAFE	0x20
+#define VIS_TRIM	0x40
 
 #ifdef notyet
 /*

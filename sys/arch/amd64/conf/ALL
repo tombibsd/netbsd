@@ -865,6 +865,11 @@ st*	at atapibus? drive ? flags 0x0000	# ATAPI tape drives
 uk*	at atapibus? drive ? flags 0x0000	# ATAPI unknown
 
 
+# NVM Express controllers and devices
+nvme*	at pci? dev ? function ?
+ld*	at nvme? nsid ?
+
+
 # Miscellaneous mass storage devices
 
 # ISA floppy
@@ -2152,6 +2157,7 @@ options SIOP_DEBUG_DR
 options SIOP_DEBUG_INTR
 options SIOP_DEBUG_SCHED
 options SK_DEBUG
+options SLHCI_DEBUG
 options SMAP_DEBUG
 options SMB_IOD_DEBUG
 options SMB_SOCKETDATA_DEBUG
@@ -2314,6 +2320,7 @@ options XENNET_DEBUG
 options XENNET_DEBUG_DUMP
 options XEN_CLOCK_DEBUG
 options XE_DEBUG
+options XHCI_DEBUG
 options XXXXENDEBUG_LOW
 options XYC_DEBUG
 options ZSKBD_DEBUG

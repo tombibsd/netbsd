@@ -10,7 +10,7 @@ SRCS+=		if-bsd.c
 WARNS?=		6
 USE_FORT?=	yes	# network client (local server)
 
-CPPFLAGS+=	-DHAVE_CONFIG_H
+CPPFLAGS+=	-DHAVE_CONFIG_H -D_OPENBSD_SOURCE
 
 .include <bsd.own.mk>
 

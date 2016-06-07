@@ -1500,7 +1500,7 @@ ip_get_membership(const struct sockopt *sopt, struct ifnet **ifp,
 static int
 ip_add_membership(struct ip_moptions *imo, const struct sockopt *sopt)
 {
-	struct ifnet *ifp;
+	struct ifnet *ifp = NULL;	// XXX: gcc [ppc]
 	struct in_addr ia;
 	int i, error;
 
@@ -1556,8 +1556,8 @@ ip_add_membership(struct ip_moptions *imo, const struct sockopt *sopt)
 static int
 ip_drop_membership(struct ip_moptions *imo, const struct sockopt *sopt)
 {
-	struct in_addr ia;
-	struct ifnet *ifp;
+	struct in_addr ia = { .s_addr = 0 };	// XXX: gcc [ppc]
+	struct ifnet *ifp = NULL;		// XXX: gcc [ppc]
 	int i, error;
 
 	if (sopt->sopt_size == sizeof(struct ip_mreq))

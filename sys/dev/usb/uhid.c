@@ -340,7 +340,10 @@ uhidopen(dev_t dev, int flag, int mode, struct lwp *l)
 	}
 	mutex_exit(&sc->sc_access_lock);
 
-	sc->sc_obuf = kmem_alloc(sc->sc_osize, KM_SLEEP);
+	if (sc->sc_osize > 0)
+		sc->sc_obuf = kmem_alloc(sc->sc_osize, KM_SLEEP);
+	else
+		sc->sc_obuf = NULL;
 	sc->sc_state &= ~UHID_IMMED;
 
 	mutex_enter(proc_lock);
@@ -368,7 +371,8 @@ uhidclose(dev_t dev, int flag, int mode, struct lwp *l)
 	uhidev_stop(&sc->sc_hdev);
 
 	clfree(&sc->sc_q);
-	kmem_free(sc->sc_obuf, sc->sc_osize);
+	if (sc->sc_osize > 0)
+		kmem_free(sc->sc_obuf, sc->sc_osize);
 
 	uhidev_close(&sc->sc_hdev);
 
@@ -473,7 +477,7 @@ uhid_do_write(struct uhid_softc *sc, struct uio *uio, int flag)
 
 	size = sc->sc_osize;
 	error = 0;
-	if (uio->uio_resid != size)
+	if (uio->uio_resid != size || size == 0)
 		return EINVAL;
 	error = uiomove(sc->sc_obuf, size, uio);
 	if (!error) {

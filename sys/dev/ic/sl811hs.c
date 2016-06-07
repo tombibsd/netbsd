@@ -987,6 +987,7 @@ slhci_start(struct usbd_xfer *xfer)
 usbd_status
 slhci_root_start(struct usbd_xfer *xfer)
 {
+	SLHCIHIST_FUNC(); SLHCIHIST_CALLED();
 	struct slhci_softc *sc;
 	struct slhci_pipe *spipe;
 
@@ -1121,7 +1122,7 @@ slhci_preinit(struct slhci_softc *sc, PowerFunc pow, bus_space_tag_t iot,
 	t = &sc->sc_transfers;
 
 	mutex_init(&sc->sc_lock, MUTEX_DEFAULT, IPL_SOFTUSB);
-	mutex_init(&sc->sc_intr_lock, MUTEX_DEFAULT, IPL_SCHED);
+	mutex_init(&sc->sc_intr_lock, MUTEX_DEFAULT, IPL_USB);
 
 	/* sc->sc_ier = 0;	*/
 	/* t->rootintr = NULL;	*/
@@ -1496,6 +1497,7 @@ slhci_do_callback(struct slhci_softc *sc, struct usbd_xfer *xfer)
 int
 slhci_intr(void *arg)
 {
+	SLHCIHIST_FUNC(); SLHCIHIST_CALLED();
 	struct slhci_softc *sc = arg;
 	int ret;
 
@@ -1514,6 +1516,7 @@ slhci_intr(void *arg)
 void
 slhci_main(struct slhci_softc *sc)
 {
+	SLHCIHIST_FUNC(); SLHCIHIST_CALLED();
 	struct slhci_transfers *t;
 
 	t = &sc->sc_transfers;

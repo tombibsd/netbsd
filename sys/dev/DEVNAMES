@@ -970,6 +970,7 @@ nsphy			MI
 nsphyter		MI
 ntwoc			MI
 nubus			mac68k
+nvme			MI
 nvr			atari
 nvram			macppc
 oak			MI

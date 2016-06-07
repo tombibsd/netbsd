@@ -27,6 +27,15 @@
 #
 # this is a comment.
 
+hack	gcc-5.3 optimizes memset+malloc -> calloc inside calloc
+mdate	4 May 2016
+who	christos
+file	external/gpl2/lib/libmalloc/lib/Makefile 1.3 -> 1.5
+descr
+	resulting in infinite recursion; we prevent this with
+	-fno-builtin-malloc
+kcah
+
 hack	netstat ieee1394 address printing.
 mdate	14 Nov 2000
 who	matt

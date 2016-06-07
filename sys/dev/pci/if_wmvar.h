@@ -149,6 +149,7 @@ typedef enum {
 	WM_T_PCH,			/* PCH (Platform Controller Hub) LAN */
 	WM_T_PCH2,			/* PCH2 LAN */
 	WM_T_PCH_LPT,			/* PCH "Lynx Point" LAN (I217, I218) */
+	WM_T_PCH_SPT,			/* PCH "Sunrise Point" LAN (I219) */
 } wm_chip_type;
 
 typedef enum {

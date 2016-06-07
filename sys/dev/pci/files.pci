@@ -1175,6 +1175,10 @@ defflag	opt_gffb.h	GFFB_DEBUG
 attach	rtsx at pci with rtsx_pci
 file	dev/pci/rtsx_pci.c	rtsx_pci
 
+# NVM Express Controller
+attach	nvme at pci with nvme_pci
+file	dev/pci/nvme_pci.c	nvme_pci
+
 # PCI graphics devices with DRM/KMS
 include "external/bsd/drm2/pci/files.drmkms_pci"
 

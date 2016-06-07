@@ -55,7 +55,7 @@
 
 #include "sysident_assym.h"
 
-	.section .note.netbsd.mcmodel,"aM",@note,3*4+CONTENTLENGTH+ELF_NOTE_MCMODEL_NAMESZ+1
+	.section .note.netbsd.mcmodel,"MG",@note,3*4+CONTENTLENGTH+ELF_NOTE_MCMODEL_NAMESZ+1,comdat
 	.p2align 2
 
 	.long	ELF_NOTE_MCMODEL_NAMESZ

@@ -46,12 +46,12 @@ typedef struct {
 	int	r_newcv;
 } el_refresh_t;
 
-protected void	re_putc(EditLine *, wint_t, int);
-protected void	re_clear_lines(EditLine *);
-protected void	re_clear_display(EditLine *);
-protected void	re_refresh(EditLine *);
-protected void	re_refresh_cursor(EditLine *);
-protected void	re_fastaddc(EditLine *);
-protected void	re_goto_bottom(EditLine *);
+libedit_private void	re_putc(EditLine *, wint_t, int);
+libedit_private void	re_clear_lines(EditLine *);
+libedit_private void	re_clear_display(EditLine *);
+libedit_private void	re_refresh(EditLine *);
+libedit_private void	re_refresh_cursor(EditLine *);
+libedit_private void	re_fastaddc(EditLine *);
+libedit_private void	re_goto_bottom(EditLine *);
 
 #endif /* _h_el_refresh */

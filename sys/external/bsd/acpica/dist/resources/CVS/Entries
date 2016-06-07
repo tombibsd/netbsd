@@ -1,15 +1,15 @@
 /rsaddr.c/1.1.1.6/Sun Jan 17 10:34:19 2016/-kk/
 /rscalc.c/1.1.1.6/Sun Jan 17 10:34:19 2016/-kk/
 /rscreate.c/1.1.1.7/Sun Jan 17 10:34:19 2016/-kk/
-/rsdump.c/1.7/Sun Jan 17 10:34:19 2016/-kk/
-/rsdumpinfo.c/1.5/Sun Jan 17 10:34:19 2016/-kk/
+/rsdump.c/1.8/Tue Jun  7 10:46:28 2016/-kk/
+/rsdumpinfo.c/1.6/Tue Jun  7 10:46:28 2016/-kk/
 /rsinfo.c/1.1.1.6/Sun Jan 17 10:34:19 2016/-kk/
 /rsio.c/1.1.1.6/Sun Jan 17 10:34:19 2016/-kk/
 /rsirq.c/1.1.1.6/Sun Jan 17 10:34:19 2016/-kk/
 /rslist.c/1.1.1.6/Sun Jan 17 10:34:19 2016/-kk/
 /rsmemory.c/1.1.1.6/Sun Jan 17 10:34:19 2016/-kk/
 /rsmisc.c/1.1.1.7/Sun Jan 17 10:34:19 2016/-kk/
-/rsserial.c/1.1.1.4/Sun Jan 17 10:34:19 2016/-kk/
-/rsutils.c/1.8/Sun Jan 17 10:34:19 2016/-kk/
+/rsserial.c/1.1.1.5/Tue Jun  7 10:46:28 2016/-kk/
+/rsutils.c/1.9/Tue Jun  7 10:46:28 2016/-kk/
 /rsxface.c/1.8/Sun Jan 17 10:34:19 2016/-kk/
 D

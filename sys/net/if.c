@@ -912,7 +912,7 @@ if_input(struct ifnet *ifp, struct mbuf *m)
  * See the above comment of if_initialize.
  *
  * Note that it implicitly enables if_percpuq to make drivers easy to
- * migrate softinet-based if_input without much changes. If you don't
+ * migrate softint-based if_input without much changes. If you don't
  * want to enable it, use if_initialize instead.
  */
 void

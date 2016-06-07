@@ -427,11 +427,7 @@ find_curdir(int noerror)
 		jp = makejob(NULL, 1);
 		if (forkshell(jp, NULL, FORK_NOJOB) == 0) {
 			(void) close(pip[0]);
-			if (pip[1] != 1) {
-				close(1);
-				copyfd(pip[1], 1, 1, 0);
-				close(pip[1]);
-			}
+			movefd(pip[1], 1);
 			(void) execl("/bin/pwd", "pwd", (char *)0);
 			error("Cannot exec /bin/pwd");
 		}

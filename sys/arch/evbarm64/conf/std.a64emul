@@ -1,6 +1,6 @@
 # $NetBSD$
 
-machine evbarm64 aarch64 arm
+machine evbarm64 aarch64
 maxpartitions	16
 
 include "arch/evbarm64/conf/std.evbarm64"

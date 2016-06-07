@@ -97,6 +97,9 @@
 #define	 XHCI_CMD_EWE		0x00000400	/* RW Enable Wrap Event */
 #define	 XHCI_CMD_EU3S		0x00000800	/* RW Enable U3 MFINDEX Stop */
 
+#define	XHCI_WAIT_CNR		100		/* in 1ms */
+#define	XHCI_WAIT_HCRST		100		/* in 1ms */
+
 #define	XHCI_USBSTS		0x04	/* XHCI status */
 #define	 XHCI_STS_HCH		0x00000001	/* RO - Host Controller Halted */
 #define	 XHCI_STS_HSE		0x00000004	/* RW - Host System Error */

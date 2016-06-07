@@ -99,8 +99,7 @@ validate_struct(tOptions * opts, char const * pname)
      */
     if (opts->pzProgName == NULL) {
         char const *  pz = strrchr(pname, DIRCH);
-        char const ** pp =
-            VOIDP(&(opts->pzProgName));
+        char const ** pp = VOIDP(&(opts->pzProgName));
 
         if (pz != NULL)
             *pp = pz+1;

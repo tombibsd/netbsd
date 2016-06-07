@@ -1786,7 +1786,9 @@ out_jack_output(struct umidi_jack *out_jack, u_char *src, int len, int cin)
 		 * before starting the USB transfer, and send a longer one.
 		 */
 		ep->soliciting = 1;
+		kpreempt_disable();
 		softint_schedule(ep->solicit_cookie);
+		kpreempt_enable();
 	}
 
 	if (--sc->sc_refcnt < 0)

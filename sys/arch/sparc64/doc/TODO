@@ -25,5 +25,4 @@ sun4v:
 - ci_tsb_desc->td_ctxidx: -1 or 1?
 - MP support - currently bypassed in pmap_bootstrap() for sun4v
 - vpci.c/vpcivar.h: cleanup FIXMEs
-- "bad magic number in disk label" when booting from an .iso image
 - interrups not handled properly

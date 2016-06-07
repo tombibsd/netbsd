@@ -1,4 +1,3 @@
-/*	$NetBSD$	*/
 
 /*
  * Automatically generated from ../../../sntp/libevent/test/regress.rpc
@@ -1224,5 +1223,6 @@ evtag_marshal_run(struct evbuffer *evbuf, ev_uint32_t tag, const struct run *msg
   evtag_marshal_buffer(evbuf, tag, buf_);
    evbuffer_free(buf_);
 }
->>>>>>> 1.1.1.5
+/*	$NetBSD$	*/
 
+ 

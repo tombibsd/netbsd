@@ -61,7 +61,6 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <dev/pci/pcidevs.h>
 
-#define RAL_DEBUG
 #ifdef RAL_DEBUG
 #define DPRINTF(x)	do { if (rt2860_debug > 0) printf x; } while (0)
 #define DPRINTFN(n, x)	do { if (rt2860_debug >= (n)) printf x; } while (0)
@@ -70,6 +69,7 @@ int rt2860_debug = 0;
 #define DPRINTF(x)
 #define DPRINTFN(n, x)
 #endif
+#define MAXQS	6 /* Tx (4 EDCAs + HCCA + Mgt) and Rx rings */
 
 static void	rt2860_attachhook(device_t);
 static int	rt2860_alloc_tx_ring(struct rt2860_softc *,
@@ -240,7 +240,7 @@ rt2860_attach(void *xsc, int id)
 	/*
 	 * Allocate Tx (4 EDCAs + HCCA + Mgt) and Rx rings.
 	 */
-	for (qid = 0; qid < 6; qid++) {
+	for (qid = 0; qid < MAXQS; qid++) {
 		if ((error = rt2860_alloc_tx_ring(sc, &sc->txq[qid])) != 0) {
 			aprint_error_dev(sc->sc_dev,
 			    "could not allocate Tx ring %d\n", qid);
@@ -365,6 +365,7 @@ rt2860_attachhook(device_t self)
 	ifp->if_ioctl = rt2860_ioctl;
 	ifp->if_start = rt2860_start;
 	ifp->if_watchdog = rt2860_watchdog;
+	IFQ_SET_READY(&ifp->if_snd);
 	memcpy(ifp->if_xname, device_xname(sc->sc_dev), IFNAMSIZ);
 
 	if_attach(ifp);
@@ -394,6 +395,14 @@ rt2860_attachhook(device_t self)
 	sc->sc_txtap_len = sizeof sc->sc_txtapu;
 	sc->sc_txtap.wt_ihdr.it_len = htole16(sc->sc_txtap_len);
 	sc->sc_txtap.wt_ihdr.it_present = htole32(RT2860_TX_RADIOTAP_PRESENT);
+
+	ieee80211_announce(ic);
+
+	if (pmf_device_register(sc->sc_dev, NULL, NULL))
+		pmf_class_network_register(sc->sc_dev, ifp);
+	else
+		aprint_error_dev(sc->sc_dev,
+		    "couldn't establish power handler\n");
 }
 
 int
@@ -403,10 +412,14 @@ rt2860_detach(void *xsc)
 	struct ifnet *ifp = &sc->sc_if;
 	int qid;
 
+	pmf_device_deregister(sc->sc_dev);
+
+	rt2860_stop(ifp, 1);
+
 	ieee80211_ifdetach(&sc->sc_ic);	/* free all nodes */
 	if_detach(ifp);
 
-	for (qid = 0; qid < 6; qid++)
+	for (qid = 0; qid < MAXQS; qid++)
 		rt2860_free_tx_ring(sc, &sc->txq[qid]);
 	rt2860_free_rx_ring(sc, &sc->rxq);
 	rt2860_free_tx_pool(sc);
@@ -677,6 +690,7 @@ rt2860_alloc_rx_ring(struct rt2860_softc *sc, struct rt2860_rx_ring *ring)
 	for (i = 0; i < RT2860_RX_RING_COUNT; i++) {
 		struct rt2860_rx_data *data = &ring->data[i];
 		struct rt2860_rxd *rxd = &ring->rxd[i];
+		const char *msg;
 
 		error = bus_dmamap_create(sc->sc_dmat, MCLBYTES, 1, MCLBYTES,
 		    0, BUS_DMA_NOWAIT, &data->map);
@@ -688,17 +702,13 @@ rt2860_alloc_rx_ring(struct rt2860_softc *sc, struct rt2860_rx_ring *ring)
 
 		MGET(data->m, M_DONTWAIT, MT_DATA);
 		if (data->m == NULL) {
-			aprint_error_dev(sc->sc_dev,
-			    "could not allocate Rx mbuf\n");
-			error = ENOBUFS;
-			goto fail;
+			msg = "allocate Rx mbuf";
+			goto fail1;
 		}
 		MCLGET(data->m, M_DONTWAIT);
 		if ((data->m->m_flags & M_EXT) == 0) {
-			aprint_error_dev(sc->sc_dev,
-			    "could not allocate Rx mbuf cluster\n");
-                        error = ENOBUFS;
-			goto fail;
+			msg = "allocate Rx mbuf cluster";
+			goto fail1;
 		}
 
 
@@ -706,8 +716,12 @@ rt2860_alloc_rx_ring(struct rt2860_softc *sc, struct rt2860_rx_ring *ring)
 		    mtod(data->m, void *), MCLBYTES, NULL,
 		    BUS_DMA_READ | BUS_DMA_NOWAIT);
 		if (error != 0) {
-			aprint_error_dev(sc->sc_dev,
-			    "could not load DMA map\n");
+			msg = "load DMA map";
+		fail1:
+			aprint_error_dev(sc->sc_dev, "could not %s\n", msg);
+		    	m_freem(data->m);
+			data->m = NULL;
+			error = ENOBUFS;
 			goto fail;
 		}
 
@@ -718,7 +732,6 @@ rt2860_alloc_rx_ring(struct rt2860_softc *sc, struct rt2860_rx_ring *ring)
 	bus_dmamap_sync(sc->sc_dmat, ring->map, 0, size, BUS_DMASYNC_PREWRITE);
 
 	return 0;
-
 fail:	rt2860_free_rx_ring(sc, ring);
 	return error;
 }
@@ -749,9 +762,12 @@ rt2860_free_rx_ring(struct rt2860_softc *sc, struct rt2860_rx_ring *ring)
 		bus_dmamem_unmap(sc->sc_dmat, (void *)ring->rxd,
 		    RT2860_RX_RING_COUNT * sizeof (struct rt2860_rxd));
 		bus_dmamem_free(sc->sc_dmat, &ring->seg, 1);
+		ring->rxd = NULL;
 	}
-	if (ring->map != NULL)
+	if (ring->map != NULL) {
 		bus_dmamap_destroy(sc->sc_dmat, ring->map);
+		ring->map = NULL;
+	}
 
 	for (i = 0; i < RT2860_RX_RING_COUNT; i++) {
 		struct rt2860_rx_data *data = &ring->data[i];
@@ -761,9 +777,12 @@ rt2860_free_rx_ring(struct rt2860_softc *sc, struct rt2860_rx_ring *ring)
 			    data->map->dm_mapsize, BUS_DMASYNC_POSTREAD);
 			bus_dmamap_unload(sc->sc_dmat, data->map);
 			m_freem(data->m);
+			data->m = NULL;
 		}
-		if (data->map != NULL)
+		if (data->map != NULL) {
 			bus_dmamap_destroy(sc->sc_dmat, data->map);
+			data->map = NULL;
+		}
 	}
 }
 
@@ -1195,8 +1214,9 @@ rt2860_tx_intr(struct rt2860_softc *sc, int qid)
 	}
 
 	sc->sc_tx_timer = 0;
-	if (ring->queued < RT2860_TX_RING_ONEMORE)
+	if (ring->queued <= RT2860_TX_RING_ONEMORE)
 		sc->qfullmsk &= ~(1 << qid);
+	ifp->if_flags &= ~IFF_OACTIVE;
 	rt2860_start(ifp);
 }
 
@@ -1312,7 +1332,7 @@ rt2860_rx_intr(struct rt2860_softc *sc)
 		/* HW may insert 2 padding bytes after 802.11 header */
 		if (rxd->flags & htole32(RT2860_RX_L2PAD)) {
 			u_int hdrlen = ieee80211_hdrspace(ic, wh);
-			memmove(wh + 2, wh, hdrlen);
+			memmove((char *)wh + 2, wh, hdrlen);
 			m->m_data += 2;
 			wh = mtod(m, struct ieee80211_frame *);
 		}
@@ -1477,8 +1497,9 @@ rt2860_intr(void *arg)
 	if (r & RT2860_MAC_INT_0)	/* TBTT */
 		rt2860_tbtt_intr(sc);
 
-	if (r & RT2860_MAC_INT_3)	/* Auto wakeup */
-		/* TBD wakeup */{};
+	if (r & RT2860_MAC_INT_3) {	/* Auto wakeup */
+		/* TBD wakeup */
+	}
 
 	if (r & RT2860_MAC_INT_4)	/* GP timer */
 		rt2860_gp_intr(sc);
@@ -1519,6 +1540,7 @@ rt2860_tx(struct rt2860_softc *sc, struct mbuf *m, struct ieee80211_node *ni)
 		qid = (type == IEEE80211_FC0_TYPE_MGT) ?
 		    sc->mgtqid : WME_AC_BE;
 	}
+	KASSERT(qid < MAXQS);
 	ring = &sc->txq[qid];
 
 	/* pickup a rate index */
@@ -3422,7 +3444,7 @@ rt2860_init(struct ifnet *ifp)
 	RAL_SET_REGION_4(sc, RT2860_SKEY_MODE_0_7, 0, 4);
 
 	/* init Tx rings (4 EDCAs + HCCA + Mgt) */
-	for (qid = 0; qid < 6; qid++) {
+	for (qid = 0; qid < MAXQS; qid++) {
 		RAL_WRITE(sc, RT2860_TX_BASE_PTR(qid), sc->txq[qid].paddr);
 		RAL_WRITE(sc, RT2860_TX_MAX_CNT(qid), RT2860_TX_RING_COUNT);
 		RAL_WRITE(sc, RT2860_TX_CTX_IDX(qid), 0);
@@ -3585,7 +3607,7 @@ rt2860_stop(struct ifnet *ifp, int disable)
 
 	/* reset Tx and Rx rings (and reclaim TXWIs) */
 	sc->qfullmsk = 0;
-	for (qid = 0; qid < 6; qid++)
+	for (qid = 0; qid < MAXQS; qid++)
 		rt2860_reset_tx_ring(sc, &sc->txq[qid]);
 	rt2860_reset_rx_ring(sc, &sc->rxq);
 

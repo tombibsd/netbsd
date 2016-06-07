@@ -300,6 +300,12 @@
 #define AGP_G4X_GCC1_GMS_STOLEN_352M	0xd0
 
 /*
+ * Config registers for Pineview
+ */
+#define AGP_PINEVIEW_PGTBL_SIZE_MASK	(3U << 8)
+#define AGP_PINEVIEW_PGTBL_SIZE_1M	(1U << 8)
+
+/*
  * AMD64 GART registers
  */
 #define	AGP_AMD64_APCTRL		0x90

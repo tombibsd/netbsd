@@ -115,7 +115,7 @@ sig_handler(int signo)
 /* sig_init():
  *	Initialize all signal stuff
  */
-protected int
+libedit_private int
 sig_init(EditLine *el)
 {
 	size_t i;
@@ -147,7 +147,7 @@ sig_init(EditLine *el)
 /* sig_end():
  *	Clear all signal stuff
  */
-protected void
+libedit_private void
 sig_end(EditLine *el)
 {
 
@@ -159,7 +159,7 @@ sig_end(EditLine *el)
 /* sig_set():
  *	set all the signal handlers
  */
-protected void
+libedit_private void
 sig_set(EditLine *el)
 {
 	size_t i;
@@ -186,7 +186,7 @@ sig_set(EditLine *el)
 /* sig_clr():
  *	clear all the signal handlers
  */
-protected void
+libedit_private void
 sig_clr(EditLine *el)
 {
 	size_t i;

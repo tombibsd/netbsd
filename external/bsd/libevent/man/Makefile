@@ -41,7 +41,7 @@ MAN1=${SRCS1:S/^/ev/g}
 .for i in ${SRCS1}
 ev$i: $i
 	${TOOL_SED}  -e 's/"deprecated"/"evdeprecated"/g' \
-		-e 's/^deprecated/^evdeprecated/g' < ${.ALLSRC} > ${.TARGET}
+		-e 's/^deprecated/evdeprecated/g' < ${.ALLSRC} > ${.TARGET}
 .endfor
 
 MAN+= \

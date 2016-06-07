@@ -1205,14 +1205,16 @@ meta_oodate(GNode *gn, Boolean oodate)
 		     * be part of the dependencies because
 		     * they are _expected_ to change.
 		     */
-		    if (*p == '/' &&
-			Lst_ForEach(metaIgnorePaths, prefix_match, p)) {
+		    if (*p == '/') {
+			realpath(p, fname1); /* clean it up */
+			if (Lst_ForEach(metaIgnorePaths, prefix_match, fname1)) {
 #ifdef DEBUG_META_MODE
-			if (DEBUG(META))
-			    fprintf(debug_file, "meta_oodate: ignoring: %s\n",
-				    p);
+			    if (DEBUG(META))
+				fprintf(debug_file, "meta_oodate: ignoring: %s\n",
+					p);
 #endif
-			break;
+			    break;
+			}
 		    }
 
 		    /*

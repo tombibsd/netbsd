@@ -88,6 +88,16 @@ spl.o vectors.o: assym.h
 ## (7) misc settings
 ##
 
+# define .MAIN _before_ the make() check, so that implicit target
+# would be defined
+.MAIN: all
+
+.if make(depend) || make(all) || make(dependall)
+.BEGIN:
+	@rm -f arm && \
+		ln -s $S/arch/arm/include arm
+.endif
+
 ##
 ## (8) config(8) generated machinery
 ##

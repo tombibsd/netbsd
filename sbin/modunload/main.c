@@ -57,7 +57,7 @@ main(int argc, char **argv)
 
 	for (i = 1; i < argc; i++) {
 		if (prog_modctl(MODCTL_UNLOAD, argv[i])) {
-			err(EXIT_FAILURE, NULL);
+			err(EXIT_FAILURE, "%s", argv[i]);
 		}
 	}
 

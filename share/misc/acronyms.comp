@@ -1271,6 +1271,7 @@ TUI	{terminal,text-based,textual} user interface
 TX	{transmit out,transmitter}
 TZ	time zone
 UAC	user {access,account} control
+UAF	use-after-free
 UART	universal asynchronous receiver/transmitter
 UAT	user acceptance testing
 UC	uncacheable

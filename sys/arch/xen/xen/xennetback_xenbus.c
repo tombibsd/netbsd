@@ -720,8 +720,9 @@ xennetback_tx_check_packet(const netif_tx_request_t *txreq, int vlan)
 	if (__predict_false(txreq->offset + txreq->size > PAGE_SIZE))
 		return "crossing a page boundary";
 
-	const int maxlen =
-	    vlan ? (ETHER_VLAN_ENCAP_LEN + ETHER_MAX_LEN) : ETHER_MAX_LEN;
+	int maxlen = ETHER_MAX_LEN - ETHER_CRC_LEN;
+	if (vlan)
+		maxlen += ETHER_VLAN_ENCAP_LEN;
 	if (__predict_false(txreq->size > maxlen))
 		return "too big";
 

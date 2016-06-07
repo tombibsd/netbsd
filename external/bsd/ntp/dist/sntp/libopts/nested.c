@@ -861,7 +861,7 @@ LOCAL int
 get_special_char(char const ** ppz, int * ct)
 {
     char const * pz = *ppz;
-    char *rz;
+    char *       rz;
 
     if (*ct < 3)
         return '&';
@@ -876,7 +876,7 @@ get_special_char(char const ** ppz, int * ct)
             pz++;
         }
         retch = (int)strtoul(pz, &rz, base);
-	pz = rz;
+        pz = rz;
         if (*pz != ';')
             return '&';
         base = (int)(++pz - *ppz);

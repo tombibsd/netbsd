@@ -72,12 +72,13 @@ SRCS=	cmd_args.c				\
 	refclock_wwvb.c				\
 	refclock_zyfer.c
 
+.include "${.CURDIR}/../Makefile.inc"
+
 LDADD+=		-L${LIBPARSE} -lparse -L${LIBISC} -liscntp -lm -lutil
 DPADD+=		${LIBPARSE}/libparse.a ${LIBISC}/libiscntp.a ${LIBOPTS}/libopts.a  ${LIBNTP}/libntp.a ${LIBM} ${LIBUTIL}
 
 COPTS.ntp_control.c+=	${${ACTIVE_CC} == "gcc":? -Wno-format-nonliteral :}
 
-.include "${.CURDIR}/../Makefile.inc"
 
 DIST=${IDIST}/ntpd
 

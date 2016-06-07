@@ -61,7 +61,6 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <dev/scsipi/scsipiconf.h>
 #include <dev/scsipi/scsipi_base.h>
 
-#define	STRVIS_ISWHITE(x) ((x) == ' ' || (x) == '\0' || (x) == (u_char)'\377')
 
 /* Function pointers and stub routines for scsiverbose module */
 int (*scsipi_print_sense)(struct scsipi_xfer *, int) = scsipi_print_sense_stub;
@@ -255,43 +254,4 @@ scsipi_dtype(int type)
 		break;
 	}
 	return (dtype);
-}
-
-void
-scsipi_strvis(u_char *dst, int dlen, const u_char *src, int slen)
-{
-
-	/* Trim leading and trailing blanks and NULs. */
-	while (slen > 0 && STRVIS_ISWHITE(src[0]))
-		++src, --slen;
-	while (slen > 0 && STRVIS_ISWHITE(src[slen - 1]))
-		--slen;
-
-	while (slen > 0) {
-		if (*src < 0x20 || *src >= 0x80) {
-			/* non-printable characters */
-			dlen -= 4;
-			if (dlen < 1)
-				break;
-			*dst++ = '\\';
-			*dst++ = ((*src & 0300) >> 6) + '0';
-			*dst++ = ((*src & 0070) >> 3) + '0';
-			*dst++ = ((*src & 0007) >> 0) + '0';
-		} else if (*src == '\\') {
-			/* quote characters */
-			dlen -= 2;
-			if (dlen < 1)
-				break;
-			*dst++ = '\\';
-			*dst++ = '\\';
-		} else {
-			/* normal characters */
-			if (--dlen < 1)
-				break;
-			*dst++ = *src;
-		}
-		++src, --slen;
-	}
-
-	*dst++ = 0;
 }

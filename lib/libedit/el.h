@@ -133,12 +133,13 @@ struct editline {
 	el_search_t	  el_search;	/* Search stuff			*/
 	el_signal_t	  el_signal;	/* Signal handling stuff	*/
 	struct el_read_t *el_read;	/* Character reading stuff	*/
+	ct_buffer_t       el_visual;    /* Buffer for displayable str	*/
 	ct_buffer_t       el_scratch;   /* Scratch conversion buffer    */
 	ct_buffer_t       el_lgcyconv;  /* Buffer for legacy wrappers   */
 	LineInfo          el_lgcylinfo; /* Legacy LineInfo buffer       */
 };
 
-protected int	el_editmode(EditLine *, int, const wchar_t **);
+libedit_private int	el_editmode(EditLine *, int, const wchar_t **);
 
 #ifdef DEBUG
 #define	EL_ABORT(a)	do { \

@@ -133,6 +133,9 @@ static int copyinargstrs(struct execve_data * restrict, char * const *,
     execve_fetch_element_t, char **, size_t *, void (*)(const void *, size_t));
 static int exec_sigcode_map(struct proc *, const struct emul *);
 
+#ifdef DEBUG
+#define DEBUG_EXEC
+#endif
 #ifdef DEBUG_EXEC
 #define DPRINTF(a) printf a
 #define COPYPRINTF(s, a, b) printf("%s, %d: copyout%s @%p %zu\n", __func__, \
@@ -759,7 +762,7 @@ execve_loadvm(struct lwp *l, const char *path, char * const *args,
 	 */
 
 #ifdef PAX_ASLR
-#define	ASLR_GAP(epp)	(pax_aslr_epp_active(epp) ? (cprng_fast32() % PAGE_SIZE) : 0)
+#define	ASLR_GAP(epp)	pax_aslr_stack_gap(epp)
 #else
 #define	ASLR_GAP(epp)	0
 #endif
@@ -850,7 +853,9 @@ execve_dovmcmds(struct lwp *l, struct execve_data * restrict data)
 	/* create the new process's VM space by running the vmcmds */
 	KASSERTMSG(epp->ep_vmcmds.evs_used != 0, "%s: no vmcmds", __func__);
 
+#ifdef TRACE_EXEC
 	DUMPVMCMDS(epp, 0, 0);
+#endif
 
 	base_vcp = NULL;
 
@@ -1318,7 +1323,9 @@ execve_runproc(struct lwp *l, struct execve_data * restrict data,
 	pathbuf_stringcopy_put(data->ed_pathbuf, data->ed_pathstring);
 	pathbuf_destroy(data->ed_pathbuf);
 	PNBUF_PUT(data->ed_resolvedpathbuf);
+#ifdef TRACE_EXEC
 	DPRINTF(("%s finished\n", __func__));
+#endif
 	return EJUSTRETURN;
 
  exec_abort:

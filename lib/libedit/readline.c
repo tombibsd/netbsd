@@ -156,6 +156,14 @@ char *rl_special_prefixes = NULL;
  */
 int rl_completion_append_character = ' ';
 
+/*
+ * When the history cursor is on the newest element and next_history()
+ * is called, GNU readline moves the cursor beyond the newest element.
+ * The editline library does not provide data structures to express
+ * that state, so we need a local flag.
+ */
+static int current_history_valid = 1;
+
 /* stuff below is used internally by libedit for readline emulation */
 
 static History *h = NULL;
@@ -290,6 +298,8 @@ rl_initialize(void)
 	HistEvent ev;
 	int editmode = 1;
 	struct termios t;
+
+	current_history_valid = 1;
 
 	if (e != NULL)
 		el_end(e);
@@ -1168,12 +1178,24 @@ void
 stifle_history(int max)
 {
 	HistEvent ev;
+	HIST_ENTRY *he;
+	int i, len;
 
 	if (h == NULL || e == NULL)
 		rl_initialize();
 
-	if (history(h, &ev, H_SETSIZE, max) == 0)
+	len = history_length;
+	if (history(h, &ev, H_SETSIZE, max) == 0) {
 		max_input_history = max;
+		if (max < len)
+			history_base += len - max;
+		for (i = 0; i < len - max; i++) {
+			he = remove_history(i);
+			el_free(he->data);
+			el_free((void *)(unsigned long)he->line);
+			el_free(he);
+		}
+	}
 }
 
 
@@ -1388,25 +1410,37 @@ history_get(int num)
 	if (h == NULL || e == NULL)
 		rl_initialize();
 
+	if (num < history_base)
+		return NULL;
+
 	/* save current position */
 	if (history(h, &ev, H_CURR) != 0)
 		return NULL;
 	curr_num = ev.num;
 
-	/* start from the oldest */
-	if (history(h, &ev, H_LAST) != 0)
-		return NULL;	/* error */
+	/*
+	 * use H_DELDATA to set to nth history (without delete) by passing
+	 * (void **)-1  -- as in history_set_pos
+	 */
+	if (history(h, &ev, H_DELDATA, num - history_base, (void **)-1) != 0)
+		goto out;
 
-	/* look forwards for event matching specified offset */
-	if (history(h, &ev, H_NEXT_EVDATA, num, &she.data))
-		return NULL;
-
+	/* get current entry */
+	if (history(h, &ev, H_CURR) != 0)
+		goto out;
+	if (history(h, &ev, H_NEXT_EVDATA, ev.num, &she.data) != 0)
+		goto out;
 	she.line = ev.str;
 
 	/* restore pointer to where it was */
 	(void)history(h, &ev, H_SET, curr_num);
 
 	return &she;
+
+out:
+	/* restore pointer to where it was */
+	(void)history(h, &ev, H_SET, curr_num);
+	return NULL;
 }
 
 
@@ -1427,6 +1461,7 @@ add_history(const char *line)
 	(void)history(h, &ev, H_ENTER, line);
 	if (history(h, &ev, H_GETSIZE) == 0)
 		history_length = ev.num;
+	current_history_valid = 1;
 
 	return !(history_length > 0); /* return 0 if all is okay */
 }
@@ -1519,6 +1554,7 @@ clear_history(void)
 
 	(void)history(h, &ev, H_CLEAR);
 	history_length = 0;
+	current_history_valid = 1;
 }
 
 
@@ -1551,7 +1587,7 @@ HIST_ENTRY *
 current_history(void)
 {
 
-	return _move_history(H_CURR);
+	return current_history_valid ? _move_history(H_CURR) : NULL;
 }
 
 
@@ -1592,10 +1628,11 @@ history_set_pos(int pos)
 	int curr_num;
 
 	if (pos >= history_length || pos < 0)
-		return -1;
+		return 0;
 
 	(void)history(h, &ev, H_CURR);
 	curr_num = ev.num;
+	current_history_valid = 1;
 
 	/*
 	 * use H_DELDATA to set to nth history (without delete) by passing
@@ -1603,20 +1640,25 @@ history_set_pos(int pos)
 	 */
 	if (history(h, &ev, H_DELDATA, pos, (void **)-1)) {
 		(void)history(h, &ev, H_SET, curr_num);
-		return -1;
+		return 0;
 	}
-	return 0;
+	return 1;
 }
 
 
 /*
  * returns previous event in history and shifts pointer accordingly
+ * Note that readline and editline define directions in opposite ways.
  */
 HIST_ENTRY *
 previous_history(void)
 {
 
-	return _move_history(H_PREV);
+	if (current_history_valid == 0) {
+		current_history_valid = 1;
+		return _move_history(H_CURR);
+	}
+	return _move_history(H_NEXT);
 }
 
 
@@ -1626,8 +1668,12 @@ previous_history(void)
 HIST_ENTRY *
 next_history(void)
 {
+	HIST_ENTRY *he;
 
-	return _move_history(H_NEXT);
+	he = _move_history(H_PREV);
+	if (he == NULL)
+		current_history_valid = 0;
+	return he;
 }
 
 
@@ -1688,7 +1734,7 @@ history_search_pos(const char *str,
 		return -1;
 	curr_num = ev.num;
 
-	if (history_set_pos(off) != 0 || history(h, &ev, H_CURR) != 0)
+	if (!history_set_pos(off) || history(h, &ev, H_CURR) != 0)
 		return -1;
 
 	for (;;) {

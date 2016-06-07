@@ -232,7 +232,7 @@ fill_ddb_regs_from_tf(struct trapframe64 *tf)
 	}
 	/* We should do a proper copyin and xlate 64-bit stack frames, but... */
 /*	if (tf->tf_tstate & TSTATE_PRIV) { .. } */
-	
+
 #if 0
 	/* make sure this is not causing ddb problems. */
 	if (tf->tf_out[6] & 1) {
@@ -257,6 +257,13 @@ fill_ddb_regs_from_tf(struct trapframe64 *tf)
 		DDB_REGS->db_fr.fr_fp = (long)tfr.fr_fp;
 		DDB_REGS->db_fr.fr_pc = tfr.fr_pc;
 	}
+#else
+	int i;
+	for (i=0; i<8; i++)
+	  DDB_REGS->db_fr.fr_local[i] = tf->tf_local[i];
+	for (i=0; i<6; i++)
+	  DDB_REGS->db_fr.fr_arg[i] = tf->tf_in[i];
+	/* XXX tp and pc are missing */
 #endif
 	DDB_REGS->db_tl = savetstate(&DDB_REGS->db_ts[0]);
 }

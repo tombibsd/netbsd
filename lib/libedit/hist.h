@@ -68,12 +68,12 @@ typedef struct el_history_t {
 #define	HIST_SAVE(el, fname)	HIST_FUN(el, H_SAVE fname)
 #define	HIST_SAVE_FP(el, fp)	HIST_FUN(el, H_SAVE_FP fp)
 
-protected int		hist_init(EditLine *);
-protected void		hist_end(EditLine *);
-protected el_action_t	hist_get(EditLine *);
-protected int		hist_set(EditLine *, hist_fun_t, void *);
-protected int		hist_command(EditLine *, int, const wchar_t **);
-protected int		hist_enlargebuf(EditLine *, size_t, size_t);
-protected wchar_t	*hist_convert(EditLine *, int, void *);
+libedit_private int		hist_init(EditLine *);
+libedit_private void		hist_end(EditLine *);
+libedit_private el_action_t	hist_get(EditLine *);
+libedit_private int		hist_set(EditLine *, hist_fun_t, void *);
+libedit_private int		hist_command(EditLine *, int, const wchar_t **);
+libedit_private int		hist_enlargebuf(EditLine *, size_t, size_t);
+libedit_private wchar_t	*hist_convert(EditLine *, int, void *);
 
 #endif /* _h_el_hist */

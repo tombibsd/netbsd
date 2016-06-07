@@ -58,10 +58,8 @@
 # endif
 #endif
 
-#ifndef protected
-# define protected	/* Redefined from elsewhere to "static" */
-			/* When we want to hide everything	*/
-#endif
+/* If your compiler does not support this, define it to be empty. */
+#define libedit_private __attribute__((__visibility__("hidden")))
 
 #ifndef __arraycount
 # define __arraycount(a) (sizeof(a) / sizeof(*(a)))

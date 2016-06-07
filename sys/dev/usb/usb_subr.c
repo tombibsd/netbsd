@@ -1708,9 +1708,6 @@ usb_disconnect_port(struct usbd_port *up, device_t parent, int flags)
 	DPRINTFN(3, "up=%p dev=%p port=%d", up, dev, up->up_portno, 0);
 
 	if (dev == NULL) {
-#ifdef DIAGNOSTIC
-		printf("usb_disconnect_port: no device\n");
-#endif
 		return 0;
 	}
 

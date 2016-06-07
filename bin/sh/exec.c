@@ -102,6 +102,7 @@ int exerrno = 0;			/* Last exec error */
 
 STATIC void tryexec(char *, char **, char **, int);
 STATIC void printentry(struct tblentry *, int);
+STATIC void addcmdentry(char *, struct cmdentry *);
 STATIC void clearcmdentry(int);
 STATIC struct tblentry *cmdlookup(const char *, int);
 STATIC void delete_cmd_entry(void);

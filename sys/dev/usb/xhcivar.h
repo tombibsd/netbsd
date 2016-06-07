@@ -125,8 +125,7 @@ struct xhci_softc {
 	int (*sc_vendor_port_status)(struct xhci_softc *, uint32_t, int);
 
 	int sc_quirks;
-#define XHCI_QUIRK_FORCE_INTR	__BIT(0) /* force interrupt reading */
-#define XHCI_QUIRK_INTEL	__BIT(1) /* Intel xhci chip */
+#define XHCI_QUIRK_INTEL	__BIT(0) /* Intel xhci chip */
 };
 
 int	xhci_init(struct xhci_softc *);

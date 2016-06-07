@@ -11,10 +11,11 @@
 #define	_SYS_SYSCALLARGS_H_
 
 #ifndef RUMP_CLIENT
+#include <sys/idtype.h>
 #include <sys/mount.h>
 #include <sys/sched.h>
 #endif
-#include <sys/idtype.h>
+
 #include <sys/socket.h>
 
 #define	SYS_MAXSYSARGS	8

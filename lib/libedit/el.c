@@ -147,6 +147,8 @@ el_end(EditLine *el)
 	sig_end(el);
 
 	el_free(el->el_prog);
+	el_free(el->el_visual.cbuff);
+	el_free(el->el_visual.wbuff);
 	el_free(el->el_scratch.cbuff);
 	el_free(el->el_scratch.wbuff);
 	el_free(el->el_lgcyconv.cbuff);
@@ -611,7 +613,7 @@ el_beep(EditLine *el)
 /* el_editmode()
  *	Set the state of EDIT_DISABLED from the `edit' command.
  */
-protected int
+libedit_private int
 /*ARGSUSED*/
 el_editmode(EditLine *el, int argc, const wchar_t **argv)
 {

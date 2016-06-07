@@ -170,7 +170,7 @@ main(int argc, char **argv)
 		cmdargs.ml_propslen = strlen(propsstr);
 
 		if (prog_modctl(MODCTL_LOAD, &cmdargs)) {
-			err(EXIT_FAILURE, NULL);
+			err(EXIT_FAILURE, "%s", cmdargs.ml_filename);
 		}
 	}
 

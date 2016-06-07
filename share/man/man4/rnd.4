@@ -199,10 +199,10 @@ kernel has started.
 For those that don't, the
 .Xr rndctl 8
 command can do it once userland has started, for example by setting
-.Dq Va rndctl=YES
+.Dq Va random_seed=YES
 in
-.Pa /etc/rc.conf ;
-see
+.Pa /etc/rc.conf ,
+which is enabled by default; see
 .Xr rc.conf 5 .
 .Sh LIMITATIONS
 Some people worry about recovery from state compromise -- that is,

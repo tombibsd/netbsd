@@ -139,7 +139,7 @@ ct_decode_string(const char *s, ct_buffer_t *conv)
 }
 
 
-protected wchar_t **
+libedit_private wchar_t **
 ct_decode_argv(int argc, const char *argv[], ct_buffer_t *conv)
 {
 	size_t bufspace;
@@ -179,7 +179,7 @@ ct_decode_argv(int argc, const char *argv[], ct_buffer_t *conv)
 }
 
 
-protected size_t
+libedit_private size_t
 ct_enc_width(wchar_t c)
 {
 	/* UTF-8 encoding specific values */
@@ -195,7 +195,7 @@ ct_enc_width(wchar_t c)
 		return 0; /* not a valid codepoint */
 }
 
-protected ssize_t
+libedit_private ssize_t
 ct_encode_char(char *dst, size_t len, wchar_t c)
 {
 	ssize_t l = 0;
@@ -210,57 +210,50 @@ ct_encode_char(char *dst, size_t len, wchar_t c)
 	return l;
 }
 
-protected const wchar_t *
-ct_visual_string(const wchar_t *s)
+libedit_private const wchar_t *
+ct_visual_string(const wchar_t *s, ct_buffer_t *conv)
 {
-	static wchar_t *buff = NULL;
-	static size_t buffsize = 0;
-	void *p;
 	wchar_t *dst;
-	ssize_t used = 0;
+	ssize_t used;
 
 	if (!s)
 		return NULL;
-	if (!buff) {
-	    buffsize = CT_BUFSIZ;
-	    buff = el_malloc(buffsize * sizeof(*buff));
-	}
-	dst = buff;
+
+	if (ct_conv_wbuff_resize(conv, CT_BUFSIZ) == -1)
+		return NULL;
+
+	used = 0;
+	dst = conv->wbuff;
 	while (*s) {
-		used = ct_visual_char(dst, buffsize - (size_t)(dst - buff), *s);
-		if (used == -1) { /* failed to encode, need more buffer space */
-			used = dst - buff;
-			buffsize += CT_BUFSIZ;
-			p = el_realloc(buff, buffsize * sizeof(*buff));
-			if (p == NULL)
-				goto out;
-			buff = p;
-			dst = buff + used;
-			/* don't increment s here - we want to retry it! */
+		used = ct_visual_char(dst,
+		    conv->wsize - (size_t)(dst - conv->wbuff), *s);
+		if (used != -1) {
+			++s;
+			dst += used;
+			continue;
 		}
-		else
-		    ++s;
-		dst += used;
+
+		/* failed to encode, need more buffer space */
+		used = dst - conv->wbuff;
+		if (ct_conv_wbuff_resize(conv, conv->wsize + CT_BUFSIZ) == -1)
+			return NULL;
+		dst = conv->wbuff + used;
 	}
-	if (dst >= (buff + buffsize)) { /* sigh */
-		buffsize += 1;
-		p = el_realloc(buff, buffsize * sizeof(*buff));
-		if (p == NULL)
-			goto out;
-		buff = p;
-		dst = buff + buffsize - 1;
+
+	if (dst >= (conv->wbuff + conv->wsize)) { /* sigh */
+		used = dst - conv->wbuff;
+		if (ct_conv_wbuff_resize(conv, conv->wsize + CT_BUFSIZ) == -1)
+			return NULL;
+		dst = conv->wbuff + used;
 	}
-	*dst = 0;
-	return buff;
-out:
-	el_free(buff);
-	buffsize = 0;
-	return NULL;
+
+	*dst = L'\0';
+	return conv->wbuff;
 }
 
 
 
-protected int
+libedit_private int
 ct_visual_width(wchar_t c)
 {
 	int t = ct_chr_class(c);
@@ -284,7 +277,7 @@ ct_visual_width(wchar_t c)
 }
 
 
-protected ssize_t
+libedit_private ssize_t
 ct_visual_char(wchar_t *dst, size_t len, wchar_t c)
 {
 	int t = ct_chr_class(c);
@@ -331,7 +324,7 @@ ct_visual_char(wchar_t *dst, size_t len, wchar_t c)
 
 
 
-protected int
+libedit_private int
 ct_chr_class(wchar_t c)
 {
 	if (c == '\t')
