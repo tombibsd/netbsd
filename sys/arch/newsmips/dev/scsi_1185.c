@@ -1720,12 +1720,11 @@ void
 adjust_transfer(struct sc_softc *sc, struct sc_chan_stat *cs)
 {
 	struct sc_scb *scb = cs->scb;
-	u_int remain_cnt;
+	u_int remain_cnt = 0;
 	u_int offset, sent_byte;
 
 	if (sc->pad_start) {
 		sc->pad_start = 0;
-		remain_cnt = 0;
 	} else {
 # if defined(__mips__) && defined(CPU_SINGLE)
 		remain_cnt = GET_CNT();

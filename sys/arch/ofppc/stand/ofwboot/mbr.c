@@ -130,7 +130,6 @@ find_mbr_part(struct of_dev *devp, uint32_t off, char *buf,
 		}
 	}
 
-	recursion--;
 	return 0;
 }
 

@@ -16,7 +16,7 @@ LISTS=		${.CURDIR}/list64
 .endif
 
 IMAGE=		diskimage
-IMAGESIZE=	4000k
+IMAGESIZE=	4500k
 MTREECONF=	${DISTRIBDIR}/common/mtree.dot
 IMAGEENDIAN=	be
 

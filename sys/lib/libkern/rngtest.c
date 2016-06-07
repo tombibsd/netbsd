@@ -263,13 +263,13 @@ rngtest(rngtest_t *const rc)
 		for (last = 0; last <= 1; ++last) {
 			if (rc->rt_runs[last][run] <= minrun[run]) {
 				printf("Kernel RNG \"%s\" runs test FAILURE: "
-				       "too few runs of %d %ds (%d < %d)\n",
+				       "too few runs of %d %ds (%d <= %d)\n",
 				       rc->rt_name, run, last,
 				       rc->rt_runs[last][run], minrun[run]);
 				++rc->rt_nerrs;
 			} else if (rc->rt_runs[last][run] >= maxrun[run]) {
 				printf("Kernel RNG \"%s\" runs test FAILURE: "
-				       "too many runs of %d %ds (%d > %d)\n",
+				       "too many runs of %d %ds (%d >= %d)\n",
 				       rc->rt_name, run, last,
 				       rc->rt_runs[last][run], maxrun[run]);
 				++rc->rt_nerrs;

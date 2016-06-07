@@ -83,7 +83,6 @@ lib${LIB}.o:: ${OBJS:O}
 	@echo building standard ${LIB} library
 	@rm -f lib${LIB}.o
 	@${LD} -r -o lib${LIB}.o `lorder ${OBJS} | tsort`
-	@echo done
 
 CPPFLAGS+=	-Wno-pointer-sign
 

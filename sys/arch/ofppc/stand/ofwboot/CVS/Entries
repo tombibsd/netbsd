@@ -3,7 +3,7 @@
 /boot.c/1.23/Sat Jan 22 19:19:21 2011/-kk/
 /boot.h/1.1/Mon Jul 14 09:42:58 2003/-kk/
 /ldscript/1.1/Wed Feb 13 20:11:38 2008/-kk/
-/mbr.c/1.4/Thu Feb  2 21:54:34 2012/-kk/
+/mbr.c/1.5/Tue Jun  7 09:52:56 2016/-kk/
 /mbr.h/1.1/Fri Sep 11 12:00:12 2009/-kk/
 /net.c/1.6/Thu Jun 26 20:46:31 2003/-kk/
 /net.h/1.1/Thu Jun 26 20:42:38 2003/-kk/

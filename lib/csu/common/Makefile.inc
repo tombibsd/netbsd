@@ -16,7 +16,15 @@ OBJS+=		crtbegin.o crtend.o
 .if ${MKPIC} == "yes"
 OBJS+=		crtbeginS.o
 CFLAGS.crtbegin.c+= -fPIE
+# XXXGCC5 - GCC 5 miscompiles crtbeginS.c on many platforms.  on SPARC it
+# XXXGCC5   emits "clr %g1; call %g1", which is effectively jumping to zero.
+. if defined(HAVE_GCC) && ${HAVE_GCC} == 53 && \
+     ${MACHINE_ARCH} != "i386" && ${MACHINE_ARCH} != "amd64"
+CFLAGS.crt0-common.c+=	-O1
+CFLAGS.crtbeginS.c+=	-O1
+. endif
 .endif
+
 .if ${MACHINE_ARCH} == "alpha"
 OBJS+=		crtfm.o
 .endif
@@ -55,7 +63,7 @@ crtbeginS.o: crtbegin.S
 .else
 crtbeginS.o: crtbegin.c crtbegin.h
 	${_MKTARGET_COMPILE}
-	${COMPILE.c} ${PICFLAGS} -DSHARED ${COMMON_DIR}/crtbegin.c -o ${.TARGET}.o
+	${COMPILE.c} ${CFLAGS.crtbeginS.c} ${PICFLAGS} -DSHARED ${COMMON_DIR}/crtbegin.c -o ${.TARGET}.o
 .endif
 	${OBJCOPY} ${OBJCOPYLIBFLAGS} ${.TARGET}.o ${.TARGET} 
 	rm -f ${.TARGET}.o
@@ -81,7 +89,7 @@ MY_PICFLAGS=
 crt0.o: crt0.S crt0-common.c
 	${_MKTARGET_COMPILE}
 	${COMPILE.S} ${ARCHDIR}/crt0.S -o ${.TARGET}.S.o
-	${COMPILE.c} ${MY_PICFLAGS} ${COMMON_DIR}/crt0-common.c -o ${.TARGET}.c.o
+	${COMPILE.c} ${CFLAGS.crt0-common.c} ${MY_PICFLAGS} ${COMMON_DIR}/crt0-common.c -o ${.TARGET}.c.o
 	${LD} -r -o ${.TARGET}.o ${.TARGET}.S.o ${.TARGET}.c.o
 	${OBJCOPY} ${OBJCOPYLIBFLAGS} ${.TARGET}.o ${.TARGET} 
 	rm -f ${.TARGET}.S.o ${.TARGET}.c.o ${.TARGET}.o

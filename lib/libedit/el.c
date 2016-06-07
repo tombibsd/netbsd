@@ -47,13 +47,11 @@ __RCSID("$NetBSD$");
 #include <sys/types.h>
 #include <sys/param.h>
 #include <ctype.h>
+#include <langinfo.h>
+#include <locale.h>
 #include <stdarg.h>
 #include <stdlib.h>
 #include <string.h>
-#ifdef WIDECHAR
-#include <locale.h>
-#include <langinfo.h>
-#endif
 
 #include "el.h"
 #include "parse.h"
@@ -146,12 +144,10 @@ el_end(EditLine *el)
 	sig_end(el);
 
 	el_free(el->el_prog);
-#ifdef WIDECHAR
 	el_free(el->el_scratch.cbuff);
 	el_free(el->el_scratch.wbuff);
 	el_free(el->el_lgcyconv.cbuff);
 	el_free(el->el_lgcyconv.wbuff);
-#endif
 	el_free(el);
 }
 

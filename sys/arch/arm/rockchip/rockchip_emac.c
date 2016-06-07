@@ -521,7 +521,6 @@ rkemac_init(struct ifnet *ifp)
 	EMAC_WRITE(sc, EMAC_RXRINGPTR_REG, sc->sc_rxq.r_physaddr);
 	EMAC_WRITE(sc, EMAC_TXRINGPTR_REG, sc->sc_txq.t_physaddr);
 
-	control &= ~EMAC_CONTROL_RXBDTLEN;
 	control = EMAC_READ(sc, EMAC_CONTROL_REG);
 	if (ifp->if_flags & IFF_PROMISC) {
 		control |= EMAC_CONTROL_PROM;
@@ -534,6 +533,7 @@ rkemac_init(struct ifnet *ifp)
 		control |= EMAC_CONTROL_DISBC;
 	}
 
+	control &= ~EMAC_CONTROL_RXBDTLEN;
 	control |= __SHIFTIN(RKEMAC_RX_RING_COUNT, EMAC_CONTROL_RXBDTLEN);
 	control &= ~EMAC_CONTROL_TXBDTLEN;
 	control |= __SHIFTIN(RKEMAC_TX_RING_COUNT, EMAC_CONTROL_TXBDTLEN);

@@ -8,6 +8,7 @@ TESTSDIR = ${TESTSBASE}/bin/sh
 TESTS_SUBDIRS += dotcmd
 
 TESTS_SH+=	t_arith
+TESTS_SH+=	t_cmdsub
 TESTS_SH+=	t_evaltested
 TESTS_SH+=	t_exit
 TESTS_SH+=	t_expand

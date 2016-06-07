@@ -121,7 +121,6 @@ ${PROG}: ${OBJS} ${LIBS}
 	@echo -n "Creating ECOFF binary... "
 	@mv ${PROG} ${PROG}.elf
 	@${ELF2ECOFF} ${PROG}.elf ${PROG}
-	@echo done.
 .endif
 
 .include <bsd.klinks.mk>

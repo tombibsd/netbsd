@@ -218,10 +218,8 @@ keymacro_add(EditLine *el, const Char *key, keymacro_value_t *val, int ntype)
 protected void
 keymacro_clear(EditLine *el, el_action_t *map, const Char *in)
 {
-#ifdef WIDECHAR
         if (*in > N_KEYS) /* can't be in the map */
                 return;
-#endif
 	if ((map[(unsigned char)*in] == ED_SEQUENCE_LEAD_IN) &&
 	    ((map == el->el_map.key &&
 	    el->el_map.alt[(unsigned char)*in] != ED_SEQUENCE_LEAD_IN) ||

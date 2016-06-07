@@ -41,7 +41,7 @@
  */
 
 /*
- * Machine dependent constants for Sun-4c SPARC
+ * Machine dependent constants for Sun 4U and 4V UltraSPARC
  */
 
 #ifndef VMPARAM_H

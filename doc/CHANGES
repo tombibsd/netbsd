@@ -195,6 +195,7 @@ Changes from NetBSD 7.0 to NetBSD 8.0:
 	rtwn(4): Add a driver for Realtek RTL8188CE/RTL8192CE PCIe IEEE
 		802.11b/g/n wireless network devices, ported from OpenBSD.
 		[nonaka 20150827]
+	arp(4): Remove net.inet.arp.{prune,refresh} sysctl. [ozaki-r 20150831]
 	bind: Import version 9.10.2-P4. [christos 20150903]
 	dhcpcd: Import dhcpcd 6.9.3. [roy 20150904]
 	ftp(1): SNI support for https.  [wiz 20150912]
@@ -222,6 +223,8 @@ Changes from NetBSD 7.0 to NetBSD 8.0:
 		[phx 20151112]
 	cpuctl(8): Most commands can specify more than one CPU now.
 		[mrg 20151115]
+	ndp: net.inet6.ip6.neighborgcthresh is now per interface basis.
+		[ozaki-r 20151125]
 	dhcpcd: Import dhcpcd 6.9.4. [roy 20151130]
 	openssl: Import openssl 1.0.1q [christos 20151206]
 	ip6addrctl: Import from FreeBSD [christos 20151212]
@@ -248,6 +251,7 @@ Changes from NetBSD 7.0 to NetBSD 8.0:
 	bind: Import version 9.10.3-P3. [christos 20160119]
 	dhcpcd: Import dhcpcd 6.10.1. [roy 20160120]
 	openssl: Import openssl 1.0.1r [christos 20160130]
+	gdb(1): Updated to 7.10.1.  [christos 20160202]
 	elftoolchain: Import FreeBSD-2016-02-19. [christos 20160219]
 	openresolv: Import openresolv-3.7.3. [roy 20160222]
 	mv(1): Add SIGINFO support. [mrg 20160228]
@@ -257,3 +261,6 @@ Changes from NetBSD 7.0 to NetBSD 8.0:
 	OpenSSH: Imported 7.2. [christos 20160310]
 	libc: Update to tzcode2016b. [christos 20160315]
 	zoneinfo: Import tzdata2016b. [christos 20160315]
+	wpa_supplicant(8): Added interface matching rules [roy 20160323]
+	lua: Applied second and third patch from http://lua.org/bugs.html
+		[mbalmer 20160325]

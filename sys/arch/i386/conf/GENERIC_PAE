@@ -1,0 +1,5 @@
+# $NetBSD$
+
+include "arch/i386/conf/GENERIC"
+
+options 	PAE		# PAE mode (36 bits physical addressing)

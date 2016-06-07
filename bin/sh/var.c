@@ -87,9 +87,6 @@ struct varinit {
 
 struct localvar *localvars;
 
-#if ATTY
-struct var vatty;
-#endif
 #ifndef SMALL
 struct var vhistsize;
 struct var vterm;
@@ -103,11 +100,9 @@ struct var vps2;
 struct var vps4;
 struct var voptind;
 
+char ifs_default[] = " \t\n";
+
 const struct varinit varinit[] = {
-#if ATTY
-	{ &vatty,	VSTRFIXED|VTEXTFIXED|VUNSET,	"ATTY=",
-	  NULL },
-#endif
 #ifndef SMALL
 	{ &vhistsize,	VSTRFIXED|VTEXTFIXED|VUNSET,	"HISTSIZE=",
 	  sethistsize },
@@ -162,13 +157,14 @@ INIT {
 		}
 	}
 
-
 	/*
 	 * PPID is readonly
 	 *	set after processing environ to override anything there
+	 * Always default IFS, ignore any value from environment.
 	 */
 	snprintf(buf, sizeof(buf), "%d", (int)getppid());
 	setvar("PPID", buf, VREADONLY);
+	setvar("IFS", ifs_default, VTEXTFIXED);
 }
 #endif
 

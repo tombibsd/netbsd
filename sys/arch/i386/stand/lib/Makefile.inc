@@ -35,25 +35,21 @@ I386MAKE= \
 ${I386LIB}:		.NOTMAIN __always_make_i386lib
 	@echo making sure the i386 library is up to date...
 	@${I386MAKE} libi386.a
-	@echo done
 
 clean:			.NOTMAIN cleani386lib
 cleani386lib:		.NOTMAIN
 	@echo cleaning the i386 library objects
 	@if [ -d "${I386DST}" ]; then ${I386MAKE} clean; fi
-	@echo done
 
 cleandir distclean:	.NOTMAIN cleandiri386lib
 cleandiri386lib:	.NOTMAIN
 	@echo cleandiring the i386 library objects
 	@if [ -d "${I386DST}" ]; then ${I386MAKE} cleandir; fi
-	@echo done
 
 dependall depend:	.NOTMAIN dependi386lib
 dependi386lib:		.NOTMAIN __always_make_i386lib
 	@echo depending the i386 library objects
 	@${I386MAKE} depend
-	@echo done
 
 __always_make_i386lib:	.NOTMAIN
 	@mkdir -p ${I386DST}

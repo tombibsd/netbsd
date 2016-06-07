@@ -22,6 +22,11 @@ COPTS.lto-lang.c+=	-Wno-stack-protector
 .include "../Makefile.libdecnumber"
 .include "../Makefile.libiberty"
 
+.if ${MACHINE_ARCH} == "vax"
+COPTS.lto-lang.c+=-O0
+COPTS.lto-symtab.c+=-O0
+.endif
+
 LDADD+= ${LIBIBERTYOBJ}/libiberty.a
 DPADD+= ${LIBIBERTYOBJ}/libiberty.a
 LDADD+=	${LIBIBERTY} ${LIBMPC} ${LIBMPFR} ${LIBGMP} -lintl -lz -lm

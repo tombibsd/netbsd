@@ -34,8 +34,6 @@ DBG?=	-O2 -fno-reorder-blocks
 DBG?=	-O1
 .elif !empty(MACHINE_ARCH:Maarch64*)
 DBG?=	-O2 ${"${.TARGET:M*.po}" == "":? -fomit-frame-pointer:}
-.elif ${MACHINE_ARCH} == "vax"
-DBG?=	-O1 -fgcse -fstrength-reduce -fgcse-after-reload
 .else
 DBG?=	-O2
 .endif

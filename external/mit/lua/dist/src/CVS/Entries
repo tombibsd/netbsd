@@ -34,14 +34,14 @@
 /lopcodes.c/1.4/Sun Feb 14 12:53:16 2016/-kk/
 /lopcodes.h/1.4/Sun Feb 14 12:53:16 2016/-kk/
 /loslib.c/1.5/Sun Feb 14 12:53:16 2016/-kk/
-/lparser.c/1.4/Sun Feb 14 12:53:16 2016/-kk/
+/lparser.c/1.5/Tue Jun  7 09:51:53 2016/-kk/
 /lparser.h/1.4/Sun Feb 14 12:53:16 2016/-kk/
 /lprefix.h/1.3/Sun Feb 14 12:53:16 2016/-kk/
 /lstate.c/1.5/Sun Feb 14 12:53:16 2016/-kk/
 /lstate.h/1.5/Sun Feb 14 12:53:16 2016/-kk/
 /lstring.c/1.5/Sun Feb 14 12:53:16 2016/-kk/
 /lstring.h/1.5/Sun Feb 14 12:53:16 2016/-kk/
-/lstrlib.c/1.11/Sun Feb 14 12:53:16 2016/-kk/
+/lstrlib.c/1.12/Tue Jun  7 09:51:53 2016/-kk/
 /ltable.c/1.6/Sun Feb 14 12:53:16 2016/-kk/
 /ltable.h/1.4/Sun Feb 14 12:53:16 2016/-kk/
 /ltablib.c/1.5/Sun Feb 14 12:53:16 2016/-kk/

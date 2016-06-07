@@ -111,11 +111,6 @@ typedef unsigned int	u_int32_t;
 #define	REGEX		/* Use POSIX.2 regular expression functions */
 #undef	REGEXP		/* Use UNIX V8 regular expression functions */
 
-#ifndef WIDECHAR
-#define	setlocale(c, l)		/*LINTED*/NULL
-#define	nl_langinfo(i)		""
-#endif
-
 #if defined(__sun)
 extern int tgetent(char *, const char *);
 extern int tgetflag(char *);

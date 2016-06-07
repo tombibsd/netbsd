@@ -1236,7 +1236,7 @@ netbsd32_utimensat(struct lwp *l, const struct netbsd32_utimensat_args *uap,
 		syscallarg(netbsd32_timespecp_t) tptr;
 		syscallarg(int) flag;
 	} */
-	struct timespec ts[2], *tsp;
+	struct timespec ts[2], *tsp = NULL /* XXXgcc */;
 	int follow;
 	int error;
 
@@ -1334,7 +1334,7 @@ netbsd32_futimens(struct lwp *l, const struct netbsd32_futimens_args *uap,
 		syscallarg(int) fd;
 		syscallarg(netbsd32_timespecp_t) tptr;
 	} */
-	struct timespec ts[2], *tsp;
+	struct timespec ts[2], *tsp = NULL /* XXXgcc */;
 	file_t *fp;
 	int error;
 

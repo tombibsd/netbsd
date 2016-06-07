@@ -24,6 +24,8 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 #
+# the implementation of "sh" to test
+: ${TEST_SH:="/bin/sh"}
 
 atf_test_case evaltested
 
@@ -43,7 +45,7 @@ fi
 echo "passed"
 exit 0
 EOF
-	output="$(/bin/sh helper.sh)"
+	output="$($TEST_SH helper.sh)"
 	[ $? = 0 ] && return
 
 	if [ -n "$output" ]

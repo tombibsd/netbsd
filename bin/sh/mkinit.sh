@@ -55,7 +55,7 @@ for src in $srcs; do
 			IFS=' 	'
 			set -- $line
 			# ignore duplicates
-			[ "${includes}" != "${includes%* $2 *}" ] && continue
+			[ "${includes}" != "${includes% $2 *}" ] && continue
 			includes="$includes$2 "
 			continue
 			;;

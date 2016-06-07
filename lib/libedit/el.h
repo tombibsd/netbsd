@@ -133,11 +133,9 @@ struct editline {
 	el_search_t	  el_search;	/* Search stuff			*/
 	el_signal_t	  el_signal;	/* Signal handling stuff	*/
 	el_read_t	  el_read;	/* Character reading stuff	*/
-#ifdef WIDECHAR
 	ct_buffer_t       el_scratch;   /* Scratch conversion buffer    */
 	ct_buffer_t       el_lgcyconv;  /* Buffer for legacy wrappers   */
 	LineInfo          el_lgcylinfo; /* Legacy LineInfo buffer       */
-#endif
 };
 
 protected int	el_editmode(EditLine *, int, const Char **);

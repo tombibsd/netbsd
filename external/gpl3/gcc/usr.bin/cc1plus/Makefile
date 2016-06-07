@@ -39,6 +39,24 @@ CHECKSUM_OBJS= ${LIBBACKTRACEOBJ}/libbacktrace.a \
 CFLAGS+=	-Wno-error # not good enough: -Wno-return-type
 COPTS+=		-Wno-stack-protector
 
+.if ${MACHINE_ARCH} == "vax"
+COPTS.call.c+=-O0
+COPTS.decl.c+=-O0
+COPTS.typeck2.c+=-O0
+COPTS.class.c+=-O0
+COPTS.typeck.c+=-O0
+COPTS.init.c+=-O0
+COPTS.semantics.c+=-O0
+COPTS.mangle.c+=-O0
+COPTS.constexpr.c+=-O0
+COPTS.c-common.c+=-O0
+COPTS.c-ada-spec.c+=-O0
+COPTS.cilk.c+=-O0
+COPTS.c-ubsan.c+=-O0
+COPTS.cc1plus-checksum.c+=-O0
+.endif
+
+
 LDADD+=	${LIBMPC} ${LIBMPFR} ${LIBGMP} -lintl -lz -lm
 DPADD+=	${LIBMPC} ${LIBMPFR} ${LIBGMP} ${LIBINTL} ${LIBZ} ${LIBM}
 

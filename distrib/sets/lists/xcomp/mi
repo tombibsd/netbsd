@@ -5783,6 +5783,7 @@
 ./usr/X11R7/include/freetype2/ftsystem.h		-unknown-	xorg
 ./usr/X11R7/include/freetype2/ftfntfmt.h		-unknown-	xorg
 ./usr/X11R7/include/freetype2/fttrigon.h		-unknown-	xorg
+./usr/X11R7/include/freetype2/ftttdrv.h			-unknown-	xorg
 ./usr/X11R7/include/freetype2/fttypes.h			-unknown-	xorg
 ./usr/X11R7/include/freetype2/ftwinfnt.h		-unknown-	xorg
 ./usr/X11R7/include/freetype2/ftxf86.h			-unknown-	obsolete

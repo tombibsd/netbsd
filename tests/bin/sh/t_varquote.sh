@@ -125,7 +125,6 @@ default_assignment_with_arith_head() {
 default_assignment_with_arith_body() {
 	atf_check -s eq:0 -o empty -e empty ${TEST_SH} -c ': "${x=$((1))}"'
 	atf_check -s eq:0 -o match:1 -e empty ${TEST_SH} -c 'echo "${x=$((1))}"'
-
 }
 
 atf_init_test_cases() {

@@ -1317,6 +1317,12 @@ db_disasm(db_addr_t loc, bool altfmt)
 		if (ip->i_extra == (const char *)db_Grp7 && regmodrm == 0xf8) {
 			i_name = "swapgs";
 			i_mode = 0;
+		} else if (ip->i_extra == (const char *)db_Grp7 && regmodrm == 0xcb) {
+			i_name = "stac";
+			i_mode = 0;
+		} else if (ip->i_extra == (const char *)db_Grp7 && regmodrm == 0xca) {
+			i_name = "clac";
+			i_mode = 0;
 		} else {
 			i_name = ((const char * const *)ip->i_extra)
 			    [f_reg(rex, regmodrm)];

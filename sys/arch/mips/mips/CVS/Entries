@@ -47,7 +47,7 @@
 /mips_dsp.c/1.4/Tue Jun  3 02:54:11 2014/-kk/
 /mips_emul.c/1.26/Thu Nov  1 22:15:25 2012/-kk/
 /mips_fixup.c/1.13/Thu Jun 18 03:42:19 2015/-kk/
-/mips_fpu.c/1.12/Tue Jun  3 02:54:11 2014/-kk/
+/mips_fpu.c/1.13/Tue Jun  7 09:52:54 2016/-kk/
 /mips_fputrap.c/1.10/Sat Feb 26 15:41:32 2011/-kk/
 /mips_machdep.c/1.269/Mon Jun 22 02:34:53 2015/-kk/
 /mips_mcclock.c/1.19/Sun Feb 20 07:45:48 2011/-kk/

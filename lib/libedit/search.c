@@ -112,9 +112,7 @@ regerror(const char *msg)
 protected int
 el_match(const Char *str, const Char *pat)
 {
-#ifdef WIDECHAR
 	static ct_buffer_t conv;
-#endif
 #if defined (REGEX)
 	regex_t re;
 	int rv;

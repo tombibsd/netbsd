@@ -33,26 +33,22 @@ EFIMAKE= \
 ${EFILIB}:		.NOTMAIN __always_make_efilib
 	@echo making sure the efi library is up to date...
 	@${EFIMAKE} libefi.a
-	@echo done
 
 clean:			.NOTMAIN cleanefilib
 cleanefilib:		.NOTMAIN
 	@echo cleaning the efi library objects
 	@if [ -d "${EFIDST}" ]; then ${EFIMAKE} clean; fi
-	@echo done
 
 cleandir distclean:	.NOTMAIN cleandirefilib
 cleandirefilib:		.NOTMAIN
 	@echo cleandiring the efi library objects
 	@if [ -d "${EFIDST}" ]; then ${EFIMAKE} cleandir; fi
 	-rm -rf efi
-	@echo done
 
 dependall depend:	.NOTMAIN dependefilib
 dependefilib:		.NOTMAIN __always_make_efilib
 	@echo depending the efi library objects
 	@${EFIMAKE} depend
-	@echo done
 
 __always_make_efilib:	.NOTMAIN
 	@mkdir -p ${EFIDST}

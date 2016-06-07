@@ -289,7 +289,7 @@ dec_3maxplus_intr_establish(device_t dev, void *cookie, int level,
 static void
 dec_3maxplus_ioasic_intr(void)
 {
-	static bool warned = false;
+	static int warned = 0;
 	bool ifound;
 	uint32_t imsk, intr, can_serve, xxxintr;
 
@@ -309,10 +309,10 @@ dec_3maxplus_ioasic_intr(void)
 
 		if (warned && !(can_serve & KN03_INTR_PSWARN)) {
 			printf("%s\n", "Power supply ok now.");
-			warned = false;
+			warned = 0;
 		}
 		if ((can_serve & KN03_INTR_PSWARN) && (warned < 3)) {
-			warned = true;
+			warned++;
 			printf("%s\n", "Power supply overheating");
 		}
 

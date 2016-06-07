@@ -58,7 +58,6 @@ el_getc(EditLine *el, char *cp)
 }
 
 
-#ifdef WIDECHAR
 public void
 el_push(EditLine *el, const char *str)
 {
@@ -389,4 +388,3 @@ el_insertstr(EditLine *el, const char *str)
 {
 	return el_winsertstr(el, ct_decode_string(str, &el->el_lgcyconv));
 }
-#endif /* WIDECHAR */

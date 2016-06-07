@@ -3,7 +3,7 @@
 /bus_space.c/1.10/Sun Jul 20 13:26:17 2014/-kk/
 /clock.c/1.11/Tue Dec  9 04:34:49 2014/-kk/
 /console.c/1.7/Mon Mar 31 11:25:49 2014/-kk/
-/cpu.c/1.9/Sun Jul 20 13:26:17 2014/-kk/
+/cpu.c/1.10/Tue Jun  7 09:52:57 2016/-kk/
 /disksubr.c/1.19/Sun Jul 20 13:26:17 2014/-kk/
 /interrupt.c/1.11/Mon Mar 31 11:25:49 2014/-kk/
 /interrupt.h/1.6/Sun Jul 20 13:26:17 2014/-kk/

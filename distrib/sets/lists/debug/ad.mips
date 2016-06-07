@@ -1,6 +1,7 @@
 # $NetBSD$
--./usr/libdata/debug/usr/lib/64/libgomp.so.1.1.debug
--./usr/lib/64/libgomp_g.a
+-./usr/libdata/debug/usr/lib/64/libgomp.so.1.1.debug	comp-c-debug		debug,compatfile,gcc=48
+-./usr/libdata/debug/usr/lib/64/libgomp.so.1.2.debug	comp-c-debug		debug,compatfile,gcc=53
+-./usr/lib/64/libgomp_g.a				comp-c-debuglib		debuglib,compatfile,gcc=48
 ./usr/libdata/debug/libexec/ld.elf_so-64.debug		comp-sys-debug		debug,compat,arch64,dynamicroot
 ./usr/libdata/debug/libexec/ld.elf_so-o32.debug		comp-sys-debug		debug,compat,arch64,dynamicroot
 ./usr/libdata/debug/usr/bin/elf2aout.debug		comp-obsolete		obsolete

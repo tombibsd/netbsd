@@ -334,6 +334,9 @@ fpu_sin(struct fpemu *fe)
 	if (ISZERO(&fe->fe_f2))
 		return &fe->fe_f2;
 
+#if defined(__GNUC__) && (__GNUC__ >= 5) && defined(__OPTIMIZE__)
+	x.fp_sign = 0;
+#endif
 	CPYFPN(&x, &fe->fe_f2);
 
 	/* x = abs(input) */

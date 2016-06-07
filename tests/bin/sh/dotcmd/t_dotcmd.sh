@@ -33,6 +33,10 @@
 # in C/C++ so, for example, if the dotcmd is in a loop's body, a break in
 # the sourced file can be used to break out of that loop.
 
+# Note that the standard does not require this, and allows lexically
+# scoped interpretation of break/continue (and permits dynamic scope
+# as an optional extension.)
+
 cmds='return break continue'
 scopes='case compound file for func subshell until while'
 

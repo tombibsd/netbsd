@@ -85,8 +85,10 @@ void
 mips_fpu_state_save(lwp_t *l)
 {
 	struct trapframe * const tf = l->l_md.md_utf;
+#ifndef __mips_soft_float
 	struct pcb * const pcb = lwp_getpcb(l);
 	mips_fpreg_t * const fp = pcb->pcb_fpregs.r_regs;
+#endif
 	uint32_t status, fpcsr;
 
 	/*
@@ -118,6 +120,7 @@ mips_fpu_state_save(lwp_t *l)
 	/*
 	 * save FPCSR and FP register values.
 	 */
+#if !defined(__mips_soft_float)
 #if !defined(__mips_o32)
 	if (tf->tf_regs[_R_SR] & MIPS3_SR_FR) {
 		KASSERT(_MIPS_SIM_NEWABI_P(l->l_proc->p_md.md_abi));
@@ -198,6 +201,7 @@ mips_fpu_state_save(lwp_t *l)
 			"swc1	$f31, (31*%d1)(%0)	;"
 		".set reorder" :: "r"(fp), "i"(4));
 	}
+#endif
 	/*
 	 * stop COP1
 	 */
@@ -209,7 +213,9 @@ mips_fpu_state_load(lwp_t *l, u_int flags)
 {
 	struct trapframe * const tf = l->l_md.md_utf;
 	struct pcb * const pcb = lwp_getpcb(l);
+#ifndef __mips_soft_float
 	mips_fpreg_t * const fp = pcb->pcb_fpregs.r_regs;
+#endif
 	uint32_t status;
 	uint32_t fpcsr;
 
@@ -244,6 +250,7 @@ mips_fpu_state_load(lwp_t *l, u_int flags)
 	/*
 	 * load FP registers and establish processes' FP context.
 	 */
+#if !defined(__mips_soft_float)
 #if !defined(__mips_o32)
 	if (tf->tf_regs[_R_SR] & MIPS3_SR_FR) {
 		KASSERT(_MIPS_SIM_NEWABI_P(l->l_proc->p_md.md_abi));
@@ -326,6 +333,9 @@ mips_fpu_state_load(lwp_t *l, u_int flags)
 		    : "r"(fp), "i"(4));
 		fpcsr = ((int *)fp)[32];
 	}
+#else
+	fpcsr = 0;
+#endif
 
 	/*
 	 * load FPCSR and stop COP1 again

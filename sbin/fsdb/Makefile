@@ -39,4 +39,8 @@ COPTS.${f}.c+=	-Wno-pointer-sign
 COPTS.pass1.c+=	-fno-tree-fre -fno-tree-lrs
 .endif
 
+.if ${MACHINE_ARCH} == "vax"
+COPTS.pass1.c+=	-O0
+.endif
+
 .include <bsd.prog.mk>

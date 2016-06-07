@@ -17,7 +17,7 @@
 /exec_subr.c/1.72/Fri Oct  2 14:12:04 2015/-kk/
 /files.kern/1.10/Fri Dec 25 05:40:29 2015/-kk/
 /genlintstub.awk/1.10/Sun Jan 22 05:11:11 2006/-kk/
-/init_main.c/1.477/Fri Dec 25 05:40:29 2015/-kk/
+/init_main.c/1.479/Tue Jun  7 09:53:12 2016/-kk/
 /init_sysctl.c/1.210/Fri Nov 20 02:19:27 2015/-kk/
 /init_sysctl_base.c/1.7/Sun Sep 13 01:07:34 2015/-kk/
 /init_sysent.c/1.306/Sun Feb 14 12:55:44 2016/-kk/
@@ -53,7 +53,7 @@
 /kern_mutex.c/1.62/Wed Jun  3 06:55:12 2015/-kk/
 /kern_mutex_obj.c/1.5/Tue Sep 27 01:02:38 2011/-kk/
 /kern_ntptime.c/1.57/Sat Dec  5 11:19:34 2015/-kk/
-/kern_pax.c/1.35/Tue Jun  7 09:39:04 2016/-kk/
+/kern_pax.c/1.36/Tue Jun  7 09:53:12 2016/-kk/
 /kern_physio.c/1.93/Fri May  1 11:32:26 2015/-kk/
 /kern_pmf.c/1.37/Sat Mar 21 02:21:18 2015/-kk/
 /kern_proc.c/1.194/Fri Oct  2 14:12:04 2015/-kk/
@@ -90,7 +90,7 @@
 /makesyscalls.sh/1.164/Sun Feb 14 12:55:44 2016/-kk/
 /sched_4bsd.c/1.30/Thu Jun 26 06:46:35 2014/-kk/
 /sched_m2.c/1.32/Thu Jun 26 06:46:35 2014/-kk/
-/subr_autoconf.c/1.240/Tue Jun  7 09:39:05 2016/-kk/
+/subr_autoconf.c/1.241/Tue Jun  7 09:53:12 2016/-kk/
 /subr_blist.c/1.12/Tue Dec 17 04:13:38 2013/-kk/
 /subr_bufq.c/1.21/Sat Mar  1 06:05:14 2014/-kk/
 /subr_callback.c/1.7/Tue Nov 24 20:11:50 2009/-kk/

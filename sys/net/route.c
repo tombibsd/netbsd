@@ -996,7 +996,7 @@ rt_maskedcopy(const struct sockaddr *src, struct sockaddr *dst,
  * Inform the routing socket of a route change.
  */
 void
-rt_newmsg(int cmd, struct rtentry *rt)
+rt_newmsg(const int cmd, const struct rtentry *rt)
 {
 	struct rt_addrinfo info;
 

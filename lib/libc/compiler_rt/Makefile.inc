@@ -84,7 +84,6 @@ GENERIC_SRCS+= \
 	fixunssfsi.c \
 	fixunsxfdi.c \
 	fixunsxfsi.c \
-	fixxfdi.c \
 	floatdidf.c \
 	floatdisf.c \
 	floatdixf.c \
@@ -119,6 +118,12 @@ GENERIC_SRCS+= \
 	udivmodti4.c \
 	udivti3.c \
 	umodti3.c
+
+.if ${MACHINE_ARCH} != "m68k"
+GENERIC_SRCS+= \
+	fixxfdi.c
+.endif
+
 
 .if ${MACHINE_ARCH} != "aarch64"
 GENERIC_SRCS+= \
@@ -270,4 +275,7 @@ COPTS.${src}+=	-Wno-missing-prototypes \
 		-Wno-cast-qual
 .    endif
 .  endif
+.if ${MKSOFTFLOAT:Uno} != "no"
+COPTS.${src}+=	-D__SOFT_FP__
+.endif
 .endfor

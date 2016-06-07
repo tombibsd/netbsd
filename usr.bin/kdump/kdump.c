@@ -109,7 +109,7 @@ static void	ioctldecode(u_long);
 static void	ktrsyscall(struct ktr_syscall *);
 static void	ktrsysret(struct ktr_sysret *, int);
 static void	ktrnamei(char *, int);
-static void	ktremul(char *, int, int);
+static void	ktremul(char *, size_t, size_t);
 static void	ktrgenio(struct ktr_genio *, int);
 static void	ktrpsig(void *, int);
 static void	ktrcsw(struct ktr_csw *);
@@ -126,7 +126,8 @@ static void visdump_buf(const void *, int, int);
 int
 main(int argc, char **argv)
 {
-	int ch, ktrlen, size;
+	unsigned int ktrlen, size;
+	int ch;
 	void *m;
 	int trpoints = 0;
 	int trset = 0;
@@ -249,7 +250,7 @@ main(int argc, char **argv)
 			col = dumpheader(&ktr_header);
 		else
 			col = -1;
-		if ((ktrlen = ktr_header.ktr_len) < 0)
+		if ((ktrlen = ktr_header.ktr_len) > INT_MAX)
 			errx(1, "bogus length 0x%x", ktrlen);
 		if (ktrlen > size) {
 			while (ktrlen > size)
@@ -751,7 +752,7 @@ ktrnamei(char *cp, int len)
 }
 
 static void
-ktremul(char *name, int len, int bufsize)
+ktremul(char *name, size_t len, size_t bufsize)
 {
 
 	if (len >= bufsize)

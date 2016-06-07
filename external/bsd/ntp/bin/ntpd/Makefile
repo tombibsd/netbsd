@@ -86,4 +86,9 @@ CPPFLAGS+=-I${IDIST}/include -I${IDIST}/sntp/libopts -I${IDIST}/ntpd -I.
 .PATH: ${DIST}
 YHEADER=1
 
+# XXXGCC5
+.if defined(HAVE_GCC) && ${HAVE_GCC} == 53 && ${ACTIVE_CC} == "gcc"
+COPTS.ntp_control.c+=  -Wno-error=maybe-uninitialized
+.endif
+
 .include <bsd.prog.mk>

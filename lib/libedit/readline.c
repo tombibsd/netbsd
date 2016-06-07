@@ -1805,9 +1805,7 @@ _rl_completion_append_character_function(const char *dummy
 int
 rl_complete(int ignore __attribute__((__unused__)), int invoking_key)
 {
-#ifdef WIDECHAR
 	static ct_buffer_t wbreak_conv, sprefix_conv;
-#endif
 	char *breakchars;
 
 	if (h == NULL || e == NULL)

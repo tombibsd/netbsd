@@ -86,7 +86,6 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #ifdef PAX_ASLR
 #include <sys/mman.h>
-#include <compat/netbsd32/netbsd32.h>
 
 int pax_aslr_enabled = 1;
 int pax_aslr_global = PAX_ASLR;
@@ -96,6 +95,9 @@ int pax_aslr_global = PAX_ASLR;
 #endif
 #ifndef PAX_ASLR_DELTA_MMAP_LEN
 #define PAX_ASLR_DELTA_MMAP_LEN		((sizeof(void *) * NBBY) / 2)
+#endif
+#ifndef PAX_ASLR_DELTA_MMAP_LEN32
+#define PAX_ASLR_DELTA_MMAP_LEN32	((sizeof(uint32_t) * NBBY) / 2)
 #endif
 #ifndef PAX_ASLR_DELTA_STACK_LSB
 #define PAX_ASLR_DELTA_STACK_LSB	PGSHIFT
@@ -405,14 +407,13 @@ pax_aslr_init_vm(struct lwp *l, struct vmspace *vm, struct exec_package *ep)
 	if (!pax_aslr_active(l))
 		return;
 
-	if (ep->ep_flags & EXEC_32)
-		vm->vm_aslr_delta_mmap = PAX_ASLR_DELTA(cprng_fast32(),
-		    PAX_ASLR_DELTA_MMAP_LSB,
-		    (sizeof(netbsd32_pointer_t) * NBBY) / 2);
-	else
-		vm->vm_aslr_delta_mmap = PAX_ASLR_DELTA(cprng_fast32(),
-		    PAX_ASLR_DELTA_MMAP_LSB, PAX_ASLR_DELTA_MMAP_LEN);
-	PAX_DPRINTF("delta_mmap=%#jx", vm->vm_aslr_delta_mmap);
+	uint32_t len = (ep->ep_flags & EXEC_32) ?
+	    PAX_ASLR_DELTA_MMAP_LEN32 : PAX_ASLR_DELTA_MMAP_LEN;
+
+	vm->vm_aslr_delta_mmap = PAX_ASLR_DELTA(cprng_fast32(),
+	    PAX_ASLR_DELTA_MMAP_LSB, len);
+
+	PAX_DPRINTF("delta_mmap=%#jx/%u", vm->vm_aslr_delta_mmap, len);
 }
 
 void

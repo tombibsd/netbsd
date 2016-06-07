@@ -1035,7 +1035,7 @@ start_init(void *arg)
 		 * Move out the arg pointers.
 		 */
 		ucp = (void *)STACK_ALIGN(ucp, STACK_ALIGNBYTES);
-		uap = (char **)STACK_ALLOC(ucp, sizeof(char *) * 3);
+		uap = (char **)STACK_ALLOC(ucp, sizeof(argv));
 		SCARG(&args, path) = arg0;
 		SCARG(&args, argp) = uap;
 		SCARG(&args, envp) = NULL;
@@ -1044,7 +1044,7 @@ start_init(void *arg)
 		argv[0] = slash ? arg0 + (slash + 1 - path) : arg0;
 		argv[1] = arg1;
 		argv[2] = NULL;
-		if ((error = copyout(argv, uap, sizeof(args))) != 0)
+		if ((error = copyout(argv, uap, sizeof(argv))) != 0)
 			goto copyerr;
 
 		/*

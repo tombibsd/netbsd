@@ -498,9 +498,11 @@ tty_setup(EditLine *el)
 {
 	int rst = 1;
 
-	el->el_tty.t_initialized = 0;
 	if (el->el_flags & EDIT_DISABLED)
 		return 0;
+
+	if (el->el_tty.t_initialized)
+		return -1;
 
 	if (!isatty(el->el_outfd)) {
 #ifdef DEBUG_TTY
@@ -571,6 +573,7 @@ tty_init(EditLine *el)
 
 	el->el_tty.t_mode = EX_IO;
 	el->el_tty.t_vdisable = _POSIX_VDISABLE;
+	el->el_tty.t_initialized = 0;
 	(void) memcpy(el->el_tty.t_t, ttyperm, sizeof(ttyperm_t));
 	(void) memcpy(el->el_tty.t_c, ttychar, sizeof(ttychar_t));
 	return tty_setup(el);
@@ -587,7 +590,7 @@ tty_end(EditLine *el)
 	if (el->el_flags & EDIT_DISABLED)
 		return;
 
-	if (el->el_tty.t_initialized)
+	if (!el->el_tty.t_initialized)
 		return;
 
 	if (tty_setty(el, TCSAFLUSH, &el->el_tty.t_or) == -1) {

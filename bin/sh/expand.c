@@ -121,6 +121,7 @@ STATIC char *cvtnum(int, char *);
 void
 expandhere(union node *arg, int fd)
 {
+
 	herefd = fd;
 	expandarg(arg, NULL, 0);
 	xwrite(fd, stackblock(), expdest - stackblock());
@@ -193,7 +194,7 @@ argstr(char *p, int flag)
 	int ifs_split = EXP_IFS_SPLIT;
 
 	if (flag & EXP_IFS_SPLIT)
-		ifs = ifsset() ? ifsval() : " \t\n";
+		ifs = ifsval();
 
 	if (*p == '~' && (flag & (EXP_TILDE | EXP_VARTILDE)))
 		p = exptilde(p, flag);
@@ -705,7 +706,6 @@ again: /* jump here after setting a variable with ${var=text} */
 						STPUTC(CTLESC, expdest);
 					STPUTC(*val++, expdest);
 				}
-
 			}
 		}
 	}
@@ -924,10 +924,7 @@ numvar:
 		}
 		/* fall through */
 	case '*':
-		if (ifsset() != 0)
-			sep = ifsval()[0];
-		else
-			sep = ' ';
+		sep = ifsval()[0];
 		for (ap = shellparam.p ; (p = *ap++) != NULL ; ) {
 			STRTODEST(p);
 			if (*ap && sep)
@@ -1011,7 +1008,7 @@ ifsbreakup(char *string, struct arglist *arglist)
 		return;
 	}
 
-	ifs = ifsset() ? ifsval() : " \t\n";
+	ifs = ifsval();
 
 	for (ifsp = &ifsfirst; ifsp != NULL; ifsp = ifsp->next) {
 		p = string + ifsp->begoff;

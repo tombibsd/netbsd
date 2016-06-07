@@ -17,6 +17,9 @@ SRCS+=	ulfs_bmap.c ulfs_dirhash.c ulfs_extattr.c 			\
 
 
 CFLAGS+=        -DLFS_KERNEL_RFW
+.if ${MACHINE_ARCH} == "vax"
+COPTS.lfs_inode.c+=-O0
+.endif
 
 .include <bsd.lib.mk>
 .include <bsd.klinks.mk>

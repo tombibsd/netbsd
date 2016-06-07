@@ -29,7 +29,7 @@
 .\"
 .\"	@(#)sysctl.3	8.4 (Berkeley) 5/9/95
 .\"
-.Dd December 13, 2015
+.Dd March 30, 2016
 .Dt SYSCTL 7
 .Os
 .Sh NAME
@@ -1229,8 +1229,6 @@ The currently defined protocols and names are:
 .It arp	log_permanent_modify	integer	yes
 .It arp	log_unknown_network	integer	yes
 .It arp	log_wrong_iface	integer	yes
-.It arp	prune	integer	yes
-.It arp	refresh	integer	yes
 .It carp	allow	integer	yes
 .It carp	preempt	integer	yes
 .It carp	log	integer	yes
@@ -1312,10 +1310,6 @@ The variables are as follows:
 Failed ARP entry lifetime.
 .It Li arp.keep
 Valid ARP entry lifetime.
-.It Li arp.prune
-ARP cache pruning interval.
-.It Li arp.refresh
-ARP entry refresh interval.
 .It Li carp.allow
 If set to 0, incoming
 .Xr carp 4
@@ -1775,7 +1769,7 @@ The maximum number of fragments the node will accept.
 \-1 means that the node will accept as many fragments as it receives.
 The flag is provided basically for avoiding possible DoS attacks.
 .It Li ip6.neighborgcthresh
-Maximum number of entries in neighbor cache.
+Maximum number of entries in neighbor cache per interface.
 Set to negative to disable.
 The default value is 2048.
 .It Li ip6.redirect

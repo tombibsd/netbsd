@@ -376,7 +376,7 @@ void	rt_timer_queue_remove_all(struct rttimer_queue *, int);
 void	rt_timer_remove_all(struct rtentry *, int);
 void	rt_timer_timer(void *);
 
-void	rt_newmsg(int, struct rtentry *);
+void	rt_newmsg(const int, const struct rtentry *);
 struct rtentry *
 	rtalloc1(const struct sockaddr *, int);
 void	rtfree(struct rtentry *);

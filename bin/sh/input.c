@@ -453,6 +453,7 @@ setinputfd(int fd, int push)
 void
 setinputstring(char *string, int push)
 {
+
 	INTOFF;
 	if (push)
 		pushfile();

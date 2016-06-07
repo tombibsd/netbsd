@@ -33,6 +33,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/device.h>
 
 #include <machine/autoconf.h>
+#include <machine/cpu.h>
 
 static int cpumatch(device_t, cfdata_t, void *);
 static void cpuattach(device_t, device_t, void *);

@@ -906,8 +906,10 @@ powernow_k8_setperf(device_t self, unsigned int freq)
 		COUNT_OFF_VST(sc->sc_state->vst);
 	}
 
+#if 0
 	if (cfid == fid || cvid == vid)
 		freq = sc->sc_state->state_table[i].freq;
+#endif
 
 	return 0;
 }

@@ -140,9 +140,9 @@ ARCH_SRCS = e_acos.S e_asin.S e_atanh.S e_cosh.S e_exp.S e_fmod.S e_log.S \
 	    e_log10.S e_remainder.S e_scalb.S e_sinh.S e_sqrt.S s_atan.S \
 	    s_ceil.S s_copysign.S s_cos.S s_expm1.S s_finite.S s_floor.S \
 	    s_log1p.S s_logb.S s_rint.S s_scalbn.S s_sin.S s_tan.S s_tanh.S
-.endif
 COPTS.e_sqrtl.c += -DHAVE_FENV_H
 COMMON_SRCS += fenv.c
+.endif
 .endif
 # end of m68k
 .elif (${LIBC_MACHINE_ARCH} == "vax")

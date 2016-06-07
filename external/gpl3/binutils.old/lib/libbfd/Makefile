@@ -60,6 +60,13 @@ INFOFLAGS=	-I${DIST}/bfd/doc
 
 ${OBJS} ${SOBJS}: elf32-target.h elf64-target.h
 targets.o targets.pico: targmatch.h Makefile
+
+# XXXGCC5
+.include <bsd.own.mk>
+.if defined(HAVE_GCC) && ${HAVE_GCC} == 53 && ${ACTIVE_CC} == "gcc"
+COPTS.elf64-alpha.c+=  -Wno-error=switch-bool
+.endif
+
 .else
 .include <bsd.prog.mk> # do nothing
 .endif

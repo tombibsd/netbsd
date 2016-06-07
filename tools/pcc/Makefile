@@ -8,6 +8,7 @@ CONFIGURE_ENV+= CC=${HOST_CC:Q} \
                 CXX=${HOST_CXX:Q}
 
 CONFIGURE_ARGS=		--target=${MACHINE_GNU_PLATFORM}
+CONFIGURE_ARGS+=	--disable-stripping
 CONFIGURE_ARGS+=	--enable-tls
 CONFIGURE_ARGS+=	--includedir=/usr/include
 CONFIGURE_ARGS+=	--with-incdir=/usr/include

@@ -1,5 +1,8 @@
 /Makefile.inc/1.5/Fri Jun  1 20:28:02 2012/-kk/
-/Makefile/1.1/Thu Oct 13 21:40:27 2011/-kk/
+/Makefile/1.2/Tue Jun  7 09:51:57 2016/-kk/
+/README/1.1/Wed Mar 30 21:31:44 2016/-kk/
 D/bin////
 D/dist////
 D/lib////
+D/man////
+D/sqlite2mdoc////

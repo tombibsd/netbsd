@@ -47,8 +47,9 @@
 #define GUMSTIX_HWUART_VBASE		0xfd600000
 #define GUMSTIX_LCDC_VBASE		0xfd700000
 
-#define OVERO_L4_PERIPHERAL_VBASE	0xc0000000
-#define OVERO_GPMC_VBASE		0xc0100000
+#define OVERO_L4_CORE_VBASE		0xc0000000
+#define OVERO_L4_PERIPHERAL_VBASE	0xc0100000
+#define OVERO_GPMC_VBASE		0xc0200000
 
 
 #define ioreg_read(a)		(*(volatile unsigned *)(a))

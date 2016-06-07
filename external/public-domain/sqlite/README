@@ -1,0 +1,2 @@
+# $NetBSD$
+To regenerate the man pages, build and run sqlite2mdoc < /usr/include/sqlite3.h

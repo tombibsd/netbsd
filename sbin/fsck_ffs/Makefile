@@ -35,6 +35,9 @@ COPTS.ffs_appleufs.c+=	-Wno-pointer-sign
 .if ${MACHINE_ARCH} == "m68000"
 COPTS.pass1.c+=	-fno-tree-fre -fno-tree-lrs
 .endif
+.if ${MACHINE_ARCH} == "vax"
+COPTS.pass1.c+=	-O0
+.endif
 
 SUBDIR+=SMM.doc
 

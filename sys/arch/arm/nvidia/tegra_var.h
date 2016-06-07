@@ -35,41 +35,6 @@
 
 #include "opt_tegra.h"
 
-struct tegra_locators {
-	const char *loc_name;
-	bus_addr_t loc_offset;
-	bus_size_t loc_size;
-	int loc_port;
-	int loc_intr;
-#define TEGRAIO_INTR_DEFAULT	0
-};
-
-struct tegraio_attach_args {
-	struct tegra_locators tio_loc;
-	bus_space_tag_t tio_bst;
-	bus_space_tag_t tio_a4x_bst;
-	bus_space_handle_t tio_bsh;
-	bus_dma_tag_t tio_dmat;
-};
-
-struct tegrafb_attach_args {
-	bool tfb_console;
-	bus_dma_tag_t tfb_dmat;
-	bus_dmamap_t tfb_dmamap;
-	void *tfb_dmap;
-	u_int tfb_width;
-	u_int tfb_height;
-	u_int tfb_depth;
-	u_int tfb_stride;
-	device_t tfb_outputdev;
-};
-
-struct tegrausbphy_attach_args {
-	bus_space_tag_t tup_bst;
-	bus_space_handle_t tup_bsh;
-	u_int tup_port;
-};
-
 extern struct bus_space armv7_generic_bs_tag;
 extern struct bus_space armv7_generic_a4x_bs_tag;
 extern bus_space_handle_t tegra_ppsb_bsh;

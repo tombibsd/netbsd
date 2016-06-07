@@ -3,7 +3,6 @@
 
 USE_SHLIBDIR=	yes
 
-WIDECHAR ?= yes
 WARNS?=	5
 LIB=	edit
 
@@ -36,11 +35,8 @@ MLINKS=	editline.3 el_init.3 editline.3 el_end.3 editline.3 el_reset.3 \
 # For protection
 SRCS=	editline.c readline.c tokenizer.c history.c
 
-.if ${WIDECHAR} == "yes"
 SRCS += tokenizern.c historyn.c
 CLEANFILES+=tokenizern.c.tmp tokenizern.c historyn.c.tmp historyn.c
-CPPFLAGS+=-DWIDECHAR
-.endif
 
 LIBEDITDIR?=${.CURDIR}
 

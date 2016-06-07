@@ -341,9 +341,6 @@ static const struct bridge_control bridge_control_table[] = {
 
 static const int bridge_control_table_size = __arraycount(bridge_control_table);
 
-static LIST_HEAD(, bridge_softc) bridge_list;
-static kmutex_t bridge_list_lock;
-
 static struct if_clone bridge_cloner =
     IF_CLONE_INITIALIZER("bridge", bridge_clone_create, bridge_clone_destroy);
 
@@ -359,8 +356,6 @@ bridgeattach(int n)
 	pool_init(&bridge_rtnode_pool, sizeof(struct bridge_rtnode),
 	    0, 0, 0, "brtpl", NULL, IPL_NET);
 
-	LIST_INIT(&bridge_list);
-	mutex_init(&bridge_list_lock, MUTEX_DEFAULT, IPL_NET);
 	if_clone_attach(&bridge_cloner);
 }
 
@@ -432,10 +427,6 @@ bridge_clone_create(struct if_clone *ifc, int unit)
 
 	if_alloc_sadl(ifp);
 
-	mutex_enter(&bridge_list_lock);
-	LIST_INSERT_HEAD(&bridge_list, sc, sc_list);
-	mutex_exit(&bridge_list_lock);
-
 	return (0);
 }
 
@@ -459,10 +450,6 @@ bridge_clone_destroy(struct ifnet *ifp)
 	while ((bif = LIST_FIRST(&sc->sc_iflist)) != NULL)
 		bridge_delete_member(sc, bif);
 	BRIDGE_UNLOCK(sc);
-
-	mutex_enter(&bridge_list_lock);
-	LIST_REMOVE(sc, sc_list);
-	mutex_exit(&bridge_list_lock);
 
 	splx(s);
 
@@ -2234,10 +2221,10 @@ bridge_rtdaddr(struct bridge_softc *sc, const uint8_t *addr)
 static void
 bridge_rtdelete(struct bridge_softc *sc, struct ifnet *ifp)
 {
-	struct bridge_rtnode *brt, *nbrt;
+	struct bridge_rtnode *brt;
 
 	BRIDGE_RT_LOCK(sc);
-	LIST_FOREACH_SAFE(brt, &sc->sc_rtlist, brt_list, nbrt) {
+	LIST_FOREACH(brt, &sc->sc_rtlist, brt_list) {
 		if (brt->brt_ifp == ifp)
 			break;
 	}

@@ -738,7 +738,7 @@ history_load(TYPE(History) *h, const char *fname)
 	char *ptr;
 	int i = -1;
 	TYPE(HistEvent) ev;
-#ifdef WIDECHAR
+#ifndef NARROWCHAR
 	static ct_buffer_t conv;
 #endif
 
@@ -795,7 +795,7 @@ history_save_fp(TYPE(History) *h, FILE *fp)
 	size_t len, max_size;
 	char *ptr;
 	const char *str;
-#ifdef WIDECHAR
+#ifndef NARROWCHAR
 	static ct_buffer_t conv;
 #endif
 

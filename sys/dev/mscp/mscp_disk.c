@@ -724,6 +724,29 @@ raattach(device_t parent, device_t self, void *aux)
 }
 
 /*
+ * Initialize drive geometry data from disklabel
+ */
+static void
+ra_set_geometry(struct ra_softc *ra)
+{
+	struct	disklabel *dl;
+	struct	disk_geom *dg;
+
+	dl = ra->ra_disk.dk_label;
+	dg = &ra->ra_disk.dk_geom;
+
+	memset(dg, 0, sizeof(*dg));
+	dg->dg_secsize = dl->d_secsize;
+	dg->dg_nsectors = dl->d_nsectors;
+	dg->dg_ntracks = dl->d_ntracks;
+
+	dg->dg_ncylinders = dl->d_ncylinders;
+	dg->dg_secperunit = dl->d_secperunit;
+
+	disk_set_info(ra->ra_dev, &ra->ra_disk, NULL);
+}
+
+/*
  * (Try to) put the drive online. This is done the first time the
  * drive is opened, or if it har fallen offline.
  */
@@ -968,6 +991,7 @@ rronline(device_t usc, struct mscp *mp)
 		dl->d_rpm = 300;
 	}
 	rrmakelabel(dl, ra->ra_mediaid);
+	ra_set_geometry(ra);
 
 	return (MSCP_DONE);
 }

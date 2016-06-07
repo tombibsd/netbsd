@@ -62,7 +62,9 @@ LIB2FUNCS_ALL+= \
 
 .endif
 
-.if ${LIBGCC_MACHINE_ARCH} != "coldfire" && empty(LIBGCC_MACHINE_ARCH:Mearm*)
+.if ${LIBGCC_MACHINE_ARCH} != "coldfire" && \
+    empty(LIBGCC_MACHINE_ARCH:Mearm*) && \
+    empty(LIBGCC_MACHINE_ARCH:Mmips64*)
 
 # non swfloat versions 
 .for _p in _fix _fixuns

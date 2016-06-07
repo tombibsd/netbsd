@@ -81,8 +81,8 @@ all_body() {
 	# first, check basic functioning.
 	# The ERR shouldn't print; the result of the () should be 1.
 	# Henceforth we'll assume that we don't need to check $?.
-	dcheck '(set -e; false; echo ERR$?); echo -n OK$?' 'OK1'
-	echeck '(set -e; false; echo ERR$?); echo -n OK$?' 'OK1'
+	dcheck '(set -e; false; echo ERR$?); echo OK$?' 'OK1'
+	echeck '(set -e; false; echo ERR$?); echo OK$?' 'OK1'
 
 	# these cases should be equivalent to the preceding.
 	dcheck '(set -e; /nonexistent; echo ERR); echo OK' 'OK'

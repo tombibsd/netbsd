@@ -212,7 +212,6 @@ hist_enlargebuf(EditLine *el, size_t oldsz, size_t newsz)
 	return 1;
 }
 
-#ifdef WIDECHAR
 protected wchar_t *
 hist_convert(EditLine *el, int fn, void *arg)
 {
@@ -222,4 +221,3 @@ hist_convert(EditLine *el, int fn, void *arg)
 	return ct_decode_string((const char *)(const void *)ev.str,
 	    &el->el_scratch);
 }
-#endif

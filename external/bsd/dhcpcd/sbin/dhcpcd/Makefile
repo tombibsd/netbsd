@@ -72,4 +72,9 @@ ${f}:	${f}.in
 	    ${DIST}/${f}.in > $@
 .endfor
 
+# XXXGCC5
+.if defined(HAVE_GCC) && ${HAVE_GCC} == 53 && ${ACTIVE_CC} == "gcc"
+COPTS.if-bsd.c+=  -Wno-error=sign-conversion
+.endif
+
 .include <bsd.prog.mk>

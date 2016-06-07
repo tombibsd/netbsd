@@ -44,9 +44,9 @@ NEED_OWN_INSTALL_TARGET?=	yes
 # If some future port is not supported by the in-tree toolchain, this should
 # be set to "yes" for that port only.
 #
-.if ${MACHINE} == "playstation2"
-TOOLCHAIN_MISSING?=	yes
-.endif
+# .if ${MACHINE} == "playstation2"
+# TOOLCHAIN_MISSING?=	yes
+# .endif
 
 TOOLCHAIN_MISSING?=	no
 
@@ -61,11 +61,17 @@ MKGCC?=		no
 #
 .if ${MKGCC:Uyes} != "no"
 
-.if ${MACHINE} == "playstation2" || ${MACHINE_CPU} == "aarch64"
-HAVE_GCC?=    0
+.if ${MACHINE_CPU} == "aarch64"
+HAVE_GCC?=	0
+.elif \
+    ${MACHINE_ARCH} == "alpha" || \
+    ${MACHINE_ARCH} == "hppa" || \
+    ${MACHINE} == "playstation2" || \
+    ${MACHINE_ARCH} == "vax"
+HAVE_GCC?=	53
 .else
 # Otherwise, default to GCC4.8
-HAVE_GCC?=    48
+HAVE_GCC?=	48
 .endif
 
 #
@@ -129,7 +135,11 @@ USE_SSP?=	yes
 
 .if ${MACHINE} == "amd64" || \
     ${MACHINE} == "i386" || \
-    ${MACHINE_CPU} == "sh3"
+    ${MACHINE} == "playstation2" || \
+    ${MACHINE_CPU} == "sh3" || \
+    ${MACHINE_ARCH} == "sparc" || \
+    ${MACHINE_ARCH} == "vax" || \
+    ${MACHINE_ARCH} == "mips64eb" || ${MACHINE_ARCH} == "mips64el"
 HAVE_GDB?=	710
 .else
 HAVE_GDB?=	79
@@ -145,10 +155,12 @@ EXTERNAL_GDB_SUBDIR=		gdb
     ${MACHINE} == "evbarm" || \
     ${MACHINE} == "i386" || \
     ${MACHINE} == "hppa" || \
+    ${MACHINE} == "playstation2" || \
     ${MACHINE_CPU} == "sh3" || \
     ${MACHINE} == "sparc" || \
     ${MACHINE} == "sparc64" || \
-    ${MACHINE_ARCH} == "powerpc"
+    ${MACHINE_ARCH} == "powerpc" || \
+    ${MACHINE_ARCH} == "vax"
 HAVE_BINUTILS?=	226
 .else
 HAVE_BINUTILS?=	223
@@ -957,7 +969,7 @@ MK${var}:=	yes
     || ${MACHINE_ARCH} == "mips64eb" || ${MACHINE_ARCH} == "mips64el" \
     || ${MACHINE_ARCH} == "powerpc64" || ${MACHINE_CPU} == "aarch64" \
     || ${MACHINE_ARCH} == "riscv64" \
-    || !empty(MACHINE_ARCH:Mearm*)
+    || (!empty(MACHINE_ARCH:Mearm*) && ${HAVE_GCC:U} == 48)
 MKCOMPAT?=	yes
 .else
 # Don't let this build where it really isn't supported.

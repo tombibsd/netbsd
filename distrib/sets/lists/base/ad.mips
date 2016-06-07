@@ -4,3 +4,5 @@
 ./usr/libexec/ld.elf_so-64			base-compat-shlib	compat,pic,arch64
 ./usr/libexec/ld.elf_so-o32			base-sysutil-bin	compat,pic,arch64
 ./usr/lkm/ldscript				base-obsolete		obsolete
+./usr/lib/o32/libgomp.so.1.1			base-compat-shlib	compat,pic,arch64,gcc=48
+./usr/lib/o32/libgomp.so.1.2			base-compat-shlib	compat,pic,arch64,gcc=53
