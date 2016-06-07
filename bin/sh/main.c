@@ -82,7 +82,6 @@ __RCSID("$NetBSD$");
 
 int rootpid;
 int rootshell;
-int posix;
 #if PROFILE
 short profile_buf[16384];
 extern int etext();

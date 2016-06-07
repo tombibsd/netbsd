@@ -1350,7 +1350,7 @@ execve_runproc(struct lwp *l, struct execve_data * restrict data,
 	/* Acquire the sched-state mutex (exit1() will release it). */
 	if (!is_spawn) {
 		mutex_enter(p->p_lock);
-		exit1(l, W_EXITCODE(error, SIGABRT));
+		exit1(l, error, SIGABRT);
 	}
 
 	return error;
@@ -2229,7 +2229,7 @@ spawn_return(void *arg)
 	 * A NetBSD specific workaround is POSIX_SPAWN_RETURNERROR as
 	 * flag bit in the attrp argument to posix_spawn(2), see above.
 	 */
-	exit1(l, W_EXITCODE(127, 0));
+	exit1(l, 127, 0);
 }
 
 void

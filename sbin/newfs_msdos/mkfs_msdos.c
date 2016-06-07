@@ -335,16 +335,26 @@ mkfs_msdos(const char *fname, const char *dtype, const struct msdos_options *op)
 	    return -1;
 	bpb.bsec -= (o.offset / bpb.bps);
 	if (bpb.spc == 0) {     /* set defaults */
-	    if (bpb.bsec <= 6000)       /* about 3MB -> 512 bytes */
-		bpb.spc = 1;
-	    else if (bpb.bsec <= (1<<17)) /* 64M -> 4k */
-		bpb.spc = 8;
-	    else if (bpb.bsec <= (1<<19)) /* 256M -> 8k */
-		bpb.spc = 16;
-	    else if (bpb.bsec <= (1<<21)) /* 1G -> 16k */
-		bpb.spc = 32;
-	    else
-		bpb.spc = 64;           /* otherwise 32k */
+	    /* minimum cluster size */
+	    switch (o.fat_type) {
+	    case 12:
+		bpb.spc = 1;            /* use 512 bytes */
+		x = 2;                  /* up to 2MB */
+		break;
+	    case 16:
+		bpb.spc = 1;            /* use 512 bytes */
+		x = 32;                 /* up to 32MB */
+		break;
+	    default:
+		bpb.spc = 8;            /* use 4k */
+		x = 8192;               /* up to 8GB */
+		break;
+	    }
+	    x1 = howmany(bpb.bsec, (1048576 / 512)); /* -> MB */
+	    while (bpb.spc < 128 && x < x1) {
+		x *= 2;
+		bpb.spc *= 2;
+	    }
 	}
     }
 

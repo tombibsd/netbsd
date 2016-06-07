@@ -242,9 +242,6 @@ p_krtentry(struct rtentry *rt)
 	union sockaddr_union addr_un, mask_un;
 	struct sockaddr *addr, *mask;
 
-	if (Lflag && (rt->rt_flags & RTF_LLINFO))
-		return;
-
 	memset(&addr_un, 0, sizeof(addr_un));
 	memset(&mask_un, 0, sizeof(mask_un));
 	addr = sockcopy(kgetsa(rt_getkey(rt)), &addr_un);

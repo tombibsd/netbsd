@@ -2,7 +2,7 @@
 /cpu.c/1.10/Fri Jul  1 20:49:38 2011/-kk/
 /locore.S/1.16/Fri Oct  3 09:25:44 2014/-kk/
 /machdep.c/1.31/Fri Apr 11 02:03:32 2014/-kk/
-/mainbus.c/1.15/Fri Jan 27 18:52:59 2012/-kk/
+/mainbus.c/1.16/Tue Jun  7 10:06:35 2016/-kk/
 /platform.c/1.5/Mon Apr 28 20:23:29 2008/-kk/
 /platform_160x.c/1.9/Fri Apr 11 02:03:32 2014/-kk/
 D

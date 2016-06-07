@@ -63,6 +63,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/param.h>
 #include <sys/systm.h>
 #include <sys/kernel.h>
+#include <sys/wait.h>
 #include <sys/proc.h>
 #include <sys/file.h>
 #include <sys/select.h>
@@ -551,7 +552,7 @@ filt_proc(struct knote *kn, long hint)
 		struct proc *p = kn->kn_obj;
 
 		if (p != NULL)
-			kn->kn_data = p->p_xstat;
+			kn->kn_data = P_WAITSTATUS(p);
 		/*
 		 * Process is gone, so flag the event as finished.
 		 *

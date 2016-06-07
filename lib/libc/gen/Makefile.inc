@@ -35,8 +35,9 @@ SRCS+=	alarm.c alphasort.c arc4random.c assert.c asysctl.c \
 	sysctlnametomib.c syslog.c telldir.c time.c \
 	times.c toascii.c tolower_.c ttyname.c ttyslot.c toupper_.c ualarm.c \
 	ulimit.c uname.c unvis.c usleep.c utime.c utimens.c utmp.c \
-	utmpx.c valloc.c vis.c wait.c wait3.c waitpid.c warn.c warnx.c \
-	warnc.c vwarn.c vwarnx.c vwarnc.c verr.c verrx.c verrc.c wordexp.c
+	utmpx.c valloc.c vis.c wait.c wait3.c waitid.c waitpid.c warn.c \
+	warnx.c warnc.c vwarn.c vwarnx.c vwarnc.c verr.c verrx.c verrc.c \
+	wordexp.c
 
 # uses alloca
 COPTS.execvp.c = -Wno-stack-protector

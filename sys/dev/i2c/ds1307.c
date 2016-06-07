@@ -86,6 +86,8 @@ static const struct dsrtc_model dsrtc_models[] = {
 		.dm_model = 1672,
 		.dm_rtc_start = DS1672_RTC_START,
 		.dm_rtc_size = DS1672_RTC_SIZE,
+		.dm_ch_reg = DS1672_CONTROL,
+		.dm_ch_value = DS1672_CONTROL_CH,
 		.dm_flags = 0,
 	}, {
 		.dm_model = 3231,

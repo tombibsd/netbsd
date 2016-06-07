@@ -1232,7 +1232,8 @@ main(int argc, char **argv)
 	Var_Append("MFLAGS", Var_Value(MAKEFLAGS, VAR_GLOBAL, &p1), VAR_GLOBAL);
 	free(p1);
 
-	if (Var_Exists(".MAKE.JOBS", VAR_GLOBAL)) {
+	if (!forceJobs && !compatMake &&
+	    Var_Exists(".MAKE.JOBS", VAR_GLOBAL)) {
 	    char *value;
 	    int n;
 

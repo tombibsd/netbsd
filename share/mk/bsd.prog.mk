@@ -51,7 +51,7 @@ CLEANFILES+=strings
 .if defined(MKPIE) && (${MKPIE} != "no") && !defined(NOPIE)
 CFLAGS+=	${PIE_CFLAGS}
 AFLAGS+=	${PIE_AFLAGS}
-LDFLAGS+=	${PIE_LDFLAGS}
+LDFLAGS+=	${"${LDSTATIC.${.TARGET}}" == "-static" :? : ${PIE_LDFLAGS}}
 .endif
 
 CFLAGS+=	${COPTS}

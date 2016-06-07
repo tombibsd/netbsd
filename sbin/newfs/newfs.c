@@ -866,7 +866,7 @@ struct help_strings {
 	{ MFS_MOUNT,	"-g groupname\tgroup name of mount point" },
 	{ BOTH,		"-h avgfpdir\taverage files per directory" },
 	{ BOTH,		"-i density\tnumber of bytes per inode" },
-	{ BOTH,		"-m minfree\tminimum free space %%" },
+	{ BOTH,		"-m minfree\tminimum free space %" },
 	{ BOTH,		"-n inodes\tnumber of inodes (overrides -i density)" },
 	{ BOTH,		"-o optim\toptimization preference (`space' or `time')"
 			    },

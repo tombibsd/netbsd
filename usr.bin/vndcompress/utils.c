@@ -61,7 +61,7 @@ int	vsnprintf_ss(char *restrict, size_t, const char *restrict, va_list)
 ssize_t
 read_block(int fd, void *buffer, size_t n)
 {
-	char *p = buffer, *const end __unused = (p + n);
+	char *p = buffer, *const end __diagused = (p + n);
 	size_t total_read = 0;
 
 	while (n > 0) {
@@ -93,7 +93,7 @@ read_block(int fd, void *buffer, size_t n)
 ssize_t
 pread_block(int fd, void *buffer, size_t n, off_t fdpos)
 {
-	char *p = buffer, *const end __unused = (p + n);
+	char *p = buffer, *const end __diagused = (p + n);
 	size_t total_read = 0;
 
 	assert(0 <= fdpos);

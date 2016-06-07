@@ -795,11 +795,11 @@ ParseMessage(char *line)
 	return FALSE;
     }
 
-    while (isalpha((u_char)*line))
+    while (isalpha((unsigned char)*line))
 	line++;
-    if (!isspace((u_char)*line))
+    if (!isspace((unsigned char)*line))
 	return FALSE;			/* not for us */
-    while (isspace((u_char)*line))
+    while (isspace((unsigned char)*line))
 	line++;
 
     line = Var_Subst(NULL, line, VAR_CMD, VARF_WANTRES);

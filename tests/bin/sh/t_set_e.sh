@@ -63,7 +63,7 @@ dcheck()
 # is thus important to test. (PR bin/29861)
 echeck()
 {
-	check1 'eval '"'($1)'" "$2" "eval '($1)'"
+	check1 'eval '"'( $1 )'" "$2" "eval '($1)'"
 }
 
 atf_test_case all

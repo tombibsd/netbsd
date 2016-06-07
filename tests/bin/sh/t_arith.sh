@@ -280,9 +280,9 @@ elementary_add_body()
 	atf_check -s exit:0 -o inline:'5555\n' -e empty ${TEST_SH} -c \
 		'echo $((+3333+2222))'
 	atf_check -s exit:0 -o inline:'7777\n' -e empty ${TEST_SH} -c \
-		'echo $((+3333++4444))'
+		'echo $((+3333 + +4444))'
 	atf_check -s exit:0 -o inline:'-7777\n' -e empty ${TEST_SH} -c \
-		'echo -$((+4125++3652))'
+		'echo -$((+4125+ +3652))'
 }
 
 atf_test_case elementary_sub
@@ -311,7 +311,7 @@ elementary_sub_body()
 	atf_check -s exit:0 -o inline:'-7694\n' -e empty ${TEST_SH} -c \
 		'echo $(( -2016-5678 ))'
 	atf_check -s exit:0 -o inline:'--1\n' -e empty ${TEST_SH} -c \
-		'echo -$(( -1018--1017 ))'
+		'echo -$(( -1018 - -1017 ))'
 }
 
 atf_test_case elementary_mul

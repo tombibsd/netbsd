@@ -177,7 +177,7 @@ hist_command(EditLine *el, int argc, const Char **argv)
 	if (argc != 3)
 		return -1;
 
-	num = (int)Strtol(argv[2], NULL, 0);
+	num = (int)wcstol(argv[2], NULL, 0);
 
 	if (Strcmp(argv[1], STR("size")) == 0)
 		return FUNW(history)(el->el_history.ref, &ev, H_SETSIZE, num);

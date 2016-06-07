@@ -50,8 +50,6 @@ __RCSID("$NetBSD$");
 
 #include "apropos-utils.h"
 #include "manconf.h"
-#include "dist/mandoc.h"
-#include "sqlite3.h"
 
 typedef struct orig_callback_data {
 	void *data;

@@ -943,13 +943,13 @@ sctp_fill_up_addresses(struct sctp_inpcb *inp,
 	}
 
 	if (inp->sctp_flags & SCTP_PCB_FLAGS_BOUNDALL) {
-		TAILQ_FOREACH(ifn, &ifnet_list, if_list) {
+		IFNET_FOREACH(ifn) {
 			if ((loopback_scope == 0) &&
 			    (ifn->if_type == IFT_LOOP)) {
 				/* Skip loopback if loopback_scope not set */
 				continue;
 			}
-			TAILQ_FOREACH(ifa, &ifn->if_addrlist, ifa_list) {
+			IFADDR_FOREACH(ifa, ifn) {
 				if (stcb) {
 				/*
 				 * For the BOUND-ALL case, the list
@@ -1096,8 +1096,8 @@ sctp_count_max_addresses(struct sctp_inpcb *inp)
 		struct ifnet *ifn;
 		struct ifaddr *ifa;
 
-		TAILQ_FOREACH(ifn, &ifnet_list, if_list) {
-			TAILQ_FOREACH(ifa, &ifn->if_addrlist, ifa_list) {
+		IFNET_FOREACH(ifn) {
+			IFADDR_FOREACH(ifa, ifn) {
 				/* Count them if they are the right type */
 				if (ifa->ifa_addr->sa_family == AF_INET) {
 					if (inp->sctp_flags & SCTP_PCB_FLAGS_NEEDS_MAPPED_V4)

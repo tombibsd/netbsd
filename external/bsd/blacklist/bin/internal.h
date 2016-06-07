@@ -51,7 +51,7 @@ extern struct ifaddrs *ifas;
 #define __syslog__ __printf__
 #endif
 
-void (*lfun)(int, const char *, ...)
+extern void (*lfun)(int, const char *, ...)
     __attribute__((__format__(__syslog__, 2, 3)));
 
 #endif /* _INTERNAL_H */

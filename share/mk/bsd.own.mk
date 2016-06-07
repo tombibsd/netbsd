@@ -61,11 +61,16 @@ MKGCC?=		no
 #
 .if ${MKGCC:Uyes} != "no"
 
+#
+# What GCC is used?
+#
 .if ${MACHINE_CPU} == "aarch64"
 HAVE_GCC?=	0
 .elif \
-    ${MACHINE_ARCH} == "alpha" || \
-    ${MACHINE_ARCH} == "hppa" || \
+    ${MACHINE} == "amd64" || \
+    ${MACHINE} == "alpha" || \
+    ${MACHINE} == "hppa" || \
+    ${MACHINE} == "i386" || \
     ${MACHINE} == "playstation2" || \
     ${MACHINE_ARCH} == "vax"
 HAVE_GCC?=	53
@@ -121,10 +126,10 @@ HAVE_LIBGCC_EH?=	no
 HAVE_LIBGCC_EH?=	yes
 .endif
 
-.if (${MACHINE_ARCH} == "alpha") || \
-    (${MACHINE_ARCH} == "hppa") || \
-    (${MACHINE_ARCH} == "ia64") || \
-    (${MACHINE_CPU} == "mips")
+.if ${MACHINE} == "alpha" || \
+    ${MACHINE} == "hppa" || \
+    ${MACHINE} == "ia64" || \
+    ${MACHINE_CPU} == "mips"
 HAVE_SSP?=	no
 .else
 HAVE_SSP?=	yes
@@ -133,12 +138,15 @@ USE_SSP?=	yes
 .endif
 .endif
 
+#
+# What GDB is used?
+#
 .if ${MACHINE} == "amd64" || \
     ${MACHINE} == "i386" || \
     ${MACHINE} == "playstation2" || \
+    ${MACHINE} == "sparc" || \
+    ${MACHINE} == "vax" || \
     ${MACHINE_CPU} == "sh3" || \
-    ${MACHINE_ARCH} == "sparc" || \
-    ${MACHINE_ARCH} == "vax" || \
     ${MACHINE_ARCH} == "mips64eb" || ${MACHINE_ARCH} == "mips64el"
 HAVE_GDB?=	710
 .else
@@ -151,16 +159,20 @@ EXTERNAL_GDB_SUBDIR=		gdb.old
 EXTERNAL_GDB_SUBDIR=		gdb
 .endif
 
-.if ${MACHINE} == "amd64" || \
+#
+# What binutils is used?
+#
+.if ${MACHINE} == "alpha" || \
+    ${MACHINE} == "amd64" || \
     ${MACHINE} == "evbarm" || \
-    ${MACHINE} == "i386" || \
     ${MACHINE} == "hppa" || \
+    ${MACHINE} == "i386" || \
     ${MACHINE} == "playstation2" || \
-    ${MACHINE_CPU} == "sh3" || \
     ${MACHINE} == "sparc" || \
     ${MACHINE} == "sparc64" || \
-    ${MACHINE_ARCH} == "powerpc" || \
-    ${MACHINE_ARCH} == "vax"
+    ${MACHINE} == "vax" || \
+    ${MACHINE_CPU} == "sh3" || \
+    ${MACHINE_ARCH} == "powerpc"
 HAVE_BINUTILS?=	226
 .else
 HAVE_BINUTILS?=	223

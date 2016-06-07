@@ -87,6 +87,26 @@ static struct {
 	char	m_space[512];
 }	m_rtmsg;
 
+static int
+is_llinfo(const struct sockaddr_dl *sdl, int rtflags)
+{
+	if (sdl->sdl_family != AF_LINK ||
+	    (rtflags & (RTF_LLDATA|RTF_GATEWAY)) != RTF_LLDATA)
+		return 0;
+
+	switch (sdl->sdl_type) {
+	case IFT_ETHER:
+	case IFT_FDDI:
+	case IFT_ISO88023:
+	case IFT_ISO88024:
+	case IFT_ISO88025:
+	case IFT_ARCNET:
+		return 1;
+	default:
+		return 0;
+	}
+}
+
 /*
  * Set an individual arp entry 
  */
@@ -151,13 +171,8 @@ mkarp(u_char *haddr, u_int32_t ipaddr)
 	sin = (struct sockaddr_inarp *)(rtm + 1);
 	sdl = (struct sockaddr_dl *)(sin->sin_len + (char *)sin);
 	if (sin->sin_addr.s_addr == sin_m.sin_addr.s_addr) {
-		if (sdl->sdl_family == AF_LINK &&
-		    (rtm->rtm_flags & RTF_LLINFO) &&
-		    !(rtm->rtm_flags & RTF_GATEWAY)) switch (sdl->sdl_type) {
-		case IFT_ETHER: case IFT_FDDI: case IFT_ISO88023:
-		case IFT_ISO88024: case IFT_ISO88025: case IFT_ARCNET:
+		if (is_llinfo(sdl, rtm->rtm_flags))
 			goto overwrite;
-		}
 #if 0
 		(void)printf("set: can only proxy for %s\n", host);
 #endif
@@ -209,7 +224,7 @@ rtmsg(int cmd, int s, struct rt_msghdr *rtm, struct sockaddr_inarp *sin_m,
 		(void)gettimeofday(&tv, 0);
 		rtm->rtm_rmx.rmx_expire = tv.tv_sec + 20 * 60;
 		rtm->rtm_inits = RTV_EXPIRE;
-		rtm->rtm_flags |= (RTF_HOST | RTF_STATIC);
+		rtm->rtm_flags |= (RTF_HOST | RTF_STATIC | RTF_LLDATA);
 		sin_m->sin_other = 0;
 
 		/* FALLTHROUGH */

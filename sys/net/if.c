@@ -1883,7 +1883,6 @@ p2p_rtrequest(int req, struct rtentry *rt,
 			break;
 
 		rt->rt_ifp = lo0ifp;
-		rt->rt_flags &= ~RTF_LLINFO;
 
 		/*
 		 * Make sure to set rt->rt_ifa to the interface
@@ -1894,7 +1893,6 @@ p2p_rtrequest(int req, struct rtentry *rt,
 			rt_replace_ifa(rt, ifa);
 		break;
 	case RTM_DELETE:
-	case RTM_RESOLVE:
 	default:
 		break;
 	}

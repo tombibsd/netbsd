@@ -198,7 +198,8 @@ eco_output(struct ifnet *ifp, struct mbuf *m0, const struct sockaddr *dst,
                 	memcpy(ehdr.eco_dhost, eco_broadcastaddr,
 			    ECO_ADDR_LEN);
 
-		else if (!arpresolve(ifp, rt, m, dst, ehdr.eco_dhost))
+		else if (!arpresolve(ifp, rt, m, dst, ehdr.eco_dhost,
+		    sizeof(ehdr.eco_dhost)))
 			return (0);	/* if not yet resolved */
 		/* If broadcasting on a simplex interface, loopback a copy */
 		if ((m->m_flags & M_BCAST) && (ifp->if_flags & IFF_SIMPLEX))

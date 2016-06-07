@@ -44,7 +44,7 @@
 /msiiepreg.h/1.9/Sun Mar  4 03:01:07 2007/-kk/
 /msiiepvar.h/1.9/Thu Oct 24 10:28:57 2013/-kk/
 /oclock.c/1.20/Fri Jul  1 18:51:51 2011/-kk/
-/openfirm.c/1.20/Thu Apr  2 02:27:55 2015/-kk/
+/openfirm.c/1.22/Tue Jun  7 10:06:39 2016/-kk/
 /openprom.c/1.28/Fri Oct  3 09:09:07 2014/-kk/
 /pci_fixup.c/1.1/Thu Oct 24 10:28:57 2013/-kk/
 /pci_fixup.h/1.1/Thu Oct 24 10:28:57 2013/-kk/
@@ -52,7 +52,7 @@
 /pmap.c/1.360/Fri Dec 25 06:18:18 2015/-kk/
 /process_machdep.c/1.18/Tue Jan 14 16:05:01 2014/-kk/
 /procfs_machdep.c/1.5/Sat Apr 19 05:36:50 2014/-kk/
-/promlib.c/1.44/Fri Apr 11 02:03:39 2014/-kk/
+/promlib.c/1.45/Tue Jun  7 10:06:39 2016/-kk/
 /sigcode_state.s/1.1/Fri Jun  8 04:49:46 2001/-kk/
 /sunos_machdep.c/1.23/Sat Nov 21 04:16:52 2009/-kk/
 /sunos_sigcode.s/1.1/Fri Jun  8 04:49:46 2001/-kk/

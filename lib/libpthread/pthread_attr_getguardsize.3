@@ -66,9 +66,12 @@ In
 .Nx
 the default
 .Fa guardsize
-is
-.Dv _SC_PAGESIZE ,
-the system page size.
+is the system page size.
+(This value is often 4096 bytes but varies on some ports; the
+precise value can be retrieved by using
+.Xr sysconf 3
+with
+.Dv _SC_PAGESIZE . )
 .Pp
 The rationale behind
 .Fa guardsize

@@ -124,7 +124,7 @@ el_match(const Char *str, const Char *pat)
 	extern int	 re_exec(const char *);
 #endif
 
-	if (Strstr(str, pat) != 0)
+	if (wcsstr(str, pat) != 0)
 		return 1;
 
 #if defined(REGEX)

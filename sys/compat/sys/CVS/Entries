@@ -16,7 +16,7 @@
 /signal.h/1.2/Sun Dec 11 12:20:29 2005/-kk/
 /signalvar.h/1.2/Sun Dec 11 12:20:29 2005/-kk/
 /sigtypes.h/1.2/Sun Dec 11 12:20:29 2005/-kk/
-/socket.h/1.12/Fri Feb 13 22:41:04 2009/-kk/
+/socket.h/1.14/Tue Jun  7 10:06:42 2016/-kk/
 /sockio.h/1.10/Sun Nov 14 15:36:47 2010/-kk/
 /stat.h/1.6/Thu Oct 24 10:28:57 2013/-kk/
 /syslog.h/1.1/Wed Oct 10 22:51:12 2012/-kk/

@@ -293,8 +293,8 @@ em_upper_case(EditLine *el, wint_t c __attribute__((__unused__)))
 	    el->el_state.argument, ce__isword);
 
 	for (cp = el->el_line.cursor; cp < ep; cp++)
-		if (Islower(*cp))
-			*cp = Toupper(*cp);
+		if (iswlower(*cp))
+			*cp = towupper(*cp);
 
 	el->el_line.cursor = ep;
 	if (el->el_line.cursor > el->el_line.lastchar)
@@ -317,16 +317,16 @@ em_capitol_case(EditLine *el, wint_t c __attribute__((__unused__)))
 	    el->el_state.argument, ce__isword);
 
 	for (cp = el->el_line.cursor; cp < ep; cp++) {
-		if (Isalpha(*cp)) {
-			if (Islower(*cp))
-				*cp = Toupper(*cp);
+		if (iswalpha(*cp)) {
+			if (iswlower(*cp))
+				*cp = towupper(*cp);
 			cp++;
 			break;
 		}
 	}
 	for (; cp < ep; cp++)
-		if (Isupper(*cp))
-			*cp = Tolower(*cp);
+		if (iswupper(*cp))
+			*cp = towlower(*cp);
 
 	el->el_line.cursor = ep;
 	if (el->el_line.cursor > el->el_line.lastchar)
@@ -349,8 +349,8 @@ em_lower_case(EditLine *el, wint_t c __attribute__((__unused__)))
 	    el->el_state.argument, ce__isword);
 
 	for (cp = el->el_line.cursor; cp < ep; cp++)
-		if (Isupper(*cp))
-			*cp = Tolower(*cp);
+		if (iswupper(*cp))
+			*cp = towlower(*cp);
 
 	el->el_line.cursor = ep;
 	if (el->el_line.cursor > el->el_line.lastchar)

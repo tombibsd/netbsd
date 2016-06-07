@@ -1276,6 +1276,8 @@ prom_init_opf(void)
 	node = findchosen();
 	OF_getprop(node, "stdin", &promops.po_stdin, sizeof(int));
 	OF_getprop(node, "stdout", &promops.po_stdout, sizeof(int));
+
+	OF_init();
 }
 
 /*

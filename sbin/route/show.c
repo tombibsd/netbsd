@@ -81,9 +81,6 @@ parse_show_opts(int argc, char * const *argv, int *afp, int *flagsp,
 		case K_HOST:
 			flags |= RTF_HOST;
 			break;
-		case K_LLINFO:
-			flags |= RTF_LLINFO;
-			break;
 		case K_INET:
 			af = AF_INET;
 			afname = argv[argc - 1] + 1;
@@ -136,7 +133,7 @@ show(int argc, char *const *argv, int flags)
 {
 	int af, rflags;
 	static int interesting = RTF_UP | RTF_GATEWAY | RTF_HOST |
-	    RTF_REJECT | RTF_LLINFO | RTF_LOCAL | RTF_BROADCAST;
+	    RTF_REJECT | RTF_LOCAL | RTF_BROADCAST;
 
 	parse_show_opts(argc, argv, &af, &rflags, NULL, true);
 	p_rttables(af, flags, rflags, interesting);

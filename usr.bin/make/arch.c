@@ -785,7 +785,7 @@ ArchSVR4Entry(Arch *ar, char *name, size_t size, FILE *arch)
 	    }
 	if (DEBUG(ARCH)) {
 	    fprintf(debug_file, "Found svr4 archive name table with %lu entries\n",
-	            (u_long)entry);
+	            (unsigned long)entry);
 	}
 	return 0;
     }
@@ -803,7 +803,7 @@ ArchSVR4Entry(Arch *ar, char *name, size_t size, FILE *arch)
     if (entry >= ar->fnamesize) {
 	if (DEBUG(ARCH)) {
 	    fprintf(debug_file, "SVR4 entry offset %s is greater than %lu\n",
-		   name, (u_long)ar->fnamesize);
+		   name, (unsigned long)ar->fnamesize);
 	}
 	return 2;
     }

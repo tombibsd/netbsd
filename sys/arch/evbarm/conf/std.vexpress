@@ -8,8 +8,6 @@ include 	"arch/evbarm/conf/std.evbarm"
 # Pull in VEXPRESS config definitions
 include 	"arch/evbarm/conf/files.vexpress"
 
-makeoptions	CPUFLAGS="-march=armv7-a -mfpu=neon"
-
 # To support easy transit to ../arch/arm/arm32
 options 	MODULAR
 options 	MODULAR_DEFAULT_AUTOLOAD
@@ -26,6 +24,7 @@ makeoptions     KERNEL_BASE_PHYS="0x80000000"
 makeoptions     KERNEL_BASE_VIRT="0x80000000"
 makeoptions     BOARDTYPE="vexpress"
 makeoptions     BOARDMKFRAG="${THISARM}/conf/mk.vexpress"
+makeoptions     CPUFLAGS="-mcpu=cortex-a15 -mfpu=neon"
 
 options         ARM_INTR_IMPL="<arch/evbarm/vexpress/vexpress_intr.h>"
 options         ARM_GENERIC_TODR

@@ -81,6 +81,7 @@ struct heredoc {
 	union node *here;		/* redirection node */
 	char *eofmark;		/* string indicating end of input */
 	int striptabs;		/* if set, strip leading tabs */
+	int startline;		/* line number where << seen */
 };
 
 
@@ -109,7 +110,7 @@ STATIC union node *command(void);
 STATIC union node *simplecmd(union node **, union node *);
 STATIC union node *makename(void);
 STATIC void parsefname(void);
-STATIC void slurp_heredoc(char *const, int, int);
+STATIC void slurp_heredoc(char *const, const int, const int);
 STATIC void readheredocs(void);
 STATIC int peektoken(void);
 STATIC int readtoken(void);
@@ -133,6 +134,7 @@ union node *
 parsecmd(int interact)
 {
 	int t;
+	union node *n;
 
 	tokpushback = 0;
 	doprompt = interact;
@@ -147,7 +149,11 @@ parsecmd(int interact)
 	if (t == TNL)
 		return NULL;
 	tokpushback++;
-	return list(1, 0);
+	n = list(1, 0);
+	if (heredoclist)
+		error("%d: Here document (<<%s) expected but not present",
+			heredoclist->startline, heredoclist->eofmark);
+	return n;
 }
 
 
@@ -206,10 +212,7 @@ list(int nlflag, int erflag)
 				return n1;
 			break;
 		case TEOF:
-			if (heredoclist)
-				readheredocs();
-			else
-				pungetc();	/* push back EOF on input */
+			pungetc();	/* push back EOF on input */
 			return n1;
 		default:
 			if (nlflag || erflag)
@@ -759,7 +762,7 @@ checkend(int c, char * const eofmark, const int striptabs)
  */
 
 STATIC void
-slurp_heredoc(char *const eofmark, int striptabs, int sq)
+slurp_heredoc(char *const eofmark, const int striptabs, const int sq)
 {
 	int c;
 	char *out;
@@ -852,26 +855,19 @@ readheredocs(void)
 		n->narg.text = wordtext;
 		n->narg.backquote = backquotelist;
 		here->here->nhere.doc = n;
+
+		if (here->here->nhere.type == NHERE)
+			continue;
+
+		/*
+		 * Now "parse" here docs that have unquoted eofmarkers.
+		 */
+		setinputstring(wordtext, 1);
+		readtoken1(pgetc(), DQSYNTAX, 1);
+		n->narg.text = wordtext;
+		n->narg.backquote = backquotelist;
+		popfile();
 	}
-}
-
-void
-parse_heredoc(union node *n)
-{
-	if (n->narg.type != NARG)
-		abort();
-
-	if (n->narg.text[0] == '\0')		/* nothing to do */
-		return;
-
-	setinputstring(n->narg.text, 1);
-
-	readtoken1(pgetc(), DQSYNTAX, 1);
-
-	n->narg.text = wordtext;
-	n->narg.backquote = backquotelist;
-
-	popfile();
 }
 
 STATIC int
@@ -1414,6 +1410,7 @@ parseredir(const char *out,  int c)
 			np->type = NHERE;
 			heredoc = stalloc(sizeof(struct heredoc));
 			heredoc->here = np;
+			heredoc->startline = plinno;
 			if ((c = pgetc()) == '-') {
 				heredoc->striptabs = 1;
 			} else {
@@ -1460,7 +1457,7 @@ parseredir(const char *out,  int c)
 STATIC int
 readtoken1(int firstc, char const *syn, int magicq)
 {
-	int c = firstc;
+	int c;
 	char * out;
 	int len;
 	struct nodelist *bqlist;
@@ -1484,161 +1481,160 @@ readtoken1(int firstc, char const *syn, int magicq)
 	parenlevel = 0;
 
 	STARTSTACKSTR(out);
-	loop: {	/* for each line, until end of word */
-		for (;;) {	/* until end of line or end of word */
-			CHECKSTRSPACE(4, out);	/* permit 4 calls to USTPUTC */
-			switch(syntax[c]) {
-			case CNL:	/* '\n' */
-				if (syntax == BASESYNTAX)
-					goto endword;	/* exit outer loop */
-				USTPUTC(c, out);
+
+	for (c = firstc ;; c = pgetc_macro()) {	/* until of token */
+		CHECKSTRSPACE(4, out);	/* permit 4 calls to USTPUTC */
+		switch (syntax[c]) {
+		case CNL:	/* '\n' */
+			if (syntax == BASESYNTAX)
+				break;	/* exit loop */
+			USTPUTC(c, out);
+			plinno++;
+			if (doprompt)
+				setprompt(2);
+			else
+				setprompt(0);
+			continue;
+
+		case CWORD:
+			USTPUTC(c, out);
+			continue;
+		case CCTL:
+			if (!magicq || ISDBLQUOTE())
+				USTPUTC(CTLESC, out);
+			USTPUTC(c, out);
+			continue;
+		case CBACK:	/* backslash */
+			c = pgetc();
+			if (c == PEOF) {
+				USTPUTC('\\', out);
+				pungetc();
+				continue;
+			}
+			if (c == '\n') {
 				plinno++;
 				if (doprompt)
 					setprompt(2);
 				else
 					setprompt(0);
-				c = pgetc();
-				goto loop;		/* continue outer loop */
-			case CWORD:
+				continue;
+			}
+			quotef = 1;	/* current token is quoted */
+			if (ISDBLQUOTE() && c != '\\' && c != '`' &&
+			    c != '$' && (c != '"' || magicq))
+				USTPUTC('\\', out);
+			if (SQSYNTAX[c] == CCTL)
+				USTPUTC(CTLESC, out);
+			else if (!magicq) {
+				USTPUTC(CTLQUOTEMARK, out);
 				USTPUTC(c, out);
-				break;
-			case CCTL:
-				if (!magicq || ISDBLQUOTE())
-					USTPUTC(CTLESC, out);
-				USTPUTC(c, out);
-				break;
-			case CBACK:	/* backslash */
-				c = pgetc();
-				if (c == PEOF) {
-					USTPUTC('\\', out);
-					pungetc();
-					break;
-				}
-				if (c == '\n') {
-					plinno++;
-					if (doprompt)
-						setprompt(2);
-					else
-						setprompt(0);
-					break;
-				}
-				quotef = 1;
-				if (ISDBLQUOTE() && c != '\\' &&
-				    c != '`' && c != '$' &&
-				    (c != '"' || magicq))
-					USTPUTC('\\', out);
-				if (SQSYNTAX[c] == CCTL)
-					USTPUTC(CTLESC, out);
-				else if (!magicq) {
-					USTPUTC(CTLQUOTEMARK, out);
-					USTPUTC(c, out);
-					if (varnest != 0)
-						USTPUTC(CTLQUOTEEND, out);
-					break;
-				}
-				USTPUTC(c, out);
-				break;
-			case CSQUOTE:
-				if (syntax != SQSYNTAX) {
-					if (!magicq)
-						USTPUTC(CTLQUOTEMARK, out);
-					quotef = 1;
-					TS_PUSH();
-					syntax = SQSYNTAX;
-					quoted = SQ;
-					break;
-				}
-				if (magicq && arinest == 0 && varnest == 0) {
-					/* Ignore inside quoted here document */
-					USTPUTC(c, out);
-					break;
-				}
-				/* End of single quotes... */
-				TS_POP();
-				if (syntax == BASESYNTAX && varnest != 0)
+				if (varnest != 0)
 					USTPUTC(CTLQUOTEEND, out);
-				break;
-			case CDQUOTE:
-				if (magicq && arinest == 0 && varnest == 0) {
-					/* Ignore inside here document */
-					USTPUTC(c, out);
-					break;
-				}
+				continue;
+			}
+			USTPUTC(c, out);
+			continue;
+		case CSQUOTE:
+			if (syntax != SQSYNTAX) {
+				if (!magicq)
+					USTPUTC(CTLQUOTEMARK, out);
 				quotef = 1;
-				if (arinest) {
-					if (ISDBLQUOTE()) {
-						TS_POP();
-					} else {
-						TS_PUSH();
-						syntax = DQSYNTAX;
-						SETDBLQUOTE();
-						USTPUTC(CTLQUOTEMARK, out);
-					}
-					break;
-				}
-				if (magicq)
-					break;
+				TS_PUSH();
+				syntax = SQSYNTAX;
+				quoted = SQ;
+				continue;
+			}
+			if (magicq && arinest == 0 && varnest == 0) {
+				/* Ignore inside quoted here document */
+				USTPUTC(c, out);
+				continue;
+			}
+			/* End of single quotes... */
+			TS_POP();
+			if (syntax == BASESYNTAX && varnest != 0)
+				USTPUTC(CTLQUOTEEND, out);
+			continue;
+		case CDQUOTE:
+			if (magicq && arinest == 0 && varnest == 0) {
+				/* Ignore inside here document */
+				USTPUTC(c, out);
+				continue;
+			}
+			quotef = 1;
+			if (arinest) {
 				if (ISDBLQUOTE()) {
 					TS_POP();
-					if (varnest != 0)
-						USTPUTC(CTLQUOTEEND, out);
 				} else {
 					TS_PUSH();
 					syntax = DQSYNTAX;
 					SETDBLQUOTE();
 					USTPUTC(CTLQUOTEMARK, out);
 				}
-				break;
-			case CVAR:	/* '$' */
-				PARSESUB();		/* parse substitution */
-				break;
-			case CENDVAR:	/* CLOSEBRACE */
-				if (varnest > 0 && !ISDBLQUOTE()) {
-					TS_POP();
-					USTPUTC(CTLENDVAR, out);
-				} else {
-					USTPUTC(c, out);
-				}
-				break;
-			case CLP:	/* '(' in arithmetic */
-				parenlevel++;
-				USTPUTC(c, out);
-				break;
-			case CRP:	/* ')' in arithmetic */
-				if (parenlevel > 0) {
-					USTPUTC(c, out);
-					--parenlevel;
-				} else {
-					if (pgetc() == ')') {
-						if (--arinest == 0) {
-							TS_POP();
-							USTPUTC(CTLENDARI, out);
-						} else
-							USTPUTC(')', out);
-					} else {
-						/*
-						 * unbalanced parens
-						 *  (don't 2nd guess - no error)
-						 */
-						pungetc();
-						USTPUTC(')', out);
-					}
-				}
-				break;
-			case CBQUOTE:	/* '`' */
-				out = parsebackq(stack, out, &bqlist, 1);
-				break;
-			case CEOF:
-				goto endword;		/* exit outer loop */
-			default:
-				if (varnest == 0 && !ISDBLQUOTE())
-					goto endword;	/* exit outer loop */
+				continue;
+			}
+			if (magicq)
+				continue;
+			if (ISDBLQUOTE()) {
+				TS_POP();
+				if (varnest != 0)
+					USTPUTC(CTLQUOTEEND, out);
+			} else {
+				TS_PUSH();
+				syntax = DQSYNTAX;
+				SETDBLQUOTE();
+				USTPUTC(CTLQUOTEMARK, out);
+			}
+			continue;
+		case CVAR:	/* '$' */
+			PARSESUB();		/* parse substitution */
+			continue;
+		case CENDVAR:	/* CLOSEBRACE */
+			if (varnest > 0 && !ISDBLQUOTE()) {
+				TS_POP();
+				USTPUTC(CTLENDVAR, out);
+			} else {
 				USTPUTC(c, out);
 			}
-			c = pgetc_macro();
+			continue;
+		case CLP:	/* '(' in arithmetic */
+			parenlevel++;
+			USTPUTC(c, out);
+			continue;;
+		case CRP:	/* ')' in arithmetic */
+			if (parenlevel > 0) {
+				USTPUTC(c, out);
+				--parenlevel;
+			} else {
+				if (pgetc() == ')') {
+					if (--arinest == 0) {
+						TS_POP();
+						USTPUTC(CTLENDARI, out);
+					} else
+						USTPUTC(')', out);
+				} else {
+					/*
+					 * unbalanced parens
+					 *  (don't 2nd guess - no error)
+					 */
+					pungetc();
+					USTPUTC(')', out);
+				}
+			}
+			continue;
+		case CBQUOTE:	/* '`' */
+			out = parsebackq(stack, out, &bqlist, 1);
+			continue;
+		case CEOF:		/* --> c == PEOF */
+			break;		/* will exit loop */
+		default:
+			if (varnest == 0 && !ISDBLQUOTE())
+				break;	/* exit loop */
+			USTPUTC(c, out);
+			continue;
 		}
+		break;	/* break from switch -> break from for loop too */
 	}
-endword:
+
 	if (syntax == ARISYNTAX) {
 		cleanup_state_stack(stack);
 		synerror("Missing '))'");
@@ -1653,13 +1649,14 @@ endword:
 		/* { */
 		synerror("Missing '}'");
 	}
+
 	USTPUTC('\0', out);
 	len = out - stackblock();
 	out = stackblock();
+
 	if (!magicq) {
 		if ((c == '<' || c == '>')
-		 && quotef == 0
-		 && (*out == '\0' || is_number(out))) {
+		 && quotef == 0 && (*out == '\0' || is_number(out))) {
 			parseredir(out, c);
 			cleanup_state_stack(stack);
 			return lasttoken = TREDIR;
@@ -1667,6 +1664,7 @@ endword:
 			pungetc();
 		}
 	}
+
 	quoteflag = quotef;
 	backquotelist = bqlist;
 	grabstackblock(len);
@@ -1741,7 +1739,7 @@ parsesub: {
 			do {
 				USTPUTC(c, out);
 				c = pgetc();
-			} while (is_digit(c));
+			} while (subtype != VSNORMAL && is_digit(c));
 		}
 		else if (is_special(c)) {
 			USTPUTC(c, out);

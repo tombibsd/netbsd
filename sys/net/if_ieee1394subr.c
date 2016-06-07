@@ -139,7 +139,8 @@ ieee1394_output(struct ifnet *ifp, struct mbuf *m0, const struct sockaddr *dst,
 #ifdef INET
 	case AF_INET:
 		if (unicast &&
-		    (error = arpresolve(ifp, rt, m0, dst, (u_char *)hwdst)) !=0)
+		    (error = arpresolve(ifp, rt, m0, dst, hwdst,
+			sizeof(*hwdst))) != 0)
 			return error == EWOULDBLOCK ? 0 : error;
 		/* if broadcasting on a simplex interface, loopback a copy */
 		if ((m0->m_flags & M_BCAST) && (ifp->if_flags & IFF_SIMPLEX))

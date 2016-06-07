@@ -2836,6 +2836,7 @@
 ./usr/include/sys/gmon.h			comp-c-include
 ./usr/include/sys/gpio.h			comp-c-include
 ./usr/include/sys/hash.h			comp-c-include
+./usr/include/sys/idtype.h			comp-c-include
 ./usr/include/sys/ieee754.h			comp-c-include
 ./usr/include/sys/intr.h			comp-c-include
 ./usr/include/sys/intrio.h			comp-c-include
@@ -4283,6 +4284,8 @@
 ./usr/share/man/cat2/wait.0			comp-c-catman		.cat
 ./usr/share/man/cat2/wait3.0			comp-c-catman		.cat
 ./usr/share/man/cat2/wait4.0			comp-c-catman		.cat
+./usr/share/man/cat2/wait6.0			comp-c-catman		.cat
+./usr/share/man/cat2/waitid.0			comp-c-catman		.cat
 ./usr/share/man/cat2/waitpid.0			comp-c-catman		.cat
 ./usr/share/man/cat2/write.0			comp-c-catman		.cat
 ./usr/share/man/cat2/writev.0			comp-c-catman		.cat
@@ -9623,6 +9626,23 @@
 ./usr/share/man/cat9/PCI_REVISION.0		comp-sys-catman		.cat
 ./usr/share/man/cat9/PCI_VENDOR.0		comp-sys-catman		.cat
 ./usr/share/man/cat9/PMC_ENABLED.0		comp-sys-catman		.cat
+./usr/share/man/cat9/PSLIST_DESTROY.0		comp-sys-catman		.cat
+./usr/share/man/cat9/PSLIST_ENTRY_DESTROY.0	comp-sys-catman		.cat
+./usr/share/man/cat9/PSLIST_ENTRY_INIT.0	comp-sys-catman		.cat
+./usr/share/man/cat9/PSLIST_ENTRY_INITIALIZER.0	comp-sys-catman		.cat
+./usr/share/man/cat9/PSLIST_INITIALIZER.0	comp-sys-catman		.cat
+./usr/share/man/cat9/PSLIST_INIT.0		comp-sys-catman		.cat
+./usr/share/man/cat9/PSLIST_INITIALIZER.0	comp-sys-catman		.cat
+./usr/share/man/cat9/PSLIST_READER_FIRST.0	comp-sys-catman		.cat
+./usr/share/man/cat9/PSLIST_READER_FOREACH.0	comp-sys-catman		.cat
+./usr/share/man/cat9/PSLIST_READER_NEXT.0	comp-sys-catman		.cat
+./usr/share/man/cat9/PSLIST_WRITER_FIRST.0	comp-sys-catman		.cat
+./usr/share/man/cat9/PSLIST_WRITER_FOREACH.0	comp-sys-catman		.cat
+./usr/share/man/cat9/PSLIST_WRITER_INSERT_AFTER.0	comp-sys-catman		.cat
+./usr/share/man/cat9/PSLIST_WRITER_INSERT_BEFORE.0	comp-sys-catman		.cat
+./usr/share/man/cat9/PSLIST_WRITER_INSERT_HEAD.0	comp-sys-catman		.cat
+./usr/share/man/cat9/PSLIST_WRITER_NEXT.0	comp-sys-catman		.cat
+./usr/share/man/cat9/PSLIST_WRITER_REMOVE.0	comp-sys-catman		.cat
 ./usr/share/man/cat9/RUN_ONCE.0			comp-sys-catman		.cat
 ./usr/share/man/cat9/SCHED_LOCK.0		comp-obsolete		obsolete
 ./usr/share/man/cat9/SCHED_UNLOCK.0		comp-obsolete		obsolete
@@ -10667,6 +10687,16 @@
 ./usr/share/man/cat9/pserialize_read_enter.0	comp-sys-catman		.cat
 ./usr/share/man/cat9/pserialize_read_exit.0	comp-sys-catman		.cat
 ./usr/share/man/cat9/psignal.0			comp-sys-catman		.cat
+./usr/share/man/cat9/pslist.0			comp-sys-catman		.cat
+./usr/share/man/cat9/psref.0			comp-sys-catman		.cat
+./usr/share/man/cat9/psref_acquire.0		comp-sys-catman		.cat
+./usr/share/man/cat9/psref_class_create.0	comp-sys-catman		.cat
+./usr/share/man/cat9/psref_class_destroy.0	comp-sys-catman		.cat
+./usr/share/man/cat9/psref_copy.0		comp-sys-catman		.cat
+./usr/share/man/cat9/psref_held.0		comp-sys-catman		.cat
+./usr/share/man/cat9/psref_release.0		comp-sys-catman		.cat
+./usr/share/man/cat9/psref_target_destroy.0	comp-sys-catman		.cat
+./usr/share/man/cat9/psref_target_init.0	comp-sys-catman		.cat
 ./usr/share/man/cat9/ptoa.0			comp-sys-catman		.cat
 ./usr/share/man/cat9/putiobuf.0			comp-sys-catman		.cat
 ./usr/share/man/cat9/putter.0			comp-sys-catman		.cat
@@ -11500,6 +11530,8 @@
 ./usr/share/man/html2/wait.html			comp-c-htmlman		html
 ./usr/share/man/html2/wait3.html		comp-c-htmlman		html
 ./usr/share/man/html2/wait4.html		comp-c-htmlman		html
+./usr/share/man/html2/wait6.html		comp-c-htmlman		html
+./usr/share/man/html2/waitid.html		comp-c-htmlman		html
 ./usr/share/man/html2/waitpid.html		comp-c-htmlman		html
 ./usr/share/man/html2/write.html		comp-c-htmlman		html
 ./usr/share/man/html2/writev.html		comp-c-htmlman		html
@@ -16692,6 +16724,23 @@
 ./usr/share/man/html9/PCI_REVISION.html		comp-sys-htmlman	html
 ./usr/share/man/html9/PCI_VENDOR.html		comp-sys-htmlman	html
 ./usr/share/man/html9/PMC_ENABLED.html		comp-sys-htmlman	html
+./usr/share/man/html9/PSLIST_DESTROY.html	comp-sys-htmlman	html
+./usr/share/man/html9/PSLIST_ENTRY_DESTROY.html	comp-sys-htmlman	html
+./usr/share/man/html9/PSLIST_ENTRY_INIT.html	comp-sys-htmlman	html
+./usr/share/man/html9/PSLIST_ENTRY_INITIALIZER.html	comp-sys-htmlman	html
+./usr/share/man/html9/PSLIST_INITIALIZER.html	comp-sys-htmlman	html
+./usr/share/man/html9/PSLIST_INIT.html		comp-sys-htmlman	html
+./usr/share/man/html9/PSLIST_INITIALIZER.html	comp-sys-htmlman	html
+./usr/share/man/html9/PSLIST_READER_FIRST.html	comp-sys-htmlman	html
+./usr/share/man/html9/PSLIST_READER_FOREACH.html	comp-sys-htmlman	html
+./usr/share/man/html9/PSLIST_READER_NEXT.html	comp-sys-htmlman	html
+./usr/share/man/html9/PSLIST_WRITER_FIRST.html	comp-sys-htmlman	html
+./usr/share/man/html9/PSLIST_WRITER_FOREACH.html	comp-sys-htmlman	html
+./usr/share/man/html9/PSLIST_WRITER_INSERT_AFTER.html	comp-sys-htmlman	html
+./usr/share/man/html9/PSLIST_WRITER_INSERT_BEFORE.html	comp-sys-htmlman	html
+./usr/share/man/html9/PSLIST_WRITER_INSERT_HEAD.html	comp-sys-htmlman	html
+./usr/share/man/html9/PSLIST_WRITER_NEXT.html	comp-sys-htmlman	html
+./usr/share/man/html9/PSLIST_WRITER_REMOVE.html	comp-sys-htmlman	html
 ./usr/share/man/html9/RUN_ONCE.html		comp-sys-htmlman	html
 ./usr/share/man/html9/SET.html			comp-sys-htmlman	html
 ./usr/share/man/html9/STACK.html		comp-sys-htmlman	html
@@ -17687,6 +17736,16 @@
 ./usr/share/man/html9/pserialize_read_enter.html	comp-sys-htmlman	html
 ./usr/share/man/html9/pserialize_read_exit.html comp-sys-htmlman	html
 ./usr/share/man/html9/psignal.html		comp-sys-htmlman	html
+./usr/share/man/html9/pslist.html		comp-sys-htmlman	html
+./usr/share/man/html9/psref.html		comp-sys-catman		html
+./usr/share/man/html9/psref_acquire.html	comp-sys-catman		html
+./usr/share/man/html9/psref_class_create.html	comp-sys-catman		html
+./usr/share/man/html9/psref_class_destroy.html	comp-sys-catman		html
+./usr/share/man/html9/psref_copy.html		comp-sys-catman		html
+./usr/share/man/html9/psref_held.html		comp-sys-catman		html
+./usr/share/man/html9/psref_release.html	comp-sys-catman		html
+./usr/share/man/html9/psref_target_destroy.html	comp-sys-catman		html
+./usr/share/man/html9/psref_target_init.html	comp-sys-catman		html
 ./usr/share/man/html9/ptoa.html			comp-sys-htmlman	html
 ./usr/share/man/html9/putiobuf.html		comp-sys-htmlman	html
 ./usr/share/man/html9/putter.html		comp-sys-htmlman	html
@@ -18510,6 +18569,8 @@
 ./usr/share/man/man2/wait.2			comp-c-man		.man
 ./usr/share/man/man2/wait3.2			comp-c-man		.man
 ./usr/share/man/man2/wait4.2			comp-c-man		.man
+./usr/share/man/man2/wait6.2			comp-c-man		.man
+./usr/share/man/man2/waitid.2			comp-c-man		.man
 ./usr/share/man/man2/waitpid.2			comp-c-man		.man
 ./usr/share/man/man2/write.2			comp-c-man		.man
 ./usr/share/man/man2/writev.2			comp-c-man		.man
@@ -23845,6 +23906,23 @@
 ./usr/share/man/man9/PCI_REVISION.9		comp-sys-man		.man
 ./usr/share/man/man9/PCI_VENDOR.9		comp-sys-man		.man
 ./usr/share/man/man9/PMC_ENABLED.9		comp-sys-man		.man
+./usr/share/man/man9/PSLIST_DESTROY.9		comp-sys-man		.man
+./usr/share/man/man9/PSLIST_ENTRY_DESTROY.9	comp-sys-man		.man
+./usr/share/man/man9/PSLIST_ENTRY_INIT.9	comp-sys-man		.man
+./usr/share/man/man9/PSLIST_ENTRY_INITIALIZER.9	comp-sys-man		.man
+./usr/share/man/man9/PSLIST_INITIALIZER.9	comp-sys-man		.man
+./usr/share/man/man9/PSLIST_INIT.9		comp-sys-man		.man
+./usr/share/man/man9/PSLIST_INITIALIZER.9	comp-sys-man		.man
+./usr/share/man/man9/PSLIST_READER_FIRST.9	comp-sys-man		.man
+./usr/share/man/man9/PSLIST_READER_FOREACH.9	comp-sys-man		.man
+./usr/share/man/man9/PSLIST_READER_NEXT.9	comp-sys-man		.man
+./usr/share/man/man9/PSLIST_WRITER_FIRST.9	comp-sys-man		.man
+./usr/share/man/man9/PSLIST_WRITER_FOREACH.9	comp-sys-man		.man
+./usr/share/man/man9/PSLIST_WRITER_INSERT_AFTER.9	comp-sys-man		.man
+./usr/share/man/man9/PSLIST_WRITER_INSERT_BEFORE.9	comp-sys-man		.man
+./usr/share/man/man9/PSLIST_WRITER_INSERT_HEAD.9	comp-sys-man		.man
+./usr/share/man/man9/PSLIST_WRITER_NEXT.9	comp-sys-man		.man
+./usr/share/man/man9/PSLIST_WRITER_REMOVE.9	comp-sys-man		.man
 ./usr/share/man/man9/RUN_ONCE.9			comp-sys-man		.man
 ./usr/share/man/man9/SCHED_LOCK.9		comp-obsolete		obsolete
 ./usr/share/man/man9/SCHED_UNLOCK.9		comp-obsolete		obsolete
@@ -24889,6 +24967,16 @@
 ./usr/share/man/man9/pserialize_read_enter.9	comp-sys-man		.man
 ./usr/share/man/man9/pserialize_read_exit.9	comp-sys-man		.man
 ./usr/share/man/man9/psignal.9			comp-sys-man		.man
+./usr/share/man/man9/pslist.9			comp-sys-man		.man
+./usr/share/man/man9/psref.9			comp-sys-man		.man
+./usr/share/man/man9/psref_acquire.9		comp-sys-man		.man
+./usr/share/man/man9/psref_class_create.9	comp-sys-man		.man
+./usr/share/man/man9/psref_class_destroy.9	comp-sys-man		.man
+./usr/share/man/man9/psref_copy.9		comp-sys-man		.man
+./usr/share/man/man9/psref_held.9		comp-sys-man		.man
+./usr/share/man/man9/psref_release.9		comp-sys-man		.man
+./usr/share/man/man9/psref_target_destroy.9	comp-sys-man		.man
+./usr/share/man/man9/psref_target_init.9	comp-sys-man		.man
 ./usr/share/man/man9/ptoa.9			comp-sys-man		.man
 ./usr/share/man/man9/putiobuf.9			comp-sys-man		.man
 ./usr/share/man/man9/putter.9			comp-sys-man		.man

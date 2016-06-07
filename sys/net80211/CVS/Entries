@@ -15,18 +15,18 @@
 /ieee80211_crypto_wep.c/1.8/Wed Dec 17 20:51:37 2008/-kk/
 /ieee80211_input.c/1.80/Mon Feb 15 11:07:37 2016/-kk/
 /ieee80211_ioctl.c/1.60/Sun Sep 13 01:07:50 2015/-kk/
-/ieee80211_ioctl.h/1.21/Sun Sep 13 01:31:57 2015/-kk/
+/ieee80211_ioctl.h/1.23/Tue Jun  7 10:06:57 2016/-kk/
 /ieee80211_netbsd.c/1.26/Sat Apr 19 05:37:01 2014/-kk/
 /ieee80211_netbsd.h/1.19/Sat Apr 19 05:37:01 2014/-kk/
-/ieee80211_node.c/1.69/Sun Sep 13 01:07:50 2015/-kk/
-/ieee80211_node.h/1.25/Wed Oct 29 08:13:31 2014/-kk/
+/ieee80211_node.c/1.71/Tue Jun  7 10:06:57 2016/-kk/
+/ieee80211_node.h/1.27/Tue Jun  7 10:06:57 2016/-kk/
 /ieee80211_output.c/1.53/Sun Sep 13 01:07:50 2015/-kk/
 /ieee80211_proto.c/1.31/Sun Sep 13 01:07:50 2015/-kk/
 /ieee80211_proto.h/1.22/Thu Oct 24 10:28:58 2013/-kk/
 /ieee80211_radiotap.h/1.24/Fri Feb 25 10:45:57 2011/-kk/
 /ieee80211_rssadapt.c/1.19/Sat Apr 19 05:37:01 2014/-kk/
-/ieee80211_rssadapt.h/1.7/Mon Oct 19 23:19:39 2009/-kk/
+/ieee80211_rssadapt.h/1.9/Tue Jun  7 10:06:57 2016/-kk/
 /ieee80211_sysctl.h/1.9/Mon Oct 19 23:19:39 2009/-kk/
-/ieee80211_var.h/1.28/Sun Jan 17 19:45:07 2010/-kk/
+/ieee80211_var.h/1.30/Tue Jun  7 10:06:57 2016/-kk/
 /ieee80211_xauth.c/1.5/Mon Feb 27 01:08:28 2006/-kk/
 D

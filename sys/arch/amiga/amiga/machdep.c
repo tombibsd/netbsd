@@ -1208,21 +1208,21 @@ int _spllkm6(void);
 int _spllkm7(void);
 
 #ifdef LEV6_DEFER
-int _spllkm6() {
+int _spllkm6(void) {
 	return spl4();
 };
 
-int _spllkm7() {
+int _spllkm7(void) {
 	return spl4();
 };
 
 #else
 
-int _spllkm6() {
+int _spllkm6(void) {
 	return spl6();
 };
 
-int _spllkm7() {
+int _spllkm7(void) {
 	return spl7();
 };
 

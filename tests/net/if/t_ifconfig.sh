@@ -261,6 +261,8 @@ parameters_body()
 	atf_check -s not-exit:0 -o ignore -e ignore \
 	    rump.ping -c 1 -w $TIMEOUT -n 192.168.0.3
 	atf_check -s exit:0 -o not-match:'192.168.0.3' rump.arp -an
+	# The entry shouldn't appear in the routing table anymore
+	atf_check -s exit:0 -o not-match:'192.168.0.3' rump.netstat -nr
 
 	# netmask
 	atf_check -s exit:0 rump.ifconfig shmif0 inet 172.16.0.1 netmask 255.255.255.0 alias

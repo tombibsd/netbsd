@@ -54,7 +54,22 @@ extern int pax_aslr_debug;
 
 void pax_init(void);
 void pax_setup_elf_flags(struct exec_package *, uint32_t);
-void pax_mprotect(struct lwp *, vm_prot_t *, vm_prot_t *);
+void pax_mprotect_adjust(
+#ifdef PAX_MPROTECT_DEBUG
+    const char *, size_t,
+#endif
+    struct lwp *, vm_prot_t *, vm_prot_t *);
+#ifndef PAX_MPROTECT
+# define PAX_MPROTECT_ADJUST(a, b, c)
+#else
+# ifdef PAX_MPROTECT_DEBUG
+#  define PAX_MPROTECT_ADJUST(a, b, c) \
+    pax_mprotect_adjust(__FILE__, __LINE__, (a), (b), (c))
+# else
+#  define PAX_MPROTECT_ADJUST(a, b, c) \
+    pax_mprotect_adjust((a), (b), (c))
+# endif
+#endif
 int pax_segvguard(struct lwp *, struct vnode *, const char *, bool);
 
 #define	PAX_ASLR_DELTA(delta, lsb, len)	\

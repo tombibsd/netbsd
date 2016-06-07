@@ -147,7 +147,7 @@ kill_body() {
 	atf_require_prog kill
 
 	s=killhelper.sh
-	z=/tmp/killhelper.$$ 
+	z=killhelper.$$ 
 	pid=
 
 	# waiting for a specific process that is not a child

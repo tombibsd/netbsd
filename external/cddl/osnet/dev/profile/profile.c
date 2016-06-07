@@ -565,7 +565,7 @@ MODULE_DEPEND(profile, opensolaris, 1, 1, 1);
 #ifdef __NetBSD__
 
 static int
-profile_modcmd(modcmd_t cmd, void *data)
+dtrace_profile_modcmd(modcmd_t cmd, void *data)
 {
 	switch (cmd) {
 	case MODULE_CMD_INIT:
@@ -576,11 +576,16 @@ profile_modcmd(modcmd_t cmd, void *data)
 		profile_unload();
 		return 0;
 
+	case MODULE_CMD_AUTOUNLOAD:
+		if (profile_total)
+			return EBUSY;
+		return 0;
+
 	default:
 		return ENOTTY;
 	}
 }
 
-MODULE(MODULE_CLASS_MISC, profile, "dtrace,cyclic");
+MODULE(MODULE_CLASS_MISC, dtrace_profile, "dtrace,cyclic");
 
 #endif

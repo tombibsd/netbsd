@@ -17,7 +17,6 @@ options 	RTC_OFFSET=0	# hardware clock is this many mins. west of GMT
 
 # CPU options
 options 	CPU_CORTEX
-options 	CPU_CORTEXA7
 options 	CPU_CORTEXA15
 #options 	MULTIPROCESSOR
 

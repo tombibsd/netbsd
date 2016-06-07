@@ -37,6 +37,9 @@ __RCSID("$NetBSD$");
 
 #include <stdio.h>
 #include <time.h>
+#ifdef HAVE_LIBUTIL_H
+#include <libutil.h>
+#endif
 #ifdef HAVE_UTIL_H
 #include <util.h>
 #endif

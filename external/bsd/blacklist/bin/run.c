@@ -36,6 +36,9 @@
 __RCSID("$NetBSD$");
 
 #include <stdio.h>
+#ifdef HAVE_LIBUTIL_H
+#include <libutil.h>
+#endif
 #ifdef HAVE_UTIL_H
 #include <util.h>
 #endif
@@ -46,10 +49,12 @@ __RCSID("$NetBSD$");
 #include <syslog.h>
 #include <string.h>
 #include <netinet/in.h>
+#include <net/if.h>
 
 #include "run.h"
 #include "conf.h"
 #include "internal.h"
+#include "support.h"
 
 extern char **environ;
 

@@ -847,8 +847,8 @@ print_connect(FETCH *fin, const struct urlinfo *ui)
 	} else
 		h = ui->host;
 
-	fetch_printf(fin, "CONNECT %s:%s HTTP/1.1\r\n", h, ui->port);
-	fetch_printf(fin, "Host: %s:%s\r\n", h, ui->port);
+	fetch_printf(fin, "CONNECT %s:%d HTTP/1.1\r\n", h, ui->portnum);
+	fetch_printf(fin, "Host: %s:%d\r\n", h, ui->portnum);
 }
 #endif
 

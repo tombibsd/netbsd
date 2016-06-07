@@ -480,6 +480,7 @@ main(int argc, char *argv[])
 	if (errmsg != NULL) {
 		warnx("%s", errmsg);
 		free(errmsg);
+		close_db(db);
 		exit(EXIT_FAILURE);
 	}
 

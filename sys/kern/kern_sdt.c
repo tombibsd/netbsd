@@ -71,6 +71,8 @@
 #include <sys/systm.h>
 #include <sys/sdt.h>
 
+SDT_PROVIDER_DEFINE(sdt);
+
 void sdt_probe_stub(u_int32_t, uintptr_t, uintptr_t,
 	uintptr_t, uintptr_t, uintptr_t);
 

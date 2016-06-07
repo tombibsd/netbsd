@@ -141,6 +141,8 @@ del_curterm(TERMINAL *oterm)
 	free(oterm->_userdefs);
 	free(oterm->_buf);
 	free(oterm);
+	if (oterm == cur_term)
+		cur_term = NULL;
 	return OK;
 }
 

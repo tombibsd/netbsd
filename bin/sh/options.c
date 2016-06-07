@@ -224,25 +224,40 @@ STATIC void
 minus_o(char *name, int val)
 {
 	size_t i;
+	const char *sep = ": ";
 
 	if (name == NULL) {
 		if (val) {
-			out1str("Current option settings\n");
+			out1str("Current option settings");
 			for (i = 0; i < NOPTS; i++) {
-				out1fmt("%-16s%s\n", optlist[i].name,
+				if (optlist[i].name == NULL)  {
+					out1fmt("%s%c%c", sep,
+					    "+-"[optlist[i].val],
+					    optlist[i].letter);
+					sep = ", ";
+				}
+			}
+			out1c('\n');
+			for (i = 0; i < NOPTS; i++) {
+				if (optlist[i].name)
+				    out1fmt("%-16s%s\n", optlist[i].name,
 					optlist[i].val ? "on" : "off");
 			}
 		} else {
 			out1str("set");
 			for (i = 0; i < NOPTS; i++) {
-				out1fmt(" %co %s",
+				if (optlist[i].name)
+				    out1fmt(" %co %s",
 					"+-"[optlist[i].val], optlist[i].name);
+				else
+				    out1fmt(" %c%c", "+-"[optlist[i].val],
+					optlist[i].letter);
 			}
-			out1str("\n");
+			out1c('\n');
 		}
 	} else {
 		for (i = 0; i < NOPTS; i++)
-			if (equal(name, optlist[i].name)) {
+			if (optlist[i].name && equal(name, optlist[i].name)) {
 				set_opt_val(i, val);
 				return;
 			}
@@ -366,7 +381,7 @@ int
 setcmd(int argc, char **argv)
 {
 	if (argc == 1)
-		return showvars(0, 0, 1);
+		return showvars(0, 0, 1, 0);
 	INTOFF;
 	options(0);
 	optschanged();

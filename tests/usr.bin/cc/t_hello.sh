@@ -39,7 +39,7 @@ hello_pic_head() {
 
 atf_test_case hello_pie
 hello_pie_head() {
-	atf_set "descr" "compile and run position independend (PIE) \"hello world\""
+	atf_set "descr" "compile and run position independent (PIE) \"hello world\""
 	atf_set "require.progs" "cc"
 }
 

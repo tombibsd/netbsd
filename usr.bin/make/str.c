@@ -102,7 +102,7 @@ str_concat(const char *s1, const char *s2, int flags)
 	len2 = strlen(s2);
 
 	/* allocate length plus separator plus EOS */
-	result = bmake_malloc((u_int)(len1 + len2 + 2));
+	result = bmake_malloc((unsigned int)(len1 + len2 + 2));
 
 	/* copy first string into place */
 	memcpy(result, s1, len1);

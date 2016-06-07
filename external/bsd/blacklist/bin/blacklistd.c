@@ -38,6 +38,9 @@ __RCSID("$NetBSD$");
 #include <sys/socket.h>
 #include <sys/queue.h>
 
+#ifdef HAVE_LIBUTIL_H
+#include <libutil.h>
+#endif
 #ifdef HAVE_UTIL_H
 #include <util.h>
 #endif

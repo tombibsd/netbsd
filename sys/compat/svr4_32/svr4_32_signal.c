@@ -630,7 +630,7 @@ svr4_32_sys_context(struct lwp *l, const struct svr4_32_sys_context_args *uap, r
 	case SVR4_SETCONTEXT:
 		DPRINTF(("setcontext(%p)\n", SCARG(uap, uc)));
 		if (!SCARG_P32(uap, uc))
-			exit1(l, W_EXITCODE(0, 0));
+			exit1(l, 0, 0);
 		else if ((error = copyin(SCARG_P32(uap, uc),
 					 &uc, sizeof(uc))) != 0)
 			return error;

@@ -3610,9 +3610,9 @@ sctp_find_ifa_by_addr(struct sockaddr *sa)
 	struct ifaddr *ifa;
 
 	/* go through all our known interfaces */
-	TAILQ_FOREACH(ifn, &ifnet_list, if_list) {
+	IFNET_FOREACH(ifn) {
 		/* go through each interface addresses */
-		TAILQ_FOREACH(ifa, &ifn->if_addrlist, ifa_list) {
+		IFADDR_FOREACH(ifa, ifn) {
 			/* correct family? */
 			if (ifa->ifa_addr->sa_family != sa->sa_family)
 				continue;

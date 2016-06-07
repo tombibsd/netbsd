@@ -34,7 +34,9 @@
  */
 
 #define _PLAYSTATION2_BUS_SPACE_PRIVATE
+
 #include <machine/bus.h>
+#include <mips/cpuregs.h>
 
 #define _reg_read_1(a)		__read_1(a)
 #define _reg_read_2(a)		__read_2(a)

@@ -509,7 +509,7 @@ lwp_unstop(struct lwp *l)
 	if (l->l_wchan == NULL) {
 		/* setrunnable() will release the lock. */
 		setrunnable(l);
-	} else if (p->p_xstat && (l->l_flag & LW_SINTR) != 0) {
+	} else if (p->p_xsig && (l->l_flag & LW_SINTR) != 0) {
 		/* setrunnable() so we can receive the signal */
 		setrunnable(l);
 	} else {
@@ -1043,7 +1043,7 @@ lwp_exit(struct lwp *l)
 		KASSERT(current == true);
 		KASSERT(p != &proc0);
 		/* XXXSMP kernel_lock not held */
-		exit1(l, 0);
+		exit1(l, 0, 0);
 		/* NOTREACHED */
 	}
 	p->p_nzlwps++;

@@ -32,16 +32,12 @@
 #include <sys/cdefs.h>
 #include <sys/featuretest.h>
 #include <sys/types.h>
+#include <sys/idtype.h>
 
 /* Types of processor-sets */
 #define	PS_NONE			0
 #define	PS_MYID			-1
 #define	PS_QUERY		-2
-
-/* ID types for processor-set calls */
-#define	P_MYID			-1
-#define	P_PID			1
-#define	P_LWPID			2
 
 /* For compatibility only */
 typedef	cpuid_t		processorid_t;

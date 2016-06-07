@@ -19,7 +19,7 @@ SRCS.h_initfini1=	h_initfini1.cxx h_initfini_common.cxx \
 			${SRCS_CHECK_STACK}
 SRCS.h_initfini2=	h_initfini1.cxx h_initfini_common.cxx \
 			${SRCS_CHECK_STACK}
-LDADD.h_initfini2+=	-static
+LDSTATIC.h_initfini2+=	-static
 SRCS.h_initfini3=	h_initfini3.cxx h_initfini_common.cxx \
 			${SRCS_CHECK_STACK}
 LDADD.h_initfini3+=	-Wl,-rpath,${TESTSDIR}

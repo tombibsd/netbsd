@@ -907,7 +907,7 @@ setrunnable(struct lwp *l)
 		 * If we're being traced (possibly because someone attached us
 		 * while we were stopped), check for a signal from the debugger.
 		 */
-		if ((p->p_slflag & PSL_TRACED) != 0 && p->p_xstat != 0)
+		if ((p->p_slflag & PSL_TRACED) != 0 && p->p_xsig != 0)
 			signotify(l);
 		p->p_nrlwps++;
 		break;

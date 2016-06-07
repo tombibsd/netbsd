@@ -36,6 +36,12 @@
 __RCSID("$NetBSD$");
 
 #include <stdio.h>
+#ifdef HAVE_LIBUTIL_H
+#include <libutil.h>
+#endif
+#ifdef HAVE_UTIL_H
+#include <util.h>
+#endif
 #include <string.h>
 #include <ctype.h>
 #include <inttypes.h>
@@ -43,9 +49,6 @@ __RCSID("$NetBSD$");
 #include <pwd.h>
 #include <syslog.h>
 #include <errno.h>
-#ifdef HAVE_UTIL_H
-#include <util.h>
-#endif
 #include <stdlib.h>
 #include <limits.h>
 #include <ifaddrs.h>
@@ -495,8 +498,8 @@ out:
 	if (debug > 1) {
 		char b1[256], b2[256];
 		len <<= 2;
-		hexdump(b1, sizeof(b1), "a1", v1, len);
-		hexdump(b2, sizeof(b2), "a2", v2, len);
+		blhexdump(b1, sizeof(b1), "a1", v1, len);
+		blhexdump(b2, sizeof(b2), "a2", v2, len);
 		(*lfun)(LOG_DEBUG, "%s: %s != %s [0x%x]", __func__,
 		    b1, b2, omask);
 	}

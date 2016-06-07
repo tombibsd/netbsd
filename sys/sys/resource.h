@@ -75,6 +75,13 @@ struct	rusage {
 #define	ru_last		ru_nivcsw
 };
 
+#ifdef _NETBSD_SOURCE
+struct wrusage {  
+        struct rusage   wru_self;
+	struct rusage   wru_children;
+};  
+#endif
+
 /*
  * Resource limits
  */

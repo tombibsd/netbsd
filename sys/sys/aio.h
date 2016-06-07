@@ -70,7 +70,7 @@ struct aiocb {
 
 /* Default limits of allowed AIO operations */
 #define AIO_LISTIO_MAX		512
-#define AIO_MAX			AIO_LISTIO_MAX * 16
+#define AIO_MAX			(AIO_LISTIO_MAX * 16)
 
 #include <sys/condvar.h>
 #include <sys/lwp.h>

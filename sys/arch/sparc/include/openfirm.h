@@ -61,6 +61,7 @@ typedef uint32_t cell_t;
 #define HDQ2CELL_LO(x)	(cell_t)(x)
 #endif /* __sparc_v9__ */
 
+void	OF_init(void);
 int	OF_test(const char *);
 int	OF_test_method(int, const char *);
 void	OF_set_symbol_lookup(void (*)(void *), void (*)(void *));

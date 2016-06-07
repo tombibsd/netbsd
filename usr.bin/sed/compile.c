@@ -747,7 +747,6 @@ compile_text(void)
 	while (cu_fgets(lbuf, sizeof(lbuf), NULL)) {
 		op = s = text + size;
 		p = lbuf;
-		EATSPACE();
 		for (esc_nl = 0; *p != '\0'; p++) {
 			if (*p == '\\' && p[1] != '\0' && *++p == '\n')
 				esc_nl = 1;

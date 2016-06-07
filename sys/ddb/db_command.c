@@ -1189,7 +1189,7 @@ db_kernhist_print_cmd(db_expr_t addr, bool have_addr,
     db_expr_t count, const char *modif)
 {
 
-	kernhist_print(db_printf);
+	kernhist_print((void *)(uintptr_t)addr, db_printf);
 }
 #endif
 

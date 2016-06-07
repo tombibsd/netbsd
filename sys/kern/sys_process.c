@@ -740,7 +740,7 @@ sys_ptrace(struct lwp *l, const struct sys_ptrace_args *uap, register_t *retval)
 			 * signal, make all efforts to ensure that at
 			 * an LWP runs to see it.
 			 */
-			t->p_xstat = signo;
+			t->p_xsig = signo;
 			if (resume_all)
 				proc_unstop(t);
 			else
@@ -1146,7 +1146,7 @@ process_stoptrace(void)
 		return;
 	}
 
-	p->p_xstat = SIGTRAP;
+	p->p_xsig = SIGTRAP;
 	proc_stop(p, 1, SIGSTOP);
 	mutex_exit(proc_lock);
 

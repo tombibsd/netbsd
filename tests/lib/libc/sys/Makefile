@@ -65,6 +65,7 @@ TESTS_C+=		t_truncate
 TESTS_C+=		t_ucontext
 TESTS_C+=		t_umask
 TESTS_C+=		t_unlink
+TESTS_C+=		t_wait
 TESTS_C+=		t_write
 
 SRCS.t_mprotect=	t_mprotect.c ${SRCS_EXEC_PROT}

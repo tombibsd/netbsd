@@ -265,7 +265,7 @@ keymacro_print(EditLine *el, const Char *key)
 	el->el_keymacro.buf[0] = '"';
 	if (node_lookup(el, key, el->el_keymacro.map, (size_t)1) <= -1)
 		/* key is not bound */
-		(void) fprintf(el->el_errfile, "Unbound extended key \"" FSTR
+		(void) fprintf(el->el_errfile, "Unbound extended key \"%ls"
 		    "\"\n", key);
 	return;
 }
@@ -549,7 +549,7 @@ node_enum(EditLine *el, keymacro_node_t *ptr, size_t cnt)
 		el->el_keymacro.buf[++cnt] = '\0';
 		(void) fprintf(el->el_errfile,
 		    "Some extended keys too long for internal print buffer");
-		(void) fprintf(el->el_errfile, " \"" FSTR "...\"\n",
+		(void) fprintf(el->el_errfile, " \"%ls...\"\n",
 		    el->el_keymacro.buf);
 		return 0;
 	}
@@ -602,7 +602,7 @@ keymacro_kprint(EditLine *el, const Char *key, keymacro_value_t *val, int ntype)
 		case XK_CMD:
 			for (fp = el->el_map.help; fp->name; fp++)
 				if (val->cmd == fp->func) {
-                    ct_wcstombs(unparsbuf, fp->name, sizeof(unparsbuf));
+                    wcstombs(unparsbuf, fp->name, sizeof(unparsbuf));
                     unparsbuf[sizeof(unparsbuf) -1] = '\0';
 					(void) fprintf(el->el_outfile, fmt,
                         ct_encode_string(key, &el->el_scratch), unparsbuf);

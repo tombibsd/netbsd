@@ -342,6 +342,9 @@ the source for details.
 Vendor tag:    LINUX
 Release tag:   linux-X-Y(-rcZ)-drm-bsd
 	(nouveau got reimported as linux-3-15-drm-bsd-reimport-nouveau)
+I neglected to add RCSIDs in the last import (except for nouveau, for
+which nouveau2netbsd adds them).  For the next import, remember to add
+them!
 
 Package:	gmake
 Version:	3.81
@@ -1192,8 +1195,8 @@ Notes:
 Old versions are available from Purdue (ftp.cs.purdue.edu:/pub/RCS).
 
 Package:	root.cache
-Version:	2015120100 (December 01, 2015)
-Current Vers:	2015120100 (December 01, 2015)
+Version:	2015120100 (March 23, 2016)
+Current Vers:	2015120100 (March 23, 2016)
 Maintainer:	InterNIC
 Archive Site:	ftp://ftp.internic.net/domain/named.root
 Home Page:	ftp://ftp.internic.net/domain/named.root

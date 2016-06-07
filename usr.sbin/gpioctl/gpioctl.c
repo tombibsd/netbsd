@@ -72,9 +72,9 @@ static const struct bitstr {
 	{ GPIO_PIN_ALT5, "alt5" },
 	{ GPIO_PIN_ALT6, "alt6" },
 	{ GPIO_PIN_ALT7, "alt7" },
-	{ GPIO_PIN_ALT7, "events" },
-	{ GPIO_PIN_ALT7, "level" },
-	{ GPIO_PIN_ALT7, "falling" },
+	{ GPIO_PIN_EVENTS, "events" },
+	{ GPIO_PIN_LEVEL, "level" },
+	{ GPIO_PIN_FALLING, "falling" },
 	{ GPIO_PIN_USER, "user" },
 	{ 0, NULL },
 };

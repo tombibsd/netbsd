@@ -29,6 +29,8 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include <mips/cpuregs.h>
+
 typedef u_int64_t dmatag_t;
 
 #define DMAC_BLOCK_SIZE		16

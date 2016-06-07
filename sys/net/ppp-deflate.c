@@ -664,7 +664,7 @@ z_incomp(void *arg, struct mbuf *mi)
     state->stats.unc_packets++;
 }
 
-MODULE(MODULE_CLASS_MISC, ppp_deflate, NULL);
+MODULE(MODULE_CLASS_MISC, ppp_deflate, "zlib");
 
 static int
 ppp_deflate_modcmd(modcmd_t cmd, void *arg)

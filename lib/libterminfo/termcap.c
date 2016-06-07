@@ -57,14 +57,17 @@ tgetent(__unused char *bp, const char *name)
 	_DIAGASSERT(name != NULL);
 
 	/* Free the old term */
-	if (last != NULL) {
-		del_curterm(last);
-		last = NULL;
+	if (cur_term != NULL) {
+		if (last != NULL && cur_term != last)
+			del_curterm(last);
+		last = cur_term;
 	}
 	errret = -1;
 	if (setupterm(name, STDOUT_FILENO, &errret) != 0)
 		return errret;
-	last = cur_term;
+
+	if (last == NULL)
+		last = cur_term;
 
 	if (pad_char != NULL)
 		PC = pad_char[0];

@@ -133,7 +133,7 @@ fmtydhms(char *b, size_t l, time_t t)
 }
 
 ssize_t
-hexdump(char *buf, size_t len, const char *str, const void *b, size_t l)
+blhexdump(char *buf, size_t len, const char *str, const void *b, size_t l)
 {
 	size_t z, cz;
 	int r;

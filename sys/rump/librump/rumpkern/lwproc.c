@@ -211,7 +211,7 @@ lwproc_newproc(struct proc *parent, struct vmspace *vm, int flags)
 	p->p_mqueue_cnt = p->p_exitsig = 0;
 	p->p_flag = p->p_sflag = p->p_slflag = p->p_lflag = p->p_stflag = 0;
 	p->p_trace_enabled = 0;
-	p->p_xstat = p->p_acflag = 0;
+	p->p_xsig = p->p_xexit = p->p_acflag = 0;
 	p->p_stackbase = 0;
 
 	p->p_stats = pstatscopy(parent->p_stats);

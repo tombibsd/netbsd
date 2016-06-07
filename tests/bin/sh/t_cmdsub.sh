@@ -433,13 +433,6 @@ r_heredoc_in_cmdsub_body() {
 					2 * 7 = $(( 2 * 7 ))
 			EOF
 			)"'
-
-	atf_check -s exit:0 -o inline:'Line 1\nLine 2\n' -e empty \
-	    ${TEST_SH} -c 'echo "$( cat <<- "EOF" )"
-				Line 1
-				Line 2
-				EOF
-			'
 }
 
 atf_test_case s_heredoc_in_backticks
@@ -519,6 +512,199 @@ u_nested_backticks_in_heredoc_body() {
 		EOF'
 }
 
+atf_test_case v_cmdsub_paren_tests
+v_cmdsub__paren_tests_head() {
+	atf_set "descr" "tests with cmdsubs containing embedded ')'"
+}
+v_cmdsub_paren_tests_body() {
+
+	# Tests from:
+	#	http://www.in-ulm.de/~mascheck/various/cmd-subst/
+	# (slightly modified.)
+
+	atf_check -s exit:0 -o inline:'A.1\n' -e empty ${TEST_SH} -c \
+		'echo $(
+			case x in  x) echo A.1;; esac
+		)'
+
+	atf_check -s exit:0 -o inline:'A.2\n' -e empty ${TEST_SH} -c \
+		'echo $(
+			case x in  x) echo A.2;; esac # comment
+		)'
+
+	atf_check -s exit:0 -o inline:'A.3\n' -e empty ${TEST_SH} -c \
+		'echo $(
+			case x in (x) echo A.3;; esac
+		)'
+
+	atf_check -s exit:0 -o inline:'A.4\n' -e empty ${TEST_SH} -c \
+		'echo $(
+			case x in (x) echo A.4;; esac # comment
+		)'
+
+	atf_check -s exit:0 -o inline:'A.5\n' -e empty ${TEST_SH} -c \
+		'echo $(
+			case x in (x) echo A.5
+			esac
+		)'
+
+	atf_check -s exit:0 -o inline:'B: quoted )\n' -e empty ${TEST_SH} -c \
+		'echo $(
+			echo '\''B: quoted )'\''
+		)'
+
+	atf_check -s exit:0 -o inline:'C: comment then closing paren\n' \
+		-e empty ${TEST_SH} -c \
+			'echo $(
+				echo C: comment then closing paren # )
+			)'
+
+	atf_check -s exit:0 -o inline:'D.1: here-doc with )\n' \
+		-e empty ${TEST_SH} -c \
+			'echo $(
+				cat <<-\eof
+				D.1: here-doc with )
+				eof
+			)'
+
+	# D.2 is a bogus test.
+
+	atf_check -s exit:0 -o inline:'D.3: here-doc with \()\n' \
+		-e empty ${TEST_SH} -c \
+			'echo $(
+				cat <<-\eof
+				D.3: here-doc with \()
+				eof
+			)'
+
+	atf_check -s exit:0 -e empty \
+	  -o inline:'E: here-doc terminated with a parenthesis ("academic")\n' \
+		${TEST_SH} -c \
+		'echo $(
+			cat <<-\)
+			E: here-doc terminated with a parenthesis ("academic")
+			)
+		)'
+
+	atf_check -s exit:0 -e empty \
+-o inline:'F.1: here-doc embed with unbal single, back- or doublequote '\''\n' \
+		${TEST_SH} -c \
+		'echo $(
+			cat <<-"eof"
+		F.1: here-doc embed with unbal single, back- or doublequote '\''
+			eof
+		)'
+	atf_check -s exit:0 -e empty \
+ -o inline:'F.2: here-doc embed with unbal single, back- or doublequote "\n' \
+		${TEST_SH} -c \
+		'echo $(
+			cat <<-"eof"
+		F.2: here-doc embed with unbal single, back- or doublequote "
+			eof
+		)'
+	atf_check -s exit:0 -e empty \
+ -o inline:'F.3: here-doc embed with unbal single, back- or doublequote `\n' \
+		${TEST_SH} -c \
+		'echo $(
+			cat <<-"eof"
+		F.3: here-doc embed with unbal single, back- or doublequote `
+			eof
+		)'
+
+	atf_check -s exit:0 -e empty -o inline:'G: backslash at end of line\n' \
+		${TEST_SH} -c \
+			'echo $(
+				echo G: backslash at end of line # \
+			)'
+
+	atf_check -s exit:0 -e empty \
+		-o inline:'H: empty command-substitution\n' \
+		${TEST_SH} -c 'echo H: empty command-substitution $( )'
+}
+
+atf_test_case w_heredoc_outside_cmdsub
+w_heredoc_outside_cmdsub_head() {
+	atf_set "descr" "Checks that here docs work inside cmd subs"
+}
+w_heredoc_outside_cmdsub_body() {
+	atf_require_prog cat
+
+	atf_check -s exit:0 -o inline:'Mary had a\nlittle\nlamb\n' -e empty \
+	    ${TEST_SH} -c 'echo "$( cat <<- \EOF )"
+				Mary had a
+				little
+				lamb
+			EOF
+			'
+
+	atf_check -s exit:0 -e empty \
+	    -o inline:'Mary had 1\nlittle\nlamb\nMary had 4\nlittle\nlambs\n' \
+	    ${TEST_SH} -c 'for N in 1 4; do echo "$( cat <<- EOF )"
+				Mary had ${N}
+				little
+				lamb$( [ $N -gt 1 ] && echo s )
+			EOF
+			done'
+
+
+	atf_check -s exit:0 -o inline:'A Calculation:\n2 * 7 = 14\n' -e empty \
+	    ${TEST_SH} -c 'echo "$( cat <<- EOF)"
+				A Calculation:
+					2 * 7 = $(( 2 * 7 ))
+			EOF
+			'
+}
+
+atf_test_case x_heredoc_outside_backticks
+x_heredoc_outside_backticks_head() {
+	atf_set "descr" "Checks that here docs work inside old style cmd subs"
+}
+x_heredoc_outside_backticks_body() {
+	atf_require_prog cat
+
+	atf_check -s exit:0 -o inline:'Mary had a little lamb\n' -e empty \
+	    ${TEST_SH} -c 'echo ` cat <<- \EOF `
+				Mary had a
+				little
+				lamb
+			EOF
+			'
+
+	atf_check -s exit:0 -o inline:'A Calculation:\n17 / 3 = 5\n' -e empty \
+	    ${TEST_SH} -c 'echo "` cat <<- EOF `"
+				A Calculation:
+					17 / 3 = $(( 17 / 3 ))
+			EOF
+			'
+}
+
+atf_test_case t_nested_cmdsubs_in_heredoc
+t_nested_cmdsubs_in_heredoc_head() {
+	atf_set "descr" "Checks nested command substitutions in here docs"
+}
+t_nested_cmdsubs_in_heredoc_body() {
+	atf_require_prog cat
+	atf_require_prog rm
+
+	rm -f * 2>/dev/null || :
+	echo "Hello" > File
+
+	atf_check -s exit:0 -o inline:'Hello U\nHelp me!\n' -e empty \
+	    ${TEST_SH} -c 'cat <<- EOF
+		$(cat File) U
+		$( V=$(cat File); echo "${V%lo}p" ) me!
+		EOF'
+
+	rm -f * 2>/dev/null || :
+	echo V>V ; echo A>A; echo R>R
+	echo Value>VAR
+
+	atf_check -s exit:0 -o inline:'$2.50\n' -e empty \
+	    ${TEST_SH} -c 'cat <<- EOF
+	$(Value='\''$2.50'\'';eval echo $(eval $(cat V)$(cat A)$(cat R)=\'\''\$$(cat $(cat V)$(cat A)$(cat R))\'\''; eval echo \$$(set -- *;echo ${3}${1}${2})))
+		EOF'
+}
+
 atf_test_case z_absurd_heredoc_cmdsub_combos
 z_absurd_heredoc_cmdsub_combos_head() {
 	atf_set "descr" "perverse and unusual cmd substitutions & more"
@@ -590,5 +776,8 @@ atf_init_test_cases() {
 	atf_add_test_case s_heredoc_in_backticks
 	atf_add_test_case t_nested_cmdsubs_in_heredoc
 	atf_add_test_case u_nested_backticks_in_heredoc
+	atf_add_test_case v_cmdsub_paren_tests
+	atf_add_test_case w_heredoc_outside_cmdsub
+	atf_add_test_case x_heredoc_outside_backticks
 	atf_add_test_case z_absurd_heredoc_cmdsub_combos
 }

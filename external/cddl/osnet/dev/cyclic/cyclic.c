@@ -1455,6 +1455,12 @@ cyclic_modcmd(modcmd_t cmd, void *data)
 	case MODULE_CMD_FINI:
 		cyclic_unload();
 		return 0;
+
+	case MODULE_CMD_AUTOUNLOAD:
+		if (cyclic_id_head != NULL)
+			return EBUSY;
+		return 0;
+
 	default:
 		return ENOTTY;
 	}

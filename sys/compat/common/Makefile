@@ -47,6 +47,9 @@ SRCS+=	kern_50.c kern_time_50.c kern_select_50.c rndpseudo_50.c rtsock_50.c \
 # Compatibility code for NetBSD 6.0
 SRCS+=	kern_sa_60.c tty_60.c kern_time_60.c
 
+# Compatibility code for NetBSD 7.0
+SRCS+=	uipc_usrreq_70.c
+
 # really, all machines where sizeof(int) != sizeof(long) (LP64)
 .if (${MACHINE_ARCH} != "alpha" && ${MACHINE_ARCH} != "sparc64" \
   && ${MACHINE_ARCH} != "x86_64")

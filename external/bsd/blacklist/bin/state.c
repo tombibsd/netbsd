@@ -103,7 +103,7 @@ static void
 dumpkey(const struct conf *k)
 {
 	char buf[10240];
-	hexdump(buf, sizeof(buf), __func__, k, sizeof(*k));
+	blhexdump(buf, sizeof(buf), __func__, k, sizeof(*k));
 	(*lfun)(LOG_DEBUG, "%s", buf);
 	(*lfun)(LOG_DEBUG, "%s: %s", __func__,
 	    conf_print(buf, sizeof(buf), "", "", k));

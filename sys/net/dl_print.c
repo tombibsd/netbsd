@@ -83,6 +83,9 @@ sdl_print(char *buf, size_t len, const void *v)
 	const struct sockaddr_dl *sdl = v;
 	char abuf[LINK_ADDRSTRLEN];
 
+	if (sdl->sdl_slen == 0 && sdl->sdl_nlen == 0 && sdl->sdl_alen == 0)
+		return snprintf(buf, len, "link#%hu", sdl->sdl_index);
+
 	dl_print(abuf, sizeof(abuf), &sdl->sdl_addr);
 	return snprintf(buf, len, "[%s]:%hu", abuf, sdl->sdl_index);
 }

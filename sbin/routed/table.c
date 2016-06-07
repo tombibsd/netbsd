@@ -1106,12 +1106,6 @@ flush_kern(void)
 		    || INFO_DST(&info)->sa_family != AF_INET)
 			continue;
 
-		/* ignore ARP table entries on systems with a merged route
-		 * and ARP table.
-		 */
-		if (rtm->rtm_flags & RTF_LLINFO)
-			continue;
-
 		/* ignore cloned routes
 		 */
 #if defined(RTF_CLONED) && defined(__bsdi__)
@@ -1270,11 +1264,6 @@ read_rt(void)
 
 		if (IN_MULTICAST(ntohl(S_ADDR(INFO_DST(&info))))) {
 			trace_act("ignore multicast %s", str);
-			continue;
-		}
-
-		if (m.r.rtm.rtm_flags & RTF_LLINFO) {
-			trace_act("ignore ARP %s", str);
 			continue;
 		}
 

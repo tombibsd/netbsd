@@ -26,6 +26,8 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include <sys/evcnt.h>
+
 enum ipl_type {
 	IPL_INTC,
 	IPL_DMAC,

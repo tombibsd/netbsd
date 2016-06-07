@@ -162,6 +162,9 @@ command_body()
 
 	export RUMP_SERVER=$SOCKSRC
 
+	# We can delete the entry for the interface's IP address
+	atf_check -s exit:0 -o match:"$IP6SRC" rump.ndp -d $IP6SRC
+
 	# Add and delete a static entry
 	$DEBUG && rump.ndp -n -a
 	atf_check -s exit:0 -o ignore rump.ndp -s fc00::10 b2:a0:20:00:00:10
@@ -201,6 +204,7 @@ command_body()
 	# Flush all entries (-c)
 	$DEBUG && rump.ndp -n -a
 	atf_check -s exit:0 -o ignore rump.ndp -c
+	atf_check -s not-exit:0 -o ignore -e ignore rump.ndp -n $IP6SRC
 	atf_check -s not-exit:0 -o ignore -e ignore rump.ndp -n $IP6DST
 	# Only the static caches are not deleted
 	atf_check -s exit:0 -o ignore -e ignore rump.ndp -n fc00::11

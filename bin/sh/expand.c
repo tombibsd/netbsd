@@ -907,7 +907,7 @@ numvar:
 		expdest = cvtnum(num, expdest);
 		break;
 	case '-':
-		for (i = 0; optlist[i].name; i++) {
+		for (i = 0; optlist[i].name || optlist[i].letter; i++) {
 			if (optlist[i].val && optlist[i].letter)
 				STPUTC(optlist[i].letter, expdest);
 		}

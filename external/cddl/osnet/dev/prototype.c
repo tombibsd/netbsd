@@ -168,6 +168,10 @@ dtrace_prototype_modcmd(modcmd_t cmd, void *data)
 		return prototype_init();
 	case MODULE_CMD_FINI:
 		return prototype_fini();
+	case MODULE_CMD_AUTOUNLOAD:
+		if (prototype_users)
+			return EBUSY;
+		return 0;
 	default:
 		return ENOTTY;
 	}

@@ -219,7 +219,7 @@ token_output(struct ifnet *ifp0, struct mbuf *m0, const struct sockaddr *dst,
  */
 		else {
 			struct llentry *la;
-			if (!arpresolve(ifp, rt, m, dst, edst))
+			if (!arpresolve(ifp, rt, m, dst, edst, sizeof(edst)))
 				return (0);	/* if not yet resolved */
 			la = rt->rt_llinfo;
 			KASSERT(la != NULL);

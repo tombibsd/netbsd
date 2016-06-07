@@ -119,9 +119,24 @@ rangeselection_body() {
 		-x "printf 'A\nB\nA\nC\nD\nC\n' | sed '/A/,/C/d'"
 }
 
+atf_test_case preserve_leading_ws_ia
+preserve_leading_ws_ia_head() {
+	atf_set "descr" "Test that sed(1) preserves leading whitespace " \
+			"in insert and append (PR bin/49872)"
+}
+
+preserve_leading_ws_ia_body() {
+	atf_check -o inline:"    1 2 3\n4 5 6\n    7 8 9\n\n" \
+		-x 'echo | sed -e "/^$/i\\
+    1 2 3\\
+4 5 6\\
+    7 8 9"'
+}
+
 atf_init_test_cases() {
 	atf_add_test_case c2048
 	atf_add_test_case emptybackref
 	atf_add_test_case longlines
 	atf_add_test_case rangeselection
+	atf_add_test_case preserve_leading_ws_ia
 }

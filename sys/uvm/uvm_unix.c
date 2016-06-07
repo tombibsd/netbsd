@@ -56,10 +56,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <sys/mount.h>
 #include <sys/syscallargs.h>
-
-#ifdef PAX_MPROTECT
 #include <sys/pax.h>
-#endif /* PAX_MPROTECT */
 
 #include <uvm/uvm.h>
 
@@ -103,9 +100,7 @@ sys_obreak(struct lwp *l, const struct sys_obreak_args *uap, register_t *retval)
 		vm_prot_t prot = UVM_PROT_READ | UVM_PROT_WRITE;
 		vm_prot_t maxprot = UVM_PROT_ALL;
 
-#ifdef PAX_MPROTECT
-		pax_mprotect(l, &prot, &maxprot);
-#endif /* PAX_MPROTECT */
+		PAX_MPROTECT_ADJUST(l, &prot, &maxprot);
 
 		error = uvm_map(&vm->vm_map, &obreak, nbreak - obreak, NULL,
 		    UVM_UNKNOWN_OFFSET, 0,

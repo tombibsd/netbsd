@@ -317,7 +317,7 @@ procfs_control(struct lwp *curl, struct lwp *l, int op, int sig, struct pfsnode 
 		/* Finally, deliver the requested signal (or none). */
 		lwp_lock(l);
 		if (l->l_stat == LSSTOP) {
-			p->p_xstat = sig;
+			p->p_xsig = sig;
 			/* setrunnable() will release the lock. */
 			setrunnable(l);
 		} else {

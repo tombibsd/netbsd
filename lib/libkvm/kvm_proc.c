@@ -80,6 +80,7 @@ __RCSID("$NetBSD$");
 
 #include <sys/param.h>
 #include <sys/lwp.h>
+#include <sys/wait.h>
 #include <sys/proc.h>
 #include <sys/exec.h>
 #include <sys/stat.h>
@@ -638,7 +639,7 @@ again:
 			kp2p->p_usrpri = kl[0].l_priority;
 			kp2p->p_nice = kp->kp_proc.p_nice;
 
-			kp2p->p_xstat = kp->kp_proc.p_xstat;
+			kp2p->p_xstat = P_WAITSTATUS(&kp->kp_proc);
 			kp2p->p_acflag = kp->kp_proc.p_acflag;
 
 			/*CONSTCOND*/

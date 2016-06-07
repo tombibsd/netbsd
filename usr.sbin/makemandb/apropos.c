@@ -34,7 +34,6 @@
 __RCSID("$NetBSD$");
 
 #include <err.h>
-#include <search.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -42,7 +41,6 @@ __RCSID("$NetBSD$");
 #include <util.h>
 
 #include "apropos-utils.h"
-#include "sqlite3.h"
 
 typedef struct apropos_flags {
 	int sec_nums[SECMAX];

@@ -4,3 +4,5 @@
 ./usr/lib/crti.o				comp-c-lib	compatfile
 ./usr/lib/crtn.o				comp-c-lib	compatfile
 ./usr/lib/dtrace/drti.o				comp-c-lib	dtrace
+./usr/lib/sysident.o				comp-c-lib	compatfile
+

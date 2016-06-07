@@ -52,7 +52,7 @@
 /fsetpos.c/1.11/Sun Jan 22 18:36:17 2012/-kk/
 /ftell.c/1.20/Tue Mar 27 15:05:42 2012/-kk/
 /ftello.c/1.7/Tue Mar 27 15:05:42 2012/-kk/
-/funopen.3/1.23/Sun Sep 13 01:29:28 2015/-kk/
+/funopen.3/1.24/Tue Jun  7 10:06:03 2016/-kk/
 /funopen.c/1.14/Wed Mar 28 15:21:11 2012/-kk/
 /fvwrite.c/1.25/Tue Mar 27 15:05:42 2012/-kk/
 /fvwrite.h/1.8/Tue Mar 13 21:13:46 2012/-kk/

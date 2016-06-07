@@ -6,9 +6,9 @@
 /cpu.c/1.10/Tue Jun  7 09:52:57 2016/-kk/
 /disksubr.c/1.19/Sun Jul 20 13:26:17 2014/-kk/
 /interrupt.c/1.11/Mon Mar 31 11:25:49 2014/-kk/
-/interrupt.h/1.6/Sun Jul 20 13:26:17 2014/-kk/
+/interrupt.h/1.7/Tue Jun  7 10:06:37 2016/-kk/
 /kloader_machdep.c/1.5/Mon Mar 31 11:25:49 2014/-kk/
-/locore_machdep.S/1.12/Thu Apr  2 02:27:53 2015/-kk/
+/locore_machdep.S/1.13/Tue Jun  7 10:06:37 2016/-kk/
 /machdep.c/1.31/Thu Jul  2 04:14:04 2015/-kk/
 /mainbus.c/1.12/Mon Mar 31 11:25:49 2014/-kk/
 /sifbios.c/1.11/Mon Mar 31 11:25:49 2014/-kk/

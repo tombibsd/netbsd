@@ -159,10 +159,17 @@ sockaddr_snprintf(char * const sbuf, const size_t len, const char * const fmt,
 		break;
 	case AF_LINK:
 		sdl = ((const struct sockaddr_dl *)(const void *)sa);
-		(void)strlcpy(addr = abuf, link_ntoa(sdl), sizeof(abuf));
-		if ((w = strchr(addr, ':')) != 0) {
-			*w++ = '\0';
-			addr = w;
+		addr = abuf;
+		if (sdl->sdl_slen == 0 && sdl->sdl_nlen == 0
+		    && sdl->sdl_alen == 0) {
+			(void)snprintf(abuf, sizeof(abuf), "link#%hu",
+			    sdl->sdl_index);
+		} else {
+			(void)strlcpy(abuf, link_ntoa(sdl), sizeof(abuf));
+			if ((w = strchr(addr, ':')) != 0) {
+			    *w++ = '\0';
+			    addr = w;
+			}
 		}
 		break;
 	default:

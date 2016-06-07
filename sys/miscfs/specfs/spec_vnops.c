@@ -1041,6 +1041,7 @@ spec_strategy(void *v)
 
 	mutex_enter(vp->v_interlock);
 	if (vdead_check(vp, VDEAD_NOWAIT) == 0 && vp->v_specnode != NULL) {
+		KASSERT(vp == vp->v_specnode->sn_dev->sd_bdevvp);
 		dev = vp->v_rdev;
 	}
 	mutex_exit(vp->v_interlock);
@@ -1050,8 +1051,6 @@ spec_strategy(void *v)
 		goto out;
 	}
 	bp->b_dev = dev;
-
-	KASSERT(vp == vp->v_specnode->sn_dev->sd_bdevvp);
 
 	if (!(bp->b_flags & B_READ)) {
 		error = fscow_run(bp, false);

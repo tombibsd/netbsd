@@ -785,24 +785,31 @@ acpidisp_out_capabilities(const struct acpi_devnode *ad)
 
 	cap = 0;
 
+	/* List of Brigthness levels */
 	if (acpidisp_has_method(ad->ad_handle, "_BCL", ACPI_TYPE_PACKAGE))
 		cap |= ACPI_DISP_OUT_CAP__BCL;
 
+	/* Set brightness level */
 	if (acpidisp_has_method(ad->ad_handle, "_BCM", ACPI_TYPE_METHOD))
 		cap |= ACPI_DISP_OUT_CAP__BCM;
 
+	/* Get brightless level */
 	if (acpidisp_has_method(ad->ad_handle, "_BQC", ACPI_TYPE_INTEGER))
 		cap |= ACPI_DISP_OUT_CAP__BQC;
 
+	/* Return EDID */
 	if (acpidisp_has_method(ad->ad_handle, "_DDC", ACPI_TYPE_METHOD))
 		cap |= ACPI_DISP_OUT_CAP__DDC;
 
+	/* Get Status */
 	if (acpidisp_has_method(ad->ad_handle, "_DCS", ACPI_TYPE_INTEGER))
 		cap |= ACPI_DISP_OUT_CAP__DCS;
 
+	/* Get Graphics State */
 	if (acpidisp_has_method(ad->ad_handle, "_DGS", ACPI_TYPE_INTEGER))
 		cap |= ACPI_DISP_OUT_CAP__DGS;
 
+	/* Set Graphics State */
 	if (acpidisp_has_method(ad->ad_handle, "_DSS", ACPI_TYPE_METHOD))
 		cap |= ACPI_DISP_OUT_CAP__DSS;
 
