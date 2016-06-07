@@ -118,7 +118,7 @@ bcmdwc2_attach(device_t parent, device_t self, void *aux)
 	sc->sc_dwc2.sc_dev = self;
 
 	sc->sc_dwc2.sc_iot = aaa->aaa_iot;
-	sc->sc_dwc2.sc_bus.dmatag = aaa->aaa_dmat;
+	sc->sc_dwc2.sc_bus.ub_dmatag = aaa->aaa_dmat;
 	sc->sc_dwc2.sc_params = &bcmdwc2_params;
 
 	error = bus_space_map(aaa->aaa_iot, aaa->aaa_addr, aaa->aaa_size, 0,

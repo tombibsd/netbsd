@@ -118,7 +118,7 @@ rkdwc2_attach(device_t parent, device_t self, void *aux)
 	sc->sc_dwc2.sc_dev = self;
 
 	sc->sc_dwc2.sc_iot = obio->obio_bst;
-	sc->sc_dwc2.sc_bus.dmatag = obio->obio_dmat;
+	sc->sc_dwc2.sc_bus.ub_dmatag = obio->obio_dmat;
 	sc->sc_dwc2.sc_params = &rkdwc2_params;
 
 	bus_space_subregion(obio->obio_bst, obio->obio_bsh, obio->obio_offset,

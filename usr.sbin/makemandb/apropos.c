@@ -72,6 +72,7 @@ parseargs(int argc, char **argv, struct apropos_flags *aflags)
 {
 	int ch;
 	char sec[2] = {0, 0};
+
 	while ((ch = getopt(argc, argv, "123456789Cchiln:PprS:s:")) != -1) {
 		switch (ch) {
 		case '1':

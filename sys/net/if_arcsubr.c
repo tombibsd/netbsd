@@ -102,7 +102,7 @@ uint8_t  arcbroadcastaddr = 0;
 #define senderr(e) { error = (e); goto bad;}
 
 static	int arc_output(struct ifnet *, struct mbuf *,
-	    const struct sockaddr *, struct rtentry *);
+	    const struct sockaddr *, const struct rtentry *);
 static	void arc_input(struct ifnet *, struct mbuf *);
 
 /*
@@ -112,7 +112,7 @@ static	void arc_input(struct ifnet *, struct mbuf *);
  */
 static int
 arc_output(struct ifnet *ifp, struct mbuf *m0, const struct sockaddr *dst,
-    struct rtentry *rt)
+    const struct rtentry *rt)
 {
 	struct mbuf		*m, *m1, *mcopy;
 	struct arccom		*ac;

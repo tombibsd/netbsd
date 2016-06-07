@@ -30,4 +30,4 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-int umass_isdata_attach(struct umass_softc *sc);
+int umass_isdata_attach(struct umass_softc *);

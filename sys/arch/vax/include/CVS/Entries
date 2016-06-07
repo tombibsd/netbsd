@@ -3,7 +3,7 @@
 /aout_machdep.h/1.6/Tue Dec 10 17:14:22 2002/-kk/
 /asm.h/1.26/Fri Jun  1 06:26:38 2012/-kk/
 /bswap.h/1.4/Tue Jan 31 07:49:19 2006/-kk/
-/bus.h/1.32/Sat Jul 25 01:30:25 2015/-kk/
+/bus.h/1.33/Tue Jun  7 10:31:54 2016/-kk/
 /byte_swap.h/1.11/Fri Feb 17 08:41:31 2006/-kk/
 /cca.h/1.2/Tue Mar 11 05:34:02 2008/-kk/
 /cdefs.h/1.7/Fri Jan 20 14:08:07 2012/-kk/

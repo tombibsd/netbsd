@@ -173,7 +173,7 @@ mxms_foreach(struct nouveau_mxm *mxm, u8 types,
 			}
 		}
 
-		if (types & (1 << type)) {
+		if ((types & (1 << type)) && (exec != NULL)) {
 			if (!exec(mxm, desc, info))
 				return false;
 		}

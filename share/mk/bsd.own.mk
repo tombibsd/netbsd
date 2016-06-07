@@ -72,6 +72,8 @@ HAVE_GCC?=	0
     ${MACHINE} == "hppa" || \
     ${MACHINE} == "i386" || \
     ${MACHINE} == "playstation2" || \
+    ${MACHINE_ARCH} == "powerpc" || \
+    ${MACHINE_ARCH} == "sparc64" || \
     ${MACHINE_ARCH} == "vax"
 HAVE_GCC?=	53
 .else

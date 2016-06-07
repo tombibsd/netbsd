@@ -100,7 +100,7 @@ slhci_zbus_attach(device_t parent, device_t self, void *aux)
 	zsc = device_private(self);
 	sc = &zsc->sc_sc;
 	sc->sc_dev = self;
-	sc->sc_bus.hci_private = sc;
+	sc->sc_bus.ub_hcpriv = sc;
 
 	zsc->sc_bst.base = (bus_addr_t)zap->va;
 	zsc->sc_bst.absm = &amiga_bus_stride_1;

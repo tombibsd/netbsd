@@ -2,7 +2,7 @@
 /Makefile/1.37/Wed Aug 12 04:14:18 2015/-kk/
 /auconv.c/1.25/Wed Nov 23 23:07:31 2011/-kk/
 /auconv.h/1.16/Wed Nov 23 23:07:31 2011/-kk/
-/audio.c/1.266/Tue Dec  9 04:34:54 2014/-kk/
+/audio.c/1.267/Tue Jun  7 10:31:56 2016/-kk/
 /audio_if.h/1.70/Tue Dec  9 04:34:54 2014/-kk/
 /audiobell.c/1.8/Tue May 12 10:22:31 2009/-kk/
 /audiobellvar.h/1.6/Tue May 12 10:22:31 2009/-kk/

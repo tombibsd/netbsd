@@ -9,4 +9,6 @@ _EXTERNAL_GPL3_GCC_LIB_MAKEFILE_INC_=1
 .sinclude "../../../Makefile.gcc_path"
 .sinclude "../../../../Makefile.gcc_path"
 
+WARNS=1
+
 .endif

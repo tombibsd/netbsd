@@ -47,7 +47,7 @@
 /pcmciareg.h/1.10/Sun Dec 11 12:23:23 2005/-kk/
 /pcmciavar.h/1.35/Tue Jul 26 22:24:36 2011/-kk/
 /pcmcom.c/1.40/Sat Oct 27 17:18:37 2012/-kk/
-/slhci_pcmcia.c/1.9/Sun Nov 27 14:36:20 2011/-kk/
+/slhci_pcmcia.c/1.10/Tue Jun  7 10:32:02 2016/-kk/
 /spc_pcmcia.c/1.21/Thu Nov 12 20:14:04 2009/-kk/
 /wdc_pcmcia.c/1.124/Thu Oct 24 10:28:58 2013/-kk/
 /xirc.c/1.33/Tue Feb 14 13:51:19 2012/-kk/

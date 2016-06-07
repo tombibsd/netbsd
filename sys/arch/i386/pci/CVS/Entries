@@ -3,7 +3,7 @@
 /amd756reg.h/1.2/Mon Apr 28 20:23:24 2008/-kk/
 /elan520.c/1.50/Tue Nov 12 02:18:40 2013/-kk/
 /elan520reg.h/1.10/Mon Apr 28 20:23:24 2008/-kk/
-/gcscehci.c/1.11/Fri Oct  3 10:05:03 2014/-kk/
+/gcscehci.c/1.12/Tue Jun  7 10:31:43 2016/-kk/
 /gcscide.c/1.15/Thu Oct 24 10:28:57 2013/-kk/
 /gcscpcib_pci.c/1.2/Mon Aug 29 18:34:42 2011/-kk/
 /geode.c/1.15/Fri Jul  1 17:37:26 2011/-kk/

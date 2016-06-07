@@ -96,7 +96,6 @@
 #include <sys/domain.h>
 #include <sys/kernel.h>
 #include <net/if.h>
-#include <net/route.h>
 #include <net/if_types.h>
 
 #include <netinet/in.h>

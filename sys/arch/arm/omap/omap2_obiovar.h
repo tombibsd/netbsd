@@ -53,4 +53,6 @@ struct obio_softc {
 	device_t		sc_obio_dev;
 };
 
+uint32_t omap_chipid(void);
+
 #endif /* _ARM_OMAP_OMAP2_OBIOVAR_H_ */

@@ -122,7 +122,7 @@ ingenic_dwc2_attach(device_t parent, device_t self, void *aux)
 	sc->sc_dwc2.sc_dev = self;
 
 	sc->sc_dwc2.sc_iot = aa->aa_bst;
-	sc->sc_dwc2.sc_bus.dmatag = aa->aa_dmat;
+	sc->sc_dwc2.sc_bus.ub_dmatag = aa->aa_dmat;
 	sc->sc_dwc2.sc_params = &ingenic_dwc2_params;
 
 	if (aa->aa_addr == 0)
@@ -143,7 +143,7 @@ ingenic_dwc2_attach(device_t parent, device_t self, void *aux)
 	gpio_set(5, 15, 0);
 	delay(250000);
 	gpio_set(5, 15, 1);
-	
+
 	reg = readreg(JZ_USBPCR);
 	reg |= PCR_VBUSVLDEXTSEL;
 	reg |= PCR_VBUSVLDEXT;
@@ -215,8 +215,6 @@ ingenic_dwc2_deferred(device_t self)
 	struct ingenic_dwc2_softc *sc = device_private(self);
 	int error;
 
-	sc->sc_dwc2.sc_id_vendor = USB_VENDOR_INGENIC;
-	strlcpy(sc->sc_dwc2.sc_vendor, "Ingenic", sizeof(sc->sc_dwc2.sc_vendor));
 	error = dwc2_init(&sc->sc_dwc2);
 	if (error != 0) {
 		aprint_error_dev(self, "couldn't initialize host, error=%d\n",

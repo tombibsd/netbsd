@@ -3,7 +3,7 @@
 /emac3var.h/1.6/Tue Jun  7 10:06:37 2016/-kk/
 /if_smap.c/1.20/Tue Jun  7 10:06:37 2016/-kk/
 /if_smapreg.h/1.4/Mon Mar 31 11:25:49 2014/-kk/
-/ohci_sbus.c/1.11/Mon Mar 31 11:25:49 2014/-kk/
+/ohci_sbus.c/1.12/Tue Jun  7 10:31:50 2016/-kk/
 /sbus.c/1.12/Mon Mar 31 11:25:49 2014/-kk/
 /sbusreg.h/1.4/Mon Mar 31 11:25:49 2014/-kk/
 /sbusvar.h/1.4/Mon Mar 31 11:25:49 2014/-kk/

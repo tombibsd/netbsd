@@ -86,13 +86,6 @@ struct fbdevice {
 #define FB_USERMASK	(FB_FORCE)	/* flags that the user can set */
 
 	volatile u_int32_t *fb_pfour;	/* pointer to pfour register */
-
-#ifdef RASTERCONSOLE
-	/* Raster console emulator state */
-	struct	rconsole fb_rcons;
-#endif
-	/* for wsdisplay we always need rasops_info */
-	struct	rasops_info fb_rinfo;
 };
 
 void	fb_attach(struct fbdevice *, int);

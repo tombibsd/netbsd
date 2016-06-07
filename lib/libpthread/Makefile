@@ -54,6 +54,7 @@ SRCS+=	pthread_barrier.c
 SRCS+=	pthread_cancelstub.c
 .endif
 SRCS+=	pthread_cond.c
+SRCS+=	pthread_getcpuclockid.c
 SRCS+=	pthread_lock.c 
 SRCS+=	${PTHREAD_MAKELWP}
 SRCS+=	pthread_misc.c
@@ -134,6 +135,7 @@ MAN+=	affinity.3 pthread.3 \
 	pthread_create.3 pthread_detach.3 pthread_equal.3 \
 	pthread_curcpu_np.3 \
 	pthread_exit.3 \
+	pthread_getcpuclockid.3 \
 	pthread_getname_np.3 \
 	pthread_getspecific.3 pthread_join.3 \
 	pthread_key_create.3 pthread_kill.3 \

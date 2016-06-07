@@ -81,6 +81,17 @@ struct ieee80211_qosframe {
 	/* see below */
 } __packed;
 
+struct ieee80211_htframe {		/* 11n */
+	u_int8_t	i_fc[2];
+	u_int8_t	i_dur[2];
+	u_int8_t	i_addr1[IEEE80211_ADDR_LEN];
+	u_int8_t	i_addr2[IEEE80211_ADDR_LEN];
+	u_int8_t	i_addr3[IEEE80211_ADDR_LEN];
+	u_int8_t	i_seq[2];
+	u_int8_t	i_qos[2];
+	u_int8_t	i_ht[4];
+} __packed;
+
 struct ieee80211_qoscntl {
 	u_int8_t	i_qos[2];
 };

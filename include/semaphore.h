@@ -38,8 +38,8 @@ struct _sem_st;
 typedef	struct _sem_st *sem_t;
 
 #define	SEM_FAILED	((sem_t *)0)
-#define	SEM_VALUE_MAX	(~0U)
 
+#include <sys/semaphore.h> /* some kernel-only bits */
 #include <sys/time.h>
 
 __BEGIN_DECLS

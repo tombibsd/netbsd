@@ -44,7 +44,7 @@ check_file()
 		return
 	fi
 	if [ \( ! -f "$db" \) -o \( "$src" -nt "$db" \) ]; then
-		$echo -n "$comma$(basename "$src")"
+		$echo -n "$comma${src##*/}"
 		comma=", "
 		"$@"
 	fi

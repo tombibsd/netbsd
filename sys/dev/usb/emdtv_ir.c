@@ -49,7 +49,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <dev/ir/cirio.h>
 #include <dev/ir/cirvar.h>
 
-static void		emdtv_ir_intr(usbd_xfer_handle, usbd_private_handle,
+static void		emdtv_ir_intr(struct usbd_xfer *, void *,
 				      usbd_status);
 static void		emdtv_ir_worker(struct work *, void *);
 
@@ -125,7 +125,7 @@ emdtv_ir_detach(struct emdtv_softc *sc, int flags)
 }
 
 static void
-emdtv_ir_intr(usbd_xfer_handle xfer, usbd_private_handle priv,
+emdtv_ir_intr(struct usbd_xfer *xfer, void * priv,
     usbd_status status)
 {
 	struct emdtv_softc *sc = priv;

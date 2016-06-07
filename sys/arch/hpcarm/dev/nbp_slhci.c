@@ -81,7 +81,7 @@ nbp_slhci_attach(device_t parent, device_t self, void *aux)
 	aprint_normal("\n");
 
 	sc->sc_dev = self;
-	sc->sc_bus.hci_private = sc;
+	sc->sc_bus.ub_hcpriv = sc;
 
 	if (bus_space_map(pxa->pxa_iot, pxa->pxa_addr,
 				NETBOOKPRO_SLHCI_REG_SIZE, 0, &ioh) != 0) {

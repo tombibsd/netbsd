@@ -55,7 +55,7 @@ ip_tso_output_callback(void *vp, struct mbuf *m)
 	struct ip_tso_output_args *args = vp;
 	struct ifnet *ifp = args->ifp;
 
-	return ip_hresolv_output(ifp, m, args->sa, args->rt);
+	return ip_if_output(ifp, m, args->sa, args->rt);
 }
 
 int

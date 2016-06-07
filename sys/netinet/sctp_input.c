@@ -84,8 +84,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <netinet/sctp_asconf.h>
 
 #ifdef IPSEC
-#include <netinet6/ipsec.h>
-#include <netkey/key.h>
+#include <netipsec/ipsec.h>
+#include <netipsec/key.h>
 #endif /*IPSEC*/
 
 #include <net/net_osdep.h>
@@ -4237,9 +4237,10 @@ sctp_input(struct mbuf *m, ...)
 	 * I very much doubt any of the IPSEC stuff will work but I have
 	 * no idea, so I will leave it in place.
 	 */
-
-	if (ipsec4_in_reject_so(m, inp->ip_inp.inp.inp_socket)) {
+	if (ipsec_used && ipsec4_in_reject_so(m, inp->ip_inp.inp.inp_socket)) {
+#if 0
 		ipsecstat.in_polvio++;
+#endif
 		sctp_pegs[SCTP_HDR_DROPS]++;
 		goto bad;
 	}

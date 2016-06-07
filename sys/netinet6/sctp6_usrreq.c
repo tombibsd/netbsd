@@ -81,11 +81,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <netinet6/nd6.h>
 
 #ifdef IPSEC
-#ifndef __OpenBSD__
-#include <netinet6/ipsec.h>
-#else
-#undef IPSEC
-#endif
+#include <netipsec/ipsec.h>
+#include <netipsec/ipsec6.h>
 #endif /*IPSEC*/
 
 #if defined(NFAITH) && NFAITH > 0
@@ -240,10 +237,10 @@ sctp_skip_csum:
 	/*
 	 * Check AH/ESP integrity.
 	 */
-	if (ipsec6_in_reject_so(m, in6p->sctp_socket)) {
+	if (ipsec_used && ipsec6_in_reject_so(m, in6p->sctp_socket)) {
 /* XXX */
-#ifndef __APPLE__
-		/* FIX ME: need to find right stat for __APPLE__ */
+#if 0
+		/* FIX ME: need to find right stat */
 		ipsec6stat.in_polvio++;
 #endif
 		goto bad;

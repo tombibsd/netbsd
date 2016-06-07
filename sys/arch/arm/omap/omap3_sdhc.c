@@ -227,7 +227,8 @@ obiosdhc_attach(device_t parent, device_t self, void *aux)
 	sc->sc.sc_flags &= ~SDHC_FLAG_SINGLE_ONLY;
 #endif
 #if defined(OMAP_3530)
-	sc->sc.sc_flags &= ~SDHC_FLAG_SINGLE_ONLY;
+	if (omap_chipid() == CHIPID_OMAP3530)
+		sc->sc.sc_flags &= ~SDHC_FLAG_SINGLE_ONLY;
 #endif
 	sc->sc.sc_host = sc->sc_hosts;
 	sc->sc.sc_clkbase = 96000;	/* 96MHZ */

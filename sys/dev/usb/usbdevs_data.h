@@ -4,7 +4,7 @@
  * THIS FILE AUTOMATICALLY GENERATED.  DO NOT EDIT.
  *
  * generated from:
- *	NetBSD: usbdevs,v 1.713 2016/04/19 15:50:24 nonaka Exp
+ *	NetBSD: usbdevs,v 1.684.2.6 2016/04/22 13:43:55 skrll Exp
  */
 
 /*

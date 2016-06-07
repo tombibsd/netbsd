@@ -89,7 +89,7 @@ slhci_pcmcia_attach(device_t parent, device_t self, void *aux)
 	struct pcmcia_function *pf = pa->pf;
 
 	psc->sc_slhci.sc_dev = self;
-	psc->sc_slhci.sc_bus.hci_private = &psc->sc_slhci;
+	psc->sc_slhci.sc_bus.ub_hcpriv = &psc->sc_slhci;
 
 	psc->sc_pf = pf;
 	psc->sc_flags = 0;

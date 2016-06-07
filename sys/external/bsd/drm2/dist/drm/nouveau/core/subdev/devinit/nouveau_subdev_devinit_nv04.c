@@ -121,12 +121,16 @@ powerctrl_1_shift(int chip_version, int reg)
 	switch (reg) {
 	case 0x680520:
 		shift += 4;
+		/*FALLTHROUGH*/
 	case 0x680508:
 		shift += 4;
+		/*FALLTHROUGH*/
 	case 0x680504:
 		shift += 4;
+		/*FALLTHROUGH*/
 	case 0x680500:
 		shift += 4;
+		/*FALLTHROUGH*/
 	}
 
 	/*
@@ -245,12 +249,16 @@ setPLL_double_highregs(struct nouveau_devinit *devinit, u32 reg1,
 		switch (reg1) {
 		case 0x680504:
 			shift_c040 += 2;
+			/*FALLTHROUGH*/
 		case 0x680500:
 			shift_c040 += 2;
+			/*FALLTHROUGH*/
 		case 0x680520:
 			shift_c040 += 2;
+			/*FALLTHROUGH*/
 		case 0x680508:
 			shift_c040 += 2;
+			/*FALLTHROUGH*/
 		}
 
 		savedc040 = nv_rd32(devinit, 0xc040);

@@ -2,7 +2,7 @@
 /dwc2_core.h/1.8/Mon Mar 14 07:55:49 2016/-kk/
 /dwc2_coreintr.c/1.11/Mon Mar 14 07:55:49 2016/-kk/
 /dwc2_hcd.c/1.19/Mon Mar 14 07:55:49 2016/-kk/
-/dwc2_hcd.h/1.13/Mon Mar 14 07:55:49 2016/-kk/
+/dwc2_hcd.h/1.14/Tue Jun  7 10:32:12 2016/-kk/
 /dwc2_hcdddma.c/1.8/Mon Mar 14 07:55:49 2016/-kk/
 /dwc2_hcdintr.c/1.13/Fri Feb 26 18:33:59 2016/-kk/
 /dwc2_hcdqueue.c/1.14/Fri Feb 26 18:33:59 2016/-kk/

@@ -11,7 +11,7 @@ IOCONF= USB.ioconf
 RUMP_COMPONENT=ioconf
 
 SRCS=	usb.c usbdi.c usbdi_util.c usb_mem.c usb_subr.c usb_quirks.c	\
-	uhub.c usbroothub_subr.c usb_verbose.c
+	uhub.c usbroothub.c usb_verbose.c
 .else
 SRCS=	dummy.c
 .endif

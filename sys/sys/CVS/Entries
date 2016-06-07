@@ -1,4 +1,4 @@
-/Makefile/1.158/Tue Jun  7 10:07:00 2016/-kk/
+/Makefile/1.159/Tue Jun  7 10:32:18 2016/-kk/
 /acct.h/1.27/Sun Jan 11 02:45:55 2009/-kk/
 /agpio.h/1.11/Sun Sep 13 01:32:01 2015/-kk/
 /aio.h/1.13/Tue Jun  7 10:07:00 2016/-kk/
@@ -54,7 +54,7 @@
 /dir.h/1.11/Sun Dec 11 12:25:20 2005/-kk/
 /dirent.h/1.30/Sun Feb 14 12:55:52 2016/-kk/
 /dirhash.h/1.6/Thu Oct 24 10:28:58 2013/-kk/
-/disk.h/1.66/Sun Nov 29 09:11:00 2015/-kk/
+/disk.h/1.67/Tue Jun  7 10:32:18 2016/-kk/
 /disklabel.h/1.119/Fri Dec 25 05:40:33 2015/-kk/
 /disklabel_acorn.h/1.6/Sun Dec 11 12:25:20 2005/-kk/
 /disklabel_gpt.h/1.12/Tue Dec 17 04:05:16 2013/-kk/
@@ -152,7 +152,7 @@
 /null.h/1.9/Tue Jul  6 11:56:20 2010/-kk/
 /once.h/1.5/Thu Oct  9 10:48:21 2008/-kk/
 /optstr.h/1.3/Mon Apr 28 20:24:11 2008/-kk/
-/param.h/1.492/Tue Jun  7 10:07:00 2016/-kk/
+/param.h/1.494/Tue Jun  7 10:32:18 2016/-kk/
 /pax.h/1.19/Tue Jun  7 10:07:00 2016/-kk/
 /pcq.h/1.2/Sat Jun 14 03:56:49 2014/-kk/
 /pcu.h/1.12/Tue Jun  3 02:54:47 2014/-kk/
@@ -165,7 +165,7 @@
 /poll.h/1.15/Wed Nov 11 09:48:51 2009/-kk/
 /pool.h/1.79/Sun Aug  2 04:02:59 2015/-kk/
 /power.h/1.20/Mon Jan 12 06:49:24 2015/-kk/
-/proc.h/1.329/Tue Jun  7 10:07:00 2016/-kk/
+/proc.h/1.330/Tue Jun  7 10:32:18 2016/-kk/
 /prot.h/1.2/Tue Apr 29 06:53:03 2008/-kk/
 /protosw.h/1.66/Thu Jan 28 08:36:23 2016/-kk/
 /pserialize.h/1.1/Sat Jul 30 17:01:04 2011/-kk/
@@ -201,6 +201,7 @@
 /select.h/1.37/Tue May  6 05:50:27 2014/-kk/
 /selinfo.h/1.8/Thu Jul  8 12:23:31 2010/-kk/
 /sem.h/1.32/Fri Nov 20 02:19:58 2015/-kk/
+/semaphore.h/1.1/Sun Apr 24 19:48:29 2016/-kk/
 /sha1.h/1.14/Fri Nov  6 20:31:19 2009/-kk/
 /sha2.h/1.3/Tue May 26 08:04:12 2009/-kk/
 /shm.h/1.51/Fri Nov 20 02:19:58 2015/-kk/
@@ -223,9 +224,9 @@
 /stdint.h/1.7/Thu Oct 24 10:28:58 2013/-kk/
 /swap.h/1.8/Wed Jan 14 02:20:45 2009/-kk/
 /syncobj.h/1.8/Wed Oct 21 21:12:07 2009/-kk/
-/syscall.h/1.293/Tue Jun  7 10:07:00 2016/-kk/
+/syscall.h/1.294/Tue Jun  7 10:32:18 2016/-kk/
 /syscall_stats.h/1.4/Wed Nov 12 12:36:28 2008/-kk/
-/syscallargs.h/1.277/Tue Jun  7 10:07:00 2016/-kk/
+/syscallargs.h/1.278/Tue Jun  7 10:32:18 2016/-kk/
 /syscallvar.h/1.11/Fri Oct  2 14:12:06 2015/-kk/
 /sysctl.h/1.221/Tue Jun  7 10:07:00 2016/-kk/
 /syslimits.h/1.28/Sun Sep 13 01:08:00 2015/-kk/
@@ -233,7 +234,7 @@
 /systm.h/1.270/Sun Feb 14 12:55:53 2016/-kk/
 /tape.h/1.4/Sun Feb 14 12:55:53 2016/-kk/
 /termios.h/1.32/Thu Oct 24 10:28:58 2013/-kk/
-/time.h/1.71/Thu Jan  7 06:24:40 2016/-kk/
+/time.h/1.72/Tue Jun  7 10:32:18 2016/-kk/
 /timeb.h/1.14/Sun Dec 11 12:25:21 2005/-kk/
 /timepps.h/1.21/Thu Oct 24 10:28:58 2013/-kk/
 /times.h/1.13/Sun Dec 11 12:25:21 2005/-kk/

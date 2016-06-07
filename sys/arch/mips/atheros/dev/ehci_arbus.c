@@ -89,13 +89,12 @@ ehci_arbus_attach(device_t parent, device_t self, void *aux)
 	struct arbus_attach_args * const aa = aux;
 	void *ih = NULL;
 	int error;
-	int status;
 
 	sc->iot = aa->aa_bst_le;
 	sc->sc_size = aa->aa_size;
-	//sc->sc_bus.hci_private = sc;
-	sc->sc_bus.dmatag = aa->aa_dmat;
-	sc->sc_bus.usbrev = USBREV_1_0;
+	//sc->sc_bus.ub_hcpriv = sc;
+	sc->sc_bus.ub_dmatag = aa->aa_dmat;
+	sc->sc_bus.ub_revision = USBREV_1_0;
 	sc->sc_flags |= EHCIF_ETTF;
 	sc->sc_vendor_init = ehci_arbus_init;
 
@@ -136,10 +135,10 @@ ehci_arbus_attach(device_t parent, device_t self, void *aux)
 	 */
 	sc->sc_ncomp = 0;
 
-	status = ehci_init(sc);
-	if (status != USBD_NORMAL_COMPLETION) {
+	error = ehci_init(sc);
+	if (error) {
 		aprint_error("%s: init failed, error=%d\n", device_xname(self),
-		    status);
+		    error);
 		if (ih != NULL)
 			arbus_intr_disestablish(ih);
 		return;

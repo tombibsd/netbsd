@@ -110,7 +110,6 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/kernel.h>
 
 #include <net/if.h>
-#include <net/route.h>
 
 #include <netinet/in.h>
 #include <netinet/in_systm.h>

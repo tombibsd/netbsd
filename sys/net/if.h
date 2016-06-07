@@ -267,11 +267,13 @@ typedef struct ifnet {
 	 */
 	int	(*if_output)		/* output routine (enqueue) */
 		    (struct ifnet *, struct mbuf *, const struct sockaddr *,
-		     struct rtentry *);
+		     const struct rtentry *);
 	void	(*_if_input)		/* input routine (from h/w driver) */
 		    (struct ifnet *, struct mbuf *);
 	void	(*if_start)		/* initiate output routine */
 		    (struct ifnet *);
+	int	(*if_transmit)		/* output routine (direct) */
+		    (struct ifnet *, struct mbuf *);
 	int	(*if_ioctl)		/* ioctl routine */
 		    (struct ifnet *, u_long, void *);
 	int	(*if_init)		/* init routine */
@@ -939,13 +941,15 @@ void	p2p_rtrequest(int, struct rtentry *, const struct rt_addrinfo *);
 void	if_clone_attach(struct if_clone *);
 void	if_clone_detach(struct if_clone *);
 
+int	if_transmit(struct ifnet *, struct mbuf *);
+
 int	ifq_enqueue(struct ifnet *, struct mbuf *);
 int	ifq_enqueue2(struct ifnet *, struct ifqueue *, struct mbuf *);
 
 int	loioctl(struct ifnet *, u_long, void *);
 void	loopattach(int);
 int	looutput(struct ifnet *,
-	   struct mbuf *, const struct sockaddr *, struct rtentry *);
+	   struct mbuf *, const struct sockaddr *, const struct rtentry *);
 void	lortrequest(int, struct rtentry *, const struct rt_addrinfo *);
 
 /*
@@ -953,9 +957,10 @@ void	lortrequest(int, struct rtentry *, const struct rt_addrinfo *);
  * an interface is going away without having to burn a flag.
  */
 int	if_nulloutput(struct ifnet *, struct mbuf *,
-	    const struct sockaddr *, struct rtentry *);
+	    const struct sockaddr *, const struct rtentry *);
 void	if_nullinput(struct ifnet *, struct mbuf *);
 void	if_nullstart(struct ifnet *);
+int	if_nulltransmit(struct ifnet *, struct mbuf *);
 int	if_nullioctl(struct ifnet *, u_long, void *);
 int	if_nullinit(struct ifnet *);
 void	if_nullstop(struct ifnet *, int);

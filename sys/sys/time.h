@@ -284,6 +284,8 @@ struct	itimerspec {
 #define	CLOCK_VIRTUAL	1
 #define	CLOCK_PROF	2
 #define	CLOCK_MONOTONIC	3
+#define CLOCK_THREAD_CPUTIME_ID		0x80000000
+#define CLOCK_PROCESS_CPUTIME_ID	0x40000000
 
 #if defined(_NETBSD_SOURCE)
 #define	TIMER_RELTIME	0x0	/* relative timer */

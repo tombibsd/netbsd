@@ -54,6 +54,7 @@ config.h: Makefile
 .include <bsd.lib.mk>
 
 .PATH:	${DIST}/lto-plugin ${DIST}/libiberty
+COPTS.lto-plugin.c+= -Wno-missing-prototypes
 
 .else
 .include <bsd.prog.mk> # do nothing

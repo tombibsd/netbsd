@@ -84,7 +84,6 @@ ralink_ohci_attach(device_t parent, device_t self, void *aux)
 {
 	struct ralink_ohci_softc * const sc = device_private(self);
 	const struct mainbus_attach_args * const ma = aux;
-	usbd_status status;
 	int error;
 #ifdef RALINK_OHCI_DEBUG
 	const char * const devname = device_xname(self);
@@ -94,9 +93,9 @@ ralink_ohci_attach(device_t parent, device_t self, void *aux)
 	aprint_normal(": OHCI USB controller\n");
 
 	sc->sc_ohci.sc_dev = self;
-	sc->sc_ohci.sc_bus.hci_private = sc;
+	sc->sc_ohci.sc_bus.ub_hcpriv = sc;
 	sc->sc_ohci.iot = ma->ma_memt;
-	sc->sc_ohci.sc_bus.dmatag = ma->ma_dmat;
+	sc->sc_ohci.sc_bus.ub_dmatag = ma->ma_dmat;
 
 	/* Map I/O registers */
 	if ((error = bus_space_map(sc->sc_ohci.iot, RA_USB_OHCI_BASE,
@@ -105,7 +104,7 @@ ralink_ohci_attach(device_t parent, device_t self, void *aux)
 			"error=%d\n", error);
 		return;
 	}
-	
+
 	sc->sc_ohci.sc_size = RA_USB_BLOCK_SIZE;
 
 #ifdef RALINK_OHCI_DEBUG
@@ -138,9 +137,9 @@ ralink_ohci_attach(device_t parent, device_t self, void *aux)
 	strlcpy(sc->sc_ohci.sc_vendor, "Ralink", sizeof(sc->sc_ohci.sc_vendor));
 
 	/* Initialize OHCI */
-	status = ohci_init(&sc->sc_ohci);
-	if (status != USBD_NORMAL_COMPLETION) {
-		aprint_error_dev(self, "init failed, error=%d\n", status);
+	error = ohci_init(&sc->sc_ohci);
+	if (error) {
+		aprint_error_dev(self, "init failed, error=%d\n", error);
 		goto fail_0;
 	}
 

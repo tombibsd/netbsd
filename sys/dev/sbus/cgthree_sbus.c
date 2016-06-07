@@ -172,6 +172,7 @@ cgthreeattach_sbus(device_t parent, device_t self, void *args)
 	if (name == NULL)
 		name = "cgthree";
 
+	fb->fb_pixels = NULL;
 	if (sa->sa_npromvaddrs != 0)
 		fb->fb_pixels = (void *)(u_long)sa->sa_promvaddrs[0];
 	if (fb->fb_pixels == NULL) {

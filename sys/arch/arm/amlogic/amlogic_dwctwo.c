@@ -114,7 +114,7 @@ amlogic_dwctwo_attach(device_t parent, device_t self, void *aux)
 	sc->sc_dwc2.sc_iot = aio->aio_core_bst;
 	bus_space_subregion(aio->aio_core_bst, aio->aio_bsh,
             loc->loc_offset, loc->loc_size, &sc->sc_dwc2.sc_ioh);
-	sc->sc_dwc2.sc_bus.dmatag = aio->aio_dmat;
+	sc->sc_dwc2.sc_bus.ub_dmatag = aio->aio_dmat;
 	sc->sc_dwc2.sc_params = &amlogic_dwctwo_params;
 
 	aprint_naive("\n");

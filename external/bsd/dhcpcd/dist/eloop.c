@@ -620,6 +620,8 @@ eloop_open(struct eloop *eloop)
 	return eloop->poll_fd;
 #elif defined (HAVE_EPOLL)
 	return (eloop->poll_fd = epoll_create1(EPOLL_CLOEXEC));
+#else
+	return eloop->poll_fd = -1;
 #endif
 }
 #endif
@@ -790,7 +792,6 @@ eloop_new(void)
 		TAILQ_INIT(&eloop->free_timeouts);
 		eloop->exitcode = EXIT_FAILURE;
 #if defined(HAVE_KQUEUE) || defined(HAVE_EPOLL)
-		eloop->poll_fd = -1;
 		if (eloop_open(eloop) == -1) {
 			eloop_free(eloop);
 			return NULL;

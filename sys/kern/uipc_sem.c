@@ -77,6 +77,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/kauth.h>
 #include <sys/module.h>
 #include <sys/mount.h>
+#include <sys/semaphore.h>
 #include <sys/syscall.h>
 #include <sys/syscallargs.h>
 #include <sys/syscallvar.h>
@@ -85,7 +86,6 @@ __KERNEL_RCSID(0, "$NetBSD$");
 MODULE(MODULE_CLASS_MISC, ksem, NULL);
 
 #define	SEM_MAX_NAMELEN		14
-#define	SEM_VALUE_MAX		(~0U)
 
 #define	KS_UNLINKED		0x01
 

@@ -121,6 +121,9 @@ awinwdt*	at awinio?
 # RTC
 awinrtc*	at awinio?
 
+# Low res ADC
+awinlradc*	at awinio?
+
 # onboard audio codec
 awinac0		at awinio0
 audio0		at awinac0

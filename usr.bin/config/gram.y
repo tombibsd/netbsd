@@ -103,6 +103,7 @@ DECL_ALLOCWRAP(condexpr);
 #define	new_nx(n, x)	new0(n, NULL, NULL, 0, x)
 #define	new_ns(n, s)	new0(n, s, NULL, 0, NULL)
 #define	new_si(s, i)	new0(NULL, s, NULL, i, NULL)
+#define	new_spi(s, p, i)	new0(NULL, s, p, i, NULL)
 #define	new_nsi(n,s,i)	new0(n, s, NULL, i, NULL)
 #define	new_np(n, p)	new0(n, NULL, p, 0, NULL)
 #define	new_s(s)	new0(NULL, s, NULL, 0, NULL)
@@ -906,9 +907,14 @@ root_spec:
 
 /* device for root fs or dump */
 dev_spec:
-	  '?'				{ $$ = new_si(intern("?"),
+	  '?'				{ $$ = new_spi(intern("?"),
+					    NULL,
 					    (long long)NODEV); }
-	| WORD				{ $$ = new_si($1,
+	| QSTRING			{ $$ = new_spi($1,
+					    __UNCONST("spec"),
+					    (long long)NODEV); }
+	| WORD				{ $$ = new_spi($1,
+					    NULL,
 					    (long long)NODEV); }
 	| major_minor			{ $$ = new_si(NULL, $1); }
 ;

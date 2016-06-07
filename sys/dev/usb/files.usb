@@ -18,6 +18,7 @@ defflag	opt_usb.h	UHCI_DEBUG: USB_DEBUG
 defflag	opt_usb.h	DWC2_DEBUG: USB_DEBUG
 defflag	opt_usb.h	XHCI_DEBUG: USB_DEBUG
 defflag	opt_usb.h	MOTG_DEBUG: USB_DEBUG
+defflag	opt_usb.h	SLHCI_DEBUG: USB_DEBUG
 
 # HUB driver
 defflag opt_usb.h	UHUB_DEBUG: USB_DEBUG
@@ -105,7 +106,7 @@ file	dev/usb/usb_subr.c		usb
 file	dev/usb/usb_quirks.c		usb
 
 define	usb_dma: usb
-file	dev/usb/usb_mem.c		usb_dma
+file	dev/usb/usb_mem.c		usb_dma			needs-flag
 
 define	usbverbose: usb
 file	dev/usb/usb_verbose.c		usbverbose

@@ -156,6 +156,12 @@ int timer_gettime(timer_t, struct itimerspec *) __RENAME(__timer_gettime50);
 int timer_settime(timer_t, int, const struct itimerspec * __restrict, 
     struct itimerspec * __restrict) __RENAME(__timer_settime50);
 #endif
+#ifdef _NETBSD_SOURCE
+#include <sys/idtype.h>
+int clock_getcpuclockid2(idtype_t, id_t, clockid_t *);
+#endif
+int clock_getcpuclockid(pid_t, clockid_t *);
+
 int timer_create(clockid_t, struct sigevent * __restrict,
     timer_t * __restrict);
 int timer_delete(timer_t);

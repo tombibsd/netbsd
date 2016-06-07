@@ -662,6 +662,12 @@ and
 parameters can be wildcarded with
 .Dq \&?
 to let the kernel automatically discover those values.
+The
+.Ar device
+can also be specified as a quoted specification string.
+The kernel interprets this string like the console input
+when prompting for a root device. E.g. "wedge:NAME"
+specifies a named disk wedge.
 .Pp
 At least one
 .Ic config

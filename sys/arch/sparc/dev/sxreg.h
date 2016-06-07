@@ -53,7 +53,7 @@
 /* write registers via pseudo instructions */
 #define SX_QUEUED_R0		0x00000300
 #define SX_QUEUED_R1		0x00000304	/* and so on until R127 */
-#define SX_QUEUED(r)		(0x300 + (r << 2))
+#define SX_QUEUED(r)		(0x300 + ((r) << 2))
 
 /* special purpose registers */
 #define R_ZERO	0

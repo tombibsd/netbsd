@@ -30,5 +30,5 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-int umass_scsi_attach(struct umass_softc *sc);
-int umass_atapi_attach(struct umass_softc *sc);
+int umass_scsi_attach(struct umass_softc *);
+int umass_atapi_attach(struct umass_softc *);

@@ -72,6 +72,8 @@ int clock_gettime(clockid_t, struct timespec *)
     __RENAME(__clock_gettime50)
 #endif
 ;
+#else
+#include <stdio.h>	/* For NULL */
 #endif
 
 static __inline hrtime_t gethrtime(void) {

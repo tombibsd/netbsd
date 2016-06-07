@@ -69,6 +69,33 @@ lwp_unsleep(lwp_t *l, bool cleanup)
 	(*l->l_syncobj->sobj_unsleep)(l, cleanup);
 }
 
+/*
+ * Look up a live LWP within the specified process.
+ * 
+ * Must be called with p->p_lock held.
+ */
+struct lwp *
+lwp_find(struct proc *p, lwpid_t id)
+{
+	struct lwp *l;
+
+	KASSERT(mutex_owned(p->p_lock));
+
+	LIST_FOREACH(l, &p->p_lwps, l_sibling) {
+		if (l->l_lid == id)
+			break;
+	}
+
+	/*
+	 * No need to lock - all of these conditions will
+	 * be visible with the process level mutex held.
+	 */
+	if (l != NULL && (l->l_stat == LSIDL || l->l_stat == LSZOMB))
+		l = NULL;
+
+	return l;
+}
+
 void
 lwp_update_creds(struct lwp *l)
 {

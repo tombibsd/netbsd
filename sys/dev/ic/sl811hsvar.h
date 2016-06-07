@@ -36,8 +36,6 @@ struct slhci_transfers {
 	int16_t len[2];		     	/* length of transfer or -1 if none */
 	uint8_t current_tregs[2][4]; 	/* ab, ADR, LEN, PID, DEV */
 	uint8_t copyin[2]; 		/* copyin ADR, LEN */
-	uint8_t rootaddr;		/* device address of root hub */
-	uint8_t rootconf;		/* root configuration */
 	uint8_t max_current;		/* max current / 2 */
 	uint8_t sltype;			/* revision */
 };

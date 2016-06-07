@@ -195,6 +195,14 @@ splash_render(struct splash_info *si, int flg)
 	aprint_debug("%s: splash loaded, width %d height %d comp %d\n",
 	    __func__, width, height, comp);
 
+	if ((width > si->si_width) || (height > si->si_height)) {
+		aprint_error(
+			"WARNING: splash size (%dx%d) too big for framebuffer (%dx%d)\n",
+			width, height, si->si_width, si->si_height);
+		stbi_image_free(data);
+		return EINVAL;
+	}
+
 	/* XXX */
 	if (flg & SPLASH_F_CENTER) {
 		xoff = (si->si_width - width) / 2;

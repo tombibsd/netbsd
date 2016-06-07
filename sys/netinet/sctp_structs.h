@@ -40,8 +40,8 @@
 #include <sys/callout.h>
 
 #ifdef IPSEC
-#include <netinet6/ipsec.h>
-#include <netkey/key.h>
+#include <netipsec/ipsec.h>
+#include <netipsec/key.h>
 #endif
 
 #include <netinet/sctp_header.h>

@@ -89,11 +89,10 @@ ohci_pci_attach(device_t parent, device_t self, void *aux)
 	char const *intrstr;
 	pci_intr_handle_t ih;
 	pcireg_t csr;
-	usbd_status r;
 	char intrbuf[PCI_INTRSTR_LEN];
 
 	sc->sc.sc_dev = self;
-	sc->sc.sc_bus.hci_private = sc;
+	sc->sc.sc_bus.ub_hcpriv = sc;
 
 	if (PCI_VENDOR(pa->pa_id) == PCI_VENDOR_NS &&
 	    PCI_PRODUCT(pa->pa_id) == PCI_PRODUCT_NS_USB) {
@@ -126,7 +125,7 @@ ohci_pci_attach(device_t parent, device_t self, void *aux)
 
 	sc->sc_pc = pc;
 	sc->sc_tag = tag;
-	sc->sc.sc_bus.dmatag = pa->pa_dmat;
+	sc->sc.sc_bus.ub_dmatag = pa->pa_dmat;
 
 	/* Enable the device. */
 	pci_conf_write(pc, tag, PCI_COMMAND_STATUS_REG,
@@ -156,9 +155,9 @@ ohci_pci_attach(device_t parent, device_t self, void *aux)
 	sc->sc.sc_id_vendor = PCI_VENDOR(pa->pa_id);
 	pci_findvendor(sc->sc.sc_vendor, sizeof(sc->sc.sc_vendor),
 	    sc->sc.sc_id_vendor);
-	r = ohci_init(&sc->sc);
-	if (r != USBD_NORMAL_COMPLETION) {
-		aprint_error_dev(self, "init failed, error=%d\n", r);
+	int err = ohci_init(&sc->sc);
+	if (err) {
+		aprint_error_dev(self, "init failed, error=%d\n", err);
 		goto fail;
 	}
 

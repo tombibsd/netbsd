@@ -128,7 +128,7 @@
 /radeon_state.c/1.1.1.1/Wed Jul 16 19:35:29 2014/-kk/
 /radeon_test.c/1.2/Wed Jul 16 20:59:57 2014/-kk/
 /radeon_trace_points.c/1.1.1.1/Wed Jul 16 19:35:29 2014/-kk/
-/radeon_ttm.c/1.7/Sun Apr 12 03:35:11 2015/-kk/
+/radeon_ttm.c/1.8/Tue Jun  7 10:32:12 2016/-kk/
 /radeon_ucode.h/1.1.1.1/Wed Jul 16 19:35:29 2014/-kk/
 /radeon_uvd.c/1.2/Wed Jul 16 20:59:57 2014/-kk/
 /radeon_vce.c/1.2/Wed Jul 16 20:59:57 2014/-kk/

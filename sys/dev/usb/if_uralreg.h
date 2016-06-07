@@ -18,8 +18,8 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-#define RAL_RX_DESC_SIZE	(sizeof (struct ural_rx_desc))
-#define RAL_TX_DESC_SIZE	(sizeof (struct ural_tx_desc))
+#define RAL_RX_DESC_SIZE	(sizeof(struct ural_rx_desc))
+#define RAL_TX_DESC_SIZE	(sizeof(struct ural_tx_desc))
 
 #define RAL_CONFIG_NO	1
 #define RAL_IFACE_INDEX 0

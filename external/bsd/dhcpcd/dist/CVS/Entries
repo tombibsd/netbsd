@@ -10,7 +10,7 @@
 /control.h/1.7/Thu Feb  5 08:37:17 2015/-kk/
 /defs.h/1.26/Tue Jun  7 10:13:14 2016/-kk/
 /dev.h/1.7/Thu Feb  5 08:37:17 2015/-kk/
-/dhcp-common.c/1.14/Tue Jun  7 10:13:14 2016/-kk/
+/dhcp-common.c/1.15/Tue Jun  7 10:25:55 2016/-kk/
 /dhcp-common.h/1.12/Tue Jun  7 10:13:14 2016/-kk/
 /dhcp.c/1.39/Tue Jun  7 10:13:14 2016/-kk/
 /dhcp.h/1.14/Tue Jun  7 10:13:14 2016/-kk/
@@ -30,7 +30,7 @@
 /dhcpcd.h/1.16/Tue Jun  7 10:13:14 2016/-kk/
 /duid.c/1.11/Sun Jan 17 10:31:14 2016/-kk/
 /duid.h/1.7/Thu Feb  5 08:37:17 2015/-kk/
-/eloop.c/1.12/Tue Jun  7 10:13:14 2016/-kk/
+/eloop.c/1.13/Tue Jun  7 10:25:55 2016/-kk/
 /eloop.h/1.10/Tue Jun  7 10:13:14 2016/-kk/
 /if-bsd.c/1.29/Tue Jun  7 10:13:14 2016/-kk/
 /if-options.c/1.32/Tue Jun  7 10:13:14 2016/-kk/

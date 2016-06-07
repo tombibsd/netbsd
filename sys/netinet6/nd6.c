@@ -1389,6 +1389,12 @@ nd6_rtrequest(int req, struct rtentry *rt, const struct rt_addrinfo *info)
 			rt_setgate(rt, &u.sa);
 			gate = rt->rt_gateway;
 			RT_DPRINTF("rt_getkey(rt) = %p\n", rt_getkey(rt));
+			if (gate == NULL) {
+				log(LOG_ERR,
+				    "%s: rt_setgate failed on %s\n", __func__,
+				    if_name(ifp));
+				break;
+			}
 
 			RT_DPRINTF("rt_getkey(rt) = %p\n", rt_getkey(rt));
 			if ((rt->rt_flags & RTF_CONNECTED) != 0)
@@ -2116,11 +2122,45 @@ nd6_output(struct ifnet *ifp, struct ifnet *origifp, struct mbuf *m,
 	int error = 0;
 	bool created = false;
 
+	if (rt != NULL) {
+		error = rt_check_reject_route(rt, ifp);
+		if (error != 0) {
+			m_freem(m);
+			return error;
+		}
+	}
+
 	if (IN6_IS_ADDR_MULTICAST(&dst->sin6_addr))
 		goto sendpkt;
 
 	if (nd6_need_cache(ifp) == 0)
 		goto sendpkt;
+
+	if (rt != NULL && (rt->rt_flags & RTF_GATEWAY) != 0) {
+		struct sockaddr_in6 *gw6 = satosin6(rt->rt_gateway);
+
+		/* XXX remain the check to keep the original behavior. */
+		/*
+		 * We skip link-layer address resolution and NUD
+		 * if the gateway is not a neighbor from ND point
+		 * of view, regardless of the value of nd_ifinfo.flags.
+		 * The second condition is a bit tricky; we skip
+		 * if the gateway is our own address, which is
+		 * sometimes used to install a route to a p2p link.
+		 */
+		if (!nd6_is_addr_neighbor(gw6, ifp) ||
+		    in6ifa_ifpwithaddr(ifp, &gw6->sin6_addr)) {
+			/*
+			 * We allow this kind of tricky route only
+			 * when the outgoing interface is p2p.
+			 * XXX: we may need a more generic rule here.
+			 */
+			if ((ifp->if_flags & IFF_POINTOPOINT) == 0)
+				senderr(EHOSTUNREACH);
+
+			goto sendpkt;
+		}
+	}
 
 	/*
 	 * Address resolution or Neighbor Unreachability Detection

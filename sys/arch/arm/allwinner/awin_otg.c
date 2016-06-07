@@ -125,7 +125,7 @@ awin_otg_attach(device_t parent, device_t self, void *aux)
 	}
 
 	sc->sc_motg.sc_dev = self;
-	sc->sc_motg.sc_bus.dmatag = aio->aio_dmat;
+	sc->sc_motg.sc_bus.ub_dmatag = aio->aio_dmat;
 	sc->sc_motg.sc_iot = aio->aio_core_bst;
 	bus_space_subregion(sc->sc_motg.sc_iot, aio->aio_core_bsh,
 	    loc->loc_offset, loc->loc_size, &sc->sc_motg.sc_ioh);

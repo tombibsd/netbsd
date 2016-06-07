@@ -7,7 +7,7 @@ NOMAN=		# defined
 
 TESTSDIR=	${TESTSBASE}/kernel/kqueue
 
-TESTS_SUBDIRS=		read
+TESTS_SUBDIRS=	read
 TESTS_SUBDIRS+=	write
 
 TESTS_C=	t_ioctl

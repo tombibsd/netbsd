@@ -256,7 +256,7 @@ device cgeight: bt_dac, fb, rasops24, pfour
 attach cgeight at obio
 file	arch/sparc/dev/cgeight.c	cgeight needs-flag
 
-device cgfourteen: fb, rasops8, wsemuldisplaydev
+device cgfourteen: fb, rasops8, wsemuldisplaydev, vcons, glyphcache
 attach cgfourteen at obio
 file	arch/sparc/dev/cgfourteen.c	cgfourteen needs-flag
 

@@ -1,7 +1,7 @@
 /fbmem.h/1.2/Sat Mar 21 02:29:58 2015/-kk/
 /nouveau_subdev_devinit_base.c/1.1.1.1/Wed Aug  6 12:36:29 2014/-kk/
 /nouveau_subdev_devinit_gm107.c/1.1.1.1/Wed Aug  6 12:36:29 2014/-kk/
-/nouveau_subdev_devinit_nv04.c/1.2/Sat Mar 21 02:29:58 2015/-kk/
+/nouveau_subdev_devinit_nv04.c/1.3/Tue Jun  7 10:32:11 2016/-kk/
 /nouveau_subdev_devinit_nv05.c/1.1.1.1/Wed Aug  6 12:36:30 2014/-kk/
 /nouveau_subdev_devinit_nv10.c/1.1.1.1/Wed Aug  6 12:36:30 2014/-kk/
 /nouveau_subdev_devinit_nv1a.c/1.1.1.1/Wed Aug  6 12:36:30 2014/-kk/

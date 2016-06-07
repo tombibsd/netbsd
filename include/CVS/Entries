@@ -38,7 +38,7 @@
 /link.h/1.13/Mon Apr 28 20:22:54 2008/-kk/
 /link_aout.h/1.23/Sun Feb 14 12:54:01 2016/-kk/
 /link_elf.h/1.10/Sat Oct 16 10:27:06 2010/-kk/
-/locale.h/1.27/Tue Jun  7 09:38:23 2016/-kk/
+/locale.h/1.28/Tue Jun  7 10:31:20 2016/-kk/
 /login_cap.h/1.13/Sun Feb 14 12:54:01 2016/-kk/
 /lwp.h/1.12/Thu Feb 13 15:35:37 2014/-kk/
 /malloc.h/1.3/Wed Oct 26 00:56:03 1994/-kk/
@@ -69,7 +69,7 @@
 /rmt.h/1.8/Sun Feb 14 12:54:01 2016/-kk/
 /sched.h/1.12/Sun Jan 11 03:04:12 2009/-kk/
 /search.h/1.22/Mon Jul 21 08:07:12 2014/-kk/
-/semaphore.h/1.4/Thu Mar  8 21:59:28 2012/-kk/
+/semaphore.h/1.5/Tue Jun  7 10:31:20 2016/-kk/
 /setjmp.h/1.26/Sat Nov  5 09:27:06 2011/-kk/
 /sgtty.h/1.8/Thu Feb  3 04:39:32 2005/-kk/
 /signal.h/1.55/Sun Aug  2 04:02:18 2015/-kk/
@@ -85,7 +85,7 @@
 /sysexits.h/1.7/Fri Sep 30 20:56:19 2005/-kk/
 /tar.h/1.4/Thu Aug  7 09:44:11 2003/-kk/
 /tgmath.h/1.1/Sun Sep 28 14:57:41 2008/-kk/
-/time.h/1.45/Fri Nov 20 01:29:12 2015/-kk/
+/time.h/1.46/Tue Jun  7 10:31:20 2016/-kk/
 /ttyent.h/1.15/Thu Oct 24 10:28:53 2013/-kk/
 /tzfile.h/1.8/Sat Jul 25 01:51:31 2015/-kk/
 /ucontext.h/1.9/Sun Nov 29 09:09:15 2015/-kk/

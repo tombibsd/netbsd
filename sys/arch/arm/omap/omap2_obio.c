@@ -366,6 +366,9 @@ static const struct {
 	bus_addr_t addr;
 	bool required;
 } critical_devs[] = {
+#if defined(OMAP_3530)
+	{ .name = "omapscm", .addr = 0x48002000, .required = true },
+#endif
 #if defined(OMAP_2430) || defined(OMAP_2420)
 	{ .name = "avic", .addr = INTC_BASE, .required = true },
 #endif

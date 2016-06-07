@@ -308,6 +308,7 @@ nouveau_connector_detect(struct drm_connector *connector, bool force)
 				type = DCB_OUTPUT_ANALOG;
 
 			nv_encoder = find_encoder(connector, type);
+			BUG_ON(nv_encoder == NULL);
 		}
 
 		nouveau_connector_set_encoder(connector, nv_encoder);

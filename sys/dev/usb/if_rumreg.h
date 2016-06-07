@@ -18,8 +18,8 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-#define RT2573_TX_DESC_SIZE	(sizeof (struct rum_tx_desc))
-#define RT2573_RX_DESC_SIZE	(sizeof (struct rum_rx_desc))
+#define RT2573_TX_DESC_SIZE	(sizeof(struct rum_tx_desc))
+#define RT2573_RX_DESC_SIZE	(sizeof(struct rum_rx_desc))
 
 #define RT2573_CONFIG_NO	1
 #define RT2573_IFACE_INDEX	0

@@ -453,7 +453,7 @@ table_cidr_check(const u_int aidx, const npf_addr_t *addr,
 	 * For IPv4 (aidx = 0) - 32 and for IPv6 (aidx = 1) - 128.
 	 * If it is a host - shall use NPF_NO_NETMASK.
 	 */
-	if (mask >= (aidx ? 128 : 32) && mask != NPF_NO_NETMASK) {
+	if (mask > (aidx ? 128 : 32) && mask != NPF_NO_NETMASK) {
 		return EINVAL;
 	}
 	return 0;

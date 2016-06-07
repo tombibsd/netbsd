@@ -306,7 +306,7 @@ pbms_match(device_t parent, cfdata_t match, void *aux)
 	 * We just check if the vendor and product IDs have the magic numbers
 	 * we expect. 
 	 */
-	if (uha->uaa->proto == UIPROTO_MOUSE &&
+	if (uha->uiaa->uiaa_proto == UIPROTO_MOUSE &&
 	    (udd = usbd_get_device_descriptor(uha->parent->sc_udev)) != NULL) {
 		vendor = UGETW(udd->idVendor);
 		product = UGETW(udd->idProduct);

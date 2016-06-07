@@ -205,7 +205,7 @@ loop_clone_destroy(struct ifnet *ifp)
 
 int
 looutput(struct ifnet *ifp, struct mbuf *m, const struct sockaddr *dst,
-    struct rtentry *rt)
+    const struct rtentry *rt)
 {
 	pktqueue_t *pktq = NULL;
 	struct ifqueue *ifq = NULL;
@@ -254,10 +254,7 @@ looutput(struct ifnet *ifp, struct mbuf *m, const struct sockaddr *dst,
 			return (ENOBUFS);
 		*(mtod(m, uint32_t *)) = dst->sa_family;
 
-		s = splnet();
-		IFQ_ENQUEUE(&ifp->if_snd, m, error);
-		(*ifp->if_start)(ifp);
-		splx(s);
+		error = ifp->if_transmit(ifp, m);
 		return (error);
 	}
 #endif /* ALTQ */

@@ -1382,6 +1382,7 @@ kpsignal2(struct proc *p, ksiginfo_t *ksi)
 			 */
 			if ((prop & SA_CONT) != 0) {
 				p->p_xsig = SIGCONT;
+				p->p_sflag |= PS_CONTINUED;
 				child_psignal(p, 0);
 				if (action == SIG_DFL) {
 					KASSERT(signo != SIGKILL);
@@ -1750,6 +1751,7 @@ issignal(struct lwp *l)
 				/* Take the signal. */
 				(void)sigget(sp, NULL, signo, NULL);
 				p->p_xsig = signo;
+				p->p_sflag &= ~PS_CONTINUED;
 				signo = 0;
 				sigswitch(true, PS_NOCLDSTOP, p->p_xsig);
 			} else if (prop & SA_IGNORE) {

@@ -101,4 +101,17 @@ obiowdt32k_attach(device_t parent, device_t self, void *aux)
 	    (1 << WD_SYSCONFIG_AUTOIDLE);
 	bus_space_write_4(omapwdt32k_sc->sc_iot, omapwdt32k_sc->sc_ioh,
 			  WD_SYSCONFIG, omapwdt_sysconfig);
+
+	/*
+	 * Put watchdog in known (disarmed) state.
+	 *
+	 * Some U-Boot versions on BeagleBone will leave the watchdog
+	 * armed at boot.
+	 * 
+	 * XXX Revisit this, perhaps we should just start tickling an
+	 * armed watchdog.
+	 */
+
+	sc->sc_armed = -1;
+	omapwdt32k_enable(0);
 }

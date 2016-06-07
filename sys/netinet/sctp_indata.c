@@ -83,8 +83,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <netinet/sctp_uio.h>
 #include <netinet/sctp_timer.h>
 #ifdef IPSEC
-#include <netinet6/ipsec.h>
-#include <netkey/key.h>
+#include <netipsec/ipsec.h>
+#include <netipsec/key.h>
 #endif /*IPSEC*/
 
 #include <net/net_osdep.h>

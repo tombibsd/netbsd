@@ -49,7 +49,6 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <net/if.h>
 #include <net/if_types.h>
 #include <net/if_dl.h>
-#include <net/route.h>
 
 #include <netinet/in.h>
 #include <netinet6/in6_var.h>

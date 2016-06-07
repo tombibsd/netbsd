@@ -1381,8 +1381,7 @@ bridge_enqueue(struct bridge_softc *sc, struct ifnet *dst_ifp, struct mbuf *m,
 	len = m->m_pkthdr.len;
 	mflags = m->m_flags;
 
-	IFQ_ENQUEUE(&dst_ifp->if_snd, m, error);
-
+	error = (*dst_ifp->if_transmit)(dst_ifp, m);
 	if (error) {
 		/* mbuf is already freed */
 		sc->sc_if.if_oerrors++;
@@ -1391,16 +1390,8 @@ bridge_enqueue(struct bridge_softc *sc, struct ifnet *dst_ifp, struct mbuf *m,
 
 	sc->sc_if.if_opackets++;
 	sc->sc_if.if_obytes += len;
-
-	dst_ifp->if_obytes += len;
-
-	if (mflags & M_MCAST) {
+	if (mflags & M_MCAST)
 		sc->sc_if.if_omcasts++;
-		dst_ifp->if_omcasts++;
-	}
-
-	if ((dst_ifp->if_flags & IFF_OACTIVE) == 0)
-		(*dst_ifp->if_start)(dst_ifp);
 }
 
 /*
@@ -1415,7 +1406,7 @@ bridge_enqueue(struct bridge_softc *sc, struct ifnet *dst_ifp, struct mbuf *m,
  */
 int
 bridge_output(struct ifnet *ifp, struct mbuf *m, const struct sockaddr *sa,
-    struct rtentry *rt)
+    const struct rtentry *rt)
 {
 	struct ether_header *eh;
 	struct ifnet *dst_if;
@@ -1453,7 +1444,7 @@ bridge_output(struct ifnet *ifp, struct mbuf *m, const struct sockaddr *sa,
 	if (dst_if == NULL) {
 		struct bridge_iflist *bif;
 		struct mbuf *mc;
-		int used = 0;
+		bool used = false;
 
 		BRIDGE_PSZ_RENTER(s);
 		BRIDGE_IFLIST_READER_FOREACH(bif, sc) {
@@ -1484,7 +1475,7 @@ bridge_output(struct ifnet *ifp, struct mbuf *m, const struct sockaddr *sa,
 
 			if (PSLIST_READER_NEXT(bif, struct bridge_iflist,
 			    bif_next) == NULL) {
-				used = 1;
+				used = true;
 				mc = m;
 			} else {
 				mc = m_copym(m, 0, M_COPYALL, M_NOWAIT);
@@ -1504,10 +1495,15 @@ bridge_output(struct ifnet *ifp, struct mbuf *m, const struct sockaddr *sa,
 next:
 			BRIDGE_PSZ_RENTER(s);
 			bridge_release_member(sc, bif, &psref);
+
+			/* Guarantee we don't re-enter the loop as we already
+			 * decided we're at the end. */
+			if (used)
+				break;
 		}
 		BRIDGE_PSZ_REXIT(s);
 
-		if (used == 0)
+		if (!used)
 			m_freem(m);
 		return (0);
 	}
@@ -1779,8 +1775,6 @@ bridge_input(struct ifnet *ifp, struct mbuf *m)
 			if (bridge_ourether(_bif, eh, 0)) {
 				bridge_acquire_member(sc, _bif, &_psref);
 				BRIDGE_PSZ_REXIT(s);
-				if (_bif == NULL)
-					goto out;
 				if (_bif->bif_flags & IFBIF_LEARNING)
 					(void) bridge_rtupdate(sc,
 					    eh->ether_shost, ifp, 0, IFBAF_DYNAMIC);

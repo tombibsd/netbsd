@@ -86,7 +86,6 @@ exynos_ehci_attach(device_t parent, device_t self, void *aux)
 	bus_addr_t addr;
 	bus_size_t size;
 	int error;
-	int r;
 
 	if (fdtbus_get_reg(faa->faa_phandle, 0, &addr, &size) != 0) {
 		aprint_error(": couldn't get registers\n");
@@ -96,9 +95,9 @@ exynos_ehci_attach(device_t parent, device_t self, void *aux)
 	sc->sc_dev = self;
 	sc->iot = faa->faa_bst;
 	sc->sc_size = size;
-	sc->sc_bus.dmatag = faa->faa_dmat;
-	sc->sc_bus.hci_private = sc;
-	sc->sc_bus.usbrev = USBREV_2_0;
+	sc->sc_bus.ub_dmatag = faa->faa_dmat;
+	sc->sc_bus.ub_hcpriv = sc;
+	sc->sc_bus.ub_revision = USBREV_2_0;
 	sc->sc_ncomp = 0;
 	strlcpy(sc->sc_vendor, "exynos", sizeof(sc->sc_vendor));
 
@@ -114,9 +113,9 @@ exynos_ehci_attach(device_t parent, device_t self, void *aux)
 	aprint_normal(": EHCI NOT IMPLEMENTED\n");
 
 	/* attach */
-	r = ehci_init(sc);
-	if (r != USBD_NORMAL_COMPLETION) {
-		aprint_error_dev(self, "init failed, error = %d\n", r);
+	error = ehci_init(sc);
+	if (error) {
+		aprint_error_dev(self, "init failed, error = %d\n", error);
 		/* disable : TBD */
 		return;
 	}

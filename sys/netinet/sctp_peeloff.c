@@ -74,8 +74,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <netinet/sctputil.h>
 
 #ifdef IPSEC
-#include <netinet6/ipsec.h>
-#include <netkey/key.h>
+#include <netipsec/ipsec.h>
+#include <netipsec/key.h>
 #endif /*IPSEC*/
 
 #ifdef SCTP_DEBUG

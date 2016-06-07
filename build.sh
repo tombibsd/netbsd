@@ -1593,21 +1593,28 @@ rebuildmake()
 	fi
 
 	# Build bootstrap ${toolprefix}make if needed.
-	if ${do_rebuildmake}; then
-		statusmsg "Bootstrapping ${toolprefix}make"
-		${runcmd} cd "${tmpdir}"
-		${runcmd} env CC="${HOST_CC-cc}" CPPFLAGS="${HOST_CPPFLAGS}" \
-			CFLAGS="${HOST_CFLAGS--O}" LDFLAGS="${HOST_LDFLAGS}" \
-			${HOST_SH} "${TOP}/tools/make/configure" ||
-		    ( cp ${tmpdir}/config.log ${tmpdir}-config.log
-		      bomb "Configure of ${toolprefix}make failed, see ${tmpdir}-config.log for details" )
-		${runcmd} ${HOST_SH} buildmake.sh ||
-		    bomb "Build of ${toolprefix}make failed"
-		make="${tmpdir}/${toolprefix}make"
-		${runcmd} cd "${TOP}"
-		${runcmd} rm -f usr.bin/make/*.o usr.bin/make/lst.lib/*.o
-		done_rebuildmake=true
+	if ! ${do_rebuildmake}; then
+		return
 	fi
+
+	statusmsg "Bootstrapping ${toolprefix}make"
+	${runcmd} cd "${tmpdir}"
+	${runcmd} env \
+\
+CC="${HOST_CC-cc}" \
+CPPFLAGS="${HOST_CPPFLAGS} -D_PATH_DEFSYSPATH="'\"'${NETBSDSRCDIR}/share/mk'\"' \
+CFLAGS="${HOST_CFLAGS--O}" \
+LDFLAGS="${HOST_LDFLAGS}" \
+\
+	    ${HOST_SH} "${TOP}/tools/make/configure" ||
+	( cp ${tmpdir}/config.log ${tmpdir}-config.log
+	      bomb "Configure of ${toolprefix}make failed, see ${tmpdir}-config.log for details" )
+	${runcmd} ${HOST_SH} buildmake.sh ||
+	    bomb "Build of ${toolprefix}make failed"
+	make="${tmpdir}/${toolprefix}make"
+	${runcmd} cd "${TOP}"
+	${runcmd} rm -f usr.bin/make/*.o usr.bin/make/lst.lib/*.o
+	done_rebuildmake=true
 }
 
 # validatemakeparams --

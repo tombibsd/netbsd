@@ -8,7 +8,7 @@ COMMENT=USB host controller using /dev/ugen
 IOCONF= UGENHC.ioconf
 RUMP_COMPONENT=ioconf
 
-SRCS=	ugenhc.c ugenhc_dma.c
+SRCS=	ugenhc.c
 
 RUMPCOMP_USER_SRCS=	ugenhc_user.c
 .else

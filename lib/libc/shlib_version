@@ -44,4 +44,4 @@
 # - decide whether soft-float should support fenv.h, including thread-local contett
 # - stop all math functions from setting errno
 major=12
-minor=201
+minor=202

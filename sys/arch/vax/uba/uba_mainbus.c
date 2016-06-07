@@ -193,7 +193,7 @@ qba_beforescan(struct uba_softc *sc)
 {
 #define	QIPCR	0x1f40
 #define	Q_LMEAE	0x20
-	bus_space_write_2(sc->uh_tag, sc->uh_ioh, QIPCR, Q_LMEAE);
+	bus_space_write_2(sc->uh_iot, sc->uh_ioh, QIPCR, Q_LMEAE);
 }
 
 void

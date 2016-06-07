@@ -204,17 +204,15 @@ cgsixattach(device_t parent, device_t self, void *aux)
 	else
 		isconsole = 0;
 
-	if (isconsole && cgsix_use_rasterconsole) {
-		if (bus_space_map(oba->oba_bustag,
-				  oba->oba_paddr + CGSIX_RAM_OFFSET,
-				  sc->sc_ramsize,
-				  BUS_SPACE_MAP_LINEAR,
-				  &bh) != 0) {
-			printf("%s: cannot map pixels\n", device_xname(self));
-			return;
-		}
-		sc->sc_fb.fb_pixels = (void *)bh;
+	if (bus_space_map(oba->oba_bustag,
+			  oba->oba_paddr + CGSIX_RAM_OFFSET,
+			  sc->sc_ramsize,
+			  BUS_SPACE_MAP_LINEAR,
+			  &bh) != 0) {
+		printf("%s: cannot map pixels\n", device_xname(self));
+		return;
 	}
+	sc->sc_fb.fb_pixels = (void *)bh;
 
 	cg6attach(sc, name, isconsole);
 }

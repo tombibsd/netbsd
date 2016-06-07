@@ -99,9 +99,9 @@
  *   LONG TERM SLEEPS MUST NOT OCCUR WITH THIS LOCK HELD.
  *
  * - sc_intr_lock, provided by the underlying driver.  This may be either a
- *   spinlock (at IPL_SCHED or IPL_VM) or an adaptive lock (IPL_NONE),
- *   returned in the first parameter to hw_if->get_locks().  It is known as
- *   the "interrupt lock".
+ *   spinlock (at IPL_SCHED or IPL_VM) or an adaptive lock (IPL_NONE or
+ *   IPL_SOFT*), returned in the first parameter to hw_if->get_locks().  It
+ *   is known as the "interrupt lock".
  *
  *   It provides atomic access to the device's hardware state, and to audio
  *   channel data that may be accessed by the hardware driver's ISR.

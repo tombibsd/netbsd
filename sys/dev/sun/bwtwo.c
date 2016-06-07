@@ -310,7 +310,6 @@ bwtwoattach(struct bwtwo_softc *sc, const char *name, int isconsole)
 			 * definition. In this case we fill it from fb to
 			 * avoid problems in case no bwtwo is the console
 			 */
-			ri = &sc->sc_fb.fb_rinfo;
 			bwtwo_defaultscreen.textops = &ri->ri_ops;
 			bwtwo_defaultscreen.capabilities = ri->ri_caps;
 			bwtwo_defaultscreen.nrows = ri->ri_rows;
@@ -404,8 +403,8 @@ bwtwo_ioctl(void *v, void *vs, u_long cmd, void *data, int flag,
 	struct vcons_data *vd = v;
 	struct bwtwo_softc *sc = vd->cookie;
 	struct wsdisplay_fbinfo *wdf;
-	struct rasops_info *ri = &sc->sc_fb.fb_rinfo;
 	struct vcons_screen *ms = sc->vd.active;
+	struct rasops_info *ri = &ms->scr_ri;
 	switch (cmd) {
 		case WSDISPLAYIO_GTYPE:
 			*(u_int *)data = WSDISPLAY_TYPE_GENFB;

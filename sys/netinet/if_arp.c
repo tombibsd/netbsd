@@ -506,6 +506,10 @@ arp_rtrequest(int req, struct rtentry *rt, const struct rt_addrinfo *info)
 		break;
 	case RTM_ADD:
 		gate = arp_setgate(rt, gate, info->rti_info[RTAX_NETMASK]);
+		if (gate == NULL) {
+			log(LOG_ERR, "%s: arp_setgate failed\n", __func__);
+			break;
+		}
 		if ((rt->rt_flags & RTF_CONNECTED) ||
 		    (rt->rt_flags & RTF_LOCAL)) {
 			/*

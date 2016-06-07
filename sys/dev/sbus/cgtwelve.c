@@ -422,7 +422,7 @@ cgtwelve_setup(struct cgtwelve_softc *sc, int depth)
 		cgtwelve_select_ovl(sc, CG12_SEL_OVL);
 		memset(sc->sc_fbaddr, 0, 0x20000);
 
-		/* and make sure we can write the 24bit fb */
+		/* and make sure we can write the 8bit fb */
 		cgtwelve_select_ovl(sc, CG12_SEL_8BIT);
 		break;
 	case 24:

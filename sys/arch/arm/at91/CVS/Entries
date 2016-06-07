@@ -14,7 +14,7 @@
 /at91emacreg.h/1.4/Mon Nov 12 18:00:36 2012/-kk/
 /at91emacvar.h/1.3/Fri Oct 23 06:53:13 2009/-kk/
 /at91intr.h/1.4/Thu Feb 13 15:35:48 2014/-kk/
-/at91ohci.c/1.5/Fri Nov  4 17:13:15 2011/-kk/
+/at91ohci.c/1.6/Tue Jun  7 10:31:37 2016/-kk/
 /at91pdc.c/1.3/Fri Jul  1 19:31:17 2011/-kk/
 /at91pdcreg.h/1.3/Fri Oct 23 06:53:13 2009/-kk/
 /at91pdcvar.h/1.3/Mon Nov 12 18:00:36 2012/-kk/

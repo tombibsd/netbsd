@@ -403,25 +403,9 @@ int	rt_setgate(struct rtentry *, const struct sockaddr *);
 const struct sockaddr *
 	rt_settag(struct rtentry *, const struct sockaddr *);
 struct sockaddr *
-	rt_gettag(struct rtentry *);
+	rt_gettag(const struct rtentry *);
 
-static inline struct rtentry *
-rt_get_gwroute(struct rtentry *rt)
-{
-	if (rt->rt_gwroute == NULL)
-		return NULL;
-	rt->rt_gwroute->rt_refcnt++;
-	return rt->rt_gwroute;
-}
-
-static inline void
-rt_set_gwroute(struct rtentry *rt, struct rtentry *gwrt)
-{
-
-	rt->rt_gwroute = gwrt;
-	if (rt->rt_gwroute != NULL)
-		rt->rt_gwroute->rt_refcnt++;
-}
+int	rt_check_reject_route(const struct rtentry *, const struct ifnet *);
 
 static inline void
 rt_assert_referenced(const struct rtentry *rt)

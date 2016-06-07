@@ -739,11 +739,18 @@ COMPATNAME(route_output)(struct mbuf *m, struct socket *so)
 			 */
 			if ((error = rt_getifa(&info)) != 0)
 				senderr(error);
-			if (info.rti_info[RTAX_GATEWAY] &&
-			    rt_setgate(rt, info.rti_info[RTAX_GATEWAY]))
-				senderr(EDQUOT);
-			if (info.rti_info[RTAX_TAG])
-				rt_settag(rt, info.rti_info[RTAX_TAG]);
+			if (info.rti_info[RTAX_GATEWAY]) {
+				error = rt_setgate(rt,
+				    info.rti_info[RTAX_GATEWAY]);
+				if (error != 0)
+					senderr(error);
+			}
+			if (info.rti_info[RTAX_TAG]) {
+				const struct sockaddr *tag;
+				tag = rt_settag(rt, info.rti_info[RTAX_TAG]);
+				if (tag == NULL)
+					senderr(ENOBUFS);
+			}
 			/* new gateway could require new ifaddr, ifp;
 			   flags may also be different; ifp may be specified
 			   by ll sockaddr when protocol address is ambiguous */
@@ -1144,6 +1151,7 @@ COMPATNAME(rt_missmsg)(int type, const struct rt_addrinfo *rtinfo, int flags,
 	if (COMPATNAME(route_info).ri_cb.any_count == 0)
 		return;
 	memset(&rtm, 0, sizeof(rtm));
+	rtm.rtm_pid = curproc->p_pid;
 	rtm.rtm_flags = RTF_DONE | flags;
 	rtm.rtm_errno = error;
 	m = COMPATNAME(rt_msg1)(type, &info, &rtm, sizeof(rtm));
@@ -1267,6 +1275,7 @@ COMPATNAME(rt_newaddrmsg)(int cmd, struct ifaddr *ifa, int error,
 			info.rti_info[RTAX_DST] = sa = rt_getkey(rt);
 			info.rti_info[RTAX_GATEWAY] = rt->rt_gateway;
 			memset(&rtm, 0, sizeof(rtm));
+			rtm.rtm_pid = curproc->p_pid;
 			rtm.rtm_index = ifp->if_index;
 			rtm.rtm_flags |= rt->rt_flags;
 			rtm.rtm_errno = error;

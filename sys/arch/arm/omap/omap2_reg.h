@@ -141,6 +141,12 @@
 #define	TI_DM37XX_L4_EMULATION_BASE	0x54000000
 #define	TI_DM37XX_L4_EMULATION_SIZE	0x00800000	/* 8MB */
 
+
+#define CHIPID_OMAP3503		0x5c00
+#define CHIPID_OMAP3515		0x1c00
+#define CHIPID_OMAP3525		0x4c00
+#define CHIPID_OMAP3530		0x0c00
+
 /*
  * Clock Management registers base, offsets, and size
  */

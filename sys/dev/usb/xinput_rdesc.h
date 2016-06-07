@@ -30,10 +30,10 @@
  * Descriptor from http://euc.jp/periphs/xbox-pad-report-desc.txt
  */
 
-#define	USBIF_IS_XINPUT(uaa)			\
-	((uaa)->class == UICLASS_VENDOR && 	\
-	 (uaa)->subclass == 0x5d &&		\
-	 (uaa)->proto == 0x01)
+#define	USBIF_IS_XINPUT(uiaa)				\
+	((uiaa)->uiaa_class == UICLASS_VENDOR && 	\
+	 (uiaa)->uiaa_subclass == 0x5d &&		\
+	 (uiaa)->uiaa_proto == 0x01)
 
 static const uByte uhid_xinput_report_descr[] = {
     0x05, 0x01,		/* Usage Page (Generic Desktop) */

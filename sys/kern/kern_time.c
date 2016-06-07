@@ -97,6 +97,7 @@ CTASSERT(ITIMER_VIRTUAL == CLOCK_VIRTUAL);
 CTASSERT(ITIMER_PROF == CLOCK_PROF);
 CTASSERT(ITIMER_MONOTONIC == CLOCK_MONOTONIC);
 
+
 /*
  * Initialize timekeeping.
  */
@@ -375,6 +376,36 @@ again:
 		error = 0;
 
 	return error;
+}
+
+int
+sys_clock_getcpuclockid2(struct lwp *l,
+    const struct sys_clock_getcpuclockid2_args *uap,
+    register_t *retval)
+{
+	/* {
+		syscallarg(idtype_t idtype;
+		syscallarg(id_t id);
+		syscallarg(clockid_t *)clock_id;
+	} */
+	pid_t pid;
+	lwpid_t lid;
+	clockid_t clock_id;
+	id_t id = SCARG(uap, id);
+
+	switch (SCARG(uap, idtype)) {
+	case P_PID:
+		pid = id == 0 ? l->l_proc->p_pid : id; 
+		clock_id = CLOCK_PROCESS_CPUTIME_ID | pid;
+		break;
+	case P_LWPID:
+		lid = id == 0 ? l->l_lid : id;
+		clock_id = CLOCK_THREAD_CPUTIME_ID | lid;
+		break;
+	default:
+		return EINVAL;
+	}
+	return copyout(&clock_id, SCARG(uap, clock_id), sizeof(clock_id));
 }
 
 /* ARGSUSED */

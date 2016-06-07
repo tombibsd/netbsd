@@ -66,8 +66,8 @@ uyap_match(device_t parent, cfdata_t match, void *aux)
 	struct usb_attach_arg *uaa = aux;
 
 	/* Match the boot device. */
-	if (uaa->vendor == USB_VENDOR_SILICONPORTALS &&
-	    uaa->product == USB_PRODUCT_SILICONPORTALS_YAPPH_NF)
+	if (uaa->uaa_vendor == USB_VENDOR_SILICONPORTALS &&
+	    uaa->uaa_product == USB_PRODUCT_SILICONPORTALS_YAPPH_NF)
 		return (UMATCH_VENDOR_PRODUCT);
 
 	return (UMATCH_NONE);
@@ -78,7 +78,7 @@ uyap_attach(device_t parent, device_t self, void *aux)
 {
 	struct uyap_softc *sc = device_private(self);
 	struct usb_attach_arg *uaa = aux;
-	usbd_device_handle dev = uaa->device;
+	struct usbd_device *dev = uaa->uaa_device;
 	usbd_status err;
 	char *devinfop;
 

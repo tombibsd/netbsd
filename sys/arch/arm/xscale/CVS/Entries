@@ -97,7 +97,7 @@
 /pxa2x0_lcd.h/1.10/Fri Jul  1 20:32:51 2011/-kk/
 /pxa2x0_mci.c/1.10/Sat Jan 21 19:44:28 2012/-kk/
 /pxa2x0_mci.h/1.2/Sat Jan 21 19:44:28 2012/-kk/
-/pxa2x0_ohci.c/1.9/Sat Oct 27 17:17:42 2012/-kk/
+/pxa2x0_ohci.c/1.10/Tue Jun  7 10:31:38 2016/-kk/
 /pxa2x0_pcic.c/1.12/Thu Oct 24 10:28:57 2013/-kk/
 /pxa2x0_pcic.h/1.5/Sat Oct 27 17:17:42 2012/-kk/
 /pxa2x0_rtc.c/1.6/Sat Oct 27 17:17:42 2012/-kk/

@@ -125,3 +125,5 @@ CPPFLAGS+=	-I${BINBACKENDOBJ}
 
 COPTS.archive.c+=	-Wno-error
 COPTS.sendmsg.c+=	-Wno-error
+COPTS.encoding.c+=	-Wno-pointer-arith	# sizeof(void)
+COPTS+=			-Wno-missing-prototypes

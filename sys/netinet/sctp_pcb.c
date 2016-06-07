@@ -76,8 +76,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #endif /* INET6 */
 
 #ifdef IPSEC
-#include <netinet6/ipsec.h>
-#include <netkey/key.h>
+#include <netipsec/ipsec.h>
+#include <netipsec/key.h>
 #endif /* IPSEC */
 
 #include <netinet/sctp_var.h>

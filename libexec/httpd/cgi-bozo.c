@@ -333,12 +333,12 @@ parse_search_string(bozo_httpreq_t *request, const char *query, size_t *args_len
 
 parse_err:
 
-	free (*args);
 	free (str);
-	*args = NULL;
+	free (*args);
+	free(args);
 	*args_len = 0;
 
-	return 0;
+	return NULL;
 
 }
 

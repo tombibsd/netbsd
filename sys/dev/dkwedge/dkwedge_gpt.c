@@ -267,13 +267,14 @@ dkwedge_discover_gpt(struct disk *pdk, struct vnode *vp)
 		 */
 		if ((error = dkwedge_add(&dkw)) == EEXIST &&
 		    strcmp(dkw.dkw_wname, ent_guid_str) != 0) {
+			char orig[sizeof(dkw.dkw_wname)];
+			strcpy(orig, dkw.dkw_wname);
 			strcpy(dkw.dkw_wname, ent_guid_str);
 			error = dkwedge_add(&dkw);
 			if (!error)
 				aprint_error("%s: wedge named '%s' already "
 				    "existed, using '%s'\n", pdk->dk_name,
-				    dkw.dkw_wname, /* XXX Unicode */
-				    ent_guid_str);
+				    orig, ent_guid_str);
 		}
 		if (error == EEXIST)
 			aprint_error("%s: wedge named '%s' already exists, "

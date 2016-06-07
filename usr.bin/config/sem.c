@@ -928,6 +928,12 @@ resolve(struct nvlist **nvp, const char *name, const char *what,
 		 */
 		return (0);
 
+	if (nv->nv_ptr != NULL && strcmp(nv->nv_ptr, "spec") == 0)
+		/*
+		 * spec string, interpreted by kernel
+		 */
+		return (0);
+
 	/*
 	 * The normal case: things like "ra2b".  Check for partition
 	 * suffix, remove it if there, and split into name ("ra") and

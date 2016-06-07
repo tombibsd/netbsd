@@ -74,9 +74,10 @@ search_init(EditLine *el)
 	    sizeof(*el->el_search.patbuf));
 	if (el->el_search.patbuf == NULL)
 		return -1;
+	el->el_search.patbuf[0] = L'\0';
 	el->el_search.patlen = 0;
 	el->el_search.patdir = -1;
-	el->el_search.chacha = '\0';
+	el->el_search.chacha = L'\0';
 	el->el_search.chadir = CHAR_FWD;
 	el->el_search.chatflg = 0;
 	return 0;

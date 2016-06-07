@@ -44,6 +44,6 @@ attach	wdc at extio with wdc_extio
 file	arch/mips/adm5120/dev/wdc_extio.c		wdc_extio
 
 # On-chip USB controller
-device	ahci: usbus, usb_dma
+device	ahci: usbus, usbroothub, usb_dma
 attach	ahci at obio
 file	arch/mips/adm5120/dev/ahci.c			ahci

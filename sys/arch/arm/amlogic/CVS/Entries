@@ -5,7 +5,7 @@
 /amlogic_comvar.h/1.1/Fri Feb 27 17:35:08 2015/-kk/
 /amlogic_cpufreq.c/1.5/Sat Dec  5 11:19:13 2015/-kk/
 /amlogic_crureg.h/1.13/Sat Dec  5 11:19:13 2015/-kk/
-/amlogic_dwctwo.c/1.5/Sun Sep 13 01:05:34 2015/-kk/
+/amlogic_dwctwo.c/1.6/Tue Jun  7 10:31:37 2016/-kk/
 /amlogic_genfb.c/1.5/Sun Apr 12 03:34:30 2015/-kk/
 /amlogic_gmac.c/1.2/Wed Mar  4 18:40:06 2015/-kk/
 /amlogic_gpio.c/1.2/Wed Jun  3 06:54:16 2015/-kk/

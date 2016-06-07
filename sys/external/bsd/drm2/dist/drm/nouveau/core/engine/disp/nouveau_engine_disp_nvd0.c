@@ -1042,7 +1042,8 @@ exec_clkcmp(struct nv50_disp_priv *priv, int head, int id,
 	}
 
 	data = nvbios_ocfg_match(bios, data, conf, &ver, &hdr, &cnt, &len, &info2);
-	if (data && id < 0xff) {
+	CTASSERT(__arraycount(info2.clkcmp) <= 0xff);
+	if (data && id < __arraycount(info2.clkcmp)) {
 		data = nvbios_oclk_match(bios, info2.clkcmp[id], pclk);
 		if (data) {
 			struct nvbios_init init = {

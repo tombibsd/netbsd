@@ -98,6 +98,7 @@ struct cgfourteen_softc {
 #if NSX > 0
 	struct sx_softc *sc_sx;
 	uint32_t sc_fb_paddr;
+	glyphcache sc_gc;
 #endif /* NSX > 0 */
 #endif
 

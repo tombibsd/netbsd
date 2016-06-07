@@ -138,6 +138,8 @@ int	pthread_resume_np(pthread_t);
 
 unsigned int	pthread_curcpu_np(void);
 
+int	pthread_getcpuclockid(pthread_t, clockid_t *);
+
 struct pthread_cleanup_store {
 	void	*pad[4];
 };

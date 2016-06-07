@@ -783,6 +783,14 @@ port	x86
 		out which option is causing this.
 	hcah
 
+	hack	turn off -ftree-vrp for ufs_lookup.c
+	who	mrg
+	file	src/sys/arch/amd64/conf/Makefile.amd64 : 1.54
+	descr
+		with -ftree-vrp enabled in ufs_lookup.c sometimes bad dir
+		panicks are see.  see PR 51094.
+	hcah
+
 port	powerpc
 
 	hack	avoid using __builtin_return_address(0) because it fails in

@@ -181,16 +181,20 @@ test_blackhole()
 
 	export RUMP_SERVER=$SOCK_LOCAL
 
+	atf_check -s exit:0 -o ignore rump.ping -n -w 1 -c 1 10.0.0.1
+
 	# Delete an existing route first
 	atf_check -s exit:0 -o ignore rump.route delete -net 10.0.0.0/24
 
-	atf_check -s exit:0 -o ignore rump.route add -net 10.0.0.0/24 10.0.0.1 -blackhole
+	# Gateway must be lo0
+	atf_check -s exit:0 -o ignore \
+	    rump.route add -net 10.0.0.0/24 127.0.0.1 -blackhole
 	$DEBUG && rump.netstat -rn -f inet
 
 	# Up, Gateway, Blackhole, Static
 	check_entry_flags 10.0.0/24 UGBS
 
-	atf_check -s not-exit:0 -o ignore -e match:'No route to host' \
+	atf_check -s not-exit:0 -o match:'100.0% packet loss' \
 	    rump.ping -n -w 1 -c 1 10.0.0.1
 	$DEBUG && rump.netstat -rn -f inet
 
@@ -218,6 +222,43 @@ test_reject()
 
 	# Shouldn't be created
 	check_entry_fail 10.0.0.1 UH
+
+	# Gateway is lo0 (RTF_GATEWAY)
+
+	# Delete an existing route first
+	atf_check -s exit:0 -o ignore rump.route delete -net 10.0.0.0/24
+
+	atf_check -s exit:0 -o ignore \
+	    rump.route add -net 10.0.0.0/24 127.0.0.1 -reject
+	$DEBUG && rump.netstat -rn -f inet
+
+	# Up, Gateway, Reject, Static
+	check_entry_flags 10.0.0/24 UGRS
+
+	atf_check -s not-exit:0 -o ignore -e match:'Network is unreachable' \
+	    rump.ping -n -w 1 -c 1 10.0.0.1
+	$DEBUG && rump.netstat -rn -f inet
+
+	# Shouldn't be created
+	check_entry_fail 10.0.0.1 UH
+
+	# Gateway is lo0 (RTF_HOST)
+
+	# Delete an existing route first
+	atf_check -s exit:0 -o ignore rump.route delete -net 10.0.0.0/24
+
+	atf_check -s exit:0 -o ignore \
+	    rump.route add -host 10.0.0.1/24 127.0.0.1 -iface -reject
+	$DEBUG && rump.netstat -rn -f inet
+
+	# Up, Host, Reject, Static
+	check_entry_flags 10.0.0.1 UHRS
+
+	atf_check -s not-exit:0 -o ignore -e match:'No route to host' \
+	    rump.ping -n -w 1 -c 1 10.0.0.1
+	$DEBUG && rump.netstat -rn -f inet
+
+	return 0
 }
 
 test_icmp_redirect()

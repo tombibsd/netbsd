@@ -56,7 +56,6 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/sysctl.h>
 
 #include <net/if.h>
-#include <net/route.h>
 #include <net/net_stats.h>
 
 #include <netinet/in.h>

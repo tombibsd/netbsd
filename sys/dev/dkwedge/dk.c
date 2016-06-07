@@ -761,6 +761,23 @@ dkwedge_find_by_wname(const char *wname)
 	return dv;
 }
 
+device_t
+dkwedge_find_by_parent(const char *name, size_t *i)
+{
+	rw_enter(&dkwedges_lock, RW_WRITER);
+	for (; *i < (size_t)ndkwedges; (*i)++) {
+		struct dkwedge_softc *sc;
+		if ((sc = dkwedges[*i]) == NULL)
+			continue;
+		if (strcmp(sc->sc_parent->dk_name, name) != 0)
+			continue;
+		rw_exit(&dkwedges_lock);
+		return sc->sc_dev;
+	}
+	rw_exit(&dkwedges_lock);
+	return NULL;
+}
+
 void
 dkwedge_print_wnames(void)
 {

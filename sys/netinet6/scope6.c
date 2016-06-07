@@ -41,7 +41,6 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/queue.h>
 #include <sys/syslog.h>
 
-#include <net/route.h>
 #include <net/if.h>
 
 #include <netinet/in.h>

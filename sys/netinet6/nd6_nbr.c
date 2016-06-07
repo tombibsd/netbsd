@@ -149,7 +149,9 @@ nd6_ns_input(struct mbuf *m, int off, int icmp6len)
 		 */
 		sockaddr_in6_init(&ssin6, &saddr6, 0, 0, 0);
 		if (nd6_is_addr_neighbor(&ssin6, ifp) == 0) {
-			nd6log(LOG_INFO, "NS packet from non-neighbor\n");
+			nd6log(LOG_INFO,
+			    "NS packet from non-neighbor %s on %s\n",
+			    ip6_sprintf(&saddr6), if_name(ifp));
 			goto bad;
 		}
 	}
@@ -625,7 +627,8 @@ nd6_na_input(struct mbuf *m, int off, int icmp6len)
 	 */
 	sockaddr_in6_init(&ssin6, &saddr6, 0, 0, 0);
 	if (nd6_is_addr_neighbor(&ssin6, ifp) == 0) {
-		nd6log(LOG_INFO, "ND packet from non-neighbor\n");
+		nd6log(LOG_INFO, "ND packet from non-neighbor %s on %s\n",
+		    ip6_sprintf(&saddr6), if_name(ifp));
 		goto bad;
 	}
 

@@ -336,7 +336,7 @@ init_db(mandb_access_mode db_flag, const char *manconf)
 		 * to read/write the files
 		 */
 		int access_mode = R_OK;
-		switch (access_mode) {
+		switch (db_flag) {
 		case MANDB_CREATE:
 		case MANDB_WRITE:
 			access_mode |= W_OK;

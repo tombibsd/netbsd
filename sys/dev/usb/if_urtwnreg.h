@@ -530,7 +530,7 @@
 
 /* Bits for R92C_BCNDMATIM */
 #define R92C_DMA_ATIME_INT_TIME		0x02
- 
+
 /* Bits for R92C_APSD_CTRL. */
 #define R92C_APSD_CTRL_OFF		0x40
 #define R92C_APSD_CTRL_OFF_STATUS	0x80

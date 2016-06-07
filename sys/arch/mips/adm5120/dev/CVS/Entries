@@ -1,9 +1,9 @@
 /admgpio.c/1.4/Fri Jul  1 18:38:49 2011/-kk/
 /admpci.c/1.13/Sun Oct 11 09:01:03 2015/-kk/
 /admwdog.c/1.4/Sat Oct 27 17:18:01 2012/-kk/
-/ahci.c/1.12/Thu Oct 24 10:28:57 2013/-kk/
-/ahcireg.h/1.1/Tue Mar 20 08:52:01 2007/-kk/
-/ahcivar.h/1.5/Thu Oct 24 10:28:57 2013/-kk/
+/ahci.c/1.13/Tue Jun  7 10:31:46 2016/-kk/
+/ahcireg.h/1.2/Tue Jun  7 10:31:46 2016/-kk/
+/ahcivar.h/1.6/Tue Jun  7 10:31:46 2016/-kk/
 /if_admsw.c/1.13/Mon Feb 15 11:06:52 2016/-kk/
 /if_admswreg.h/1.1/Tue Mar 20 08:52:02 2007/-kk/
 /if_admswvar.h/1.5/Sat Oct 27 17:18:01 2012/-kk/

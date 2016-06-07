@@ -143,9 +143,6 @@ __dso_hidden const struct _locale_cache_t _C_cache = {
     .numeric_name = _lc_C_locale_name,
 };
 
-#ifndef __clang__
-__dso_protected
-#endif
 struct _locale _lc_global_locale = {
     .cache = &_C_cache,
     .query = { _C_LOCALE },
@@ -174,9 +171,6 @@ struct _locale _lc_global_locale = {
     },
 };
 
-#ifndef __clang__
-__dso_protected
-#endif
 const struct _locale _lc_C_locale = {
     .cache = &_C_cache,
     .query = { _C_LOCALE },

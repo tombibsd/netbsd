@@ -18,7 +18,7 @@ OSRCS=	chared.c common.c el.c eln.c emacs.c filecomplete.c \
 	hist.c keymacro.c map.c chartype.c \
 	parse.c prompt.c read.c refresh.c search.c sig.c terminal.c tty.c vi.c
 
-MAN=	editline.3 editrc.5
+MAN=	editline.3 editrc.5 editline.7
 
 MLINKS=	editline.3 el_init.3 editline.3 el_end.3 editline.3 el_reset.3 \
 	editline.3 el_gets.3 editline.3 el_getc.3 editline.3 el_push.3 \

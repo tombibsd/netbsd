@@ -125,7 +125,7 @@ slhci_intio_attach(device_t parent, device_t self, void *aux)
 	int nc_size;
 
 	sc->sc_dev = self;
-	sc->sc_bus.hci_private = sc;
+	sc->sc_bus.ub_hcpriv = sc;
 
 	printf(": Nereid USB\n");
 

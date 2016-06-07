@@ -45,7 +45,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <mips/rmi/rmixl_intr.h>
 #include <mips/rmi/rmixl_usbivar.h>
 
-#include <dev/usb/usb.h>   
+#include <dev/usb/usb.h>
 #include <dev/usb/usbdi.h>
 #include <dev/usb/usbdivar.h>
 #include <dev/usb/usb_mem.h>
@@ -81,7 +81,6 @@ rmixl_ehci_attach(device_t parent, device_t self, void *aux)
 	struct rmixl_usbi_attach_args * const usbi = aux;
 	void *ih = NULL;
 	uint32_t r;
-	usbd_status status;
 
 	/* check state of IO_AD9 signal latched in GPIO Reset Config reg */
 	r = RMIXL_IOREG_READ(RMIXL_IO_DEV_GPIO + RMIXL_GPIO_RESET_CFG);
@@ -92,11 +91,11 @@ rmixl_ehci_attach(device_t parent, device_t self, void *aux)
 	}
 
 	sc->sc_dev = self;
-	sc->sc_bus.hci_private = sc;
+	sc->sc_bus.ub_hcpriv = sc;
 	sc->iot = usbi->usbi_el_bst;
 	sc->sc_size = usbi->usbi_size;
-	sc->sc_bus.dmatag = usbi->usbi_dmat;
-	sc->sc_bus.usbrev = USBREV_1_0;
+	sc->sc_bus.ub_dmatag = usbi->usbi_dmat;
+	sc->sc_bus.ub_revision = USBREV_1_0;
 
 	/*
 	 * Grab the companion OHCI devices from our parent.
@@ -130,9 +129,9 @@ rmixl_ehci_attach(device_t parent, device_t self, void *aux)
 				device_xname(self));
 	}
 
-	status = ehci_init(sc);
-	if (status != USBD_NORMAL_COMPLETION) {
-		aprint_error_dev(self, "init failed, error=%d\n", status);
+	int err = ehci_init(sc);
+	if (err) {
+		aprint_error_dev(self, "init failed, error=%d\n", err);
 		if (ih != NULL)
 			rmixl_intr_disestablish(ih);
 		return;

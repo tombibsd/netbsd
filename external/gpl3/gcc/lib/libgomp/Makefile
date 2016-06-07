@@ -86,6 +86,7 @@ libinstall::
 
 .include <bsd.lib.mk>
 
-COPTS+=	-Wno-stack-protector
+COPTS+=	-Wno-stack-protector -Wno-missing-prototypes
+COPTS.oacc-mem.c+= -Wno-pointer-arith
 
 .PATH:	${ARCHDIR} ${DIST}/libgomp ${DIST}/libgomp/config/posix

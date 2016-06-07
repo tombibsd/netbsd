@@ -37,6 +37,7 @@ struct ttm_mem_global;
 
 int	ttm_bus_dma_populate(struct ttm_dma_tt *);
 void	ttm_bus_dma_unpopulate(struct ttm_dma_tt *);
+void	ttm_bus_dma_swapout(struct ttm_dma_tt *);
 
 static inline int
 ttm_page_alloc_init(struct ttm_mem_global *glob __unused,

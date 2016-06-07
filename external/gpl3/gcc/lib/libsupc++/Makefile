@@ -25,7 +25,7 @@ SHLIB_MINOR=	0
 SRCS=		${LIBSUPCXXSRCS} xmalloc.c
 CXXFLAGS+=	${G_SECTION_FLAGS}
 
-COPTS.cp-demangle.c = -Wno-stack-protector
+COPTS.cp-demangle.c = -Wno-stack-protector -Wno-unused-function
 
 .if ${HAVE_LIBGCC_EH} == "no"
 G_CONFIGLINKS:= ${G_CONFIGLINKS:S,libgcc/config/arm/unwind-arm.h,libgcc/unwind-generic.h,}

@@ -308,7 +308,7 @@ if_initname(struct ifnet *ifp, const char *name, int unit)
 
 int
 if_nulloutput(struct ifnet *ifp, struct mbuf *m,
-    const struct sockaddr *so, struct rtentry *rt)
+    const struct sockaddr *so, const struct rtentry *rt)
 {
 
 	return ENXIO;
@@ -326,6 +326,13 @@ if_nullstart(struct ifnet *ifp)
 {
 
 	/* Nothing. */
+}
+
+int
+if_nulltransmit(struct ifnet *ifp, struct mbuf *m)
+{
+
+	return ENXIO;
 }
 
 int
@@ -665,6 +672,9 @@ if_register(ifnet_t *ifp)
 		if_slowtimo(ifp);
 	}
 
+	if (ifp->if_transmit == NULL || ifp->if_transmit == if_nulltransmit)
+		ifp->if_transmit = if_transmit;
+
 	TAILQ_INSERT_TAIL(&ifnet_list, ifp, if_list);
 }
 
@@ -959,6 +969,7 @@ if_deactivate(struct ifnet *ifp)
 	ifp->if_output	 = if_nulloutput;
 	ifp->_if_input	 = if_nullinput;
 	ifp->if_start	 = if_nullstart;
+	ifp->if_transmit = if_nulltransmit;
 	ifp->if_ioctl	 = if_nullioctl;
 	ifp->if_init	 = if_nullinit;
 	ifp->if_stop	 = if_nullstop;
@@ -2667,28 +2678,42 @@ ifreq_setaddr(u_long cmd, struct ifreq *ifr, const struct sockaddr *sa)
 }
 
 /*
+ * wrapper function for the drivers which doesn't have if_transmit().
+ */
+int
+if_transmit(struct ifnet *ifp, struct mbuf *m)
+{
+	int s, error;
+
+	s = splnet();
+
+	IFQ_ENQUEUE(&ifp->if_snd, m, error);
+	if (error != 0) {
+		/* mbuf is already freed */
+		goto out;
+	}
+
+	ifp->if_obytes += m->m_pkthdr.len;;
+	if (m->m_flags & M_MCAST)
+		ifp->if_omcasts++;
+
+	if ((ifp->if_flags & IFF_OACTIVE) == 0)
+		(*ifp->if_start)(ifp);
+out:
+	splx(s);
+
+	return error;
+}
+
+/*
  * Queue message on interface, and start output if interface
  * not yet active.
  */
 int
 ifq_enqueue(struct ifnet *ifp, struct mbuf *m)
 {
-	int len = m->m_pkthdr.len;
-	int mflags = m->m_flags;
-	int s = splnet();
-	int error;
 
-	IFQ_ENQUEUE(&ifp->if_snd, m, error);
-	if (error != 0)
-		goto out;
-	ifp->if_obytes += len;
-	if (mflags & M_MCAST)
-		ifp->if_omcasts++;
-	if ((ifp->if_flags & IFF_OACTIVE) == 0)
-		(*ifp->if_start)(ifp);
-out:
-	splx(s);
-	return error;
+	return (*ifp->if_transmit)(ifp, m);
 }
 
 /*

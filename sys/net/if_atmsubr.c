@@ -90,7 +90,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 int
 atm_output(struct ifnet *ifp, struct mbuf *m0, const struct sockaddr *dst,
-    struct rtentry *rt)
+    const struct rtentry *rt)
 {
 	uint16_t etype = 0;			/* if using LLC/SNAP */
 	int error = 0, sz;
