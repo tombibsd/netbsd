@@ -16,6 +16,8 @@
  * number where it was last modified.  With no argument, annotates all
  * all the files in the directory (recursive by default).
  */
+#include <sys/cdefs.h>
+__RCSID("$NetBSD$");
 
 #include "cvs.h"
 

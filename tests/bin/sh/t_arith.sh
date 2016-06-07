@@ -834,6 +834,13 @@ make_selection_body()
 
 	atf_check -s exit:0 -o inline:'111\n' -e empty ${TEST_SH} -c \
 		'echo $(( 0x1234 ? 111 : 222 ))'
+
+	atf_check -s exit:0 -o inline:'-1\n' -e empty ${TEST_SH} -c \
+		'echo $(( 1 < 2 ? -1 : 1 > 2 ? 1 : 0 ))'
+	atf_check -s exit:0 -o inline:'0\n' -e empty ${TEST_SH} -c \
+		'echo $(( 1 < 1 ? -1 : 1 > 1 ? 1 : 0 ))'
+	atf_check -s exit:0 -o inline:'1\n' -e empty ${TEST_SH} -c \
+		'echo $(( 2 < 1 ? -1 : 2 > 1 ? 1 : 0 ))'
 }
 
 atf_test_case operator_precedence

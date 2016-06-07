@@ -12,6 +12,8 @@
  * 
  * Various useful functions for the CVS support code.
  */
+#include <sys/cdefs.h>
+__RCSID("$NetBSD$");
 
 #include "cvs.h"
 

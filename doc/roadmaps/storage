@@ -31,12 +31,13 @@ priorities but are still important undertakings worth doing:
  14. Port hammer from Dragonfly
  15. afs maintenance
  16. execute-in-place
+ 17. extended attributes for acl and capability storage
 
 The following elements, projects, and goals are perhaps less pressing;
 this doesn't mean one shouldn't work on them but the expected payoff
 is perhaps less than for other things:
 
- 17. coda maintenance
+ 18. coda maintenance
 
 
 Explanations
@@ -221,8 +222,9 @@ Semi-relatedly, it is also time for scsipi to become MPSAFE.
 
  - As of May 2016 a port of OpenBSD's driver has been commited. This
    will be in -8.
- - However, the driver still needs to be made MPSAFE, and we still
-   need to attend to scsipi and various other I/O path bottlenecks.
+ - The nvme driver is a backend to ld(4) which is MPSAFE, but we still
+   need to attend to I/O path bottlenecks. Better instrumentation
+   is needed.
  - There is no clear timeframe or release target for these points.
  - Contact msaitoh or agc for further information.
 
@@ -386,7 +388,17 @@ structurally and for performance analysis.
  - Contact dholland for further information.
 
 
-17. coda maintenance
+17. use extended attributes for ACL and capability storage
+----------------------------------------------------------
+
+Currently there is some support for extended attributes in ffs,
+but nothing really uses it. I would be nice if we came up with
+a standard format to store ACL's and capabilities like Linux has.
+The various tools must be modified to understand this and be able
+to copy them if requested. Also tools to manipulate the data will
+need to be written.
+
+18. coda maintenance
 --------------------
 
 Coda only sort of works. [And I think it's behind relative to
@@ -397,7 +409,8 @@ really be cleaned up. That or maybe it's time to remove Coda.
  - As of November 2015 nobody is known to be working on this.
  - There is no clear timeframe or release target.
  - There isn't anyone in particular to contact.
-
+ - Circa 2012 christos made it work read-write and split it
+   into modules. Since then christos has not tested it.
 
 Alistair Crooks, David Holland
 Fri Nov 20 02:17:53 EST 2015

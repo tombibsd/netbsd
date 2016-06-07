@@ -67,12 +67,12 @@
 /pci_machdep.h/1.2/Sun Jun 15 23:08:55 2003/-kk/
 /pic.h/1.1/Sat Apr 26 18:39:45 2003/-kk/
 /pio.h/1.1/Sat Apr 26 18:39:45 2003/-kk/
-/pmap.h/1.35/Mon Jan 12 06:47:51 2015/-kk/
+/pmap.h/1.36/Tue Jun  7 10:59:36 2016/-kk/
 /pmc.h/1.2/Fri Apr 11 02:03:26 2014/-kk/
 /proc.h/1.19/Sat Mar  1 06:04:21 2014/-kk/
 /profile.h/1.18/Tue Jun  7 10:19:11 2016/-kk/
 /psl.h/1.1/Sat Apr 26 18:39:46 2003/-kk/
-/pte.h/1.8/Sat Jul 24 17:43:47 2010/-kk/
+/pte.h/1.9/Tue Jun  7 10:59:36 2016/-kk/
 /ptrace.h/1.6/Fri Oct  2 14:11:39 2015/-kk/
 /rbus_machdep.h/1.2/Tue Dec 15 22:17:12 2009/-kk/
 /reg.h/1.9/Thu Feb 27 08:55:37 2014/-kk/

@@ -438,7 +438,7 @@ print_trapframe(struct trapframe64 *tf)
 
 /*
  * Called from locore.s trap handling, for non-MMU-related traps.
- * (MMU-related traps go through mem_access_fault, below.)
+ * (MMU-related traps go through data_access_fault, below.)
  */
 void
 trap(struct trapframe64 *tf, unsigned int type, vaddr_t pc, long tstate)
@@ -1053,7 +1053,7 @@ data_access_fault(struct trapframe64 *tf, unsigned int type, vaddr_t pc,
 		printf("%ld: data_access_fault(%p, %x, %p, %p, %lx, %lx) "
 			"nsaved=%d\n",
 			(long)(curproc?curproc->p_pid:-1), tf, type,
-			(void *)addr, (void *)pc,
+			(void *)pc, (void *)addr, 
 			sfva, sfsr, (int)curpcb->pcb_nsaved);
 #ifdef DDB
 		if ((trapdebug & TDB_NSAVED && curpcb->pcb_nsaved))

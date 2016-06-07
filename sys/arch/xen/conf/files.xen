@@ -93,9 +93,9 @@ file	arch/xen/x86/xen_pmap.c
 file	arch/xen/x86/xen_intr.c
 file	arch/xen/x86/xenfunc.c
 
-file	arch/xen/xen/xen_ucode.c	dom0ops | cpu_ucode needs-flag
-file	arch/x86/x86/cpu_ucode_amd.c	dom0ops | cpu_ucode needs-flag
-file	arch/x86/x86/cpu_ucode_intel.c	dom0ops | cpu_ucode needs-flag
+file	arch/xen/xen/xen_ucode.c	dom0ops & cpu_ucode needs-flag
+file	arch/x86/x86/cpu_ucode_amd.c	dom0ops & cpu_ucode needs-flag
+file	arch/x86/x86/cpu_ucode_intel.c	dom0ops & cpu_ucode needs-flag
 
 file	arch/xen/xen/xen_machdep.c
 file	arch/xen/xen/xen_debug.c

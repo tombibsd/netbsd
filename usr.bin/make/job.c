@@ -1043,7 +1043,11 @@ JobFinish(Job *job, int status)
 
 #ifdef USE_META
     if (useMeta) {
-	meta_job_finish(job);
+	int x;
+
+	if ((x = meta_job_finish(job)) != 0 && status == 0) {
+	    status = x;
+	}
     }
 #endif
     

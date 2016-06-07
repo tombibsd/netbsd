@@ -73,8 +73,8 @@ main(int argc, char *argv[])
 	int ch;
 	FILE *fp;
 	int first;
-	uintmax_t linecnt;
-	uintmax_t bytecnt;
+	intmax_t linecnt;
+	intmax_t bytecnt;
 	char *ep;
 	int eval = 0;
 	int qflag = 0;

@@ -65,7 +65,7 @@ int error(char *);
 %}
 %token ARITH_NUM ARITH_LPAREN ARITH_RPAREN
 
-%left ARITH_QM ARITH_COLON
+%right ARITH_QM ARITH_COLON
 %left ARITH_OR
 %left ARITH_AND
 %left ARITH_BOR

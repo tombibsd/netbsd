@@ -12,7 +12,7 @@
 /t_mqueue.c/1.4/Fri Mar 14 04:28:30 2014/-kk/
 /t_ps_strings.sh/1.1/Sat Mar  5 18:14:33 2011/-kk/
 /t_pty.c/1.1/Sat Sep 24 15:53:01 2011/-kk/
-/t_rnd.c/1.6/Wed Apr 22 07:37:55 2015/-kk/
+/t_rnd.c/1.8/Tue Jun  7 11:00:25 2016/-kk/
 /t_sysctl.c/1.1/Sat Aug  9 07:04:03 2014/-kk/
 /t_sysv.c/1.4/Fri Mar 14 04:28:30 2014/-kk/
 /t_umount.sh/1.5/Sun Nov  7 17:51:19 2010/-kk/

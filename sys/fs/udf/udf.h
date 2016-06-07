@@ -417,11 +417,12 @@ struct udf_node {
 #define	IN_SYNCED		0x0200	/* node is being used by sync */
 #define	IN_CALLBACK_ULK		0x0400	/* node will be unlocked by callback */
 #define	IN_NODE_REBUILD		0x0800	/* node is rebuild */
+#define IN_NO_DELETE		0x1000	/* node is not to be deleted */
 
 
 #define IN_FLAGBITS \
 	"\10\1IN_ACCESS\2IN_CHANGE\3IN_UPDATE\4IN_MODIFY\5IN_MODIFIED" \
 	"\6IN_ACCESSED\7IN_RENAME\10IN_DELETED\11IN_LOCKED\12IN_SYNCED" \
-	"\13IN_CALLBACK_ULK\14IN_NODE_REBUILD"
+	"\13IN_CALLBACK_ULK\14IN_NODE_REBUILD\15IN_NO_DELETE"
 
 #endif /* !_FS_UDF_UDF_H_ */

@@ -23,12 +23,12 @@
 /altq_priq.h/1.7/Thu Oct 12 19:59:08 2006/-kk/
 /altq_red.c/1.30/Tue Jun  7 10:19:11 2016/-kk/
 /altq_red.h/1.5/Thu Oct 12 19:59:08 2006/-kk/
-/altq_rio.c/1.22/Tue Jun  7 10:19:11 2016/-kk/
+/altq_rio.c/1.23/Tue Jun  7 10:59:35 2016/-kk/
 /altq_rio.h/1.5/Thu Oct 12 19:59:08 2006/-kk/
 /altq_rmclass.c/1.22/Sat Nov 19 22:51:18 2011/-kk/
 /altq_rmclass.h/1.8/Sat Oct 28 11:35:17 2006/-kk/
 /altq_rmclass_debug.h/1.7/Thu Oct 12 19:59:08 2006/-kk/
-/altq_subr.c/1.30/Tue Jun  7 10:19:11 2016/-kk/
+/altq_subr.c/1.31/Tue Jun  7 10:59:35 2016/-kk/
 /altq_var.h/1.12/Tue Nov 25 15:59:10 2008/-kk/
 /altq_wfq.c/1.21/Tue Jun  7 10:19:11 2016/-kk/
 /altq_wfq.h/1.6/Thu Sep 11 17:58:59 2008/-kk/

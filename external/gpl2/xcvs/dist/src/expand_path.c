@@ -23,6 +23,8 @@
  *     ${var_name}   (var_name is the name of the environ variable)
  *     $var_name     (var_name ends w/ non-alphanumeric char other than '_')
  */
+#include <sys/cdefs.h>
+__RCSID("$NetBSD$");
 
 #include "cvs.h"
 #include <sys/types.h>

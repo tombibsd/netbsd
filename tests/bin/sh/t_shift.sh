@@ -120,7 +120,7 @@ function_shift_head() {
 	atf_set "descr" "Test that shift in a function does not affect outside"
 }
 function_shift_body() {
-	# later...
+	: # later...
 }
 
 atf_test_case non_numeric_shift

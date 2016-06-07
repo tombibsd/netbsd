@@ -60,4 +60,6 @@ struct mdproc {
 
 #define netbsd32_syscall_intern syscall_intern
 
+#define PAX_ASLR_RAND_MMAP_MAX 0x40000
+
 #endif /* _SPARC64_PROC_H */

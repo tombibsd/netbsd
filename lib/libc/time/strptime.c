@@ -128,6 +128,8 @@ fromzone(const unsigned char **bp, struct tm *tm, int mandatory)
 
 	if (mandatory)
 		*bp = rp;
+	if (!isalnum((unsigned char)*buf))
+		return 0;
 	tz = tzalloc(buf);
 	if (tz == NULL)
 		return 0;

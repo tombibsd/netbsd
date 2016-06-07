@@ -109,6 +109,7 @@ BFS	breadth-first search
 BFT	binary file transfer
 BGA	ball grid array
 BGP	Border Gateway Protocol
+BGPSEC	BGP Security
 BIND	Berkeley Internet Name Daemon
 BIOS	Basic Input/Output System
 BIOS	built-in operating system
@@ -618,6 +619,8 @@ IST	interrupt stack table
 ISV	independent software vendor
 IT	information technology
 ITB	Intel Turbo Boost
+ITIL	information technology infrastructure library
+ITSM	IT service management
 IV	initialization vector
 IVT	interrupt vector table
 JBOD	just a bunch of disks
@@ -1050,6 +1053,7 @@ RMW	read, modify, write
 RNG	random number generator
 ROM	read only memory
 RPC	remote procedure call
+RPKI	resource PKI
 RPL	requested privilege level
 RPM	revolutions per minute
 RPN	reverse Polish notation
@@ -1121,6 +1125,7 @@ SFTP	SSH File Transfer Protocol
 SFTP	Serial File Transfer Protocol
 SFTP	Simple File Transfer Protocol
 SGRAM	synchronous graphics random access memory
+SIEM	security information and event management
 SIFS	short inter-frame space
 SIMD	single instruction, multiple data
 SIMM	single inline memory module
@@ -1137,6 +1142,8 @@ SLOC	source lines of code
 SLRU	segmented LRU
 SMA	smart memory access
 SMAF	system management action field
+SMAP	Simple Mail Access Protocol
+SMAP	supervisor mode access prevention
 SMART	self-monitoring analysis and reporting technology
 SMBIOS	System Management BIOS
 SMC	system management controller

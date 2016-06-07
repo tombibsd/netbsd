@@ -583,7 +583,8 @@ Compat_Make(void *gnp, void *pgnp)
 	}
 #ifdef USE_META
 	if (useMeta && !NoExecute(gn)) {
-	    meta_job_finish(NULL);
+	    if (meta_job_finish(NULL) != 0)
+		gn->made = ERROR;
 	}
 #endif
 

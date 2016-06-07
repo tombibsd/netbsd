@@ -15,7 +15,7 @@ sun4v:
 - 32-bit kernel support
 - libkvm
 - ofwboot: tlb_init_sun4v() hardcodes number of slots to 64
-- locore.s: sun4v_datatrap missing implementation for trap levels 0 and 1
+- locore.s: sun4v_datatrap missing implementation for trap level 1
 - check build without SUN4V defined
 - replace relevant references to %ver with GET_MAXCWP
 - pmap_mp_init(): sun4v missing handling
@@ -25,4 +25,5 @@ sun4v:
 - ci_tsb_desc->td_ctxidx: -1 or 1?
 - MP support - currently bypassed in pmap_bootstrap() for sun4v
 - vpci.c/vpcivar.h: cleanup FIXMEs
-- interrups not handled properly
+- interrups not handled properly (com at ebus only...)
+- mpt(4) complains: mpt0: Phy 0: Link Status Unknown

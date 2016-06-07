@@ -580,9 +580,7 @@ pyro_intr_establish(bus_space_tag_t t, int ihandle, int level,
 
 	ino |= INTVEC(ihandle);
 
-	ih = malloc(sizeof *ih, M_DEVBUF, M_NOWAIT);
-	if (ih == NULL)
-		return (NULL);
+	ih = intrhand_alloc();
 
 	/* Register the map and clear intr registers */
 	ih->ih_map = intrmapptr;

@@ -1197,8 +1197,8 @@ init386(paddr_t first_avail)
 	 * Low memory reservations:
 	 * Page 0:	BIOS data
 	 * Page 1:	BIOS callback
-	 * Page 2:	MP bootstrap
-	 * Page 3:	ACPI wakeup code
+	 * Page 2:	MP bootstrap code (MP_TRAMPOLINE)
+	 * Page 3:	ACPI wakeup code (ACPI_WAKEUP_ADDR)
 	 * Page 4:	Temporary page table for 0MB-4MB
 	 * Page 5:	Temporary page directory
 	 */

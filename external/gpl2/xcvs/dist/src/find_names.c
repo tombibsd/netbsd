@@ -20,6 +20,8 @@
  * Finds all pertinent sub-directories of the checked out instantiation and the
  * repository (and optionally the attic)
  */
+#include <sys/cdefs.h>
+__RCSID("$NetBSD$");
 
 #include "cvs.h"
 #include <glob.h>

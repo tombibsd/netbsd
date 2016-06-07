@@ -174,13 +174,15 @@ db_write_text(vaddr_t addr, size_t size, const char *data)
 void
 db_write_bytes(vaddr_t addr, size_t size, const char *data)
 {
+	extern int __rodata_start;
 	extern int __data_start;
 	char *dst;
 
 	dst = (char *)addr;
 
-	/* If any part is in kernel text, use db_write_text() */
-	if (addr >= KERNBASE && addr < (vaddr_t)&__data_start) {
+	/* If any part is in kernel text or rodata, use db_write_text() */
+	if ((addr >= KERNBASE && addr < (vaddr_t)&__rodata_start) ||
+	    (addr >= (vaddr_t)&__rodata_start && addr < (vaddr_t)&__data_start)) {
 		db_write_text(addr, size, data);
 		return;
 	}

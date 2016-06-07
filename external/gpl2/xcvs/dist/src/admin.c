@@ -13,6 +13,8 @@
  * Administration ("cvs admin")
  * 
  */
+#include <sys/cdefs.h>
+__RCSID("$NetBSD$");
 
 #include "cvs.h"
 #include <grp.h>

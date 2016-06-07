@@ -11,6 +11,8 @@
  * 
  * Allow user to log in for an authenticating server.
  */
+#include <sys/cdefs.h>
+__RCSID("$NetBSD$");
 
 #include "cvs.h"
 #include "getline.h"

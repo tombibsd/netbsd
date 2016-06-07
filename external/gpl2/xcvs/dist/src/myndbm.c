@@ -18,6 +18,8 @@
  * probably only good for fairly small modules files.  Ours is about 30K in
  * size, and this code works fine.
  */
+#include <sys/cdefs.h>
+__RCSID("$NetBSD$");
 
 #include "cvs.h"
 

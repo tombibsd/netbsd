@@ -29,7 +29,7 @@
 .\"
 .\"	from: @(#)make.1	8.4 (Berkeley) 3/19/94
 .\"
-.Dd February 19, 2016
+.Dd May 10, 2016
 .Dt MAKE 1
 .Os
 .Sh NAME
@@ -913,6 +913,9 @@ Provides a list of path prefixes that should be ignored;
 because the contents are expected to change over time.
 The default list includes:
 .Ql Pa /dev /etc /proc /tmp /var/run /var/tmp
+.It Va .MAKE.META.IGNORE_PATTERNS
+Provides a list of patterns to match against pathnames.
+Ignore any that match.
 .It Va .MAKE.META.PREFIX
 Defines the message printed for each meta file updated in "meta verbose" mode.
 The default value is:

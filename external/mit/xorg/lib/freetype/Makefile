@@ -8,6 +8,12 @@ FREETYPE=	${X11SRCDIR.${LIB}}
 
 SUBDIR=	freetype
 
+.PATH:	${X11SRCDIR.freetype}/include/
+
+INCSDIR=${X11INCDIR}/freetype2
+
+INCS=	ft2build.h
+
 .PATH:	${FREETYPE}/src/base
 SRCS=	ftapi.c ftbase.c ftbbox.c ftbdf.c ftdebug.c ftfntfmt.c ftfstype.c \
 	ftglyph.c ftinit.c ftlcdfil.c ftmm.c ftpfr.c ftstroke.c ftsynth.c \
@@ -83,7 +89,7 @@ CPPFLAGS+=	-DFT_CONFIG_OPTION_SYSTEM_ZLIB \
 		-DFT2_BUILD_LIBRARY \
 		-DFT_CONFIG_MODULES_H="<ftmodule.h>"
 CPPFLAGS+=	-I${DESTDIR}${X11INCDIR}/freetype2 \
-		-I${DESTDIR}${X11INCDIR}/freetype2/config \
+		-I${DESTDIR}${X11INCDIR}/freetype2/freetype/config \
 		-I${X11SRCDIR.${LIB}}/include
 
 .if !defined(MKSUBPIXEL) || ${MKSUBPIXEL} != "no"

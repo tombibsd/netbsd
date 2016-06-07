@@ -9,6 +9,8 @@
  *
  * Query CVS/Entries from server
  */
+#include <sys/cdefs.h>
+__RCSID("$NetBSD$");
 
 #include "cvs.h"
 #include <stdbool.h>

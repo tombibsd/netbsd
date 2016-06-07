@@ -13,6 +13,8 @@
  * 
  * Determine the path to the CVSROOT and set "Root" accordingly.
  */
+#include <sys/cdefs.h>
+__RCSID("$NetBSD$");
 
 #include "cvs.h"
 #include <assert.h>

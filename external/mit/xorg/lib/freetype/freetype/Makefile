@@ -4,9 +4,9 @@
 
 SUBDIR=	config
 
-.PATH:	${X11SRCDIR.freetype}/include
+.PATH:	${X11SRCDIR.freetype}/include/freetype
 
-INCSDIR=${X11INCDIR}/freetype2
+INCSDIR=${X11INCDIR}/freetype2/freetype
 
 INCS=	freetype.h ftadvanc.h ftbbox.h ftbdf.h ftbitmap.h ftbzip2.h ftcache.h \
 	ftchapters.h ftcid.h fterrdef.h fterrors.h ftfntfmt.h ftgasp.h \
@@ -15,7 +15,7 @@ INCS=	freetype.h ftadvanc.h ftbbox.h ftbdf.h ftbitmap.h ftbzip2.h ftcache.h \
 	ftpfr.h ftrender.h ftsizes.h ftsnames.h ftstroke.h ftsynth.h \
 	ftsystem.h fttrigon.h ftttdrv.h fttypes.h ftwinfnt.h \
 	t1tables.h ttnameid.h tttables.h tttags.h ttunpat.h \
-	ftautoh.h ftcffdrv.h ft2build.h
+	ftautoh.h ftcffdrv.h
 
 SCRIPTS=	freetype-config
 

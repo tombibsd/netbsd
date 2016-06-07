@@ -610,8 +610,8 @@ intelfb* 	at intelfbbus?
 radeon* 	at pci? dev ? function ?
 radeondrmkmsfb* at radeonfbbus?
 
-#nouveau*	at pci? dev ? function ?
-#nouveaufb*	at nouveaufbbus
+nouveau*	at pci? dev ? function ?
+nouveaufb*	at nouveaufbbus?
 
 # DRMUMS drivers
 viadrmums* 	at drm?
@@ -2253,7 +2253,6 @@ options NOTDEF_DEBUG
 options NOT_DEBUG
 options NSIODEBUG
 options NTFS_DEBUG
-options NV_DEBUG
 options OBOE_DEBUG
 options OFW_DEBUG
 options OHCI_DEBUG

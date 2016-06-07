@@ -493,7 +493,6 @@ static void slhci_enter_xfers(struct slhci_softc *);
 static void slhci_queue_timed(struct slhci_softc *, struct slhci_pipe *);
 static void slhci_xfer_timer(struct slhci_softc *, struct slhci_pipe *);
 
-static void slhci_do_repeat(struct slhci_softc *, struct usbd_xfer *);
 static void slhci_callback_schedule(struct slhci_softc *);
 static void slhci_do_callback_schedule(struct slhci_softc *);
 #if 0
@@ -525,8 +524,6 @@ static void slhci_insert(struct slhci_softc *);
 static usbd_status slhci_clear_feature(struct slhci_softc *, unsigned int);
 static usbd_status slhci_set_feature(struct slhci_softc *, unsigned int);
 static void slhci_get_status(struct slhci_softc *, usb_port_status_t *);
-static usbd_status slhci_root(struct slhci_softc *, struct slhci_pipe *,
-    struct usbd_xfer *);
 
 #define	SLHCIHIST_FUNC()	USBHIST_FUNC()
 #define	SLHCIHIST_CALLED()	USBHIST_CALLED(slhcidebug)
@@ -989,12 +986,25 @@ slhci_root_start(struct usbd_xfer *xfer)
 {
 	SLHCIHIST_FUNC(); SLHCIHIST_CALLED();
 	struct slhci_softc *sc;
-	struct slhci_pipe *spipe;
+	struct slhci_pipe *spipe __diagused;
 
 	spipe = SLHCI_PIPE2SPIPE(xfer->ux_pipe);
 	sc = SLHCI_XFER2SC(xfer);
 
-	return slhci_lock_call(sc, &slhci_root, spipe, xfer);
+	struct slhci_transfers *t = &sc->sc_transfers;
+
+	LK_SLASSERT(spipe != NULL && xfer != NULL, sc, spipe, xfer, return
+	    USBD_CANCELLED);
+
+	DLOG(D_TRACE, "%s start", pnames(SLHCI_XFER_TYPE(xfer)), 0,0,0);
+
+	KASSERT(spipe->ptype == PT_ROOT_INTR);
+
+	mutex_enter(&sc->sc_intr_lock);
+	t->rootintr = xfer;
+	mutex_exit(&sc->sc_intr_lock);
+
+	return USBD_IN_PROGRESS;
 }
 
 usbd_status
@@ -1302,7 +1312,6 @@ slhci_abort(struct usbd_xfer *xfer)
 		goto callback;
 
 	sc = SLHCI_XFER2SC(xfer);
-
 	KASSERT(mutex_owned(&sc->sc_lock));
 
 	DLOG(D_TRACE, "%s abort xfer %p spipe %p spipe->xfer %p",
@@ -1312,7 +1321,6 @@ slhci_abort(struct usbd_xfer *xfer)
 
 callback:
 	xfer->ux_status = USBD_CANCELLED;
-	/* Abort happens at IPL_USB. */
 	usb_transfer_complete(xfer);
 }
 
@@ -1375,7 +1383,6 @@ slhci_poll(struct usbd_bus *bus) /* XXX necessary? */
 void
 slhci_done(struct usbd_xfer *xfer)
 {
-	/* xfer may not be valid here */
 }
 
 void
@@ -1398,6 +1405,7 @@ slhci_mem_use(struct usbd_bus *bus, int val)
 void
 slhci_reset_entry(void *arg)
 {
+	SLHCIHIST_FUNC(); SLHCIHIST_CALLED();
 	struct slhci_softc *sc = arg;
 
 	mutex_enter(&sc->sc_intr_lock);
@@ -1475,23 +1483,18 @@ repeat:
 void
 slhci_do_callback(struct slhci_softc *sc, struct usbd_xfer *xfer)
 {
+	SLHCIHIST_FUNC(); SLHCIHIST_CALLED();
 	KASSERT(mutex_owned(&sc->sc_intr_lock));
-
-	int repeat;
 
 	start_cc_time(&t_callback, (u_int)xfer);
 	mutex_exit(&sc->sc_intr_lock);
 
 	mutex_enter(&sc->sc_lock);
-	repeat = xfer->ux_pipe->up_repeat;
 	usb_transfer_complete(xfer);
 	mutex_exit(&sc->sc_lock);
 
 	mutex_enter(&sc->sc_intr_lock);
 	stop_cc_time(&t_callback);
-
-	if (repeat && !sc->sc_bus.ub_usepolling)
-		slhci_do_repeat(sc, xfer);
 }
 
 int
@@ -1732,6 +1735,9 @@ slhci_dointr(struct slhci_softc *sc)
 	t = &sc->sc_transfers;
 
 	KASSERT(mutex_owned(&sc->sc_intr_lock));
+
+	DLOG(D_INTR, "Flags %#x sc_ier %#x ISR=%#x", t->flags, sc->sc_ier,
+	    slhci_read(sc, SL11_ISR), 0);
 
 	if (sc->sc_ier == 0)
 		return 0;
@@ -2337,7 +2343,7 @@ slhci_dotransfer(struct slhci_softc *sc)
 }
 
 /*
- * slhci_callback is called after the lock is taken from splusb.
+ * slhci_callback is called after the lock is taken.
  */
 static void
 slhci_callback(struct slhci_softc *sc)
@@ -2453,32 +2459,9 @@ slhci_xfer_timer(struct slhci_softc *sc, struct slhci_pipe *spipe)
 }
 
 static void
-slhci_do_repeat(struct slhci_softc *sc, struct usbd_xfer *xfer)
-{
-	SLHCIHIST_FUNC(); SLHCIHIST_CALLED();
-	struct slhci_transfers *t;
-	struct slhci_pipe *spipe;
-
-	t = &sc->sc_transfers;
-	spipe = SLHCI_PIPE2SPIPE(xfer->ux_pipe);
-
-	if (xfer == t->rootintr)
-		return;
-
-	DLOG(D_TRACE, "REPEAT: xfer %p actlen %d frame %u now %u",
-	    xfer, xfer->ux_actlen, spipe->frame, sc->sc_transfers.frame);
-
-	xfer->ux_actlen = 0;
-	spipe->xfer = xfer;
-	if (spipe->tregs[LEN])
-		KASSERT(spipe->buffer == xfer->ux_buf);
-	slhci_queue_timed(sc, spipe);
-	slhci_dotransfer(sc);
-}
-
-static void
 slhci_callback_schedule(struct slhci_softc *sc)
 {
+	SLHCIHIST_FUNC(); SLHCIHIST_CALLED();
 	struct slhci_transfers *t;
 
 	t = &sc->sc_transfers;
@@ -2492,12 +2475,14 @@ slhci_callback_schedule(struct slhci_softc *sc)
 static void
 slhci_do_callback_schedule(struct slhci_softc *sc)
 {
+	SLHCIHIST_FUNC(); SLHCIHIST_CALLED();
 	struct slhci_transfers *t;
 
 	t = &sc->sc_transfers;
 
 	KASSERT(mutex_owned(&sc->sc_intr_lock));
 
+	DLOG(D_MSG, "flags %#x", t->flags, 0, 0, 0);
 	if (!(t->flags & F_CALLBACK)) {
 		t->flags |= F_CALLBACK;
 		softint_schedule(sc->sc_cb_softintr);
@@ -2505,7 +2490,7 @@ slhci_do_callback_schedule(struct slhci_softc *sc)
 }
 
 #if 0
-/* must be called with lock taken from IPL_USB */
+/* must be called with lock taken. */
 /* XXX static */ void
 slhci_pollxfer(struct slhci_softc *sc, struct usbd_xfer *xfer)
 {
@@ -3080,7 +3065,7 @@ slhci_get_status(struct slhci_softc *sc, usb_port_status_t *ps)
 	KASSERT(mutex_owned(&sc->sc_intr_lock));
 
 	/*
-	 * We do not have a way to detect over current or bable and
+	 * We do not have a way to detect over current or babble and
 	 * suspend is currently not implemented, so connect and reset
 	 * are the only changes that need to be reported.
 	 */
@@ -3104,30 +3089,6 @@ slhci_get_status(struct slhci_softc *sc, usb_port_status_t *ps)
 	USETW(ps->wPortStatus, status);
 	USETW(ps->wPortChange, change);
 	DLOG(D_ROOT, "status=%#.4x, change=%#.4x", status, change, 0,0);
-}
-
-static usbd_status
-slhci_root(struct slhci_softc *sc, struct slhci_pipe *spipe,
-    struct usbd_xfer *xfer)
-{
-	SLHCIHIST_FUNC(); SLHCIHIST_CALLED();
-	struct slhci_transfers *t;
-
-	t = &sc->sc_transfers;
-
-	LK_SLASSERT(spipe != NULL && xfer != NULL, sc, spipe, xfer, return
-	    USBD_CANCELLED);
-
-	DLOG(D_TRACE, "%s start", pnames(SLHCI_XFER_TYPE(xfer)), 0,0,0);
-	KASSERT(mutex_owned(&sc->sc_intr_lock));
-
-	KASSERT(spipe->ptype == PT_ROOT_INTR);
-	LK_SLASSERT(t->rootintr == NULL, sc, spipe, xfer, return
-	    USBD_CANCELLED);
-	t->rootintr = xfer;
-	if (t->flags & F_CHANGE)
-		t->flags |= F_ROOTINTR;
-	return USBD_IN_PROGRESS;
 }
 
 static int
@@ -3188,18 +3149,22 @@ slhci_roothub_ctrl(struct usbd_bus *bus, usb_device_request_t *req,
 	/* Write Requests */
 	case UR_CLEAR_FEATURE:
 		if (type == UT_WRITE_CLASS_OTHER) {
-			if (index == 1 /* Port */)
+			if (index == 1 /* Port */) {
+				mutex_enter(&sc->sc_intr_lock);
 				error = slhci_clear_feature(sc, value);
-			else
+				mutex_exit(&sc->sc_intr_lock);
+			} else
 				DLOG(D_ROOT, "Clear Port Feature "
 				    "index = %#.4x", index, 0,0,0);
 		}
 		break;
 	case UR_SET_FEATURE:
 		if (type == UT_WRITE_CLASS_OTHER) {
-			if (index == 1 /* Port */)
+			if (index == 1 /* Port */) {
+				mutex_enter(&sc->sc_intr_lock);
 				error = slhci_set_feature(sc, value);
-			else
+				mutex_exit(&sc->sc_intr_lock);
+			} else
 				DLOG(D_ROOT, "Set Port Feature "
 				    "index = %#.4x", index, 0,0,0);
 		} else if (type != UT_WRITE_CLASS_DEVICE)
@@ -3213,8 +3178,10 @@ slhci_roothub_ctrl(struct usbd_bus *bus, usb_device_request_t *req,
 		if (type == UT_READ_CLASS_OTHER) {
 			if (index == 1 /* Port */ && len == /* XXX >=? */
 			    sizeof(usb_port_status_t)) {
+				mutex_enter(&sc->sc_intr_lock);
 				slhci_get_status(sc, (usb_port_status_t *)
 				    buf);
+				mutex_exit(&sc->sc_intr_lock);
 				actlen = sizeof(usb_port_status_t);
 				error = USBD_NORMAL_COMPLETION;
 			} else

@@ -515,10 +515,10 @@ ieee80211_drain_ifq(struct ifqueue *ifq)
 		if (m == NULL)
 			break;
 
-		ni = (struct ieee80211_node *)m->m_pkthdr.rcvif;
+		ni = M_GETCTX(m, struct ieee80211_node *);
 		KASSERT(ni != NULL);
 		ieee80211_free_node(ni);
-		m->m_pkthdr.rcvif = NULL;
+		M_SETCTX(m, NULL);
 
 		m_freem(m);
 	}

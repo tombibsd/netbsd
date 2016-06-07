@@ -7,6 +7,8 @@
  *
  * This is a convenience wrapper for some of the functions in lib/sighandle.c.
  */
+#include <sys/cdefs.h>
+__RCSID("$NetBSD$");
 
 #include "cvs.h"
 

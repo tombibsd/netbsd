@@ -28,6 +28,8 @@
  * An "add" on a file that has been "remove"d but not committed will cause the
  * file to be resurrected.
  */
+#include <sys/cdefs.h>
+__RCSID("$NetBSD$");
 
 #include <assert.h>
 #include "cvs.h"

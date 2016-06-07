@@ -14,6 +14,8 @@
  * know they will, and there's no reason to make it harder for them if
  * we're not trying to provide real security anyway.
  */
+#include <sys/cdefs.h>
+__RCSID("$NetBSD$");
 
 /* Set this to test as a standalone program. */
 /* #define DIAGNOSTIC */

@@ -23,8 +23,8 @@
 /ufs_readwrite.c/1.120/Wed Apr 22 07:37:50 2015/-kk/
 /ufs_rename.c/1.12/Thu Apr  2 02:28:10 2015/-kk/
 /ufs_vfsops.c/1.54/Sat Mar 21 02:47:29 2015/-kk/
-/ufs_vnops.c/1.231/Sun Sep 13 01:32:02 2015/-kk/
+/ufs_vnops.c/1.232/Tue Jun  7 11:00:21 2016/-kk/
 /ufs_wapbl.c/1.23/Fri Jan 27 19:22:50 2012/-kk/
-/ufs_wapbl.h/1.8/Mon Nov 18 05:31:48 2013/-kk/
+/ufs_wapbl.h/1.11/Tue Jun  7 11:00:21 2016/-kk/
 /ufsmount.h/1.43/Thu Apr  2 02:28:10 2015/-kk/
 D

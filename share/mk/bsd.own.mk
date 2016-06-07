@@ -68,12 +68,10 @@ MKGCC?=		no
 HAVE_GCC?=	0
 .elif \
     ${MACHINE} == "amd64" || \
-    ${MACHINE} == "alpha" || \
     ${MACHINE} == "hppa" || \
     ${MACHINE} == "i386" || \
     ${MACHINE} == "playstation2" || \
     ${MACHINE_ARCH} == "powerpc" || \
-    ${MACHINE_ARCH} == "sparc64" || \
     ${MACHINE_ARCH} == "vax"
 HAVE_GCC?=	53
 .else
@@ -164,14 +162,12 @@ EXTERNAL_GDB_SUBDIR=		gdb
 #
 # What binutils is used?
 #
-.if ${MACHINE} == "alpha" || \
-    ${MACHINE} == "amd64" || \
+.if ${MACHINE} == "amd64" || \
     ${MACHINE} == "evbarm" || \
     ${MACHINE} == "hppa" || \
     ${MACHINE} == "i386" || \
     ${MACHINE} == "playstation2" || \
     ${MACHINE} == "sparc" || \
-    ${MACHINE} == "sparc64" || \
     ${MACHINE} == "vax" || \
     ${MACHINE_CPU} == "sh3" || \
     ${MACHINE_ARCH} == "powerpc"
@@ -1053,7 +1049,9 @@ MKCTF?=		yes
 #
 # PIE is enabled on amd64 by default
 #
-.if ${MACHINE_ARCH} == "x86_64"
+.if ${MACHINE_ARCH} == "i386" || \
+    ${MACHINE_ARCH} == "x86_64" || \
+    ${MACHINE} == "sparc64"
 MKPIE?=		yes
 .else
 MKPIE?=		no

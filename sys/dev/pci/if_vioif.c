@@ -1116,6 +1116,7 @@ vioif_tx_vq_done(struct virtqueue *vq)
 {
 	struct virtio_softc *vsc = vq->vq_owner;
 	struct vioif_softc *sc = device_private(vsc->sc_child);
+	struct ifnet *ifp = &sc->sc_ethercom.ec_if;
 	int r = 0;
 
 	VIOIF_TX_LOCK(sc);
@@ -1127,6 +1128,8 @@ vioif_tx_vq_done(struct virtqueue *vq)
 
 out:
 	VIOIF_TX_UNLOCK(sc);
+	if (r)
+		vioif_start(ifp);
 	return r;
 }
 

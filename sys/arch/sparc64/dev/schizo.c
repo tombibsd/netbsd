@@ -588,10 +588,8 @@ schizo_set_intr(struct schizo_softc *sc, struct schizo_pbm *pbm, int ipl,
 	DPRINTF(SDB_INTR, (" mapoff %" PRIx64 " clroff %" PRIx64 "\n",
 	    mapoff, clroff));
 
-	ih = (struct intrhand *)
-		kmem_alloc(sizeof(struct intrhand), KM_NOSLEEP);
-	if (ih == NULL)
-		return;
+	ih = intrhand_alloc();
+	
 	ih->ih_arg = arg;
 	intrregs = (uintptr_t)bus_space_vaddr(pbm->sp_regt, pbm->sp_intrh);
 	ih->ih_map = (uint64_t *)(uintptr_t)(intrregs + mapoff);
@@ -815,9 +813,7 @@ schizo_intr_establish(bus_space_tag_t t, int ihandle, int level,
 	vec = INTVEC(ihandle);
 	ino = INTINO(vec);
 
-	ih = kmem_alloc(sizeof *ih, KM_NOSLEEP);
-	if (ih == NULL)
-		return (NULL);
+	ih = intrhand_alloc();
 
 	DPRINTF(SDB_INTR, ("\n%s: ihandle %x level %d fn %p arg %p\n", __func__,
 	    ihandle, level, handler, arg));

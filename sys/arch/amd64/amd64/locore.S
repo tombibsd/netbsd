@@ -187,6 +187,9 @@
 #define	_RELOC(x)	((x) - KERNBASE)
 #define	RELOC(x)	_RELOC(_C_LABEL(x))
 
+/* 32bit version of PG_NX */
+#define PG_NX32	0x80000000
+
 #if L2_SLOT_KERNBASE > 0
 #define TABLE_L2_ENTRIES (2 * (NKL2_KIMG_ENTRIES + 1))
 #else
@@ -217,11 +220,24 @@
  * Each entry is 8 (PDE_SIZE) bytes long: we must set the 4 upper bytes to 0.
  */
 #define fillkpt	\
-1:	movl	%eax,(%ebx)		; 	/* store phys addr */	\
-	movl	$0,(PDE_SIZE-4)(%ebx)	; 	/* upper 32 bits: 0 */	\
-	addl	$PDE_SIZE,%ebx		; 	/* next PTE/PDE */	\
-	addl	$PAGE_SIZE,%eax		; 	/* next phys page */	\
+1:	movl	$0,(PDE_SIZE-4)(%ebx)	;	/* upper 32 bits: 0 */	\
+	movl	%eax,(%ebx)		;	/* store phys addr */	\
+	addl	$PDE_SIZE,%ebx		;	/* next PTE/PDE */	\
+	addl	$PAGE_SIZE,%eax		;	/* next phys page */	\
 	loop	1b			;
+
+/*
+ * fillkpt_nox - Same as fillkpt, but sets the NX/XD bit.
+ */
+#define fillkpt_nox \
+	pushl	%ebp			; \
+	movl	RELOC(nox_flag),%ebp	; \
+1:	movl	%ebp,(PDE_SIZE-4)(%ebx)	;	/* upper 32 bits: NX */ \
+	movl	%eax,(%ebx)		;	/* store phys addr */	\
+	addl	$PDE_SIZE,%ebx		;	/* next PTE/PDE */	\
+	addl	$PAGE_SIZE,%eax		;	/* next phys page */	\
+	loop	1b			; \
+	popl	%ebp			;
 
 /*
  * killkpt - Destroy a kernel page table (long mode)
@@ -286,6 +302,7 @@ _C_LABEL(lapic_isr):
 END(lapic_isr)
 #endif /* NLAPIC > 0 */
 
+	.globl	_C_LABEL(nox_flag)
 	.globl	_C_LABEL(cpuid_level)
 	.globl	_C_LABEL(esym)
 	.globl	_C_LABEL(eblob)
@@ -298,6 +315,9 @@ END(lapic_isr)
 	.globl	_C_LABEL(gdtstore)
 	.globl	_C_LABEL(cputype)
 
+	.type	_C_LABEL(nox_flag), @object
+LABEL(nox_flag)		.long	0	/* 32bit NOX flag, set if supported */
+END(nox_flag)
 	.type	_C_LABEL(cputype), @object
 LABEL(cputype)		.long	0	/* are we 80486, Pentium, or.. */
 END(cputype)
@@ -395,7 +415,7 @@ ENTRY(start)
 
 	/*
 	 * Load parameters from the stack (32 bits):
-	 *     boothowto, [bootdev], bootinfo, esym, biosbasemem, biosextmem
+	 *     boothowto, [bootdev], bootinfo, esym, biosextmem, biosbasemem
 	 * We are not interested in 'bootdev'.
 	 */
 
@@ -527,6 +547,16 @@ biosbasemem_finished:
 	 */
 	movl	$RELOC(tmpstk),%esp
 
+	/*
+	 * Retrieve the NX/XD flag. We use the 32bit version of PG_NX.
+	 */
+	movl	$0x80000001,%eax
+	cpuid
+	andl	$CPUID_NOX,%edx
+	jz	no_NOX
+	movl	$PG_NX32,RELOC(nox_flag)
+no_NOX:
+
 /*
  * There are four levels of pages in amd64: PML4 -> PDP -> PD -> PT. They will
  * be referred to as: L4 -> L3 -> L2 -> L1.
@@ -547,6 +577,8 @@ biosbasemem_finished:
  *
  * (PROC0 STK + L4 + L3 + L2 + L1) is later referred to as BOOTSTRAP TABLES.
  *
+ * Important note: the kernel segments are properly 4k-aligned
+ * (see kern.ldscript), so there's no need to enforce alignment.
  */
 
 	/* Find end of kernel image; brings us on (1). */
@@ -573,9 +605,9 @@ biosbasemem_finished:
 	movl	%edi,%esi
 	addl	$PGOFSET,%esi
 	andl	$~PGOFSET,%esi
-	movl	%esi,%edi
 
 	/* Now, zero out the BOOTSTRAP TABLES (before filling them in). */
+	movl	%esi,%edi
 	xorl	%eax,%eax
 	cld
 	movl	$TABLESIZE,%ecx
@@ -599,35 +631,43 @@ biosbasemem_finished:
 	shrl	$(PGSHIFT-3),%ecx	/* ((n >> PGSHIFT) << 3) for # PDEs */
 	addl	%ecx,%ebx
 
-	/*
-	 * Compute &__data_start - KERNBASE. This can't be > 4G, or we can't
-	 * deal with it anyway, since we can't load it in 32 bit mode. So use
-	 * the bottom 32 bits.
-	 */
-	movl	$RELOC(__data_start),%edx
-	andl	$~PGOFSET,%edx
-
-	/* Map the kernel text read-only. */
-	movl	%edx,%ecx
+	/* Map the kernel text RX. */
+	movl	$RELOC(__rodata_start),%ecx
 	subl	%eax,%ecx
 	shrl	$PGSHIFT,%ecx
 	orl	$(PG_V|PG_KR),%eax
 	fillkpt
 
-	/*
-	 * We actually have to be careful here. The memory layout is as
-	 * follows:
-	 *  +--------+----------+-------------------+------------------+
-	 *  | RODATA < DATA+BSS | PRELOADED MODULES | BOOTSTRAP TABLES >
-	 *  +--------+----------+-------------------+------------------+
-	 * We just map everything from < to > with RWX rights.
-	 */
-	leal	(PG_V|PG_KW)(%edx),%eax
-	movl	$TABLESIZE,%ecx
-	addl	%esi,%ecx		/* end of tables */
-	subl	%edx,%ecx		/* subtract end of text */
+	/* Map the kernel rodata R. */
+	movl	$RELOC(__rodata_start),%eax
+	movl	$RELOC(__data_start),%ecx
+	subl	%eax,%ecx
 	shrl	$PGSHIFT,%ecx
+	orl	$(PG_V|PG_KR),%eax
+	fillkpt_nox
+
+	/* Map the kernel data+bss RW. */
+	movl	$RELOC(__data_start),%eax
+	movl	$RELOC(__kernel_end),%ecx
+	subl	%eax,%ecx
+	shrl	$PGSHIFT,%ecx
+	orl	$(PG_V|PG_KW),%eax
+	fillkpt_nox
+
+	/* Map [SYMS]+[PRELOADED MODULES] RWX. */
+	movl	$RELOC(__kernel_end),%eax
+	movl	%esi,%ecx		/* start of BOOTSTRAP TABLES */
+	subl	%eax,%ecx
+	shrl	$PGSHIFT,%ecx
+	orl	$(PG_V|PG_KW),%eax
 	fillkpt
+
+	/* Map the BOOTSTRAP TABLES RW. */
+	movl	%esi,%eax		/* start of BOOTSTRAP TABLES */
+	movl	$TABLESIZE,%ecx		/* length of BOOTSTRAP TABLES */
+	shrl	$PGSHIFT,%ecx
+	orl	$(PG_V|PG_KW),%eax
+	fillkpt_nox
 
 	/* We are on (4). Map ISA I/O mem (later atdevbase) RWX. */
 	movl	$(IOM_BEGIN|PG_V|PG_KW/*|PG_N*/),%eax
@@ -707,13 +747,18 @@ biosbasemem_finished:
 	movl	%eax,%cr4
 
 	/*
-	 * 2. Set Long Mode Enable in EFER. Also enable the
-	 *    syscall extensions.
+	 * 2. Set Long Mode Enable in EFER. Also enable the syscall extensions,
+	 *    and NOX if available.
 	 */
 	movl	$MSR_EFER,%ecx
 	rdmsr
 	xorl	%eax,%eax	/* XXX */
 	orl	$(EFER_LME|EFER_SCE),%eax
+	movl	RELOC(nox_flag),%ebx
+	cmpl	$0,%ebx
+	je 	skip_NOX
+	orl	$(EFER_NXE),%eax
+skip_NOX:
 	wrmsr
 
 	/*

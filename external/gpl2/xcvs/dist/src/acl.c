@@ -28,6 +28,9 @@
  * - permission	change  (p) (8)
  * 
  */
+#include <sys/cdefs.h>
+__RCSID("$NetBSD$");
+
 #include "cvs.h"
 #include "getline.h"
 #include <pwd.h>

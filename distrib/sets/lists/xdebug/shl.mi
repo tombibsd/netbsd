@@ -106,7 +106,7 @@
 ./usr/libdata/debug/usr/X11R7/lib/libexpat.so.2.0.debug	-obsolete-		obsolete,compatx11file
 ./usr/libdata/debug/usr/X11R7/lib/libfontconfig.so.2.2.debug	-unknown-		xorg,debug,compatx11file
 ./usr/libdata/debug/usr/X11R7/lib/libfontenc.so.2.0.debug	-unknown-		xorg,debug,compatx11file
-./usr/libdata/debug/usr/X11R7/lib/libfreetype.so.18.0.12.debug	-unknown-		xorg,debug,compatx11file
+./usr/libdata/debug/usr/X11R7/lib/libfreetype.so.18.0.13.debug	-unknown-		xorg,debug,compatx11file
 ./usr/libdata/debug/usr/X11R7/lib/libglapi.so.0.0.debug	-unknown-		xorg,debug,compatx11file
 ./usr/libdata/debug/usr/X11R7/lib/libgbm.so.1.0.debug	-unknown-		xorg,debug,compatx11file
 ./usr/libdata/debug/usr/X11R7/lib/libglut.so.4.0.debug	-unknown-		xorg,debug,compatx11file

@@ -20,6 +20,8 @@
  *
  * Additional arguments specify more Vendor Release Tags.
  */
+#include <sys/cdefs.h>
+__RCSID("$NetBSD$");
 
 #include "cvs.h"
 #include "lstat.h"

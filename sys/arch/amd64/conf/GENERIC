@@ -1319,6 +1319,6 @@ options VERIFIED_EXEC_FP_MD5
 
 options 	PAX_ASLR_DEBUG=1	# PaX ASLR debug
 options 	PAX_SEGVGUARD=0		# PaX Segmentation fault guard
-options 	PAX_MPROTECT=0		# PaX mprotect(2) restrictions
+options 	PAX_MPROTECT=1		# PaX mprotect(2) restrictions
 options 	PAX_MPROTECT_DEBUG=1	# PaX mprotect debug
 options 	PAX_ASLR=1		# PaX Address Space Layout Randomization

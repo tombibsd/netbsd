@@ -226,6 +226,18 @@ ieee80211_input(struct ieee80211com *ic, struct mbuf *m,
 				ic->ic_stats.is_rx_wrongbss++;
 				goto out;
 			}
+
+			/* Filter out packets not directed to us in case the
+			 * device is in promiscous mode
+			 */
+			if ((! IEEE80211_IS_MULTICAST(wh->i_addr1))
+			    && (! IEEE80211_ADDR_EQ(wh->i_addr1, ic->ic_myaddr))) {
+				IEEE80211_DISCARD_MAC(ic, IEEE80211_MSG_INPUT,
+				    bssid, NULL, "not to cur sta: lladdr=%6D, addr1=%6D",
+				    ic->ic_myaddr, ":", wh->i_addr1, ":");
+				ic->ic_stats.is_rx_wrongbss++;
+				goto out;
+			}
 			break;
 		case IEEE80211_M_IBSS:
 		case IEEE80211_M_AHDEMO:

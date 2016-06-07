@@ -14,6 +14,8 @@
  * 
  * Lock file support for CVS.
  */
+#include <sys/cdefs.h>
+__RCSID("$NetBSD$");
 
 /* The node Concurrency in doc/cvs.texinfo has a brief introduction to
    how CVS locks function, and some of the user-visible consequences of

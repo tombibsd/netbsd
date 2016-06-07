@@ -11,6 +11,8 @@
  *
  * Polk's hash list manager.  So cool.
  */
+#include <sys/cdefs.h>
+__RCSID("$NetBSD$");
 
 #include "cvs.h"
 

@@ -18,6 +18,8 @@
  * 
  * returns 0 if no differences are found and non-zero otherwise
  */
+#include <sys/cdefs.h>
+__RCSID("$NetBSD$");
 
 #include "cvs.h"
 #include <assert.h>

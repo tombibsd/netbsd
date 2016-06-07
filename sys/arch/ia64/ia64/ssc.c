@@ -46,6 +46,7 @@ int ssccngetc(dev_t);
 void ssccnpollc(dev_t, int);
 
 
+__attribute__((__noinline__))
 uint64_t
 ssc(uint64_t in0, uint64_t in1, uint64_t in2, uint64_t in3, int which)
 {

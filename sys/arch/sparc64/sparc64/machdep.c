@@ -2368,11 +2368,7 @@ sparc_mainbus_intr_establish(bus_space_tag_t t, int pil, int level,
 {
 	struct intrhand *ih;
 
-	ih = (struct intrhand *)
-		malloc(sizeof(struct intrhand), M_DEVBUF, M_NOWAIT);
-	if (ih == NULL)
-		return (NULL);
-
+	ih = intrhand_alloc();
 	ih->ih_fun = handler;
 	ih->ih_arg = arg;
 	intr_establish(pil, level != IPL_VM, ih);

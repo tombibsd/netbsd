@@ -254,8 +254,7 @@ sbus_attach(device_t parent, device_t self, void *aux)
 	iommu_init(name, &sc->sc_is, 0, -1);
 
 	/* Enable the over temp intr */
-	ih = (struct intrhand *)
-		malloc(sizeof(struct intrhand), M_DEVBUF, M_NOWAIT);
+	ih = intrhand_alloc();
 	ih->ih_map = &sc->sc_sysio->therm_int_map;
 	ih->ih_clr = NULL; /* &sc->sc_sysio->therm_clr_int; */
 	ih->ih_fun = sbus_overtemp;
@@ -508,10 +507,7 @@ sbus_intr_establish(bus_space_tag_t t, int pri, int level,
 	int ipl;
 	long vec = pri; 
 
-	ih = (struct intrhand *)
-		malloc(sizeof(struct intrhand), M_DEVBUF, M_NOWAIT);
-	if (ih == NULL)
-		return (NULL);
+	ih = intrhand_alloc();
 
 	if ((vec & SBUS_INTR_COMPAT) != 0)
 		ipl = vec & ~SBUS_INTR_COMPAT;

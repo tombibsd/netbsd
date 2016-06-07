@@ -598,7 +598,7 @@ arp_rtrequest(int req, struct rtentry *rt, const struct rt_addrinfo *info)
 
 		rt->rt_expire = 0;
 		if (useloopback) {
-			ifp = rt->rt_ifp = lo0ifp;
+			rt->rt_ifp = lo0ifp;
 			rt->rt_rmx.rmx_mtu = 0;
 		}
 		rt->rt_flags |= RTF_LOCAL;

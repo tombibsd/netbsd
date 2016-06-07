@@ -12,7 +12,8 @@
  * specified in the README file that comes with the CVS source distribution.
  *
  */
-
+#include <sys/cdefs.h>
+__RCSID("$NetBSD$");
 
 #include "cvs.h"
 #include "getline.h"

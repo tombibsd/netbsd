@@ -8,7 +8,7 @@
 /drm_os_netbsd.h/1.3/Fri Oct  3 09:09:24 2014/-kk/
 /drm_sysctl.h/1.2/Wed Nov 12 03:14:00 2014/-kk/
 /drm_vma_manager.h/1.1/Wed Jul 16 20:56:25 2014/-kk/
-/drm_wait_netbsd.h/1.13/Wed Apr 22 07:37:24 2015/-kk/
+/drm_wait_netbsd.h/1.14/Tue Jun  7 11:00:12 2016/-kk/
 /drmfb.h/1.1/Thu Mar  5 17:50:41 2015/-kk/
 /drmfb_pci.h/1.2/Thu Mar  5 17:56:39 2015/-kk/
 /intel-gtt.h/1.5/Sat Mar 21 02:37:58 2015/-kk/

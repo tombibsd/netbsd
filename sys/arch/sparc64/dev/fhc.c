@@ -251,10 +251,7 @@ fhc_intr_establish(bus_space_tag_t t, int ihandle, int level,
 	vec = ((sc->sc_ign << INTMAP_IGN_SHIFT) & INTMAP_IGN) |
 	    INTINO(ihandle);
 
-	ih = (struct intrhand *)
-		malloc(sizeof(struct intrhand), M_DEVBUF, M_NOWAIT);
-	if (ih == NULL)
-		return (NULL);
+	ih = intrhand_alloc();
 
 	ih->ih_ivec = ihandle;
 

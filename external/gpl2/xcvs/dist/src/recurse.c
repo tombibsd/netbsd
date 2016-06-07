@@ -13,6 +13,8 @@
  * General recursion handler
  *
  */
+#include <sys/cdefs.h>
+__RCSID("$NetBSD$");
 
 #include "cvs.h"
 #include "save-cwd.h"

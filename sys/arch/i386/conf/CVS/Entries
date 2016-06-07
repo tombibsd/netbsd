@@ -1,6 +1,6 @@
-/ALL/1.397/Fri Nov 20 01:30:32 2015/-kk/
+/ALL/1.398/Tue Jun  7 10:59:49 2016/-kk/
 /CARDBUS/1.81/Sun Jan  3 03:53:34 2010/-kk/
-/GENERIC/1.1135/Tue Jun  7 10:31:42 2016/-kk/
+/GENERIC/1.1136/Tue Jun  7 10:59:49 2016/-kk/
 /GENERIC_ISDN/1.16/Sun Jan  3 03:53:34 2010/-kk/
 /GENERIC_PAE/1.1/Sun Mar 27 05:14:14 2016/-kk/
 /GENERIC_PS2TINY/1.75/Sun Sep 13 01:06:05 2015/-kk/
@@ -22,9 +22,9 @@
 /XEN3_DOM0/1.98/Tue Jun  7 09:38:45 2016/-kk/
 /XEN3_DOMU/1.69/Tue Aug 25 04:51:06 2015/-kk/
 /files.i386/1.374/Thu Feb 27 08:55:46 2014/-kk/
-/kern.ldscript.4MB/1.16/Sun Sep 13 01:06:05 2015/-kk/
-/kern.ldscript.Xen/1.10/Sun Sep 13 01:06:05 2015/-kk/
-/kern.ldscript/1.16/Sat Dec  5 11:19:17 2015/-kk/
+/kern.ldscript.4MB/1.17/Tue Jun  7 10:59:49 2016/-kk/
+/kern.ldscript.Xen/1.12/Tue Jun  7 10:59:49 2016/-kk/
+/kern.ldscript/1.19/Tue Jun  7 10:59:49 2016/-kk/
 /largepages.inc/1.4/Sun Sep 13 01:06:05 2015/-kk/
 /majors.i386/1.44/Fri May  1 11:30:53 2015/-kk/
 /stand.ldscript/1.5/Sun Sep 13 01:06:05 2015/-kk/

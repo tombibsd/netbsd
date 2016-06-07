@@ -1953,7 +1953,8 @@ ehci_open(struct usbd_pipe *pipe)
 			sqh->qh.qh_endphub |= htole32(
 			    EHCI_QH_SET_PORT(hshubport) |
 			    EHCI_QH_SET_HUBA(hshubaddr) |
-			    EHCI_QH_SET_CMASK(0x08) /* XXX */
+			    (xfertype == UE_INTERRUPT ?
+				 EHCI_QH_SET_CMASK(0x08) : 0)
 			);
 		sqh->qh.qh_curqtd = EHCI_NULL;
 		/* Fill the overlay qTD */

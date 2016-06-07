@@ -786,6 +786,35 @@ validate_fn_redirects_body()
 		${TEST_SH} -c \
 		   ". ./f-def; { f;f>/dev/null;}& wait; printf '%s\n' success10"
 
+	# This one tests the issue etcupdate had with the original 48875 fix
+	atf_check -s exit:0 -o inline:'Func a\nFunc b\nFunc c\n' -e empty \
+		${TEST_SH} -c '
+			f() {
+				echo Func "$1"
+			}
+			exec 3<&0 4>&1
+			( echo x-a; echo y-b; echo z-c ) |
+			while read A
+			do
+				B=${A#?-}
+				f "$B" <&3 >&4
+			done >&2'
+
+	# And this tests a similar condition with that same fix
+	cat  <<- 'DONE' >Script
+		f() {
+			printf '%s' " hello $1"
+		}
+		exec 3>&1
+		echo $( for i in a b c
+			do printf '%s' @$i; f $i >&3; done >foo
+		)
+		printf '%s\n' foo=$(cat foo)
+	DONE
+	atf_check -s exit:0 -e empty \
+	    -o inline:' hello a hello b hello c\nfoo=@a@b@c\n' \
+	    ${TEST_SH} Script
+
 	# Tests with sh reading stdin, which is not quite the same internal
 	# mechanism.
 	echo ". ./f-def || echo >&2 FAIL
@@ -796,7 +825,7 @@ validate_fn_redirects_body()
 	echo '
 		. ./f-def || echo >&2 FAIL
 		f >&-
-		printf '%s\n' stdin2
+		printf "%s\n" stdin2
 	' | atf_check -s exit:0 -o inline:'stdin2\n' -e empty ${TEST_SH}
 
 	cat <<- 'DONE' > fgh.def

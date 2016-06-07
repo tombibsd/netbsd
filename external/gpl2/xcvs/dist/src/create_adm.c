@@ -15,6 +15,8 @@
  * Creates a CVS administration directory based on the argument repository; the
  * "Entries" file is prefilled from the "initrecord" argument.
  */
+#include <sys/cdefs.h>
+__RCSID("$NetBSD$");
 
 #include "cvs.h"
 

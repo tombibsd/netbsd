@@ -508,7 +508,7 @@ usbd_create_xfer(struct usbd_pipe *pipe, size_t len, unsigned int flags,
     unsigned int nframes, struct usbd_xfer **xp)
 {
 	KASSERT(xp != NULL);
-	void *buf;
+	void *buf = NULL;
 
 	struct usbd_xfer *xfer = usbd_alloc_xfer(pipe->up_dev, nframes);
 	if (xfer == NULL)

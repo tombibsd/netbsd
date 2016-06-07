@@ -94,11 +94,12 @@
 
 
 /* extension to PORTSCx register of EHCI. */
-#define	PORTSC_PTS 		__BITS(31,30)
+#define	PORTSC_PTS		__BITS(31,30)
 #define	PORTSC_PTS_UTMI		__SHIFTIN(0,PORTSC_PTS)
 #define	PORTSC_PTS_PHILIPS	__SHIFTIN(1,PORTSC_PTS) /* not in i.MX51*/
 #define	PORTSC_PTS_ULPI		__SHIFTIN(2,PORTSC_PTS)
 #define	PORTSC_PTS_SERIAL	__SHIFTIN(3,PORTSC_PTS)
+#define	PORTSC_PTS2		__BIT(25)	/* iMX6,7 */
 
 #define	PORTSC_STS	__BIT(29)	/* serial transeiver select */
 #define	PORTSC_PTW	__BIT(28)	/* parallel transceiver width */

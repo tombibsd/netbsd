@@ -279,10 +279,6 @@ in6_selectsrc(struct sockaddr_in6 *dstsock, struct ip6_pktopts *opts,
 	}
 #endif /* MIP6 && NMIP > 0 */
 
-#ifdef DIAGNOSTIC
-	if (ifp == NULL)	/* this should not happen */
-		panic("in6_selectsrc: NULL ifp");
-#endif
 	*errorp = in6_setscope(&dst, ifp, &odstzone);
 	if (*errorp != 0)
 		return (NULL);

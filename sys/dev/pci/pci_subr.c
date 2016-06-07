@@ -3233,7 +3233,52 @@ pci_conf_print_l1pm_cap(const pcireg_t *regs, int capoff, int extcapoff)
 		printf("%dus\n", val * scale);
 }
 
-/* XXX pci_conf_print_ptm_cap */
+static void
+pci_conf_print_ptm_cap(const pcireg_t *regs, int capoff, int extcapoff)
+{
+	pcireg_t reg;
+	uint32_t val;
+
+	printf("\n  Precision Time Management\n");
+
+	reg = regs[o2i(extcapoff + PCI_PTM_CAP)];
+	printf("    PTM Capability register: 0x%08x\n", reg);
+	onoff("PTM Requester Capable", reg, PCI_PTM_CAP_REQ);
+	onoff("PTM Responder Capable", reg, PCI_PTM_CAP_RESP);
+	onoff("PTM Root Capable", reg, PCI_PTM_CAP_ROOT);
+	printf("      Local Clock Granularity: ");
+	val = __SHIFTOUT(reg, PCI_PTM_CAP_LCLCLKGRNL);
+	switch (val) {
+	case 0:
+		printf("Not implemented\n");
+		break;
+	case 0xffff:
+		printf("> 254ns\n");
+		break;
+	default:
+		printf("%uns\n", val);
+		break;
+	}
+
+	reg = regs[o2i(extcapoff + PCI_PTM_CTL)];
+	printf("    PTM Control register: 0x%08x\n", reg);
+	onoff("PTM Enable", reg, PCI_PTM_CTL_EN);
+	onoff("Root Select", reg, PCI_PTM_CTL_ROOTSEL);
+	printf("      Effective Granularity: ");
+	val = __SHIFTOUT(reg, PCI_PTM_CTL_EFCTGRNL);
+	switch (val) {
+	case 0:
+		printf("Unknown\n");
+		break;
+	case 0xffff:
+		printf("> 254ns\n");
+		break;
+	default:
+		printf("%uns\n", val);
+		break;
+	}
+}
+
 /* XXX pci_conf_print_mpcie_cap */
 /* XXX pci_conf_print_frsq_cap */
 /* XXX pci_conf_print_rtr_cap */
@@ -3311,7 +3356,7 @@ static struct {
 	{ PCI_EXTCAP_L1PM,	"L1 PM Substates",
 	  pci_conf_print_l1pm_cap },
 	{ PCI_EXTCAP_PTM,	"Precision Time Management",
-	  NULL },
+	  pci_conf_print_ptm_cap },
 	{ PCI_EXTCAP_MPCIE,	"M-PCIe",
 	  NULL },
 	{ PCI_EXTCAP_FRSQ,	"Function Reading Status Queueing",

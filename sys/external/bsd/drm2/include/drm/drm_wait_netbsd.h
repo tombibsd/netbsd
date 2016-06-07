@@ -34,9 +34,7 @@
 
 #include <sys/param.h>
 #include <sys/condvar.h>
-#if DIAGNOSTIC
 #include <sys/cpu.h>		/* cpu_intr_p */
-#endif
 #include <sys/kernel.h>
 #include <sys/mutex.h>
 #include <sys/systm.h>

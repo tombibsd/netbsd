@@ -2,9 +2,9 @@
 
 .include <bsd.own.mk>
 
-.PATH:	${X11SRCDIR.freetype}/include/cache
+.PATH:	${X11SRCDIR.freetype}/include/freetype/cache
 
-INCSDIR=${X11INCDIR}/freetype2/cache
+INCSDIR=${X11INCDIR}/freetype2/freetype/cache
 
 INCS=	ftcimage.h ftcmanag.h \
 	ftcsbits.h ftcmru.h

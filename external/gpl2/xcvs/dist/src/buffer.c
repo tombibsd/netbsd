@@ -11,6 +11,8 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
+#include <sys/cdefs.h>
+__RCSID("$NetBSD$");
 
 /* Code for the buffer data structure.  */
 

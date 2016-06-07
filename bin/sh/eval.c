@@ -380,7 +380,7 @@ skipping:	  if (evalskip == SKIPCONT && --skipcount <= 0) {
 			if (exitstatus == 0)
 				break;
 		}
-		evaltree(n->nbinary.ch2, flags & (EV_TESTED | EV_MORE));
+		evaltree(n->nbinary.ch2, (flags & EV_TESTED) | EV_MORE);
 		status = exitstatus;
 		if (evalskip)
 			goto skipping;
@@ -413,8 +413,13 @@ evalfor(union node *n, int flags)
 
 	loopnest++;
 	for (sp = arglist.list ; sp ; sp = sp->next) {
+		int f = flags & (EV_TESTED | EV_MORE);
+
+		if (sp->next)
+			f |= EV_MORE;
+
 		setvar(n->nfor.var, sp->text, 0);
-		evaltree(n->nfor.body, flags & (EV_TESTED | EV_MORE));
+		evaltree(n->nfor.body, f);
 		status = exitstatus;
 		if (nflag)
 			break;

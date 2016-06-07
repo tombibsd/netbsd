@@ -146,14 +146,14 @@
 /*
  * SPARC V9 TSTATE register
  *
- *   39 32 31 24 23 18  17   8	7 5 4   0
+ *   39 32 31 24 23 20  19   8	7 5 4   0
  *  +-----+-----+-----+--------+---+-----+
  *  | CCR | ASI |  -  | PSTATE | - | CWP |
  *  +-----+-----+-----+--------+---+-----+
  */
 
 #define TSTATE_CWP		0x01f
-#define TSTATE_PSTATE		0x6ff00
+#define TSTATE_PSTATE		0xfff00
 #define TSTATE_PSTATE_SHIFT	8
 #define TSTATE_ASI		0xff000000LL
 #define TSTATE_ASI_SHIFT	24

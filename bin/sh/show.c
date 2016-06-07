@@ -502,21 +502,7 @@ opentrace(void)
 		/* leave open because libedit might be using it */
 		return;
 	}
-#ifdef not_this_way
-	{
-		char *p;
-		if ((p = getenv("HOME")) == NULL) {
-			if (geteuid() == 0)
-				p = "/";
-			else
-				p = "/tmp";
-		}
-		scopy(p, s);
-		strcat(s, "/trace");
-	}
-#else
 	snprintf(s, sizeof(s), "./trace.%d", (int)getpid());
-#endif /* not_this_way */
 	if (tracefile) {
 		if (!freopen(s, "a", tracefile)) {
 			fprintf(stderr, "Can't re-open %s\n", s);

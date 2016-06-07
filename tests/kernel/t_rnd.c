@@ -86,10 +86,31 @@ ATF_TC_BODY(RNDADDDATA2, tc)
 	ATF_REQUIRE_ERRNO(EINVAL, rump_sys_ioctl(fd, RNDADDDATA, &rd) == -1);
 }
 
+ATF_TC(read_random);
+ATF_TC_HEAD(read_random, tc)
+{
+	atf_tc_set_md_var(tc, "descr", "does reading /dev/random return "
+	    "within reasonable time");
+	atf_tc_set_md_var(tc, "timeout", "10");
+}
+
+ATF_TC_BODY(read_random, tc)
+{
+	char buf[128];
+	int fd;
+
+	atf_tc_expect_fail("PR kern/51135");
+
+	rump_init();
+	RL(fd = rump_sys_open("/dev/random", O_RDONLY));
+	RL(rump_sys_read(fd, buf, sizeof(buf)));
+}
+
 ATF_TP_ADD_TCS(tp)
 {
 	ATF_TP_ADD_TC(tp, RNDADDDATA);
 	ATF_TP_ADD_TC(tp, RNDADDDATA2);
+	ATF_TP_ADD_TC(tp, read_random);
 
 	return atf_no_error();
 }

@@ -4,6 +4,8 @@
 /ALLWINNER_A80_INSTALL/1.1/Sun Dec 14 18:12:38 2014/-kk/
 /ARMADAXP/1.17/Tue Aug 25 04:51:02 2015/-kk/
 /ARMADAXP_INSTALL/1.2/Mon May 19 16:25:47 2014/-kk/
+/ARMADILLO-IOT-G3/1.1/Tue May 17 06:44:46 2016/-kk/
+/ARMADILLO-IOT-G3_INSTALL/1.1/Tue May 17 06:44:46 2016/-kk/
 /ARMADILLO210/1.35/Wed Aug 12 04:13:54 2015/-kk/
 /ARMADILLO9/1.49/Tue Aug 25 04:51:02 2015/-kk/
 /BCM5301X/1.25/Wed Aug 12 04:13:54 2015/-kk/
@@ -156,6 +158,7 @@
 /files.hdl_g/1.3/Mon Dec  3 15:33:30 2007/-kk/
 /files.imx23_olinuxino/1.3/Mon Jan 12 06:48:00 2015/-kk/
 /files.imx31/1.3/Sat Nov 13 04:53:58 2010/-kk/
+/files.imx7/1.1/Tue May 17 06:44:46 2016/-kk/
 /files.integrator/1.11/Thu Feb  5 08:40:58 2015/-kk/
 /files.iq31244/1.8/Thu Oct 24 10:28:57 2013/-kk/
 /files.iq80310/1.12/Mon Dec  3 15:33:30 2007/-kk/
@@ -204,6 +207,7 @@
 /mk.hdl_g/1.1/Sun Apr 16 02:22:33 2006/-kk/
 /mk.imx23_olinuxino/1.2/Thu Oct 24 10:28:57 2013/-kk/
 /mk.imx31/1.2/Sun Apr 27 18:58:46 2008/-kk/
+/mk.imx7/1.1/Tue May 17 06:44:46 2016/-kk/
 /mk.integrator/1.3/Sun Dec 11 12:17:07 2005/-kk/
 /mk.integrator_cp/1.1/Thu Oct 24 10:28:57 2013/-kk/
 /mk.iq80310/1.1/Fri Jan  3 02:16:27 2003/-kk/
@@ -249,6 +253,7 @@
 /std.igepv2/1.7/Fri Oct  3 09:25:33 2014/-kk/
 /std.imx23_olinuxino/1.4/Thu Oct 24 10:28:57 2013/-kk/
 /std.imx31/1.9/Fri Apr 11 02:03:29 2014/-kk/
+/std.imx7/1.1/Tue May 17 06:44:46 2016/-kk/
 /std.integrator/1.18/Sun Dec 16 23:47:56 2012/-kk/
 /std.integrator_cp/1.1/Thu Oct 24 10:28:57 2013/-kk/
 /std.iq31244/1.10/Sun Dec 16 23:47:56 2012/-kk/

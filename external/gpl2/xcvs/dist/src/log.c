@@ -16,6 +16,8 @@
  * argument, prints the log information for all the files in the directory
  * (recursive by default).
  */
+#include <sys/cdefs.h>
+__RCSID("$NetBSD$");
 
 #include "cvs.h"
 #include <assert.h>

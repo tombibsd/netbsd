@@ -185,9 +185,9 @@ ieee80211_mgmt_output(struct ieee80211com *ic, struct ieee80211_node *ni,
 	if (m == NULL)
 		return ENOMEM;
 #ifdef __FreeBSD__
-	KASSERT(m->m_pkthdr.rcvif == NULL, ("rcvif not null"));
+	KASSERT(M_GETCTX(m, struct ieee80211_node *) == NULL);
 #endif
-	m->m_pkthdr.rcvif = (void *)ni;
+	M_SETCTX(m, ni);
 
 	wh = mtod(m, struct ieee80211_frame *);
 	ieee80211_send_setup(ic, ni, wh, 
@@ -247,7 +247,7 @@ ieee80211_send_nulldata(struct ieee80211_node *ni)
 		ieee80211_unref_node(&ni);
 		return ENOMEM;
 	}
-	m->m_pkthdr.rcvif = (void *) ni;
+	M_SETCTX(m, ni);
 
 	wh = mtod(m, struct ieee80211_frame *);
 	ieee80211_send_setup(ic, ni, wh,
@@ -1344,8 +1344,8 @@ ieee80211_send_probereq(struct ieee80211_node *ni,
 	M_PREPEND(m, sizeof(struct ieee80211_frame), M_DONTWAIT);
 	if (m == NULL)
 		return ENOMEM;
-	IASSERT(m->m_pkthdr.rcvif == NULL, ("rcvif not null"));
-	m->m_pkthdr.rcvif = (void *)ni;
+	KASSERT(M_GETCTX(m, struct ieee80211_node *) == NULL);
+	M_SETCTX(m, ni);
 
 	wh = mtod(m, struct ieee80211_frame *);
 	ieee80211_send_setup(ic, ni, wh,

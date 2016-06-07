@@ -1799,9 +1799,9 @@ read_cd_capacity(struct scsipi_periph *periph, uint32_t *blksize, u_long *last_l
 	 */
 	struct scsipi_read_cd_cap_data    cap __aligned(2);
 	struct scsipi_read_discinfo       di_cmd;
-	struct scsipi_read_discinfo_data  di;
+	struct scsipi_read_discinfo_data  di __aligned(2);
 	struct scsipi_read_trackinfo      ti_cmd;
-	struct scsipi_read_trackinfo_data ti;
+	struct scsipi_read_trackinfo_data ti __aligned(2);
 	uint32_t track_start, track_size;
 	int error, flags, msb, lsb, last_track;
 
@@ -2986,7 +2986,7 @@ mmc_getdiscinfo(struct scsipi_periph *periph,
 	struct scsipi_get_conf_data      *gc;
 	struct scsipi_get_conf_feature   *gcf;
 	struct scsipi_read_discinfo       di_cmd;
-	struct scsipi_read_discinfo_data  di;
+	struct scsipi_read_discinfo_data  di __aligned(2);
 	const uint32_t buffer_size = 1024;
 	uint32_t feat_tbl_len, pos;
 	u_long   last_lba = 0;
@@ -3502,9 +3502,9 @@ mmc_gettrackinfo(struct scsipi_periph *periph,
 		 struct mmc_trackinfo *trackinfo)
 {
 	struct scsipi_read_trackinfo      ti_cmd;
-	struct scsipi_read_trackinfo_data ti;
+	struct scsipi_read_trackinfo_data ti __aligned(2);
 	struct scsipi_get_configuration   gc_cmd;
-	struct scsipi_get_conf_data       gc;
+	struct scsipi_get_conf_data       gc __aligned(2);
 	int error, flags;
 	int mmc_profile;
 

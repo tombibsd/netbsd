@@ -4,7 +4,7 @@
 /atapi_wdc.c/1.122/Tue Jun  7 10:46:26 2016/-kk/
 /atapiconf.c/1.88/Tue Jun  7 09:39:01 2016/-kk/
 /atapiconf.h/1.23/Mon Oct 19 18:41:16 2009/-kk/
-/cd.c/1.330/Fri May  1 11:32:11 2015/-kk/
+/cd.c/1.331/Tue Jun  7 11:00:06 2016/-kk/
 /cdvar.h/1.32/Wed Apr 22 07:37:00 2015/-kk/
 /ch.c/1.90/Fri Oct  3 09:09:20 2014/-kk/
 /files.scsipi/1.41/Sun Dec 11 12:23:50 2005/-kk/
