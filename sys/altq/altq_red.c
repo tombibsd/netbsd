@@ -203,7 +203,7 @@ static int default_inv_pmax = INV_P_MAX;
 
 #ifdef ALTQ3_COMPAT
 /* internal function prototypes */
-static int red_enqueue(struct ifaltq *, struct mbuf *, struct altq_pktattr *);
+static int red_enqueue(struct ifaltq *, struct mbuf *);
 static struct mbuf *red_dequeue(struct ifaltq *, int);
 static int red_request(struct ifaltq *, int, void *);
 static void red_purgeq(red_queue_t *);
@@ -1011,11 +1011,16 @@ red_detach(red_queue_t *rqp)
  *		 ENOBUFS when drop occurs.
  */
 static int
-red_enqueue(struct ifaltq *ifq, struct mbuf *m, struct altq_pktattr *pktattr)
+red_enqueue(struct ifaltq *ifq, struct mbuf *m)
 {
+	struct altq_pktattr pktattr;
 	red_queue_t *rqp = (red_queue_t *)ifq->altq_disc;
 
-	if (red_addq(rqp->rq_red, rqp->rq_q, m, pktattr) < 0)
+	pktattr.pattr_class = m->m_pkthdr.pattr_class;
+	pktattr.pattr_af = m->m_pkthdr.pattr_af;
+	pktattr.pattr_hdr = m->m_pkthdr.pattr_hdr;
+
+	if (red_addq(rqp->rq_red, rqp->rq_q, m, &pktattr) < 0)
 		return ENOBUFS;
 	ifq->ifq_len++;
 	return 0;

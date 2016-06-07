@@ -228,3 +228,10 @@ rt_assert_inactive(const struct rtentry *rt)
 	if (rt->rt_nodes->rn_flags & (RNF_ACTIVE | RNF_ROOT))
 		panic ("rtfree 2");
 }
+
+int
+rt_refines(const struct sockaddr *m_sa, const struct sockaddr *n_sa)
+{
+
+	return rn_refines(m_sa, n_sa);
+}

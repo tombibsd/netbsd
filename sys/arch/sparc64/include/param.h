@@ -108,6 +108,11 @@ extern int nbpg, pgofset, pgshift;
 #define	MAXPHYS		(64 * 1024)
 
 #ifdef __arch64__
+
+#ifdef SUN4V
+#define	MAXCPUS		256
+#endif
+
 /* We get stack overflows w/8K stacks in 64-bit mode */
 #define	SSIZE		2		/* initial stack size in pages */
 #else

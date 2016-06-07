@@ -522,6 +522,7 @@ struct rtentry *
 	    const struct sockaddr *);
 struct rtentry *
 	rt_matchaddr(rtbl_t *, const struct sockaddr *);
+int	rt_refines(const struct sockaddr *, const struct sockaddr *);
 int	rt_walktree(sa_family_t, int (*)(struct rtentry *, void *), void *);
 void	rtbl_init(void);
 

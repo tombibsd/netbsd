@@ -121,11 +121,10 @@ finding it in the list, but allows extant parallel readers to continue
 reading the next entry.
 The caller must then wait, e.g. with
 .Xr pserialize_perform 9 ,
-for all extant parallel readers to finish, before freeing or reusing
-the list entry.
-A list entry should be destroyed with
+for all extant parallel readers to finish, before destroying the list
+entry with
 .Fn PSLIST_ENTRY_DESTROY
-before it may be reused.
+and then freeing or reusing its memory.
 .\"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 .Sh EXCLUSIVE OPERATIONS
 The following operations may be performed on list heads and entries
@@ -175,12 +174,6 @@ Either
 must never have been inserted into a list, or it must have been
 inserted and removed, and the caller must have waited for all parallel
 readers to finish reading it first.
-.Pp
-This has an effect only with the
-.Dv DIAGNOSTIC
-option, so it is not strictly necessary, but it can help to detect bugs
-early; see
-.Xr KASSERT 9 .
 .El
 .\"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 .Sh WRITER OPERATIONS

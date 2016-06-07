@@ -84,7 +84,7 @@
 ./lib/libtermlib.so.0.6				base-sys-shlib		dynamicroot
 ./lib/libutil.so				base-sys-shlib		dynamicroot
 ./lib/libutil.so.7				base-sys-shlib		dynamicroot
-./lib/libutil.so.7.23				base-sys-shlib		dynamicroot
+./lib/libutil.so.7.24				base-sys-shlib		dynamicroot
 ./lib/libz.so					base-sys-shlib		dynamicroot
 ./lib/libz.so.1					base-sys-shlib		dynamicroot
 ./lib/libz.so.1.0				base-sys-shlib		dynamicroot
@@ -721,6 +721,9 @@
 ./usr/lib/librumpnet_npf.so			base-rump-shlib		rump
 ./usr/lib/librumpnet_npf.so.0			base-rump-shlib		rump
 ./usr/lib/librumpnet_npf.so.0.0			base-rump-shlib		rump
+./usr/lib/librumpnet_pppoe.so			base-rump-shlib		rump
+./usr/lib/librumpnet_pppoe.so.0			base-rump-shlib		rump
+./usr/lib/librumpnet_pppoe.so.0.0		base-rump-shlib		rump
 ./usr/lib/librumpnet_shmif.so			base-rump-shlib		rump
 ./usr/lib/librumpnet_shmif.so.0			base-rump-shlib		rump
 ./usr/lib/librumpnet_shmif.so.0.0		base-rump-shlib		rump
@@ -802,7 +805,7 @@
 ./usr/lib/libusbhid.so.1.0			base-sys-shlib		compatfile
 ./usr/lib/libutil.so				base-sys-shlib		compatfile
 ./usr/lib/libutil.so.7				base-sys-shlib		compatfile
-./usr/lib/libutil.so.7.23			base-sys-shlib		compatfile
+./usr/lib/libutil.so.7.24			base-sys-shlib		compatfile
 ./usr/lib/libuutil.so				base-zfs-shlib		compatfile,zfs
 ./usr/lib/libuutil.so.0				base-zfs-shlib		compatfile,zfs
 ./usr/lib/libuutil.so.0.0			base-zfs-shlib		compatfile,zfs

@@ -439,9 +439,8 @@ sloutput(struct ifnet *ifp, struct mbuf *m, const struct sockaddr *dst,
 	struct ip *ip;
 	struct ifqueue *ifq = NULL;
 	int s, error;
-	ALTQ_DECL(struct altq_pktattr pktattr;)
 
-	IFQ_CLASSIFY(&ifp->if_snd, m, dst->sa_family, &pktattr);
+	IFQ_CLASSIFY(&ifp->if_snd, m, dst->sa_family);
 
 	/*
 	 * `Cannot happen' (see slioctl).  Someday we will extend
@@ -492,8 +491,7 @@ sloutput(struct ifnet *ifp, struct mbuf *m, const struct sockaddr *dst,
 	if ((ip->ip_tos & IPTOS_LOWDELAY) != 0)
 		ifq = &sc->sc_fastq;
 #endif
-	if ((error = ifq_enqueue2(ifp, ifq, m ALTQ_COMMA
-	    ALTQ_DECL(&pktattr))) != 0) {
+	if ((error = ifq_enqueue2(ifp, ifq, m)) != 0) {
 		splx(s);
 		return error;
 	}

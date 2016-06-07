@@ -58,8 +58,8 @@ void		db_show_callout(db_expr_t, bool, db_expr_t, const char *);
 /* kern/subr_log.c */
 void		db_dmesg(db_expr_t, bool, db_expr_t, const char *);
 
-/* netinet/if_arp.c */
-void		db_show_arptab(db_expr_t, bool, db_expr_t, const char *);
+/* net/route.c */
+void		db_show_routes(db_expr_t, bool, db_expr_t, const char *);
 
 /* kern/vfs_aio.c */
 void		db_show_aio_jobs(db_expr_t, bool, db_expr_t, const char *);

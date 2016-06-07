@@ -71,7 +71,7 @@ typedef struct mandb_rec {
 	secbuff exit_status; // EXIT STATUS
 	secbuff diagnostics; // DIAGNOSTICS
 	secbuff errors; // ERRORS
-	char section[2];
+	char *section;
 
 	int xr_found; // To track whether a .Xr was seen when parsing a section
 
@@ -429,6 +429,7 @@ main(int argc, char *argv[])
 	if (errmsg != NULL) {
 		warnx("%s", errmsg);
 		free(errmsg);
+		close_db(db);
 		exit(EXIT_FAILURE);
 	}
 
@@ -702,7 +703,7 @@ read_and_decompress(const char *file, void **bufp, size_t *len)
 	for (;;) {
 		r = archive_read_data(a, buf + off, *len - off);
 		if (r == ARCHIVE_OK) {
-			archive_read_close(a);
+			archive_read_finish(a);
 			*bufp = buf;
 			*len = off;
 			return 0;
@@ -718,7 +719,7 @@ read_and_decompress(const char *file, void **bufp, size_t *len)
 				if (mflags.verbosity)
 					warnx("File too large: %s", file);
 				free(buf);
-				archive_read_close(a);
+				archive_read_finish(a);
 				return -1;
 			}
 			buf = erealloc(buf, *len);
@@ -727,7 +728,7 @@ read_and_decompress(const char *file, void **bufp, size_t *len)
 
 archive_error:
 	warnx("Error while reading `%s': %s", file, archive_error_string(a));
-	archive_read_close(a);
+	archive_read_finish(a);
 	return -1;
 }
 
@@ -773,7 +774,7 @@ update_db(sqlite3 *db, struct mparse *mp, mandb_rec *rec)
 	rc = sqlite3_prepare_v2(db, sqlstr, -1, &stmt, NULL);
 	if (rc != SQLITE_OK) {
 		if (mflags.verbosity)
-		warnx("%s", sqlite3_errmsg(db));
+			warnx("%s", sqlite3_errmsg(db));
 		close_db(db);
 		errx(EXIT_FAILURE, "Could not query file cache");
 	}
@@ -808,7 +809,8 @@ update_db(sqlite3 *db, struct mparse *mp, mandb_rec *rec)
 			err_count++;
 			continue;
 		}
-		md5_status = check_md5(file, db, "mandb_meta", &md5sum, buf, buflen);
+		md5_status = check_md5(file, db, "mandb_meta", &md5sum, buf,
+		    buflen);
 		assert(md5sum != NULL);
 		if (md5_status == -1) {
 			if (mflags.verbosity)
@@ -842,16 +844,24 @@ update_db(sqlite3 *db, struct mparse *mp, mandb_rec *rec)
 			 * This means is either a new file or an updated file.
 			 * We should go ahead with parsing.
 			 */
+			if (chdir(parent) == -1) {
+				if (mflags.verbosity)
+					warn("chdir failed for `%s', could "
+					    "not index `%s'", parent, file);
+				err_count++;
+				free(md5sum);
+				continue;
+			}
+
 			if (mflags.verbosity == 2)
 				printf("Parsing: %s\n", file);
 			rec->md5_hash = md5sum;
 			rec->file_path = estrdup(file);
 			// file_path is freed by insert_into_db itself.
-			chdir(parent);
 			begin_parse(file, mp, rec, buf, buflen);
 			if (insert_into_db(db, rec) < 0) {
 				if (mflags.verbosity)
-					warnx("Error in indexing %s", file);
+					warnx("Error in indexing `%s'", file);
 				err_count++;
 			} else {
 				new_count++;
@@ -861,12 +871,12 @@ update_db(sqlite3 *db, struct mparse *mp, mandb_rec *rec)
 
 	if (mflags.verbosity == 2) {
 		printf("Total Number of new or updated pages encountered = %d\n"
-			"Total number of (hard or symbolic) links found = %d\n"
-			"Total number of pages that were successfully"
-			" indexed/updated = %d\n"
-			"Total number of pages that could not be indexed"
-			" due to errors = %d\n",
-			total_count - link_count, link_count, new_count, err_count);
+		    "Total number of (hard or symbolic) links found = %d\n"
+		    "Total number of pages that were successfully"
+		    " indexed/updated = %d\n"
+		    "Total number of pages that could not be indexed"
+		    " due to errors = %d\n",
+		    total_count - link_count, link_count, new_count, err_count);
 	}
 
 	if (mflags.recreate)
@@ -945,15 +955,15 @@ set_section(const struct mdoc *md, const struct man *m, mandb_rec *rec)
 	if (md) {
 		const struct mdoc_meta *md_meta = mdoc_meta(md);
 		if (md_meta->msec == NULL) {
-			rec->section[0] = '?';
+			easprintf(&rec->section, "%s", "?");
 		} else
-			rec->section[0] = md_meta->msec[0];
+			rec->section = estrdup(md_meta->msec);
 	} else if (m) {
 		const struct man_meta *m_meta = man_meta(m);
 		if (m_meta->msec == NULL)
-			rec->section[0] = '?';
+			easprintf(&rec->section, "%s", "?");
 		else
-			rec->section[0] = m_meta->msec[0];
+			rec->section = estrdup(m_meta->msec);
 	} else
 		return;
 
@@ -1574,7 +1584,7 @@ insert_into_db(sqlite3 *db, mandb_rec *rec)
 		char *tmp;
 		rec->links = estrdup(rec->name);
 		free(rec->name);
-		int sz = strcspn(rec->links, " \0");
+		size_t sz = strcspn(rec->links, " \0");
 		rec->name = emalloc(sz + 1);
 		memcpy(rec->name, rec->links, sz);
 		if(rec->name[sz - 1] == ',')
@@ -1627,7 +1637,8 @@ insert_into_db(sqlite3 *db, mandb_rec *rec)
 	}
 
 	idx = sqlite3_bind_parameter_index(stmt, ":lib");
-	rc = sqlite3_bind_text(stmt, idx, rec->lib.data, rec->lib.offset + 1, NULL);
+	rc = sqlite3_bind_text(stmt, idx, rec->lib.data,
+	    rec->lib.offset + 1, NULL);
 	if (rc != SQLITE_OK) {
 		sqlite3_finalize(stmt);
 		goto Out;
@@ -1642,7 +1653,8 @@ insert_into_db(sqlite3 *db, mandb_rec *rec)
 	}
 
 	idx = sqlite3_bind_parameter_index(stmt, ":env");
-	rc = sqlite3_bind_text(stmt, idx, rec->env.data, rec->env.offset + 1, NULL);
+	rc = sqlite3_bind_text(stmt, idx, rec->env.data,
+	    rec->env.offset + 1, NULL);
 	if (rc != SQLITE_OK) {
 		sqlite3_finalize(stmt);
 		goto Out;
@@ -1980,6 +1992,9 @@ cleanup(mandb_rec *rec)
 
 	free(rec->md5_hash);
 	rec->md5_hash = NULL;
+
+	free(rec->section);
+	rec->section = NULL;
 }
 
 /*

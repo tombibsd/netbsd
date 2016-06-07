@@ -67,6 +67,9 @@ LDFLAGS+=	-Wl,--fatal-warnings
 . endif
 .endif
 .endif
+
+LDFLAGS+=	-Wl,--warn-shared-textrel
+
 .if ${WARNS} > 1
 CFLAGS+=	-Wreturn-type -Wswitch -Wshadow
 .endif

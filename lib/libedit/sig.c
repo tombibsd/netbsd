@@ -52,23 +52,23 @@ __RCSID("$NetBSD$");
 #include "el.h"
 #include "common.h"
 
-private EditLine *sel = NULL;
+static EditLine *sel = NULL;
 
-private const int sighdl[] = {
+static const int sighdl[] = {
 #define	_DO(a)	(a),
 	ALLSIGS
 #undef	_DO
 	- 1
 };
 
-private void sig_handler(int);
+static void sig_handler(int);
 
 /* sig_handler():
  *	This is the handler called for all signals
  *	XXX: we cannot pass any data so we just store the old editline
  *	state in a private variable
  */
-private void
+static void
 sig_handler(int signo)
 {
 	int i, save_errno;

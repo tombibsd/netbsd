@@ -262,26 +262,38 @@ ipv4ll_conflicted(struct arp_state *astate, const struct arp_msg *amsg)
 	if (astate->failed.s_addr == state->addr.s_addr) {
 		struct timespec now, defend;
 
-		/* RFC 3927 Section 2.5 */
+		/* RFC 3927 Section 2.5 says a defence should
+		 * broadcast an ARP announcement.
+		 * Because the kernel will also unicast a reply to the
+		 * hardware address which requested the IP address
+		 * the other IPv4LL client will receieve two ARP
+		 * messages.
+		 * If another conflict happens within DEFEND_INTERVAL
+		 * then we must drop our address and negotiate a new one. */
 		defend.tv_sec = state->defend.tv_sec + DEFEND_INTERVAL;
 		defend.tv_nsec = state->defend.tv_nsec;
 		clock_gettime(CLOCK_MONOTONIC, &now);
-		if (timespeccmp(&defend, &now, >)) {
+		if (timespeccmp(&defend, &now, >))
 			logger(ifp->ctx, LOG_WARNING,
 			    "%s: IPv4LL %d second defence failed for %s",
 			    ifp->name, DEFEND_INTERVAL,
 			    inet_ntoa(state->addr));
-			ipv4_deladdr(ifp, &state->addr, &inaddr_llmask, 1);
-			state->down = 1;
-			script_runreason(ifp, "IPV4LL");
-			state->addr.s_addr = INADDR_ANY;
-		} else {
+		else if (arp_request(ifp,
+		    state->addr.s_addr, state->addr.s_addr) == -1)
+			logger(ifp->ctx, LOG_ERR,
+			    "%s: arp_request: %m", __func__);
+		else {
 			logger(ifp->ctx, LOG_DEBUG,
 			    "%s: defended IPv4LL address %s",
 			    ifp->name, inet_ntoa(state->addr));
 			state->defend = now;
 			return;
 		}
+
+		ipv4_deladdr(ifp, &state->addr, &inaddr_llmask, 1);
+		state->down = 1;
+		script_runreason(ifp, "IPV4LL");
+		state->addr.s_addr = INADDR_ANY;
 	}
 
 	arp_cancel(astate);
@@ -447,3 +459,29 @@ ipv4ll_freedrop(struct interface *ifp, int drop)
 		}
 	}
 }
+
+/* This may cause issues in BSD systems, where running as a single dhcpcd
+ * daemon would solve this issue easily. */
+#ifdef HAVE_ROUTE_METRIC
+int
+ipv4ll_handlert(struct dhcpcd_ctx *ctx, __unused int cmd, const struct rt *rt)
+{
+	struct interface *ifp;
+
+	/* Only interested in default route changes. */
+	if (rt->dest.s_addr != INADDR_ANY)
+		return 0;
+
+	/* If any interface is running IPv4LL, rebuild our routing table. */
+	TAILQ_FOREACH(ifp, ctx->ifaces, next) {
+		if (IPV4LL_STATE_RUNNING(ifp))
+			break;
+	}
+	if (ifp != NULL) {
+		if_initrt(ifp);
+		ipv4_buildroutes(ctx);
+	}
+
+	return 0;
+}
+#endif

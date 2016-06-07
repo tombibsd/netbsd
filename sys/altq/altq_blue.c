@@ -112,7 +112,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 static blue_queue_t *blue_list = NULL;
 
 /* internal function prototypes */
-static int blue_enqueue(struct ifaltq *, struct mbuf *, struct altq_pktattr *);
+static int blue_enqueue(struct ifaltq *, struct mbuf *);
 static struct mbuf *blue_dequeue(struct ifaltq *, int);
 static int drop_early(blue_t *);
 static int mark_ecn(struct mbuf *, struct altq_pktattr *, int);
@@ -391,12 +391,17 @@ blue_init(blue_t *rp, int flags, int pkttime, int blue_max_pmark,
  *		 ENOBUFS when drop occurs.
  */
 static int
-blue_enqueue(struct ifaltq *ifq, struct mbuf *m, struct altq_pktattr *pktattr)
+blue_enqueue(struct ifaltq *ifq, struct mbuf *m)
 {
+	struct altq_pktattr pktattr;
 	blue_queue_t *rqp = (blue_queue_t *)ifq->altq_disc;
 	int error = 0;
 
-	if (blue_addq(rqp->rq_blue, rqp->rq_q, m, pktattr) == 0)
+	pktattr.pattr_class = m->m_pkthdr.pattr_class;
+	pktattr.pattr_af = m->m_pkthdr.pattr_af;
+	pktattr.pattr_hdr = m->m_pkthdr.pattr_hdr;
+
+	if (blue_addq(rqp->rq_blue, rqp->rq_q, m, &pktattr) == 0)
 		ifq->ifq_len++;
 	else
 		error = ENOBUFS;

@@ -698,7 +698,6 @@ ieee80211_deliver_data(struct ieee80211com *ic,
 {
 	struct ether_header *eh = mtod(m, struct ether_header *);
 	struct ifnet *ifp = ic->ic_ifp;
-	ALTQ_DECL(struct altq_pktattr pktattr;)
 	int error;
 
 	/* perform as a bridge within the AP */
@@ -741,12 +740,11 @@ ieee80211_deliver_data(struct ieee80211com *ic,
 			int len;
 #ifdef ALTQ
 			if (ALTQ_IS_ENABLED(&ifp->if_snd)) {
-				altq_etherclassify(&ifp->if_snd, m1,
-				    &pktattr);
+				altq_etherclassify(&ifp->if_snd, m1);
 			}
 #endif
 			len = m1->m_pkthdr.len;
-			IFQ_ENQUEUE(&ifp->if_snd, m1, &pktattr, error);
+			IFQ_ENQUEUE(&ifp->if_snd, m1, error);
 			if (error) {
 				ifp->if_omcasts++;
 				m = NULL;

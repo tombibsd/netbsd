@@ -2,7 +2,7 @@
 
 /*
  * dhcpcd - DHCP client daemon
- * Copyright (c) 2006-2015 Roy Marples <roy@marples.name>
+ * Copyright (c) 2006-2016 Roy Marples <roy@marples.name>
  * All rights reserved
 
  * Redistribution and use in source and binary forms, with or without
@@ -116,7 +116,7 @@ int ipv4_preferanother(struct interface *);
 struct ipv4_addr *ipv4_addaddr(struct interface *,
     const struct in_addr *, const struct in_addr *, const struct in_addr *);
 void ipv4_applyaddr(void *);
-int ipv4_handlert(struct dhcpcd_ctx *, int, struct rt *);
+int ipv4_handlert(struct dhcpcd_ctx *, int, const struct rt *, int);
 void ipv4_freerts(struct rt_head *);
 
 struct ipv4_addr *ipv4_iffindaddr(struct interface *,
@@ -142,7 +142,7 @@ void ipv4_ctxfree(struct dhcpcd_ctx *);
 #define ipv4_free(a) {}
 #define ipv4_ctxfree(a) {}
 #define ipv4_hasaddr(a) (0)
-#define ipv4_preferanother(a) (0)
+#define ipv4_preferanother(a) {}
 #endif
 
 #endif

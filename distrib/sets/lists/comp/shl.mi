@@ -226,6 +226,7 @@
 ./usr/lib/librumpnet_netmpls_pic.a		comp-c-piclib		picinstall,rump
 ./usr/lib/librumpnet_npf_pic.a			comp-c-piclib		picinstall,rump
 ./usr/lib/librumpnet_pic.a			comp-c-piclib		compatfile,picinstall,rump
+./usr/lib/librumpnet_pppoe_pic.a		comp-c-piclib		picinstall,rump
 ./usr/lib/librumpnet_shmif_pic.a		comp-c-piclib		picinstall,rump
 ./usr/lib/librumpnet_sockin_pic.a		comp-c-piclib		picinstall,rump
 ./usr/lib/librumpnet_tap_pic.a			comp-c-piclib		picinstall,rump

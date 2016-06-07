@@ -58,7 +58,7 @@
 #define ARP_LEN								      \
 	(sizeof(struct arphdr) + (2 * sizeof(uint32_t)) + (2 * HWADDR_LEN))
 
-static ssize_t
+ssize_t
 arp_request(const struct interface *ifp, in_addr_t sip, in_addr_t tip)
 {
 	uint8_t arp_buffer[ARP_LEN];
@@ -204,8 +204,7 @@ arp_open(struct interface *ifp)
 			    __func__, ifp->name);
 			return;
 		}
-		eloop_event_add(ifp->ctx->eloop, state->fd,
-		    arp_packet, ifp, NULL, NULL);
+		eloop_event_add(ifp->ctx->eloop, state->fd, arp_packet, ifp);
 	}
 }
 

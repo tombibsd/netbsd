@@ -6,6 +6,7 @@ NOMAN=	1
 
 PROG=	bmtoa
 
+CPPFLAGS+=-DHAVE_MKSTEMP
 LDADD+=	-lXaw -lXmu -lXt -lSM -lICE -lXpm -lXext -lX11 -lm
 DPADD+=	${LIBXAW} ${LIBXMU} ${LIBXT} ${LIBSM} ${LIBICE} \
 	${LIBXPM} ${LIBXEXT} ${LIBX11} ${LIBM}

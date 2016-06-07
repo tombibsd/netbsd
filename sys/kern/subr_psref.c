@@ -80,6 +80,9 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 LIST_HEAD(psref_head, psref);
 
+static bool	_psref_held(const struct psref_target *, struct psref_class *,
+		    bool);
+
 /*
  * struct psref_class
  *
@@ -370,7 +373,7 @@ psreffed_p_xc(void *cookie0, void *cookie1 __unused)
 	 * after xc_wait, which has already issued any necessary memory
 	 * barriers.
 	 */
-	if (psref_held(P->target, P->class))
+	if (_psref_held(P->target, P->class, true))
 		P->ret = true;
 }
 
@@ -430,14 +433,9 @@ psref_target_destroy(struct psref_target *target, struct psref_class *class)
 	target->prt_class = NULL;
 }
 
-/*
- * psref_held(target, class)
- *
- *	True if the current CPU holds a passive reference to target,
- *	false otherwise.  May be used only inside assertions.
- */
-bool
-psref_held(const struct psref_target *target, struct psref_class *class)
+static bool
+_psref_held(const struct psref_target *target, struct psref_class *class,
+    bool lwp_mismatch_ok)
 {
 	const struct psref_cpu *pcpu;
 	const struct psref *psref;
@@ -460,7 +458,7 @@ psref_held(const struct psref_target *target, struct psref_class *class)
 	/* Search through all the references on this CPU.  */
 	LIST_FOREACH(psref, &pcpu->pcpu_head, psref_entry) {
 		/* Sanity-check the reference.  */
-		KASSERTMSG((psref->psref_lwp == curlwp),
+		KASSERTMSG((lwp_mismatch_ok || psref->psref_lwp == curlwp),
 		    "passive reference transferred from lwp %p to lwp %p",
 		    psref->psref_lwp, curlwp);
 		KASSERTMSG((psref->psref_cpu == curcpu()),
@@ -479,4 +477,17 @@ psref_held(const struct psref_target *target, struct psref_class *class)
 	splx(s);
 
 	return held;
+}
+
+/*
+ * psref_held(target, class)
+ *
+ *	True if the current CPU holds a passive reference to target,
+ *	false otherwise.  May be used only inside assertions.
+ */
+bool
+psref_held(const struct psref_target *target, struct psref_class *class)
+{
+
+	return _psref_held(target, class, false);
 }

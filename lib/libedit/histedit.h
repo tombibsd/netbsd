@@ -261,6 +261,8 @@ typedef struct lineinfow {
 	const wchar_t	*lastchar;
 } LineInfoW;
 
+typedef int	(*el_rfunc_t)(EditLine *, wchar_t *);
+
 const wchar_t	*el_wgets(EditLine *, int *);
 int		 el_wgetc(EditLine *, wchar_t *);
 void		 el_wpush(EditLine *, const wchar_t *);

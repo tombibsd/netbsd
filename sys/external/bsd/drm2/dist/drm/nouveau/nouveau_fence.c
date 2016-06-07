@@ -71,6 +71,7 @@ nouveau_fence_context_del(struct nouveau_fence_chan *fctx)
 		nouveau_fence_signal(fence);
 	}
 	spin_unlock(&fctx->lock);
+	spin_lock_destroy(&fctx->lock);
 }
 
 void

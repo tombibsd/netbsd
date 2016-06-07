@@ -3375,7 +3375,7 @@ ifnet_output(struct ifnet *ifp, struct mbuf *m,
   /* Some BSD QUEUE routines are not interrupt-safe. */
   {
   DISABLE_INTR; /* noop in FreeBSD */
-  IFQ_ENQUEUE(&ifp->if_snd, m, NULL, error);
+  IFQ_ENQUEUE(&ifp->if_snd, m, error);
   ENABLE_INTR; /* noop in FreeBSD */
   }
 

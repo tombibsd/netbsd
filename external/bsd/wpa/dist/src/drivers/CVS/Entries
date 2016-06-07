@@ -3,7 +3,7 @@
 /android_drv.h/1.1.1.2/Wed Oct 29 08:10:04 2014/-kk/
 /driver.h/1.2/Tue Jun  7 09:48:53 2016/-kk/
 /driver_atheros.c/1.1.1.6/Sun Apr 12 03:30:12 2015/-kk/
-/driver_bsd.c/1.24/Tue Jun  7 09:48:53 2016/-kk/
+/driver_bsd.c/1.25/Tue Jun  7 10:15:33 2016/-kk/
 /driver_common.c/1.1.1.4/Sun Apr 12 03:30:12 2015/-kk/
 /driver_hostap.c/1.1.1.4/Sun Apr 12 03:30:12 2015/-kk/
 /driver_hostap.h/1.1.1.2/Tue Jan 14 16:02:24 2014/-kk/

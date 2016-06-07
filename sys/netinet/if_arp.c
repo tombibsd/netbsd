@@ -205,13 +205,6 @@ static int	myip_initialized = 0;
 static int	revarp_in_progress = 0;
 static struct	ifnet *myip_ifp = NULL;
 
-#ifdef DDB
-static void db_print_sa(const struct sockaddr *);
-static void db_print_ifa(struct ifaddr *);
-static void db_print_llinfo(struct llentry *);
-static int db_show_rtentry(struct rtentry *, void *);
-#endif
-
 static int arp_drainwanted;
 
 static int log_movements = 1;
@@ -692,7 +685,7 @@ arprequest(struct ifnet *ifp,
  * Any other value indicates an error.
  */
 int
-arpresolve(struct ifnet *ifp, struct rtentry *rt, struct mbuf *m,
+arpresolve(struct ifnet *ifp, const struct rtentry *rt, struct mbuf *m,
     const struct sockaddr *dst, void *desten, size_t destlen)
 {
 	struct llentry *la;
@@ -713,18 +706,6 @@ arpresolve(struct ifnet *ifp, struct rtentry *rt, struct mbuf *m,
 		LLE_RUNLOCK(la);
 		return 0;
 	}
-
-	/*
-	 * Re-send the ARP request when appropriate.
-	 */
-#ifdef	DIAGNOSTIC
-	if (rt->rt_expire == 0) {
-		/* This should never happen. (Should it? -gwr) */
-		printf("%s: unresolved and rt_expire == 0\n", __func__);
-		/* Set expiration time to now (expired). */
-		rt->rt_expire = time_uptime;
-	}
-#endif
 
 notfound:
 #ifdef IFF_STATICARP /* FreeBSD */
@@ -866,17 +847,18 @@ notfound:
 			    &satocsin(dst)->sin_addr, enaddr);
 		} else {
 			struct sockaddr_in sin;
+			struct rtentry *_rt;
 
 			sockaddr_in_init(&sin, &la->r_l3addr.addr4, 0);
 
 			/* XXX */
-			rt = rtalloc1((struct sockaddr *)&sin, 0);
-			if (rt == NULL)
+			_rt = rtalloc1((struct sockaddr *)&sin, 0);
+			if (_rt == NULL)
 				goto bad;
-			arprequest(ifp, &satocsin(rt->rt_ifa->ifa_addr)->sin_addr,
+			arprequest(ifp,
+			    &satocsin(_rt->rt_ifa->ifa_addr)->sin_addr,
 			    &satocsin(dst)->sin_addr, enaddr);
-			rtfree(rt);
-			rt = NULL;
+			rtfree(_rt);
 		}
 		return error;
 	}
@@ -1230,10 +1212,11 @@ in_arpinput(struct mbuf *m)
 	KASSERT(sizeof(la->ll_addr) >= ifp->if_addrlen);
 	(void)memcpy(&la->ll_addr, ar_sha(ah), ifp->if_addrlen);
 	la->la_flags |= LLE_VALID;
-	la->la_expire = time_uptime + arpt_keep;
+	if ((la->la_flags & LLE_STATIC) == 0) {
+		la->la_expire = time_uptime + arpt_keep;
+		arp_settimer(la, arpt_keep);
+	}
 	la->la_asked = 0;
-	KASSERT((la->la_flags & LLE_STATIC) == 0);
-	arp_settimer(la, arpt_keep);
 	/* rt->rt_flags &= ~RTF_REJECT; */
 
 	if (la->la_hold != NULL) {
@@ -1919,107 +1902,6 @@ revarpwhoarewe(struct ifnet *ifp, struct in_addr *serv_in,
 	memcpy(clnt_in, &myip, sizeof(*clnt_in));
 	return 0;
 }
-
-
-
-#ifdef DDB
-
-#include <machine/db_machdep.h>
-#include <ddb/db_interface.h>
-#include <ddb/db_output.h>
-
-static void
-db_print_sa(const struct sockaddr *sa)
-{
-	int len;
-	const u_char *p;
-
-	if (sa == NULL) {
-		db_printf("[NULL]");
-		return;
-	}
-
-	p = (const u_char *)sa;
-	len = sa->sa_len;
-	db_printf("[");
-	while (len > 0) {
-		db_printf("%d", *p);
-		p++; len--;
-		if (len) db_printf(",");
-	}
-	db_printf("]\n");
-}
-
-static void
-db_print_ifa(struct ifaddr *ifa)
-{
-	if (ifa == NULL)
-		return;
-	db_printf("  ifa_addr=");
-	db_print_sa(ifa->ifa_addr);
-	db_printf("  ifa_dsta=");
-	db_print_sa(ifa->ifa_dstaddr);
-	db_printf("  ifa_mask=");
-	db_print_sa(ifa->ifa_netmask);
-	db_printf("  flags=0x%x,refcnt=%d,metric=%d\n",
-			  ifa->ifa_flags,
-			  ifa->ifa_refcnt,
-			  ifa->ifa_metric);
-}
-
-static void
-db_print_llinfo(struct llentry *la)
-{
-	if (la == NULL)
-		return;
-	db_printf("  la_hold=%p, la_asked=%d\n", la->la_hold, la->la_asked);
-	db_printf("  la_flags=0x%x\n", la->la_flags);
-}
-
-/*
- * Function to pass to rt_walktree().
- * Return non-zero error to abort walk.
- */
-static int
-db_show_rtentry(struct rtentry *rt, void *w)
-{
-	db_printf("rtentry=%p", rt);
-
-	db_printf(" flags=0x%x refcnt=%d use=%"PRId64" expire=%"PRId64"\n",
-			  rt->rt_flags, rt->rt_refcnt,
-			  rt->rt_use, (uint64_t)rt->rt_expire);
-
-	db_printf(" key="); db_print_sa(rt_getkey(rt));
-	db_printf(" mask="); db_print_sa(rt_mask(rt));
-	db_printf(" gw="); db_print_sa(rt->rt_gateway);
-
-	db_printf(" ifp=%p ", rt->rt_ifp);
-	if (rt->rt_ifp)
-		db_printf("(%s)", rt->rt_ifp->if_xname);
-	else
-		db_printf("(NULL)");
-
-	db_printf(" ifa=%p\n", rt->rt_ifa);
-	db_print_ifa(rt->rt_ifa);
-
-	db_printf(" gwroute=%p llinfo=%p\n",
-			  rt->rt_gwroute, rt->rt_llinfo);
-	db_print_llinfo(rt->rt_llinfo);
-
-	return 0;
-}
-
-/*
- * Function to print all the route trees.
- * Use this from ddb:  "show arptab"
- */
-void
-db_show_arptab(db_expr_t addr, bool have_addr,
-    db_expr_t count, const char *modif)
-{
-	rt_walktree(AF_INET, db_show_rtentry, NULL);
-}
-#endif
 
 void
 arp_stat_add(int type, uint64_t count)

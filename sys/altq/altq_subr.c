@@ -125,7 +125,7 @@ altq_lookup(char *name, int type)
 
 int
 altq_attach(struct ifaltq *ifq, int type, void *discipline,
-    int (*enqueue)(struct ifaltq *, struct mbuf *, struct altq_pktattr *),
+    int (*enqueue)(struct ifaltq *, struct mbuf *),
     struct mbuf *(*dequeue)(struct ifaltq *, int),
     int (*request)(struct ifaltq *, int, void *),
     void *clfier, void *(*classify)(void *, struct mbuf *, int))

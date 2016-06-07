@@ -67,10 +67,10 @@ dhcp_get_hostname(char *buf, size_t buf_len, const struct if_options *ifo)
 		strlcpy(buf, ifo->hostname, buf_len);
 
 	/* Deny sending of these local hostnames */
-	if (strcmp(buf, "(none)") == 0 ||
+	if (buf[0] == '\0' || buf[0] == '.' ||
+	    strcmp(buf, "(none)") == 0 ||
 	    strcmp(buf, "localhost") == 0 ||
-	    strncmp(buf, "localhost.", strlen("localhost.")) == 0 ||
-	    buf[0] == '.')
+	    strncmp(buf, "localhost.", strlen("localhost.")) == 0)
 		return NULL;
 
 	/* Shorten the hostname if required */
@@ -103,15 +103,17 @@ dhcp_print_option_encoding(const struct dhcp_opt *opt, int cols)
 	if (opt->type & ARRAY)
 		printf(" array");
 	if (opt->type & UINT8)
-		printf(" byte");
+		printf(" uint8");
+	else if (opt->type & INT8)
+		printf(" int8");
 	else if (opt->type & UINT16)
 		printf(" uint16");
-	else if (opt->type & SINT16)
-		printf(" sint16");
+	else if (opt->type & INT16)
+		printf(" int16");
 	else if (opt->type & UINT32)
 		printf(" uint32");
-	else if (opt->type & SINT32)
-		printf(" sint32");
+	else if (opt->type & INT32)
+		printf(" int32");
 	else if (opt->type & ADDRIPV4)
 		printf(" ipaddress");
 	else if (opt->type & ADDRIPV6)
@@ -208,6 +210,8 @@ make_option_mask(const struct dhcp_opt *dopts, size_t dopts_len,
 			continue;
 		match = 0;
 		for (i = 0, opt = odopts; i < odopts_len; i++, opt++) {
+			if (opt->var == NULL && opt->option == 0)
+				continue; /* buggy dhcpcd-definitions.conf */
 			if (strcmp(opt->var, token) == 0)
 				match = 1;
 			else {
@@ -590,11 +594,11 @@ dhcp_optlen(const struct dhcp_opt *opt, size_t dl)
 
 	if (opt->type & ADDRIPV6)
 		sz = ADDR6SZ;
-	else if (opt->type & (UINT32 | ADDRIPV4))
+	else if (opt->type & (INT32 | UINT32 | ADDRIPV4))
 		sz = sizeof(uint32_t);
-	else if (opt->type & UINT16)
+	else if (opt->type & (INT16 | UINT16))
 		sz = sizeof(uint16_t);
-	else if (opt->type & (UINT8 | BITFLAG))
+	else if (opt->type & (INT8 | UINT8 | BITFLAG))
 		sz = sizeof(uint8_t);
 	else if (opt->type & FLAG)
 		return 0;
@@ -621,6 +625,39 @@ dhcp_optlen(const struct dhcp_opt *opt, size_t dl)
 	return (ssize_t)sz;
 }
 
+/* It's possible for DHCPv4 to contain an IPv6 address */
+static ssize_t
+ipv6_printaddr(char *s, size_t sl, const uint8_t *d, const char *ifname)
+{
+	char buf[INET6_ADDRSTRLEN];
+	const char *p;
+	size_t l;
+
+	p = inet_ntop(AF_INET6, d, buf, sizeof(buf));
+	if (p == NULL)
+		return -1;
+
+	l = strlen(p);
+	if (d[0] == 0xfe && (d[1] & 0xc0) == 0x80)
+		l += 1 + strlen(ifname);
+
+	if (s == NULL)
+		return (ssize_t)l;
+
+	if (sl < l) {
+		errno = ENOMEM;
+		return -1;
+	}
+
+	s += strlcpy(s, p, sl);
+	if (d[0] == 0xfe && (d[1] & 0xc0) == 0x80) {
+		*s++ = '%';
+		s += strlcpy(s, ifname, sl);
+	}
+	*s = '\0';
+	return (ssize_t)l;
+}
+
 static ssize_t
 print_option(char *s, size_t len, const struct dhcp_opt *opt,
     const uint8_t *data, size_t dl, const char *ifname)
@@ -634,10 +671,6 @@ print_option(char *s, size_t len, const struct dhcp_opt *opt,
 	ssize_t bytes = 0, sl;
 	size_t l;
 	char *tmp;
-
-#ifndef INET6
-	UNUSED(ifname);
-#endif
 
 	if (opt->type & RFC1035) {
 		sl = decode_rfc1035(NULL, 0, data, dl);
@@ -704,38 +737,37 @@ print_option(char *s, size_t len, const struct dhcp_opt *opt,
 	if (!s) {
 		if (opt->type & UINT8)
 			l = 3;
+		else if (opt->type & INT8)
+			l = 4;
 		else if (opt->type & UINT16) {
 			l = 5;
 			dl /= 2;
-		} else if (opt->type & SINT16) {
+		} else if (opt->type & INT16) {
 			l = 6;
 			dl /= 2;
 		} else if (opt->type & UINT32) {
 			l = 10;
 			dl /= 4;
-		} else if (opt->type & SINT32) {
+		} else if (opt->type & INT32) {
 			l = 11;
 			dl /= 4;
 		} else if (opt->type & ADDRIPV4) {
 			l = 16;
 			dl /= 4;
-		}
-#ifdef INET6
-		else if (opt->type & ADDRIPV6) {
+		} else if (opt->type & ADDRIPV6) {
 			e = data + dl;
 			l = 0;
 			while (data < e) {
 				if (l)
 					l++; /* space */
 				sl = ipv6_printaddr(NULL, 0, data, ifname);
-				if (sl != -1)
-					l += (size_t)sl;
+				if (sl == -1)
+					return l == 0 ? -1 : (ssize_t)l;
+				l += (size_t)sl;
 				data += 16;
 			}
 			return (ssize_t)l;
-		}
-#endif
-		else {
+		} else {
 			errno = EINVAL;
 			return -1;
 		}
@@ -753,12 +785,15 @@ print_option(char *s, size_t len, const struct dhcp_opt *opt,
 		if (opt->type & UINT8) {
 			sl = snprintf(s, len, "%u", *data);
 			data++;
+		} else if (opt->type & INT8) {
+			sl = snprintf(s, len, "%d", *data);
+			data++;
 		} else if (opt->type & UINT16) {
 			memcpy(&u16, data, sizeof(u16));
 			u16 = ntohs(u16);
 			sl = snprintf(s, len, "%u", u16);
 			data += sizeof(u16);
-		} else if (opt->type & SINT16) {
+		} else if (opt->type & INT16) {
 			memcpy(&u16, data, sizeof(u16));
 			s16 = (int16_t)ntohs(u16);
 			sl = snprintf(s, len, "%d", s16);
@@ -768,7 +803,7 @@ print_option(char *s, size_t len, const struct dhcp_opt *opt,
 			u32 = ntohl(u32);
 			sl = snprintf(s, len, "%u", u32);
 			data += sizeof(u32);
-		} else if (opt->type & SINT32) {
+		} else if (opt->type & INT32) {
 			memcpy(&u32, data, sizeof(u32));
 			s32 = (int32_t)ntohl(u32);
 			sl = snprintf(s, len, "%d", s32);
@@ -777,21 +812,15 @@ print_option(char *s, size_t len, const struct dhcp_opt *opt,
 			memcpy(&addr.s_addr, data, sizeof(addr.s_addr));
 			sl = snprintf(s, len, "%s", inet_ntoa(addr));
 			data += sizeof(addr.s_addr);
-		}
-#ifdef INET6
-		else if (opt->type & ADDRIPV6) {
-			ssize_t r;
-
-			r = ipv6_printaddr(s, len, data, ifname);
-			if (r != -1)
-				sl = r;
-			else
-				sl = 0;
+		} else if (opt->type & ADDRIPV6) {
+			sl = ipv6_printaddr(s, len, data, ifname);
 			data += 16;
+		} else {
+			errno = EINVAL;
+			return -1;
 		}
-#endif
-		else
-			sl = 0;
+		if (sl == -1)
+			return bytes == 0 ? -1 : bytes;
 		len -= (size_t)sl;
 		bytes += sl;
 		s += sl;

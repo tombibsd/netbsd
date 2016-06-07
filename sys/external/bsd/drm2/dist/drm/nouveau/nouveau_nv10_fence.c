@@ -95,6 +95,7 @@ nv10_fence_destroy(struct nouveau_drm *drm)
 		nouveau_bo_unpin(priv->bo);
 	nouveau_bo_ref(NULL, &priv->bo);
 	drm->fence = NULL;
+	spin_lock_destroy(&priv->lock);
 	kfree(priv);
 }
 

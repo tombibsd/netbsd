@@ -49,6 +49,7 @@ __RCSID("$NetBSD$");
 
 #include "el.h"
 #include "common.h"
+#include "fcns.h"
 #include "parse.h"
 #include "vi.h"
 
@@ -91,14 +92,14 @@ ed_insert(EditLine *el, wint_t c)
 		    || el->el_line.cursor >= el->el_line.lastchar)
 			c_insert(el, 1);
 
-		*el->el_line.cursor++ = (Char)c;
+		*el->el_line.cursor++ = c;
 		re_fastaddc(el);		/* fast refresh for one char. */
 	} else {
 		if (el->el_state.inputmode != MODE_REPLACE_1)
 			c_insert(el, el->el_state.argument);
 
 		while (count-- && el->el_line.cursor < el->el_line.lastchar)
-			*el->el_line.cursor++ = (Char)c;
+			*el->el_line.cursor++ = c;
 		re_refresh(el);
 	}
 
@@ -117,7 +118,7 @@ protected el_action_t
 /*ARGSUSED*/
 ed_delete_prev_word(EditLine *el, wint_t c __attribute__((__unused__)))
 {
-	Char *cp, *p, *kp;
+	wchar_t *cp, *p, *kp;
 
 	if (el->el_line.cursor == el->el_line.buffer)
 		return CC_ERROR;
@@ -192,7 +193,7 @@ protected el_action_t
 /*ARGSUSED*/
 ed_kill_line(EditLine *el, wint_t c __attribute__((__unused__)))
 {
-	Char *kp, *cp;
+	wchar_t *kp, *cp;
 
 	cp = el->el_line.cursor;
 	kp = el->el_chared.c_kill.buf;
@@ -270,7 +271,7 @@ ed_transpose_chars(EditLine *el, wint_t c)
 		/* must have at least two chars entered */
 		c = el->el_line.cursor[-2];
 		el->el_line.cursor[-2] = el->el_line.cursor[-1];
-		el->el_line.cursor[-1] = (Char)c;
+		el->el_line.cursor[-1] = c;
 		return CC_REFRESH;
 	} else
 		return CC_ERROR;
@@ -285,7 +286,7 @@ protected el_action_t
 /*ARGSUSED*/
 ed_next_char(EditLine *el, wint_t c __attribute__((__unused__)))
 {
-	Char *lim = el->el_line.lastchar;
+	wchar_t *lim = el->el_line.lastchar;
 
 	if (el->el_line.cursor >= lim ||
 	    (el->el_line.cursor == lim - 1 &&
@@ -441,102 +442,14 @@ ed_unassigned(EditLine *el __attribute__((__unused__)),
 }
 
 
-/**
- ** TTY key handling.
- **/
-
-/* ed_tty_sigint():
- *	Tty interrupt character
- *	[^C]
+/* ed_ignore():
+ *	Input characters that have no effect
+ *	[^C ^O ^Q ^S ^Z ^\ ^]] [^C ^O ^Q ^S ^\]
  */
 protected el_action_t
 /*ARGSUSED*/
-ed_tty_sigint(EditLine *el __attribute__((__unused__)),
+ed_ignore(EditLine *el __attribute__((__unused__)),
 	      wint_t c __attribute__((__unused__)))
-{
-
-	return CC_NORM;
-}
-
-
-/* ed_tty_dsusp():
- *	Tty delayed suspend character
- *	[^Y]
- */
-protected el_action_t
-/*ARGSUSED*/
-ed_tty_dsusp(EditLine *el __attribute__((__unused__)),
-	     wint_t c __attribute__((__unused__)))
-{
-
-	return CC_NORM;
-}
-
-
-/* ed_tty_flush_output():
- *	Tty flush output characters
- *	[^O]
- */
-protected el_action_t
-/*ARGSUSED*/
-ed_tty_flush_output(EditLine *el __attribute__((__unused__)),
-		    wint_t c __attribute__((__unused__)))
-{
-
-	return CC_NORM;
-}
-
-
-/* ed_tty_sigquit():
- *	Tty quit character
- *	[^\]
- */
-protected el_action_t
-/*ARGSUSED*/
-ed_tty_sigquit(EditLine *el __attribute__((__unused__)),
-	       wint_t c __attribute__((__unused__)))
-{
-
-	return CC_NORM;
-}
-
-
-/* ed_tty_sigtstp():
- *	Tty suspend character
- *	[^Z]
- */
-protected el_action_t
-/*ARGSUSED*/
-ed_tty_sigtstp(EditLine *el __attribute__((__unused__)),
-	       wint_t c __attribute__((__unused__)))
-{
-
-	return CC_NORM;
-}
-
-
-/* ed_tty_stop_output():
- *	Tty disallow output characters
- *	[^S]
- */
-protected el_action_t
-/*ARGSUSED*/
-ed_tty_stop_output(EditLine *el __attribute__((__unused__)),
-		   wint_t c __attribute__((__unused__)))
-{
-
-	return CC_NORM;
-}
-
-
-/* ed_tty_start_output():
- *	Tty allow output characters
- *	[^Q]
- */
-protected el_action_t
-/*ARGSUSED*/
-ed_tty_start_output(EditLine *el __attribute__((__unused__)),
-		    wint_t c __attribute__((__unused__)))
 {
 
 	return CC_NORM;
@@ -652,7 +565,7 @@ ed_prev_history(EditLine *el, wint_t c __attribute__((__unused__)))
 
 	if (el->el_history.eventno == 0) {	/* save the current buffer
 						 * away */
-		(void) Strncpy(el->el_history.buf, el->el_line.buffer,
+		(void) wcsncpy(el->el_history.buf, el->el_line.buffer,
 		    EL_BUFSIZ);
 		el->el_history.last = el->el_history.buf +
 		    (el->el_line.lastchar - el->el_line.buffer);
@@ -708,7 +621,7 @@ protected el_action_t
 /*ARGSUSED*/
 ed_search_prev_history(EditLine *el, wint_t c __attribute__((__unused__)))
 {
-	const Char *hp;
+	const wchar_t *hp;
 	int h;
 	int found = 0;
 
@@ -724,7 +637,7 @@ ed_search_prev_history(EditLine *el, wint_t c __attribute__((__unused__)))
 		return CC_ERROR;
 	}
 	if (el->el_history.eventno == 0) {
-		(void) Strncpy(el->el_history.buf, el->el_line.buffer,
+		(void) wcsncpy(el->el_history.buf, el->el_line.buffer,
 		    EL_BUFSIZ);
 		el->el_history.last = el->el_history.buf +
 		    (el->el_line.lastchar - el->el_line.buffer);
@@ -745,7 +658,7 @@ ed_search_prev_history(EditLine *el, wint_t c __attribute__((__unused__)))
 #ifdef SDEBUG
 		(void) fprintf(el->el_errfile, "Comparing with \"%s\"\n", hp);
 #endif
-		if ((Strncmp(hp, el->el_line.buffer, (size_t)
+		if ((wcsncmp(hp, el->el_line.buffer, (size_t)
 			    (el->el_line.lastchar - el->el_line.buffer)) ||
 			hp[el->el_line.lastchar - el->el_line.buffer]) &&
 		    c_hmatch(el, hp)) {
@@ -776,7 +689,7 @@ protected el_action_t
 /*ARGSUSED*/
 ed_search_next_history(EditLine *el, wint_t c __attribute__((__unused__)))
 {
-	const Char *hp;
+	const wchar_t *hp;
 	int h;
 	int found = 0;
 
@@ -800,7 +713,7 @@ ed_search_next_history(EditLine *el, wint_t c __attribute__((__unused__)))
 #ifdef SDEBUG
 		(void) fprintf(el->el_errfile, "Comparing with \"%s\"\n", hp);
 #endif
-		if ((Strncmp(hp, el->el_line.buffer, (size_t)
+		if ((wcsncmp(hp, el->el_line.buffer, (size_t)
 			    (el->el_line.lastchar - el->el_line.buffer)) ||
 			hp[el->el_line.lastchar - el->el_line.buffer]) &&
 		    c_hmatch(el, hp))
@@ -830,7 +743,7 @@ protected el_action_t
 /*ARGSUSED*/
 ed_prev_line(EditLine *el, wint_t c __attribute__((__unused__)))
 {
-	Char *ptr;
+	wchar_t *ptr;
 	int nchars = c_hpos(el);
 
 	/*
@@ -873,7 +786,7 @@ protected el_action_t
 /*ARGSUSED*/
 ed_next_line(EditLine *el, wint_t c __attribute__((__unused__)))
 {
-	Char *ptr;
+	wchar_t *ptr;
 	int nchars = c_hpos(el);
 
 	/*
@@ -907,10 +820,10 @@ protected el_action_t
 /*ARGSUSED*/
 ed_command(EditLine *el, wint_t c __attribute__((__unused__)))
 {
-	Char tmpbuf[EL_BUFSIZ];
+	wchar_t tmpbuf[EL_BUFSIZ];
 	int tmplen;
 
-	tmplen = c_gets(el, tmpbuf, STR("\n: "));
+	tmplen = c_gets(el, tmpbuf, L"\n: ");
 	terminal__putc(el, '\n');
 
 	if (tmplen < 0 || (tmpbuf[tmplen] = 0, parse_line(el, tmpbuf)) == -1)

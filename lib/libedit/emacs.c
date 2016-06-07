@@ -48,6 +48,7 @@ __RCSID("$NetBSD$");
 
 #include "el.h"
 #include "emacs.h"
+#include "fcns.h"
 
 /* em_delete_or_list():
  *	Delete character under cursor or list completions if at end of line
@@ -93,7 +94,7 @@ protected el_action_t
 /*ARGSUSED*/
 em_delete_next_word(EditLine *el, wint_t c __attribute__((__unused__)))
 {
-	Char *cp, *p, *kp;
+	wchar_t *cp, *p, *kp;
 
 	if (el->el_line.cursor == el->el_line.lastchar)
 		return CC_ERROR;
@@ -122,7 +123,7 @@ protected el_action_t
 /*ARGSUSED*/
 em_yank(EditLine *el, wint_t c __attribute__((__unused__)))
 {
-	Char *kp, *cp;
+	wchar_t *kp, *cp;
 
 	if (el->el_chared.c_kill.last == el->el_chared.c_kill.buf)
 		return CC_NORM;
@@ -158,7 +159,7 @@ protected el_action_t
 /*ARGSUSED*/
 em_kill_line(EditLine *el, wint_t c __attribute__((__unused__)))
 {
-	Char *kp, *cp;
+	wchar_t *kp, *cp;
 
 	cp = el->el_line.buffer;
 	kp = el->el_chared.c_kill.buf;
@@ -180,7 +181,7 @@ protected el_action_t
 /*ARGSUSED*/
 em_kill_region(EditLine *el, wint_t c __attribute__((__unused__)))
 {
-	Char *kp, *cp;
+	wchar_t *kp, *cp;
 
 	if (!el->el_chared.c_kill.mark)
 		return CC_ERROR;
@@ -213,7 +214,7 @@ protected el_action_t
 /*ARGSUSED*/
 em_copy_region(EditLine *el, wint_t c __attribute__((__unused__)))
 {
-	Char *kp, *cp;
+	wchar_t *kp, *cp;
 
 	if (!el->el_chared.c_kill.mark)
 		return CC_ERROR;
@@ -247,7 +248,7 @@ em_gosmacs_transpose(EditLine *el, wint_t c)
 		/* must have at least two chars entered */
 		c = el->el_line.cursor[-2];
 		el->el_line.cursor[-2] = el->el_line.cursor[-1];
-		el->el_line.cursor[-1] = (Char)c;
+		el->el_line.cursor[-1] = c;
 		return CC_REFRESH;
 	} else
 		return CC_ERROR;
@@ -287,7 +288,7 @@ protected el_action_t
 /*ARGSUSED*/
 em_upper_case(EditLine *el, wint_t c __attribute__((__unused__)))
 {
-	Char *cp, *ep;
+	wchar_t *cp, *ep;
 
 	ep = c__next_word(el->el_line.cursor, el->el_line.lastchar,
 	    el->el_state.argument, ce__isword);
@@ -311,7 +312,7 @@ protected el_action_t
 /*ARGSUSED*/
 em_capitol_case(EditLine *el, wint_t c __attribute__((__unused__)))
 {
-	Char *cp, *ep;
+	wchar_t *cp, *ep;
 
 	ep = c__next_word(el->el_line.cursor, el->el_line.lastchar,
 	    el->el_state.argument, ce__isword);
@@ -343,7 +344,7 @@ protected el_action_t
 /*ARGSUSED*/
 em_lower_case(EditLine *el, wint_t c __attribute__((__unused__)))
 {
-	Char *cp, *ep;
+	wchar_t *cp, *ep;
 
 	ep = c__next_word(el->el_line.cursor, el->el_line.lastchar,
 	    el->el_state.argument, ce__isword);
@@ -381,7 +382,7 @@ protected el_action_t
 /*ARGSUSED*/
 em_exchange_mark(EditLine *el, wint_t c __attribute__((__unused__)))
 {
-	Char *cp;
+	wchar_t *cp;
 
 	cp = el->el_line.cursor;
 	el->el_line.cursor = el->el_chared.c_kill.mark;
@@ -442,7 +443,7 @@ protected el_action_t
 /*ARGSUSED*/
 em_copy_prev_word(EditLine *el, wint_t c __attribute__((__unused__)))
 {
-	Char *cp, *oldc, *dp;
+	wchar_t *cp, *oldc, *dp;
 
 	if (el->el_line.cursor == el->el_line.buffer)
 		return CC_ERROR;

@@ -170,12 +170,13 @@ _rtld_relocate_objects(Obj_Entry *first, bool bind_now)
 		    (long)(obj->pltrelalim - obj->pltrela)));
 
 		if (obj->textrel) {
+			xwarnx("%s: text relocations", obj->path);
 			/*
 			 * There are relocations to the write-protected text
 			 * segment.
 			 */
 			if (mprotect(obj->mapbase, obj->textsize,
-				PROT_READ | PROT_WRITE | PROT_EXEC) == -1) {
+				PROT_READ | PROT_WRITE) == -1) {
 				_rtld_error("%s: Cannot write-enable text "
 				    "segment: %s", obj->path, xstrerror(errno));
 				return -1;

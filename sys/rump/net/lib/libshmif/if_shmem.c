@@ -764,10 +764,14 @@ shmif_rcv(void *arg)
 		}
 
 		if (passup) {
+			int bound = curlwp->l_pflag & LP_BOUND;
 			ifp->if_ipackets++;
 			KERNEL_LOCK(1, NULL);
+			/* Prevent LWP migrations between CPUs for psref(9) */
+			curlwp->l_pflag |= LP_BOUND;
 			bpf_mtap(ifp, m);
 			if_input(ifp, m);
+			curlwp->l_pflag ^= bound ^ LP_BOUND;
 			KERNEL_UNLOCK_ONE(NULL);
 			m = NULL;
 		}

@@ -103,7 +103,7 @@ static void jobs_purge(struct jobs_if *);
 static struct jobs_class *jobs_class_create(struct jobs_if *,
     int, int64_t, int64_t, int64_t, int64_t, int64_t, int);
 static int jobs_class_destroy(struct jobs_class *);
-static int jobs_enqueue(struct ifaltq *, struct mbuf *, struct altq_pktattr *);
+static int jobs_enqueue(struct ifaltq *, struct mbuf *);
 static struct mbuf *jobs_dequeue(struct ifaltq *, int);
 
 static int jobs_addq(struct jobs_class *, struct mbuf *, struct jobs_if*);
@@ -490,7 +490,7 @@ jobs_class_destroy(struct jobs_class *cl)
  * (*altq_enqueue) in struct ifaltq.
  */
 static int
-jobs_enqueue(struct ifaltq *ifq, struct mbuf *m, struct altq_pktattr *pktattr)
+jobs_enqueue(struct ifaltq *ifq, struct mbuf *m)
 {
 	struct jobs_if	*jif = (struct jobs_if *)ifq->altq_disc;
 	struct jobs_class *cl, *scan;
@@ -533,7 +533,7 @@ jobs_enqueue(struct ifaltq *ifq, struct mbuf *m, struct altq_pktattr *pktattr)
 	}
 
 	/* grab class set by classifier */
-	if (pktattr == NULL || (cl = pktattr->pattr_class) == NULL)
+	if ((cl = m->m_pkthdr.pattr_class) == NULL)
 		cl = jif->jif_default;
 
 	len = m_pktlen(m);

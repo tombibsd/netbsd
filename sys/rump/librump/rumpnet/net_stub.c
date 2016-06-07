@@ -60,6 +60,10 @@ __weak_alias(agr_input,rumpnet_stub);
 __weak_alias(ieee8023ad_lacp_input,rumpnet_stub);
 __weak_alias(ieee8023ad_marker_input,rumpnet_stub);
 
+/* pppoe */
+__weak_alias(pppoe_input,rumpnet_stub);
+__weak_alias(pppoedisc_input,rumpnet_stub);
+
 struct ifnet_head ifnet_list;
 
 int

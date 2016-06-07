@@ -29,3 +29,5 @@
 
 #define WSEMUL_NO_DUMB
 #define WSEMUL_VT100
+
+#define PPPOE_SERVER

@@ -197,7 +197,6 @@ ether_output(struct ifnet * const ifp0, struct mbuf * const m0,
 	struct mbuf *mcopy = NULL;
 	struct ether_header *eh;
 	struct ifnet *ifp = ifp0;
-	ALTQ_DECL(struct altq_pktattr pktattr;)
 #ifdef INET
 	struct arphdr *ah;
 #endif /* INET */
@@ -418,9 +417,9 @@ ether_output(struct ifnet * const ifp0, struct mbuf * const m0,
 	 * address family/header pointer in the pktattr.
 	 */
 	if (ALTQ_IS_ENABLED(&ifp->if_snd))
-		altq_etherclassify(&ifp->if_snd, m, &pktattr);
+		altq_etherclassify(&ifp->if_snd, m);
 #endif
-	return ifq_enqueue(ifp, m ALTQ_COMMA ALTQ_DECL(&pktattr));
+	return ifq_enqueue(ifp, m);
 
 bad:
 	if (m)
@@ -435,8 +434,7 @@ bad:
  * classification engine understands link headers.
  */
 void
-altq_etherclassify(struct ifaltq *ifq, struct mbuf *m,
-    struct altq_pktattr *pktattr)
+altq_etherclassify(struct ifaltq *ifq, struct mbuf *m)
 {
 	struct ether_header *eh;
 	uint16_t ether_type;
@@ -504,10 +502,10 @@ altq_etherclassify(struct ifaltq *ifq, struct mbuf *m,
 	hdr = mtod(m, void *);
 
 	if (ALTQ_NEEDS_CLASSIFY(ifq))
-		pktattr->pattr_class =
+		m->m_pkthdr.pattr_class =
 		    (*ifq->altq_classify)(ifq->altq_clfier, m, af);
-	pktattr->pattr_af = af;
-	pktattr->pattr_hdr = hdr;
+	m->m_pkthdr.pattr_af = af;
+	m->m_pkthdr.pattr_hdr = hdr;
 
 	m->m_data -= hlen;
 	m->m_len += hlen;
@@ -515,9 +513,9 @@ altq_etherclassify(struct ifaltq *ifq, struct mbuf *m,
 	return;
 
  bad:
-	pktattr->pattr_class = NULL;
-	pktattr->pattr_hdr = NULL;
-	pktattr->pattr_af = AF_UNSPEC;
+	m->m_pkthdr.pattr_class = NULL;
+	m->m_pkthdr.pattr_hdr = NULL;
+	m->m_pkthdr.pattr_af = AF_UNSPEC;
 }
 #endif /* ALTQ */
 
@@ -696,29 +694,10 @@ ether_input(struct ifnet *ifp, struct mbuf *m)
 	}
 #if NPPPOE > 0
 	case ETHERTYPE_PPPOEDISC:
+		pppoedisc_input(ifp, m);
+		return;
 	case ETHERTYPE_PPPOE:
-		if (m->m_flags & M_PROMISC) {
-			m_freem(m);
-			return;
-		}
-#ifndef PPPOE_SERVER
-		if (m->m_flags & (M_MCAST | M_BCAST)) {
-			m_freem(m);
-			return;
-		}
-#endif
-
-		if (etype == ETHERTYPE_PPPOEDISC)
-			inq = &ppoediscinq;
-		else
-			inq = &ppoeinq;
-		if (IF_QFULL(inq)) {
-			IF_DROP(inq);
-			m_freem(m);
-		} else {
-			IF_ENQUEUE(inq, m);
-			softint_schedule(pppoe_softintr);
-		}
+		pppoe_input(ifp, m);
 		return;
 #endif /* NPPPOE > 0 */
 	case ETHERTYPE_SLOWPROTOCOLS: {

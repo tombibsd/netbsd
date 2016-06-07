@@ -116,6 +116,7 @@ SRCS+=	init_sysctl_base.c	\
 	subr_pool.c		\
 	subr_prf.c		\
 	subr_pserialize.c	\
+	subr_psref.c		\
 	subr_specificdata.c	\
 	subr_time.c		\
 	subr_vmem.c		\

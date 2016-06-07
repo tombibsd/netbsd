@@ -670,10 +670,6 @@ cpu_boot_secondary_processors(void)
 		return;
 	}
 
-	/* No MP for SUN4V yet */
-	if (CPU_ISSUN4V)
-		return;
-	
 	for (ci = cpus; ci != NULL; ci = ci->ci_next) {
 		if (ci->ci_cpuid == cpu_myid())
 			continue;

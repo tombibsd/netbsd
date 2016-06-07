@@ -81,7 +81,6 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/mbuf.h>
 
 #include <net/if.h>
-#include <net/radix.h>
 #include <net/route.h>
 
 #include <netinet/in.h>

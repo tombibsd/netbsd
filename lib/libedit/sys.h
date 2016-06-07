@@ -58,14 +58,6 @@
 # endif
 #endif
 
-#ifndef public
-# define public		/* Externally visible functions/variables */
-#endif
-
-#ifndef private
-# define private	static	/* Always hidden internals */
-#endif
-
 #ifndef protected
 # define protected	/* Redefined from elsewhere to "static" */
 			/* When we want to hide everything	*/

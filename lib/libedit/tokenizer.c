@@ -49,7 +49,6 @@ __RCSID("$NetBSD$");
 #include <string.h>
 
 #include "histedit.h"
-#include "chartype.h"
 
 typedef enum {
 	Q_none, Q_single, Q_double, Q_one, Q_doubleone
@@ -66,8 +65,22 @@ typedef enum {
 #define	tok_malloc(a)		malloc(a)
 #define	tok_free(a)		free(a)
 #define	tok_realloc(a, b)	realloc(a, b)
-#define	tok_strdup(a)		Strdup(a)
 
+#ifdef NARROWCHAR
+#define	Char			char
+#define	FUN(prefix, rest)	prefix ## _ ## rest
+#define	TYPE(type)		type
+#define	STR(x)			x
+#define	Strchr(s, c)		strchr(s, c)
+#define	tok_strdup(s)		strdup(s)
+#else
+#define	Char			wchar_t
+#define	FUN(prefix, rest)	prefix ## _w ## rest
+#define	TYPE(type)		type ## W
+#define	STR(x)			L ## x
+#define	Strchr(s, c)		wcschr(s, c)
+#define	tok_strdup(s)		wcsdup(s)
+#endif
 
 struct TYPE(tokenizer) {
 	Char	*ifs;		/* In field separator			 */
@@ -81,13 +94,13 @@ struct TYPE(tokenizer) {
 };
 
 
-private void FUN(tok,finish)(TYPE(Tokenizer) *);
+static void FUN(tok,finish)(TYPE(Tokenizer) *);
 
 
 /* FUN(tok,finish)():
  *	Finish a word in the tokenizer.
  */
-private void
+static void
 FUN(tok,finish)(TYPE(Tokenizer) *tok)
 {
 
@@ -104,7 +117,7 @@ FUN(tok,finish)(TYPE(Tokenizer) *tok)
 /* FUN(tok,init)():
  *	Initialize the tokenizer
  */
-public TYPE(Tokenizer) *
+TYPE(Tokenizer) *
 FUN(tok,init)(const Char *ifs)
 {
 	TYPE(Tokenizer) *tok = tok_malloc(sizeof(*tok));
@@ -145,7 +158,7 @@ FUN(tok,init)(const Char *ifs)
 /* FUN(tok,reset)():
  *	Reset the tokenizer
  */
-public void
+void
 FUN(tok,reset)(TYPE(Tokenizer) *tok)
 {
 
@@ -160,7 +173,7 @@ FUN(tok,reset)(TYPE(Tokenizer) *tok)
 /* FUN(tok,end)():
  *	Clean up
  */
-public void
+void
 FUN(tok,end)(TYPE(Tokenizer) *tok)
 {
 
@@ -189,7 +202,7 @@ FUN(tok,end)(TYPE(Tokenizer) *tok)
  *		cursorc	if !NULL, argv element containing cursor
  *		cursorv	if !NULL, offset in argv[cursorc] of cursor
  */
-public int
+int
 FUN(tok,line)(TYPE(Tokenizer) *tok, const TYPE(LineInfo) *line,
     int *argc, const Char ***argv, int *cursorc, int *cursoro)
 {
@@ -440,7 +453,7 @@ FUN(tok,line)(TYPE(Tokenizer) *tok, const TYPE(LineInfo) *line,
  *	Simpler version of tok_line, taking a NUL terminated line
  *	and splitting into words, ignoring cursor state.
  */
-public int
+int
 FUN(tok,str)(TYPE(Tokenizer) *tok, const Char *line, int *argc,
     const Char ***argv)
 {

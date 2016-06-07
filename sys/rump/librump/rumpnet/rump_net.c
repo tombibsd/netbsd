@@ -35,7 +35,6 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/socketvar.h>
 
 #include <net/bpf.h>
-#include <net/radix.h>
 #include <net/route.h>
 
 #include <rump-sys/kern.h>

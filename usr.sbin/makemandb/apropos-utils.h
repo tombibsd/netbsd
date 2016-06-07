@@ -36,12 +36,14 @@
 #include "sqlite3.h"
 
 #define MANCONF "/etc/man.conf"
-#define SECMAX 9
 
 /* Flags for opening the database */
-#define MANDB_READONLY SQLITE_OPEN_READONLY
-#define MANDB_WRITE SQLITE_OPEN_READWRITE
-#define MANDB_CREATE SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE
+typedef enum mandb_access_mode {
+	MANDB_READONLY = SQLITE_OPEN_READONLY,
+	MANDB_WRITE = SQLITE_OPEN_READWRITE,
+	MANDB_CREATE = SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE
+} mandb_access_mode;
+
 
 #define APROPOS_SCHEMA_VERSION 20120507
 
@@ -71,7 +73,7 @@ enum man_sec {
 
 typedef struct query_args {
 	const char *search_str;		// user query
-	int *sec_nums;		// Section in which to do the search
+	char *sec_nums;		// Section in which to do the search
 	int nrec;			// number of records to fetch
 	int offset;		//From which position to start processing the records
 	int legacy;
@@ -92,7 +94,7 @@ typedef enum query_format {
 char *lower(char *);
 void concat(char **, const char *);
 void concat2(char **, const char *, size_t);
-sqlite3 *init_db(int, const char *);
+sqlite3 *init_db(mandb_access_mode, const char *);
 void close_db(sqlite3 *);
 char *get_dbpath(const char *);
 int run_query(sqlite3 *, query_format, query_args *);

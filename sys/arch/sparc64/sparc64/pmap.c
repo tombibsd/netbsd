@@ -49,6 +49,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include <sys/cpu.h>
 
 #include <sys/exec_aout.h>	/* for MID_* */
+#include <sys/reboot.h>
 
 #include <uvm/uvm.h>
 
@@ -727,6 +728,10 @@ pmap_bootstrap(u_long kernelstart, u_long kernelend)
 	int prom_memlist_size;
 
 	BDPRINTF(PDB_BOOT, ("Entered pmap_bootstrap.\n"));
+
+	/* XXX - incomplete spinup code for SUN4V */
+	if (CPU_ISSUN4V)
+		boothowto |= RB_MD1;
 
 	cache_setup_funcs();
 

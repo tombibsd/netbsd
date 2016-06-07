@@ -120,6 +120,8 @@ drm_vma_offset_manager_destroy(struct drm_vma_offset_manager *mgr)
 {
 
 	vmem_destroy(mgr->vom_vmem);
+	KASSERTMSG((RB_TREE_MIN(&mgr->vom_nodes) == NULL),
+	    "drm vma offset manager %p not empty", mgr);
 #if 0
 	rb_tree_destroy(&mgr->vom_nodes);
 #endif
@@ -143,6 +145,8 @@ void
 drm_vma_node_destroy(struct drm_vma_offset_node *node)
 {
 
+	KASSERTMSG((RB_TREE_MIN(&node->von_files) == NULL),
+	    "drm vma node %p not empty", node);
 #if 0
 	rb_tree_destroy(&node->von_files);
 #endif

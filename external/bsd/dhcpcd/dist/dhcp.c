@@ -99,7 +99,7 @@ static const struct dhcp_op dhcp_ops[] = {
 	{ DHCP_NAK,        "NAK" },
 	{ DHCP_RELEASE,    "RELEASE" },
 	{ DHCP_INFORM,     "INFORM" },
-	{ DHCP_FORCERENEW, "DHCP_FORCERENEW"},
+	{ DHCP_FORCERENEW, "FORCERENEW"},
 	{ 0, NULL }
 };
 
@@ -1492,7 +1492,7 @@ dhcp_openudp(struct interface *ifp)
 	char *p;
 #endif
 
-	if ((s = xsocket(PF_INET, SOCK_DGRAM, IPPROTO_UDP, O_CLOEXEC)) == -1)
+	if ((s = xsocket(PF_INET, SOCK_DGRAM|SOCK_CLOEXEC, IPPROTO_UDP)) == -1)
 		return -1;
 
 	n = 1;
@@ -3092,7 +3092,7 @@ dhcp_open(struct interface *ifp)
 			return -1;
 		}
 		eloop_event_add(ifp->ctx->eloop,
-		    state->raw_fd, dhcp_handlepacket, ifp, NULL, NULL);
+		    state->raw_fd, dhcp_handlepacket, ifp);
 	}
 	return 0;
 }
@@ -3270,8 +3270,7 @@ dhcp_start1(void *arg)
 				    "%s: dhcp_openudp: %m", __func__);
 		} else
 			eloop_event_add(ifp->ctx->eloop,
-			    ifp->ctx->udp_fd, dhcp_handleudp,
-			    ifp->ctx, NULL, NULL);
+			    ifp->ctx->udp_fd, dhcp_handleudp, ifp->ctx);
 	}
 
 	if (dhcp_init(ifp) == -1) {

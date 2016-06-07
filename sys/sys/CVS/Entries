@@ -135,7 +135,7 @@
 /lwpctl.h/1.4/Mon Apr 28 20:24:10 2008/-kk/
 /malloc.h/1.116/Fri Jan  2 11:21:55 2015/-kk/
 /mallocvar.h/1.13/Fri Jan  2 11:21:55 2015/-kk/
-/mbuf.h/1.159/Sun Nov 15 13:36:37 2015/-kk/
+/mbuf.h/1.161/Tue Jun  7 10:19:43 2016/-kk/
 /md4.h/1.7/Mon Dec 26 18:41:36 2005/-kk/
 /md5.h/1.9/Mon Dec 26 18:41:36 2005/-kk/
 /midiio.h/1.16/Sun Sep 13 01:32:01 2015/-kk/
@@ -170,7 +170,7 @@
 /protosw.h/1.66/Thu Jan 28 08:36:23 2016/-kk/
 /pserialize.h/1.1/Sat Jul 30 17:01:04 2011/-kk/
 /pset.h/1.5/Tue Jun  7 10:07:00 2016/-kk/
-/pslist.h/1.1/Sat Apr  9 04:39:46 2016/-kk/
+/pslist.h/1.2/Tue Jun  7 10:19:44 2016/-kk/
 /psref.h/1.1/Sat Apr  9 06:21:16 2016/-kk/
 /ptrace.h/1.46/Sat Jul 25 01:31:06 2015/-kk/
 /ptree.h/1.8/Sat Oct  6 22:15:09 2012/-kk/

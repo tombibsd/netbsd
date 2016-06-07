@@ -18,7 +18,7 @@
 /in6_pcb.c/1.143/Sun Sep 13 01:07:53 2015/-kk/
 /in6_pcb.h/1.46/Wed Jun  3 06:55:53 2015/-kk/
 /in6_print.c/1.1/Tue Dec  2 19:36:58 2014/-kk/
-/in6_proto.c/1.110/Sun Feb 14 12:55:49 2016/-kk/
+/in6_proto.c/1.111/Tue Jun  7 10:19:43 2016/-kk/
 /in6_src.c/1.59/Fri Dec 25 06:18:31 2015/-kk/
 /in6_var.h/1.76/Mon Feb 15 11:07:37 2016/-kk/
 /ip6_etherip.c/1.17/Mon Feb 15 11:07:37 2016/-kk/
@@ -38,8 +38,8 @@
 /mld6_var.h/1.10/Sat Nov 19 22:51:29 2011/-kk/
 /nd6.c/1.190/Tue Jun  7 10:06:57 2016/-kk/
 /nd6.h/1.72/Tue Jun  7 10:06:57 2016/-kk/
-/nd6_nbr.c/1.115/Tue Jun  7 10:06:57 2016/-kk/
-/nd6_rtr.c/1.108/Tue Jun  7 10:06:57 2016/-kk/
+/nd6_nbr.c/1.116/Tue Jun  7 10:19:43 2016/-kk/
+/nd6_rtr.c/1.109/Tue Jun  7 10:19:43 2016/-kk/
 /pim6.h/1.5/Sat Dec 10 23:39:56 2005/-kk/
 /pim6_var.h/1.14/Tue Apr 15 05:40:15 2008/-kk/
 /raw_ip6.c/1.141/Sun Sep 13 01:07:54 2015/-kk/

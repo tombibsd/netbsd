@@ -1049,6 +1049,15 @@ MKDTRACE?=	yes
 MKCTF?=		yes
 .endif
 #
+# PIE is enabled on amd64 by default
+#
+.if ${MACHINE_ARCH} == "x86_64"
+MKPIE?=		yes
+.else
+MKPIE?=		no
+.endif
+
+#
 # MK* options which default to "yes".
 #
 _MKVARS.yes= \

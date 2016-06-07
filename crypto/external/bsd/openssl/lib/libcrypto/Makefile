@@ -118,3 +118,5 @@ PKGCONFIG=libcrypto
 .include "${.CURDIR}/../../pkgconfig.mk"
 
 .include <bsd.lib.mk>
+# RC5 warning
+LDFLAGS+=-Wl,--no-fatal-warnings

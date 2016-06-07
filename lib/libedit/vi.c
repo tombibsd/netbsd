@@ -54,15 +54,16 @@ __RCSID("$NetBSD$");
 #include "el.h"
 #include "common.h"
 #include "emacs.h"
+#include "fcns.h"
 #include "vi.h"
 
-private el_action_t	cv_action(EditLine *, wint_t);
-private el_action_t	cv_paste(EditLine *, wint_t);
+static el_action_t	cv_action(EditLine *, wint_t);
+static el_action_t	cv_paste(EditLine *, wint_t);
 
 /* cv_action():
  *	Handle vi actions.
  */
-private el_action_t
+static el_action_t
 cv_action(EditLine *el, wint_t c)
 {
 
@@ -94,7 +95,7 @@ cv_action(EditLine *el, wint_t c)
 /* cv_paste():
  *	Paste previous deletion before or after the cursor
  */
-private el_action_t
+static el_action_t
 cv_paste(EditLine *el, wint_t c)
 {
 	c_kill_t *k = &el->el_chared.c_kill;
@@ -648,7 +649,7 @@ protected el_action_t
 /*ARGSUSED*/
 vi_kill_line_prev(EditLine *el, wint_t c __attribute__((__unused__)))
 {
-	Char *kp, *cp;
+	wchar_t *kp, *cp;
 
 	cp = el->el_line.buffer;
 	kp = el->el_chared.c_kill.buf;
@@ -809,10 +810,10 @@ protected el_action_t
 /*ARGSUSED*/
 vi_match(EditLine *el, wint_t c __attribute__((__unused__)))
 {
-	const Char match_chars[] = STR("()[]{}");
-	Char *cp;
+	const wchar_t match_chars[] = L"()[]{}";
+	wchar_t *cp;
 	size_t delta, i, count;
-	Char o_ch, c_ch;
+	wchar_t o_ch, c_ch;
 
 	*el->el_line.lastchar = '\0';		/* just in case */
 
@@ -820,7 +821,7 @@ vi_match(EditLine *el, wint_t c __attribute__((__unused__)))
 	o_ch = el->el_line.cursor[i];
 	if (o_ch == 0)
 		return CC_ERROR;
-	delta = (size_t)(Strchr(match_chars, o_ch) - match_chars);
+	delta = (size_t)(wcschr(match_chars, o_ch) - match_chars);
 	c_ch = match_chars[delta ^ 1];
 	count = 1;
 	delta = 1 - (delta & 1) * 2;
@@ -942,7 +943,7 @@ vi_alias(EditLine *el, wint_t c __attribute__((__unused__)))
 	alias_text = (*el->el_chared.c_aliasfun)(el->el_chared.c_aliasarg,
 	    alias_name);
 	if (alias_text != NULL)
-		FUN(el,push)(el, ct_decode_string(alias_text, &el->el_scratch));
+		el_wpush(el, ct_decode_string(alias_text, &el->el_scratch));
 	return CC_NORM;
 }
 
@@ -959,7 +960,7 @@ vi_to_history_line(EditLine *el, wint_t c __attribute__((__unused__)))
 
 
 	if (el->el_history.eventno == 0) {
-		 (void) Strncpy(el->el_history.buf, el->el_line.buffer,
+		 (void) wcsncpy(el->el_history.buf, el->el_line.buffer,
 		     EL_BUFSIZ);
 		 el->el_history.last = el->el_history.buf +
 			 (el->el_line.lastchar - el->el_line.buffer);
@@ -1006,7 +1007,7 @@ vi_histedit(EditLine *el, wint_t c __attribute__((__unused__)))
 	char tempfile[] = "/tmp/histedit.XXXXXXXXXX";
 	char *cp = NULL;
 	size_t len;
-	Char *line = NULL;
+	wchar_t *line = NULL;
 
 	if (el->el_state.doingarg) {
 		if (vi_to_history_line(el, 0) == CC_ERROR)
@@ -1024,7 +1025,7 @@ vi_histedit(EditLine *el, wint_t c __attribute__((__unused__)))
 	line = el_malloc(len * sizeof(*line) + 1);
 	if (line == NULL)
 		goto error;
-	Strncpy(line, el->el_line.buffer, len);
+	wcsncpy(line, el->el_line.buffer, len);
 	line[len] = '\0';
 	wcstombs(cp, line, TMP_BUFSIZ - 1);
 	cp[TMP_BUFSIZ - 1] = '\0';
@@ -1083,11 +1084,11 @@ protected el_action_t
 /*ARGSUSED*/
 vi_history_word(EditLine *el, wint_t c __attribute__((__unused__)))
 {
-	const Char *wp = HIST_FIRST(el);
-	const Char *wep, *wsp;
+	const wchar_t *wp = HIST_FIRST(el);
+	const wchar_t *wep, *wsp;
 	int len;
-	Char *cp;
-	const Char *lim;
+	wchar_t *cp;
+	const wchar_t *lim;
 
 	if (wp == NULL)
 		return CC_ERROR;
@@ -1147,7 +1148,7 @@ vi_redo(EditLine *el, wint_t c __attribute__((__unused__)))
 			/* sanity */
 			r->pos = r->lim - 1;
 		r->pos[0] = 0;
-		FUN(el,push)(el, r->buf);
+		el_wpush(el, r->buf);
 	}
 
 	el->el_state.thiscmd = r->cmd;

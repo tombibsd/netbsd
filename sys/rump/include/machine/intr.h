@@ -70,4 +70,6 @@ makeiplcookie(ipl_t ipl)
 #define IPL_SCHED 6
 #define IPL_HIGH 7
 
+#define	splraiseipl(COOKIE)	0
+
 #endif /* _SYS_RUMP_INTR_H_ */

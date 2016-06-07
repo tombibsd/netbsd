@@ -43,7 +43,7 @@ __RCSID("$NetBSD$");
 #include "apropos-utils.h"
 
 typedef struct apropos_flags {
-	int sec_nums[SECMAX];
+	char *sec_nums;
 	int nresults;
 	int pager;
 	int no_context;
@@ -58,6 +58,8 @@ typedef struct callback_data {
 	apropos_flags *aflags;
 } callback_data;
 
+static const unsigned int sections_args_length = 16;
+
 static char *remove_stopwords(const char *);
 static int query_callback(void *, const char * , const char *, const char *,
 	const char *, size_t);
@@ -69,6 +71,7 @@ static void
 parseargs(int argc, char **argv, struct apropos_flags *aflags)
 {
 	int ch;
+	char sec[2] = {0, 0};
 	while ((ch = getopt(argc, argv, "123456789Cchiln:PprS:s:")) != -1) {
 		switch (ch) {
 		case '1':
@@ -80,7 +83,17 @@ parseargs(int argc, char **argv, struct apropos_flags *aflags)
 		case '7':
 		case '8':
 		case '9':
-			aflags->sec_nums[ch - '1'] = 1;
+			/*
+			 *Generate a space separated list of all the
+			 * requested sections
+			 */
+			sec[0] = (char) ch ;
+			if (aflags->sec_nums == NULL) {
+				aflags->sec_nums =
+				    emalloc(sections_args_length);
+				memcpy(aflags->sec_nums, sec, 2);
+			} else
+				concat2(&aflags->sec_nums, sec, 1);
 			break;
 		case 'C':
 			aflags->no_context = 1;
@@ -115,10 +128,15 @@ parseargs(int argc, char **argv, struct apropos_flags *aflags)
 			aflags->machine = optarg;
 			break;
 		case 's':
-			ch = atoi(optarg);
-			if (ch < 1 || ch > 9)
-				errx(EXIT_FAILURE, "Invalid section");
-			aflags->sec_nums[ch - 1] = 1;
+			if (aflags->sec_nums == NULL) {
+				size_t arglen = strlen(optarg);
+				aflags->sec_nums =
+				    arglen > sections_args_length
+					? emalloc(arglen + 1)
+					: emalloc(sections_args_length);
+				memcpy(aflags->sec_nums, optarg, arglen + 1);
+			} else
+				concat(&aflags->sec_nums, optarg);
 			break;
 		case '?':
 		default:
@@ -140,6 +158,7 @@ main(int argc, char *argv[])
 	cbdata.out = stdout;		// the default output stream
 	cbdata.count = 0;
 	apropos_flags aflags;
+	aflags.sec_nums = NULL;
 	cbdata.aflags = &aflags;
 	sqlite3 *db;
 	setprogname(argv[0]);
@@ -168,12 +187,6 @@ main(int argc, char *argv[])
 	}
 
 	parseargs(argc, argv, &aflags);
-
-	/*
-	 * If the user specifies a section number as an option, the
-	 * corresponding index element in sec_nums is set to the string
-	 * representing that section number.
-	 */
 
 	argc -= optind;
 	argv += optind;
@@ -232,6 +245,7 @@ main(int argc, char *argv[])
 		fprintf(cbdata.out, "</table>\n</body>\n</html>\n");
 
 	free(query);
+	free(aflags.sec_nums);
 	close_db(db);
 	if (errmsg) {
 		warnx("%s", errmsg);

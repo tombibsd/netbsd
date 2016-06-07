@@ -56,7 +56,7 @@
 .\" any improvements or extensions that they make and grant Carnegie Mellon
 .\" the rights to redistribute these changes.
 .\"
-.Dd November 13, 2015
+.Dd April 13, 2016
 .Dt DDB 4
 .Os
 .Sh NAME
@@ -602,11 +602,11 @@ LWP name and wait channel message.
 LWPs currently running on a CPU are marked with the '\&>' sign.
 This is the default.
 .El
-.It Ic show arptab
+.It Ic show routes
 Dump the entire
 .Dv AF_INET
 routing table.
-This command is available only on systems which support inet and ARP.
+This command is available only on systems which support inet.
 .It Ic show breaks
 Display all breakpoints.
 .It Ic show buf Ns Oo Cm /f Oc Ar address
@@ -741,11 +741,14 @@ queue, the queue index will be prefixed with a
 .Sq \&! .
 .It Ic show uvmexp
 Print a selection of UVM counters and statistics.
-.It Ic show kernhist
-Dumps the kernel histories.
+.It Ic show kernhist Oo Ar addr Oc
+Dumps all the kernel histories if no address is specified, or the history
+at the address.
 This command is available only if a kernel is compiled with
 .Cd options KERNHIST
 or
+.Cd options USB_DEBUG
+(or related options) or
 .Cd options UVMHIST .
 .It Ic show vnode Ns Oo Cm /f Oc Ar address
 Print the vnode at

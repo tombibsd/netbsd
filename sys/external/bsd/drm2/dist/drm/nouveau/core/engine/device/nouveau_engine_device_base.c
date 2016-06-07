@@ -297,6 +297,12 @@ nouveau_devobj_ctor(struct nouveau_object *parent,
 #ifdef __NetBSD__
 	if (!(args->disable & NV_DEVICE_DISABLE_MMIO) &&
 	    !nv_subdev(device)->mmiosz) {
+		/*
+		 * Map only through PRAMIN -- don't map the command
+		 * FIFO MMIO regions, which start at NV_FIFO_OFFSET =
+		 * 0x800000 and are mapped separately.
+		 */
+		mmio_size = MIN(mmio_size, 0x800000);
 		/* XXX errno NetBSD->Linux */
 		ret = -bus_space_map(mmiot, mmio_base, mmio_size, 0, &mmioh);
 		if (ret) {

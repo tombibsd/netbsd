@@ -1178,7 +1178,6 @@ cgsix_ioctl(void *v, void *vs, u_long cmd, void *data, int flag,
 	struct vcons_data *vd = v;
 	struct cgsix_softc *sc = vd->cookie;
 	struct wsdisplay_fbinfo *wdf;
-	struct rasops_info *ri = &sc->sc_fb.fb_rinfo;
 	struct vcons_screen *ms = sc->vd.active;
 
 #ifdef CGSIX_DEBUG
@@ -1190,9 +1189,9 @@ cgsix_ioctl(void *v, void *vs, u_long cmd, void *data, int flag,
 			return 0;
 		case WSDISPLAYIO_GINFO:
 			wdf = (void *)data;
-			wdf->height = ri->ri_height;
-			wdf->width = ri->ri_width;
-			wdf->depth = ri->ri_depth;
+			wdf->height = sc->sc_height;
+			wdf->width = sc->sc_width;
+			wdf->depth = 8;
 			wdf->cmsize = 256;
 			return 0;
 
@@ -1221,6 +1220,13 @@ cgsix_ioctl(void *v, void *vs, u_long cmd, void *data, int flag,
 						vcons_redraw_screen(ms);
 					}
 				}
+			}
+			return 0;
+		case WSDISPLAYIO_GET_FBINFO:
+			{
+				struct wsdisplayio_fbinfo *fbi = data;
+
+				return wsdisplayio_get_fbinfo(&ms->scr_ri, fbi);
 			}
 	}
 	return EPASSTHROUGH;

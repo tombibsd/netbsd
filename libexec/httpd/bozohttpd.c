@@ -109,7 +109,7 @@
 #define INDEX_HTML		"index.html"
 #endif
 #ifndef SERVER_SOFTWARE
-#define SERVER_SOFTWARE		"bozohttpd/20151231"
+#define SERVER_SOFTWARE		"bozohttpd/20160415"
 #endif
 #ifndef DIRECT_ACCESS_FILE
 #define DIRECT_ACCESS_FILE	".bzdirect"
@@ -1288,19 +1288,17 @@ check_bzredirect(bozo_httpreq_t *request)
 }
 
 /* this fixes the %HH hack that RFC2396 requires.  */
-static int
-fix_url_percent(bozo_httpreq_t *request)
+int
+bozo_decode_url_percent(bozo_httpreq_t *request, char *str)
 {
 	bozohttpd_t *httpd = request->hr_httpd;
-	char	*s, *t, buf[3], *url;
+	char	*s, *t, buf[3];
 	char	*end;	/* if end is not-zero, we don't translate beyond that */
 
-	url = request->hr_file;
-
-	end = url + strlen(url);
+	end = str + strlen(str);
 
 	/* fast forward to the first % */
-	if ((s = strchr(url, '%')) == NULL)
+	if ((s = strchr(str, '%')) == NULL)
 		return 0;
 
 	t = s;
@@ -1352,7 +1350,7 @@ fix_url_percent(bozo_httpreq_t *request)
 	} while (*s);
 	*t = '\0';
 
-	debug((httpd, DEBUG_FAT, "fix_url_percent returns %s in url",
+	debug((httpd, DEBUG_FAT, "bozo_decode_url_percent returns `%s'",
 			request->hr_file));
 
 	return 0;
@@ -1383,7 +1381,7 @@ transform_request(bozo_httpreq_t *request, int *isindex)
 	file = NULL;
 	*isindex = 0;
 	debug((httpd, DEBUG_FAT, "tf_req: file %s", request->hr_file));
-	if (fix_url_percent(request)) {
+	if (bozo_decode_url_percent(request, request->hr_file)) {
 		goto bad_done;
 	}
 	if (check_virtual(request)) {

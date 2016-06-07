@@ -57,7 +57,6 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <sys/callout.h>
 
-#include <net/radix.h>
 #include <net/route.h>
 
 #ifdef INET6

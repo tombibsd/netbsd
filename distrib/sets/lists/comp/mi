@@ -3547,6 +3547,8 @@
 ./usr/lib/librumpnet_npf.a			comp-c-lib		rump
 ./usr/lib/librumpnet_npf_p.a			comp-c-lib		rump,profile
 ./usr/lib/librumpnet_p.a			comp-c-proflib		compatfile,rump,profile
+./usr/lib/librumpnet_pppoe.a			comp-c-lib		rump
+./usr/lib/librumpnet_pppoe_p.a			comp-c-proflib		rump,profile
 ./usr/lib/librumpnet_shmif.a			comp-c-lib		rump
 ./usr/lib/librumpnet_shmif_p.a			comp-c-proflib		rump,profile
 ./usr/lib/librumpnet_sockin.a			comp-c-lib		rump
@@ -8026,6 +8028,9 @@
 ./usr/share/man/cat3/pechochar.0		comp-c-catman		.cat
 ./usr/share/man/cat3/perror.0			comp-c-catman		.cat
 ./usr/share/man/cat3/pidfile.0			comp-c-catman		.cat
+./usr/share/man/cat3/pidfile_clean.0		comp-c-catman		.cat
+./usr/share/man/cat3/pidfile_lock.0		comp-c-catman		.cat
+./usr/share/man/cat3/pidfile_read.0		comp-c-catman		.cat
 ./usr/share/man/cat3/pidlock.0			comp-c-catman		.cat
 ./usr/share/man/cat3/pmap_getmaps.0		comp-c-catman		.cat
 ./usr/share/man/cat3/pmap_getport.0		comp-c-catman		.cat
@@ -15174,6 +15179,9 @@
 ./usr/share/man/html3/pechochar.html		comp-c-htmlman		html
 ./usr/share/man/html3/perror.html		comp-c-htmlman		html
 ./usr/share/man/html3/pidfile.html		comp-c-htmlman		html
+./usr/share/man/html3/pidfile_clean.html	comp-c-htmlman		html
+./usr/share/man/html3/pidfile_lock.html		comp-c-htmlman		html
+./usr/share/man/html3/pidfile_read.html		comp-c-htmlman		html
 ./usr/share/man/html3/pidlock.html		comp-c-htmlman		html
 ./usr/share/man/html3/pmap_getmaps.html		comp-c-htmlman		html
 ./usr/share/man/html3/pmap_getport.html		comp-c-htmlman		html
@@ -22311,6 +22319,9 @@
 ./usr/share/man/man3/pechochar.3		comp-c-man		.man
 ./usr/share/man/man3/perror.3			comp-c-man		.man
 ./usr/share/man/man3/pidfile.3			comp-c-man		.man
+./usr/share/man/man3/pidfile_clean.3		comp-c-man		.man
+./usr/share/man/man3/pidfile_lock.3		comp-c-man		.man
+./usr/share/man/man3/pidfile_read.3		comp-c-man		.man
 ./usr/share/man/man3/pidlock.3			comp-c-man		.man
 ./usr/share/man/man3/pmap_getmaps.3		comp-c-man		.man
 ./usr/share/man/man3/pmap_getport.3		comp-c-man		.man

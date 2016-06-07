@@ -13,7 +13,7 @@
 /ieee80211_crypto_none.c/1.7/Thu Nov 16 01:33:40 2006/-kk/
 /ieee80211_crypto_tkip.c/1.12/Wed Oct 29 08:13:31 2014/-kk/
 /ieee80211_crypto_wep.c/1.8/Wed Dec 17 20:51:37 2008/-kk/
-/ieee80211_input.c/1.80/Mon Feb 15 11:07:37 2016/-kk/
+/ieee80211_input.c/1.82/Tue Jun  7 10:19:42 2016/-kk/
 /ieee80211_ioctl.c/1.60/Sun Sep 13 01:07:50 2015/-kk/
 /ieee80211_ioctl.h/1.23/Tue Jun  7 10:06:57 2016/-kk/
 /ieee80211_netbsd.c/1.26/Sat Apr 19 05:37:01 2014/-kk/

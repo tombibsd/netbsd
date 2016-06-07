@@ -103,7 +103,10 @@ int pax_aslr_global = PAX_ASLR;
 #define PAX_ASLR_DELTA_STACK_LSB	PGSHIFT
 #endif
 #ifndef PAX_ASLR_DELTA_STACK_LEN
-#define PAX_ASLR_DELTA_STACK_LEN 	12
+#define PAX_ASLR_DELTA_STACK_LEN 	PAX_ASLR_DELTA_MMAP_LEN
+#endif
+#ifndef PAX_ASLR_DELTA_STACK_LEN32
+#define PAX_ASLR_DELTA_STACK_LEN32 	PAX_ASLR_DELTA_MMAP_LEN32
 #endif
 
 static bool pax_aslr_elf_flags_active(uint32_t);
@@ -131,6 +134,10 @@ int pax_mprotect_debug;
 
 #ifdef PAX_ASLR_DEBUG
 int pax_aslr_debug;
+/* flag set means disable */
+int pax_aslr_flags;
+#define PAX_ASLR_STACK	1
+#define PAX_ASLR_MMAP	2
 #endif
 
 static int pax_segvguard_enabled = 1;
@@ -269,6 +276,12 @@ SYSCTL_SETUP(sysctl_security_pax_setup, "sysctl security.pax setup")
 		       CTLTYPE_INT, "debug",
 		       SYSCTL_DESCR("Pring ASLR selected addresses."),
 		       NULL, 0, &pax_aslr_debug, 0,
+		       CTL_CREATE, CTL_EOL);
+	sysctl_createv(clog, 0, &rnode, NULL,
+		       CTLFLAG_PERMANENT|CTLFLAG_READWRITE,
+		       CTLTYPE_INT, "flags",
+		       SYSCTL_DESCR("Disable/Enable select ASLR features."),
+		       NULL, 0, &pax_aslr_flags, 0,
 		       CTL_CREATE, CTL_EOL);
 #endif
 	sysctl_createv(clog, 0, &rnode, NULL,
@@ -438,6 +451,11 @@ pax_aslr_init_vm(struct lwp *l, struct vmspace *vm, struct exec_package *ep)
 	if (!pax_aslr_active(l))
 		return;
 
+#ifdef PAX_ASLR_DEBUG
+	if (pax_aslr_flags & PAX_ASLR_MMAP)
+		return;
+#endif
+
 	uint32_t len = (ep->ep_flags & EXEC_32) ?
 	    PAX_ASLR_DELTA_MMAP_LEN32 : PAX_ASLR_DELTA_MMAP_LEN;
 
@@ -454,6 +472,10 @@ pax_aslr_mmap(struct lwp *l, vaddr_t *addr, vaddr_t orig_addr, int f)
 		return;
 #ifdef PAX_ASLR_DEBUG
 	char buf[256];
+
+	if (pax_aslr_flags & PAX_ASLR_MMAP)
+		return;
+
 	if (pax_aslr_debug)
 		snprintb(buf, sizeof(buf), MAP_FMT, f);
 	else
@@ -479,13 +501,19 @@ pax_aslr_stack(struct exec_package *epp, u_long *max_stack_size)
 {
 	if (!pax_aslr_epp_active(epp))
 		return;
+#ifdef PAX_ASLR_DEBUG
+	if (pax_aslr_flags & PAX_ASLR_STACK)
+		return;
+#endif
 
-	u_long d = PAX_ASLR_DELTA(cprng_fast32(),
-	    PAX_ASLR_DELTA_STACK_LSB,
-	    PAX_ASLR_DELTA_STACK_LEN);
-	PAX_DPRINTF("stack %#jx delta=%#lx diff=%lx",
-	    (uintmax_t)epp->ep_minsaddr, d, epp->ep_minsaddr - d);
-	epp->ep_minsaddr -= d;
+	uint32_t len = (epp->ep_flags & EXEC_32) ?
+	    PAX_ASLR_DELTA_STACK_LEN32 : PAX_ASLR_DELTA_STACK_LEN;
+	u_long d = PAX_ASLR_DELTA(cprng_fast32(), PAX_ASLR_DELTA_STACK_LSB,
+	    len);
+ 	u_long newminsaddr = (u_long)STACK_ALLOC(epp->ep_minsaddr, d);
+	PAX_DPRINTF("old minsaddr=%#jx delta=%#lx new minsaddr=%#lx",
+	    (uintmax_t)epp->ep_minsaddr, d, newminsaddr);
+	epp->ep_minsaddr = (vaddr_t)newminsaddr;
 	*max_stack_size -= d;
 	if (epp->ep_ssize > *max_stack_size)
 		epp->ep_ssize = *max_stack_size;

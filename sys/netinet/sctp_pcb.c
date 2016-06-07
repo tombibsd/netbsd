@@ -1312,7 +1312,6 @@ sctp_inpcb_alloc(struct socket *so)
 
 	error = 0;
 
-	printf("sctp_inpcb_alloc: starting\n");
         /* Hack alert:
 	 *
 	 * This code audits the entire INP list to see if

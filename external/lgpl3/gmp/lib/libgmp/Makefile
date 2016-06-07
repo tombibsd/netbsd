@@ -259,3 +259,7 @@ COPTS += -marm
 .endif
 
 CWARNFLAGS.clang+=	-Wno-unused-value -Wno-tautological-compare -Wno-parentheses
+
+.if !empty(CFLAGS:M-fPIE)
+M4FLAGS+=-DPIC
+.endif

@@ -1492,11 +1492,10 @@ dp8390_ipkdb_send(struct ipkdb_if *kip, uint8_t *buf, int l)
 	bus_space_handle_t regh = sc->sc_regh;
 	struct mbuf mb;
 
-	mb.m_next = NULL;
-	mb.m_pkthdr.len = mb.m_len = l;
-	mb.m_data = buf;
-	mb.m_flags = M_EXT | M_PKTHDR;
-	mb.m_type = MT_DATA;
+	mbuf_hdr_init(&mb, MT_DATA, NULL, buf, l);
+	mbuf_pkthdr_init(&mb);
+	mb.m_pkthdr.len = l;
+	mb.m_flags |= M_EXT;
 
 	l = sc->write_mbuf(sc, &mb,
 	    sc->mem_start + ((sc->txb_new * ED_TXBUF_SIZE) << ED_PAGE_SHIFT));

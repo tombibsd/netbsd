@@ -547,6 +547,7 @@ nd6_na_input(struct mbuf *m, int off, int icmp6len)
 	union nd_opts ndopts;
 	struct sockaddr_in6 ssin6;
 	int rt_announce;
+	bool checklink = false;
 
 	if (ip6->ip6_hlim != 255) {
 		nd6log(LOG_ERR,
@@ -675,7 +676,7 @@ nd6_na_input(struct mbuf *m, int off, int icmp6len)
 			 * non-reachable to probably reachable, and might
 			 * affect the status of associated prefixes..
 			 */
-			pfxlist_onlink_check();
+			checklink = true;
 		}
 	} else {
 		int llchange;
@@ -807,6 +808,9 @@ nd6_na_input(struct mbuf *m, int off, int icmp6len)
  freeit:
 	if (ln != NULL)
 		LLE_WUNLOCK(ln);
+
+	if (checklink)
+		pfxlist_onlink_check();
 
 	m_freem(m);
 	return;

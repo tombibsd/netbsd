@@ -71,7 +71,6 @@ __KERNEL_RCSID(0, "$NetBSD$");
 #include "opt_kernhist.h"
 #include "opt_ddbparam.h"
 #include "opt_multiprocessor.h"
-#include "arp.h"
 #endif
 
 #include <sys/param.h>
@@ -98,6 +97,8 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 #include <uvm/uvm_extern.h>
 #include <uvm/uvm_ddb.h>
+
+#include <net/route.h>
 
 /*
  * Results of command search.
@@ -229,8 +230,8 @@ static const struct db_command db_show_cmds[] = {
 #endif
 	{ DDB_ADD_CMD("all",	NULL,
 	    CS_COMPAT, NULL,NULL,NULL) },
-#if defined(INET) && (NARP > 0)
-	{ DDB_ADD_CMD("arptab",	db_show_arptab,		0,NULL,NULL,NULL) },
+#if defined(INET)
+	{ DDB_ADD_CMD("routes",	db_show_routes,		0,NULL,NULL,NULL) },
 #endif
 #ifdef _KERNEL
 	{ DDB_ADD_CMD("breaks",	db_listbreak_cmd, 	0,

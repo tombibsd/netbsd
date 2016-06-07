@@ -6,7 +6,7 @@ PROG=	xman
 SRCS=	ScrollByL.c handler.c man.c buttons.c help.c \
 	search.c globals.c main.c misc.c tkfuncs.c vendor.c
 
-CPPFLAGS+=${X11FLAGS.VERSION}
+CPPFLAGS+=${X11FLAGS.VERSION} -DHAVE_MKSTEMP
 CPPFLAGS+=-DHELPFILE=\"${X11LIBDIR}/xman.help\"
 CPPFLAGS+=-DMANCONFIGSTYLE_OpenBSD -DMANCONF=\"/etc/man.conf\"
 

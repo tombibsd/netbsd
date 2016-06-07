@@ -227,6 +227,7 @@ void	bozo_print_header(bozo_httpreq_t *, struct stat *, const char *,
 			  const char *);
 char	*bozo_escape_rfc3986(bozohttpd_t *httpd, const char *url, int absolute);
 char	*bozo_escape_html(bozohttpd_t *httpd, const char *url);
+int	bozo_decode_url_percent(bozo_httpreq_t *, char *);
 
 /* these are similar to libc functions, no underscore here */
 void	bozowarn(bozohttpd_t *, const char *, ...)

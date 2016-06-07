@@ -37,7 +37,7 @@ __RCSID("$NetBSD$");
 
 #include "el.h"
 
-public int
+int
 el_getc(EditLine *el, char *cp)
 {
 	int num_read;
@@ -58,7 +58,7 @@ el_getc(EditLine *el, char *cp)
 }
 
 
-public void
+void
 el_push(EditLine *el, const char *str)
 {
 	/* Using multibyte->wide string decoding works fine under single-byte
@@ -67,7 +67,7 @@ el_push(EditLine *el, const char *str)
 }
 
 
-public const char *
+const char *
 el_gets(EditLine *el, int *nread)
 {
 	const wchar_t *tmp;
@@ -85,7 +85,7 @@ el_gets(EditLine *el, int *nread)
 }
 
 
-public int
+int
 el_parse(EditLine *el, int argc, const char *argv[])
 {
 	int ret;
@@ -102,7 +102,7 @@ el_parse(EditLine *el, int argc, const char *argv[])
 }
 
 
-public int
+int
 el_set(EditLine *el, int op, ...)
 {
 	va_list ap;
@@ -184,23 +184,23 @@ el_set(EditLine *el, int op, ...)
 		 */
 		switch (op) {
 		case EL_BIND:
-			wargv[0] = STR("bind");
+			wargv[0] = L"bind";
 			ret = map_bind(el, i, wargv);
 			break;
 		case EL_TELLTC:
-			wargv[0] = STR("telltc");
+			wargv[0] = L"telltc";
 			ret = terminal_telltc(el, i, wargv);
 			break;
 		case EL_SETTC:
-			wargv[0] = STR("settc");
+			wargv[0] = L"settc";
 			ret = terminal_settc(el, i, wargv);
 			break;
 		case EL_ECHOTC:
-			wargv[0] = STR("echotc");
+			wargv[0] = L"echotc";
 			ret = terminal_echotc(el, i, wargv);
 			break;
 		case EL_SETTY:
-			wargv[0] = STR("setty");
+			wargv[0] = L"setty";
 			ret = tty_stty(el, i, wargv);
 			break;
 		default:
@@ -226,7 +226,7 @@ el_set(EditLine *el, int op, ...)
 		    goto out;
 		}
 		/* XXX: The two strdup's leak */
-		ret = map_addfunc(el, Strdup(wargv[0]), Strdup(wargv[1]),
+		ret = map_addfunc(el, wcsdup(wargv[0]), wcsdup(wargv[1]),
 		    func);
 		el_free(wargv);
 		break;
@@ -272,7 +272,7 @@ out:
 }
 
 
-public int
+int
 el_get(EditLine *el, int op, ...)
 {
 	va_list ap;
@@ -365,7 +365,7 @@ el_line(EditLine *el)
 	const LineInfoW *winfo = el_wline(el);
 	LineInfo *info = &el->el_lgcylinfo;
 	size_t offset;
-	const Char *p;
+	const wchar_t *p;
 
 	info->buffer   = ct_encode_string(winfo->buffer, &el->el_lgcyconv);
 

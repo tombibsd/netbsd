@@ -52,6 +52,7 @@ __RCSID("$NetBSD$");
 
 #include "readline/readline.h"
 #include "el.h"
+#include "fcns.h"
 #include "filecomplete.h"
 
 void rl_prep_terminal(int);

@@ -40,16 +40,16 @@
 #ifndef _h_el_hist
 #define	_h_el_hist
 
-typedef int (*hist_fun_t)(void *, TYPE(HistEvent) *, int, ...);
+typedef int (*hist_fun_t)(void *, HistEventW *, int, ...);
 
 typedef struct el_history_t {
-	Char		*buf;		/* The history buffer		*/
+	wchar_t		*buf;		/* The history buffer		*/
 	size_t		 sz;		/* Size of history buffer	*/
-	Char		*last;		/* The last character		*/
+	wchar_t		*last;		/* The last character		*/
 	int		 eventno;	/* Event we are looking for	*/
 	void		*ref;		/* Argument for history fcns	*/
 	hist_fun_t	 fun;		/* Event access			*/
-	TYPE(HistEvent)	 ev;		/* Event cookie			*/
+	HistEventW	 ev;		/* Event cookie			*/
 } el_history_t;
 
 #define	HIST_FUN_INTERNAL(el, fn, arg)	\
@@ -72,7 +72,7 @@ protected int		hist_init(EditLine *);
 protected void		hist_end(EditLine *);
 protected el_action_t	hist_get(EditLine *);
 protected int		hist_set(EditLine *, hist_fun_t, void *);
-protected int		hist_command(EditLine *, int, const Char **);
+protected int		hist_command(EditLine *, int, const wchar_t **);
 protected int		hist_enlargebuf(EditLine *, size_t, size_t);
 protected wchar_t	*hist_convert(EditLine *, int, void *);
 

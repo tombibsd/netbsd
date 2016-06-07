@@ -100,4 +100,7 @@ CPPFLAGS+=	-DNO_SHARED_LIBGCC_MULTILIB
 
 NOCLANGERROR=	# defined
 
+WARNS=1
+COPTS+=-Wno-narrowing -Wno-unused
+
 .endif

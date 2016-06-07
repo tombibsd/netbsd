@@ -5,11 +5,6 @@
 __RCSID("$NetBSD$");
 #endif /* not lint */
 
-#include <sys/cdefs.h>
-#ifndef lint
-__RCSID("$NetBSD$");
-#endif /* not lint */
-
 #include <sys/types.h>
 #include <sys/tls.h>
 

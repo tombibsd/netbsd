@@ -178,7 +178,6 @@ eco_output(struct ifnet *ifp, struct mbuf *m0, const struct sockaddr *dst,
 	void *tha;
 	struct eco_arp *ecah;
 #endif
-	ALTQ_DECL(struct altq_pktattr pktattr;)
 
 	if ((ifp->if_flags & (IFF_UP|IFF_RUNNING)) != (IFF_UP|IFF_RUNNING))
 		senderr(ENETDOWN);
@@ -186,7 +185,7 @@ eco_output(struct ifnet *ifp, struct mbuf *m0, const struct sockaddr *dst,
 	 * If the queueing discipline needs packet classification,
 	 * do it before prepending link headers.
 	 */
-	IFQ_CLASSIFY(&ifp->if_snd, m, dst->sa_family, &pktattr);
+	IFQ_CLASSIFY(&ifp->if_snd, m, dst->sa_family);
 
 	hdrcmplt = 0;
 	retry_delay = hz / 16;
@@ -294,7 +293,7 @@ eco_output(struct ifnet *ifp, struct mbuf *m0, const struct sockaddr *dst,
 	if (m == NULL)
 		return (0);
 
-	return ifq_enqueue(ifp, m ALTQ_COMMA ALTQ_DECL(&pktattr));
+	return ifq_enqueue(ifp, m);
 
 bad:
 	if (m)
@@ -849,6 +848,6 @@ eco_retry(void *arg)
 	ifp = er->er_ifp;
 	m = er->er_packet;
 	LIST_REMOVE(er, er_link);
-	(void)ifq_enqueue(ifp, m ALTQ_COMMA ALTQ_DECL(NULL));
+	(void)ifq_enqueue(ifp, m);
 	free(er, M_TEMP);
 }

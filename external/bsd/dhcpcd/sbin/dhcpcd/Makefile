@@ -30,6 +30,9 @@ SRCS+=		ipv6.c ipv6nd.c dhcp6.c
 DIST=		${NETBSDSRCDIR}/external/bsd/dhcpcd/dist
 CPPFLAGS+=	-I${DIST}
 
+DPADD+=		${LIBUTIL}
+LDADD+=		-lutil
+
 .PATH: ${DIST} ${DIST}/crypt ${LIBC_NET}
 
 SCRIPTS=			dhcpcd-run-hooks
@@ -69,6 +72,7 @@ ${f}:	${f}.in
 	    -e 's:@SERVICEEXISTS@::g' \
 	    -e 's:@SERVICECMD@::g' \
 	    -e 's:@SERVICESTATUS@::g' \
+	    -e 's:@STATUSARG@::g' \
 	    ${DIST}/${f}.in > $@
 .endfor
 

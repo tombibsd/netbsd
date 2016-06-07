@@ -190,7 +190,7 @@
 /if_levar.h/1.9/Mon Apr 28 20:23:55 2008/-kk/
 /if_lii.c/1.14/Mon Feb 15 11:07:24 2016/-kk/
 /if_liireg.h/1.2/Tue Apr 29 06:53:03 2008/-kk/
-/if_lmc.c/1.57/Mon Feb 15 11:07:24 2016/-kk/
+/if_lmc.c/1.58/Tue Jun  7 10:19:32 2016/-kk/
 /if_lmc.h/1.22/Sun Sep 13 01:31:32 2015/-kk/
 /if_malo_pci.c/1.5/Fri Apr 11 02:03:48 2014/-kk/
 /if_msk.c/1.49/Mon Feb 15 11:07:24 2016/-kk/
