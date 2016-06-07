@@ -186,6 +186,7 @@ struct vcprop_tag_clockrate {
 	struct vcprop_tag tag;
 	uint32_t id;
 	uint32_t rate;
+	uint32_t noturbo;
 };
 
 #define VCPROP_VOLTAGE_CORE	1

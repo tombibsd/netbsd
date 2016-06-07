@@ -50,8 +50,11 @@ CTFOBJ!=	cd ${.CURDIR}/../libctf && ${PRINTOBJDIR}
 DWARFOBJ!=	cd ${.CURDIR}/../libdwarf && ${PRINTOBJDIR}
 ELFOBJ!=	cd ${.CURDIR}/../libelf && ${PRINTOBJDIR}
 LDADD+=		-L${CTFOBJ} -lctf
+DPADD+=		${CTFOBJ}/libctf.a
 LDADD+=		-L${DWARFOBJ} -ldwarf
+DPADD+=		${DWARFOBJ}/libdwarf.a
 LDADD+=		-L${ELFOBJ} -lelf
+DPADD+=		${ELFOBJ}/libelf.a
 
 .PATH:		${OPENSOLARIS_DISTDIR}/tools/ctf/common
 .PATH:		${OPENSOLARIS_DISTDIR}/tools/ctf/cvt

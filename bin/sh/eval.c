@@ -45,6 +45,7 @@ __RCSID("$NetBSD$");
 #include <stdlib.h>
 #include <signal.h>
 #include <stdio.h>
+#include <string.h>
 #include <errno.h>
 #include <limits.h>
 #include <unistd.h>
@@ -280,7 +281,7 @@ evaltree(union node *n, int flags)
 		break;
 	case NREDIR:
 		expredir(n->nredir.redirect);
-		redirect(n->nredir.redirect, REDIR_PUSH);
+		redirect(n->nredir.redirect, REDIR_PUSH | REDIR_KEEP);
 		evaltree(n->nredir.n, flags);
 		popredir();
 		break;
@@ -486,7 +487,7 @@ evalsubshell(union node *n, int flags)
 		INTON;
 		if (backgnd)
 			flags &=~ EV_TESTED;
-		redirect(n->nredir.redirect, 0);
+		redirect(n->nredir.redirect, REDIR_KEEP);
 		/* never returns */
 		evaltree(n->nredir.n, flags | EV_EXIT);
 	}
@@ -807,9 +808,25 @@ evalcommand(union node *cmd, int flgs, struct backcmd *backcmd)
 		char sep = 0;
 		out2str(ps4val());
 		for (sp = varlist.list ; sp ; sp = sp->next) {
+			char *p;
+
 			if (sep != 0)
 				outc(sep, &errout);
-			out2shstr(sp->text);
+
+			/*
+			 * The "var=" part should not be quoted, regardless
+			 * of the value, or it would not represent an
+			 * assignment, but rather a command
+			 */
+			p = strchr(sp->text, '=');
+			if (p != NULL) {
+				*p = '\0';	/*XXX*/
+				out2shstr(sp->text);
+				out2c('=');
+				*p++ = '=';	/*XXX*/
+			} else
+				p = sp->text;
+			out2shstr(p);
 			sep = ' ';
 		}
 		for (sp = arglist.list ; sp ; sp = sp->next) {
@@ -1101,7 +1118,8 @@ normal_fork:
 #ifdef DEBUG
 		trputs("normal command:  ");  trargs(argv);
 #endif
-		redirect(cmd->ncmd.redirect, vforked ? REDIR_VFORK : 0);
+		redirect(cmd->ncmd.redirect, 
+		    (vforked ? REDIR_VFORK : 0) | REDIR_KEEP);
 		if (!vforked)
 			for (sp = varlist.list ; sp ; sp = sp->next)
 				setvareq(sp->text, VEXPORT|VSTACK);

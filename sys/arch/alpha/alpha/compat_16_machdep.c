@@ -113,7 +113,7 @@ sendsig_sigcontext(const ksiginfo_t *ksi, const sigset_t *mask)
 	sig_t catcher = SIGACTION(p, sig).sa_handler;
 
 	tf = l->l_md.md_tf;
-	fp = getframe(l, sig, &onstack), frame;
+	fp = getframe(l, sig, &onstack);
 	fp--;
 
 #ifdef DEBUG

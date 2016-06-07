@@ -7,7 +7,13 @@ LIBISPRIVATE=	yes
 
 LIB=		common
 
-SRCS=		diagnostic.c pretty-print.c intl.c input.c version.c
+SRCS=		diagnostic.c \
+		diagnostic-color.c \
+		pretty-print.c \
+		intl.c \
+		vec.c \
+		input.c \
+		version.c
 
 # XXX make sure this doesn't have more than it needs
 CPPFLAGS+=	-I${GCCARCH} -I${BACKENDOBJ} -I. \

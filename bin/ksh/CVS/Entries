@@ -1,4 +1,4 @@
-/Makefile/1.31/Thu Feb  5 08:36:47 2015/-kk/
+/Makefile/1.33/Tue Jun  7 09:31:53 2016/-kk/
 /alloc.c/1.10/Wed Dec 12 22:55:42 2007/-kk/
 /c_ksh.c/1.18/Sun Oct 16 17:12:11 2011/-kk/
 /c_sh.c/1.15/Thu Oct 24 10:28:41 2013/-kk/
@@ -39,7 +39,7 @@
 /sigact.c/1.4/Mon Jun 23 11:39:03 2003/-kk/
 /sigact.h/1.3/Sat May 25 23:29:17 2002/-kk/
 /siglist.in/1.2/Sun Jan 12 19:12:17 1997/-kk/
-/siglist.sh/1.9/Sun Jan 23 17:11:55 2011/-kk/
+/siglist.sh/1.12/Tue Jun  7 09:31:53 2016/-kk/
 /syn.c/1.9/Mon Oct 16 00:07:32 2006/-kk/
 /table.c/1.4/Mon Jun 23 11:39:04 2003/-kk/
 /table.h/1.3/Wed Oct 20 15:10:00 1999/-kk/

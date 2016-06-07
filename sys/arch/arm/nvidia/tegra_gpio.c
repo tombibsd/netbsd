@@ -303,7 +303,7 @@ tegra_gpio_fdt_acquire(device_t dev, const void *data, size_t len, int flags)
 	if ((cnf & __BIT(pin)) == 0)
 		GPIO_WRITE(&gbank, GPIO_CNF_REG, cnf | __BIT(pin));
 
-	gpin = kmem_alloc(sizeof(*gpin), KM_SLEEP);
+	gpin = kmem_zalloc(sizeof(*gpin), KM_SLEEP);
 	gpin->pin_bank = gbank;
 	gpin->pin_no = pin;
 	gpin->pin_flags = flags;

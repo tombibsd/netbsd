@@ -81,6 +81,7 @@ module_load_vfs(const char *name, int flags, bool autoload,
 		if (strchr(name,  '/') != NULL) {
 			nochroot = false;
 			snprintf(path, MAXPATHLEN, "%s", name);
+			module_print("Loading module from %s", path);
 			error = kobj_load_vfs(&mod->mod_kobj, path, nochroot);
 		} else
 			error = ENOENT;
@@ -90,6 +91,7 @@ module_load_vfs(const char *name, int flags, bool autoload,
 			nochroot = true;
 			snprintf(path, MAXPATHLEN, "%s/%s/%s.kmod",
 			    module_base, name, name);
+			module_print("Loading module from %s", path);
 			error = kobj_load_vfs(&mod->mod_kobj, path, nochroot);
 		} else
 			error = ENOENT;
@@ -177,6 +179,7 @@ module_load_plist_vfs(const char *modpath, const bool nochroot,
 		error = ENOMEM;
 		goto out1;
 	}
+	module_print("Loading plist from %s", proppath);
 	
 	NDINIT(&nd, LOOKUP, FOLLOW | (nochroot ? NOCHROOT : 0), pb);
 

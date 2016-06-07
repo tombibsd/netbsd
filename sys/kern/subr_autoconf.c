@@ -2649,6 +2649,8 @@ device_active_register(device_t dev, void (*handler)(device_t, devactive_t))
 	old_handlers = dev->dv_activity_handlers;
 	old_size = dev->dv_activity_count;
 
+	KASSERT(old_size == 0 || old_handlers != NULL);
+
 	for (i = 0; i < old_size; ++i) {
 		KASSERT(old_handlers[i] != handler);
 		if (old_handlers[i] == NULL) {
@@ -2660,17 +2662,18 @@ device_active_register(device_t dev, void (*handler)(device_t, devactive_t))
 	new_size = old_size + 4;
 	new_handlers = kmem_alloc(sizeof(void *[new_size]), KM_SLEEP);
 
-	memcpy(new_handlers, old_handlers, sizeof(void *[old_size]));
+	for (i = 0; i < old_size; ++i)
+		new_handlers[i] = old_handlers[i];
 	new_handlers[old_size] = handler;
-	memset(new_handlers + old_size + 1, 0,
-	    sizeof(int [new_size - (old_size+1)]));
+	for (i = old_size+1; i < new_size; ++i)
+		new_handlers[i] = NULL;
 
 	s = splhigh();
 	dev->dv_activity_count = new_size;
 	dev->dv_activity_handlers = new_handlers;
 	splx(s);
 
-	if (old_handlers != NULL)
+	if (old_size > 0)
 		kmem_free(old_handlers, sizeof(void * [old_size]));
 
 	return true;

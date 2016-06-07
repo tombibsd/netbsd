@@ -89,9 +89,9 @@
 #define major(x)        ((devmajor_t)((((x) & 0x000fff00) >>  8)))
 #define minor(x)        ((devminor_t)((((x) & 0xfff00000) >> 12) | \
 			       (((x) & 0x000000ff) >>  0)))
-#define makedev(x,y)    ((dev_t)((((x) <<  8) & 0x000fff00) | \
-                                 (((y) << 12) & 0xfff00000) | \
-                                 (((y) <<  0) & 0x000000ff)))
+#define makedev(x,y)    ((dev_t)((((dev_t)(x) <<  8) & 0x000fff00U) | \
+                                 (((dev_t)(y) << 12) & 0xfff00000U) | \
+                                 (((dev_t)(y) <<  0) & 0x000000ffU)))
 #define __attribute__(x)
 #endif	/* MAKE_BOOTSTRAP */
 

@@ -81,11 +81,14 @@ typedef	unsigned char bitstr_t;
 
 				/* set bit N of bitstring name */
 #define	bit_set(name, bit) \
-	/*LINTED bitwise on signed*/((name)[_bit_byte(bit)] |= _bit_mask(bit))
+	/*LINTED bitwise on signed*/ \
+	((name)[_bit_byte(bit)] = \
+	(unsigned char)(_bit_mask(bit) | (name)[_bit_byte(bit)]))
 
 				/* clear bit N of bitstring name */
 #define	bit_clear(name, bit) \
-	/*LINTED bitwise on signed*/((name)[_bit_byte(bit)] &= ~_bit_mask(bit))
+	/*LINTED bitwise on signed*/ \
+	((name)[_bit_byte(bit)] &= (unsigned char)~_bit_mask(bit))
 
 				/* clear bits start ... stop in bitstring */
 #define	bit_nclear(name, start, stop) do { \

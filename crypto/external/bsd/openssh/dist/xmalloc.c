@@ -1,5 +1,6 @@
 /*	$NetBSD$	*/
-/* $OpenBSD: xmalloc.c,v 1.32 2015/04/24 01:36:01 deraadt Exp $ */
+/* $OpenBSD: xmalloc.c,v 1.33 2016/02/15 09:47:49 dtucker Exp $ */
+
 /*
  * Author: Tatu Ylonen <ylo@cs.hut.fi>
  * Copyright (c) 1995 Tatu Ylonen <ylo@cs.hut.fi>, Espoo, Finland
@@ -25,6 +26,16 @@ __RCSID("$NetBSD$");
 
 #include "xmalloc.h"
 #include "log.h"
+
+void
+ssh_malloc_init(void)
+{
+#ifndef __NetBSD__
+	extern char *malloc_options;
+
+	malloc_options = "S";
+#endif
+}
 
 void *
 xmalloc(size_t size)

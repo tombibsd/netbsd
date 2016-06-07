@@ -16,7 +16,7 @@
 /if_cnwreg.h/1.6/Mon Apr 28 20:23:56 2008/-kk/
 /if_cs_pcmcia.c/1.21/Wed Apr 22 07:36:59 2015/-kk/
 /if_ep_pcmcia.c/1.63/Sat Sep  5 12:31:00 2009/-kk/
-/if_malo_pcmcia.c/1.8/Mon Feb 15 11:07:26 2016/-kk/
+/if_malo_pcmcia.c/1.10/Tue Jun  7 09:39:00 2016/-kk/
 /if_malo_pcmciareg.h/1.1/Sat Aug 25 08:20:03 2012/-kk/
 /if_malo_pcmciavar.h/1.2/Tue Jun  3 02:54:38 2014/-kk/
 /if_mbe_pcmcia.c/1.46/Tue May 12 14:42:18 2009/-kk/

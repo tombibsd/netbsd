@@ -45,6 +45,7 @@ main(int argc, char **argv)
 
 	if (fprintf(fp, "%ld\n", b) < 0) {
 		perror("fprintf");
+		fclose(fp);
 		return 1;
 	}
 	if (fclose(fp) != 0) {

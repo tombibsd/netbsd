@@ -1311,7 +1311,7 @@ upgt_media_change(struct ifnet *ifp)
 
 	DPRINTF(1, "%s: %s\n", device_xname(sc->sc_dev), __func__);
 
-	if ((error = ieee80211_media_change(ifp) != ENETRESET))
+	if ((error = ieee80211_media_change(ifp)) != ENETRESET)
 		return error;
 
 	if ((ifp->if_flags & (IFF_UP | IFF_RUNNING)) ==

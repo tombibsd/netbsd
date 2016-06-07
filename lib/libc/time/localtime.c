@@ -177,18 +177,6 @@ static timezone_t gmtptr;
 static char		lcl_TZname[TZ_STRLEN_MAX + 1];
 static int		lcl_is_set;
 
-#if !defined(__LIBC12_SOURCE__)
-
-__aconst char *		tzname[2] = {
-	(__aconst char *)__UNCONST(wildabbr),
-	(__aconst char *)__UNCONST(wildabbr)
-};
-
-#else
-
-extern __aconst char *	tzname[2];
-
-#endif
 
 #ifdef _REENTRANT
 static rwlock_t lcl_lock = RWLOCK_INITIALIZER;
@@ -204,15 +192,30 @@ static rwlock_t lcl_lock = RWLOCK_INITIALIZER;
 
 static struct tm	tm;
 
-#ifdef USG_COMPAT
-#if !defined(__LIBC12_SOURCE__)
+#if !HAVE_POSIX_DECLS || defined(__NetBSD__)
+# if !defined(__LIBC12_SOURCE__)
+
+__aconst char *		tzname[2] = {
+	(__aconst char *)__UNCONST(wildabbr),
+	(__aconst char *)__UNCONST(wildabbr)
+};
+
+# else
+
+extern __aconst char *	tzname[2];
+
+# endif /* __LIBC12_SOURCE__ */
+
+# ifdef USG_COMPAT
+#  if !defined(__LIBC12_SOURCE__)
 long 			timezone = 0;
 int			daylight = 0;
 #else
 extern int		daylight;
 extern long		timezone __RENAME(__timezone13);
-#endif
-#endif /* defined USG_COMPAT */
+#  endif /* __LIBC12_SOURCE__ */
+# endif /* defined USG_COMPAT */
+#endif /* !HAVE_POSIX_DECLS */
 
 #ifdef ALTZONE
 long			altzone = 0;
@@ -279,7 +282,7 @@ const char *
 tzgetname(const timezone_t sp, int isdst)
 {
 	int i;
-	for (i = 0; i < sp->timecnt; ++i) {
+	for (i = 0; i < sp->typecnt; ++i) {
 		const struct ttinfo *const ttisp = &sp->ttis[sp->types[i]];
 
 		if (ttisp->tt_isdst == isdst)
@@ -294,7 +297,7 @@ tzgetgmtoff(const timezone_t sp, int isdst)
 {
 	int i;
 	long l = -1;
-	for (i = 0; i < sp->timecnt; ++i) {
+	for (i = 0; i < sp->typecnt; ++i) {
 		const struct ttinfo *const ttisp = &sp->ttis[sp->types[i]];
 
 		if (ttisp->tt_isdst == isdst) {

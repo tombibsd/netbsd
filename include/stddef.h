@@ -66,5 +66,14 @@ typedef	_BSD_WCHAR_T_	wchar_t;
 #define	offsetof(type, member) __offsetof__((reinterpret_cast<size_t> \
     (&reinterpret_cast<const volatile char &>(static_cast<type *>(0)->member))))
 #endif  
+
+#if (defined (__STDC_VERSION__) && __STDC_VERSION__ >= 201112L) \
+  || (defined(__cplusplus) && __cplusplus >= 201103L)
+typedef union {
+	void *_v;
+	long double _ld;
+	long long int _ll;
+} max_align_t;
+#endif
  
 #endif /* _STDDEF_H_ */

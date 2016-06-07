@@ -56,7 +56,7 @@ typedef struct {
 #define bi_cred bi_u._bi_cred
 
 #ifndef _PATH_BLSOCK
-#define _PATH_BLSOCK "/var/run/blsock"
+#define _PATH_BLSOCK "/var/run/blacklistd.sock"
 #endif
 
 __BEGIN_DECLS

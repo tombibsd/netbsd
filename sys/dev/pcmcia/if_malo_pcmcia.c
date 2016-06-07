@@ -634,7 +634,7 @@ cmalo_media_change(struct ifnet *ifp)
 {
 	int error;
 
-	if ((error = ieee80211_media_change(ifp) != ENETRESET))
+	if ((error = ieee80211_media_change(ifp)) != ENETRESET)
 		return error;
 
 	if ((ifp->if_flags & (IFF_UP | IFF_RUNNING)) == (IFF_UP | IFF_RUNNING))

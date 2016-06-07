@@ -3,7 +3,7 @@
 /clock.c/1.42/Mon Feb  6 02:14:10 2012/-kk/
 /clockvar.h/1.6/Mon Feb  6 02:14:10 2012/-kk/
 /compat_13_machdep.c/1.21/Tue Jun  3 02:53:40 2014/-kk/
-/compat_16_machdep.c/1.19/Tue Jun  3 02:53:40 2014/-kk/
+/compat_16_machdep.c/1.20/Tue Jun  7 09:38:40 2016/-kk/
 /core_machdep.c/1.9/Tue Jun  3 02:53:40 2014/-kk/
 /cpu.c/1.96/Sun Oct 11 09:00:50 2015/-kk/
 /cpuconf.c/1.36/Thu Oct 24 10:28:57 2013/-kk/

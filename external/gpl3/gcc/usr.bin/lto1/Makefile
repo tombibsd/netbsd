@@ -1,7 +1,13 @@
 #	$NetBSD$
 
 PROG=		lto1
-SRCS=		lto-partition.c lto-object.c lto.c lto-lang.c attribs.c main.c
+SRCS=		lto-partition.c \
+		lto-object.c \
+		lto.c \
+		lto-lang.c \
+		lto-symtab.c \
+		attribs.c \
+		main.c
 
 CPPFLAGS+=	-DPREFIX=\"/usr\"
 

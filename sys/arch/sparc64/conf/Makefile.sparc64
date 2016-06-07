@@ -43,6 +43,8 @@ USETOOLS?=	no
 NEED_OWN_INSTALL_TARGET?=no
 .include <bsd.own.mk>
 
+USE_SSP?=	yes
+
 ##
 ## (1) port identification
 ##

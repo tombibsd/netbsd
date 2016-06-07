@@ -76,12 +76,12 @@ main(int argc, char **argv)
 	extern char	*optarg;
 
 	disk_t		*dd;
-	int		rv, c, i, fd;
+	int		rv, c, fd;
 	u_int32_t	currblk;
 	u_int32_t	start, end;
 	char		buf[AHDI_BSIZE];
 
-	i = rv = 0;
+	rv = 0;
 	init_toslib(*argv);
 
 	while ((c = getopt(argc, argv, "Vf:ho:w")) != -1) {
@@ -126,7 +126,7 @@ main(int argc, char **argv)
 	  case 'y':
 	  case 'Y':
 		currblk = start;
-		while(c = read(fd, buf, sizeof(buf)) > 0) {
+		while ((c = read(fd, buf, sizeof(buf))) > 0) {
 		    if (disk_write(dd, currblk, 1, buf) < 0) {
 			eprintf("Error writing to swap partition\n");
 			xexit(1);

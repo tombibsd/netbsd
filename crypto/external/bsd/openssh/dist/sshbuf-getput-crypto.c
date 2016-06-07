@@ -1,4 +1,4 @@
-/*	$OpenBSD: sshbuf-getput-crypto.c,v 1.4 2015/01/14 15:02:39 djm Exp $	*/
+/*	$OpenBSD: sshbuf-getput-crypto.c,v 1.5 2016/01/12 23:42:54 djm Exp $	*/
 /*
  * Copyright (c) 2011 Damien Miller
  *

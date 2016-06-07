@@ -1,4 +1,4 @@
-/GENERIC/1.229/Tue Dec  9 04:34:44 2014/-kk/
+/GENERIC/1.230/Tue Jun  7 09:38:45 2016/-kk/
 /INSTALL_TX3912/1.13/Fri Feb  6 18:50:27 2009/-kk/
 /LCARD/1.17/Sun Sep 13 01:05:59 2015/-kk/
 /LROUTER/1.55/Sun Sep 13 01:05:59 2015/-kk/
@@ -6,8 +6,8 @@
 /NULLCONF/1.24/Sun Sep 13 01:05:59 2015/-kk/
 /RAMDISK/1.21/Tue Nov 23 11:13:59 2010/-kk/
 /TX3912/1.87/Sun Sep 13 01:05:59 2015/-kk/
-/TX3922/1.101/Sun Sep 13 01:05:59 2015/-kk/
-/VR41XX/1.64/Sun Sep 13 01:05:59 2015/-kk/
+/TX3922/1.102/Tue Jun  7 09:38:45 2016/-kk/
+/VR41XX/1.65/Tue Jun  7 09:38:45 2016/-kk/
 /files.hpcmips/1.108/Sun Jul 20 13:58:36 2014/-kk/
 /ioconf.incl.hpcmips/1.4/Thu Mar 23 15:56:02 2006/-kk/
 /majors.hpcmips/1.31/Thu Jun 30 20:09:31 2011/-kk/

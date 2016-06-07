@@ -383,7 +383,7 @@ Notes:
 
 Package:	expat
 Version:	2.1.0
-Current Vers:	2.1.0
+Current Vers:	2.1.1
 Maintainer:	mrg
 Archive Site:	http://sourceforge.net/projects/expat/files/expat/
 Home Page:	http://www.libexpat.org/
@@ -528,6 +528,7 @@ Location:	external/gpl2/groff
 Notes:
 Use groff2netbsd from external/gpl2/groff/groff2netbsd to prepare the
 distribution for import.
+Update MDATE in src/external/gpl2/groff/Makefile.inc.
 
 Package:	heimdal
 Version:	1.5.3
@@ -923,7 +924,7 @@ HAVE_STRICT_ALIGNMENT.  Fix RCS IDs, import.
 
 Package:	ntp
 Version:	4.2.8p5
-Current Vers:	4.2.8p5
+Current Vers:	4.2.8p6
 Maintainer:	David L. Mills <mills@udel.edu>
 Archive Site:	http://www.ntp.org/
 Home Page:	http://www.ntp.org/, http://support.ntp.org/
@@ -997,8 +998,8 @@ Notes:
 Patch applied after OpenSSH import.
 
 Package:	OpenSSH
-Version:	7.1
-Current Vers:	7.1 / portable 7.1p1
+Version:	7.2
+Current Vers:	7.2 / portable 7.2p2
 Maintainer:	OpenSSH
 Archive Site:	http://www.openssh.com/ftp.html
 Home Page:	http://www.openssh.com/portable.html
@@ -1378,8 +1379,8 @@ Notes:
 Added changes from a5 -> a12 manually.
 
 Package:	tz
-Version:	tzcode2015g / tzdata2015f
-Current Vers:	tzcode2015g / tzdata2015g
+Version:	tzcode2016b / tzdata2016b
+Current Vers:	tzcode2016b / tzdata2016b
 Maintainer:	Paul Eggert <eggert@cs.ucla.edu>
 Archive Site:	ftp://ftp.iana.org/tz/releases/
 Archive Site:	ftp://munnari.oz.au/pub/oldtz/

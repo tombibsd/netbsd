@@ -48,6 +48,9 @@ struct vmspace;
 #define	PAX_ASLR_DELTA_EXEC_LEN	12
 #endif
 #endif /* PAX_ASLR */
+#ifdef PAX_ASLR_DEBUG
+extern int pax_aslr_debug;
+#endif
 
 void pax_init(void);
 void pax_setup_elf_flags(struct exec_package *, uint32_t);
@@ -59,7 +62,7 @@ int pax_segvguard(struct lwp *, struct vnode *, const char *, bool);
 
 bool pax_aslr_epp_active(struct exec_package *);
 bool pax_aslr_active(struct lwp *);
-void pax_aslr_init_vm(struct lwp *, struct vmspace *);
+void pax_aslr_init_vm(struct lwp *, struct vmspace *, struct exec_package *);
 void pax_aslr_stack(struct exec_package *, u_long *);
 void pax_aslr_mmap(struct lwp *, vaddr_t *, vaddr_t, int);
 

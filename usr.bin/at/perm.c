@@ -96,20 +96,20 @@ check_permission(void)
 		exit(EXIT_FAILURE);
 	}
 
-	PRIV_START;
+	privs_enter();
 
 	fp = fopen(_PATH_AT_ALLOW, "r");
 
-	PRIV_END;
+	privs_exit();
 
 	if (fp != NULL) {
 		return check_for_user(fp, pentry->pw_name);
 	} else {
-		PRIV_START;
+		privs_enter();
 
 		fp = fopen(_PATH_AT_DENY, "r");
 
-		PRIV_END;
+		privs_exit();
 
 		if (fp != NULL)
 			return !check_for_user(fp, pentry->pw_name);

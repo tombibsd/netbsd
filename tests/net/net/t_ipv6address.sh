@@ -40,7 +40,7 @@ BUS2=bus2
 BUSSRC=bus_src
 BUSDST=bus_dst
 
-DEBUG=false
+DEBUG=true
 TIMEOUT=3
 
 atf_test_case linklocal cleanup
@@ -164,6 +164,8 @@ cleanup_bus()
 {
 	local tmp_rump_server=$RUMP_SERVER
 
+	$DEBUG && dump_bus
+
 	export RUMP_SERVER=${SOCKSRC}
 	atf_check -s exit:0 rump.ifconfig shmif0 down
 	atf_check -s exit:0 rump.ifconfig shmif0 -linkstr
@@ -212,6 +214,30 @@ cleanup_rump_servers()
 	env RUMP_SERVER=${SOCKSRC} rump.halt
 	env RUMP_SERVER=${SOCKDST} rump.halt
 	env RUMP_SERVER=${SOCKFWD} rump.halt
+}
+
+dump_bus()
+{
+
+	shmif_dumpbus -p - ${BUSSRC} 2>/dev/null| tcpdump -n -e -r -
+	shmif_dumpbus -p - ${BUSDST} 2>/dev/null| tcpdump -n -e -r -
+	shmif_dumpbus -p - ${BUS1} 2>/dev/null| tcpdump -n -e -r -
+	shmif_dumpbus -p - ${BUS2} 2>/dev/null| tcpdump -n -e -r -
+}
+
+dump()
+{
+
+	export RUMP_SERVER=${SOCKSRC}
+	rump.ndp -n -a
+	rump.netstat -nr -f inet6
+	export RUMP_SERVER=${SOCKDST}
+	rump.ndp -n -a
+	rump.netstat -nr -f inet6
+	export RUMP_SERVER=${SOCKFWD}
+	rump.ndp -n -a
+	rump.netstat -nr -f inet6
+	unset RUMP_SERVER
 }
 
 linklocal_head()
@@ -269,6 +295,9 @@ linklocal_body()
 	atf_check -s exit:0 -o ignore rump.ifconfig -w 10
 
 	$DEBUG && rump.ifconfig shmif0
+	$DEBUG && dump
+
+	export RUMP_SERVER=${SOCKSRC}
 	atf_check -s exit:0 -o match:"0.0% packet loss" \
 	    rump.ping6 -c 1 -X $TIMEOUT -n -S ${src_if0_lladdr}%shmif0 ${IP6FWD0}
 	unset RUMP_SERVER
@@ -311,6 +340,8 @@ linklocal_body()
 linklocal_cleanup()
 {
 
+	$DEBUG && dump
+	$DEBUG && dump_bus
 	cleanup_rump_servers
 }
 

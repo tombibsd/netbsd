@@ -46,19 +46,21 @@
 ENTRY(ptrace)
 	/*
 	 * The following code calls __errno() to set it to 0 before
-	 * calling ptrace(2). The libc version of __errno() does not use
-	 * any registers, but the libpthread version clobbers %rcx
-	 * before we get a chance to store it in %r10. So we save it
-	 * in %r10 and restore it.
+	 * calling ptrace(2). Preserve and restore all the parameters
 	 */
-	movq	%rcx, %r10
+	pushq	%rdi
+	pushq	%rsi
+	pushq	%rdx
+	pushq	%rcx
 #ifdef __PIC__
 	call	PIC_PLT(_C_LABEL(__errno))
 #else
 	call	_C_LABEL(__errno)
 #endif /* __PIC__ */
-	movl	$0,(%rax)
-	movq	%r10, %rcx
+	popq	%rcx
+	popq	%rdx
+	popq	%rsi
+	popq	%rdi
 	SYSTRAP(ptrace)
 	jc	err
 	ret

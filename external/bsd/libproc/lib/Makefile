@@ -33,7 +33,7 @@ CPPFLAGS+=	-I${OSNET}/sys \
 CPPFLAGS+=	-DNO_CTF
 .endif
 
-.if defined(NOCPLUSPLUS)
+.if defined(NOCPLUSPLUS) || ${MKCXX} == "no"
 CPPFLAGS+=	-DNO_CXA_DEMANGLE
 .else
 LIBISCXX=	yes

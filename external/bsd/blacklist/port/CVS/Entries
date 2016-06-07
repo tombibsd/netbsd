@@ -7,7 +7,7 @@
 /getprogname.c/1.4/Thu Jan 22 15:25:52 2015/-kk/
 /pidfile.c/1.1/Thu Jan 22 16:19:53 2015/-kk/
 /popenve.c/1.2/Thu Jan 22 03:10:50 2015/-kk/
-/port.h/1.6/Thu Jan 22 16:19:53 2015/-kk/
+/port.h/1.7/Tue Jun  7 09:33:08 2016/-kk/
 /sockaddr_snprintf.c/1.9/Fri Jan 23 03:29:18 2015/-kk/
 /strlcat.c/1.2/Thu Jan 22 03:48:07 2015/-kk/
 /strlcpy.c/1.2/Thu Jan 22 03:48:07 2015/-kk/

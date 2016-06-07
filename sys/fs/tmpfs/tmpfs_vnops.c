@@ -575,6 +575,11 @@ tmpfs_write(void *v)
 	node = VP_TO_TMPFS_NODE(vp);
 	oldsize = node->tn_size;
 
+	if ((vp->v_mount->mnt_flag & MNT_RDONLY) != 0) {
+		error = EROFS;
+		goto out;
+	}
+
 	if (uio->uio_offset < 0 || vp->v_type != VREG) {
 		error = EINVAL;
 		goto out;
@@ -1240,6 +1245,11 @@ tmpfs_putpages(void *v)
 	if (vp->v_type != VREG) {
 		mutex_exit(vp->v_interlock);
 		return 0;
+	}
+
+	if ((vp->v_mount->mnt_flag & MNT_RDONLY) != 0) {
+		mutex_exit(vp->v_interlock);
+		return EROFS;
 	}
 
 	node = VP_TO_TMPFS_NODE(vp);

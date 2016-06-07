@@ -65,7 +65,7 @@ MKDEP_SUFFIXES?=	.o .ln .d
 .if (${MKCTF:Uno} != "no") && (${CFLAGS:M-g} != "")
 CTFFLAGS+= -g
 CTFMFLAGS+= -g
-.if defined(HAVE_GCC) && ${HAVE_GCC} >= 48
+.if defined(HAVE_GCC)
 #CFLAGS+=-gdwarf-2
 .endif
 .endif

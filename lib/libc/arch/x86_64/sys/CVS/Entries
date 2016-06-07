@@ -9,7 +9,7 @@
 /fork.S/1.4/Tue Jun  3 03:08:56 2014/-kk/
 /getcontext.S/1.4/Tue Jun  3 03:08:56 2014/-kk/
 /pipe.S/1.3/Tue Jun  3 03:08:56 2014/-kk/
-/ptrace.S/1.6/Tue Dec  9 04:43:23 2014/-kk/
+/ptrace.S/1.7/Tue Jun  7 09:38:25 2016/-kk/
 /sbrk.S/1.6/Tue Jun  3 03:08:56 2014/-kk/
 /shmat.S/1.1/Tue Jun 19 00:25:06 2001/-kk/
 /syscall.S/1.4/Mon Nov  5 20:30:07 2007/-kk/

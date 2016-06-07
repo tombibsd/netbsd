@@ -622,7 +622,7 @@ malo_alloc_rx_ring(struct malo_softc *sc, struct malo_rx_ring *ring, int count)
 			goto fail;
 		}
 
-		desc->status = htole16(1);
+		desc->status = 1;
 		desc->physdata = htole32(data->map->dm_segs->ds_addr);
 		desc->physnext = htole32(ring->physaddr +
 		    (i + 1) % count * sizeof(struct malo_rx_desc));
@@ -1623,7 +1623,7 @@ malo_get_firmware(struct malo_softc *sc, const char *name,
 
 
 	/* load firmware image from disk */
-	if ((error = firmware_open("malo", name, &fw) != 0)) {
+	if ((error = firmware_open("malo", name, &fw)) != 0) {
 		aprint_error_dev(sc->sc_dev, "could not read firmware file\n");
 		return error;
 	}

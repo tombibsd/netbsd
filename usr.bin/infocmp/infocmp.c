@@ -506,7 +506,7 @@ use_terms(TERMINAL *term, size_t nuse, char **uterms)
 	TERMUSERDEF *ud, *tud;
 	size_t i, j, agree, absent, data;
 
-	terms = ecalloc(nuse, sizeof(**terms));
+	terms = ecalloc(nuse, sizeof(*terms));
 	for (i = 0; i < nuse; i++) {
 		if (strcmp(term->name, *uterms) == 0)
 			errx(EXIT_FAILURE, "cannot use same terminal");

@@ -20,7 +20,7 @@
 /hd_init.c/1.2/Wed Jan 25 15:27:42 2006/-kk/
 /hdtoa.c/1.9/Mon Jul  4 11:46:41 2011/-kk/
 /hexnan.c/1.5/Mon Mar 21 04:52:09 2011/-kk/
-/ldtoa.c/1.4/Fri Feb 23 17:45:59 2007/-kk/
+/ldtoa.c/1.5/Tue Jun  7 09:38:27 2016/-kk/
 /makefile/1.4/Sun Mar 20 23:15:35 2011/-kk/
 /misc.c/1.11/Mon Nov 21 09:46:19 2011/-kk/
 /qnan.c/1.2/Wed Jan 25 15:27:42 2006/-kk/

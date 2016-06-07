@@ -87,9 +87,7 @@ ldtoa(long double *ld, int mode, int ndigits, int *decpt, int *sign, char **rve)
 		break;
 	case FP_SUBNORMAL:
 		kind = STRTOG_Denormal;
-#ifdef	LDBL_IMPLICIT_NBIT
 		be++;
-#endif
 		break;
 	case FP_INFINITE:
 		kind = STRTOG_Infinite;

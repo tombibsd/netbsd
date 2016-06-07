@@ -288,7 +288,7 @@ ulfs_getlbns(struct lfs * fs, struct uvnode * vp, daddr_t bn, struct indir * ap,
 			break;
 
 		lbc -= lognindir;
-		blockcnt = (int64_t) 1 << lbc;
+		/*blockcnt = (int64_t) 1 << lbc;*/
 		off = (bn >> lbc) & (lfs_sb_getnindir(fs) - 1);
 
 		++numlevels;

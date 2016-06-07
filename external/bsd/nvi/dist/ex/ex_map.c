@@ -99,6 +99,8 @@ nofunc:	if (stype == SEQ_COMMAND && input[1] == '\0')
 			    "134|The %s character may not be remapped",
 			    KEY_NAME(sp, input[0]));
 			return (1);
+		default:
+			break;
 		}
 	return (seq_set(sp, NULL, 0, input, cmdp->argv[0]->len,
 	    cmdp->argv[1]->bp, cmdp->argv[1]->len, stype, SEQ_USERDEF));

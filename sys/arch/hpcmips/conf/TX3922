@@ -244,7 +244,7 @@ ukyopon* at uhub? port ?
 ucom*	at ukyopon? portno ?
 
 # USB scanners
-uscanner* at uhub? port ?
+#uscanner* at uhub? port ?
 
 # Y@P firmware loader
 uyap* at uhub? port ?

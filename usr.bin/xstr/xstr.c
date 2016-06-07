@@ -390,7 +390,7 @@ fgetNUL(char *obuf, int rmdr, FILE *file)
 
 	c = 0;	/* XXXGCC -Wuninitialized */
 
-	while (--rmdr > 0 && (c = xgetc(file) != 0 && c != EOF))
+	while (--rmdr > 0 && (c = xgetc(file)) != 0 && c != EOF)
 		*buf++ = c;
 	*buf++ = 0;
 	return (feof(file) || ferror(file)) ? 0 : 1;

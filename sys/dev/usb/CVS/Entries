@@ -13,7 +13,7 @@
 /auvitek_video.c/1.6/Sun Oct  2 19:15:40 2011/-kk/
 /auvitekreg.h/1.1/Mon Dec 27 15:42:11 2010/-kk/
 /auvitekvar.h/1.8/Fri Oct  3 09:26:03 2014/-kk/
-/ehci.c/1.247/Fri Dec 25 06:18:26 2015/-kk/
+/ehci.c/1.248/Tue Jun  7 09:39:01 2016/-kk/
 /ehcireg.h/1.36/Wed Sep 23 08:04:07 2015/-kk/
 /ehcivar.h/1.42/Thu Oct 24 10:28:58 2013/-kk/
 /emdtv.c/1.10/Sun Apr 12 03:35:08 2015/-kk/
@@ -58,7 +58,7 @@
 /if_smscvar.h/1.4/Wed Apr 22 07:37:00 2015/-kk/
 /if_udav.c/1.45/Mon Feb 15 11:07:27 2016/-kk/
 /if_udavreg.h/1.10/Wed Apr 22 07:37:00 2015/-kk/
-/if_upgt.c/1.12/Tue Jun  3 03:09:49 2014/-kk/
+/if_upgt.c/1.13/Tue Jun  7 09:39:01 2016/-kk/
 /if_upgtvar.h/1.1/Sun Jul  4 15:21:58 2010/-kk/
 /if_upl.c/1.49/Mon Feb 15 11:07:27 2016/-kk/
 /if_ural.c/1.45/Sun Apr 12 03:35:09 2015/-kk/
@@ -82,7 +82,7 @@
 /motg.c/1.13/Tue Aug 25 04:51:20 2015/-kk/
 /motgreg.h/1.3/Fri Oct  3 09:57:51 2014/-kk/
 /motgvar.h/1.4/Fri Oct  3 09:57:51 2014/-kk/
-/ohci.c/1.258/Sat Dec  5 11:19:32 2015/-kk/
+/ohci.c/1.259/Tue Jun  7 09:39:01 2016/-kk/
 /ohcireg.h/1.26/Sun Sep 13 01:31:38 2015/-kk/
 /ohcivar.h/1.55/Thu Feb 13 15:22:32 2014/-kk/
 /pseye.c/1.21/Tue May 24 16:42:31 2011/-kk/
@@ -91,7 +91,7 @@
 /u3g.c/1.31/Fri Oct  3 10:05:16 2014/-kk/
 /uark.c/1.6/Sat Oct 27 17:18:38 2012/-kk/
 /uatp.c/1.11/Sat Mar 21 02:37:52 2015/-kk/
-/uaudio.c/1.144/Thu Feb  5 08:41:13 2015/-kk/
+/uaudio.c/1.145/Tue Jun  7 09:39:01 2016/-kk/
 /uaudioreg.h/1.16/Fri May 18 07:52:54 2012/-kk/
 /uberry.c/1.9/Thu Dec 27 16:42:32 2012/-kk/
 /ubsa.c/1.30/Fri Feb 24 06:48:24 2012/-kk/
@@ -109,10 +109,10 @@
 /uep.c/1.19/Thu Oct 24 10:28:58 2013/-kk/
 /uftdi.c/1.60/Sat Mar 21 02:21:13 2015/-kk/
 /uftdireg.h/1.9/Sun Aug  2 04:02:52 2015/-kk/
-/ugen.c/1.131/Mon Mar 14 07:55:46 2016/-kk/
+/ugen.c/1.132/Tue Jun  7 09:39:01 2016/-kk/
 /ugensa.c/1.31/Thu Oct 24 10:28:58 2013/-kk/
 /ugraphire_rdesc.h/1.9/Fri Dec 23 00:51:46 2011/-kk/
-/uhci.c/1.266/Tue Aug 25 04:51:20 2015/-kk/
+/uhci.c/1.267/Tue Jun  7 09:39:01 2016/-kk/
 /uhcireg.h/1.21/Sun Sep 13 01:31:38 2015/-kk/
 /uhcivar.h/1.52/Thu Oct 24 10:28:58 2013/-kk/
 /uhid.c/1.94/Sat Mar 21 02:47:18 2015/-kk/
@@ -120,7 +120,7 @@
 /uhidev.h/1.18/Wed Apr 22 07:37:01 2015/-kk/
 /uhmodem.c/1.13/Fri Dec 23 00:51:46 2011/-kk/
 /uhso.c/1.17/Tue Dec  9 04:34:59 2014/-kk/
-/uhub.c/1.131/Fri Feb 26 18:33:57 2016/-kk/
+/uhub.c/1.132/Tue Jun  7 09:39:01 2016/-kk/
 /uipad.c/1.1/Sat Dec 31 00:08:48 2011/-kk/
 /uipaq.c/1.19/Thu Dec 27 16:42:32 2012/-kk/
 /uirda.c/1.38/Thu Oct 24 10:28:58 2013/-kk/

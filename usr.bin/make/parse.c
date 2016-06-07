@@ -1247,6 +1247,7 @@ ParseDoDependency(char *line)
 		goto out;
 	    } else {
 		/* Done with this word; on to the next. */
+		cp = line;
 		continue;
 	    }
 	}

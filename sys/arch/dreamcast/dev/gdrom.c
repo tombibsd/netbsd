@@ -132,7 +132,7 @@ struct gd_toc {
 #define TOC_CTRL(n)	(((n) & 0xf0) >> 4)
 #define TOC_TRACK(n)	(((n) & 0x0000ff00) >> 8)
 
-#define GDROM(o)	(*(volatile uint8_t *)(0xa05f7000 + (o)))
+#define GDROM(o)	(*(volatile uint8_t *)(0xa05f7000U + (o)))
 
 #define GDSTATSTAT(n)	((n) & 0xf)
 #define GDSTATDISK(n)	(((n) >> 4) & 0xf)

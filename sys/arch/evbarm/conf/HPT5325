@@ -372,7 +372,7 @@ ucom*	at uvisor?
 #ucom*	at ukyopon? portno ?
 
 # USB scanners
-uscanner* at uhub? port ?
+#uscanner* at uhub? port ?
 
 # USB scanners that use SCSI emulation, e.g., HP5300
 usscanner* at uhub? port ?

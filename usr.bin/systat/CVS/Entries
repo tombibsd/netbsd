@@ -21,7 +21,7 @@
 /ps.h/1.4/Fri Nov 23 03:33:05 2012/-kk/
 /swap.c/1.20/Fri May 30 02:29:37 2008/-kk/
 /syscall.c/1.9/Thu Feb 27 08:56:27 2014/-kk/
-/systat.1/1.43/Thu Oct 24 10:28:59 2013/-kk/
+/systat.1/1.44/Tue Jun  7 09:39:15 2016/-kk/
 /systat.h/1.11/Sat Feb 26 22:12:34 2005/-kk/
 /tcp.c/1.16/Mon Jun  9 00:29:57 2014/-kk/
 /vmstat.c/1.81/Fri Jan  2 11:22:08 2015/-kk/

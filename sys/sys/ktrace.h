@@ -36,6 +36,9 @@
 
 #include <sys/mutex.h>
 #include <sys/lwp.h>
+#include <sys/signal.h>
+#include <sys/time.h>
+#include <sys/uio.h>
 
 /*
  * operations to ktrace system call  (KTROP(op))

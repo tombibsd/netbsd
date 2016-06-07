@@ -1,5 +1,6 @@
 # $NetBSD$
-./usr/include/gcc-4.8/tgmath.h		comp-c-include		gcccmds,gcc
+./usr/include/gcc-4.8/tgmath.h		comp-c-include		gcccmds,gcc=48
+./usr/include/gcc-5/tgmath.h		comp-c-include		gcccmds,gcc=53
 ./usr/include/ieeefp.h			comp-c-include
 ./usr/include/or1k			comp-c-include
 ./usr/include/or1k/ansi.h		comp-c-include

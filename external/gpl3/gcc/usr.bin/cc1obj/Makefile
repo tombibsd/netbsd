@@ -39,6 +39,7 @@ COPTS.c-ada-spec.c+=			-Wno-stack-protector
 COPTS.c-aux-info.c+=			-Wno-stack-protector
 COPTS.c-common.c+=			-Wno-stack-protector
 COPTS.c-cppbuiltin.c+=			-Wno-stack-protector
+COPTS.c-decl.c+=			-Wno-stack-protector
 COPTS.c-format.c+=			-Wno-stack-protector
 COPTS.c-lex.c+=				-Wno-stack-protector
 COPTS.c-ppoutput.c+=			-Wno-stack-protector

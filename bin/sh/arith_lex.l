@@ -59,7 +59,7 @@ extern const char *arith_buf, *arith_startbuf;
 
 %%
 [ \t\n]	{ ; }
-0x[0-9a-fA-F]+	{ yylval = strtoimax(yytext, 0, 0); return(ARITH_NUM); }
+0[xX][0-9a-fA-F]+	{ yylval = strtoimax(yytext, 0, 0); return(ARITH_NUM); }
 0[0-7]*		{ yylval = strtoimax(yytext, 0, 0); return(ARITH_NUM); }
 [1-9][0-9]*	{ yylval = strtoimax(yytext, 0, 0); return(ARITH_NUM); }
 [A-Za-z_][A-Za-z_0-9]*	{ char *v = lookupvar(yytext);
@@ -92,6 +92,8 @@ extern const char *arith_buf, *arith_startbuf;
 "-"	{ return(ARITH_SUB); }
 "~"	{ return(ARITH_BNOT); }
 "!"	{ return(ARITH_NOT); }
+"?"	{ return(ARITH_QM); }
+":"	{ return(ARITH_COLON); }
 .	{ error("arith: syntax error: \"%s\"", arith_startbuf); }
 %%
 

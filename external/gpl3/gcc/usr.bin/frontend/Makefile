@@ -21,12 +21,11 @@ SRCS+=		driver-rs6000.c
 .PATH:		${DIST}/gcc/config/rs6000
 .endif
 
-CPPFLAGS+=	-I${GCCARCH} -I${BACKENDOBJ} -I. \
+.include "../Makefile.target-defines"
+
+CPPFLAGS+=	-I${GCCARCH} -I. \
 		${G_ALL_CFLAGS:M-D*} ${G_INCLUDES:M-I*:N-I.*} \
-		-DPREFIX=\"/usr\" \
-		-DDEFAULT_TARGET_VERSION=\"${G_version}\" \
-		-DDEFAULT_TARGET_MACHINE=\"${MACHINE_GNU_PLATFORM}\" \
-		-DCONFIGURE_SPECS="\"\""
+		-DPREFIX=\"/usr\"
 HOST_CPPFLAGS+=	-I${GCCARCH} ${G_ALL_CFLAGS:M-D*} ${G_INCLUDES:M-I*:N-I.*}
 
 DPSRCS+=	specs.h

@@ -241,7 +241,7 @@ run0(void)
 	int i;
 
 	for (i = 1; i <= ncpu; i++) {
-		printf("%d\t%d", sz, i);
+		printf("%zu\t%d", sz, i);
 		run1(i);
 	}
 }

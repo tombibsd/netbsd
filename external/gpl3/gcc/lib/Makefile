@@ -3,14 +3,16 @@
 .include <bsd.own.mk>
 
 # crtstuff is built out of elsewhere, or not at all
-SUBDIR+= libgcc libiberty libobjc libgomp
-SUBDIR+= libmudflap libmudflapth libbacktrace
+SUBDIR+= libgcc .WAIT
+SUBDIR+= libiberty libobjc libgomp
+SUBDIR+= libbacktrace
 SUBDIR+= liblto_plugin
 
-.if (${MKLIBSTDCXX} != "no")
+.if (${MKLIBSTDCXX} != "no") && (${MKCXX} != "no")
 SUBDIR+= libsupc++ libstdc++-v3
 .endif
 
-SUBDIR+= libasan
+# XXX GCC5
+#SUBDIR+= libasan
 
 .include <bsd.subdir.mk>

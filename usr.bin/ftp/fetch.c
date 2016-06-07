@@ -954,7 +954,8 @@ parse_posinfo(const char **cp, struct posinfo *pi)
 static int
 negotiate_connection(FETCH *fin, const char *url, const char *penv,
     struct posinfo *pi, time_t *mtime, struct authinfo *wauth,
-    struct authinfo *pauth, int *rval, int *ischunked, char **auth)
+    struct authinfo *pauth, volatile int *rval, volatile int *ischunked,
+    char **auth)
 {
 	int			len, hcode, rv;
 	char			buf[FTPBUFLEN], *ep;
@@ -1260,7 +1261,7 @@ fetch_url(const char *url, const char *proxyenv, char *proxyauth, char *wwwauth)
 	int volatile		s;
 	struct stat		sb;
 	int volatile		isproxy;
-	int 			rval, ischunked;
+	int volatile 		rval, ischunked;
 	size_t			flen;
 	static size_t		bufsize;
 	static char		*xferbuf;

@@ -20,7 +20,7 @@
 /tegra_fb.c/1.2/Sun Nov 29 09:09:55 2015/-kk/
 /tegra_fdt.c/1.2/Thu Jan  7 06:24:19 2016/-kk/
 /tegra_fuse.c/1.4/Thu Jan  7 06:24:19 2016/-kk/
-/tegra_gpio.c/1.6/Thu Jan  7 06:24:19 2016/-kk/
+/tegra_gpio.c/1.7/Tue Jun  7 09:38:41 2016/-kk/
 /tegra_gpioreg.h/1.1/Sat May  2 12:08:32 2015/-kk/
 /tegra_hdaudio.c/1.7/Thu Jan  7 06:24:19 2016/-kk/
 /tegra_hdaudioreg.h/1.1/Sun May 10 11:04:59 2015/-kk/

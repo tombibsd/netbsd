@@ -654,7 +654,7 @@ uhub_detach(device_t self, int flags)
 	KERNEL_LOCK(1, curlwp);
 
 	nports = hub->hubdesc.bNbrPorts;
-	for(port = 0; port < nports; port++) {
+	for (port = 0; port < nports; port++) {
 		rup = &hub->ports[port];
 		if (rup->device == NULL)
 			continue;

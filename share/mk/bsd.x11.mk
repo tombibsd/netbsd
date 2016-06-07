@@ -10,7 +10,7 @@ COPTS+=			-fno-strict-aliasing
 
 .include <bsd.sys.mk>
 
-.if defined(USE_SSP) && (${USE_SSP} != "no")
+.if !defined(NOSSP) && (${USE_SSP:Uno} != "no")
 CPPFLAGS+=		-DNO_ALLOCA
 .endif
 

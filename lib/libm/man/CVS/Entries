@@ -11,7 +11,7 @@
 /cosh.3/1.15/Thu Aug  7 16:44:47 2003/-kk/
 /erf.3/1.14/Fri Nov 20 02:13:54 2015/-kk/
 /exp.3/1.29/Tue Nov  6 21:43:37 2012/-kk/
-/fabs.3/1.15/Tue Sep 13 07:11:43 2011/-kk/
+/fabs.3/1.17/Tue Jun  7 09:38:30 2016/-kk/
 /fdim.3/1.3/Mon Mar  8 02:35:50 2010/-kk/
 /feclearexcept.3/1.2/Sat Aug  7 18:13:12 2010/-kk/
 /feenableexcept.3/1.1/Sat Jul 31 21:47:53 2010/-kk/
@@ -28,12 +28,12 @@
 /ilogb.3/1.3/Tue Aug  2 10:15:03 2011/-kk/
 /isinff.3/1.6/Fri May 14 03:10:24 2010/-kk/
 /j0.3/1.16/Thu Aug  7 16:44:48 2003/-kk/
-/ldexp.3/1.4/Sun Sep 18 05:33:13 2011/-kk/
+/ldexp.3/1.5/Tue Jun  7 09:38:30 2016/-kk/
 /lgamma.3/1.22/Sat May  5 17:54:13 2012/-kk/
 /log.3/1.3/Tue Sep 13 08:51:32 2011/-kk/
 /lrint.3/1.1/Fri Sep 16 15:26:47 2005/-kk/
 /math.3/1.26/Sat Nov 10 15:59:58 2012/-kk/
-/modf.3/1.1/Mon Jul  3 16:03:56 2006/-kk/
+/modf.3/1.2/Tue Jun  7 09:38:30 2016/-kk/
 /nextafter.3/1.5/Wed Sep 23 08:02:41 2015/-kk/
 /pow.3/1.2/Sun Nov 29 09:09:28 2015/-kk/
 /remainder.3/1.2/Sun Sep 18 05:33:14 2011/-kk/

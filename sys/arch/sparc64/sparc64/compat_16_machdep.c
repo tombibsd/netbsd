@@ -288,7 +288,8 @@ compat_16_sys___sigreturn14(struct lwp *l, const struct compat_16_sys___sigretur
 	}
 #endif
 	scp = SCARG(uap, sigcntxp);
- 	if ((vaddr_t)scp & 3 || (error = copyin((void *)scp, &sc, sizeof sc) != 0))
+ 	if (((vaddr_t)scp & 3) != 0 ||
+	    (error = copyin((void *)scp, &sc, sizeof sc)) != 0)
 #ifdef DEBUG
 	{
 		printf("sigreturn14: copyin failed: scp=%p\n", scp);

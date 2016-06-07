@@ -198,15 +198,14 @@ mmc_mode:
 		goto out;
 	}
 
-	/* Tell the card(s) to enter the idle state (again). */
-	sdmmc_go_idle_state(sc);
-
 	DPRINTF(("%s: host_ocr 0x%08x\n", SDMMCDEVNAME(sc), host_ocr));
 	DPRINTF(("%s: card_ocr 0x%08x\n", SDMMCDEVNAME(sc), card_ocr));
 
 	host_ocr &= card_ocr; /* only allow the common voltages */
 	if (!ISSET(sc->sc_caps, SMC_CAPS_SPI_MODE)) {
 		if (ISSET(sc->sc_flags, SMF_SD_MODE)) {
+			/* Tell the card(s) to enter the idle state (again). */
+			sdmmc_go_idle_state(sc);
 			/* Check SD Ver.2 */
 			error = sdmmc_mem_send_if_cond(sc, 0x1aa, &card_ocr);
 			if (error == 0 && card_ocr == 0x1aa)

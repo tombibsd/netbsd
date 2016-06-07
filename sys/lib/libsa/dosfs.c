@@ -566,7 +566,8 @@ lookup(DOS_FS *fs, u_int clus, const char *name, const struct direntry **dep)
 						}
 					} else if (!(dir[ent].de.deAttributes &
 						     ATTR_VOLUME)) {
-						if ((ok = xdn == 1)) {
+						ok = xdn == 1;
+						if (ok) {
 							for (x = 0, i = 0;
 							     i < 11; i++)
 								x = ((((x & 1) << 7) | (x >> 1)) +

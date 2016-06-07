@@ -4,7 +4,7 @@
 /ar.h/1.5/Thu Aug  7 09:44:09 2003/-kk/
 /assert.h/1.21/Fri Aug 26 01:10:49 2011/-kk/
 /atomic.h/1.1/Wed May 28 12:28:12 2008/-kk/
-/bitstring.h/1.12/Sun Nov 29 09:09:15 2015/-kk/
+/bitstring.h/1.14/Tue Jun  7 09:38:23 2016/-kk/
 /bm.h/1.7/Sun Feb 14 12:54:01 2016/-kk/
 /cdbw.h/1.2/Sun Jun  3 21:21:45 2012/-kk/
 /complex.h/1.4/Thu Oct 24 10:28:53 2013/-kk/
@@ -38,7 +38,7 @@
 /link.h/1.13/Mon Apr 28 20:22:54 2008/-kk/
 /link_aout.h/1.23/Sun Feb 14 12:54:01 2016/-kk/
 /link_elf.h/1.10/Sat Oct 16 10:27:06 2010/-kk/
-/locale.h/1.26/Mon Mar 14 08:07:04 2016/-kk/
+/locale.h/1.27/Tue Jun  7 09:38:23 2016/-kk/
 /login_cap.h/1.13/Sun Feb 14 12:54:01 2016/-kk/
 /lwp.h/1.12/Thu Feb 13 15:35:37 2014/-kk/
 /malloc.h/1.3/Wed Oct 26 00:56:03 1994/-kk/
@@ -75,8 +75,8 @@
 /signal.h/1.55/Sun Aug  2 04:02:18 2015/-kk/
 /spawn.h/1.4/Wed Feb 22 17:51:01 2012/-kk/
 /stab.h/1.6/Thu Aug  7 09:44:11 2003/-kk/
-/stddef.h/1.17/Wed Dec 25 07:36:53 2013/-kk/
-/stdio.h/1.96/Thu Apr  2 02:27:29 2015/-kk/
+/stddef.h/1.19/Tue Jun  7 09:38:23 2016/-kk/
+/stdio.h/1.97/Tue Jun  7 09:38:23 2016/-kk/
 /stdlib.h/1.116/Fri Nov 20 02:13:27 2015/-kk/
 /string.h/1.50/Mon Mar 14 08:07:04 2016/-kk/
 /stringlist.h/1.7/Mon Apr 28 20:22:54 2008/-kk/

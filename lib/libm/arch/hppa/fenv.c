@@ -47,7 +47,7 @@ readfpsr(void)
 {
 	uint32_t rv;
 
-	__asm__	__volatile__ ("fstws	%%fr0, %0" : "=m"(rv));
+	__asm__	__volatile__ ("fstw	%%fr0, 0(%1)" : "=m" (rv) : "r"(&rv));
 	return rv;
 }
 
@@ -55,7 +55,7 @@ readfpsr(void)
 static inline void
 writefpsr(uint32_t val)
 {
-	__asm__	__volatile__("fldws	%0,%%fr0" : : "m"(val));
+	__asm__	__volatile__("fldw	0(%1),%%fr0" : : "m" (val), "r"(&val));
 }
 
 /*

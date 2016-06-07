@@ -90,8 +90,10 @@ static Char *expath;		/* Path for exerr */
 static unsigned char xhash[HSHSIZ / 8];
 
 #define hash(a, b) (((a) * HSHMUL + (b)) & HSHMASK)
+/* these macros eval their arguments multiple times, so be careful */
 #define bit(h, b) ((h)[(b) >> 3] & 1 << ((b) & 7))	/* bit test */
-#define bis(h, b) ((h)[(b) >> 3] |= (unsigned char)(1 << ((b) & 7)))	/* bit set */
+#define bis(h, b) ((h)[(b) >> 3] = \
+    (unsigned char)((1 << ((b) & 7)) | (h)[(b) >> 3]))/* bit set */
 static int hits, misses;
 
 /* Dummy search path for just absolute search when no path */

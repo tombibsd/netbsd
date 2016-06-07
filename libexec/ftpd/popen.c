@@ -107,7 +107,7 @@ extern int ls_main(int, char *[]);
 FILE *
 ftpd_popen(const char *argv[], const char *ptype, int stderrfd)
 {
-	FILE *iop;
+	FILE * volatile iop;
 	int argc, pdes[2], pid;
 	volatile int isls;
 	char **pop;

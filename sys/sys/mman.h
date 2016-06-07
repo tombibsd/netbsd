@@ -112,6 +112,32 @@ typedef	__off_t		off_t;		/* file offset */
 #define	MAP_ALIGNMENT_256TB	MAP_ALIGNED(48)	/* 2^48 */
 #define	MAP_ALIGNMENT_64PB	MAP_ALIGNED(56)	/* 2^56 */
 
+#ifdef _NETBSD_SOURCE
+#define MAP_FMT	"\177\020\
+b\0SHARED\0\
+b\1PRIVATE\0\
+b\2COPY\0\
+b\4FIXED\0\
+b\5RENAME\0\
+b\6NORESERVE\0\
+b\7INHERIT\0\
+b\11HASSEMAPHORE\0\
+b\12TRYFIXED\0\
+b\13WIRED\0\
+F\14\1\
+:\0FILE\0\
+:\1ANONYMOUS\0\
+b\15STACK\0\
+F\30\010\
+:\020ALIGN=64KB\0\
+:\030ALIGN=16MB\0\
+:\040ALIGN=4GB\0\
+:\050ALIGN=1TB\0\
+:\060ALIGN=256TB\0\
+:\070ALIGN=64PB\0\
+"
+#endif
+
 /*
  * Error indicator returned by mmap(2)
  */

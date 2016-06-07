@@ -1,8 +1,8 @@
 /Makefile/1.6/Sun Dec 11 12:23:50 2005/-kk/
 /atapi_base.c/1.29/Wed Oct 29 08:13:22 2014/-kk/
 /atapi_tape.h/1.6/Sun Dec 11 12:23:50 2005/-kk/
-/atapi_wdc.c/1.119/Tue Jul 31 15:59:57 2012/-kk/
-/atapiconf.c/1.87/Fri Mar 14 04:28:21 2014/-kk/
+/atapi_wdc.c/1.121/Tue Jun  7 09:39:01 2016/-kk/
+/atapiconf.c/1.88/Tue Jun  7 09:39:01 2016/-kk/
 /atapiconf.h/1.23/Mon Oct 19 18:41:16 2009/-kk/
 /cd.c/1.330/Fri May  1 11:32:11 2015/-kk/
 /cdvar.h/1.32/Wed Apr 22 07:37:00 2015/-kk/

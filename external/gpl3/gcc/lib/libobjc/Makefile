@@ -115,6 +115,10 @@ CLEANFILES+=	options.h optionlist
 
 .PATH: ${DIST}/libobjc ${DIST}/libobjc/objc ${DIST}/libobjc/objc-private
 
+# XXX insn-modes.h
+BINBACKENDOBJ!=	cd ${.CURDIR}/../../usr.bin/backend && ${PRINTOBJDIR}
+CPPFLAGS+=	-I${BINBACKENDOBJ}
+
 .else
 .include <bsd.prog.mk>	# do nothing
 .endif

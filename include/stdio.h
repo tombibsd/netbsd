@@ -483,7 +483,7 @@ static __inline int __sputc(int _c, FILE *_p) {
 
 #define	__sfeof(p)	(((p)->_flags & __SEOF) != 0)
 #define	__sferror(p)	(((p)->_flags & __SERR) != 0)
-#define	__sclearerr(p)	((void)((p)->_flags &= ~(__SERR|__SEOF)))
+#define	__sclearerr(p)	((void)((p)->_flags &= (unsigned short)~(__SERR|__SEOF)))
 #define	__sfileno(p)	\
     ((p)->_file == -1 ? -1 : (int)(unsigned short)(p)->_file)
 

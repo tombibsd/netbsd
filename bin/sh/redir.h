@@ -35,9 +35,10 @@
  */
 
 /* flags passed to redirect */
-#define REDIR_PUSH 01		/* save previous values of file descriptors */
-#define REDIR_BACKQ 02		/* save the command output in memory */
-#define REDIR_VFORK 04		/* running under vfork(2), be careful */
+#define REDIR_PUSH  0x01	/* save previous values of file descriptors */
+#define REDIR_BACKQ 0x02	/* save the command output in memory */
+#define REDIR_VFORK 0x04	/* running under vfork(2), be careful */
+#define REDIR_KEEP  0x08	/* don't close-on-exec */
 
 union node;
 void redirect(union node *, int);

@@ -23,7 +23,7 @@
 /cdbr.h/1.1/Wed Dec 11 01:24:08 2013/-kk/
 /cdefs.h/1.128/Sun Nov 29 09:11:00 2015/-kk/
 /cdefs_aout.h/1.20/Thu May 18 17:55:38 2006/-kk/
-/cdefs_elf.h/1.49/Wed May 13 03:33:21 2015/-kk/
+/cdefs_elf.h/1.50/Tue Jun  7 09:39:10 2016/-kk/
 /cdio.h/1.34/Sun Sep 13 01:32:01 2015/-kk/
 /chio.h/1.13/Sun Sep 13 01:32:01 2015/-kk/
 /clock.h/1.3/Mon Nov 17 17:11:29 2014/-kk/
@@ -124,7 +124,7 @@
 /ksem.h/1.14/Sun Nov 25 01:05:04 2012/-kk/
 /ksyms.h/1.33/Sun Sep 13 01:32:01 2015/-kk/
 /kthread.h/1.13/Fri May  1 11:32:38 2015/-kk/
-/ktrace.h/1.62/Sun Feb 14 12:55:52 2016/-kk/
+/ktrace.h/1.63/Tue Jun  7 09:39:10 2016/-kk/
 /localedef.h/1.10/Thu Oct 24 10:28:58 2013/-kk/
 /lock.h/1.86/Thu Jul  1 13:00:57 2010/-kk/
 /lockdebug.h/1.14/Thu Oct 24 10:28:58 2013/-kk/
@@ -138,7 +138,7 @@
 /md4.h/1.7/Mon Dec 26 18:41:36 2005/-kk/
 /md5.h/1.9/Mon Dec 26 18:41:36 2005/-kk/
 /midiio.h/1.16/Sun Sep 13 01:32:01 2015/-kk/
-/mman.h/1.48/Fri Oct  3 09:26:22 2014/-kk/
+/mman.h/1.49/Tue Jun  7 09:39:10 2016/-kk/
 /module.h/1.40/Thu Jan 28 08:36:23 2016/-kk/
 /mount.h/1.218/Fri Nov 20 01:31:39 2015/-kk/
 /mqueue.h/1.17/Mon Jun 22 02:35:13 2015/-kk/
@@ -152,7 +152,7 @@
 /once.h/1.5/Thu Oct  9 10:48:21 2008/-kk/
 /optstr.h/1.3/Mon Apr 28 20:24:11 2008/-kk/
 /param.h/1.491/Sun Feb 14 12:55:52 2016/-kk/
-/pax.h/1.16/Fri Oct  2 14:12:06 2015/-kk/
+/pax.h/1.18/Tue Jun  7 09:39:10 2016/-kk/
 /pcq.h/1.2/Sat Jun 14 03:56:49 2014/-kk/
 /pcu.h/1.12/Tue Jun  3 02:54:47 2014/-kk/
 /percpu.h/1.3/Wed Apr  9 05:11:20 2008/-kk/
@@ -247,7 +247,7 @@
 /ttycom.h/1.20/Fri Oct 19 16:49:21 2012/-kk/
 /ttydefaults.h/1.16/Sat May 24 14:06:39 2008/-kk/
 /ttydev.h/1.10/Tue Jun  3 03:10:03 2014/-kk/
-/types.h/1.95/Sun Sep 13 01:08:00 2015/-kk/
+/types.h/1.96/Tue Jun  7 09:39:11 2016/-kk/
 /ucontext.h/1.18/Thu Oct 24 10:28:58 2013/-kk/
 /ucred.h/1.36/Wed Oct 12 23:03:36 2011/-kk/
 /uidinfo.h/1.3/Sat Jun  9 02:31:15 2012/-kk/

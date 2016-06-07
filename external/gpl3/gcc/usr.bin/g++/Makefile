@@ -2,16 +2,12 @@
 
 PROG=		gplusplus
 PROGNAME=	g++
-SRCS=		${G_GXX_OBJS:.o=.c}
+SRCS=		${G_GXX_OBJS:S/cp\///:.o=.c}
 
 NOMAN=		# Linked to gcc.1
 .include <bsd.own.mk>
 
-CPPFLAGS+=	-I${BACKENDOBJ}
-# XXX
-CPPFLAGS+=	-DCONFIGURE_SPECS="\"\"" \
-		-DDEFAULT_TARGET_VERSION=\"${G_version}\" \
-		-DDEFAULT_TARGET_MACHINE=\"${MACHINE_GNU_PLATFORM}\"
+.include "../Makefile.target-defines"
 
 LINKS+=		${BINDIR}/g++ ${BINDIR}/c++
 

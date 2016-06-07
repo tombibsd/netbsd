@@ -63,7 +63,7 @@ along with GCC; see the file COPYING3.  If not see
  * XXX figure out a better way to do this
  */
 #undef GCC_INCLUDE_DIR
-#define GCC_INCLUDE_DIR "/usr/include/gcc-4.8"
+#define GCC_INCLUDE_DIR "/usr/include/gcc-5"
 
 /* Under NetBSD, the normal location of the various *crt*.o files is the
    /usr/lib directory.  */
@@ -145,8 +145,10 @@ along with GCC; see the file COPYING3.  If not see
 #undef LIB_SPEC
 #define LIB_SPEC NETBSD_LIB_SPEC
 
+#if 0 // XXXMRG
 #undef STATIC_LIBASAN_LIBS
 #define STATIC_LIBASAN_LIBS "-lstdc++ -lpthread"
+#endif
 
 /* Pass -cxx-isystem to cc1/cc1plus.  */
 #define NETBSD_CC1_AND_CC1PLUS_SPEC		\

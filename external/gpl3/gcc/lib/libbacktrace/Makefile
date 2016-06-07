@@ -1,4 +1,4 @@
-#	$NetBSD
+#	$NetBSD$
 
 LIBISPRIVATE=   yes
 

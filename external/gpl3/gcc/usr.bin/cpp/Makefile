@@ -3,11 +3,7 @@
 PROG=		cpp
 SRCS=		cppspec.c ${G_GCC_OBJS:.o=.c}
 
-CPPFLAGS+=	-I${BACKENDOBJ}
-# XXX
-CPPFLAGS+=	-DCONFIGURE_SPECS="\"\"" \
-		-DDEFAULT_TARGET_VERSION=\"${G_version}\" \
-		-DDEFAULT_TARGET_MACHINE=\"${MACHINE_GNU_PLATFORM}\"
+.include "../Makefile.target-defines"
 
 COPTS+=		-Wno-stack-protector
 

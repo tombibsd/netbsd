@@ -1,7 +1,7 @@
 /Makefile/1.32/Thu Jan 15 15:57:18 2009/-kk/
 /atoo.c/1.5/Wed Jul 10 21:31:30 2002/-kk/
 /c.h/1.7/Sat Jun 20 17:03:25 2009/-kk/
-/cvt.c/1.3/Wed Jul 10 18:53:57 2002/-kk/
+/cvt.c/1.4/Tue Jun  7 09:39:21 2016/-kk/
 /estrdup.c/1.1/Sun Apr  2 01:39:48 2006/-kk/
 /expand.c/1.19/Fri Dec 25 06:18:40 2015/-kk/
 /ffilecopy.c/1.11/Sun Oct 18 15:23:54 2009/-kk/
@@ -14,7 +14,7 @@
 /quit.c/1.6/Fri Oct 16 12:41:37 2009/-kk/
 /read_line.c/1.9/Wed Oct 21 00:01:57 2009/-kk/
 /run.c/1.14/Wed Mar  4 18:22:14 2009/-kk/
-/scan.c/1.31/Thu Oct 24 10:29:01 2013/-kk/
+/scan.c/1.32/Tue Jun  7 09:39:21 2016/-kk/
 /scm.c/1.30/Thu Oct 24 10:29:01 2013/-kk/
 /scmio.c/1.22/Thu Oct 24 10:29:01 2013/-kk/
 /setproctitle.c/1.5/Thu Oct 24 10:29:01 2013/-kk/

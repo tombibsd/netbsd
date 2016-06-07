@@ -183,7 +183,8 @@ int
 main(int argc, char *argv[], char *envp[])
 {
 	const char *progname;
-	int repcnt = 0, failopenlogged = 0, first_time = 1;
+	int repcnt = 0, failopenlogged = 0;
+	volatile int first_time = 1;
 	struct rlimit limit;
 	struct passwd *pw;
 	int rval;

@@ -61,9 +61,9 @@ panic(const char *a)
 	 * Something fatal has happened, print error message and exit.
 	 */
 	if (fcreated) {
-		PRIV_START;
+		privs_enter();
 		(void)unlink(atfile);
-		PRIV_END;
+		privs_exit();
 	}
 	errx(EXIT_FAILURE, "%s", a);
 }
@@ -78,11 +78,18 @@ perr(const char *a)
 	 */
 	perror(a);
 	if (fcreated) {
-		PRIV_START;
+		privs_enter();
 		(void)unlink(atfile);
-		PRIV_END;
+		privs_exit();
 	}
 	exit(EXIT_FAILURE);
+}
+
+__dead
+void
+privs_fail(const char *msg)
+{
+	perr(msg);
 }
 
 __dead

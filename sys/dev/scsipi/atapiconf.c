@@ -288,7 +288,7 @@ atapi_probe_device(struct atapibus_softc *sc, int target,
 		    atapibusprint);
 	} else {
 		atapibusprint(sa, device_xname(sc->sc_dev));
-		printf(" not configured\n");
+		aprint_normal(" not configured\n");
 		free(periph, M_DEVBUF);
 		return NULL;
 	}

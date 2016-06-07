@@ -171,7 +171,7 @@ ident_i1send(iph1, msg)
 		else
 			plist = isakmp_plist_append(plist,
 			    vid_xauth, ISAKMP_NPTYPE_VID);
-
+		/*FALLTHROUGH*/
 	case OAKLEY_ATTR_AUTH_METHOD_RSASIG:
 		if ((vid_unity = set_vendorid(VENDORID_UNITY)) == NULL)
 			plog(LLV_ERROR, LOCATION, NULL,

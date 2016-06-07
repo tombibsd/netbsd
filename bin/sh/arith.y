@@ -65,6 +65,7 @@ int error(char *);
 %}
 %token ARITH_NUM ARITH_LPAREN ARITH_RPAREN
 
+%left ARITH_QM ARITH_COLON
 %left ARITH_OR
 %left ARITH_AND
 %left ARITH_BOR
@@ -89,8 +90,9 @@ exp:	expr {
 
 
 expr:	ARITH_LPAREN expr ARITH_RPAREN { $$ = $2; }
-	| expr ARITH_OR expr	{ $$ = $1 ? $1 : $3 ? $3 : 0; }
-	| expr ARITH_AND expr	{ $$ = $1 ? ( $3 ? $3 : 0 ) : 0; }
+	| expr ARITH_QM expr ARITH_COLON expr { $$ = $1 ? $3 : $5; }
+	| expr ARITH_OR expr	{ $$ = ($1 ? 1 : $3 ? 1 : 0); }
+	| expr ARITH_AND expr	{ $$ = ($1 ? ( $3 ? 1 : 0 ) : 0); }
 	| expr ARITH_BOR expr	{ $$ = $1 | $3; }
 	| expr ARITH_BXOR expr	{ $$ = $1 ^ $3; }
 	| expr ARITH_BAND expr	{ $$ = $1 & $3; }

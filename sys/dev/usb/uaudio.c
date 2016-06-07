@@ -2957,7 +2957,7 @@ uaudio_chan_rintr(usbd_xfer_handle xfer, usbd_private_handle priv,
 	 * Transfer data from channel buffer to upper layer buffer, taking
 	 * care of wrapping the upper layer buffer.
 	 */
-	for(i = 0; i < UAUDIO_NFRAMES; i++) {
+	for (i = 0; i < UAUDIO_NFRAMES; i++) {
 		frsize = cb->sizes[i];
 		n = min(frsize, ch->end - ch->cur);
 		memcpy(ch->cur, cb->buffer + cb->offsets[i], n);

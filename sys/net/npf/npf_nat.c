@@ -657,10 +657,12 @@ npf_nat_algo(npf_cache_t *npc, const npf_natpolicy_t *np, bool forw)
 	int error;
 
 	switch (np->n_algo) {
+#ifdef INET6
 	case NPF_ALGO_NPT66:
 		error = npf_npt66_rwr(npc, which, &np->n_taddr,
 		    np->n_tmask, np->n_npt66_adj);
 		break;
+#endif
 	default:
 		error = npf_napt_rwr(npc, which, &np->n_taddr, np->n_tport);
 		break;

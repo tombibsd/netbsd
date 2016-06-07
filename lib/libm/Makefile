@@ -339,7 +339,8 @@ MLINKS+=log.3 logf.3 \
 	log.3 log2.3 \
 	log.3 log2f.3
 MLINKS+=pow.3 powf.3
-MLINKS+=fabs.3 fabsf.3
+MLINKS+=fabs.3 fabsf.3 \
+	fabs.3 fabsl.3
 MLINKS+=finite.3 finitef.3
 MLINKS+=fmod.3 fmodf.3 \
 	fmod.3 fmodl.3
@@ -351,6 +352,8 @@ MLINKS+=ilogb.3 ilogbf.3 ilogb.3 ilogbl.3
 MLINKS+=isinff.3 isnanf.3
 MLINKS+=j0.3 j0f.3 j0.3 j1.3 j0.3 j1f.3 j0.3 jn.3 j0.3 jnf.3 \
 	j0.3 y0.3 j0.3 y0f.3 j0.3 y1.3 j0.3 y1f.3 j0.3 yn.3 j0.3 ynf.3
+MLINKS+=ldexp.3 ldexpf.3 \
+	ldexp.3 ldexpl.3
 MLINKS+=lgamma.3 lgammaf.3 lgamma.3 lgamma_r.3 lgamma.3 lgammaf_r.3 \
 	lgamma.3 gamma.3 lgamma.3 gammaf.3 lgamma.3 gamma_r.3 \
 	lgamma.3 gammaf_r.3 lgamma.3 tgamma.3 lgamma.3 tgammaf.3

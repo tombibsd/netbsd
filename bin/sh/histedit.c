@@ -224,22 +224,21 @@ inputrc(int argc, char **argv)
  *  the Korn shell fc command.  Oh well...
  */
 int
-histcmd(int argc, char **argv)
+histcmd(volatile int argc, char ** volatile argv)
 {
 	int ch;
 	const char * volatile editor = NULL;
 	HistEvent he;
-	int lflg = 0;
-	volatile int nflg = 0, rflg = 0, sflg = 0;
+	volatile int lflg = 0, nflg = 0, rflg = 0, sflg = 0;
 	int i, retval;
 	const char *firststr, *laststr;
 	int first, last, direction;
-	char *pat = NULL, *repl;	/* ksh "fc old=new" crap */
+	char * volatile pat = NULL, * volatile repl;	/* ksh "fc old=new" crap */
 	static int active = 0;
 	struct jmploc jmploc;
 	struct jmploc *volatile savehandler;
 	char editfile[MAXPATHLEN + 1];
-	FILE *efp;
+	FILE * volatile efp;
 #ifdef __GNUC__
 	repl = NULL;	/* XXX gcc4 */
 	efp = NULL;	/* XXX gcc4 */

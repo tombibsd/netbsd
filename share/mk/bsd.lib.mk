@@ -188,7 +188,7 @@ FFLAGS+=	${FOPTS}
 .if defined(CTFCONVERT)
 .if defined(CFLAGS) && !empty(CFLAGS:M*-g*)
 CTFFLAGS+=	-g
-.if defined(HAVE_GCC) && ${HAVE_GCC} >= 48
+.if defined(HAVE_GCC)
 #CFLAGS+=	-gdwarf-2
 .endif
 .endif

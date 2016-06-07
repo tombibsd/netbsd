@@ -46,4 +46,4 @@
 #define	BOOTVERSION	0x03
 
 u_int	dkcksum(struct disklabel *);
-u_int32_t readdisklabel(char *, struct disklabel *);
+uint32_t readdisklabel(char *, struct disklabel *);

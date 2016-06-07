@@ -1,5 +1,10 @@
 #	$NetBSD$
 
+NOSSP=
+NOFORTIFY=
+NOPIE=
+NODEBUG=
+
 .include <bsd.klinks.mk>
 
 RELOC=0x3f0000

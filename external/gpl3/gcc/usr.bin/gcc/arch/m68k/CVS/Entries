@@ -1,5 +1,5 @@
 /all-tree.def/1.2/Fri Mar 14 04:26:59 2014/-kk/
-/auto-host.h/1.6/Mon Jan 12 06:45:15 2015/-kk/
+/auto-host.h/1.7/Tue Jun  7 09:36:56 2016/-kk/
 /bconfig.h/1.1/Sat Jul  2 14:13:50 2011/-kk/
 /bversion.h/1.5/Thu Jul  2 04:09:52 2015/-kk/
 /config.h/1.1/Sat Jul  2 14:13:50 2011/-kk/
@@ -7,7 +7,8 @@
 /defs.mk/1.9/Thu Jul  2 04:09:52 2015/-kk/
 /gthr-default.h/1.1/Sat Jul  2 14:13:50 2011/-kk/
 /gtyp-input.list/1.2/Fri Mar 14 04:26:59 2014/-kk/
+/insn-modes.h/1.1/Fri Mar 18 20:40:22 2016/-kk/
 /multilib.h/1.2/Fri Mar 14 04:26:59 2014/-kk/
 /plugin-version.h/1.8/Thu Jul  2 04:09:52 2015/-kk/
-/tm.h/1.4/Fri Oct  3 09:42:00 2014/-kk/
+/tm.h/1.5/Tue Jun  7 09:36:56 2016/-kk/
 D

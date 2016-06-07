@@ -16,7 +16,7 @@
 /options.c/1.16/Thu Mar 22 22:59:43 2012/-kk/
 /percent_x.c/1.5/Wed Mar 21 10:10:37 2012/-kk/
 /refuse.c/1.5/Wed Mar 21 10:10:37 2012/-kk/
-/rfc931.c/1.10/Thu Mar 22 22:59:43 2012/-kk/
+/rfc931.c/1.12/Tue Jun  7 09:38:30 2016/-kk/
 /shell_cmd.c/1.7/Thu Mar 22 22:59:43 2012/-kk/
 /shlib_version/1.6/Sun Jan 11 03:07:50 2009/-kk/
 /socket.c/1.19/Wed Mar 21 10:10:37 2012/-kk/

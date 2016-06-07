@@ -48,6 +48,10 @@ COMMON_CONFIGURE_ARGS+=	--with-tune=${GCC_CONFIG_TUNE.${MACHINE_ARCH}}
 COMMON_CONFIGURE_ARGS+= --enable-libstdcxx-time=rt --enable-lto
 .endif
 
+.if ${HAVE_GCC} == 53
+COMMON_CONFIGURE_ARGS+= --enable-libstdcxx-time=rt
+.endif
+
 CONFIGURE_ARGS=	${COMMON_CONFIGURE_ARGS}
 CONFIGURE_ARGS+= \
 		--with-sysroot=${DESTDIR} \
@@ -83,13 +87,11 @@ BUILD_MAKE=${TOOL_GMAKE}
 
 MKNATIVE_CONFIG_TARGET_LIBS=
 
-.if ${HAVE_GCC} == 5
 MKNATIVE_CONFIG_TARGET_LIBS+=	configure-target-libgcc
 MKNATIVE_CONFIG_TARGET_LIBS+=	configure-target-libgomp
+.if ${HAVE_GCC} == 53
 MKNATIVE_TARGET=	gcc5
 .elif ${HAVE_GCC} == 48
-MKNATIVE_CONFIG_TARGET_LIBS+=	configure-target-libgcc
-MKNATIVE_CONFIG_TARGET_LIBS+=	configure-target-libgomp
 MKNATIVE_TARGET=	gcc48
 .endif
 
@@ -178,6 +180,10 @@ NATIVE_CONFIGURE_ARGS+=	--enable-initfini-array
 NATIVE_CONFIGURE_ARGS+= --disable-shared
 .endif
 
+.if ${MACHINE_ARCH} == "i386" || ${MACHINE_ARCH} == "x86_64"
+EXTRA_GCC_TARGETS=	i386-builtin-types.inc
+.endif
+
 NATIVE_CONFIGURE_ARGS+=	\
 			--disable-multilib \
 			--disable-symvers \
@@ -186,6 +192,12 @@ NATIVE_CONFIGURE_ARGS+=	\
 			--host=${MACHINE_GNU_PLATFORM} \
 			--with-sysroot=${DESTDIR}
 MKENV_BUILD_MAKE=cd .native && ${MKNATIVE_ENV} ${BUILD_MAKE}
+
+UNWIND_H=unwind.h
+# XXXGCC5
+.if ${HAVE_GCC} == 53
+UNWIND_H=
+.endif
 
 .native/.configure_done: ${_GNU_CFGSRC} ${.CURDIR}/Makefile
 	mkdir .native 2>/dev/null || true
@@ -209,8 +221,12 @@ MKENV_BUILD_MAKE=cd .native && ${MKNATIVE_ENV} ${BUILD_MAKE}
 	PATH=${TOOLDIR}/bin:$$PATH; export PATH; \
 		(cd .native/gcc && ${MKNATIVE_ENV} ${BUILD_MAKE} -e tree-check.h config.h multilib.h gcov-iov.h)
 	PATH=${TOOLDIR}/bin:$$PATH; export PATH; \
-		(cd .native/gcc && ${MKNATIVE_ENV} ${BUILD_MAKE} -e libgcc.mvars tconfig.h unwind.h); \
+		(cd .native/gcc && ${MKNATIVE_ENV} ${BUILD_MAKE} -e libgcc.mvars tconfig.h ${UNWIND_H}); \
 		(cd .native && touch gcc/cc1obj gcc/cc1plus gcc/f771 gcc/libgcc.a gcc/libgcc_s.so)
+.if defined(EXTRA_GCC_TARGETS)
+	PATH=${TOOLDIR}/bin:$$PATH; export PATH; \
+		(cd .native/gcc && ${MKNATIVE_ENV} ${BUILD_MAKE} -e ${EXTRA_GCC_TARGETS})
+.endif
 .for _lib in ${MKNATIVE_CONFIG_TARGET_LIBS}
 	PATH=${TOOLDIR}/bin:$$PATH; export PATH; \
 		(cd .native && ${MKNATIVE_ENV} ${BUILD_MAKE} \
@@ -231,11 +247,6 @@ MKENV_BUILD_MAKE=cd .native && ${MKNATIVE_ENV} ${BUILD_MAKE}
 			CPP=${CPP:Q}' '-I${DESTDIR}/usr/include \
 			all-local) && \
 	true
-.if 0
-	PATH=${TOOLDIR}/bin:$$PATH; export PATH; \
-		(cd .native/${MACHINE_GNU_PLATFORM}/libiberty && \
-			${MKNATIVE_ENV} ${BUILD_MAKE} needed-list)
-.endif
 	@touch $@
 
 clean: clean.native

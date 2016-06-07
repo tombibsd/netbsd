@@ -31,11 +31,8 @@ SRCS+=		${SRCS.softfloat}
 
 # XXX
 .if defined(HAVE_GCC)
-. if (${LIBC_MACHINE_CPU} == "arm") && (${HAVE_GCC} == "45")
 # See doc/HACKS for more information.
-COPTS.softfloat.c+=	-Wno-enum-compare
-COPTS.softfloat.c+=	${${ACTIVE_CXX} == "gcc":? -fno-tree-vrp :}
-.elif (${LIBC_MACHINE_CPU} == "mips" || \
+. if (${LIBC_MACHINE_CPU} == "mips" || \
      ${LIBC_MACHINE_CPU} == "sh3")
 COPTS.softfloat.c+=	-Wno-enum-compare
 . endif

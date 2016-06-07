@@ -13,8 +13,8 @@
 #    redo non-trivial work done by earlier runs.
 #
 
-OLDVER=2015e
-NEWVER=2015f
+OLDVER=2015f
+NEWVER=2016b
 
 # Uppercase variants of OLDVER and NEWVER
 OLDVER_UC="$( echo "${OLDVER}" | tr '[a-z]' '[A-Z]' )"

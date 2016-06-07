@@ -85,7 +85,7 @@ CXXFLAGS+=	${${ACTIVE_CXX} == "gcc":? -Wno-non-template-friend -Wno-pmf-conversi
 .if ${WARNS} > 4
 CFLAGS+=	-Wold-style-definition
 .endif
-.if ${WARNS} > 5 && !(defined(HAVE_GCC) && ${HAVE_GCC:U0} <= 45)
+.if ${WARNS} > 5
 CFLAGS+=	-Wconversion
 .endif
 CFLAGS+=	-Wsign-compare -Wformat=2
@@ -103,9 +103,7 @@ CFLAGS+=	${${ACTIVE_CC} == "clang":? -Wpointer-sign -Wmissing-noreturn :}
 # XXX GCC 4.5 for sh3 and m68k (which we compile with -Os) is extra noisy for
 # cases it should be better with
 CFLAGS+=	-Wno-uninitialized
-.if ${HAVE_GCC} >= 48
 CFLAGS+=	-Wno-maybe-uninitialized
-.endif
 .endif
 .endif
 
@@ -116,7 +114,7 @@ _NOWERROR=	${defined(NOGCCERROR) || (${ACTIVE_CC} == "clang" && defined(NOCLANGE
 CFLAGS+=	${${_NOWERROR} == "no" :?-Werror:} ${CWARNFLAGS}
 LINTFLAGS+=	${DESTDIR:D-d ${DESTDIR}/usr/include}
 
-.if (${USE_SSP:Uno} != "no") && (${BINDIR:Ux} != "/usr/mdec")
+.if !defined(NOSSP) && (${USE_SSP:Uno} != "no") && (${BINDIR:Ux} != "/usr/mdec")
 .if !defined(KERNSRCDIR) && !defined(KERN) # not for kernels nor kern modules
 CPPFLAGS+=	-D_FORTIFY_SOURCE=2
 .endif

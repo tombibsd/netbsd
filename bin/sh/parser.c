@@ -1094,8 +1094,8 @@ readtoken1(int firstc, char const *syn, char *eofmark, int striptabs)
 	volatile int quotef;
 	volatile int oldstyle;
 	VSS static_stack;
-	VSS *stack = &static_stack;
-	VVSS *vstack = stack;
+	VSS * volatile stack = &static_stack;
+	VVSS * volatile vstack = stack;
 
 	stack->prev = NULL;
 	stack->cur = 0;
@@ -1558,7 +1558,7 @@ parsebackq: {
 	struct nodelist **nlpp;
 	int savepbq;
 	union node *n;
-	char *str = NULL;
+	char * volatile str = NULL;
 	struct jmploc jmploc;
 	struct jmploc *volatile savehandler = NULL;
 	int savelen;

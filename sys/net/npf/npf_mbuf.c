@@ -258,11 +258,13 @@ nbuf_cksum_barrier(nbuf_t *nbuf, int di)
 		m->m_pkthdr.csum_flags &= ~(M_CSUM_TCPv4 | M_CSUM_UDPv4);
 		return true;
 	}
+#ifdef INET6
 	if (m->m_pkthdr.csum_flags & (M_CSUM_TCPv6 | M_CSUM_UDPv6)) {
 		in6_delayed_cksum(m);
 		m->m_pkthdr.csum_flags &= ~(M_CSUM_TCPv6 | M_CSUM_UDPv6);
 		return true;
 	}
+#endif
 	return false;
 }
 

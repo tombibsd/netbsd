@@ -1261,7 +1261,7 @@ privsep_setsockopt(s, level, optname, optval, optlen)
 	struct sockopt_args sockopt_args;
 	int err, saved_errno = 0;
 
-	if ((err = setsockopt(s, level, optname, optval, optlen) == 0) || 
+	if ((err = setsockopt(s, level, optname, optval, optlen)) == 0 || 
 	    (saved_errno = errno) != EACCES ||
 	    geteuid() == 0) {
 		if (saved_errno)

@@ -33,12 +33,13 @@
 .\"
 .\"     @(#)ldexp.3	8.2 (Berkeley) 4/19/94
 .\"
-.Dd September 18, 2011
+.Dd March 17, 2016
 .Dt LDEXP 3
 .Os
 .Sh NAME
 .Nm ldexp ,
-.Nm ldexpf
+.Nm ldexpf ,
+.Nm ldexpl
 .Nd multiply floating-point number by integral power of 2
 .Sh LIBRARY
 .Lb libm
@@ -48,6 +49,8 @@
 .Fn ldexp "double x" "int exp"
 .Ft float
 .Fn ldexpf "float x" "int exp"
+.Ft long double
+.Fn ldexpl "long double x" "int exp"
 .Sh DESCRIPTION
 The
 .Fn ldexp

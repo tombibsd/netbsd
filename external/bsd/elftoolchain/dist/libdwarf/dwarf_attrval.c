@@ -141,12 +141,25 @@ dwarf_attrval_signed(Dwarf_Die die, Dwarf_Half attr, Dwarf_Signed *valp, Dwarf_E
 	return (DW_DLV_OK);
 }
 
+static Dwarf_Attribute
+dwarf_indirect_find(Dwarf_Debug dbg, Dwarf_Die die, Dwarf_Half attr,
+    Dwarf_Unsigned val)
+{
+	Dwarf_Die die1;
+	Dwarf_Attribute at;
+
+	if ((die1 = _dwarf_die_find(die, val)) == NULL)
+		return NULL;
+
+	at = _dwarf_attr_find(die1, attr);
+	dwarf_dealloc(dbg, die1, DW_DLA_DIE);
+	return at;
+}
+
 int
 dwarf_attrval_unsigned(Dwarf_Die die, Dwarf_Half attr, Dwarf_Unsigned *valp, Dwarf_Error *err)
 {
 	Dwarf_Attribute at;
-	Dwarf_Die die1;
-	Dwarf_Unsigned val;
 	Dwarf_Debug dbg;
 
 	dbg = die != NULL ? die->die_dbg : NULL;
@@ -163,28 +176,26 @@ dwarf_attrval_unsigned(Dwarf_Die die, Dwarf_Half attr, Dwarf_Unsigned *valp, Dwa
 		return (DW_DLV_NO_ENTRY);
 	}
 
-	die1 = NULL;
 	if (at == NULL &&
-	    (at = _dwarf_attr_find(die, DW_AT_abstract_origin)) != NULL) {
+	    ((at = _dwarf_attr_find(die, DW_AT_specification)) != NULL ||
+	    (at = _dwarf_attr_find(die, DW_AT_abstract_origin)) != NULL)) {
 		switch (at->at_form) {
 		case DW_FORM_ref1:
 		case DW_FORM_ref2:
 		case DW_FORM_ref4:
 		case DW_FORM_ref8:
 		case DW_FORM_ref_udata:
-			val = at->u[0].u64;
-			if ((die1 = _dwarf_die_find(die, val)) == NULL ||
-			    (at = _dwarf_attr_find(die1, attr)) == NULL) {
-				if (die1 != NULL)
-					dwarf_dealloc(dbg, die1, DW_DLA_DIE);
-				DWARF_SET_ERROR(dbg, err, DW_DLE_NO_ENTRY);
-				return (DW_DLV_NO_ENTRY);
-			}
+			at = dwarf_indirect_find(dbg, die, attr, at->u[0].u64);
 			break;
 		default:
 			DWARF_SET_ERROR(dbg, err, DW_DLE_ATTR_FORM_BAD);
 			return (DW_DLV_ERROR);
 		}
+	}
+
+	if (at == NULL)  {
+		DWARF_SET_ERROR(dbg, err, DW_DLE_NO_ENTRY);
+		return (DW_DLV_NO_ENTRY);
 	}
 
 	switch (at->at_form) {
@@ -202,14 +213,9 @@ dwarf_attrval_unsigned(Dwarf_Die die, Dwarf_Half attr, Dwarf_Unsigned *valp, Dwa
 		*valp = at->u[0].u64;
 		break;
 	default:
-		if (die1 != NULL)
-			dwarf_dealloc(dbg, die1, DW_DLA_DIE);
 		DWARF_SET_ERROR(dbg, err, DW_DLE_ATTR_FORM_BAD);
 		return (DW_DLV_ERROR);
 	}
-
-	if (die1 != NULL)
-		dwarf_dealloc(dbg, die1, DW_DLA_DIE);
 
 	return (DW_DLV_OK);
 }

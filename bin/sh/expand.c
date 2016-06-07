@@ -187,7 +187,7 @@ STATIC void
 argstr(char *p, int flag)
 {
 	char c;
-	int quotes = flag & (EXP_FULL | EXP_CASE);	/* do CTLESC */
+	int quotes = flag & (EXP_FULL | EXP_CASE | EXP_REDIR);	/* do CTLESC */
 	int firsteq = 1;
 	const char *ifs = NULL;
 	int ifs_split = EXP_IFS_SPLIT;
@@ -641,7 +641,7 @@ evalvar(char *p, int flag)
 	int startloc;
 	int varlen;
 	int apply_ifs;
-	int quotes = flag & (EXP_FULL | EXP_CASE);
+	int quotes = flag & (EXP_FULL | EXP_CASE | EXP_REDIR);
 
 	varflags = (unsigned char)*p++;
 	subtype = varflags & VSTYPE;

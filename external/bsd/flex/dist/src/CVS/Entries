@@ -12,9 +12,9 @@
 /flexint.h/1.2/Sat Jan  9 17:38:57 2016/-kk/
 /gen.c/1.2/Sat Jan  9 17:38:57 2016/-kk/
 /gettext.h/1.2/Sat Jan  9 17:38:57 2016/-kk/
-/initparse.c/1.1/Sat Jan  9 17:39:52 2016/-kk/
+/initparse.c/1.2/Tue Jun  7 09:33:10 2016/-kk/
 /initparse.h/1.1/Sat Jan  9 17:39:52 2016/-kk/
-/initscan.c/1.1/Sat Jan  9 17:39:52 2016/-kk/
+/initscan.c/1.2/Tue Jun  7 09:33:10 2016/-kk/
 /libmain.c/1.2/Sat Jan  9 17:38:57 2016/-kk/
 /libyywrap.c/1.2/Sat Jan  9 17:38:57 2016/-kk/
 /main.c/1.2/Sat Jan  9 17:38:57 2016/-kk/
@@ -25,7 +25,7 @@
 /options.h/1.2/Sat Jan  9 17:38:57 2016/-kk/
 /parse.y/1.2/Sat Jan  9 17:38:57 2016/-kk/
 /regex.c/1.2/Sat Jan  9 17:38:57 2016/-kk/
-/scan.l/1.3/Sat Jan  9 18:28:41 2016/-kk/
+/scan.l/1.4/Tue Jun  7 09:33:10 2016/-kk/
 /scanflags.c/1.2/Sat Jan  9 17:38:57 2016/-kk/
 /scanopt.c/1.2/Sat Jan  9 17:38:57 2016/-kk/
 /scanopt.h/1.2/Sat Jan  9 17:38:57 2016/-kk/

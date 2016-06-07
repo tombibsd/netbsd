@@ -293,7 +293,7 @@ compat_50_sys_setitimer(struct lwp *l,
 		return (EINVAL);
 	itvp = SCARG(uap, itv);
 	if (itvp &&
-	    (error = copyin(itvp, &aitv50, sizeof(aitv50)) != 0))
+	    (error = copyin(itvp, &aitv50, sizeof(aitv50))) != 0)
 		return (error);
 	itimerval50_to_itimerval(&aitv50, &aitv);
 	if (SCARG(uap, oitv) != NULL) {

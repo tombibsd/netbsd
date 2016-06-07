@@ -423,7 +423,7 @@ ohci_alloc_std(ohci_softc_t *sc)
 			  OHCI_TD_ALIGN, &dma);
 		if (err)
 			return (NULL);
-		for(i = 0; i < OHCI_STD_CHUNK; i++) {
+		for (i = 0; i < OHCI_STD_CHUNK; i++) {
 			offs = i * OHCI_STD_SIZE;
 			std = KERNADDR(&dma, offs);
 			std->physaddr = DMAADDR(&dma, offs);
@@ -585,7 +585,7 @@ ohci_alloc_sitd(ohci_softc_t *sc)
 			  OHCI_ITD_ALIGN, &dma);
 		if (err)
 			return (NULL);
-		for(i = 0; i < OHCI_SITD_CHUNK; i++) {
+		for (i = 0; i < OHCI_SITD_CHUNK; i++) {
 			offs = i * OHCI_SITD_SIZE;
 			sitd = KERNADDR(&dma, offs);
 			sitd->physaddr = DMAADDR(&dma, offs);

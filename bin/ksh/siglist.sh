@@ -25,7 +25,9 @@ CPP="${1-cc -E}"
  ${SED} -e '/^[	 ]*#/d' -e 's/^[	 ]*\([^ 	][^ 	]*\)[	 ][	 ]*\(.*[^ 	]\)[ 	]*$/#ifdef SIG\1\
 	{ QwErTy .signal = SIG\1 , .name = "\1", .mess = "\2" },\
 #endif/') > $in
-$CPP $in  > $out
+# work around for gcc 5
+$CPP $in | grep -v '^#' | tr -d '\n' | ${SED} 's/},/},\
+/g' > $out
 ${SED} -n 's/{ QwErTy/{/p' < $out | ${AWK} '{print NR, $0}' | sort -k 5n -k 1n |
     ${SED} 's/^[0-9]* //' |
     ${AWK} 'BEGIN { last=0; nsigs=0; }

@@ -10,7 +10,7 @@
 /sdmmc_cis.c/1.4/Wed Feb  1 22:34:43 2012/-kk/
 /sdmmc_io.c/1.12/Sun Oct 11 09:01:24 2015/-kk/
 /sdmmc_ioreg.h/1.2/Thu Oct  7 12:40:34 2010/-kk/
-/sdmmc_mem.c/1.50/Thu Jan  7 06:24:34 2016/-kk/
+/sdmmc_mem.c/1.51/Tue Jun  7 09:39:01 2016/-kk/
 /sdmmcchip.h/1.7/Wed Aug 12 04:14:24 2015/-kk/
 /sdmmcdevs.h/1.2/Tue Apr 21 03:10:41 2009/-kk/
 /sdmmcdevs/1.2/Thu Oct 24 10:28:58 2013/-kk/

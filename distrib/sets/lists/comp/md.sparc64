@@ -4,8 +4,10 @@
 ./usr/include/g++/bits/sparc64			comp-c-include		compat
 ./usr/include/g++/bits/sparc64/c++config.h	comp-c-include		gcc,compat
 ./usr/include/gcc-4.5/tgmath.h			comp-c-include		obsolete
-./usr/include/gcc-4.8/tgmath.h			comp-c-include		gcccmds,gcc
-./usr/include/gcc-4.8/visintrin.h		comp-c-include		gcccmds,gcc
+./usr/include/gcc-4.8/tgmath.h			comp-c-include		gcccmds,gcc=48
+./usr/include/gcc-4.8/visintrin.h		comp-c-include		gcccmds,gcc=48
+./usr/include/gcc-5/tgmath.h			comp-c-include		gcccmds,gcc=53
+./usr/include/gcc-5/visintrin.h			comp-c-include		gcccmds,gcc=53
 ./usr/include/ieeefp.h				comp-c-include
 ./usr/include/sparc				comp-c-include
 ./usr/include/sparc/_G_config.h			comp-obsolete		obsolete

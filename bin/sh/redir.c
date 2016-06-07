@@ -168,7 +168,7 @@ openredirect(union node *redir, char memory[10], int flags)
 	int fd = redir->nfile.fd;
 	char *fname;
 	int f;
-	int eflags;
+	int eflags, cloexec;
 
 	/*
 	 * We suppress interrupts so that we won't leave open file
@@ -243,10 +243,11 @@ openredirect(union node *redir, char memory[10], int flags)
 		abort();
 	}
 
+	cloexec = fd > 2 && (flags & REDIR_KEEP) == 0;
 	if (f != fd) {
-		copyfd(f, fd, 1, fd > 2);
+		copyfd(f, fd, 1, cloexec);
 		close(f);
-	} else if (f > 2)
+	} else if (cloexec)
 		(void)fcntl(f, F_SETFD, FD_CLOEXEC);
 
 	INTON;

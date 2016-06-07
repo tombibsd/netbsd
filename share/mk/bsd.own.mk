@@ -78,7 +78,7 @@ MKGCCCMDS?=	no
 # We import the old gcc as "gcc.old" when upgrading.  EXTERNAL_GCC_SUBDIR is
 # set to the relevant subdirectory in src/external/gpl3 for his HAVE_GCC.
 #
-.if ${HAVE_GCC} == 5
+.if ${HAVE_GCC} == 53
 EXTERNAL_GCC_SUBDIR=	gcc
 .elif ${HAVE_GCC} == 48
 EXTERNAL_GCC_SUBDIR=	gcc.old
@@ -122,7 +122,7 @@ HAVE_LIBGCC_EH?=	yes
 HAVE_SSP?=	no
 .else
 HAVE_SSP?=	yes
-.if ${USE_FORT:Uno} != "no"
+.if !defined(NOFORT) && ${USE_FORT:Uno} != "no"
 USE_SSP?=	yes
 .endif
 .endif

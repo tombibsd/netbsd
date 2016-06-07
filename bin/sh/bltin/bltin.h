@@ -60,7 +60,11 @@
 #define FILE struct output
 #define stdout out1
 #define stderr out2
+#ifdef __GNUC__
+#define _RETURN_INT(x)	({(x); 0;}) /* map from void foo() to int bar() */
+#else
 #define _RETURN_INT(x)	((x), 0) /* map from void foo() to int bar() */
+#endif
 #define fprintf(...)	_RETURN_INT(outfmt(__VA_ARGS__))
 #define printf(...)	_RETURN_INT(out1fmt(__VA_ARGS__))
 #define putc(c, file)	_RETURN_INT(outc(c, file))

@@ -11,6 +11,7 @@ GCC_MACHINE_ARCH=${MACHINE_ARCH:S/earmv5/earm/}
 # We keep libcpp here since it depends upon frontend.
 
 SUBDIR+=	host-libiberty .WAIT \
+		host-libcpp .WAIT \
 		backend .WAIT \
 		frontend .WAIT \
 		common common-target .WAIT \

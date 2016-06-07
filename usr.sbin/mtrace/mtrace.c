@@ -1094,7 +1094,7 @@ print_stats(struct resp_buf *basep, struct resp_buf *prev, struct resp_buf *new)
     }
 
     while (TRUE) {
-	if ((n->tr_inaddr != b->tr_inaddr) || (n->tr_inaddr != b->tr_inaddr))
+	if ((n->tr_inaddr != b->tr_inaddr) || (p->tr_inaddr != b->tr_inaddr))
 	  return 1;		/* Route changed */
 
 	if ((n->tr_inaddr != n->tr_outaddr))

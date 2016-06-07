@@ -1005,7 +1005,7 @@ ukyopon* at uhub? port ?
 ucom*	at ukyopon? portno ?
 
 # USB scanners
-uscanner* at uhub? port ?
+#uscanner* at uhub? port ?
 
 # USB 802.11 adapters
 athn*	at uhub? port ?		# Atheros AR9002U
@@ -1312,5 +1312,6 @@ options VERIFIED_EXEC_FP_SHA512
 options VERIFIED_EXEC_FP_SHA1
 options VERIFIED_EXEC_FP_MD5
 
+options 	PAX_SEGVGUARD=0		# PaX Segmentation fault guard
 options 	PAX_MPROTECT=0		# PaX mprotect(2) restrictions
 options 	PAX_ASLR=0		# PaX Address Space Layout Randomization

@@ -281,7 +281,7 @@ pvr_attach(device_t parent, device_t self, void *aux)
 		sc->sc_nscreens = 1;
 	} else {
 		sc->sc_dc = malloc(sizeof(struct fb_devconfig), M_DEVBUF,
-		    M_WAITOK);
+		    M_WAITOK | M_ZERO);
 		pvr_getdevconfig(sc->sc_dc);
 	}
 	printf(": %d x %d, %dbpp, %s, %s\n", sc->sc_dc->dc_wid,

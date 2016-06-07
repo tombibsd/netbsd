@@ -213,7 +213,7 @@ parserelease(TREELIST ** tlp, char *relname, char *args)
 	int opno;
 	char *nextrel;
 
-	tl = (TREELIST *) malloc(sizeof(TREELIST));
+	tl = malloc(sizeof(TREELIST));
 	if ((*tlp = tl) == NULL)
 		goaway("Couldn't allocate TREELIST");
 	tl->TLnext = NULL;

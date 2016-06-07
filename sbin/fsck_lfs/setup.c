@@ -163,7 +163,9 @@ extern time_t write_time;
 int
 setup(const char *dev)
 {
+#ifndef VERBOSE_BLOCKMAP
 	long bmapsize;
+#endif
 	struct stat statb;
 	int doskipclean;
 	u_int64_t maxfilesize;
@@ -444,7 +446,6 @@ setup(const char *dev)
 	bmapsize = roundup(howmany(maxfsblock, NBBY), sizeof(int16_t));
 	blockmap = ecalloc(bmapsize, sizeof(char));
 #else
-	bmapsize = maxfsblock * sizeof(ino_t);
 	blockmap = ecalloc(maxfsblock, sizeof(ino_t));
 #endif
 	statemap = ecalloc(maxino, sizeof(char));

@@ -3700,11 +3700,11 @@ Var_Parse(const char *str, GNode *ctxt, int flags,
 		    case '@':
 			return UNCONST("$(.TARGET)");
 		    case '%':
-			return UNCONST("$(.ARCHIVE)");
+			return UNCONST("$(.MEMBER)");
 		    case '*':
 			return UNCONST("$(.PREFIX)");
 		    case '!':
-			return UNCONST("$(.MEMBER)");
+			return UNCONST("$(.ARCHIVE)");
 		}
 	    }
 	    /*

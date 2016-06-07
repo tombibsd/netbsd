@@ -344,7 +344,7 @@ ATF_TC_BODY(fpsetmask_basic, tc)
 	for (i = 0; i < __arraycount(lst); i++) {
 		fpsetmask(msk | lst[i]);
 		ATF_CHECK((fpgetmask() & lst[i]) != 0);
-		fpsetmask(msk & lst[i]);
+		fpsetmask(msk & ~lst[i]);
 		ATF_CHECK((fpgetmask() & lst[i]) == 0);
 	}
 

@@ -319,7 +319,8 @@ iso_shipdir(struct isoreaddir *idp)
 	cl = idp->current.d_namlen;
 	cname = idp->current.d_name;
 
-	if ((assoc = cl > 1 && *cname == ASSOCCHAR)) {
+	assoc = (cl > 1) && (*cname == ASSOCCHAR);
+	if (assoc) {
 		cl--;
 		cname++;
 	}
