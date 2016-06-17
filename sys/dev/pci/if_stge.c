@@ -1348,7 +1348,7 @@ stge_rxintr(struct stge_softc *sc)
 			}
 		}
 
-		m->m_pkthdr.rcvif = ifp;
+		m_set_rcvif(m, ifp);
 		m->m_pkthdr.len = len;
 
 		/*

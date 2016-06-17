@@ -1020,7 +1020,7 @@ ndis_rxeof(ndis_handle adapter, ndis_packet **packets, uint32_t pktcnt)
 					m0 = m;
 			} else
 				p->np_oob.npo_status = NDIS_STATUS_PENDING;
-			m0->m_pkthdr.rcvif = ifp;
+			m_set_rcvif(m0, ifp);
 			ifp->if_ipackets++;
 
 			/* Deal with checksum offload. */

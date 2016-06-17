@@ -12,3 +12,4 @@ LIBDIR=	${X11LIBDIR}/locale/lib/common
 SRCS=	${SRCS.xlcDef}
 
 .include "../Makefile.xlcDef"
+.include <bsd.lib.mk>

@@ -671,7 +671,7 @@ i4bisppp_rx_data_rdy(void *softc)
 	if((m = *sc->sc_ilt->rx_mbuf) == NULL)
 		return;
 
-	m->m_pkthdr.rcvif = &sc->sc_sp.pp_if;
+	m_set_rcvif(m, &sc->sc_sp.pp_if);
 	m->m_pkthdr.len = m->m_len;
 
 	sc->sc_sp.pp_if.if_ipackets++;

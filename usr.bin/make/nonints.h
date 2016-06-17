@@ -120,6 +120,7 @@ void execError(const char *, const char *);
 char *getTmpdir(void);
 Boolean s2Boolean(const char *, Boolean);
 Boolean getBoolean(const char *, Boolean);
+char *cached_realpath(const char *, char *);
 
 /* parse.c */
 void Parse_Error(int, const char *, ...) MAKE_ATTR_PRINTFLIKE(2, 3);

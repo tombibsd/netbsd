@@ -497,7 +497,7 @@ kill_connection(connection_t *conn, uint32_t status, int logout, bool recover)
 		/* of logging in */
 		if (logout >= 0) {
 			conn->state = ST_WINDING_DOWN;
-			callout_schedule(&conn->timeout, CONNECTION_TIMEOUT);
+			connection_timeout_start(conn, CONNECTION_TIMEOUT);
 
 			if (sess->ErrorRecoveryLevel < 2 &&
 			    logout == RECOVER_CONNECTION) {
@@ -800,6 +800,8 @@ recreate_connection(iscsi_login_parameters_t *par, session_t *session,
 	int rc;
 	ccb_t *ccb;
 	ccb_list_t old_waiting;
+	pdu_t *pdu;
+	uint32_t sn;
 
 	DEB(1, ("ReCreate Connection %d for Session %d, ERL=%d\n",
 		connection->id, connection->session->id,
@@ -873,21 +875,20 @@ recreate_connection(iscsi_login_parameters_t *par, session_t *session,
 		/* if we get an error on reassign, restart the original request */
 		if (rc && ccb->pdu_waiting != NULL) {
 			mutex_enter(&session->lock);
-			if (ccb->CmdSN < session->ExpCmdSN) {
-				pdu_t *pdu = ccb->pdu_waiting;
+			if (sn_a_lt_b(ccb->CmdSN, session->ExpCmdSN)) {
+				pdu = ccb->pdu_waiting;
+				sn = get_sernum(session, !(pdu->pdu.Opcode & OP_IMMEDIATE));
 
 				/* update CmdSN */
 				DEBC(connection, 1, ("Resend Updating CmdSN - old %d, new %d\n",
-					   ccb->CmdSN, session->CmdSN));
-				ccb->CmdSN = session->CmdSN;
-				if (!(pdu->pdu.Opcode & OP_IMMEDIATE))
-					session->CmdSN++;
+					   ccb->CmdSN, sn));
+				ccb->CmdSN = sn;
 				pdu->pdu.p.command.CmdSN = htonl(ccb->CmdSN);
 			}
 			mutex_exit(&session->lock);
 			resend_pdu(ccb);
 		} else {
-			callout_schedule(&ccb->timeout, COMMAND_TIMEOUT);
+			ccb_timeout_start(ccb, COMMAND_TIMEOUT);
 		}
 	}
 
@@ -1576,10 +1577,38 @@ connection_timeout_co(void *par)
 	connection_t *conn = par;
 
 	mutex_enter(&iscsi_cleanup_mtx);
+	conn->timedout = TOUT_QUEUED;
 	TAILQ_INSERT_TAIL(&iscsi_timeout_conn_list, conn, tchain);
 	mutex_exit(&iscsi_cleanup_mtx);
 	iscsi_notify_cleanup();
 }
+
+void            
+connection_timeout_start(connection_t *conn, int ticks)
+{
+	mutex_enter(&iscsi_cleanup_mtx);
+	if (conn->timedout != TOUT_QUEUED) {
+		conn->timedout = TOUT_ARMED;
+		callout_schedule(&conn->timeout, ticks);
+	}
+	mutex_exit(&iscsi_cleanup_mtx);
+}                           
+
+void                    
+connection_timeout_stop(connection_t *conn)
+{                                                
+	callout_halt(&conn->timeout, NULL);
+	mutex_enter(&iscsi_cleanup_mtx);
+	if (conn->timedout == TOUT_QUEUED) {
+		TAILQ_REMOVE(&iscsi_timeout_conn_list, conn, tchain);
+		conn->timedout = TOUT_NONE;
+	}               
+	if (curlwp != iscsi_cleanproc) {
+		while (conn->timedout == TOUT_BUSY)
+			kpause("connbusy", false, 1, &iscsi_cleanup_mtx);
+	}
+	mutex_exit(&iscsi_cleanup_mtx);
+}                        
 
 void
 ccb_timeout_co(void *par)
@@ -1587,9 +1616,37 @@ ccb_timeout_co(void *par)
 	ccb_t *ccb = par;
 
 	mutex_enter(&iscsi_cleanup_mtx);
+	ccb->timedout = TOUT_QUEUED;
 	TAILQ_INSERT_TAIL(&iscsi_timeout_ccb_list, ccb, tchain);
 	mutex_exit(&iscsi_cleanup_mtx);
 	iscsi_notify_cleanup();
+}
+
+void    
+ccb_timeout_start(ccb_t *ccb, int ticks)
+{       
+	mutex_enter(&iscsi_cleanup_mtx);
+	if (ccb->timedout != TOUT_QUEUED) {
+		ccb->timedout = TOUT_ARMED;
+		callout_schedule(&ccb->timeout, ticks);
+	}
+	mutex_exit(&iscsi_cleanup_mtx);
+} 
+ 
+void
+ccb_timeout_stop(ccb_t *ccb)
+{
+	callout_halt(&ccb->timeout, NULL);
+	mutex_enter(&iscsi_cleanup_mtx);
+	if (ccb->timedout == TOUT_QUEUED) {
+		TAILQ_REMOVE(&iscsi_timeout_ccb_list, ccb, tchain);
+		ccb->timedout = TOUT_NONE;
+	} 
+	if (curlwp != iscsi_cleanproc) {
+		while (ccb->timedout == TOUT_BUSY)
+			kpause("ccbbusy", false, 1, &iscsi_cleanup_mtx);
+	}
+	mutex_exit(&iscsi_cleanup_mtx);
 }
 
 /*
@@ -1633,6 +1690,11 @@ iscsi_cleanup_thread(void *par)
 				if (conn->usecount != last_usecount) {
 					DEBC(conn, 5,("Cleanup: %d CCBs busy\n", conn->usecount));
 					last_usecount = conn->usecount;
+					mutex_enter(&conn->lock);
+					TAILQ_FOREACH(ccb, &conn->ccbs_waiting, chain) {
+						DEBC(conn, 5,("Cleanup: ccb=%p disp=%d timedout=%d\n", ccb,ccb->disp, ccb->timedout));
+					}
+					mutex_exit(&conn->lock);
 				}
 				kpause("finalwait", false, hz, NULL);
 			}
@@ -1645,7 +1707,10 @@ iscsi_cleanup_thread(void *par)
 			mutex_destroy(&conn->lock);
 			free(conn, M_DEVBUF);
 
-			--sess->total_connections;
+			if (--sess->total_connections == 0) {
+				DEB(1, ("Cleanup: session %d\n", sess->id));
+				TAILQ_INSERT_HEAD(&iscsi_cleanups_list, sess, sessions);
+			}
 
 			TAILQ_FOREACH_SAFE(sess, &iscsi_cleanups_list, sessions, nxt) {
 				if (sess->total_connections != 0)
@@ -1685,16 +1750,24 @@ iscsi_cleanup_thread(void *par)
 			/* handle ccb timeouts */
 			while ((ccb = TAILQ_FIRST(&iscsi_timeout_ccb_list)) != NULL) {
 				TAILQ_REMOVE(&iscsi_timeout_ccb_list, ccb, tchain);
+				KASSERT(ccb->timedout == TOUT_QUEUED);
+				ccb->timedout = TOUT_BUSY;
 				mutex_exit(&iscsi_cleanup_mtx);
 				ccb_timeout(ccb);
 				mutex_enter(&iscsi_cleanup_mtx);
+				if (ccb->timedout == TOUT_BUSY)
+					ccb->timedout = TOUT_NONE;
 			}
 			/* handle connection timeouts */
 			while ((conn = TAILQ_FIRST(&iscsi_timeout_conn_list)) != NULL) {
 				TAILQ_REMOVE(&iscsi_timeout_conn_list, conn, tchain);
+				KASSERT(conn->timedout == TOUT_QUEUED);
+				conn->timedout = TOUT_BUSY;
 				mutex_exit(&iscsi_cleanup_mtx);
 				connection_timeout(conn);
 				mutex_enter(&iscsi_cleanup_mtx);
+				if (conn->timedout == TOUT_BUSY)
+					conn->timedout = TOUT_NONE;
 			}
 
 			/* if timed out, not woken up */
@@ -1721,7 +1794,7 @@ iscsi_cleanup_thread(void *par)
 }
 
 void
-iscsi_init_cleanup()
+iscsi_init_cleanup(void)
 {
 
 	mutex_init(&iscsi_cleanup_mtx, MUTEX_DEFAULT, IPL_BIO);
@@ -1735,7 +1808,7 @@ iscsi_init_cleanup()
 }
 
 void
-iscsi_destroy_cleanup()
+iscsi_destroy_cleanup(void)
 {
 	
 	iscsi_detaching = true;
@@ -1752,7 +1825,7 @@ iscsi_destroy_cleanup()
 }
 
 void
-iscsi_notify_cleanup()
+iscsi_notify_cleanup(void)
 {
 	cv_signal(&iscsi_cleanup_cv);
 }

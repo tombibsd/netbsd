@@ -852,7 +852,7 @@ tcp_respond(struct tcpcb *tp, struct mbuf *mtemplate, struct mbuf *m,
 		tlen += th->th_off << 2;
 	m->m_len = hlen + tlen;
 	m->m_pkthdr.len = hlen + tlen;
-	m->m_pkthdr.rcvif = NULL;
+	m_reset_rcvif(m);
 	th->th_flags = flags;
 	th->th_urp = 0;
 

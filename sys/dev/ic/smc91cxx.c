@@ -1167,7 +1167,7 @@ smc91cxx_read(struct smc91cxx_softc *sc)
 	MGETHDR(m, M_DONTWAIT, MT_DATA);
 	if (m == NULL)
 		goto out;
-	m->m_pkthdr.rcvif = ifp;
+	m_set_rcvif(m, ifp);
 	m->m_pkthdr.len = packetlen;
 
 	/*

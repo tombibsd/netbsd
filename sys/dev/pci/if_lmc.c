@@ -4248,9 +4248,9 @@ rxintr_cleanup(softc_t *sc)
       first_mbuf = new_mbuf;
       first_mbuf->m_pkthdr.len   = pkt_len; /* total pkt length */
 # if IFNET
-      first_mbuf->m_pkthdr.rcvif = sc->ifp; /* how it got here */
+      m_set_rcvif(first_mbuf, sc->ifp); /* how it got here */
 # else
-      first_mbuf->m_pkthdr.rcvif = NULL;
+      m_reset_rcvif(first_mbuf);
 # endif
       }
     else /* 2) link mbufs. */
@@ -4279,7 +4279,7 @@ rxintr_cleanup(softc_t *sc)
       MGETHDR(new_mbuf, M_DONTWAIT, MT_DATA);
       if (new_mbuf)
         {
-        new_mbuf->m_pkthdr.rcvif = first_mbuf->m_pkthdr.rcvif;
+        m_copy_rcvif(new_mbuf, first_mbuf);
         new_mbuf->m_pkthdr.len   = first_mbuf->m_pkthdr.len;
         new_mbuf->m_len          = first_mbuf->m_len;
         memcpy(new_mbuf->m_data,   first_mbuf->m_data,

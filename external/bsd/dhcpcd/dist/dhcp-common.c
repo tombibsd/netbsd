@@ -833,7 +833,7 @@ int
 dhcp_set_leasefile(char *leasefile, size_t len, int family,
     const struct interface *ifp)
 {
-	char ssid[len];
+	char ssid[1 + (IF_SSIDLEN * 4) + 1];
 
 	if (ifp->name[0] == '\0') {
 		strlcpy(leasefile, ifp->ctx->pidfile, len);

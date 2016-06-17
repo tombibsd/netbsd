@@ -1754,7 +1754,7 @@ et_rxeof(struct et_softc *sc)
 			} else {
 				m->m_pkthdr.len = m->m_len = buflen -
 				    ETHER_CRC_LEN;
-				m->m_pkthdr.rcvif = ifp;
+				m_set_rcvif(m, ifp);
 
 				bpf_mtap(ifp, m);
 

@@ -540,7 +540,7 @@ qn_get_packet(struct qn_softc *sc, u_short len)
 	if (len & 1)
 		len++;
 
-	m->m_pkthdr.rcvif = &sc->sc_ethercom.ec_if;
+	m_set_rcvif(m, &sc->sc_ethercom.ec_if);
 	m->m_pkthdr.len = len;
 	m->m_len = 0;
 	head = m;

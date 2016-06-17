@@ -330,8 +330,8 @@ _ipip_input(struct mbuf *m, int iphlen, struct ifnet *gifp)
 	}
 
 	/* Check for local address spoofing. */
-	if ((m->m_pkthdr.rcvif == NULL ||
-	    !(m->m_pkthdr.rcvif->if_flags & IFF_LOOPBACK)) &&
+	if ((m_get_rcvif_NOMPSAFE(m) == NULL ||
+	    !(m_get_rcvif_NOMPSAFE(m)->if_flags & IFF_LOOPBACK)) &&
 	    ipip_allow != 2) {
 		int s = pserialize_read_enter();
 		IFNET_READER_FOREACH(ifp) {

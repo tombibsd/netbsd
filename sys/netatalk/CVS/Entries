@@ -9,7 +9,7 @@
 /at_rmx.c/1.6/Thu Aug 17 17:11:28 2006/-kk/
 /at_var.h/1.7/Thu Aug 30 02:17:36 2007/-kk/
 /ddp.h/1.2/Sat Dec 10 23:29:05 2005/-kk/
-/ddp_input.c/1.26/Wed Aug 31 18:31:03 2011/-kk/
+/ddp_input.c/1.27/Fri Jun 17 00:53:04 2016/-kk/
 /ddp_output.c/1.18/Thu Jan 28 08:36:22 2016/-kk/
 /ddp_private.h/1.2/Mon Apr 28 20:24:09 2008/-kk/
 /ddp_usrreq.c/1.68/Wed May 13 03:33:19 2015/-kk/

@@ -27,3 +27,4 @@ sun4v:
 - vpci.c/vpcivar.h: cleanup FIXMEs
 - interrups not handled properly (com at ebus only...)
 - mpt(4) complains: mpt0: Phy 0: Link Status Unknown
+- locore.s: TRAP_SETUP() - sun4u specific ASI_DMMU

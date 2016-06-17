@@ -1,4 +1,4 @@
-/ChangeLog/1.1.1.5/Sun Feb 14 12:48:30 2016/-kk/
+/ChangeLog/1.1.1.6/Fri Jun 17 00:49:00 2016/-kk/
 /Makefile.am/1.3/Sun Feb 14 12:48:30 2016/-kk/
 /Makefile.in/1.3/Sun Feb 14 12:48:30 2016/-kk/
 /aatree.cc/1.1.1.2/Sun Feb 14 12:48:30 2016/-kk/
@@ -20,7 +20,7 @@
 /dispatch.h/1.1.1.2/Sun Feb 14 12:48:30 2016/-kk/
 /eh_cpp.cc/1.1.1.2/Sun Feb 14 12:48:30 2016/-kk/
 /libitm.h/1.1.1.2/Sun Feb 14 12:48:30 2016/-kk/
-/libitm.info/1.1.1.4/Sun Feb 14 12:48:30 2016/-kk/
+/libitm.info/1.1.1.5/Fri Jun 17 00:49:00 2016/-kk/
 /libitm.map/1.1.1.1/Sat Mar  1 08:41:18 2014/-kk/
 /libitm.spec.in/1.1.1.1/Sat Mar  1 08:41:18 2014/-kk/
 /libitm.texi/1.1.1.2/Sun Feb 14 12:48:30 2016/-kk/

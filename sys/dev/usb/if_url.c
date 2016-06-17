@@ -1039,7 +1039,7 @@ url_rxeof(struct usbd_xfer *xfer, void *priv, usbd_status status)
 
 	m = c->url_mbuf;
 	m->m_pkthdr.len = m->m_len = total_len;
-	m->m_pkthdr.rcvif = ifp;
+	m_set_rcvif(m, ifp);
 
 	s = splnet();
 

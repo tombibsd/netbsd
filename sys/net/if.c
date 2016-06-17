@@ -1245,7 +1245,7 @@ if_detach_queues(struct ifnet *ifp, struct ifqueue *q)
 		KASSERT((m->m_flags & M_PKTHDR) != 0);
 
 		next = m->m_nextpkt;
-		if (m->m_pkthdr.rcvif != ifp) {
+		if (m->m_pkthdr.rcvif_index != ifp->if_index) {
 			prev = m;
 			continue;
 		}
@@ -2222,6 +2222,26 @@ if_get_byindex(u_int idx, struct psref *psref)
 
 	return ifp;
 }
+
+/*
+ * XXX unsafe
+ */
+void
+if_acquire_unsafe(struct ifnet *ifp, struct psref *psref)
+{
+
+	KASSERT(ifp->if_index != 0);
+	KASSERT(if_byindex(ifp->if_index) != NULL);
+	psref_acquire(psref, &ifp->if_psref, ifnet_psref_class);
+}
+
+bool
+if_held(struct ifnet *ifp)
+{
+
+	return psref_held(&ifp->if_psref, ifnet_psref_class);
+}
+
 
 /* common */
 int

@@ -40,6 +40,11 @@ bi_add(struct btinfo_common *what, int type, int size)
 	what->len = size;
 	what->type = type;
 
-	if (bootinfo)
-		bootinfo->entry[bootinfo->nentries++] = vtophys(what);
+	if (bootinfo == NULL) {
+		return;
+	}
+	if (bootinfo->nentries >= BTINFO_MAX) {
+		panic("bootinfo too big");
+	}
+	bootinfo->entry[bootinfo->nentries++] = vtophys(what);
 }

@@ -1,6 +1,6 @@
 # $NetBSD$
 
-CFLAGS+=	-G 0 -ffixed-23
+CFLAGS+=	-G 0 -ffixed-24
 
 # this should really be !(RUMPKERNEL && target=PIC)
 .if !defined(RUMPKERNEL)

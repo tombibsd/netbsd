@@ -1327,7 +1327,7 @@ vge_rxeof(struct vge_softc *sc)
 		vge_fixup_rx(m);
 #endif
 		ifp->if_ipackets++;
-		m->m_pkthdr.rcvif = ifp;
+		m_set_rcvif(m, ifp);
 
 		/* Do RX checksumming if enabled */
 		if (ifp->if_csum_flags_rx & M_CSUM_IPv4) {

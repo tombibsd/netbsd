@@ -191,7 +191,7 @@ int	 makekey(FILE *, RECHEADER *, u_char *, struct field *);
 int	 makeline(FILE *, RECHEADER *, u_char *, struct field *);
 void	 makeline_copydown(RECHEADER *);
 int	 optval(int, int);
-__dead void	 order(struct filelist *, struct field *);
+__dead void	 order(struct filelist *, struct field *, int);
 void	 putline(const RECHEADER *, FILE *);
 void	 putrec(const RECHEADER *, FILE *);
 void	 putkeydump(const RECHEADER *, FILE *);

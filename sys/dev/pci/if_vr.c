@@ -778,7 +778,7 @@ vr_rxeof(struct vr_softc *sc)
 #endif /* __NO_STRICT_ALIGNMENT */
 
 		ifp->if_ipackets++;
-		m->m_pkthdr.rcvif = ifp;
+		m_set_rcvif(m, ifp);
 		m->m_pkthdr.len = m->m_len = total_len;
 		/*
 		 * Handle BPF listeners. Let the BPF user see the packet, but

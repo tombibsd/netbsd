@@ -863,7 +863,7 @@ mb86950_get_fifo(struct mb86950_softc *sc, u_int len)
 	if (len & 1)
 		len++;
 
-	m->m_pkthdr.rcvif = ifp;
+	m_set_rcvif(m, ifp);
 	m->m_pkthdr.len = len;
 
 	/* The following silliness is to make NFS happy. */

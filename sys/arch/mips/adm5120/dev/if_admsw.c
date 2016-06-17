@@ -991,7 +991,7 @@ admsw_rxintr(struct admsw_softc *sc, int high)
 			continue;
 		}
 
-		m->m_pkthdr.rcvif = ifp;
+		m_set_rcvif(m, ifp);
 		m->m_pkthdr.len = m->m_len = len;
 		if ((stat & ADM5120_DMA_TYPE) == ADM5120_DMA_TYPE_IP) {
 			m->m_pkthdr.csum_flags |= M_CSUM_IPv4;

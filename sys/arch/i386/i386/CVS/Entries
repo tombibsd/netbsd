@@ -30,7 +30,7 @@
 /linux_sigcode.S/1.8/Mon Apr 28 20:23:24 2008/-kk/
 /linux_syscall.c/1.52/Sat Mar 21 02:37:37 2015/-kk/
 /lock_stubs.S/1.26/Fri Jan 31 08:48:36 2014/-kk/
-/locore.S/1.126/Tue Jun  7 11:14:06 2016/-kk/
+/locore.S/1.131/Fri Jun 17 00:52:19 2016/-kk/
 /longrun.c/1.4/Sun Oct 23 13:02:32 2011/-kk/
 /machdep.c/1.755/Tue Jun  7 10:59:49 2016/-kk/
 /mainbus.c/1.101/Wed Aug 12 04:13:59 2015/-kk/

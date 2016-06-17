@@ -992,7 +992,7 @@ iyget(struct iy_softc *sc, bus_space_tag_t iot, bus_space_handle_t ioh, int rxle
 	MGETHDR(m, M_DONTWAIT, MT_DATA);
 	if (m == 0)
 		goto dropped;
-	m->m_pkthdr.rcvif = ifp;
+	m_set_rcvif(m, ifp);
 	m->m_pkthdr.len = rxlen;
 	len = MHLEN;
 	top = 0;

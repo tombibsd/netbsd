@@ -3,7 +3,7 @@
 /bios_disk.S/1.22/Sun Jul 20 13:58:37 2014/-kk/
 /bios_pci.S/1.6/Sun Dec 11 12:17:48 2005/-kk/
 /biosdelay.S/1.4/Sun Dec 11 12:17:48 2005/-kk/
-/biosdisk.c/1.44/Mon Jan 26 07:10:17 2015/-kk/
+/biosdisk.c/1.45/Fri Jun 17 00:52:20 2016/-kk/
 /biosdisk.h/1.8/Fri Dec 24 20:36:51 2010/-kk/
 /biosdisk_ll.c/1.31/Mon Feb 21 02:58:02 2011/-kk/
 /biosdisk_ll.h/1.15/Tue Dec 25 18:33:34 2007/-kk/
@@ -19,11 +19,11 @@
 /biosvbe.S/1.3/Sun Feb 20 22:03:13 2011/-kk/
 /biosvideomode.S/1.3/Wed Apr 16 13:49:21 2003/-kk/
 /boot_params.S/1.6/Sun Jan 17 14:54:44 2010/-kk/
-/bootinfo.c/1.5/Sun Dec 14 18:46:33 2008/-kk/
-/bootinfo.h/1.10/Tue Nov 26 03:29:47 2013/-kk/
+/bootinfo.c/1.6/Fri Jun 17 00:52:20 2016/-kk/
+/bootinfo.h/1.11/Fri Jun 17 00:52:20 2016/-kk/
 /bootinfo_biosgeom.c/1.22/Thu Oct 24 10:28:57 2013/-kk/
 /bootinfo_memmap.c/1.5/Sun Dec 14 17:03:43 2008/-kk/
-/bootmenu.c/1.14/Fri Oct  3 09:25:39 2014/-kk/
+/bootmenu.c/1.15/Fri Jun 17 00:52:20 2016/-kk/
 /bootmenu.h/1.5/Fri Oct  3 09:25:39 2014/-kk/
 /bootmod.h/1.6/Thu Oct 24 10:28:57 2013/-kk/
 /comio.S/1.4/Wed Apr 16 14:23:11 2003/-kk/
@@ -38,7 +38,7 @@
 /dosfile.c/1.19/Fri Dec 25 06:18:13 2015/-kk/
 /dosfile.h/1.4/Sun Dec 11 12:17:48 2005/-kk/
 /dump_eax.S/1.4/Thu Nov 19 22:08:14 2009/-kk/
-/exec.c/1.59/Sat Apr 19 05:36:48 2014/-kk/
+/exec.c/1.61/Fri Jun 17 00:52:20 2016/-kk/
 /gatea20.c/1.12/Sun Aug 23 12:31:05 2009/-kk/
 /getextmemx.c/1.10/Thu Jun 16 13:27:59 2011/-kk/
 /getsecs.c/1.4/Mon Jan 12 11:32:44 2009/-kk/
@@ -47,7 +47,7 @@
 /isapnp.c/1.5/Sun Dec 14 17:03:43 2008/-kk/
 /isapnpvar.h/1.4/Sun Dec 14 17:03:43 2008/-kk/
 /libi386.h/1.40/Tue Dec 17 04:05:03 2013/-kk/
-/menuutils.c/1.4/Sat Apr 19 05:36:48 2014/-kk/
+/menuutils.c/1.5/Fri Jun 17 00:52:20 2016/-kk/
 /message.S/1.4/Thu Nov 19 22:10:03 2009/-kk/
 /message32.S/1.1/Thu Nov 19 22:13:17 2009/-kk/
 /multiboot.S/1.1/Sat Oct 11 11:06:20 2008/-kk/

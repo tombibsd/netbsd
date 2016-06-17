@@ -1606,7 +1606,7 @@ rtw_intr_rx(struct rtw_softc *sc, uint16_t isr)
 		/* Note well: now we cannot recycle the rs_mbuf unless
 		 * we restore its original length.
 		 */
-		m->m_pkthdr.rcvif = ifp;
+		m_set_rcvif(m, ifp);
 		m->m_pkthdr.len = m->m_len = len;
 
 		wh = mtod(m, struct ieee80211_frame_min *);

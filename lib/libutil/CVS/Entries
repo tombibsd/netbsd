@@ -36,8 +36,8 @@
 /logoutx.c/1.2/Thu Aug  7 16:44:59 2003/-kk/
 /logwtmp.c/1.14/Thu Aug  7 16:44:59 2003/-kk/
 /logwtmpx.c/1.2/Thu Aug  7 16:44:59 2003/-kk/
-/opendisk.3/1.11/Wed Apr 30 13:10:52 2008/-kk/
-/opendisk.c/1.13/Fri Oct  3 10:04:48 2014/-kk/
+/opendisk.3/1.13/Fri Jun 17 00:51:51 2016/-kk/
+/opendisk.c/1.14/Fri Jun 17 00:51:51 2016/-kk/
 /openpty.3/1.17/Fri Jul 27 21:33:46 2012/-kk/
 /parsedate.3/1.20/Fri Dec 25 05:39:59 2015/-kk/
 /parsedate.y/1.28/Tue Jun  7 10:45:49 2016/-kk/
@@ -58,7 +58,7 @@
 /shlib_version/1.54/Tue Jun  7 10:19:02 2016/-kk/
 /snprintb.3/1.16/Thu Oct 24 10:28:53 2013/-kk/
 /sockaddr_snprintf.3/1.8/Thu Oct 24 10:28:53 2013/-kk/
-/sockaddr_snprintf.c/1.12/Tue Jun  7 10:06:09 2016/-kk/
+/sockaddr_snprintf.c/1.13/Fri Jun 17 00:51:51 2016/-kk/
 /stat_flags.3/1.8/Wed Sep 19 23:22:56 2012/-kk/
 /stat_flags.c/1.2/Tue Jan 16 17:34:02 2007/-kk/
 /strpct.3/1.6/Tue Mar 25 02:35:05 2014/-kk/

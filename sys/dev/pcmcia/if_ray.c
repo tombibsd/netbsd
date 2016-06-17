@@ -1347,7 +1347,7 @@ ray_recv(struct ray_softc *sc, bus_size_t ccs)
 			goto done;
 		}
 	}
-	m->m_pkthdr.rcvif = ifp;
+	m_set_rcvif(m, ifp);
 	m->m_pkthdr.len = pktlen;
 	m->m_len = pktlen;
 	m->m_data += fudge;

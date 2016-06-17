@@ -888,7 +888,7 @@ so always copy for now.
 				continue;
 			}
 		}
-		m->m_pkthdr.rcvif = ifp;
+		m_set_rcvif(m, ifp);
 		ifp->if_ipackets++;
 		
 		bpf_mtap(ifp, m);

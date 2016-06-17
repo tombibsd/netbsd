@@ -1194,7 +1194,7 @@ awi_devget(struct awi_softc *sc, u_int32_t off, u_int16_t len)
 			MGETHDR(m, M_DONTWAIT, MT_DATA);
 			if (m == NULL)
 				return NULL;
-			m->m_pkthdr.rcvif = ifp;
+			m_set_rcvif(m, ifp);
 			m->m_pkthdr.len = len;
 			m->m_len = MHLEN;
 			m->m_flags |= M_HASFCS;

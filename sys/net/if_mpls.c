@@ -188,13 +188,13 @@ mplsintr(void)
 			return;
 
 		if (((m->m_flags & M_PKTHDR) == 0) ||
-		    (m->m_pkthdr.rcvif == 0))
+		    (m->m_pkthdr.rcvif_index == 0))
 			panic("mplsintr(): no pkthdr or rcvif");
 
 #ifdef MBUFTRACE
 		m_claimm(m, &mpls_owner);
 #endif
-		mpls_input(m->m_pkthdr.rcvif, m);
+		mpls_input(m_get_rcvif_NOMPSAFE(m), m);
 	}
 }
 

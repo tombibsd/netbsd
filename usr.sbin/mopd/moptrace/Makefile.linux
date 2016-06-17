@@ -1,0 +1,11 @@
+# $NetBSD$
+SRCS=moptrace.c
+OBJS=${SRCS:.c=.o}
+
+LDLIBS+=../common/libcommon.a
+CFLAGS+=-I../common
+
+moptrace: ${OBJS}
+
+clean:
+	rm -f ${OBJS} moptrace

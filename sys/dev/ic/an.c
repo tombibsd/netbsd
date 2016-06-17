@@ -1438,7 +1438,7 @@ an_rx_intr(struct an_softc *sc)
 	    len;
 
 	memcpy(m->m_data, &frmhdr.an_whdr, sizeof(struct ieee80211_frame));
-	m->m_pkthdr.rcvif = ifp;
+	m_set_rcvif(m, ifp);
 	CSR_WRITE_2(sc, AN_EVENT_ACK, AN_EV_RX);
 
 	if (sc->sc_drvbpf) {

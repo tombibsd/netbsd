@@ -37,8 +37,11 @@
 #include <sys/time.h>
 
 #include <net/if.h>
+#include <netinet/in.h>
+#ifdef __NetBSD__
 #include <net/if_dl.h>
 #include <net/if_types.h>
+#endif
 
 #include <err.h>
 #include <errno.h>

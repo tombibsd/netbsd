@@ -302,7 +302,7 @@ krpc_call(struct sockaddr_in *sa, u_int prog, u_int vers, u_int func,
 	 * Setup packet header
 	 */
 	m_fixhdr(mhead);
-	mhead->m_pkthdr.rcvif = NULL;
+	m_reset_rcvif(mhead);
 
 	/*
 	 * Send it, repeatedly, until a reply is received,

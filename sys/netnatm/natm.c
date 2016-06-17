@@ -457,7 +457,7 @@ next:
     panic("natmintr no HDR");
 #endif
 
-  npcb = (struct natmpcb *) m->m_pkthdr.rcvif; /* XXX: overloaded */
+  npcb = (struct natmpcb *) m_get_rcvif_NOMPSAFE(m); /* XXX: overloaded */
   so = npcb->npcb_socket;
 
   s = splnet();			/* could have atm devs @ different levels */
@@ -477,10 +477,10 @@ next:
   }
 
 #ifdef NEED_TO_RESTORE_IFP
-  m->m_pkthdr.rcvif = npcb->npcb_ifp;
+  m_set_rcvif(m, npcb->npcb_ifp);
 #else
 #ifdef DIAGNOSTIC
-m->m_pkthdr.rcvif = NULL;	/* null it out to be safe */
+  m_reset_rcvif(m);	/* null it out to be safe */
 #endif
 #endif
 

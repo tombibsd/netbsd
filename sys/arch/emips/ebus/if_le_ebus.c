@@ -451,7 +451,7 @@ enic_post_recv(struct enic_softc *sc, struct mbuf *m)
 		MGETHDR(m, waitmode, MT_DATA);
 		if (m == 0)
 			break;
-		m->m_pkthdr.rcvif = &sc->sc_ethercom.ec_if;
+		m_set_rcvif(m, &sc->sc_ethercom.ec_if);
 		m->m_pkthdr.len = 0;
 
 		MCLGET(m, waitmode);
@@ -498,7 +498,7 @@ void enic_refill(struct enic_softc *sc)
 	MGETHDR(m, waitmode, MT_DATA);
 	if (m == NULL)
 		return;
-	m->m_pkthdr.rcvif = &sc->sc_ethercom.ec_if;
+	m_set_rcvif(m, &sc->sc_ethercom.ec_if);
 	m->m_pkthdr.len = 0;
 
 	MCLGET(m, waitmode);
@@ -969,7 +969,7 @@ int enic_put(struct enic_softc *sc, struct mbuf **pm)
 	MGETHDR(n, M_NOWAIT, MT_DATA);
 	if (n == NULL)
 		goto Bad;
-	n->m_pkthdr.rcvif = &sc->sc_ethercom.ec_if;
+	m_set_rcvif(n, &sc->sc_ethercom.ec_if);
 	n->m_pkthdr.len = tlen;
 
 	MCLGET(n, M_NOWAIT);

@@ -71,7 +71,7 @@ bootmenu(void)
 
 		input[0] = '\0';
 		printf("> ");
-		gets(input);
+		gets_s(input, sizeof(input));
 
 		/*
 		 * Skip leading whitespace.

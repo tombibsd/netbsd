@@ -525,7 +525,7 @@ bah_srint(void *vsc)
 		goto cleanup;
 	}
 
-	m->m_pkthdr.rcvif = ifp;
+	m_set_rcvif(m, ifp);
 
 	/*
 	 * Align so that IP packet will be longword aligned. Here we

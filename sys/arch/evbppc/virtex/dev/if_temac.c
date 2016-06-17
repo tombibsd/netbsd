@@ -1190,7 +1190,7 @@ temac_rxreap(struct temac_softc *sc)
 		    BUS_DMASYNC_POSTREAD);
 
 		m = sc->sc_rxsoft[sc->sc_rxreap].rxs_mbuf;
-		m->m_pkthdr.rcvif = ifp;
+		m_set_rcvif(m, ifp);
 		m->m_pkthdr.len = m->m_len = rxsize;
 
  badframe:

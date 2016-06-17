@@ -160,8 +160,8 @@ sctp6_input(struct mbuf **mp, int *offp, int proto)
 	if (sh->dest_port == 0)
 		goto bad;
 	if ((sctp_no_csum_on_loopback == 0) ||
-	   (m->m_pkthdr.rcvif == NULL) ||
-	   (m->m_pkthdr.rcvif->if_type != IFT_LOOP)) {
+	   (m_get_rcvif_NOMPSAFE(m) == NULL) ||
+	   (m_get_rcvif_NOMPSAFE(m)->if_type != IFT_LOOP)) {
 		/* we do NOT validate things from the loopback if the
 		 * sysctl is set to 1.
 		 */

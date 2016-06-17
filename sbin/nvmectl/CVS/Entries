@@ -1,0 +1,13 @@
+/Makefile/1.1/Sat Jun  4 16:29:35 2016/-kk/
+/devlist.c/1.2/Sat Jun  4 20:59:49 2016/-kk/
+/firmware.c/1.1/Sat Jun  4 16:29:35 2016/-kk/
+/identify.c/1.2/Sat Jun  4 20:59:49 2016/-kk/
+/logpage.c/1.2/Sat Jun  4 20:59:49 2016/-kk/
+/nvme.h/1.1/Sat Jun  4 16:29:35 2016/-kk/
+/nvmectl.8/1.2/Sun Jun  5 09:13:08 2016/-kk/
+/nvmectl.c/1.2/Sat Jun  4 20:59:49 2016/-kk/
+/nvmectl.h/1.2/Sat Jun  4 20:59:49 2016/-kk/
+/perftest.c/1.1/Sat Jun  4 16:29:35 2016/-kk/
+/power.c/1.2/Sat Jun  4 20:59:49 2016/-kk/
+/reset.c/1.1/Sat Jun  4 16:29:35 2016/-kk/
+D

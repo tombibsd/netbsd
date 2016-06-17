@@ -43,5 +43,3 @@ CPPFLAGS.imDefLkup.c=	-Wno-error
 CPPFLAGS.imRm.c=	-Wno-error
 CPPFLAGS.imTrans.c=	-Wno-error
 CPPFLAGS.imLcLkup.c=	-Wno-stack-protector
-
-.include <bsd.lib.mk>

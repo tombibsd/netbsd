@@ -187,7 +187,7 @@ faithoutput(struct ifnet *ifp, struct mbuf *m, const struct sockaddr *dst,
 
 	/* XXX do we need more sanity checks? */
 	KASSERT(pktq != NULL);
-	m->m_pkthdr.rcvif = ifp;
+	m_set_rcvif(m, ifp);
 
 	s = splnet();
 	if (__predict_true(pktq_enqueue(pktq, m, 0))) {

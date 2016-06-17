@@ -2068,7 +2068,7 @@ run_rx_frame(struct run_softc *sc, uint8_t *buf, int dmalen)
 		}
 	}
 	/* finalize mbuf */
-	m->m_pkthdr.rcvif = ifp;
+	m_set_rcvif(m, ifp);
 	memcpy(mtod(m, void *), wh, len);
 	m->m_pkthdr.len = m->m_len = len;
 

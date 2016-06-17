@@ -741,7 +741,7 @@ execve_loadvm(struct lwp *l, const char *path, char * const *args,
 
 	/* see if we can run it. */
 	if ((error = check_exec(l, epp, data->ed_pathbuf)) != 0) {
-		if (error != ENOENT) {
+		if (error != ENOENT && error != EACCES) {
 			DPRINTF(("%s: check exec failed %d\n",
 			    __func__, error));
 		}

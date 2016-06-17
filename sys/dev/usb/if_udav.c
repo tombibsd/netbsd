@@ -1177,7 +1177,7 @@ udav_rxeof(struct usbd_xfer *xfer, void *priv, usbd_status status)
 	total_len -= ETHER_CRC_LEN;
 
 	m->m_pkthdr.len = m->m_len = total_len;
-	m->m_pkthdr.rcvif = ifp;
+	m_set_rcvif(m, ifp);
 
 	s = splnet();
 

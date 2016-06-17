@@ -9,7 +9,7 @@
  * All rights reserved.
  *
  * This code is derived from software contributed to The NetBSD Foundation
- * by Charles M. Hannum and Maxime Villard.
+ * by Charles M. Hannum and by Maxime Villard.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -344,17 +344,17 @@ END(lapic_isr)
 
 	.globl	_C_LABEL(tablesize)
 	.globl	_C_LABEL(nox_flag)
+	.globl	_C_LABEL(cputype)
 	.globl	_C_LABEL(cpuid_level)
 	.globl	_C_LABEL(esym)
 	.globl	_C_LABEL(eblob)
-	.globl	_C_LABEL(boothowto)
-	.globl	_C_LABEL(bootinfo)
 	.globl	_C_LABEL(atdevbase)
 	.globl	_C_LABEL(PDPpaddr)
+	.globl	_C_LABEL(boothowto)
+	.globl	_C_LABEL(bootinfo)
 	.globl	_C_LABEL(biosbasemem)
 	.globl	_C_LABEL(biosextmem)
 	.globl	_C_LABEL(gdtstore)
-	.globl	_C_LABEL(cputype)
 
 	.type	_C_LABEL(tablesize), @object
 _C_LABEL(tablesize):	.long	TABLESIZE
@@ -585,7 +585,7 @@ biosbasemem_finished:
 	 * The boot program should check:
 	 *	text+data <= &stack_variable - more_space_for_stack
 	 *	text+data+bss+pad+space_for_page_tables <= end_of_memory
-	 * 
+	 *
 	 * XXX: the gdt is in the carcass of the boot program so clearing
 	 * the rest of memory is still not possible.
 	 */
@@ -611,9 +611,9 @@ no_NOX:
  * +------+--------+------+-----+--------+---------------------+----------
  *                             (1)      (2)                   (3)
  *
- * --------------+-----+-----+----+------------+
- * -> PROC0 STK -> L3 -> L2 -> L1 | ISA IO MEM |
- * --------------+-----+-----+----+------------+
+ * --------------+-----+-----+----+-------------+
+ * -> PROC0 STK -> L3 -> L2 -> L1 | ISA I/O MEM |
+ * --------------+-----+-----+----+-------------+
  *                               (4)
  *
  * PROC0 STK is obviously not linked as a page level. It just happens to be
@@ -718,10 +718,12 @@ no_NOX:
 	orl	$(PG_V|PG_KW),%eax
 	fillkpt_nox
 
-	/* We are on (4). Map ISA I/O mem (later atdevbase) RWX. */
-	movl	$(IOM_BEGIN|PG_V|PG_KW/*|PG_N*/),%eax
-	movl	$(IOM_SIZE>>PGSHIFT),%ecx
-	fillkpt
+	/* We are on (4). Map ISA I/O MEM RW. */
+	movl	$IOM_BEGIN,%eax
+	movl	$IOM_SIZE,%ecx	/* size of ISA I/O MEM */
+	shrl	$PGSHIFT,%ecx
+	orl	$(PG_V|PG_KW/*|PG_N*/),%eax
+	fillkpt_nox
 
 	/*
 	 * Build L2. Linked to L1.

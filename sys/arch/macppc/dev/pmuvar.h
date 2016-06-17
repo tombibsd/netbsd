@@ -99,6 +99,7 @@ __KERNEL_RCSID(0, "$NetBSD$");
 
 /* Bits from PMU_GET_LID_STATE or PMU_INT_ENVIRONMENT on core99 */
 #define PMU_ENV_LID_CLOSED	0x01	/* The lid is closed */
+#define PMU_ENV_POWER_BUTTON	0x08	/* power button on ADB-less Macs */
 
 /* PMU PMU_POWER_EVENTS commands */
 enum {

@@ -389,7 +389,7 @@ smap_rxeof(void *arg)
 		}
 
 		m->m_data += 2; /* for alignment */
-		m->m_pkthdr.rcvif = ifp;
+		m_set_rcvif(m, ifp);
 		m->m_pkthdr.len = m->m_len = sz;
 		memcpy(mtod(m, void *), (void *)sc->rx_buf, sz);
 

@@ -494,7 +494,7 @@ ec_recv(struct ec_softc *sc, int intbit)
 		MGETHDR(m0, M_DONTWAIT, MT_DATA);
 		if (m0 == NULL)
 			break;
-		m0->m_pkthdr.rcvif = ifp;
+		m_set_rcvif(m0, ifp);
 		m0->m_pkthdr.len = total_length;
 		length = MHLEN;
 		m = m0;

@@ -724,7 +724,7 @@ nfsm_rpchead(kauth_cred_t cr, int nmflag, int procid,
 	}
 	mb->m_next = mrest;
 	mreq->m_pkthdr.len = authsiz + 10 * NFSX_UNSIGNED + mrest_len;
-	mreq->m_pkthdr.rcvif = (struct ifnet *)0;
+	m_reset_rcvif(mreq);
 	*mbp = mb;
 	return (mreq);
 }

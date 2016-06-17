@@ -2109,7 +2109,7 @@ sk_rxeof(struct sk_if_softc *sc_if)
 			m_adj(m0, ETHER_ALIGN);
 			m = m0;
 		} else {
-			m->m_pkthdr.rcvif = ifp;
+			m_set_rcvif(m, ifp);
 			m->m_pkthdr.len = m->m_len = total_len;
 		}
 

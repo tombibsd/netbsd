@@ -2574,7 +2574,7 @@ alc_rxeof(struct alc_softc *sc, struct rx_rdesc *rrd)
 				}
 			} else
 				m->m_len = m->m_pkthdr.len;
-			m->m_pkthdr.rcvif = ifp;
+			m_set_rcvif(m, ifp);
 #if NVLAN > 0
 			/*
 			 * Due to hardware bugs, Rx checksum offloading

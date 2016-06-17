@@ -48,6 +48,7 @@
 #include <sys/device.h>
 
 #include <dev/scsipi/scsi_all.h>
+#include <dev/scsipi/scsi_message.h>
 #include <dev/scsipi/scsipi_all.h>
 #include <dev/scsipi/scsiconf.h>
 #include <dev/scsipi/scsipiconf.h>
@@ -81,7 +82,7 @@ effectively says "don't bother testing these values", and is used right
 now only in iscsi_send.c.
  */
 #define ISCSI_THROTTLING_ENABLED	1
-#define ISCSI_SERVER_TRUSTED	1
+#define ISCSI_SERVER_TRUSTED		0
 
 /*
    NOTE: CCBS_PER_SESSION must not exceed 256 due to the way the ITT
@@ -185,6 +186,14 @@ typedef enum {
 	PDUDISP_WAIT		/* Waiting for acknowledge */
 } pdu_disp_t;
 
+/* Timeout state */
+
+typedef enum {
+	TOUT_NONE,		/* Initial */
+	TOUT_ARMED,		/* callout is scheduled */
+	TOUT_QUEUED,		/* put into timeout queue */
+	TOUT_BUSY		/* cleanup thread working */
+} tout_state_t;
 
 typedef struct connection_s connection_t;
 typedef struct session_s session_t;
@@ -253,6 +262,7 @@ struct ccb_s {
 
 	struct callout		timeout; /* To make sure it isn't lost */
 	TAILQ_ENTRY(ccb_s)	tchain;
+	tout_state_t		timedout;
 	int			num_timeouts;
 	/* How often we've sent out SNACK without answer */
 	int			total_tries;
@@ -276,6 +286,7 @@ struct ccb_s {
 	/* length of text data so far */
 
 	uint64_t		lun; /* LUN */
+	uint32_t		tag; /* Command tag */
 	uint8_t			*cmd; /* SCSI command block */
 	uint16_t		cmdlen; /* SCSI command block length */
 	bool			data_in; /* if this is a read request */
@@ -289,7 +300,7 @@ struct ccb_s {
 	int			sense_len_got; /* actual sense data length */
 
 	pdu_t			*pdu_waiting; /* PDU waiting to be ack'ed */
-	uint32_t		CmdSN; /* CmdSN associated with waiting PDU */
+	volatile uint32_t	CmdSN; /* CmdSN associated with waiting PDU */
 
 	int			flags;
 	connection_t		*connection; /* connection for CCB */
@@ -363,7 +374,7 @@ struct connection_s {
 					/* if closing down: status */
 	int				recover; /* recovery count */
 		/* (reset on first successful data transfer) */
-	unsigned			usecount; /* number of active CCBs */
+	volatile unsigned		usecount; /* number of active CCBs */
 
 	bool				destroy; /* conn will be destroyed */
 	bool				in_session;
@@ -373,6 +384,7 @@ struct connection_s {
 	struct callout			timeout;
 		/* Timeout for checking if connection is dead */
 	TAILQ_ENTRY(connection_s)	tchain;
+	tout_state_t			timedout;
 	int				num_timeouts;
 		/* How often we've sent out a NOP without answer */
 	uint32_t			idle_timeout_val;
@@ -451,8 +463,6 @@ struct session_s {
 	connection_list_t	conn_list;	/* the list of connections */
 	connection_t		*mru_connection;
 				/* the most recently used connection */
-
-	uint8_t			itt_id; 	/* counter for use in ITT */
 
 	ccb_t			ccb[CCBS_PER_SESSION];		/* CCBs */
 
@@ -698,7 +708,11 @@ void connection_timeout_co(void *);
 void ccb_timeout_co(void *);
 
 void connection_timeout(connection_t *);
+void connection_timeout_start(connection_t *, int);
+void connection_timeout_stop(connection_t *);
 void ccb_timeout(ccb_t *);
+void ccb_timeout_start(ccb_t *, int);
+void ccb_timeout_stop(ccb_t *);
 
 /* in iscsi_rcv.c */
 
@@ -723,6 +737,9 @@ void free_pdu(pdu_t *);
 void init_sernum(sernum_buffer_t *);
 int add_sernum(sernum_buffer_t *, uint32_t);
 uint32_t ack_sernum(sernum_buffer_t *, uint32_t);
+
+uint32_t get_sernum(session_t *, bool);
+int sernum_in_window(session_t *);
 
 /* in iscsi_text.c */
 

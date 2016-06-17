@@ -45,18 +45,18 @@
 /kbdvar.h/1.5/Mon Apr 28 20:23:19 2008/-kk/
 /machdep.c/1.15/Tue Feb  8 20:20:14 2011/-kk/
 /maskbits.h/1.1/Mon Feb  7 13:11:41 2011/-kk/
-/netio.c/1.14/Sun Jul 17 20:54:40 2011/-kk/
+/netio.c/1.15/Fri Jun 17 00:52:17 2016/-kk/
 /nhpib.c/1.6/Sun Jun 25 17:37:43 2006/-kk/
 /prf.c/1.5/Sun Dec 11 12:17:19 2005/-kk/
 /rawfs.c/1.8/Wed Oct 21 23:12:09 2009/-kk/
 /rawfs.h/1.4/Sun Dec 11 12:17:19 2005/-kk/
 /rd.c/1.10/Sun Jul 17 20:54:40 2011/-kk/
 /rominfo.h/1.5/Tue Feb  8 20:20:14 2011/-kk/
-/samachdep.h/1.18/Fri Oct  3 09:25:35 2014/-kk/
+/samachdep.h/1.19/Fri Jun 17 00:52:17 2016/-kk/
 /scsi.c/1.11/Tue Jan 14 16:04:53 2014/-kk/
 /scsireg.h/1.4/Sun Sep 13 01:30:34 2015/-kk/
 /scsivar.h/1.4/Sun Dec 11 12:17:19 2005/-kk/
 /sd.c/1.11/Sun Jul 17 20:54:40 2011/-kk/
 /srt0.S/1.17/Tue Feb  8 20:20:14 2011/-kk/
-/tgets.c/1.5/Sun Dec 11 12:17:19 2005/-kk/
+/tgets.c/1.7/Fri Jun 17 00:52:17 2016/-kk/
 D

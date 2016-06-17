@@ -178,7 +178,7 @@ doboottypemenu(void)
 				printf("\nOption: [%d]:",
 				    bootcfg_info.def + 1);
 
-			gets(input);
+			gets_s(input, sizeof(input));
 			choice = getchoicefrominput(input, bootcfg_info.def);
 		} else if (bootcfg_info.timeout == 0)
 			choice = bootcfg_info.def;

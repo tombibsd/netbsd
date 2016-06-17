@@ -1076,7 +1076,7 @@ axe_rxeof(struct usbd_xfer *xfer, void * priv, usbd_status status)
 		m->m_data += ETHER_ALIGN;
 
 		ifp->if_ipackets++;
-		m->m_pkthdr.rcvif = ifp;
+		m_set_rcvif(m, ifp);
 		m->m_pkthdr.len = m->m_len = pktlen;
 
 		memcpy(mtod(m, uint8_t *), buf, pktlen);

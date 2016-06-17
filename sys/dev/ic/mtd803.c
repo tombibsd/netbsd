@@ -581,7 +581,7 @@ mtd_get(struct mtd_softc *sc, int index, int totlen)
 	if (m0 == NULL)
 		return NULL;
 
-	m0->m_pkthdr.rcvif = ifp;
+	m_set_rcvif(m0, ifp);
 	m0->m_pkthdr.len = totlen;
 	m = m0;
 	len = MHLEN;

@@ -5028,7 +5028,7 @@ ixgbe_rxeof(struct ix_queue *que)
 			sendmp = NULL;
 			mp->m_next = nbuf->buf;
 		} else { /* Sending this frame */
-			sendmp->m_pkthdr.rcvif = ifp;
+			m_set_rcvif(sendmp, ifp);
 			ifp->if_ipackets++;
 			rxr->rx_packets.ev_count++;
 			/* capture data for AIM */

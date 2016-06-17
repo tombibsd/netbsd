@@ -22,6 +22,8 @@
 ./@MODULEDIR@/blowfish/blowfish.kmod		base-kernel-modules	kmod
 ./@MODULEDIR@/bpf				base-kernel-modules	kmod
 ./@MODULEDIR@/bpf/bpf.kmod			base-kernel-modules	kmod
+./@MODULEDIR@/bpf_filter			base-kernel-modules	kmod
+./@MODULEDIR@/bpf_filter/bpf_filter.kmod	base-kernel-modules	kmod
 ./@MODULEDIR@/camellia				base-kernel-modules	kmod
 ./@MODULEDIR@/camellia/camellia.kmod		base-kernel-modules	kmod
 ./@MODULEDIR@/cast128				base-kernel-modules	kmod
@@ -116,6 +118,8 @@
 ./@MODULEDIR@/hythygtemp/hythygtemp.kmod	base-kernel-modules	kmod
 ./@MODULEDIR@/i2cexec				base-kernel-modules	kmod
 ./@MODULEDIR@/i2cexec/i2cexec.kmod		base-kernel-modules	kmod
+./@MODULEDIR@/i2c_bitbang			base-kernel-modules	kmod
+./@MODULEDIR@/i2c_bitbang/i2c_bitbang.kmod	base-kernel-modules	kmod
 ./@MODULEDIR@/if_axe				base-kernel-modules	kmod
 ./@MODULEDIR@/if_axe/if_axe.kmod		base-kernel-modules	kmod
 ./@MODULEDIR@/if_axen				base-kernel-modules	kmod
@@ -126,6 +130,8 @@
 ./@MODULEDIR@/if_smsc/if_smsc.kmod		base-kernel-modules	kmod
 ./@MODULEDIR@/iic				base-kernel-modules	kmod
 ./@MODULEDIR@/iic/iic.kmod			base-kernel-modules	kmod
+./@MODULEDIR@/ipl				base-kernel-modules	kmod
+./@MODULEDIR@/ipl/ipl.kmod 			base-kernel-modules	kmod
 ./@MODULEDIR@/iscsi				base-kernel-modules	kmod,iscsi
 ./@MODULEDIR@/iscsi/iscsi.kmod			base-kernel-modules	kmod,iscsi
 ./@MODULEDIR@/kernfs				base-kernel-modules	kmod

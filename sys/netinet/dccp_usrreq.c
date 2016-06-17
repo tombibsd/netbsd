@@ -1427,7 +1427,7 @@ again:
 		dp->ndp++;
 	}
 
-	m->m_pkthdr.rcvif = (struct ifnet *)0;
+	m_reset_rcvif(m);
 
 	if (!isipv6 && (len + hdrlen) > IP_MAXPACKET) {
 		error = EMSGSIZE;

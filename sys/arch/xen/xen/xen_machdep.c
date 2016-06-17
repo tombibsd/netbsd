@@ -406,6 +406,7 @@ xen_init_features(void)
 	xen_feature_info_t features;
 
 	for (int sm = 0; sm < XENFEAT_NR_SUBMAPS; sm++) {
+		features.submap_idx = sm;
 		if (HYPERVISOR_xen_version(XENVER_get_features, &features) < 0)
 			break;
 		for (int f = 0; f < 32; f++) {

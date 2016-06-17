@@ -36,6 +36,7 @@ __FBSDID("$FreeBSD: src/sbin/gpt/show.c,v 1.14 2006/06/22 22:22:32 marcel Exp $"
 __RCSID("$NetBSD$");
 #endif
 
+#include <sys/bootblock.h>
 #include <sys/types.h>
 
 #include <err.h>
@@ -44,6 +45,7 @@ __RCSID("$NetBSD$");
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+
 
 #include "map.h"
 #include "gpt.h"
@@ -118,7 +120,9 @@ print_part_type(int map_type, int flags, void *map_data, off_t map_start)
 			/* wasn't there */
 			printf("[partition not found?]");
 		} else {
-			printf("%d", mbr->mbr_part[i].part_typ);
+			printf("%d%s", mbr->mbr_part[i].part_typ,
+			    mbr->mbr_part[i].part_flag == 0x80 ?
+			    " (active)" : "");
 		}
 		break;
 	case MAP_TYPE_GPT_PART:
@@ -142,6 +146,10 @@ print_part_type(int map_type, int flags, void *map_data, off_t map_start)
 		break;
 	case MAP_TYPE_PMBR:
 		printf("PMBR");
+		mbr = map_data;
+		if (mbr->mbr_part[0].part_typ == MBR_PTYPE_PMBR &&
+		    mbr->mbr_part[0].part_flag == 0x80)
+			    printf(" (active)");
 		break;
 	default:
 		printf("Unknown %#x", map_type);

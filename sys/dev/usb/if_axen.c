@@ -1077,7 +1077,7 @@ axen_rxeof(struct usbd_xfer *xfer, void * priv, usbd_status status)
 
 		/* skip pseudo header (2byte) */
 		ifp->if_ipackets++;
-		m->m_pkthdr.rcvif = ifp;
+		m_set_rcvif(m, ifp);
 		m->m_pkthdr.len = m->m_len = pkt_len - 6;
 
 #ifdef AXEN_TOE

@@ -53,8 +53,8 @@ COPTS.syslog.c = -Wno-format-nonliteral
 
 .include "${ARCHDIR}/gen/Makefile.inc"
 
-MAN+=	alarm.3 arc4random.3 basename.3 bswap.3 clock.3 closefrom.3 \
-	confstr.3 \
+MAN+=	alarm.3 arc4random.3 basename.3 bsd_signal.3 bswap.3 \
+	clock.3 closefrom.3 confstr.3 \
 	cpuset.3 ctermid.3 ctype.3 daemon.3 devname.3 directory.3 dirname.3 \
 	endutxent.3 err.3 exec.3 extattr_copy_file.3 extattr_namespace_to_string.3 \
 	fmtcheck.3 fmtmsg.3 fnmatch.3 fpclassify.3 fpgetmask.3 \

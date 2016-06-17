@@ -775,7 +775,7 @@ cg14_setup_wsdisplay(struct cgfourteen_softc *sc, int is_cons)
 			sc->sc_fb.fb_type.fb_width,
 			ri->ri_font->fontwidth,
 			ri->ri_font->fontheight,
-			defattr);
+			DEFATTR);
 	}
 
 	cg14_init_cmap(sc);

@@ -2459,7 +2459,7 @@ mvxpe_rx_queue(struct mvxpe_softc *sc, int q, int npkt)
 			goto rx_done;
 		}
 		m = chunk->m;
-		m->m_pkthdr.rcvif = ifp;
+		m_set_rcvif(m, ifp);
 		m->m_pkthdr.len = m->m_len = r->bytecnt - ETHER_CRC_LEN;
 		m_adj(m, MVXPE_HWHEADER_SIZE); /* strip MH */
 		mvxpe_rx_set_csumflag(ifp, r, m);

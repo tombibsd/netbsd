@@ -1881,7 +1881,7 @@ vif_input(struct mbuf *m, int off, int proto)
 	}
 
 	m_adj(m, off);
-	m->m_pkthdr.rcvif = vifp->v_ifp;
+	m_set_rcvif(m, vifp->v_ifp);
 
 	if (__predict_false(!pktq_enqueue(ip_pktq, m, 0))) {
 		m_freem(m);

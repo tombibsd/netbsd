@@ -1,5 +1,5 @@
 /Makefile.inc/1.22/Wed Mar 21 05:47:53 2012/-kk/
-/Makefile/1.127/Fri Oct  3 09:57:27 2014/-kk/
+/Makefile/1.128/Fri Jun 17 00:51:55 2016/-kk/
 D/amrctl////
 D/apmlabel////
 D/atactl////
@@ -79,6 +79,7 @@ D/newfs_sysvbfs////
 D/newfs_udf////
 D/newfs_v7fs////
 D/nologin////
+D/nvmectl////
 D/ping////
 D/ping6////
 D/pppoectl////

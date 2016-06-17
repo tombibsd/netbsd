@@ -232,9 +232,8 @@ udp6_output(struct in6pcb * const in6p, struct mbuf *m,
 			    &in6p->in6p_laddr, &oifp, &error);
 			if (oifp && scope_ambiguous &&
 			    (error = in6_setscope(&sin6->sin6_addr,
-			    oifp, NULL))) {
+			    oifp, NULL)))
 				goto release;
-			}
 		} else {
 			/*
 			 * XXX: freebsd[34] does not have in_selectsrc, but

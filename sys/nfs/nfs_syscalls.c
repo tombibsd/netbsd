@@ -694,7 +694,7 @@ nfssvc_nfsd(struct nfssvc_copy_ops *ops, struct nfsd_srvargs *nsd,
 				}
 				m = mreq;
 				m->m_pkthdr.len = siz;
-				m->m_pkthdr.rcvif = (struct ifnet *)0;
+				m_reset_rcvif(m);
 				/*
 				 * For stream protocols, prepend a Sun RPC
 				 * Record Mark.

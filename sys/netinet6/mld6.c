@@ -336,16 +336,18 @@ mld_input(struct mbuf *m, int off)
 {
 	struct ip6_hdr *ip6;
 	struct mld_hdr *mldh;
-	struct ifnet *ifp = m->m_pkthdr.rcvif;
+	struct ifnet *ifp;
 	struct in6_multi *in6m = NULL;
 	struct in6_addr mld_addr, all_in6;
 	struct in6_ifaddr *ia;
 	u_long timer = 0;	/* timer value in the MLD query header */
+	int s;
 
+	ifp = m_get_rcvif(m, &s);
 	IP6_EXTHDR_GET(mldh, struct mld_hdr *, m, off, sizeof(*mldh));
 	if (mldh == NULL) {
 		ICMP6_STATINC(ICMP6_STAT_TOOSHORT);
-		return;
+		goto out_nodrop;
 	}
 
 	/* source address validation */
@@ -375,8 +377,7 @@ mld_input(struct mbuf *m, int off)
 		    "mld_input: src %s is not link-local (grp=%s)\n",
 		    ip6_sprintf(&ip6->ip6_src), ip6_sprintf(&mldh->mld_addr));
 #endif
-		m_freem(m);
-		return;
+		goto out;
 	}
 
 	/*
@@ -385,8 +386,7 @@ mld_input(struct mbuf *m, int off)
 	mld_addr = mldh->mld_addr;
 	if (in6_setscope(&mld_addr, ifp, NULL)) {
 		/* XXX: this should not happen! */
-		m_free(m);
-		return;
+		goto out;
 	}
 
 	/*
@@ -497,7 +497,10 @@ mld_input(struct mbuf *m, int off)
 		break;
 	}
 
+out:
 	m_freem(m);
+out_nodrop:
+	m_put_rcvif(ifp, &s);
 }
 
 static void
@@ -594,7 +597,7 @@ mld_allocbuf(struct mbuf **mh, int len, struct in6_multi *in6m,
 	(*mh)->m_next = md;
 	md->m_next = NULL;
 
-	(*mh)->m_pkthdr.rcvif = NULL;
+	m_reset_rcvif((*mh));
 	(*mh)->m_pkthdr.len = sizeof(struct ip6_hdr) + len;
 	(*mh)->m_len = sizeof(struct ip6_hdr);
 	MH_ALIGN(*mh, sizeof(struct ip6_hdr));

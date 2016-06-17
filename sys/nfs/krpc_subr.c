@@ -309,7 +309,7 @@ krpc_call(struct sockaddr_in *sa, u_int prog, u_int vers, u_int func, struct mbu
 		m = m->m_next;
 	}
 	mhead->m_pkthdr.len = len;
-	mhead->m_pkthdr.rcvif = NULL;
+	m_reset_rcvif(mhead);
 
 	error = nfs_boot_sendrecv(so, &sin, NULL, mhead, krpccheck, &m, &from,
 	    &xid, l);

@@ -704,7 +704,7 @@ epic_intr(void *arg)
 				}
 			}
 
-			m->m_pkthdr.rcvif = ifp;
+			m_set_rcvif(m, ifp);
 			m->m_pkthdr.len = m->m_len = len;
 
 			/*

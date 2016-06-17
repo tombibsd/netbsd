@@ -12,6 +12,7 @@ CPPFLAGS+=	-DVERSION=\"1.4.0\"
 .PATH:	${X11SRCDIR.${PROG}} ${X11SRCDIR.${PROG}}/man
 
 CWARNFLAGS.clang+=	-Wno-parentheses
+COPTS.xrandr.c += -Wno-stack-protector
 
 .include <bsd.x11.mk>
 .include <bsd.prog.mk>

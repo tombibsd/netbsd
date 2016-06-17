@@ -10,5 +10,3 @@ CPPFLAGS+= \
 CPPFLAGS+= \
 	${XLOCALE.DEFINES} \
 	-DHASXDMAUTH
-
-.include <bsd.lib.mk>

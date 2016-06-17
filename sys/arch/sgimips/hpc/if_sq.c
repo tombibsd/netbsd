@@ -1013,7 +1013,7 @@ sq_rxintr(struct sq_softc *sc)
 
 
 		m->m_data += 2;
-		m->m_pkthdr.rcvif = ifp;
+		m_set_rcvif(m, ifp);
 		m->m_pkthdr.len = m->m_len = framelen;
 
 		ifp->if_ipackets++;

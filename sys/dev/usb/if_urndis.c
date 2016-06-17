@@ -863,7 +863,7 @@ urndis_decap(struct urndis_softc *sc, struct urndis_chain *c, uint32_t len)
 		m->m_pkthdr.len = m->m_len = le32toh(msg->rm_datalen);
 
 		ifp->if_ipackets++;
-		m->m_pkthdr.rcvif = ifp;
+		m_set_rcvif(m, ifp);
 
 		s = splnet();
 

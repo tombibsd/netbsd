@@ -847,7 +847,7 @@ gmac_hwqueue_rxconsume(gmac_hwqueue_t *hwq, const gmac_desc_t *d)
 	 * Now get the whole chain.
 	 */
 	m = hwq->hwq_rxmbuf;
-	m->m_pkthdr.rcvif = ifp;	/* set receive interface */
+	m_set_rcvif(m, ifp);	/* set receive interface */
 	ifp->if_ipackets++;
 	ifp->if_ibytes += m->m_pkthdr.len;
 	switch (DESC0_RXSTS_GET(d->d_desc0)) {

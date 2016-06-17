@@ -59,7 +59,8 @@ check(struct test *t, long int li, long long int lli, char *end)
 		atf_tc_fail_nonfatal("strtoll(%s, NULL, %d) failed "
 		    "(rv = %lld)", t->str, t->base, lli);
 
-	if (t->end != NULL && strcmp(t->end, end) != 0)
+	if ((t->end != NULL && strcmp(t->end, end) != 0) ||
+	    (t->end == NULL && *end != '\0'))
 		atf_tc_fail_nonfatal("invalid end pointer ('%s') from "
 		    "strtol(%s, &end, %d)", end, t->str, t->base);
 }
@@ -89,8 +90,8 @@ ATF_TC_BODY(strtol_base, tc)
 		{ "12579781",			 123456789, 14, NULL	},
 		{ "AC89BC9",			 123456789, 15, NULL	},
 		{ "75BCD15",			 123456789, 16, NULL	},
-		{ "123456789",			    342391,  8, NULL	},
-		{ "0123456789",			    342391,  0, NULL	},
+		{ "1234567",			    342391,  8, NULL	},
+		{ "01234567",			    342391,  0, NULL	},
 		{ "0123456789",			 123456789, 10, NULL	},
 		{ "0x75bcd15",		         123456789,  0, NULL	},
 	};
@@ -121,7 +122,7 @@ ATF_TC_BODY(strtol_case, tc)
 		{ "abcd",	0xabcd, 16, NULL	},
 		{ "     dcba",	0xdcba, 16, NULL	},
 		{ "abcd dcba",	0xabcd, 16, " dcba"	},
-		{ "abc0x123",	0xabc0, 16, NULL	},
+		{ "abc0x123",	0xabc0, 16, "x123"	},
 		{ "abcd\0x123",	0xabcd, 16, "\0x123"	},
 		{ "ABCD",	0xabcd, 16, NULL	},
 		{ "aBcD",	0xabcd, 16, NULL	},

@@ -206,7 +206,7 @@ ofnet_read(struct ofnet_softc *of)
 			ifp->if_ierrors++;
 			continue;
 		}
-		m->m_pkthdr.rcvif = ifp;
+		m_set_rcvif(m, ifp);
 		m->m_pkthdr.len = len;
 
 		l = MHLEN;

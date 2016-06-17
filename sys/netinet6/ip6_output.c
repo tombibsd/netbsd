@@ -892,7 +892,7 @@ ip6_output(
 				IP6_STATINC(IP6_STAT_ODROPPED);
 				goto sendorfree;
 			}
-			m->m_pkthdr.rcvif = NULL;
+			m_reset_rcvif(m);
 			m->m_flags = m0->m_flags & M_COPYFLAGS;
 			*mnext = m;
 			mnext = &m->m_nextpkt;
@@ -926,7 +926,7 @@ ip6_output(
 				;
 			mlast->m_next = m_frgpart;
 			m->m_pkthdr.len = len + hlen + sizeof(*ip6f);
-			m->m_pkthdr.rcvif = NULL;
+			m_reset_rcvif(m);
 			ip6f->ip6f_reserved = 0;
 			ip6f->ip6f_ident = id;
 			ip6f->ip6f_nxt = nextproto;

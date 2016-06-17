@@ -51,6 +51,10 @@ static const char rcsid[] =
 #include <sys/kmem.h>
 #include <sys/endian.h>
 
+#ifdef _KERNEL
+#include <sys/module.h>
+#endif
+
 #define	__BPF_PRIVATE
 #include <net/bpf.h>
 
@@ -809,3 +813,22 @@ out:
 #endif
 	return ok;
 }
+
+/* Kernel module interface */
+
+#ifdef _KERNEL
+MODULE(MODULE_CLASS_MISC, bpf_filter, NULL);
+
+static int
+bpf_filter_modcmd(modcmd_t cmd, void *opaque) 
+{
+ 
+	switch (cmd) {
+	case MODULE_CMD_INIT: 
+	case MODULE_CMD_FINI:
+		return 0;
+	default:
+		return ENOTTY;
+	}
+}
+#endif

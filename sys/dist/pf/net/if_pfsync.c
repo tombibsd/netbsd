@@ -374,7 +374,7 @@ pfsync_input(struct mbuf *m, ...)
 		goto done;
 
 	/* verify that the packet came in on the right interface */
-	if (sc->sc_sync_ifp != m->m_pkthdr.rcvif) {
+	if (sc->sc_sync_ifp->if_index != m->m_pkthdr.rcvif_index) {
 		PFSYNC_STATINC(PFSYNC_STAT_BADIF);
 		goto done;
 	}
@@ -1091,7 +1091,7 @@ pfsync_get_mbuf(struct pfsync_softc *sc, u_int8_t action, void **sp)
 	} else
 		MH_ALIGN(m, len);
 
-	m->m_pkthdr.rcvif = NULL;
+	m_reset_rcvif(m);
 	m->m_pkthdr.len = m->m_len = sizeof(struct pfsync_header);
 	h = mtod(m, struct pfsync_header *);
 	h->version = PFSYNC_VERSION;

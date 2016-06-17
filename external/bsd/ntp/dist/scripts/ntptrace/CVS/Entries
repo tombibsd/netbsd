@@ -1,14 +1,14 @@
 /Makefile.am/1.1.1.2/Sat Dec 27 03:33:45 2014/-kk/
 /Makefile.in/1.1.1.7/Tue Jun  7 10:41:41 2016/-kk/
 /invoke-ntptrace.menu/1.1.1.1/Fri Dec 27 23:31:10 2013/-kk/
-/invoke-ntptrace.texi/1.1.1.7/Tue Jun  7 10:41:41 2016/-kk/
+/invoke-ntptrace.texi/1.1.1.8/Fri Jun 17 00:46:20 2016/-kk/
 /ntptrace-opts.def/1.1.1.2/Sat Dec 27 03:33:45 2014/-kk/
-/ntptrace-opts/1.1.1.7/Tue Jun  7 10:41:41 2016/-kk/
-/ntptrace.1ntptraceman/1.1.1.7/Tue Jun  7 10:41:41 2016/-kk/
-/ntptrace.1ntptracemdoc/1.1.1.7/Tue Jun  7 10:41:41 2016/-kk/
-/ntptrace.html/1.1.1.7/Tue Jun  7 10:41:41 2016/-kk/
+/ntptrace-opts/1.1.1.8/Fri Jun 17 00:46:20 2016/-kk/
+/ntptrace.1ntptraceman/1.1.1.8/Fri Jun 17 00:46:20 2016/-kk/
+/ntptrace.1ntptracemdoc/1.1.1.8/Fri Jun 17 00:46:20 2016/-kk/
+/ntptrace.html/1.1.1.8/Fri Jun 17 00:46:20 2016/-kk/
 /ntptrace.in/1.1.1.1/Fri Dec 27 23:31:10 2013/-kk/
-/ntptrace.man.in/1.1.1.7/Tue Jun  7 10:41:41 2016/-kk/
-/ntptrace.mdoc.in/1.1.1.7/Tue Jun  7 10:41:41 2016/-kk/
+/ntptrace.man.in/1.1.1.8/Fri Jun 17 00:46:20 2016/-kk/
+/ntptrace.mdoc.in/1.1.1.8/Fri Jun 17 00:46:20 2016/-kk/
 /ntptrace.texi/1.1.1.1/Fri Dec 27 23:31:10 2013/-kk/
 D

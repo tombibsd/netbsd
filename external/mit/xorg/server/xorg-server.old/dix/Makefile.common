@@ -1,0 +1,7 @@
+#	$NetBSD$
+
+X11DEFAULTFONTPATH=	${X11FONTDIR}/misc/ \
+			${X11FONTDIR}/TTF/ \
+			${X11FONTDIR}/Type1/ \
+			${X11FONTDIR}/75dpi/ \
+			${X11FONTDIR}/100dpi/

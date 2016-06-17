@@ -1458,7 +1458,7 @@ ralink_eth_rxintr(ralink_eth_softc_t *sc)
 
 		/* push it up the inteface */
 		ifp->if_ipackets++;
-		m->m_pkthdr.rcvif = ifp;
+		m_set_rcvif(m, ifp);
 
 #ifdef RALINK_ETH_DEBUG
  {

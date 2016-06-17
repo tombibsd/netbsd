@@ -771,7 +771,7 @@ cue_rxeof(struct usbd_xfer *xfer, void *priv, usbd_status status)
 	m_adj(m, sizeof(uint16_t));
 	m->m_pkthdr.len = m->m_len = total_len;
 
-	m->m_pkthdr.rcvif = ifp;
+	m_set_rcvif(m, ifp);
 
 	s = splnet();
 

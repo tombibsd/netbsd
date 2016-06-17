@@ -79,6 +79,8 @@ struct nvme_queue {
 struct nvme_namespace {
 	struct nvm_identify_namespace *ident;
 	device_t dev;
+	uint32_t flags;
+#define	NVME_NS_F_OPEN	__BIT(0)
 };
 
 struct nvme_softc {
@@ -113,6 +115,7 @@ struct nvme_softc {
 
 	uint32_t		sc_flags;
 #define	NVME_F_ATTACHED	__BIT(0)
+#define	NVME_F_OPEN	__BIT(1)
 };
 
 #define	lemtoh16(p)	le16toh(*((uint16_t *)(p)))

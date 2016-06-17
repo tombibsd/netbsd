@@ -219,7 +219,7 @@ sockaddr_snprintf(char * const sbuf, const size_t len, const char * const fmt,
 	case AF_LINK:
 		sdl = ((const struct sockaddr_dl *)(const void *)sa);
 		(void)strlcpy(addr = abuf, link_ntoa(sdl), sizeof(abuf));
-		if ((w = strchr(addr, ':')) != 0) {
+		if ((w = strchr(addr, ':')) != NULL) {
 			*w++ = '\0';
 			addr = w;
 		}

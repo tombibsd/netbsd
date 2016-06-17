@@ -98,7 +98,7 @@ void romout(int, char *);
 void _transfer(char *, int, int, int, char *, char *);
 
 /* tget.c */
-int tgets(char *);
+int tgets_s(char *, size_t);
 
 
 #define DELAY(n)							\

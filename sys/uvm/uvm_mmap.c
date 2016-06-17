@@ -453,7 +453,8 @@ sys___msync13(struct lwp *l, const struct sys___msync13_args *uap,
 	vaddr_t addr;
 	vsize_t size, pageoff;
 	struct vm_map *map;
-	int error, rv, flags, uvmflags;
+	int error, flags, uvmflags;
+	bool rv;
 
 	/*
 	 * extract syscall args from the uap

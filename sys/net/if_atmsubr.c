@@ -214,7 +214,7 @@ atm_input(struct ifnet *ifp, struct atm_pseudohdr *ah, struct mbuf *m,
 		splx(s);
 		isr = NETISR_NATM;
 		inq = &natmintrq;
-		m->m_pkthdr.rcvif = rxhand; /* XXX: overload */
+		m_set_rcvif(m, rxhand); /* XXX: overload */
 
 		s = splnet();
 		if (IF_QFULL(inq)) {

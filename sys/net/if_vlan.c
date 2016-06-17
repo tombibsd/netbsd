@@ -897,7 +897,7 @@ vlan_input(struct ifnet *ifp, struct mbuf *m)
 		m_adj(m, ifv->ifv_encaplen);
 	}
 
-	m->m_pkthdr.rcvif = &ifv->ifv_if;
+	m_set_rcvif(m, &ifv->ifv_if);
 	ifv->ifv_if.if_ipackets++;
 
 	bpf_mtap(&ifv->ifv_if, m);

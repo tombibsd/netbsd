@@ -3,7 +3,7 @@
 /ofbus.c/1.25/Fri Jun  3 07:39:30 2011/-kk/
 /ofcons.c/1.45/Fri Oct  3 09:09:18 2014/-kk/
 /ofdisk.c/1.51/Fri May  1 11:32:09 2015/-kk/
-/ofnet.c/1.54/Mon Feb 15 11:07:23 2016/-kk/
+/ofnet.c/1.55/Fri Jun 17 00:52:51 2016/-kk/
 /ofrtc.c/1.23/Tue Jul 26 08:59:38 2011/-kk/
 /ofw_network_subr.c/1.7/Sat Mar 14 21:04:21 2009/-kk/
 /ofw_pci.h/1.7/Mon Apr 28 20:23:54 2008/-kk/

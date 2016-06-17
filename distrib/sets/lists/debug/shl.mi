@@ -54,7 +54,8 @@
 ./usr/libdata/debug/usr/lib/i18n/libmapper_zone.so.5.0.debug	comp-i18n-debug	debug,compatfile
 ./usr/libdata/debug/usr/lib/libamu.so.5.0.debug			comp-amd-debug	debug,compatfile
 ./usr/libdata/debug/usr/lib/libarchive.so.3.1.debug		comp-sys-debug	debug,compatfile
-./usr/libdata/debug/usr/lib/libasan.so.0.0.debug		comp-krb5-debug	debug,compatfile,gcc=48
+./usr/libdata/debug/usr/lib/libasan.so.0.0.debug		comp-sys-debug	debug,compatfile,gcc=48
+./usr/libdata/debug/usr/lib/libasan.so.1.0.debug		comp-sys-debug	debug,compatfile,gcc=53
 ./usr/libdata/debug/usr/lib/libasn1.so.9.0.debug		comp-krb5-debug	debug,compatfile,kerberos
 ./usr/libdata/debug/usr/lib/libatf-c++.so.0.0.debug		comp-atf-debug	debug,compatfile,atf,obsolete
 ./usr/libdata/debug/usr/lib/libatf-c++.so.1.0.debug		comp-atf-debug	debug,compatfile,atf
@@ -267,6 +268,7 @@
 ./usr/libdata/debug/usr/lib/libtpm_unseal.so.1.0.debug		comp-tpm-debug	debug,compatfile,tpm
 ./usr/libdata/debug/usr/lib/libtre.so.0.8.debug			comp-sys-debug	debug,compatfile
 ./usr/libdata/debug/usr/lib/libtspi.so.3.0.debug		comp-tpm-debug	debug,compatfile,tpm
+./usr/libdata/debug/usr/lib/libubsan.so.0.0.debug		comp-sys-debug	debug,compatfile,gcc=53
 ./usr/libdata/debug/usr/lib/libukfs.so.1.0.debug		comp-sys-debug	debug,compatfile,rump
 ./usr/libdata/debug/usr/lib/libumem.so.0.0.debug		comp-zfs-debug	debug,compatfile,zfs
 ./usr/libdata/debug/usr/lib/libusbhid.so.1.0.debug		comp-sys-debug	debug,compatfile

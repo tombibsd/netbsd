@@ -177,6 +177,8 @@ ipflow_fastforward(struct mbuf *m)
 	const struct sockaddr *dst;
 	int error;
 	int iplen;
+	struct ifnet *ifp;
+	int s;
 
 	/*
 	 * Are we forwarding packets?  Big enough for an IP packet?
@@ -210,14 +212,16 @@ ipflow_fastforward(struct mbuf *m)
 	if ((ipf = ipflow_lookup(ip)) == NULL)
 		return 0;
 
+	ifp = m_get_rcvif(m, &s);
 	/*
 	 * Verify the IP header checksum.
 	 */
 	switch (m->m_pkthdr.csum_flags &
-		((m->m_pkthdr.rcvif->if_csum_flags_rx & M_CSUM_IPv4) |
+		((ifp->if_csum_flags_rx & M_CSUM_IPv4) |
 		 M_CSUM_IPv4_BAD)) {
 	case M_CSUM_IPv4|M_CSUM_IPv4_BAD:
-		return (0);
+		m_put_rcvif(ifp, &s);
+		return 0;
 
 	case M_CSUM_IPv4:
 		/* Checksum was okay. */
@@ -225,10 +229,13 @@ ipflow_fastforward(struct mbuf *m)
 
 	default:
 		/* Must compute it ourselves. */
-		if (in_cksum(m, sizeof(struct ip)) != 0)
-			return (0);
+		if (in_cksum(m, sizeof(struct ip)) != 0) {
+			m_put_rcvif(ifp, &s);
+			return 0;
+		}
 		break;
 	}
+	m_put_rcvif(ifp, &s);
 
 	/*
 	 * Route and interface still up?

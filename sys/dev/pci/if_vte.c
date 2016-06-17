@@ -1128,7 +1128,7 @@ vte_rxeof(struct vte_softc *sc)
 		 * It seems there is no way to strip FCS bytes.
 		 */
 		m->m_pkthdr.len = m->m_len = total_len - ETHER_CRC_LEN;
-		m->m_pkthdr.rcvif = ifp;
+		m_set_rcvif(m, ifp);
 		ifp->if_ipackets++;
 		bpf_mtap(ifp, m);
 		if_percpuq_enqueue(ifp->if_percpuq, m);

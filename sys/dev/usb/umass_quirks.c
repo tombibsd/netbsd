@@ -270,6 +270,17 @@ Static const struct umass_quirk umass_quirks[] = {
 	},
 
 	/*
+	 * SanDisk Cruzer rejects cache sync.
+	 */
+	{ { USB_VENDOR_SANDISK, USB_PRODUCT_SANDISK_CRUZER },
+	  UMASS_WPROTO_UNSPEC, UMASS_CPROTO_UNSPEC,
+	  0,
+	  PQUIRK_NOSYNCCACHE,
+	  UMATCH_VENDOR_PRODUCT,
+	  NULL, NULL
+	},
+
+	/*
 	 * SanDisk Sansa Clip rejects cache sync in unconventional way.
 	 * However, unlike some other devices listed in this table,
 	 * this is does not cause the device firmware to stop responding.

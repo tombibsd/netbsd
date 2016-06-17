@@ -37,6 +37,10 @@
 #if SANITIZER_FREEBSD
 #include <sys/link_elf.h>
 #endif
+#if SANITIZER_NETBSD
+#include <link_elf.h>
+extern Elf_Dyn  _DYNAMIC;
+#endif
 
 #if SANITIZER_ANDROID || SANITIZER_FREEBSD
 #include <ucontext.h>
@@ -90,6 +94,15 @@ static int FindFirstDSOCallback(struct dl_phdr_info *info, size_t size,
   // Ignore vDSO
   if (internal_strncmp(info->dlpi_name, "linux-", sizeof("linux-") - 1) == 0)
     return 0;
+
+#if SANITIZER_NETBSD
+  // Ignore first entry (the main program)
+  char **p = (char **)data;
+  if (*p == NULL) {
+    *p = (char *)-1;
+    return 0;
+  }
+#endif
 
   *(const char **)data = info->dlpi_name;
   return 1;
@@ -207,6 +220,10 @@ void GetPcSpBp(void *context, uptr *pc, uptr *sp, uptr *bp) {
   *pc = ucontext->uc_mcontext.mc_rip;
   *bp = ucontext->uc_mcontext.mc_rbp;
   *sp = ucontext->uc_mcontext.mc_rsp;
+# elif SANITIZER_NETBSD
+  *pc = ucontext->uc_mcontext.__gregs[_REG_RIP];
+  *bp = ucontext->uc_mcontext.__gregs[_REG_RBP];
+  *sp = ucontext->uc_mcontext.__gregs[_REG_RSP];
 # else
   ucontext_t *ucontext = (ucontext_t*)context;
   *pc = ucontext->uc_mcontext.gregs[REG_RIP];
@@ -219,6 +236,11 @@ void GetPcSpBp(void *context, uptr *pc, uptr *sp, uptr *bp) {
   *pc = ucontext->uc_mcontext.mc_eip;
   *bp = ucontext->uc_mcontext.mc_ebp;
   *sp = ucontext->uc_mcontext.mc_esp;
+# elif SANITIZER_FREEBSD
+  ucontext_t *ucontext = (ucontext_t*)context;
+  *pc = ucontext->uc_mcontext.__gregs[_REG_EIP];
+  *bp = ucontext->uc_mcontext.__gregs[_REG_EBP];
+  *sp = ucontext->uc_mcontext.__gregs[_REG_ESP];
 # else
   ucontext_t *ucontext = (ucontext_t*)context;
   *pc = ucontext->uc_mcontext.gregs[REG_EIP];

@@ -36,10 +36,21 @@
 void
 gets(char *buf)
 {
+	gets_s(buf, (size_t)-1);
+}
+
+void
+gets_s(char *buf, size_t size)
+{
 	int c;
 	char *lp;
 
 	for (lp = buf;;) {
+		if (lp - buf == size) {
+			lp--;
+			*lp = '\0';
+			return;
+		}
 		switch (c = getchar() & 0177) {
 		case '\n':
 		case '\r':

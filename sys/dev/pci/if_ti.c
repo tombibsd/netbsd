@@ -1966,7 +1966,7 @@ ti_rxeof(struct ti_softc *sc)
 
 		m->m_pkthdr.len = m->m_len = cur_rx->ti_len;
 		ifp->if_ipackets++;
-		m->m_pkthdr.rcvif = ifp;
+		m_set_rcvif(m, ifp);
 
 		/*
 	 	 * Handle BPF listeners. Let the BPF user see the packet, but

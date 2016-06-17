@@ -15,4 +15,6 @@ FILESDIR= /usr/share/examples/dhcp
 FILES=	dhcpd.conf
 .endif
 
+COPTS.omapi.c +=	-Wno-stack-protector
+
 .include <bsd.prog.mk>

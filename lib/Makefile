@@ -172,12 +172,11 @@ SUBDIR+=	../external/gpl3/${EXTERNAL_GCC_SUBDIR}/lib/libsupc++
 #==================== 2nd library dependency barrier ====================
 SUBDIR+=	.WAIT
 
-SANITIZER_DIR=../external/gpl3/${EXTERNAL_GCC_SUBDIR}/lib/libasan
-.if !defined(HAVE_GCC) || ${HAVE_GCC} != 53
-.if exists(${SANITIZER_DIR})
-SUBDIR+=	${SANITIZER_DIR}
+.for sanitizer in asan ubsan
+.if exists(../external/gpl3/${EXTERNAL_GCC_SUBDIR}/lib/lib${sanitizer})
+SUBDIR+= ../external/gpl3/${EXTERNAL_GCC_SUBDIR}/lib/lib${sanitizer}
 .endif
-.endif
+.endfor
 
 SUBDIR+=	../external/bsd/libarchive/lib	# depends on libxz
 

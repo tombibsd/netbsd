@@ -715,7 +715,7 @@ txp_rx_reclaim(struct txp_softc *sc, struct txp_rx_ring *r, struct txp_dma_alloc
 					goto next;
 				}
 			}
-			mnew->m_pkthdr.rcvif = ifp;
+			m_set_rcvif(mnew, ifp);
 			mnew->m_pkthdr.len = mnew->m_len = m->m_len;
 			mnew->m_data += 2;
 			memcpy(mnew->m_data, m->m_data, m->m_len);
@@ -803,7 +803,7 @@ txp_rxbuf_reclaim(struct txp_softc *sc)
 		MCLGET(sd->sd_mbuf, M_DONTWAIT);
 		if ((sd->sd_mbuf->m_flags & M_EXT) == 0)
 			goto err_mbuf;
-		sd->sd_mbuf->m_pkthdr.rcvif = ifp;
+		m_set_rcvif(sd->sd_mbuf, ifp);
 		sd->sd_mbuf->m_pkthdr.len = sd->sd_mbuf->m_len = MCLBYTES;
 		if (bus_dmamap_create(sc->sc_dmat, TXP_MAX_PKTLEN, 1,
 		    TXP_MAX_PKTLEN, 0, BUS_DMA_NOWAIT, &sd->sd_map))
@@ -1087,7 +1087,7 @@ txp_alloc_rings(struct txp_softc *sc)
 			goto bail_rxbufring;
 		}
 		sd->sd_mbuf->m_pkthdr.len = sd->sd_mbuf->m_len = MCLBYTES;
-		sd->sd_mbuf->m_pkthdr.rcvif = ifp;
+		m_set_rcvif(sd->sd_mbuf, ifp);
 		if (bus_dmamap_create(sc->sc_dmat, TXP_MAX_PKTLEN, 1,
 		    TXP_MAX_PKTLEN, 0, BUS_DMA_NOWAIT, &sd->sd_map)) {
 			goto bail_rxbufring;

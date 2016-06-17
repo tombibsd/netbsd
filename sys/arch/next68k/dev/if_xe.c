@@ -676,7 +676,7 @@ xe_dma_rxmap_load(struct mb8795_softc *sc, bus_dmamap_t map)
 		m->m_len = buflen;
 	}
 
-	m->m_pkthdr.rcvif = ifp;
+	m_set_rcvif(m, ifp);
 	m->m_pkthdr.len = m->m_len;
 
 	error = bus_dmamap_load_mbuf(xsc->sc_rxdma->sc_dmat,

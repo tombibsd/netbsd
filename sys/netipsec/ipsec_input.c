@@ -769,7 +769,8 @@ ipsec6_common_input_cb(struct mbuf *m, struct secasvar *sav, int skip, int proto
 		 */
 		if (m->m_pkthdr.len < skip) {
 			IP6_STATINC(IP6_STAT_TOOSHORT);
-			in6_ifstat_inc(m->m_pkthdr.rcvif, ifs6_in_truncated);
+			in6_ifstat_inc(m_get_rcvif_NOMPSAFE(m),
+				       ifs6_in_truncated);
 			error = EINVAL;
 			goto bad;
 		}

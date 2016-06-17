@@ -80,17 +80,23 @@ typedef int fd_t;
 // _FILE_OFFSET_BITS. This definition of OFF_T matches the ABI of system calls
 // like pread and mmap, as opposed to pread64 and mmap64.
 // Mac and Linux/x86-64 are special.
-#if SANITIZER_MAC || (SANITIZER_LINUX && defined(__x86_64__))
+#if SANITIZER_MAC || (SANITIZER_LINUX && defined(__x86_64__)) || SANITIZER_NETBSD
+// XXX: It is signed!
 typedef u64 OFF_T;
 #else
 typedef uptr OFF_T;
 #endif
 typedef u64  OFF64_T;
 
+#if SANITIZER_NETBSD
+#include <sys/types.h>
+typedef size_t operator_new_size_type;
+#else
 #if (SANITIZER_WORDSIZE == 64) || SANITIZER_MAC
 typedef uptr operator_new_size_type;
 #else
 typedef u32 operator_new_size_type;
+#endif
 #endif
 }  // namespace __sanitizer
 
@@ -154,11 +160,7 @@ using namespace __sanitizer;  // NOLINT
 # define UNLIKELY(x) (x)
 # define PREFETCH(x) /* _mm_prefetch(x, _MM_HINT_NTA) */
 #else  // _MSC_VER
-# ifdef __NetBSD__
-#  define ALWAYS_INLINE // inline __attribute__((always_inline))
-# else
-#  define ALWAYS_INLINE inline __attribute__((always_inline))
-# endif
+# define ALWAYS_INLINE inline __attribute__((always_inline))
 # define ALIAS(x) __attribute__((alias(x)))
 // Please only use the ALIGNED macro before the type.
 // Using ALIGNED after the variable declaration is not portable!

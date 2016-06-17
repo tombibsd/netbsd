@@ -458,7 +458,7 @@ gif_input(struct mbuf *m, int af, struct ifnet *ifp)
 		return;
 	}
 
-	m->m_pkthdr.rcvif = ifp;
+	m_set_rcvif(m, ifp);
 	pktlen = m->m_pkthdr.len;
 
 	bpf_mtap_af(ifp, af, m);

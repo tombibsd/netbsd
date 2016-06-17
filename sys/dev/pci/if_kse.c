@@ -1189,7 +1189,7 @@ rxintr(struct kse_softc *sc)
 		}
 
 		ifp->if_ipackets++;
-		m->m_pkthdr.rcvif = ifp;
+		m_set_rcvif(m, ifp);
 		m->m_pkthdr.len = m->m_len = len;
 
 		if (sc->sc_mcsum) {

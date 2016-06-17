@@ -202,7 +202,7 @@ if_ubaget(struct ifubinfo *ifu, struct ifrw *ifr, struct ifnet *ifp, int len)
 	if ((bus_dmamap_load(uh->uh_dmat, ifr->ifrw_map,
 	    mn->m_ext.ext_buf, mn->m_ext.ext_size, NULL, BUS_DMA_NOWAIT)))
 		panic("if_ubaget"); /* Cannot happen */
-	m->m_pkthdr.rcvif = ifp;
+	m_set_rcvif(m, ifp);
 	m->m_len = m->m_pkthdr.len = len;
 	return m;
 }

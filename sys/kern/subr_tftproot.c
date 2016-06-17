@@ -255,7 +255,7 @@ tftproot_getfile(struct tftproot_handle *trh, struct lwp *l)
 	m_clget(m_outbuf, M_WAIT);
 	m_outbuf->m_len = packetlen;
 	m_outbuf->m_pkthdr.len = packetlen;
-	m_outbuf->m_pkthdr.rcvif = NULL;
+	m_reset_rcvif(m_outbuf);
 
 	tftp = mtod(m_outbuf, struct tftphdr *);
 	memset(tftp, 0, packetlen);

@@ -9,5 +9,3 @@ CPPFLAGS+= \
 
 CPPFLAGS+= \
 	-DHASXDMAUTH
-
-.include <bsd.lib.mk>

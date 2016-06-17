@@ -934,7 +934,7 @@ tunwrite(dev_t dev, struct uio *uio, int ioflag)
 	}
 
 	top->m_pkthdr.len = tlen;
-	top->m_pkthdr.rcvif = ifp;
+	m_set_rcvif(top, ifp);
 
 	bpf_mtap_af(ifp, dst.sa_family, top);
 

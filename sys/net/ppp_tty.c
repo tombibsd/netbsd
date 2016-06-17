@@ -396,7 +396,7 @@ pppwrite(struct tty *tp, struct uio *uio, int flag)
 
     m0->m_len = 0;
     m0->m_pkthdr.len = uio->uio_resid;
-    m0->m_pkthdr.rcvif = NULL;
+    m_reset_rcvif(m0);
 
     if (uio->uio_resid >= MCLBYTES / 2)
 	MCLGET(m0, M_DONTWAIT);

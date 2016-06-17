@@ -3139,7 +3139,7 @@ atw_rxintr(struct atw_softc *sc)
 		}
 
 		ifp->if_ipackets++;
-		m->m_pkthdr.rcvif = ifp;
+		m_set_rcvif(m, ifp);
 		m->m_pkthdr.len = m->m_len = MIN(m->m_ext.ext_size, len);
 
 		rate = (rate0 < __arraycount(rate_tbl)) ? rate_tbl[rate0] : 0;

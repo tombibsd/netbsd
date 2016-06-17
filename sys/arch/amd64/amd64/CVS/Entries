@@ -20,7 +20,7 @@
 /linux_sigcode.S/1.2/Sun Dec 11 12:16:21 2005/-kk/
 /linux_syscall.c/1.32/Sat Mar 21 02:37:31 2015/-kk/
 /lock_stubs.S/1.26/Tue Jun  7 10:19:11 2016/-kk/
-/locore.S/1.99/Tue Jun  7 11:13:57 2016/-kk/
+/locore.S/1.102/Fri Jun 17 00:52:02 2016/-kk/
 /machdep.c/1.217/Tue Jun  7 10:59:36 2016/-kk/
 /mainbus.c/1.36/Wed Aug 12 04:13:47 2015/-kk/
 /mptramp.S/1.22/Tue Jun  7 10:59:36 2016/-kk/

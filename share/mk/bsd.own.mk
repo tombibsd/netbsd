@@ -70,9 +70,10 @@ HAVE_GCC?=	0
     ${MACHINE} == "amd64" || \
     ${MACHINE} == "hppa" || \
     ${MACHINE} == "i386" || \
-    ${MACHINE} == "evbarm" || \
     ${MACHINE} == "playstation2" || \
-    ${MACHINE_ARCH} == "powerpc" || \
+    ${MACHINE} == "sparc" || \
+    ${MACHINE_CPU} == "arm" || \
+    ${MACHINE_CPU} == "powerpc" || \
     ${MACHINE_ARCH} == "vax"
 HAVE_GCC?=	53
 .else
@@ -143,11 +144,12 @@ USE_SSP?=	yes
 # What GDB is used?
 #
 .if ${MACHINE} == "amd64" || \
-    ${MACHINE} == "evbarm" || \
     ${MACHINE} == "i386" || \
     ${MACHINE} == "playstation2" || \
     ${MACHINE} == "sparc" || \
     ${MACHINE} == "vax" || \
+    ${MACHINE_CPU} == "arm" || \
+    ${MACHINE_CPU} == "powerpc" || \
     ${MACHINE_CPU} == "sh3" || \
     ${MACHINE_ARCH} == "mips64eb" || ${MACHINE_ARCH} == "mips64el"
 HAVE_GDB?=	710
@@ -980,12 +982,14 @@ MK${var}:=	yes
 .if ${MACHINE_ARCH} == "x86_64" || ${MACHINE_ARCH} == "sparc64" \
     || ${MACHINE_ARCH} == "mips64eb" || ${MACHINE_ARCH} == "mips64el" \
     || ${MACHINE_ARCH} == "powerpc64" || ${MACHINE_CPU} == "aarch64" \
-    || ${MACHINE_ARCH} == "riscv64" \
-    || (!empty(MACHINE_ARCH:Mearm*) && ${HAVE_GCC:U} == 48)
+    || ${MACHINE_ARCH} == "riscv64" || !empty(MACHINE_ARCH:Mearm*)
 MKCOMPAT?=	yes
 .else
 # Don't let this build where it really isn't supported.
 MKCOMPAT:=	no
+.endif
+
+.if ${MKCOMPAT} == "no"
 MKCOMPATTESTS:=	no
 MKCOMPATX11:=	no
 .endif
@@ -1355,9 +1359,18 @@ X11SRCDIR.${_lib}?=		${X11SRCDIRMIT}/lib${_lib}/dist
 X11SRCDIR.${_proto}proto?=		${X11SRCDIRMIT}/${_proto}proto/dist
 .endfor
 
+# During transition from xorg-server 1.10 to 1.18
+.if 0
+XORG_SERVER_SUBDIR?=xorg-server
+.else
+XORG_SERVER_SUBDIR?=xorg-server.old
+.endif
+
+X11SRCDIR.xorg-server?=		${X11SRCDIRMIT}/${XORG_SERVER_SUBDIR}/dist
+
 .for _dir in \
 	xtrans fontconfig freetype evieext mkfontscale bdftopcf \
-	xkbcomp xorg-cf-files imake xorg-server xbiff xkeyboard-config \
+	xkbcomp xorg-cf-files imake xbiff xkeyboard-config \
 	xbitmaps appres xeyes xev xedit sessreg pixman \
 	beforelight bitmap editres makedepend fonttosfnt fslsfonts fstobdf \
 	glu glw mesa-demos MesaGLUT MesaLib MesaLib7 \

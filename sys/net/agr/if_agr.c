@@ -134,7 +134,7 @@ agr_input(struct ifnet *ifp_port, struct mbuf *m)
 	}
 
 	ifp->if_ipackets++;
-	m->m_pkthdr.rcvif = ifp;
+	m_set_rcvif(m, ifp);
 
 #define DNH_DEBUG
 #if NVLAN > 0

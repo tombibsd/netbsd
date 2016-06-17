@@ -1,6 +1,6 @@
 /Makefile.assym/1.5/Thu May 28 03:25:57 2015/-kk/
 /Makefile.inc/1.6/Sun Sep 11 18:38:02 2011/-kk/
-/Makefile/1.165/Thu Jan  7 06:24:38 2016/-kk/
+/Makefile/1.167/Fri Jun 17 00:53:01 2016/-kk/
 /README/1.1/Thu Nov 13 10:06:46 2008/-kk/
 D/accf_dataready////
 D/accf_httpready////
@@ -36,6 +36,7 @@ D/auvitek////
 D/azalia////
 D/blowfish////
 D/bpf////
+D/bpf_filter////
 D/bpfjit////
 D/camellia////
 D/cast128////
@@ -113,6 +114,7 @@ D/hpacel////
 D/hpet////
 D/hpqlb////
 D/hythygtemp////
+D/i2c_bitbang////
 D/i2cexec////
 D/i915drm////
 D/i915drmkms////
@@ -128,6 +130,7 @@ D/if_run////
 D/if_smsc////
 D/if_urtwn////
 D/iic////
+D/ipl////
 D/ir////
 D/irmce////
 D/iscsi////

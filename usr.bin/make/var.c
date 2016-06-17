@@ -531,7 +531,7 @@ VarAdd(const char *name, const char *val, GNode *ctxt)
     h = Hash_CreateEntry(&ctxt->context, name, NULL);
     Hash_SetValue(h, v);
     v->name = h->name;
-    if (DEBUG(VAR)) {
+    if (DEBUG(VAR) && (ctxt->flags & INTERNAL) == 0) {
 	fprintf(debug_file, "%s:%s = %s\n", ctxt->name, name, val);
     }
 }
@@ -1951,7 +1951,7 @@ VarRealpath(GNode *ctx MAKE_ATTR_UNUSED, Var_Parse_State *vpstate,
 	    Buf_AddByte(buf, vpstate->varSpace);
 	}
 	addSpace = TRUE;
-	rp = realpath(word, rbuf);
+	rp = cached_realpath(word, rbuf);
 	if (rp && *rp == '/' && stat(rp, &st) == 0)
 		word = rp;
 	

@@ -6,25 +6,25 @@
 /compat.c/1.105/Tue Jun  7 11:00:31 2016/-kk/
 /cond.c/1.74/Fri Feb 26 18:34:06 2016/-kk/
 /config.h/1.21/Sat Mar 31 00:12:24 2012/-kk/
-/dir.c/1.67/Thu Oct 24 10:28:59 2013/-kk/
+/dir.c/1.68/Fri Jun 17 00:53:23 2016/-kk/
 /dir.h/1.15/Sat Apr  7 18:29:08 2012/-kk/
 /for.c/1.52/Fri Feb 26 18:34:06 2016/-kk/
 /hash.c/1.20/Mon Nov 18 05:31:49 2013/-kk/
-/hash.h/1.10/Sat Jan 24 10:59:09 2009/-kk/
+/hash.h/1.11/Fri Jun 17 00:53:23 2016/-kk/
 /job.c/1.187/Tue Jun  7 11:00:31 2016/-kk/
 /job.h/1.42/Thu Oct 24 10:28:59 2013/-kk/
 /lst.h/1.20/Fri Oct  3 09:51:11 2014/-kk/
-/main.c/1.244/Tue Jun  7 10:07:05 2016/-kk/
-/make.1/1.257/Tue Jun  7 11:00:31 2016/-kk/
+/main.c/1.248/Fri Jun 17 00:53:23 2016/-kk/
+/make.1/1.259/Fri Jun 17 00:53:23 2016/-kk/
 /make.c/1.95/Fri Feb 26 18:34:06 2016/-kk/
-/make.h/1.98/Fri Feb 26 18:34:06 2016/-kk/
+/make.h/1.100/Fri Jun 17 00:53:23 2016/-kk/
 /make_malloc.c/1.10/Wed Jun 20 17:46:28 2012/-kk/
 /make_malloc.h/1.4/Sat Jan 24 14:43:29 2009/-kk/
-/meta.c/1.57/Tue Jun  7 11:00:31 2016/-kk/
+/meta.c/1.61/Fri Jun 17 00:53:23 2016/-kk/
 /meta.h/1.5/Tue Jun  7 11:00:31 2016/-kk/
 /metachar.c/1.5/Fri Jun 19 08:03:35 2015/-kk/
 /metachar.h/1.4/Thu Jul  2 04:14:50 2015/-kk/
-/nonints.h/1.72/Fri Feb 26 18:34:06 2016/-kk/
+/nonints.h/1.73/Fri Jun 17 00:53:23 2016/-kk/
 /parse.c/1.214/Tue Jun  7 10:07:05 2016/-kk/
 /pathnames.h/1.17/Sat Apr 11 09:41:18 2009/-kk/
 /sprite.h/1.11/Fri Jan 23 21:26:30 2009/-kk/
@@ -36,7 +36,7 @@
 /trace.c/1.11/Sun Dec 28 18:31:51 2008/-kk/
 /trace.h/1.3/Mon Apr 28 20:24:14 2008/-kk/
 /util.c/1.54/Tue Dec 17 04:05:19 2013/-kk/
-/var.c/1.207/Tue Jun  7 09:39:14 2016/-kk/
+/var.c/1.208/Fri Jun 17 00:53:23 2016/-kk/
 D/PSD.doc////
 D/lst.lib////
 D/unit-tests////

@@ -42,6 +42,7 @@ __RCSID("$NetBSD$");
 
 #include <assert.h>
 #include <errno.h>
+#include <stdarg.h>
 #include <fcntl.h>
 #ifndef HAVE_NBTOOL_CONFIG_H
 #include <util.h>
@@ -52,48 +53,62 @@ __RCSID("$NetBSD$");
 #include <stdio.h>
 #include <string.h>
 
+static int __printflike(5, 6)
+opd(char *buf, size_t len, int (*ofn)(const char *, int, ...),
+    int flags, const char *fmt, ...)
+{
+	va_list ap;
+
+	va_start(ap, fmt);
+	vsnprintf(buf, len, fmt, ap);
+	va_end(ap);
+
+	return (*ofn)(buf, flags, 0);
+}
+
 static int
 __opendisk(const char *path, int flags, char *buf, size_t buflen, int iscooked,
 	int (*ofn)(const char *, int, ...))
 {
-	int f, rawpart;
+	int f, part;
 
 	if (buf == NULL) {
 		errno = EFAULT;
-		return (-1);
+		return -1;
 	}
-	snprintf(buf, buflen, "%s", path);
 
 	if ((flags & O_CREAT) != 0) {
 		errno = EINVAL;
-		return (-1);
+		return -1;
 	}
 
-	rawpart = getrawpartition();
-	if (rawpart < 0)
-		return (-1);	/* sysctl(3) in getrawpartition sets errno */
+	part = getrawpartition();
+	if (part < 0)
+		return -1;	/* sysctl(3) in getrawpartition sets errno */
+	part += 'a';
 
-	f = ofn(buf, flags, 0);
+	/*
+	 * If we are passed a plain name, first try /dev to avoid accidents
+	 * with files in the same directory that happen to match disk names.
+	 */
+	if (strchr(path, '/') == NULL) {
+		const char *r = iscooked ? "" : "r";
+		const char *d = _PATH_DEV;
+
+		f = opd(buf, buflen, ofn, flags, "%s%s%s", d, r, path);
+		if (f != -1 || errno != ENOENT)
+			return f;
+
+		f = opd(buf, buflen, ofn, flags, "%s%s%s%c", d, r, path, part);
+		if (f != -1 || errno != ENOENT)
+			return f;
+	}
+
+	f = opd(buf, buflen, ofn, flags, "%s", path);
 	if (f != -1 || errno != ENOENT)
-		return (f);
+		return f;
 
-	snprintf(buf, buflen, "%s%c", path, 'a' + rawpart);
-	f = ofn(buf, flags, 0);
-	if (f != -1 || errno != ENOENT)
-		return (f);
-
-	if (strchr(path, '/') != NULL)
-		return (-1);
-
-	snprintf(buf, buflen, "%s%s%s", _PATH_DEV, iscooked ? "" : "r", path);
-	f = ofn(buf, flags, 0);
-	if (f != -1 || errno != ENOENT)
-		return (f);
-
-	snprintf(buf, buflen, "%s%s%s%c", _PATH_DEV, iscooked ? "" : "r", path,
-	    'a' + rawpart);
-	f = ofn(buf, flags, 0);
-	return (f);
+	return opd(buf, buflen, ofn, flags, "%s%c", path, part);
 }
 
 int

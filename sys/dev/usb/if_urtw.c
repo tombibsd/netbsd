@@ -3118,7 +3118,7 @@ urtw_rxeof(struct usbd_xfer *xfer, void *priv, usbd_status status)
 	data->buf = mtod(mnew, uint8_t *);
 
 	/* finalize mbuf */
-	m->m_pkthdr.rcvif = ifp;
+	m_set_rcvif(m, ifp);
 	m->m_pkthdr.len = m->m_len = flen - 4;
 
 	s = splnet();

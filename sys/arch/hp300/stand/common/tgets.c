@@ -38,13 +38,18 @@
 #include <hp300/stand/common/samachdep.h>
 
 int
-tgets(char *buf)
+tgets_s(char *buf, size_t size)
 {
 	int c;
 	int i;
 	char *lp = buf;
 
 	for (i = 240000; i > 0; i--) {
+                if (lp - buf == size) {
+                        lp--;
+                        *lp = '\0';
+                        return 0;
+                }
 		c = tgetchar() & 0177;
 		if (c) {
 			for (;;) {

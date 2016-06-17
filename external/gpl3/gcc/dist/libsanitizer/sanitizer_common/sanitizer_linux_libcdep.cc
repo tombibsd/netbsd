@@ -11,7 +11,7 @@
 //===----------------------------------------------------------------------===//
 
 #include "sanitizer_platform.h"
-#if SANITIZER_FREEBSD || SANITIZER_LINUX
+#if SANITIZER_FREEBSD || SANITIZER_LINUX || SANITIZER_NETBSD
 
 #include "sanitizer_common.h"
 #include "sanitizer_flags.h"
@@ -23,7 +23,7 @@
 #include "sanitizer_atomic.h"
 #include "sanitizer_symbolizer.h"
 
-#if SANITIZER_ANDROID || SANITIZER_FREEBSD
+#if SANITIZER_ANDROID || SANITIZER_FREEBSD || SANITIZER_NETBSD
 #include <dlfcn.h>  // for dlsym()
 #endif
 
@@ -149,7 +149,7 @@ bool SanitizerGetThreadName(char *name, int max_len) {
 #endif
 }
 
-#if !SANITIZER_FREEBSD
+#if !SANITIZER_FREEBSD && !SANITIZER_NETBSD
 static uptr g_tls_size;
 #endif
 
@@ -160,7 +160,7 @@ static uptr g_tls_size;
 #endif
 
 void InitTlsSize() {
-#if !SANITIZER_FREEBSD && !SANITIZER_ANDROID
+#if !SANITIZER_FREEBSD && !SANITIZER_ANDROID && !SANITIZER_NETBSD
   typedef void (*get_tls_func)(size_t*, size_t*) DL_INTERNAL_FUNCTION;
   get_tls_func get_tls;
   void *get_tls_static_info_ptr = dlsym(RTLD_NEXT, "_dl_get_tls_static_info");
@@ -172,7 +172,7 @@ void InitTlsSize() {
   size_t tls_align = 0;
   IndirectExternCall(get_tls)(&tls_size, &tls_align);
   g_tls_size = tls_size;
-#endif  // !SANITIZER_FREEBSD && !SANITIZER_ANDROID
+#endif  // !SANITIZER_FREEBSD && !SANITIZER_ANDROID && !SANITIZER_NETBSD
 }
 
 #if (defined(__x86_64__) || defined(__i386__)) && SANITIZER_LINUX
@@ -256,6 +256,12 @@ uptr ThreadSelf() {
 }
 #endif  // SANITIZER_FREEBSD
 
+#if SANITIZER_NETBSD
+uptr ThreadSelf() {
+  return (uptr)pthread_self();
+}
+#endif // SANITIZER_NETBSD
+
 static void GetTls(uptr *addr, uptr *size) {
 #if SANITIZER_LINUX
 # if defined(__x86_64__) || defined(__i386__)
@@ -280,13 +286,17 @@ static void GetTls(uptr *addr, uptr *size) {
     *addr = (uptr) dtv[2];
     *size = (*addr == 0) ? 0 : ((uptr) segbase[0] - (uptr) dtv[2]);
   }
+#elif SANITIZER_NETBSD
+  // XXX: for now
+  *addr = 0;
+  *size = 0;
 #else
 # error "Unknown OS"
 #endif
 }
 
 uptr GetTlsSize() {
-#if SANITIZER_FREEBSD
+#if SANITIZER_FREEBSD || SANITIZER_NETBSD
   uptr addr, size;
   GetTls(&addr, &size);
   return size;
@@ -347,7 +357,7 @@ uptr GetListOfModules(LoadedModule *modules, uptr max_modules,
   return memory_mapping.DumpListOfModules(modules, max_modules, filter);
 }
 #else  // SANITIZER_ANDROID
-# if !SANITIZER_FREEBSD
+# if !SANITIZER_FREEBSD || SANITIZER_NETBSD
 typedef ElfW(Phdr) Elf_Phdr;
 # elif SANITIZER_WORDSIZE == 32 && __FreeBSD_version <= 902001  // v9.2
 #  define Elf_Phdr XElf32_Phdr
@@ -428,4 +438,4 @@ void PrepareForSandboxing(__sanitizer_sandbox_arguments *args) {
 
 }  // namespace __sanitizer
 
-#endif  // SANITIZER_FREEBSD || SANITIZER_LINUX
+#endif  // SANITIZER_FREEBSD || SANITIZER_LINUX || SANITIZER_NETBSD

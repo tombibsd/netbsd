@@ -62,9 +62,7 @@ my_soo_write(connection_t *conn, struct uio *u)
 
 	KASSERT(u->uio_resid != 0);
 
-	KERNEL_LOCK(1, curlwp);
-	ret = sosend(so, NULL, u, NULL, NULL, 0, conn->threadobj);
-	KERNEL_UNLOCK_ONE(curlwp);
+	ret = (*so->so_send)(so, NULL, u, NULL, NULL, 0, conn->threadobj);
 
 	DEB(99, ("soo_write done: len = %zu\n", u->uio_resid));
 
@@ -145,6 +143,7 @@ reassign_tasks(connection_t *oldconn)
 	pdu_t *opdu;
 	int no_tm = 1;
 	int rc = 1;
+	uint32_t sn;
 
 	if ((conn = assign_connection(sess, FALSE)) == NULL) {
 		DEB(1, ("Reassign_tasks of Session %d, connection %d failed, "
@@ -189,6 +188,8 @@ reassign_tasks(connection_t *oldconn)
 		TAILQ_REMOVE(&oldconn->ccbs_waiting, ccb, chain);
 
 		opdu = ccb->pdu_waiting;
+		KASSERT((opdu->flags & PDUF_INQUEUE) == 0);
+
 		*pdu = *opdu;
 
 		/* restore overwritten back ptr */
@@ -209,7 +210,6 @@ reassign_tasks(connection_t *oldconn)
 		}
 		pdu->save_iovec [0].iov_len =
 			(conn->HeaderDigest) ? BHS_SIZE + 4 : BHS_SIZE;
-
 
 		/* link new PDU into old CCB */
 		ccb->pdu_waiting = pdu;
@@ -255,20 +255,18 @@ reassign_tasks(connection_t *oldconn)
 			mutex_enter(&sess->lock);
 			if (ccb->CmdSN < sess->ExpCmdSN) {
 				pdu = ccb->pdu_waiting;
+				sn = get_sernum(sess, !(pdu->pdu.Opcode & OP_IMMEDIATE));
 
 				/* update CmdSN */
 				DEBC(conn, 1, ("Resend Updating CmdSN - old %d, new %d\n",
-					   ccb->CmdSN, sess->CmdSN));
-				ccb->CmdSN = sess->CmdSN;
-				if (!(pdu->pdu.Opcode & OP_IMMEDIATE)) {
-					sess->CmdSN++;
-				}
+					   ccb->CmdSN, sn));
+				ccb->CmdSN = sn;
 				pdu->pdu.p.command.CmdSN = htonl(ccb->CmdSN);
 			}
 			mutex_exit(&sess->lock);
 			resend_pdu(ccb);
 		} else {
-			callout_schedule(&ccb->timeout, COMMAND_TIMEOUT);
+			ccb_timeout_start(ccb, COMMAND_TIMEOUT);
 		}
 		DEBC(conn, 1, ("Reassign ccb %p, no_tm=%d, rc=%d\n",
 					   ccb, no_tm, rc));
@@ -293,6 +291,7 @@ iscsi_send_thread(void *par)
 	ccb_t *ccb, *nccb;
 	pdu_t *pdu;
 	struct file *fp;
+	pdu_disp_t pdisp;
 
 	sess = conn->session;
 	/* so cleanup thread knows there's someone left */
@@ -307,21 +306,27 @@ iscsi_send_thread(void *par)
 				pdu->flags &= ~PDUF_INQUEUE;
 				mutex_exit(&conn->lock);
 
-				KASSERT(!pdu->uio.uio_resid);
-
 				/* update ExpStatSN here to avoid discontinuities */
 				/* and delays in updating target */
 				pdu->pdu.p.command.ExpStatSN = htonl(conn->StatSN_buf.ExpSN);
 
 				if (conn->HeaderDigest)
 					pdu->pdu.HeaderDigest = gen_digest(&pdu->pdu, BHS_SIZE);
-				DEBC(conn, 99, ("Send thread transmitting data\n"));
+				DEBC(conn, 99, ("Transmitting PDU CmdSN = %u\n",
+				                ntohl(pdu->pdu.p.command.CmdSN)));
 				my_soo_write(conn, &pdu->uio);
 
-				if (pdu->disp <= PDUDISP_FREE) {
+				mutex_enter(&conn->lock);
+				pdisp = pdu->disp;
+				if (pdisp <= PDUDISP_FREE)
+					pdu->disp = PDUDISP_UNUSED;
+				else
+					pdu->flags &= ~PDUF_BUSY;
+				mutex_exit(&conn->lock);
+
+				if (pdisp <= PDUDISP_FREE)
 					free_pdu(pdu);
-				} else {
-					pdu->flags &= ~PDUF_BUSY; }
+
 				mutex_enter(&conn->lock);
 			}
 
@@ -334,7 +339,7 @@ iscsi_send_thread(void *par)
 		 *    Here this thread takes over cleanup of the terminating connection.
 		 * ------------------------------------------------------------------------
 		 */
-		callout_stop(&conn->timeout);
+		connection_timeout_stop(conn);
 		conn->idle_timeout_val = CONNECTION_IDLE_TIMEOUT;
 
 		fp = conn->sock;
@@ -355,7 +360,7 @@ iscsi_send_thread(void *par)
 					ccb,&ccb->timeout));
 				wake_ccb(ccb, conn->terminating);
 			} else {
-				callout_stop(&ccb->timeout);
+				ccb_timeout_stop(ccb);
 				ccb->num_timeouts = 0;
 			}
 		}
@@ -378,7 +383,7 @@ iscsi_send_thread(void *par)
 		/* If there's another connection available, transfer pending tasks */
 		if (sess->active_connections &&
 			TAILQ_FIRST(&conn->ccbs_waiting) != NULL) {
-			DEBC(conn, 1, ("Reassign Tasks\n"));
+			
 			reassign_tasks(conn);
 		} else if (!conn->destroy && conn->Time2Wait) {
 			DEBC(conn, 1, ("Time2Wait\n"));
@@ -479,7 +484,7 @@ send_pdu(ccb_t *ccb, pdu_t *pdu, ccb_disp_t cdisp, pdu_disp_t pdisp)
 	cv_broadcast(&conn->conn_cv);
 
 	if (cdisp != CCBDISP_NOWAIT) {
-		callout_schedule(&ccb->timeout, COMMAND_TIMEOUT);
+		ccb_timeout_start(ccb, COMMAND_TIMEOUT);
 
 		if (prev_cdisp <= CCBDISP_NOWAIT)
 			suspend_ccb(ccb, TRUE);
@@ -534,7 +539,7 @@ resend_pdu(ccb_t *ccb)
 	} else {
 		TAILQ_INSERT_TAIL(&conn->pdus_to_send, pdu, send_chain);
 	}
-	callout_schedule(&ccb->timeout, COMMAND_TIMEOUT);
+	ccb_timeout_start(ccb, COMMAND_TIMEOUT);
 	mutex_exit(&conn->lock);
 
 	cv_broadcast(&conn->conn_cv);
@@ -613,17 +618,22 @@ setup_tx_uio(pdu_t *pdu, uint32_t dsl, void *data, bool read)
  *
  *    Parameter:
  *          conn     The connection
+ *          ccb      The CCB
  *          pdu      The PDU
  */
 
 STATIC void
-init_login_pdu(connection_t *conn, pdu_t *ppdu, bool next)
+init_login_pdu(connection_t *conn, ccb_t *ccb, pdu_t *ppdu, bool next)
 {
 	pdu_header_t *pdu = &ppdu->pdu;
 	login_isid_t *isid = (login_isid_t *) & pdu->LUN;
 	uint8_t c_phase;
 
 	pdu->Opcode = IOP_Login_Request | OP_IMMEDIATE;
+
+	mutex_enter(&conn->session->lock);
+	ccb->CmdSN = get_sernum(conn->session, false);
+	mutex_exit(&conn->session->lock);
 
 	if (next) {
 		c_phase = (pdu->Flags >> CSG_SHIFT) & SG_MASK;
@@ -635,7 +645,7 @@ init_login_pdu(connection_t *conn, pdu_t *ppdu, bool next)
 	isid->TSIH = conn->session->TSIH;
 
 	pdu->p.login_req.CID = htons(conn->id);
-	pdu->p.login_req.CmdSN = htonl(conn->session->CmdSN);
+	pdu->p.login_req.CmdSN = htonl(ccb->CmdSN);
 }
 
 
@@ -709,7 +719,7 @@ negotiate_login(connection_t *conn, pdu_t *rx_pdu, ccb_t *tx_ccb)
 		wake_ccb(tx_ccb, rc);
 		free_pdu(tx_pdu);
 	} else {
-		init_login_pdu(conn, tx_pdu, next);
+		init_login_pdu(conn, tx_ccb, tx_pdu, next);
 		setup_tx_uio(tx_pdu, tx_pdu->temp_data_len, tx_pdu->temp_data, FALSE);
 		send_pdu(tx_ccb, tx_pdu, CCBDISP_NOWAIT, PDUDISP_FREE);
 	}
@@ -722,17 +732,22 @@ negotiate_login(connection_t *conn, pdu_t *rx_pdu, ccb_t *tx_ccb)
  *
  *    Parameter:
  *          conn     The connection
+ *          ccb      The transmit CCB
  *          ppdu     The transmit PDU
  *          rx_pdu   The received PDU if this is an unsolicited negotiation
  */
 
 STATIC void
-init_text_pdu(connection_t *conn, pdu_t *ppdu, pdu_t *rx_pdu)
+init_text_pdu(connection_t *conn, ccb_t *ccb, pdu_t *ppdu, pdu_t *rx_pdu)
 {
 	pdu_header_t *pdu = &ppdu->pdu;
 
 	pdu->Opcode = IOP_Text_Request | OP_IMMEDIATE;
 	pdu->Flags = FLAG_FINAL;
+
+	mutex_enter(&conn->session->lock);
+	ccb->CmdSN = get_sernum(conn->session, false);
+	mutex_exit(&conn->session->lock);
 
 	if (rx_pdu != NULL) {
 		pdu->p.text_req.TargetTransferTag =
@@ -741,7 +756,7 @@ init_text_pdu(connection_t *conn, pdu_t *ppdu, pdu_t *rx_pdu)
 	} else
 		pdu->p.text_req.TargetTransferTag = 0xffffffff;
 
-	pdu->p.text_req.CmdSN = htonl(conn->session->CmdSN);
+	pdu->p.text_req.CmdSN = htonl(ccb->CmdSN);
 }
 
 
@@ -766,9 +781,9 @@ acknowledge_text(connection_t *conn, pdu_t *rx_pdu, ccb_t *tx_ccb)
 
 	if (rx_pdu != NULL &&
 		(rx_pdu->pdu.Opcode & OPCODE_MASK) == IOP_Login_Request)
-		init_login_pdu(conn, tx_pdu, FALSE);
+		init_login_pdu(conn, tx_ccb, tx_pdu, FALSE);
 	else
-		init_text_pdu(conn, tx_pdu, rx_pdu);
+		init_text_pdu(conn, tx_ccb, tx_pdu, rx_pdu);
 
 	setup_tx_uio(tx_pdu, 0, NULL, FALSE);
 	send_pdu(tx_ccb, tx_pdu, CCBDISP_NOWAIT, PDUDISP_FREE);
@@ -804,7 +819,7 @@ start_text_negotiation(connection_t *conn)
 		return;
 	}
 
-	init_text_pdu(conn, pdu, NULL);
+	init_text_pdu(conn, ccb, pdu, NULL);
 	setup_tx_uio(pdu, 0, NULL, FALSE);
 	send_pdu(ccb, pdu, CCBDISP_FREE, PDUDISP_WAIT);
 }
@@ -850,7 +865,7 @@ negotiate_text(connection_t *conn, pdu_t *rx_pdu, ccb_t *tx_ccb)
 
 			handle_connection_error(conn, rc, LOGOUT_CONNECTION);
 		} else if (tx_pdu != NULL) {
-			init_text_pdu(conn, tx_pdu, rx_pdu);
+			init_text_pdu(conn, tx_ccb, tx_pdu, rx_pdu);
 			setup_tx_uio(tx_pdu, tx_pdu->temp_data_len, tx_pdu->temp_data,
 						 FALSE);
 			send_pdu(tx_ccb, tx_pdu, CCBDISP_NOWAIT, PDUDISP_FREE);
@@ -906,7 +921,7 @@ send_send_targets(session_t *session, uint8_t *key)
 		return rc;
 	}
 
-	init_text_pdu(conn, pdu, NULL);
+	init_text_pdu(conn, ccb, pdu, NULL);
 
 	setup_tx_uio(pdu, pdu->temp_data_len, pdu->temp_data, FALSE);
 	send_pdu(ccb, pdu, CCBDISP_WAIT, PDUDISP_WAIT);
@@ -1116,7 +1131,7 @@ send_login(connection_t *conn)
 	}
 
 	if ((rc = assemble_login_parameters(conn, ccb, pdu)) <= 0) {
-		init_login_pdu(conn, pdu, !rc);
+		init_login_pdu(conn, ccb, pdu, !rc);
 		setup_tx_uio(pdu, pdu->temp_data_len, pdu->temp_data, FALSE);
 		send_pdu(ccb, pdu, CCBDISP_WAIT, PDUDISP_FREE);
 		rc = ccb->status;
@@ -1222,7 +1237,7 @@ send_task_management(connection_t *conn, ccb_t *ref_ccb, struct scsipi_xfer *xs,
 	/* can only happen if terminating... */
 	if (ccb == NULL)
 		return conn->terminating;
-	ppdu = get_pdu(conn, TRUE);
+	ppdu = get_pdu(conn, xs == NULL);
 	if (ppdu == NULL) {
 		free_ccb(ccb);
 		return conn->terminating;
@@ -1351,7 +1366,7 @@ send_command(ccb_t *ccb, ccb_disp_t disp, bool waitok, bool immed)
 	mutex_enter(&sess->lock);
 	while (/*CONSTCOND*/ISCSI_THROTTLING_ENABLED &&
 	    /*CONSTCOND*/!ISCSI_SERVER_TRUSTED &&
-	    !sn_a_le_b(sess->CmdSN, sess->MaxCmdSN)) {
+	    !sernum_in_window(sess)) {
 
 		ccb->disp = disp;
 		if (waitok)
@@ -1359,20 +1374,21 @@ send_command(ccb_t *ccb, ccb_disp_t disp, bool waitok, bool immed)
 		throttle_ccb(ccb, TRUE);
 
 		if (!waitok) {
-			DEBOUT(("Throttling send_command, ccb = %p\n",ccb));
+			mutex_exit(&sess->lock);
+			DEBC(conn, 10, ("Throttling send_command, ccb = %p\n",ccb));
 			return;
 		}
 
+		DEBC(conn, 15, ("Wait send_command, ccb = %p\n",ccb));
 		cv_wait(&sess->ccb_cv, &sess->lock);
-
-		DEBOUT(("Resuming send_command, ccb = %p\n",ccb));
+		DEBC(conn, 15, ("Resuming send_command, ccb = %p\n",ccb));
 
 		throttle_ccb(ccb, FALSE);
 		ccb->flags &= ~CCBF_WAITING;
 	}
 	mutex_exit(&sess->lock);
 
-	ppdu = get_pdu(conn, FALSE);
+	ppdu = get_pdu(conn, waitok);
 	if (ppdu == NULL) {
 		DEBOUT(("No PDU for send_command, ccb = %p\n",ccb));
 		ccb->disp = disp;
@@ -1403,12 +1419,9 @@ send_command(ccb_t *ccb, ccb_disp_t disp, bool waitok, bool immed)
 			totlen = conn->max_firstdata ? totlen - len : 0;
 		}
 	}
-
-	/* currently ignoring tag type and id */
-	pdu->Flags |= ATTR_SIMPLE;
-
 	if (!totlen)
 		pdu->Flags |= FLAG_FINAL;
+	pdu->Flags |= ccb->tag;
 
 	if (ccb->data_in)
 		init_sernum(&ccb->DataSN_buf);
@@ -1419,15 +1432,13 @@ send_command(ccb_t *ccb, ccb_disp_t disp, bool waitok, bool immed)
 	ccb->flags |= CCBF_REASSIGN;
 
 	mutex_enter(&sess->lock);
-	ccb->CmdSN = sess->CmdSN;
-	if (!immed)
-		sess->CmdSN++;
+	ccb->CmdSN = get_sernum(sess, !immed);
 	mutex_exit(&sess->lock);
 
 	pdu->p.command.CmdSN = htonl(ccb->CmdSN);
 
-	DEBC(conn, 10, ("Send Command: CmdSN %d, data_in %d, len %d, totlen %d\n",
-			ccb->CmdSN, ccb->data_in, len, totlen));
+	DEBC(conn, 10, ("Send Command: CmdSN %d (%d), data_in %d, len %d, totlen %d\n",
+			ccb->CmdSN, sess->MaxCmdSN, ccb->data_in, len, totlen));
 
 	setup_tx_uio(ppdu, len, ccb->data_ptr, ccb->data_in);
 	send_pdu(ccb, ppdu, (totlen) ? CCBDISP_DEFER : disp, PDUDISP_WAIT);
@@ -1498,6 +1509,22 @@ send_run_xfer(session_t *session, struct scsipi_xfer *xs)
 	ccb->cmdlen = xs->cmdlen;
 	DEB(10, ("RunXfer: Periph_lun = %d, cmd[1] = %x, cmdlen = %d\n",
 			xs->xs_periph->periph_lun, ccb->cmd[1], xs->cmdlen));
+
+	ccb->ITT |= xs->xs_tag_id << 24;
+	switch (xs->xs_tag_type) {
+	case MSG_ORDERED_Q_TAG:
+		ccb->tag = ATTR_ORDERED;
+		break;
+	case MSG_SIMPLE_Q_TAG:
+		ccb->tag = ATTR_SIMPLE;
+		break;
+	case MSG_HEAD_OF_Q_TAG:
+		ccb->tag = ATTR_HEAD_OF_QUEUE;
+		break;
+	default:
+		ccb->tag = 0;
+		break;
+	}
 
 #ifdef LUN_1
 	ccb->lun += 0x1000000000000LL;
@@ -1597,7 +1624,7 @@ connection_timeout(connection_t *conn)
 		if (conn->state == ST_FULL_FEATURE)
 			send_nop_out(conn, NULL);
 
-		callout_schedule(&conn->timeout, CONNECTION_TIMEOUT);
+		connection_timeout_start(conn, CONNECTION_TIMEOUT);
 	}
 }
 
@@ -1634,7 +1661,7 @@ ccb_timeout(ccb_t *ccb)
 			/* request resend of all missing status */
 			snack_missing(conn, NULL, SNACK_STATUS_NAK, 0, 0);
 		}
-		callout_schedule(&ccb->timeout, COMMAND_TIMEOUT);
+		ccb_timeout_start(ccb, COMMAND_TIMEOUT);
 	}
 }
 

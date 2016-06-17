@@ -23,8 +23,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
-#include <sys/cdefs.h>
+#include "port.h"
 #ifndef lint
 __RCSID("$NetBSD$");
 #endif
@@ -47,8 +46,6 @@ __RCSID("$NetBSD$");
 #include "print.h"
 #include "process.h"
 #include "rc.h"
-
-#include <util.h>
 
 /*
  * The list of all interfaces that are being listened to. 

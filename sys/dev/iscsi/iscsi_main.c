@@ -107,7 +107,7 @@ struct cdevsw iscsi_cdevsw = {
 /******************************************************************************/
 
 STATIC void iscsi_scsipi_request(struct scsipi_channel *,
-								 scsipi_adapter_req_t, void *);
+                                 scsipi_adapter_req_t, void *);
 STATIC void iscsi_minphys(struct buf *);
 
 /******************************************************************************/
@@ -355,8 +355,8 @@ map_session(session_t *session, device_t dev)
 	adapt->adapt_nchannels = 1;
 	adapt->adapt_request = iscsi_scsipi_request;
 	adapt->adapt_minphys = iscsi_minphys;
-	adapt->adapt_openings = CCBS_PER_SESSION;
-	adapt->adapt_max_periph = CCBS_PER_SESSION;
+	adapt->adapt_openings = CCBS_PER_SESSION - 1;
+	adapt->adapt_max_periph = CCBS_PER_SESSION - 1;
 
 	/*
 	 * Fill in the scsipi_channel.
@@ -455,7 +455,7 @@ iscsi_scsipi_request(struct scsipi_channel *chan, scsipi_adapter_req_t req,
 		}
 
 		send_run_xfer(session, xs);
-		DEB(9, ("scsipi_req returns\n"));
+		DEB(15, ("scsipi_req returns\n"));
 		return;
 
 	case ADAPTER_REQ_GROW_RESOURCES:
@@ -663,11 +663,11 @@ iscsi_modcmd(modcmd_t cmd, void *arg)
 
 	case MODULE_CMD_FINI:
 #ifdef _MODULE
-		sysctl_teardown(&clog);
-
 		error = config_cfdata_detach(iscsi_cfdata);
 		if (error)
 			return error;
+
+		sysctl_teardown(&clog);
 
 		config_cfattach_detach(iscsi_cd.cd_name, &iscsi_ca);
 		config_cfdriver_detach(&iscsi_cd);

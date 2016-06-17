@@ -62,7 +62,7 @@ main(void)
 
 	if (flag & RB_ASKNAME) {
 		printf("tapeboot: segment? [%s] ", defname);
-		gets(line);
+		gets_s(line, sizeof(line));
 		if (line[0])
 			file = line;
 	}

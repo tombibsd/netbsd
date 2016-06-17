@@ -462,7 +462,7 @@ sgec_intr(struct ze_softc *sc)
 				ifp->if_ierrors++;
 				m_freem(m);
 			} else {
-				m->m_pkthdr.rcvif = ifp;
+				m_set_rcvif(m, ifp);
 				m->m_pkthdr.len = m->m_len =
 				    len - ETHER_CRC_LEN;
 				bpf_mtap(ifp, m);

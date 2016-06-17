@@ -1230,10 +1230,10 @@ motg_setup_endpoint_rx(struct usbd_xfer *xfer)
 	    );
 	if (epnumber == 0) {
 		if (sc->sc_high_speed) {
-			UWRITE1(sc, MUSB2_REG_TXNAKLIMIT,
+			UWRITE1(sc, MUSB2_REG_RXNAKLIMIT,
 			    NAK_TO_CTRL_HIGH);
 		} else {
-			UWRITE1(sc, MUSB2_REG_TXNAKLIMIT, NAK_TO_CTRL);
+			UWRITE1(sc, MUSB2_REG_RXNAKLIMIT, NAK_TO_CTRL);
 		}
 	} else {
 		if ((xfer->ux_pipe->up_endpoint->ue_edesc->bmAttributes & UE_XFERTYPE)

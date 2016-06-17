@@ -1948,7 +1948,7 @@ zyd_rx_data(struct zyd_softc *sc, const uint8_t *buf, uint16_t len)
 			return;
 		}
 	}
-	m->m_pkthdr.rcvif = ifp;
+	m_set_rcvif(m, ifp);
 	m->m_pkthdr.len = m->m_len = rlen;
 	memcpy(mtod(m, uint8_t *), (const uint8_t *)(plcp + 1), rlen);
 

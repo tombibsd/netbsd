@@ -412,7 +412,7 @@ awin_eth_mgethdr(struct awin_eth_softc *sc, size_t rxlen)
 	m->m_data += 2;
 	m->m_len = rxlen;
 	m->m_pkthdr.len = rxlen;
-	m->m_pkthdr.rcvif = &sc->sc_ec.ec_if;
+	m_set_rcvif(m, &sc->sc_ec.ec_if);
 
 	return m;
 }

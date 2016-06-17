@@ -79,7 +79,7 @@ atintr(void)
 			break;
 
 		m_claimm(m, &atalk_rx_mowner);
-		ifp = m->m_pkthdr.rcvif;
+		ifp = m_get_rcvif_NOMPSAFE(m);
 		for (aa = at_ifaddr.tqh_first; aa; aa = aa->aa_list.tqe_next) {
 			if (aa->aa_ifp == ifp && (aa->aa_flags & AFA_PHASE2))
 				break;
@@ -103,7 +103,7 @@ atintr(void)
 			break;
 
 		m_claimm(m, &atalk_rx_mowner);
-		ifp = m->m_pkthdr.rcvif;
+		ifp = m_get_rcvif_NOMPSAFE(m);
 		for (aa = at_ifaddr.tqh_first; aa; aa = aa->aa_list.tqe_next) {
 			if (aa->aa_ifp == ifp &&
 			    (aa->aa_flags & AFA_PHASE2) == 0)

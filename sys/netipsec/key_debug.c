@@ -620,7 +620,7 @@ kdebug_mbufhdr(const struct mbuf *m)
 
 	if (m->m_flags & M_PKTHDR) {
 		printf("  m_pkthdr{ len:%d rcvif:%p }\n",
-		    m->m_pkthdr.len, m->m_pkthdr.rcvif);
+		    m->m_pkthdr.len, m_get_rcvif_NOMPSAFE(m));
 	}
 
 	if (m->m_flags & M_EXT) {

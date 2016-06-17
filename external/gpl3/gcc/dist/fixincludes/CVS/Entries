@@ -1,4 +1,4 @@
-/ChangeLog/1.1.1.7/Sun Feb 14 12:38:44 2016/-kk/
+/ChangeLog/1.1.1.8/Fri Jun 17 00:48:45 2016/-kk/
 /Makefile.in/1.1.1.3/Sun Feb 14 12:38:44 2016/-kk/
 /README-fixinc/1.1.1.1/Tue Jun 21 01:23:12 2011/-kk/
 /README/1.1.1.3/Sun Feb 14 12:38:44 2016/-kk/
@@ -11,13 +11,13 @@
 /fixinc.in/1.1.1.2/Fri Mar 14 04:24:57 2014/-kk/
 /fixincl.c/1.1.1.3/Sun Feb 14 12:38:45 2016/-kk/
 /fixincl.tpl/1.1.1.2/Sun Feb 14 12:38:45 2016/-kk/
-/fixincl.x/1.1.1.4/Sun Feb 14 12:38:45 2016/-kk/
+/fixincl.x/1.1.1.5/Fri Jun 17 00:48:45 2016/-kk/
 /fixlib.c/1.1.1.1/Tue Jun 21 01:23:12 2011/-kk/
 /fixlib.h/1.1.1.3/Sun Feb 14 12:38:45 2016/-kk/
 /fixopts.c/1.1.1.2/Fri Mar 14 04:24:57 2014/-kk/
 /fixtests.c/1.1.1.2/Fri Mar 14 04:24:57 2014/-kk/
 /genfixes/1.1.1.2/Fri Mar 14 04:24:57 2014/-kk/
-/inclhack.def/1.1.1.4/Sun Feb 14 12:38:47 2016/-kk/
+/inclhack.def/1.1.1.5/Fri Jun 17 00:48:45 2016/-kk/
 /mkfixinc.sh/1.1.1.2/Fri Mar 14 04:24:57 2014/-kk/
 /mkheaders.in/1.1.1.1/Tue Jun 21 01:23:11 2011/-kk/
 /procopen.c/1.1.1.1/Tue Jun 21 01:23:11 2011/-kk/

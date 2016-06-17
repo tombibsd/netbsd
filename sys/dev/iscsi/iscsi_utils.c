@@ -239,16 +239,18 @@ get_ccb(connection_t *conn, bool waitok)
 	mutex_exit(&sess->lock);
 
 	ccb->flags = 0;
+	ccb->timedout = TOUT_NONE;
 	ccb->xs = NULL;
 	ccb->temp_data = NULL;
 	ccb->text_data = NULL;
 	ccb->status = ISCSI_STATUS_SUCCESS;
-	ccb->ITT = (ccb->ITT & 0xffffff) | (++sess->itt_id << 24);
+	ccb->ITT = (ccb->ITT & 0xffffff);
 	ccb->disp = CCBDISP_NOWAIT;
 	ccb->connection = conn;
+	ccb->num_timeouts = 0;
 	atomic_inc_uint(&conn->usecount);
 
-	DEBC(conn, 5, (
+	DEBC(conn, 15, (
 		"get_ccb: ccb = %p, usecount = %d\n",
 		ccb, conn->usecount));
 
@@ -266,16 +268,17 @@ void
 free_ccb(ccb_t *ccb)
 {
 	session_t *sess = ccb->session;
+	connection_t *conn = ccb->connection;
 	pdu_t *pdu;
 
-	DEBC(ccb->connection, 5, (
+	DEBC(conn, 15, (
 		"free_ccb: ccb = %p, usecount = %d\n",
-		ccb, ccb->connection->usecount-1));
+		ccb, conn->usecount-1));
 
 	KASSERT((ccb->flags & CCBF_THROTTLING) == 0);
 	KASSERT((ccb->flags & CCBF_WAITQUEUE) == 0);
 
-	atomic_dec_uint(&ccb->connection->usecount);
+	atomic_dec_uint(&conn->usecount);
 	ccb->connection = NULL;
 
 	if (ccb->disp > CCBDISP_NOWAIT) {
@@ -294,6 +297,12 @@ free_ccb(ccb_t *ccb)
 	/* free PDU waiting for ACK */
 	if ((pdu = ccb->pdu_waiting) != NULL) {
 		ccb->pdu_waiting = NULL;
+		mutex_enter(&conn->lock);
+		if ((pdu->flags & PDUF_INQUEUE) != 0) {
+			TAILQ_REMOVE(&conn->pdus_to_send, pdu, send_chain);
+			pdu->flags &= ~PDUF_INQUEUE;
+		}
+		mutex_exit(&conn->lock);
 		free_pdu(pdu);
 	}
 
@@ -365,9 +374,10 @@ throttle_ccb(ccb_t *ccb, bool yes)
 {
 	session_t *sess;
 
+	sess = ccb->session;
+
 	KASSERT(mutex_owned(&sess->lock));
 
-	sess = ccb->session;
 	if (yes) {
 		KASSERT((ccb->flags & CCBF_THROTTLING) == 0);
 		KASSERT((ccb->flags & CCBF_WAITQUEUE) == 0);
@@ -395,15 +405,17 @@ wake_ccb(ccb_t *ccb, uint32_t status)
 {
 	ccb_disp_t disp;
 	connection_t *conn;
+	session_t *sess;
 
 	conn = ccb->connection;
+	sess = ccb->session;
 
 #ifdef ISCSI_DEBUG
 	DEBC(conn, 9, ("CCB done, ccb = %p, disp = %d\n",
 		ccb, ccb->disp));
 #endif
 
-	callout_stop(&ccb->timeout);
+	ccb_timeout_stop(ccb);
 
 	mutex_enter(&conn->lock);
 	disp = ccb->disp;
@@ -414,12 +426,15 @@ wake_ccb(ccb_t *ccb, uint32_t status)
 	}
 
 	suspend_ccb(ccb, FALSE);
-	throttle_ccb(ccb, FALSE);
 
 	/* change the disposition so nobody tries this again */
 	ccb->disp = CCBDISP_BUSY;
 	ccb->status = status;
 	mutex_exit(&conn->lock);
+
+	mutex_enter(&sess->lock);
+	throttle_ccb(ccb, FALSE);
+	mutex_exit(&sess->lock);
 
 	switch (disp) {
 	case CCBDISP_FREE:
@@ -503,16 +518,11 @@ free_pdu(pdu_t *pdu)
 	connection_t *conn = pdu->connection;
 	pdu_disp_t pdisp;
 
+	KASSERT((pdu->flags & PDUF_INQUEUE) == 0);
+
 	if (PDUDISP_UNUSED == (pdisp = pdu->disp))
 		return;
 	pdu->disp = PDUDISP_UNUSED;
-
-	mutex_enter(&conn->lock);
-	if (pdu->flags & PDUF_INQUEUE) {
-		TAILQ_REMOVE(&conn->pdus_to_send, pdu, send_chain);
-		pdu->flags &= ~PDUF_INQUEUE;
-	}
-	mutex_exit(&conn->lock);
 
 	/* free temporary data in this PDU */
 	if (pdu->temp_data)
@@ -622,7 +632,7 @@ add_sernum(sernum_buffer_t *buff, uint32_t num)
 	}
 
 	buff->top = t;
-	DEB(10, ("AddSernum bottom %d [%d], top %d, num %u, diff %d\n",
+	DEB(11, ("AddSernum bottom %d [%d], top %d, num %u, diff %d\n",
 			 b, buff->sernum[b], buff->top, num, diff));
 
 	return diff;
@@ -673,8 +683,40 @@ ack_sernum(sernum_buffer_t *buff, uint32_t num)
 	if (!sn_a_lt_b(num, buff->ExpSN))
 		buff->ExpSN = num + 1;
 
-	DEB(10, ("AckSernum bottom %d, top %d, num %d ExpSN %d\n",
+	DEB(11, ("AckSernum bottom %d, top %d, num %d ExpSN %d\n",
 			 buff->bottom, buff->top, num, buff->ExpSN));
 
 	return buff->ExpSN;
 }
+
+/*
+ * next_sernum:
+ *   Return the current command serial number of the session
+ *   and optionally increment it for the next query
+ */
+uint32_t
+get_sernum(session_t *sess, bool bump)
+{
+	uint32_t sn;
+
+	KASSERT(mutex_owned(&sess->lock));
+
+	sn = sess->CmdSN;
+	if (bump)
+		atomic_inc_32(&sess->CmdSN);
+	return sn;
+}
+
+/*
+ * sernum_in_window:
+ *   Check wether serial number is in send window
+ *
+ */
+int
+sernum_in_window(session_t *sess)
+{
+
+	KASSERT(mutex_owned(&sess->lock));
+	return sn_a_le_b(sess->CmdSN, sess->MaxCmdSN);
+}
+

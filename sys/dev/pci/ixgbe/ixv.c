@@ -3593,7 +3593,7 @@ ixv_rxeof(struct ix_queue *que, int count)
 		++processed;
 		/* Sending this frame? */
 		if (eop) {
-			sendmp->m_pkthdr.rcvif = ifp;
+			m_set_rcvif(sendmp, ifp);
 			ifp->if_ipackets++;
 			rxr->rx_packets.ev_count++;
 			/* capture data for AIM */

@@ -25,10 +25,10 @@
 /uvm_km.h/1.20/Fri Jan 27 19:48:41 2012/-kk/
 /uvm_loan.c/1.83/Mon Jul 30 23:56:48 2012/-kk/
 /uvm_loan.h/1.17/Wed Feb  2 15:13:34 2011/-kk/
-/uvm_map.c/1.337/Tue Jun  7 11:14:55 2016/-kk/
+/uvm_map.c/1.338/Fri Jun 17 00:53:07 2016/-kk/
 /uvm_map.h/1.73/Tue Jun  7 11:14:55 2016/-kk/
 /uvm_meter.c/1.65/Thu Dec 11 09:09:56 2014/-kk/
-/uvm_mmap.c/1.158/Tue Jun  7 11:14:55 2016/-kk/
+/uvm_mmap.c/1.159/Fri Jun 17 00:53:07 2016/-kk/
 /uvm_mremap.c/1.18/Sat Dec  5 11:19:37 2015/-kk/
 /uvm_object.c/1.15/Fri Nov 20 01:31:41 2015/-kk/
 /uvm_object.h/1.33/Fri Sep 14 22:20:50 2012/-kk/

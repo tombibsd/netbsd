@@ -4577,7 +4577,7 @@ bnx_rx_intr(struct bnx_softc *sc)
 			m->m_pkthdr.len = m->m_len = len;
 
 			/* Send the packet to the appropriate interface. */
-			m->m_pkthdr.rcvif = ifp;
+			m_set_rcvif(m, ifp);
 
 			DBRUN(BNX_VERBOSE_RECV,
 			    struct ether_header *eh;

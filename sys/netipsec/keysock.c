@@ -271,7 +271,7 @@ key_sendup(struct socket *so, struct sadb_msg *msg, u_int len,
 		n = NULL;
 	}
 	m->m_pkthdr.len = len;
-	m->m_pkthdr.rcvif = NULL;
+	m_reset_rcvif(m);
 	m_copyback(m, 0, len, msg);
 
 	/* avoid duplicated statistics */

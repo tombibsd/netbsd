@@ -12,3 +12,4 @@ LIBDIR=	${X11LIBDIR}/locale/lib/common
 SRCS=	${SRCS.xlcUTF8Load}
 
 .include "../Makefile.xlcUTF8Load"
+.include <bsd.lib.mk>

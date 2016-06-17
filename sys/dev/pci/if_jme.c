@@ -1144,7 +1144,7 @@ jme_intr_rx(jme_softc_t *sc) {
 		}
 
 		/* build mbuf chain: head, then remaining segments */
-		m->m_pkthdr.rcvif = ifp;
+		m_set_rcvif(m, ifp);
 		m->m_pkthdr.len = JME_RX_BYTES(buflen) - JME_RX_PAD_BYTES;
 		m->m_len = (nsegs > 1) ? (MCLBYTES - JME_RX_PAD_BYTES) :
 		    m->m_pkthdr.len;

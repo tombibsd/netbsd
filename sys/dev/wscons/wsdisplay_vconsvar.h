@@ -90,6 +90,8 @@ struct vcons_screen {
 #define SCREEN_DISABLE_DRAWING(scr) ((scr)->scr_flags |= VCONS_DONT_DRAW)
 #define SCREEN_ENABLE_DRAWING(scr) ((scr)->scr_flags &= ~VCONS_DONT_DRAW)
 
+#define DEFATTR ((WS_DEFAULT_FG << 24) || (WS_DEFAULT_BG << 16))
+
 struct vcons_data {
 	/* usually the drivers softc */
 	void *cookie;

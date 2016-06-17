@@ -166,7 +166,7 @@ sockaddr_snprintf(char * const sbuf, const size_t len, const char * const fmt,
 			    sdl->sdl_index);
 		} else {
 			(void)strlcpy(abuf, link_ntoa(sdl), sizeof(abuf));
-			if ((w = strchr(addr, ':')) != 0) {
+			if ((w = strchr(addr, ':')) != NULL) {
 			    *w++ = '\0';
 			    addr = w;
 			}

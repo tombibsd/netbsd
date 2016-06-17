@@ -59,15 +59,13 @@ my_soo_read(connection_t *conn, struct uio *u, int flags)
 
 	DEBC(conn, 99, ("soo_read req: %zu\n", resid));
 
-	KERNEL_LOCK(1, curlwp);
-	ret = soreceive(so, NULL, u, NULL, NULL, &flags);
-	KERNEL_UNLOCK_ONE(curlwp);
+	ret = (*so->so_receive)(so, NULL, u, NULL, NULL, &flags);
 
 	if (ret || (flags != MSG_DONTWAIT && u->uio_resid)) {
-		DEBC(conn, 1, ("Read failed (ret: %d, req: %zu, out: %zu)\n", ret, resid,
-				u->uio_resid));
+		DEBC(conn, 1, ("Read failed (ret: %d, req: %zu, out: %zu)\n",
+		               ret, resid, u->uio_resid));
 		handle_connection_error(conn, ISCSI_STATUS_SOCKET_ERROR,
-								RECOVER_CONNECTION);
+		                        RECOVER_CONNECTION);
 		return 1;
 	}
 	return 0;
@@ -125,14 +123,29 @@ ccb_from_itt(connection_t *conn, uint32_t itt)
 	ccb_t *ccb;
 	int cidx;
 
+	if (itt == 0xffffffff)
+		return NULL;
+
 	cidx = itt & 0xff;
-	if (cidx >= CCBS_PER_SESSION) {
+	if (cidx >= CCBS_PER_SESSION)
 		return NULL;
-	}
+
 	ccb = &conn->session->ccb[cidx];
-	if (ccb->ITT != itt || ccb->disp <= CCBDISP_BUSY) {
+
+	if (ccb->ITT != itt) {
+		DEBC(conn, 0,
+		     ("ccb_from_itt: received invalid CCB itt %08x != %08x\n",
+		      itt, ccb->ITT));
 		return NULL;
 	}
+
+	if (ccb->disp <= CCBDISP_BUSY) {
+		DEBC(conn, 0,
+		     ("ccb_from_itt: received CCB with invalid disp %d\n",
+		      ccb->disp));
+		return NULL;
+	}
+
 	return ccb;
 }
 
@@ -161,7 +174,7 @@ read_pdu_data(pdu_t *pdu, uint8_t *data, uint32_t offset)
 	int i, pad;
 	connection_t *conn = pdu->connection;
 
-	DEB(1, ("read_pdu_data: data segment length = %d\n",
+	DEB(15, ("read_pdu_data: data segment length = %d\n",
 		ntoh3(pdu->pdu.DataSegmentLength)));
 	if (!(len = ntoh3(pdu->pdu.DataSegmentLength))) {
 		return 0;
@@ -370,23 +383,34 @@ check_CmdSN(connection_t *conn, uint32_t nw_sn)
 		DEBC(conn, 10,
 			("CheckCmdSN - CmdSN=%d, ExpCmdSn=%d, waiting=%p, flags=%x\n",
 			ccb->CmdSN, sn, ccb->pdu_waiting, ccb->flags));
-		if (ccb->pdu_waiting != NULL && ccb->CmdSN > sn &&
+		if (ccb->pdu_waiting != NULL &&
+			sn_a_lt_b(sn, ccb->CmdSN) &&
 			!(ccb->flags & CCBF_GOT_RSP)) {
 			DEBC(conn, 1, ("CheckCmdSN resending - CmdSN=%d, ExpCmdSn=%d\n",
-						   ccb->CmdSN, sn));
+			               ccb->CmdSN, sn));
 
 			ccb->total_tries++;
 
 			if (++ccb->num_timeouts > MAX_CCB_TIMEOUTS ||
 				ccb->total_tries > MAX_CCB_TRIES) {
-				handle_connection_error(conn, ISCSI_STATUS_TIMEOUT,
-					(ccb->total_tries <= MAX_CCB_TRIES) ? RECOVER_CONNECTION
-														: LOGOUT_CONNECTION);
+				handle_connection_error(conn,
+					ISCSI_STATUS_TIMEOUT,
+					(ccb->total_tries <= MAX_CCB_TRIES)
+						? RECOVER_CONNECTION
+						: LOGOUT_CONNECTION);
 				break;
 			} else {
 				resend_pdu(ccb);
 			}
 		}
+
+		/*
+		 * The target can respond to a NOP-In before subsequent
+		 * commands are processed. So our CmdSN can exceed the
+		 * returned ExpCmdSN by the number of commands that are
+		 * in flight. Adjust the expected value accordingly.
+		 */
+		sn++;
 	}
 }
 
@@ -471,7 +495,7 @@ receive_text_response_pdu(connection_t *conn, pdu_t *pdu, ccb_t *req_ccb)
 	}
 
 	if (req_ccb->pdu_waiting != NULL) {
-		callout_schedule(&req_ccb->timeout, COMMAND_TIMEOUT);
+		ccb_timeout_start(req_ccb, COMMAND_TIMEOUT);
 		req_ccb->num_timeouts = 0;
 	}
 
@@ -542,7 +566,7 @@ receive_logout_pdu(connection_t *conn, pdu_t *pdu, ccb_t *req_ccb)
 		conn->state = ST_SETTLING;
 		conn->loggedout = (response) ? LOGOUT_FAILED : LOGOUT_SUCCESS;
 
-		callout_stop(&conn->timeout);
+		connection_timeout_stop(conn);
 
 		/* let send thread take over next step of cleanup */
 		cv_broadcast(&conn->conn_cv);
@@ -578,7 +602,7 @@ receive_data_in_pdu(connection_t *conn, pdu_t *pdu, ccb_t *req_ccb)
 	req_ccb->flags |= CCBF_GOT_RSP;
 
 	if (req_ccb->pdu_waiting != NULL) {
-		callout_schedule(&req_ccb->timeout, COMMAND_TIMEOUT);
+		ccb_timeout_start(req_ccb, COMMAND_TIMEOUT);
 		req_ccb->num_timeouts = 0;
 	}
 
@@ -659,7 +683,7 @@ receive_r2t_pdu(connection_t *conn, pdu_t *pdu, ccb_t *req_ccb)
 
 	if (req_ccb != NULL) {
 		if (req_ccb->pdu_waiting != NULL) {
-			callout_schedule(&req_ccb->timeout, COMMAND_TIMEOUT);
+			ccb_timeout_start(req_ccb, COMMAND_TIMEOUT);
 			req_ccb->num_timeouts = 0;
 		}
 		send_data_out(conn, pdu, req_ccb, CCBDISP_NOWAIT, TRUE);
@@ -702,7 +726,7 @@ receive_command_response_pdu(connection_t *conn, pdu_t *pdu, ccb_t *req_ccb)
 	}
 
 	if (req_ccb->pdu_waiting != NULL) {
-		callout_schedule(&req_ccb->timeout, COMMAND_TIMEOUT);
+		ccb_timeout_start(req_ccb, COMMAND_TIMEOUT);
 		req_ccb->num_timeouts = 0;
 	}
 
@@ -944,7 +968,7 @@ STATIC int
 receive_nop_in_pdu(connection_t *conn, pdu_t *pdu, ccb_t *req_ccb)
 {
 	DEBC(conn, 10,
-		("Received NOP-In PDU, req_ccb=%p, ITT=%x, TTT=%x, StatSN=%x\n",
+		("Received NOP_In PDU, req_ccb=%p, ITT=%x, TTT=%x, StatSN=%x\n",
 		req_ccb, pdu->pdu.InitiatorTaskTag,
 		pdu->pdu.p.nop_in.TargetTransferTag,
 		ntohl(pdu->pdu.p.nop_in.StatSN)));
@@ -971,6 +995,9 @@ receive_nop_in_pdu(connection_t *conn, pdu_t *pdu, ccb_t *req_ccb)
 		wake_ccb(req_ccb, ISCSI_STATUS_SUCCESS);
 
 		check_StatSN(conn, pdu->pdu.p.nop_in.StatSN, TRUE);
+	} else {
+		DEBC(conn, 0, ("Received unsolicted NOP_In, itt=%08x\n",
+		               pdu->pdu.InitiatorTaskTag));
 	}
 
 	return 0;
@@ -994,7 +1021,7 @@ receive_pdu(connection_t *conn, pdu_t *pdu)
 	ccb_t *req_ccb;
 	ccb_list_t waiting;
 	int rc;
-	uint32_t MaxCmdSN, digest;
+	uint32_t MaxCmdSN, ExpCmdSN, digest;
 	session_t *sess = conn->session;
 
 	if (conn->HeaderDigest) {
@@ -1008,6 +1035,10 @@ receive_pdu(connection_t *conn, pdu_t *pdu)
 			return 0;
 		}
 	}
+
+	DEBC(conn, 99, ("Received PDU ExpCmdSN = %u, MaxCmdSN = %u\n",
+	     ntohl(pdu->pdu.p.response.ExpCmdSN),
+	     ntohl(pdu->pdu.p.response.ExpCmdSN)));
 
 	req_ccb = ccb_from_itt(conn, pdu->pdu.InitiatorTaskTag);
 
@@ -1089,15 +1120,15 @@ receive_pdu(connection_t *conn, pdu_t *pdu)
 		return rc;
 
 	/* MaxCmdSN and ExpCmdSN are in the same place in all received PDUs */
-	sess->ExpCmdSN = max(sess->ExpCmdSN, ntohl(pdu->pdu.p.nop_in.ExpCmdSN));
+	ExpCmdSN = ntohl(pdu->pdu.p.nop_in.ExpCmdSN);
 	MaxCmdSN = ntohl(pdu->pdu.p.nop_in.MaxCmdSN);
 
 	/* received a valid frame, reset timeout */
 	if ((pdu->pdu.Opcode & OPCODE_MASK) == TOP_NOP_In &&
 	    TAILQ_EMPTY(&conn->ccbs_waiting))
-		callout_schedule(&conn->timeout, conn->idle_timeout_val);
+		connection_timeout_start(conn, conn->idle_timeout_val);
 	else
-		callout_schedule(&conn->timeout, CONNECTION_TIMEOUT);
+		connection_timeout_start(conn, CONNECTION_TIMEOUT);
 	conn->num_timeouts = 0;
 
 	/*
@@ -1105,35 +1136,61 @@ receive_pdu(connection_t *conn, pdu_t *pdu)
 	 * We have to handle wait/nowait CCBs a bit differently.
 	 */
 	mutex_enter(&sess->lock);
-	if (MaxCmdSN != sess->MaxCmdSN) {
+
+	if (sn_a_lt_b(MaxCmdSN, ExpCmdSN-1)) {
+		/* both are ignored */
+		mutex_exit(&sess->lock);
+		return 0;
+	}
+
+	if (sn_a_lt_b(sess->ExpCmdSN, ExpCmdSN))
+		sess->ExpCmdSN = ExpCmdSN;
+
+	if (sn_a_lt_b(sess->MaxCmdSN, MaxCmdSN)) {
 		sess->MaxCmdSN = MaxCmdSN;
+
 		if (TAILQ_FIRST(&sess->ccbs_throttled) == NULL) {
 			mutex_exit(&sess->lock);
 			return 0;
 		}
 
-		DEBC(conn, 1, ("Unthrottling - MaxCmdSN = %d\n", MaxCmdSN));
+		DEBC(conn, 5, ("Unthrottling - MaxCmdSN = %d\n", MaxCmdSN));
 
 		TAILQ_INIT(&waiting);
 		while ((req_ccb = TAILQ_FIRST(&sess->ccbs_throttled)) != NULL) {
-			throttle_ccb(req_ccb, FALSE);
-			TAILQ_INSERT_TAIL(&waiting, req_ccb, chain);
+			if (!conn->terminating ||
+			    (req_ccb->flags & CCBF_WAITING) != 0) {
+				throttle_ccb(req_ccb, FALSE);
+				TAILQ_INSERT_TAIL(&waiting, req_ccb, chain);
+			}
 		}
-		mutex_exit(&sess->lock);
+
+		while ((req_ccb = TAILQ_FIRST(&waiting)) != NULL) {
+			if (!sernum_in_window(sess))
+				break;
+			mutex_exit(&sess->lock);
+
+			TAILQ_REMOVE(&waiting, req_ccb, chain);
+
+			DEBC(conn, 10, ("Unthrottling - ccb = %p, disp = %d\n",
+					req_ccb, req_ccb->disp));
+
+			if ((req_ccb->flags & CCBF_WAITING) != 0) {
+				cv_broadcast(&conn->ccb_cv);
+			} else {
+				send_command(req_ccb, req_ccb->disp, FALSE, FALSE);
+			}
+
+			mutex_enter(&sess->lock);
+		}
 
 		while ((req_ccb = TAILQ_FIRST(&waiting)) != NULL) {
 			TAILQ_REMOVE(&waiting, req_ccb, chain);
-
-			DEBC(conn, 1, ("Unthrottling - ccb = %p, disp = %d\n",
-					req_ccb, req_ccb->disp));
-
-			if (req_ccb->flags & CCBF_WAITING) {
-				cv_broadcast(&conn->ccb_cv);
-			} else
-				send_command(req_ccb, req_ccb->disp, FALSE, FALSE);
+			throttle_ccb(req_ccb, TRUE);
 		}
-	} else
-		mutex_exit(&sess->lock);
+	}
+
+	mutex_exit(&sess->lock);
 
 	return 0;
 }

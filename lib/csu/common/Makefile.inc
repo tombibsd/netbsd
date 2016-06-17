@@ -17,14 +17,6 @@ OBJS+=		sysident.o
 .if ${MKPIC} == "yes"
 OBJS+=		crtbeginS.o
 CFLAGS.crtbegin.c+= -fPIE
-# XXXGCC5 - GCC 5 miscompiles crtbeginS.c on many platforms.  on SPARC it
-# XXXGCC5   emits "clr %g1; call %g1", which is effectively jumping to zero.
-. if defined(HAVE_GCC) && ${HAVE_GCC} == 53 && \
-     !exists(${ARCHDIR}/crtbegin.S)
-CFLAGS.crt0-common.c+=	-O1
-CFLAGS.crtbeginS.c+=	-O1
-CFLAGS.crtbegin.c+=	-O1
-. endif
 .endif
 
 .if ${MACHINE_ARCH} == "alpha"

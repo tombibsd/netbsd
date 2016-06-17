@@ -19,7 +19,7 @@
 /fdreg.h/1.4/Sun Dec 11 12:19:20 2005/-kk/
 /fdvar.h/1.7/Thu Jun 30 20:09:37 2011/-kk/
 /i82586.h/1.6/Sat Mar 15 18:10:48 1997/-kk/
-/if_ie.c/1.57/Mon Feb 15 11:07:10 2016/-kk/
+/if_ie.c/1.58/Fri Jun 17 00:52:37 2016/-kk/
 /if_ie_obio.c/1.25/Sat Jun 28 12:13:38 2008/-kk/
 /if_ie_sebuf.c/1.16/Sat Jun 28 12:13:38 2008/-kk/
 /if_ie_vme.c/1.23/Sat Jun 28 12:13:38 2008/-kk/

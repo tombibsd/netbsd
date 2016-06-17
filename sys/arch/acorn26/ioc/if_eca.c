@@ -480,7 +480,7 @@ eca_gotframe(void *arg)
 			m_freem(mtail->m_next);
 			mtail->m_next = NULL;
 			/* Set up the header of the chain. */
-			m->m_pkthdr.rcvif = ifp;
+			m_set_rcvif(m, ifp);
 			m->m_pkthdr.len = 0;
 			for (n = m; n != NULL; n = n->m_next)
 				m->m_pkthdr.len += n->m_len;

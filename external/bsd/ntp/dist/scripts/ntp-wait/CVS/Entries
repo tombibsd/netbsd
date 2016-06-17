@@ -1,14 +1,14 @@
 /Makefile.am/1.1.1.2/Sat Dec 27 03:33:44 2014/-kk/
 /Makefile.in/1.1.1.7/Tue Jun  7 10:41:40 2016/-kk/
 /invoke-ntp-wait.menu/1.1.1.1/Fri Dec 27 23:31:08 2013/-kk/
-/invoke-ntp-wait.texi/1.1.1.7/Tue Jun  7 10:41:41 2016/-kk/
+/invoke-ntp-wait.texi/1.1.1.8/Fri Jun 17 00:46:20 2016/-kk/
 /ntp-wait-opts.def/1.1.1.2/Sat Dec 27 03:33:45 2014/-kk/
-/ntp-wait-opts/1.1.1.7/Tue Jun  7 10:41:41 2016/-kk/
-/ntp-wait.1ntp-waitman/1.1.1.7/Tue Jun  7 10:41:41 2016/-kk/
-/ntp-wait.1ntp-waitmdoc/1.1.1.7/Tue Jun  7 10:41:41 2016/-kk/
-/ntp-wait.html/1.1.1.7/Tue Jun  7 10:41:41 2016/-kk/
-/ntp-wait.in/1.1.1.1/Fri Dec 27 23:31:09 2013/-kk/
-/ntp-wait.man.in/1.1.1.7/Tue Jun  7 10:41:41 2016/-kk/
-/ntp-wait.mdoc.in/1.1.1.7/Tue Jun  7 10:41:41 2016/-kk/
+/ntp-wait-opts/1.1.1.8/Fri Jun 17 00:46:20 2016/-kk/
+/ntp-wait.1ntp-waitman/1.1.1.8/Fri Jun 17 00:46:20 2016/-kk/
+/ntp-wait.1ntp-waitmdoc/1.1.1.8/Fri Jun 17 00:46:20 2016/-kk/
+/ntp-wait.html/1.1.1.8/Fri Jun 17 00:46:20 2016/-kk/
+/ntp-wait.in/1.1.1.2/Fri Jun 17 00:46:20 2016/-kk/
+/ntp-wait.man.in/1.1.1.8/Fri Jun 17 00:46:20 2016/-kk/
+/ntp-wait.mdoc.in/1.1.1.8/Fri Jun 17 00:46:20 2016/-kk/
 /ntp-wait.texi/1.1.1.1/Fri Dec 27 23:31:08 2013/-kk/
 D

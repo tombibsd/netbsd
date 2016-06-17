@@ -1,0 +1,11 @@
+# $NetBSD$
+SRCS=mopcopy.c
+OBJS=${SRCS:.c=.o}
+
+LDLIBS+=../common/libcommon.a
+CFLAGS+=-I../common -DNOAOUT
+
+mopcopy: ${OBJS}
+
+clean:
+	rm -f ${OBJS} mopcopy

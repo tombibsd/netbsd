@@ -1735,7 +1735,7 @@ pf_send_tcp(const struct pf_rule *r, sa_family_t af,
 #endif /* ALTQ */
 	m->m_data += max_linkhdr;
 	m->m_pkthdr.len = m->m_len = len;
-	m->m_pkthdr.rcvif = NULL;
+	m_reset_rcvif(m);
 	bzero(m->m_data, len);
 	switch (af) {
 #ifdef INET

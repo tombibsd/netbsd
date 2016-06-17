@@ -1038,7 +1038,7 @@ rtk_rxeof(struct rtk_softc *sc)
 			}
 		}
 		m->m_data += RTK_ETHER_ALIGN;	/* for alignment */
-		m->m_pkthdr.rcvif = ifp;
+		m_set_rcvif(m, ifp);
 		m->m_pkthdr.len = m->m_len = total_len;
 		dst = mtod(m, void *);
 

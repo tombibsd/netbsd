@@ -1182,7 +1182,7 @@ sppp_cisco_send(struct sppp *sp, int type, int32_t par1, int32_t par2)
 	if (! m)
 		return;
 	m->m_pkthdr.len = m->m_len = PPP_HEADER_LEN + CISCO_PACKET_LEN;
-	m->m_pkthdr.rcvif = 0;
+	m_reset_rcvif(m);
 
 	h = mtod(m, struct ppp_header *);
 	h->address = CISCO_MULTICAST;
@@ -1242,7 +1242,7 @@ sppp_cp_send(struct sppp *sp, u_short proto, u_char type,
 	if (! m)
 		return;
 	m->m_pkthdr.len = m->m_len = pkthdrlen + LCP_HEADER_LEN + len;
-	m->m_pkthdr.rcvif = 0;
+	m_reset_rcvif(m);
 
 	if (sp->pp_flags & PP_NOFRAMING) {
 		*mtod(m, uint16_t *) = htons(proto);
@@ -4656,7 +4656,7 @@ sppp_auth_send(const struct cp *cp, struct sppp *sp,
 	MGETHDR(m, M_DONTWAIT, MT_DATA);
 	if (! m)
 		return;
-	m->m_pkthdr.rcvif = 0;
+	m_reset_rcvif(m);
 
 	if (sp->pp_flags & PP_NOFRAMING) {
 		*mtod(m, uint16_t *) = htons(cp->proto);

@@ -1302,7 +1302,7 @@ send:
 		m->m_data += max_linkhdr;
 		m->m_len = hdrlen;
 	}
-	m->m_pkthdr.rcvif = NULL;
+	m_reset_rcvif(m);
 	switch (af) {
 #ifdef INET
 	case AF_INET:

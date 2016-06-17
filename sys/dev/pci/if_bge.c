@@ -4560,7 +4560,7 @@ bge_rxeof(struct bge_softc *sc)
 #endif
 
 		m->m_pkthdr.len = m->m_len = cur_rx->bge_len - ETHER_CRC_LEN;
-		m->m_pkthdr.rcvif = ifp;
+		m_set_rcvif(m, ifp);
 
 		/*
 		 * Handle BPF listeners. Let the BPF user see the packet.

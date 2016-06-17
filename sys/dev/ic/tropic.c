@@ -1436,7 +1436,7 @@ tr_get(struct tr_softc *sc, int totlen, struct ifnet *ifp)
 	if (m0 == 0)
 		return (0);
 
-	m0->m_pkthdr.rcvif = ifp;
+	m_set_rcvif(m0, ifp);
 	m0->m_pkthdr.len = totlen;
 	len = MHLEN;
 

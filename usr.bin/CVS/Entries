@@ -1,5 +1,5 @@
 /Makefile.inc/1.10/Wed Mar 21 05:47:53 2012/-kk/
-/Makefile/1.224/Sun Feb 14 12:56:04 2016/-kk/
+/Makefile/1.225/Fri Jun 17 00:53:22 2016/-kk/
 D/apply////
 D/apropos////
 D/asa////
@@ -193,6 +193,7 @@ D/spell////
 D/split////
 D/stat////
 D/su////
+D/sys_info////
 D/systat////
 D/tabs////
 D/tail////

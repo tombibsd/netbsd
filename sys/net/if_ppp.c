@@ -1600,7 +1600,7 @@ ppp_inproc(struct ppp_softc *sc, struct mbuf *m)
 		}
 	}
 	m->m_pkthdr.len = ilen;
-	m->m_pkthdr.rcvif = ifp;
+	m_set_rcvif(m, ifp);
 
 	if ((proto & 0x8000) == 0) {
 #ifdef PPP_FILTER

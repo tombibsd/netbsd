@@ -8458,7 +8458,7 @@ bwi_rxeof(struct bwi_softc *sc, int end_idx)
 		plcp = ((const uint8_t *)(hdr + 1) + hdr_extra);
 		rssi = bwi_calc_rssi(sc, hdr);
 
-		m->m_pkthdr.rcvif = ifp;
+		m_set_rcvif(m, ifp);
 		m->m_len = m->m_pkthdr.len = buflen + sizeof(*hdr);
 		m_adj(m, sizeof(*hdr) + wh_ofs);
 

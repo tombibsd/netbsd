@@ -11,7 +11,7 @@
 /files.pcmcia/1.58/Sat Aug 25 08:20:03 2012/-kk/
 /if_an_pcmcia.c/1.41/Sat Oct 27 17:18:36 2012/-kk/
 /if_awi_pcmcia.c/1.45/Sat Oct 27 17:18:36 2012/-kk/
-/if_cnw.c/1.57/Mon Feb 15 11:07:26 2016/-kk/
+/if_cnw.c/1.58/Fri Jun 17 00:52:53 2016/-kk/
 /if_cnwioctl.h/1.5/Sun Sep 13 01:31:34 2015/-kk/
 /if_cnwreg.h/1.6/Mon Apr 28 20:23:56 2008/-kk/
 /if_cs_pcmcia.c/1.21/Wed Apr 22 07:36:59 2015/-kk/
@@ -21,12 +21,12 @@
 /if_malo_pcmciavar.h/1.2/Tue Jun  3 02:54:38 2014/-kk/
 /if_mbe_pcmcia.c/1.46/Tue May 12 14:42:18 2009/-kk/
 /if_ne_pcmcia.c/1.160/Thu Oct 24 10:28:58 2013/-kk/
-/if_ray.c/1.82/Mon Feb 15 11:07:26 2016/-kk/
+/if_ray.c/1.83/Fri Jun 17 00:52:53 2016/-kk/
 /if_rayreg.h/1.11/Sun Sep 13 01:31:34 2015/-kk/
 /if_sm_pcmcia.c/1.55/Sat Oct 27 17:18:37 2012/-kk/
 /if_tr_pcmcia.c/1.25/Sat Oct 27 17:18:37 2012/-kk/
-/if_wi_pcmcia.c/1.90/Thu Oct 24 10:28:58 2013/-kk/
-/if_xi.c/1.76/Mon Feb 15 11:07:26 2016/-kk/
+/if_wi_pcmcia.c/1.91/Fri Jun 17 00:52:53 2016/-kk/
+/if_xi.c/1.77/Fri Jun 17 00:52:53 2016/-kk/
 /if_xireg.h/1.8/Sun Dec 11 12:23:23 2005/-kk/
 /if_xivar.h/1.9/Wed Apr 22 07:36:59 2015/-kk/
 /isic_pcmcia.c/1.41/Sat Oct 27 17:18:37 2012/-kk/
@@ -41,9 +41,9 @@
 /pcmcia_cis.c/1.55/Tue May 12 14:42:19 2009/-kk/
 /pcmcia_cis_quirks.c/1.35/Thu Oct 24 10:28:58 2013/-kk/
 /pcmciachip.h/1.17/Tue Jul 26 22:24:36 2011/-kk/
-/pcmciadevs.h/1.232/Thu Aug 23 10:39:25 2012/-kk/
-/pcmciadevs/1.230/Thu Aug 23 10:37:56 2012/-kk/
-/pcmciadevs_data.h/1.232/Thu Aug 23 10:39:25 2012/-kk/
+/pcmciadevs.h/1.233/Fri Jun 17 00:52:53 2016/-kk/
+/pcmciadevs/1.232/Fri Jun 17 00:52:53 2016/-kk/
+/pcmciadevs_data.h/1.233/Fri Jun 17 00:52:53 2016/-kk/
 /pcmciareg.h/1.10/Sun Dec 11 12:23:23 2005/-kk/
 /pcmciavar.h/1.35/Tue Jul 26 22:24:36 2011/-kk/
 /pcmcom.c/1.40/Sat Oct 27 17:18:37 2012/-kk/

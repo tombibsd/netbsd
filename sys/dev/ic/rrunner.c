@@ -2340,7 +2340,7 @@ esh_read_snap_ring(struct esh_softc *sc, u_int16_t consumer, int error)
 			}
 			recv->ec_cur_pkt = recv->ec_cur_mbuf = m;
 			/* allocated buffers all have pkthdrs... */
-			m->m_pkthdr.rcvif = ifp;
+			m_set_rcvif(m, ifp);
 			m->m_pkthdr.len = m->m_len;
 		} else {
 			if (!recv->ec_cur_pkt)

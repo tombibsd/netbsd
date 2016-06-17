@@ -285,7 +285,7 @@ void cs_process_rx_dma(struct cs_softc *sc)
 					cs_init(&sc->sc_ethercom.ec_if);
 					return;
 				}
-				m->m_pkthdr.rcvif = ifp;
+				m_set_rcvif(m, ifp);
 				m->m_pkthdr.len = pkt_length;
 				m->m_len = pkt_length;
 

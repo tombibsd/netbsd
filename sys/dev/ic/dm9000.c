@@ -1220,7 +1220,7 @@ dme_alloc_receive_buffer(struct ifnet *ifp, unsigned int frame_length)
 	MGETHDR(m, M_DONTWAIT, MT_DATA);
 	if (m == NULL) return NULL;
 
-	m->m_pkthdr.rcvif = ifp;
+	m_set_rcvif(m, ifp);
 	/* Ensure that we always allocate an even number of
 	 * bytes in order to avoid writing beyond the buffer
 	 */

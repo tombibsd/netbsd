@@ -275,11 +275,11 @@ bool
 efi_probe(void)
 {
 	if (efi_getsystbl() == 0) {
-		aprint_debug("efi: missing or invalid systbl");
+		aprint_debug("efi: missing or invalid systbl\n");
 		return false;
 	}
 	if (efi_getcfgtblhead() == 0) {
-		aprint_debug("efi: missing or invalid cfgtbl");
+		aprint_debug("efi: missing or invalid cfgtbl\n");
 		efi_relva((vaddr_t) efi_systbl_va);
 		return false;
 	}

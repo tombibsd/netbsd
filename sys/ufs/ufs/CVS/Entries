@@ -3,7 +3,7 @@
 /dir.h/1.25/Sun Sep 13 01:32:02 2015/-kk/
 /dirhash.h/1.7/Thu Oct 24 10:28:58 2013/-kk/
 /extattr.h/1.11/Sat Dec 27 03:35:55 2014/-kk/
-/inode.h/1.71/Tue Jun  3 03:10:03 2014/-kk/
+/inode.h/1.72/Fri Jun 17 00:53:07 2016/-kk/
 /quota.h/1.30/Sun Aug 26 02:32:14 2012/-kk/
 /quota1.h/1.7/Sun Aug 26 02:32:14 2012/-kk/
 /quota1_subr.c/1.7/Sun Jan 29 06:23:20 2012/-kk/

@@ -35,6 +35,8 @@ struct bootinfo {
 
 extern struct bootinfo *bootinfo;
 
+#define BTINFO_MAX	32
+
 #define BI_ALLOC(max) (bootinfo = alloc(sizeof(struct bootinfo) \
                                         + ((max) - 1) * sizeof(uint32_t))) \
                       ->nentries = 0

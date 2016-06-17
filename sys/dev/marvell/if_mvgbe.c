@@ -2073,7 +2073,7 @@ mvgbe_rxeof(struct mvgbe_softc *sc)
 			}
 			m = m0;
 		} else {
-			m->m_pkthdr.rcvif = ifp;
+			m_set_rcvif(m, ifp);
 			m->m_pkthdr.len = m->m_len = total_len;
 		}
 

@@ -4,7 +4,7 @@
 /ahci.c/1.13/Tue Jun  7 10:31:46 2016/-kk/
 /ahcireg.h/1.2/Tue Jun  7 10:31:46 2016/-kk/
 /ahcivar.h/1.6/Tue Jun  7 10:31:46 2016/-kk/
-/if_admsw.c/1.13/Mon Feb 15 11:06:52 2016/-kk/
+/if_admsw.c/1.14/Fri Jun 17 00:52:22 2016/-kk/
 /if_admswreg.h/1.1/Tue Mar 20 08:52:02 2007/-kk/
 /if_admswvar.h/1.5/Sat Oct 27 17:18:01 2012/-kk/
 /uart.c/1.12/Fri Oct  3 09:09:02 2014/-kk/

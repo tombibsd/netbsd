@@ -786,7 +786,7 @@ fwip_stream_input(struct fw_xferq *xferq)
 		 * Trim off the GASP header
 		 */
 		m_adj(m, 3*sizeof(uint32_t));
-		m->m_pkthdr.rcvif = ifp;
+		m_set_rcvif(m, ifp);
 		ieee1394_input(ifp, m, src);
 		ifp->if_ipackets++;
 	}
@@ -891,7 +891,7 @@ fwip_unicast_input(struct fw_xfer *xfer)
 	 * argument to facilitate link-level fragment reassembly.
 	 */
 	m->m_len = m->m_pkthdr.len = fp->mode.wreqb.len;
-	m->m_pkthdr.rcvif = ifp;
+	m_set_rcvif(m, ifp);
 	ieee1394_input(ifp, m, fp->mode.wreqb.src);
 	ifp->if_ipackets++;
 }

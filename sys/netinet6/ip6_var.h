@@ -323,7 +323,7 @@ int	icmp6_ctloutput(int, struct socket *, struct sockopt *);
 
 struct mbuf;
 void	ip6_init(void);
-void	ip6_input(struct mbuf *);
+void	ip6_input(struct mbuf *, struct ifnet *);
 const struct ip6aux *ip6_getdstifaddr(struct mbuf *);
 void	ip6_freepcbopts(struct ip6_pktopts *);
 void	ip6_freemoptions(struct ip6_moptions *);

@@ -229,7 +229,7 @@ veth_softrx(void *priv)
 				continue;
 			}
 		}
-		m->m_pkthdr.rcvif = ifp;
+		m_set_rcvif(m, ifp);
 		m->m_pkthdr.len = m->m_len = len;
 		memcpy(mtod(m, void *), sc->sc_rx_buf, len);
 		++ifp->if_ipackets;

@@ -15,3 +15,4 @@ CFLAGS+=-I${X11SRCDIR.X11}/src
 CWARNFLAGS.clang+=	-Wno-unused
 
 .include "../Makefile.ximcp"
+.include <bsd.lib.mk>

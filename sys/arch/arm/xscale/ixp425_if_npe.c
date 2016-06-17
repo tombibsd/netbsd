@@ -953,7 +953,7 @@ npe_rxdone(int qid, void *arg)
 			/* set m_len etc. per rx frame size */
 			mrx->m_len = be32toh(hw->ix_ne[0].len) & 0xffff;
 			mrx->m_pkthdr.len = mrx->m_len;
-			mrx->m_pkthdr.rcvif = ifp;
+			m_set_rcvif(mrx, ifp);
 			/* Don't add M_HASFCS. See below */
 
 #if 1

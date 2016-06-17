@@ -760,7 +760,7 @@ cnw_read(struct cnw_softc *sc)
 	MGETHDR(m, M_DONTWAIT, MT_DATA);
 	if (m == 0)
 		return (0);
-	m->m_pkthdr.rcvif = &sc->sc_ethercom.ec_if;
+	m_set_rcvif(m, &sc->sc_ethercom.ec_if);
 	m->m_pkthdr.len = totbytes;
 	mbytes = MHLEN;
 	top = 0;

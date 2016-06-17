@@ -17,7 +17,13 @@
 #include <sys/param.h>
 #if defined(__NetBSD__)
 # if (NetBSD >= 199905) && !defined(IPFILTER_LKM) && defined(_KERNEL)
-#  include "opt_ipfilter.h"
+#  if (__NetBSD_Version__ >= 799003000)
+#   if defined(_KERNEL_OPT)
+#    include "opt_ipfilter.h"
+#   endif
+#  else
+#   include "opt_ipfilter.h"
+#  endif
 # endif
 #endif
 #include <sys/errno.h>

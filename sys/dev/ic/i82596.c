@@ -256,7 +256,7 @@ iee_intr(void *intarg)
 		    BUS_DMASYNC_POSTREAD);
 		rx_mbuf->m_pkthdr.len = rx_mbuf->m_len =
 		    count & IEE_RBD_COUNT;
-		rx_mbuf->m_pkthdr.rcvif = ifp;
+		m_set_rcvif(rx_mbuf, ifp);
 		MGETHDR(new_mbuf, M_DONTWAIT, MT_DATA);
 		if (new_mbuf == NULL) {
 			printf("%s: iee_intr: can't allocate mbuf\n",

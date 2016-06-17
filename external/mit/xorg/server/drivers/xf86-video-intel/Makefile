@@ -197,6 +197,13 @@ LIBDPLIBS+=	pthread		${NETBSDSRCDIR}/lib/libpthread
 CWARNFLAGS.clang+=	-Wno-parentheses -Wno-tautological-compare \
 			-Wno-empty-body -Wno-error
 
-COPTS.sna_display.c=	-Wno-stack-protector
+COPTS.sna_display.c+=	-Wno-stack-protector
+COPTS.sna_threads.c+=	-Wno-stack-protector
+COPTS.sna_trapezoids.c+=	-Wno-stack-protector
+COPTS.sna_trapezoids_boxes.c+=	-Wno-stack-protector
+COPTS.sna_trapezoids_imprecise.c+=	-Wno-stack-protector
+COPTS.sna_trapezoids_mono.c+=	-Wno-stack-protector
+COPTS.sna_trapezoids_precise.c+=	-Wno-stack-protector
+COPTS.i965_video.c+=	-Wno-stack-protector
 
 .include <bsd.subdir.mk>

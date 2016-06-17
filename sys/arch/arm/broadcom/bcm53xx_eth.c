@@ -1011,7 +1011,7 @@ bcmeth_rx_input(
 		|| *(uint32_t *)&m->m_data[2] != sc->sc_macaddr[1])) {
 		m->m_flags |= M_PROMISC;
 	}
-	m->m_pkthdr.rcvif = ifp;
+	m_set_rcvif(m, ifp);
 
 	ifp->if_ipackets++;
 	ifp->if_ibytes += m->m_pkthdr.len;

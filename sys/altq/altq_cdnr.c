@@ -139,7 +139,7 @@ altq_cdnr_input(struct mbuf *m, int af)
 	struct cdnr_block	*cb;
 	struct cdnr_pktinfo	pktinfo;
 
-	ifp = m->m_pkthdr.rcvif;
+	ifp = m_get_rcvif_NOMPSAFE(m);
 	if (!ALTQ_IS_CNDTNING(&ifp->if_snd))
 		/* traffic conditioner is not enabled on this interface */
 		return (1);

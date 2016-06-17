@@ -743,7 +743,7 @@ shmif_rcv(void *arg)
 		}
 
 		m->m_len = m->m_pkthdr.len = sp.sp_len;
-		m->m_pkthdr.rcvif = ifp;
+		m_set_rcvif(m, ifp);
 
 		/*
 		 * Test if we want to pass the packet upwards

@@ -121,6 +121,8 @@ lm_isa_attach(device_t parent, device_t self, void *aux)
 	sc->lmsc.sc_dev = self;
 	sc->lmsc.lm_writereg = lm_isa_writereg;
 	sc->lmsc.lm_readreg = lm_isa_readreg;
+	/* pass wbsio Device ID */
+	sc->lmsc.sioid = (uint8_t)(uintptr_t)ia->ia_aux;
 
 	lm_attach(&sc->lmsc);
 }

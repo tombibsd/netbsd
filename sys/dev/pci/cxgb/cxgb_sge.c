@@ -2169,7 +2169,7 @@ t3_rx_eth(struct adapter *adap, struct sge_rspq *rq, struct mbuf *m, int ethpad)
     }
 #endif
 
-    m->m_pkthdr.rcvif = ifp;
+    m_set_rcvif(m, ifp);
     m_explode(m);
     /*
      * adjust after conversion to mbuf chain

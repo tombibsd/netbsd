@@ -6,6 +6,6 @@
 
 KMOD=   	iic
 IOCONF=		iic.ioconf
-SRCS=		i2c.c i2c_bitbang.c i2c_subr.c
+SRCS=		i2c.c
 
 .include <bsd.kmodule.mk>

@@ -1,6 +1,6 @@
 #	$NetBSD$
 
-IMAGESIZE=	9360k
+IMAGESIZE=	9400k
 DBG=		${${ACTIVE_CC} == "clang":? -Oz -fomit-frame-pointer : -Os } -fno-unwind-tables
 
 MAKEFS_FLAGS=   -o density=4k

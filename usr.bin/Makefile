@@ -25,7 +25,8 @@ SUBDIR= apply asa at audio audiocfg \
 	renice rev revoke rfcomm_sppd rlogin rpcgen rpcinfo rs rsh \
 	rup ruptime rusers rwall rwho \
 	script sdiff sdpquery sed seq shar shlock \
-	showmount shuffle sockstat sort sortinfo spell split stat su systat \
+	showmount shuffle sockstat sort sortinfo \
+	spell split stat su sys_info systat \
 	tabs tail talk tcopy tee telnet tftp tic time timeout tip touch \
 	tpfmt tput \
 	tr true tset tsort tty ul uname unexpand unifdef \

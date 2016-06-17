@@ -1171,7 +1171,7 @@ m_split0(struct mbuf *m0, int len0, int wait, int copyhdr)
 		if (n == NULL)
 			return NULL;
 		MCLAIM(n, m0->m_owner);
-		n->m_pkthdr.rcvif = m0->m_pkthdr.rcvif;
+		m_copy_rcvif(n, m0);
 		n->m_pkthdr.len = m0->m_pkthdr.len - len0;
 		len_save = m0->m_pkthdr.len;
 		m0->m_pkthdr.len = len0;
@@ -1240,7 +1240,7 @@ m_devget(char *buf, int totlen, int off0, struct ifnet *ifp,
 	m = m_gethdr(M_DONTWAIT, MT_DATA);
 	if (m == NULL)
 		return NULL;
-	m->m_pkthdr.rcvif = ifp;
+	m_set_rcvif(m, ifp);
 	m->m_pkthdr.len = totlen;
 	m->m_len = MHLEN;
 
@@ -1783,7 +1783,7 @@ nextchain:
 		snprintb(buf, sizeof(buf), M_CSUM_BITS, m->m_pkthdr.csum_flags);
 		(*pr)("  pktlen=%d, rcvif=%p, csum_flags=0x%s, csum_data=0x%"
 		    PRIx32 ", segsz=%u\n",
-		    m->m_pkthdr.len, m->m_pkthdr.rcvif,
+		    m->m_pkthdr.len, m_get_rcvif_NOMPSAFE(m),
 		    buf, m->m_pkthdr.csum_data, m->m_pkthdr.segsz);
 	}
 	if ((m->m_flags & M_EXT)) {

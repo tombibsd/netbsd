@@ -6,7 +6,7 @@
 /altq_blue.h/1.5/Thu Oct 12 19:59:08 2006/-kk/
 /altq_cbq.c/1.29/Tue Jun  7 10:19:11 2016/-kk/
 /altq_cbq.h/1.8/Thu Oct 12 19:59:08 2006/-kk/
-/altq_cdnr.c/1.20/Sat Nov 19 22:51:18 2011/-kk/
+/altq_cdnr.c/1.21/Fri Jun 17 00:52:02 2016/-kk/
 /altq_cdnr.h/1.5/Thu Oct 12 19:59:08 2006/-kk/
 /altq_classq.h/1.7/Thu Oct 12 19:59:08 2006/-kk/
 /altq_conf.c/1.21/Fri Oct  3 09:08:51 2014/-kk/

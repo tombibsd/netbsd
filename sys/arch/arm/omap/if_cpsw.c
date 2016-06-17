@@ -1162,7 +1162,7 @@ cpsw_rxintr(void *arg)
 		if (ISSET(dw[3], CPDMA_BD_PASSCRC))
 			len -= ETHER_CRC_LEN;
 
-		m->m_pkthdr.rcvif = ifp;
+		m_set_rcvif(m, ifp);
 		m->m_pkthdr.len = m->m_len = len;
 		m->m_data += off;
 

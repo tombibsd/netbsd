@@ -641,7 +641,7 @@ enet_rx_intr(void *arg)
 			} else {
 				/* packet receive ok */
 				ifp->if_ipackets++;
-				m0->m_pkthdr.rcvif = ifp;
+				m_set_rcvif(m0, ifp);
 				m0->m_pkthdr.len = amount;
 
 				bus_dmamap_sync(sc->sc_dmat, rxs->rxs_dmamap, 0,

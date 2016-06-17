@@ -12,7 +12,6 @@ SUBDIR+= liblto_plugin
 SUBDIR+= libsupc++ libstdc++-v3
 .endif
 
-# XXX GCC5
-#SUBDIR+= libasan
+SUBDIR+= libasan libubsan
 
 .include <bsd.subdir.mk>

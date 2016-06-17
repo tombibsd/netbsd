@@ -584,7 +584,7 @@ in_stf_input(struct mbuf *m, int off, int proto)
 	 * for source, perform ingress filter as well.
 	 */
 	if (stf_checkaddr4(sc, &ip->ip_dst, NULL) < 0 ||
-	    stf_checkaddr4(sc, &ip->ip_src, m->m_pkthdr.rcvif) < 0) {
+	    stf_checkaddr4(sc, &ip->ip_src, m_get_rcvif_NOMPSAFE(m)) < 0) {
 		m_freem(m);
 		return;
 	}
@@ -604,7 +604,7 @@ in_stf_input(struct mbuf *m, int off, int proto)
 	 * for source, perform ingress filter as well.
 	 */
 	if (stf_checkaddr6(sc, &ip6->ip6_dst, NULL) < 0 ||
-	    stf_checkaddr6(sc, &ip6->ip6_src, m->m_pkthdr.rcvif) < 0) {
+	    stf_checkaddr6(sc, &ip6->ip6_src, m_get_rcvif_NOMPSAFE(m)) < 0) {
 		m_freem(m);
 		return;
 	}
@@ -618,7 +618,7 @@ in_stf_input(struct mbuf *m, int off, int proto)
 	ip6->ip6_flow |= htonl((uint32_t)itos << 20);
 
 	pktlen = m->m_pkthdr.len;
-	m->m_pkthdr.rcvif = ifp;
+	m_set_rcvif(m, ifp);
 
 	bpf_mtap_af(ifp, AF_INET6, m);
 

@@ -1067,7 +1067,7 @@ tl_intr(void *v)
 					m_freem(m);
 					continue;
 				}
-				m->m_pkthdr.rcvif = ifp;
+				m_set_rcvif(m, ifp);
 				m->m_pkthdr.len = m->m_len = size;
 #ifdef TLDEBUG_RX
 				{

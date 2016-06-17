@@ -81,10 +81,12 @@ varpush(int file, ssize_t (*func)(int, const struct iovec *, int))
 		Topcard = &Deck[temp];
 #ifdef DEBUG
 		if (Debug) {
-			char	buf[80];
+			char	buf[80], *bp;
 over:
 			printf("Debug file:");
-			gets(buf);
+			fgets(buf, (int)sizeof(buf), stdin);
+			if ((bp = strchr(buf, '\n')) != NULL)
+				*bp = '\0';
 			if ((outf = fopen(buf, "w")) == NULL) {
 				warn("%s", buf);
 				goto over;

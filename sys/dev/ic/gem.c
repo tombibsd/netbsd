@@ -1848,7 +1848,7 @@ gem_rint(struct gem_softc *sc)
 		}
 		m->m_data += 2; /* We're already off by two */
 
-		m->m_pkthdr.rcvif = ifp;
+		m_set_rcvif(m, ifp);
 		m->m_pkthdr.len = m->m_len = len;
 
 		/*

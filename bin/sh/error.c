@@ -179,6 +179,11 @@ error(const char *msg, ...)
 {
 	va_list ap;
 
+	/*
+	 * On error, we certainly never want exit(0)...
+	 */
+	if (exerrno == 0)
+		exerrno = 1;
 	va_start(ap, msg);
 	exverror(EXERROR, msg, ap);
 	/* NOTREACHED */

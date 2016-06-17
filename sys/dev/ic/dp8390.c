@@ -1032,7 +1032,7 @@ dp8390_get(struct dp8390_softc *sc, int src, u_short total_len)
 	MGETHDR(m0, M_DONTWAIT, MT_DATA);
 	if (m0 == NULL)
 		return NULL;
-	m0->m_pkthdr.rcvif = ifp;
+	m_set_rcvif(m0, ifp);
 	m0->m_pkthdr.len = total_len;
 	len = MHLEN;
 	m = m0;

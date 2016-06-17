@@ -1274,7 +1274,7 @@ ea_get(struct seeq8005_softc *sc, int addr, int totlen, struct ifnet *ifp)
         MGETHDR(m, M_DONTWAIT, MT_DATA);
         if (m == NULL)
                 return NULL;
-        m->m_pkthdr.rcvif = ifp;
+        m_set_rcvif(m, ifp);
         m->m_pkthdr.len = totlen;
         m->m_len = MHLEN;
         top = NULL;

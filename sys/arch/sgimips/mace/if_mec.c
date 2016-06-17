@@ -1725,7 +1725,7 @@ mec_rxintr(struct mec_softc *sc)
 		MEC_RXSTATSYNC(sc, i, BUS_DMASYNC_PREREAD);
 		bus_space_write_8(st, sh, MEC_MCL_RX_FIFO, MEC_CDRXADDR(sc, i));
 
-		m->m_pkthdr.rcvif = ifp;
+		m_set_rcvif(m, ifp);
 		m->m_pkthdr.len = m->m_len = len;
 		if ((ifp->if_csum_flags_rx & (M_CSUM_TCPv4|M_CSUM_UDPv4)) != 0)
 			mec_rxcsum(sc, m, RXSTAT_CKSUM(rxstat), crc);

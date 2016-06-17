@@ -917,7 +917,7 @@ nfe_rxeof(struct nfe_softc *sc)
 mbufcopied:
 		/* finalize mbuf */
 		m->m_pkthdr.len = m->m_len = len;
-		m->m_pkthdr.rcvif = ifp;
+		m_set_rcvif(m, ifp);
 
 		if ((sc->sc_flags & NFE_HW_CSUM) != 0) {
 			/*

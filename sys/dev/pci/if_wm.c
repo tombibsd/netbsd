@@ -7229,7 +7229,7 @@ wm_rxeof(struct wm_rxqueue *rxq)
 		}
 
 		/* No errors.  Receive the packet. */
-		m->m_pkthdr.rcvif = ifp;
+		m_set_rcvif(m, ifp);
 		m->m_pkthdr.len = len;
 
 		/*

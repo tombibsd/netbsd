@@ -1294,7 +1294,7 @@ re_rxeof(struct rtk_softc *sc)
 			    (total_len - ETHER_CRC_LEN);
 
 		ifp->if_ipackets++;
-		m->m_pkthdr.rcvif = ifp;
+		m_set_rcvif(m, ifp);
 
 		/* Do RX checksumming */
 		if ((sc->sc_quirk & RTKQ_DESCV2) == 0) {

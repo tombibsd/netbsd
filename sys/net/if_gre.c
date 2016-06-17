@@ -849,7 +849,7 @@ gre_input(struct gre_softc *sc, struct mbuf *m, int hlen,
 
 	bpf_mtap_af(&sc->sc_if, af, m);
 
-	m->m_pkthdr.rcvif = &sc->sc_if;
+	m_set_rcvif(m, &sc->sc_if);
 
 	if (__predict_true(pktq)) {
 		if (__predict_false(!pktq_enqueue(pktq, m, 0))) {

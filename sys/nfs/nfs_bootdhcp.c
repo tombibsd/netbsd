@@ -597,7 +597,7 @@ bootpc_call(struct nfs_diskless *nd, struct lwp *lwp, int *flags)
 	m_clget(m, M_WAIT);
 	bootp = mtod(m, struct bootp*);
 	m->m_pkthdr.len = m->m_len = BOOTP_SIZE_MAX;
-	m->m_pkthdr.rcvif = NULL;
+	m_reset_rcvif(m);
 
 	/*
 	 * Build the BOOTP reqest message.

@@ -4121,7 +4121,7 @@ sctp_input(struct mbuf *m, ...)
 		sctp_pegs[SCTP_IN_MCAST]++;
 		goto bad;
 	}
-	if (in_broadcast(ip->ip_dst, m->m_pkthdr.rcvif)) {
+	if (in_broadcast(ip->ip_dst, m_get_rcvif_NOMPSAFE(m))) {
 		sctp_pegs[SCTP_IN_MCAST]++;
 		goto bad;
 	}
@@ -4134,8 +4134,8 @@ sctp_input(struct mbuf *m, ...)
 
 	/* validate SCTP checksum */
 	if ((sctp_no_csum_on_loopback == 0) ||
-	    (m->m_pkthdr.rcvif == NULL) ||
-	    (m->m_pkthdr.rcvif->if_type != IFT_LOOP)) {
+	    (m_get_rcvif_NOMPSAFE(m) == NULL) ||
+	    (m_get_rcvif_NOMPSAFE(m)->if_type != IFT_LOOP)) {
 		/* we do NOT validate things from the loopback if the
 		 * sysctl is set to 1.
 		 */

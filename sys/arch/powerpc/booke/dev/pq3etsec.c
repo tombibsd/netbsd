@@ -1567,7 +1567,7 @@ pq3etsec_rx_input(
 	if (rxbd_flags & RXBD_MC)
 		m->m_flags |= M_MCAST;
 	m->m_flags |= M_HASFCS;
-	m->m_pkthdr.rcvif = &sc->sc_if;
+	m_set_rcvif(m, &sc->sc_if);
 
 	ifp->if_ipackets++;
 	ifp->if_ibytes += m->m_pkthdr.len;

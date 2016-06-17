@@ -65,6 +65,8 @@ __RCSID("$NetBSD$");
 
 #include "pathnames.h"
 
+#define CALENDAR_VERSION	"calendar-20160601"
+
 	/* flags used by calendar file parser */
 #define	F_ISMONTH	0x01
 #define	F_ISDAY		0x02
@@ -133,7 +135,7 @@ main(int argc, char **argv)
 
 	(void)setprogname(argv[0]);	/* for portability */
 
-	while ((ch = getopt(argc, argv, "-ad:f:l:w:x")) != -1) {
+	while ((ch = getopt(argc, argv, "-ad:f:l:vw:x")) != -1) {
 		switch (ch) {
 		case '-':		/* backward contemptible */
 		case 'a':
@@ -152,6 +154,9 @@ main(int argc, char **argv)
 		case 'l':
 			atodays(ch, optarg, &lookahead);
 			break;
+		case 'v':
+			printf("%s\n", CALENDAR_VERSION);
+			return 0;
 		case 'w':
 			atodays(ch, optarg, &weekend);
 			break;

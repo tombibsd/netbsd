@@ -599,7 +599,7 @@ niintr(void *arg)
 			m = (void *)data->nd_cmdref;
 			m->m_pkthdr.len = m->m_len =
 			    data->bufs[0]._len - ETHER_CRC_LEN;
-			m->m_pkthdr.rcvif = ifp;
+			m_set_rcvif(m, ifp);
 			if (ni_add_rxbuf(sc, data, idx)) {
 				bd->nb_len = (m->m_ext.ext_size - 2);
 				bd->nb_pte =

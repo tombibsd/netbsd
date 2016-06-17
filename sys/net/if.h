@@ -890,16 +890,20 @@ int	ifaddrpref_ioctl(struct socket *, u_long, void *, struct ifnet *);
 extern int (*ifioctl)(struct socket *, u_long, void *, struct lwp *);
 int	ifioctl_common(struct ifnet *, u_long, void *);
 int	ifpromisc(struct ifnet *, int);
-struct	ifnet *ifunit(const char *);
-struct	ifnet *if_get(const char *, struct psref *);
-ifnet_t *if_byindex(u_int);
-ifnet_t *if_get_byindex(u_int, struct psref *);
-void	if_put(const struct ifnet *, struct psref *);
 int	if_addr_init(ifnet_t *, struct ifaddr *, bool);
 int	if_do_dad(struct ifnet *);
 int	if_mcast_op(ifnet_t *, const unsigned long, const struct sockaddr *);
 int	if_flags_set(struct ifnet *, const short);
 int	if_clone_list(int, char *, int *);
+
+struct	ifnet *ifunit(const char *);
+struct	ifnet *if_get(const char *, struct psref *);
+ifnet_t *if_byindex(u_int);
+ifnet_t *if_get_byindex(u_int, struct psref *);
+void	if_put(const struct ifnet *, struct psref *);
+void	if_acquire_unsafe(struct ifnet *, struct psref *);
+
+bool	if_held(struct ifnet *);
 
 void	if_input(struct ifnet *, struct mbuf *);
 

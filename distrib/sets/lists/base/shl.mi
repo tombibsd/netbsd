@@ -173,8 +173,11 @@
 ./usr/lib/libarchive.so.3			base-sys-shlib		compatfile
 ./usr/lib/libarchive.so.3.1			base-sys-shlib		compatfile
 ./usr/lib/libasan.so				base-sys-shlib		compatfile,gcc=48
+./usr/lib/libasan.so				base-sys-shlib		compatfile,gcc=53
 ./usr/lib/libasan.so.0				base-sys-shlib		compatfile,gcc=48
 ./usr/lib/libasan.so.0.0			base-sys-shlib		compatfile,gcc=48
+./usr/lib/libasan.so.1				base-sys-shlib		compatfile,gcc=53
+./usr/lib/libasan.so.1.0			base-sys-shlib		compatfile,gcc=53
 ./usr/lib/libasn1.so				base-krb5-shlib		compatfile,kerberos
 ./usr/lib/libasn1.so.9				base-krb5-shlib		compatfile,kerberos
 ./usr/lib/libasn1.so.9.0			base-krb5-shlib		compatfile,kerberos
@@ -794,6 +797,9 @@
 ./usr/lib/libtspi.so				base-sys-shlib		compatfile,tpm
 ./usr/lib/libtspi.so.3				base-sys-shlib		compatfile,tpm
 ./usr/lib/libtspi.so.3.0			base-sys-shlib		compatfile,tpm
+./usr/lib/libubsan.so				base-sys-shlib		compatfile,gcc=53
+./usr/lib/libubsan.so.0				base-sys-shlib		compatfile,gcc=53
+./usr/lib/libubsan.so.0.0			base-sys-shlib		compatfile,gcc=53
 ./usr/lib/libukfs.so				base-sys-shlib		compatfile,rump
 ./usr/lib/libukfs.so.1				base-sys-shlib		compatfile,rump
 ./usr/lib/libukfs.so.1.0			base-sys-shlib		compatfile,rump

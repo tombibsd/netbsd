@@ -1122,7 +1122,7 @@ dwc_gmac_rx_intr(struct dwc_gmac_softc *sc)
 
 		/* finalize mbuf */
 		m->m_pkthdr.len = m->m_len = len;
-		m->m_pkthdr.rcvif = ifp;
+		m_set_rcvif(m, ifp);
 		m->m_flags |= M_HASFCS;
 
 		bpf_mtap(ifp, m);

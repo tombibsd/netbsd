@@ -2,7 +2,7 @@
 /bwtworeg.h/1.2/Mon Apr 28 20:23:37 2008/-kk/
 /cons.h/1.4/Sat Oct 13 06:27:51 2012/-kk/
 /consinit.c/1.9/Fri Aug 10 14:52:26 2012/-kk/
-/if_ec.c/1.24/Mon Feb 15 11:07:10 2016/-kk/
+/if_ec.c/1.25/Fri Jun 17 00:52:37 2016/-kk/
 /if_ecreg.h/1.6/Mon Apr 28 20:23:37 2008/-kk/
 /if_ie_mbmem.c/1.11/Fri Jun  3 16:28:40 2011/-kk/
 /if_ie_obio.c/1.16/Fri Apr 11 02:03:39 2014/-kk/

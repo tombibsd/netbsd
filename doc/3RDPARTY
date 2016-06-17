@@ -425,7 +425,7 @@ There is a flex2netbsd script to help newer imports.
 
 Package:	gcc
 Version:	4.8.5
-Current Vers:	4.8.5/6.1
+Current Vers:	4.8.5/5.4/6.1
 Maintainer:	FSF
 Archive Site:	ftp://ftp.gnu.org/gnu/gcc/
 Home Page:	http://www.gnu.org/software/gcc/
@@ -454,7 +454,7 @@ Before importing a new version of external/gpl3/gcc:
 
 Package:	gdb
 Version:	7.9.1
-Current Vers:	7.11
+Current Vers:	7.11.1
 Maintainer:	FSF
 Archive Site:	ftp://ftp.gnu.org/gnu/gdb/
 Home Page:	http://www.gnu.org/software/gdb/
@@ -926,8 +926,8 @@ and ndbootd-raw.c.  Restore saved config.h, and force it to define
 HAVE_STRICT_ALIGNMENT.  Fix RCS IDs, import.
 
 Package:	ntp
-Version:	4.2.8p7
-Current Vers:	4.2.8p7
+Version:	4.2.8p8
+Current Vers:	4.2.8p8
 Maintainer:	David L. Mills <mills@udel.edu>
 Archive Site:	http://www.ntp.org/
 Home Page:	http://www.ntp.org/, http://support.ntp.org/
@@ -1382,8 +1382,8 @@ Notes:
 Added changes from a5 -> a12 manually.
 
 Package:	tz
-Version:	tzcode2016b / tzdata2016b
-Current Vers:	tzcode2016b / tzdata2016b
+Version:	tzcode2016b / tzdata2016d
+Current Vers:	tzcode2016b / tzdata2016d
 Maintainer:	Paul Eggert <eggert@cs.ucla.edu>
 Archive Site:	ftp://ftp.iana.org/tz/releases/
 Archive Site:	ftp://munnari.oz.au/pub/oldtz/

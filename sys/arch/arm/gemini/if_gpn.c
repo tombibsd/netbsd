@@ -298,7 +298,7 @@ gpn_process_data(struct gpn_softc *sc, const ipm_gpn_desc_t *gd)
 		struct mbuf *m;
 		m = sc->sc_rxmbuf;
 		sc->sc_rxmbuf = NULL;
-		m->m_pkthdr.rcvif = ifp;
+		m_set_rcvif(m, ifp);
 		KASSERT(((m->m_pkthdr.len + 63) >> 6) == gd->gd_pktlen64);
 		ifp->if_ipackets++;
 		ifp->if_ibytes += m->m_pkthdr.len;

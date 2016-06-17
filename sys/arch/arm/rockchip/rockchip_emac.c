@@ -874,7 +874,7 @@ rkemac_rxintr(struct rkemac_softc *sc)
 		rx->rx_ptr = htole32(rd->rd_map->dm_segs[0].ds_addr);
 
 		m->m_pkthdr.len = m->m_len = len;
-		m->m_pkthdr.rcvif = ifp;
+		m_set_rcvif(m, ifp);
 		m->m_flags |= M_HASFCS;
 
 		bpf_mtap(ifp, m);

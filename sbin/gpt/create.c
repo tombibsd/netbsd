@@ -55,7 +55,7 @@ __RCSID("$NetBSD$");
 static int cmd_create(gpt_t, int, char *[]);
 
 static const char *createhelp[] = {
-	"[-fP] [-p partitions]",
+	"[-AfP] [-p partitions]",
 };
 
 struct gpt_cmd c_create = {
@@ -69,7 +69,7 @@ struct gpt_cmd c_create = {
 
 
 static int
-create(gpt_t gpt, u_int parts, int force, int primary_only)
+create(gpt_t gpt, u_int parts, int force, int primary_only, int active)
 {
 	off_t last = gpt_last(gpt);
 	map_t map;
@@ -100,7 +100,7 @@ create(gpt_t gpt, u_int parts, int force, int primary_only)
 		}
 		memset(mbr, 0, sizeof(*mbr));
 		mbr->mbr_sig = htole16(MBR_SIG);
-		gpt_create_pmbr_part(mbr->mbr_part, last);
+		gpt_create_pmbr_part(mbr->mbr_part, last, active);
 
 		map = map_add(gpt, 0LL, 1LL, MAP_TYPE_PMBR, mbr, 1);
 		if (gpt_write(gpt, map) == -1) {
@@ -125,12 +125,16 @@ static int
 cmd_create(gpt_t gpt, int argc, char *argv[])
 {
 	int ch;
+	int active = 0;
 	int force = 0;
 	int primary_only = 0;
 	u_int parts = 128;
 
-	while ((ch = getopt(argc, argv, "fPp:")) != -1) {
+	while ((ch = getopt(argc, argv, "AfPp:")) != -1) {
 		switch(ch) {
+		case 'A':
+			active = 1;
+			break;
 		case 'f':
 			force = 1;
 			break;
@@ -149,5 +153,5 @@ cmd_create(gpt_t gpt, int argc, char *argv[])
 	if (argc != optind)
 		return usage();
 
-	return create(gpt, parts, force, primary_only);
+	return create(gpt, parts, force, primary_only, active);
 }

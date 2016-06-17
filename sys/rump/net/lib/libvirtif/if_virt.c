@@ -376,7 +376,7 @@ VIF_DELIVERPKT(struct virtif_sc *sc, struct iovec *iov, size_t iovlen)
 	if (passup) {
 		int bound = curlwp->l_pflag & LP_BOUND;
 		ifp->if_ipackets++;
-		m->m_pkthdr.rcvif = ifp;
+		m_set_rcvif(m, ifp);
 		KERNEL_LOCK(1, NULL);
 		/* Prevent LWP migrations between CPUs for psref(9) */
 		curlwp->l_pflag |= LP_BOUND;

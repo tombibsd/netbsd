@@ -48,6 +48,7 @@ __RCSID("$NetBSD$");
 #include <limits.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/stat.h>
 
 /*
  * This file implements the input routines used by the parser.
@@ -392,6 +393,7 @@ setinputfile(const char *fname, int push)
 	unsigned char magic[4];
 	int fd;
 	int fd2;
+	struct stat sb;
 
 	INTOFF;
 	if ((fd = open(fname, O_RDONLY)) < 0)
@@ -402,7 +404,8 @@ setinputfile(const char *fname, int push)
 	 * avoid that message. The first lseek tries to make sure that
 	 * we can later rewind the file.
 	 */
-	if (lseek(fd, 0, SEEK_SET) == 0) {
+	if (fstat(fd, &sb) == 0 && S_ISREG(sb.st_mode) &&
+	    lseek(fd, 0, SEEK_SET) == 0) {
 		if (read(fd, magic, 4) == 4) {
 			if (memcmp(magic, "\177ELF", 4) == 0) {
 				(void)close(fd);

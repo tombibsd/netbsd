@@ -83,7 +83,7 @@ COPTS.mbr.c += -Wno-format-nonliteral
 COPTS.msg_defs.c += -Wno-format-nonliteral
 COPTS.bsddisklabel.c += -Wno-format-nonliteral
 COPTS.md.c += -Wno-format-nonliteral
-COPTS.partman.c += -Wno-format-nonliteral
+COPTS.partman.c += -Wno-format-nonliteral -Wno-stack-protector
 
 # Host to ftp from.  Default:
 #	"ftp.NetBSD.org"

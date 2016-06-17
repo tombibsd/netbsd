@@ -1044,7 +1044,7 @@ start_init(void *arg)
 			goto copyerr;
 
 		/*
-		 * Now try to exec the program.  If can't for any reason
+		 * Now try to exec the program.  If it can't for any reason
 		 * other than it doesn't exist, complain.
 		 */
 		error = sys_execve(l, &args, retval);

@@ -4,9 +4,7 @@
 
 .include <bsd.own.mk>
 
-.include "xorg-server/Makefile.common"
-
-SUBDIR=	xorg-server
+SUBDIR=	${XORG_SERVER_SUBDIR}
 
 # We only make drivers if we make the actual Xorg server,
 # as opposed to Xvfb and Xnest.

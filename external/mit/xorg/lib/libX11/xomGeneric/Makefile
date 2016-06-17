@@ -12,3 +12,4 @@ LIBDIR=	${X11LIBDIR}/locale/lib/common
 SRCS=	${SRCS.xomGeneric}
 
 .include "../Makefile.xomGeneric"
+.include <bsd.lib.mk>

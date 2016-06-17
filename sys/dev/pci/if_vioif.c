@@ -1032,7 +1032,7 @@ vioif_rx_deq_locked(struct vioif_softc *sc)
 		bus_dmamap_unload(vsc->sc_dmat, sc->sc_rx_dmamaps[slot]);
 		sc->sc_rx_mbufs[slot] = 0;
 		virtio_dequeue_commit(vsc, vq, slot);
-		m->m_pkthdr.rcvif = ifp;
+		m_set_rcvif(m, ifp);
 		m->m_len = m->m_pkthdr.len = len;
 		ifp->if_ipackets++;
 		bpf_mtap(ifp, m);

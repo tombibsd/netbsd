@@ -756,7 +756,7 @@ vmxnet3_rxintr(struct vmxnet3_softc *sc, struct vmxnet3_rxqueue *rq)
 		ifp->if_ibytes += len;
 
 		vmxnet3_rx_csum(rxcd, m);
-		m->m_pkthdr.rcvif = ifp;
+		m_set_rcvif(m, ifp);
 		m->m_pkthdr.len = m->m_len = len;
 		if (le32toh(rxcd->rxc_word2 & VMXNET3_RXC_VLAN)) {
 			VLAN_INPUT_TAG(ifp, m,

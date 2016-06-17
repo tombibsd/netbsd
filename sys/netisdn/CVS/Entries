@@ -12,9 +12,9 @@
 /i4b_i4bdrv.c/1.39/Fri Oct  3 09:09:30 2014/-kk/
 /i4b_iframe.c/1.8/Sun Dec 11 12:25:06 2005/-kk/
 /i4b_ioctl.h/1.13/Sun Sep 13 01:31:57 2015/-kk/
-/i4b_ipr.c/1.38/Tue Jun  7 10:32:16 2016/-kk/
+/i4b_ipr.c/1.39/Fri Jun 17 00:53:06 2016/-kk/
 /i4b_isdnq931.h/1.2/Sat Dec 10 23:51:50 2005/-kk/
-/i4b_isppp.c/1.27/Mon Apr  5 07:22:50 2010/-kk/
+/i4b_isppp.c/1.28/Fri Jun 17 00:53:06 2016/-kk/
 /i4b_isppp.h/1.4/Sun Sep 13 01:31:57 2015/-kk/
 /i4b_l1l2.h/1.14/Wed Oct 29 08:13:31 2014/-kk/
 /i4b_l2.c/1.24/Sun Jul 20 01:05:27 2008/-kk/

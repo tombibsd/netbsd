@@ -401,6 +401,18 @@ LIBDIR=		${X11USRLIBDIR}/modules/dri
 CWARNFLAGS.clang+=	-Wno-error=initializer-overrides -Wno-error=switch \
 			-Wno-error=tautological-constant-out-of-range-compare
 
+COPTS.brw_state_batch.c += -Wno-stack-protector
+COPTS.brw_eu_compact.c += -Wno-stack-protector
+COPTS.brw_fs.cpp += -Wno-stack-protector
+COPTS.brw_fs_copy_propagation.cpp += -Wno-stack-protector
+COPTS.brw_fs_reg_allocate.cpp += -Wno-stack-protector
+COPTS.brw_program.c += -Wno-stack-protector
+COPTS.brw_schedule_instructions.cpp += -Wno-stack-protector
+COPTS.brw_vec4.cpp += -Wno-stack-protector
+COPTS.brw_vec4_copy_propagation.cpp += -Wno-stack-protector
+COPTS.brw_vec4_reg_allocate.cpp += -Wno-stack-protector
+COPTS.brw_vec4_visitor.cpp += -Wno-stack-protector
+
 .include <bsd.lib.mk>
 .else
 .include <bsd.inc.mk>
